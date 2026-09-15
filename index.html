@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>半导体工业全景时间轴 1947—2026</title>
-<style>:root{--p:#2563eb;--l:#7c3aed;--pk:#059669;--us:#dc2626;--jp:#d97706;--eu:#7c3aed;--tw:#0891b2;--cn:#db2777;--ms:#f59e0b}
+<style>:root{--p:#2563eb;--l:#7c3aed;--pk:#059669;--us:#dc2626;--jp:#d97706;--eu:#7c3aed;--tw:#0891b2;--cn:#db2777;--ms:#f59e0b;--st:#eab308}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:#f8fafc;color:#1e293b;line-height:1.7}
 h2{font-size:22px;font-weight:800;color:#0f172a;margin:56px 0 12px;padding-top:28px;border-top:3px solid #e2e8f0}
@@ -20,7 +20,7 @@ h3{font-size:17px;font-weight:700;color:#1e3a5f;margin:28px 0 8px}
 .tl-wrap::-webkit-scrollbar{height:5px}
 .tl-wrap::-webkit-scrollbar-track{background:#f1f5f9}
 .tl-wrap::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
-.tl-inner{min-width:4600px;padding:10px 20px 30px;position:relative}
+.tl-inner{min-width:5000px;padding:10px 20px 30px;position:relative}
 
 .dom-band{position:relative;height:52px;margin-bottom:8px}
 .dom-block{position:absolute;top:6px;height:40px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;white-space:nowrap;padding:0 8px;opacity:.9}
@@ -55,6 +55,8 @@ h3{font-size:17px;font-weight:700;color:#1e3a5f;margin:28px 0 8px}
 .litho .dot{background:var(--l);box-shadow:0 0 0 2px #ede9fe}
 .pack{--lb-clr:var(--pk);--lb-bg:linear-gradient(90deg,rgba(5,150,105,.02),transparent)}
 .pack .dot{background:var(--pk);box-shadow:0 0 0 2px #d1fae5}
+.storage{--lb-clr:var(--st);--lb-bg:linear-gradient(90deg,rgba(234,179,8,.03),transparent)}
+.storage .dot{background:var(--st);box-shadow:0 0 0 2px #fef08a}
 .us{--lb-clr:var(--us);--lb-bg:linear-gradient(90deg,rgba(220,38,38,.02),transparent)}
 .us .dot{background:var(--us);box-shadow:0 0 0 2px #fecaca}
 .jp{--lb-clr:var(--jp);--lb-bg:linear-gradient(90deg,rgba(217,119,6,.02),transparent)}
@@ -447,7 +449,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 
 <h2>🏛️ 分国家/地区关键节点</h2>
 
-<div class="card"><span class="tag tu">美国</span><div class="ttl">美国：从绝对霸权到设计+设备领导者</div>
+<div class="card"><span class="tag tu">美国</span><div class="ttl">美国：从绝对霸权到AI时代芯片设计+设备领导者</div>
 <div class="dsc">
 <dl>
 <dt>1947 晶体管</dt><dd>Bell Labs Bardeen/Brattain/Shockley发明→1956诺贝尔奖。美国成为半导体技术源头。</dd>
@@ -459,7 +461,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <dt>1997 EUV LLC</dt><dd>Intel牵头EUV研发联盟,ASML加入(Nikon/Canon被排除),奠定ASML垄断。</dd>
 <dt>2000-2010 Fabless黄金期</dt><dd>Qualcomm/NVIDIA/Broadcom/AMD→美国芯片设计全球占比~65%。</dd>
 <dt>2018-2024 芯片战争</dt><dd>美国发动对华半导体出口管制→从单点制裁到系统性脱钩。</dd>
-<dt>2022 CHIPS法案</dt><dd>$527亿补贴美国本土芯片制造→Intel/TSMC/Samsung在美建厂。</dd>
+<dt>1999 NVIDIA GPU</dt><dd>GeForce 256发布→GPU从游戏显卡步步演化为AI计算核心引擎。</dd><dt>2012 NVIDIA AI转型</dt><dd>AlexNet使用CUDA+GPU训练→深度学习革命开启→NVIDIA从游戏公司转型AI算力平台。</dd><dt>2020 NVIDIA A100</dt><dd>Ampere架构→AI训练的“黄金标准”→全球数据中心抢购。</dd><dt>2022 CHIPS法案</dt><dd>$527亿补贴本土制造→Intel/TSMC/Samsung在美建厂。美光宣布$400亿扩产DRAM。</dd><dt>2024 NVIDIA市值$3万亿+</dt><dd>AI大模型引爆GPU需求。NVIDIA H100/B200供不应求。高通骁龙8 Elite进入PC AI芯片市场。美光HBM3E量产。</dd><dt>2025—2026 AI军备竞赛</dt><dd>TSMC亚利桑那4nm量产。Intel 18A推进。NVIDIA Blackwell(B200/GB200)量产。AI芯片年收入突破$1000亿。高通骁龙8 Elite持续迭代。美光HBM4研发。</dd>
 </dl></div>
 <div class="src">来源：《Chip War》; Intel/Fairchild/TI官方历史; 美国国会CHIPS法案; BIS联邦公报</div></div>
 
@@ -620,10 +622,35 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <tr><td class="hl">2020</td><td class="hl">5nm</td><td class="hl">TSMC</td><td class="hl">EUV 全面</td><td class="hl">★ 171 MTr/mm²</td><td class="hl">A14/麒麟9000</td></tr>
 <tr><td class="hl">2022</td><td class="hl">3nm</td><td class="hl">Samsung/TSMC</td><td class="hl">EUV NA=0.33</td><td class="hl">★ 三星GAA首发</td><td class="hl">A17 Pro</td></tr>
 <tr><td class="hl">2024</td><td class="hl">2nm</td><td class="hl">TSMC/Intel/Samsung</td><td class="hl">High-NA EUV</td><td class="hl">★ GAA+BSPDN</td><td class="hl">—</td></tr>
-<tr><td class="hl">2025</td><td class="hl">N2</td><td class="hl">TSMC</td><td class="hl">High-NA EUV</td><td class="hl">★ GAA规模量产</td><td class="hl">Apple A19/A20</td></tr>
+<tr><td class="hl">2025</td><td class="hl">N2</td><td class="hl">TSMC</td><td class="hl">High-NA EUV</td><td class="hl">★ GAA规模量产</td><td class="hl">Apple A20 Pro</td></tr>
 <tr><td class="hl">2026</td><td class="hl">A16(1.4nm)</td><td class="hl">TSMC</td><td class="hl">High-NA EUV</td><td class="hl">★ BSPDN+CFET规划</td><td class="hl">—</td></tr>
 </tbody></table>
 <div class="src">来源：WikiChip; Intel/Samsung/TSMC白皮书; ASML年报; Nature(2025)</div></div>
+
+<h2>存储芯片（DRAM/NAND）制程演进</h2>
+<div class="card">
+<div class="ttl">存储器制程与逻辑制程不同——DRAM/NAND以容量密度和层数为核心衡量标准</div>
+<table class="node-table">
+<thead><tr><th>年</th><th>DRAM制程</th><th>NAND层数</th><th>主导厂商</th><th>关键技术</th></tr></thead>
+<tbody>
+<tr><td>1970</td><td>Intel 1103 1Kb 10μm</td><td>—</td><td>Intel</td><td>首款商用DRAM</td></tr>
+<tr><td>1980</td><td>64Kb → 256Kb</td><td>—</td><td>NEC/日立/富士通</td><td>日本VLSI品质碾压美国</td></tr>
+<tr><td>1985</td><td>1Mb DRAM</td><td>—</td><td>NEC/东芝</td><td>日本DRAM全球>80%</td></tr>
+<tr><td>1992</td><td>16Mb DRAM</td><td>—</td><td><b>三星(全球第一)</b></td><td>逆周期投资策略</td></tr>
+<tr><td>2000</td><td>256Mb, DDR</td><td>—</td><td>三星/海力士/美光</td><td>DDR SDRAM时代</td></tr>
+<tr><td>2007</td><td>1Gb DDR3</td><td>东芝BiCS 3D</td><td>三星/东芝</td><td><b>东芝发明3D NAND概念</b></td></tr>
+<tr><td>2013</td><td>DDR4 20nm级</td><td>三星V-NAND 24层</td><td>三星</td><td><b>三星3D NAND量产</b></td></tr>
+<tr><td>2016</td><td>DDR4 1xnm</td><td>64层</td><td>三星/东芝/美光/海力士</td><td>3D堆叠成为主流</td></tr>
+<tr><td>2018</td><td>DDR4 1ynm</td><td>96层 QLC</td><td>三星/美光/海力士/东芝</td><td>QLC(4bit/cell)商用</td></tr>
+<tr><td>2020</td><td>DDR5, 1znm</td><td><b>176层</b></td><td><b>美光率先</b></td><td>美光176层领先</td></tr>
+<tr><td>2022</td><td>DDR5, 1αnm</td><td>232层</td><td>美光/SK海力士</td><td>CMOS-Under-Array</td></tr>
+<tr><td>2023</td><td>DDR5, 1βnm</td><td><b>HBM3E</b></td><td>SK海力士(独家供NVIDIA)</td><td><b>HBM3E AI训练核心</b></td></tr>
+<tr><td>2024</td><td>DDR5, 1γnm</td><td>300+层</td><td>SK海力士/三星</td><td>Hybrid Bonding</td></tr>
+<tr><td>2025</td><td>LPDDR6</td><td>HBM4 2048-bit</td><td>SK海力士/三星/美光</td><td>HBM4+逻辑Die集成</td></tr>
+<tr><td>2026</td><td>DDR6</td><td><b>400+层</b></td><td>美光/SK海力士</td><td>400层+超高密度</td></tr>
+</tbody></table>
+<p style="font-size:13px;color:#475569;margin-top:8px"><b>说明：</b>存储芯片（DRAM/NAND）的制程演进与逻辑芯片不同。DRAM以1x/1y/1z/1α/1β/1γ代际标识而非nm命名。NAND Flash从2D平面走向3D堆叠，以层数为核心指标。AI时代的HBM（高带宽存储器）成为GPU关键配套——SK海力士目前独家供应NVIDIA HBM3E。全球存储市场三星/SK海力士/美光三分天下。</p>
+<div class="src">来源：Samsung/SK Hynix/Micron/Kioxia官方年报; TechInsights存储分析; IEEE ISSCC论文</div></div>
 
 <!-- ====== SOURCES ====== -->
 <h2>📚 参考文献</h2>
@@ -685,7 +712,9 @@ const litho=[
 ];
 
 const pack=[{y:1964,t:'DIP封装',d:'Fairchild'},{y:1980,t:'QFP/SOP',d:'SMT时代'},{y:1990,t:'BGA',d:'Motorola'},{y:2000,t:'WLP/SiP',d:'英飞凌/Amkor'},{y:2011,t:'CoWoS',d:'TSMC 2.5D',big:1},{y:2014,t:'InFO',d:'TSMC(A10)'},{y:2017,t:'Chiplet',d:'AMD EPYC',big:1},{y:2022,t:'UCIe标准',d:'标准化'}];
-const us=[{y:1957,t:'Fairchild',d:'八叛逆'},{y:1968,t:'Intel成立',d:'Noyce/Moore',big:1},{y:1971,t:'4004 μP',d:'Intel'},{y:1985,t:'退出DRAM',d:'All-in CPU',big:1},{y:1987,t:'SEMATECH',d:'制造联盟'},{y:1993,t:'Qualcomm',d:'CDMA基带'},{y:2007,t:'iPhone',d:'移动芯片引爆',big:1},{y:2022,t:'CHIPS法案',d:'$52B制造回流',big:1},{y:2025,t:'TSMC Arizona',d:'4nm美国本土造'},{y:2026,t:'AI芯片爆发',d:'NVIDIA B200'}];
+const storage=[{y:1970,t:'Intel 1103 DRAM',d:'1Kb 10μm'},{y:1980,t:'64Kb DRAM',d:'日本称霸',big:1},{y:1985,t:'1Mb DRAM',d:'日/韩竞逐'},{y:1992,t:'★16Mb DRAM',d:'三星第一',big:1},{y:2000,t:'256Mb DDR',d:'DDR时代'},{y:2007,t:'东芝 3D NAND',d:'BiCS发明',big:1},{y:2013,t:'三星V-NAND 24层',d:'3D NAND量产',big:1},{y:2016,t:'64层 NAND',d:'三星/东芝/美光'},{y:2020,t:'★176层 NAND',d:'美光率先',big:1},{y:2022,t:'232层 NAND',d:'美光/海力士'},{y:2023,t:'★HBM3E',d:'AI标配',big:1},{y:2025,t:'HBM4',d:'2048-bit'},{y:2026,t:'★400+层 NAND',d:'美光/海力士',big:1},];
+
+const us=[{y:1957,t:'Fairchild',d:'八叛逆'},{y:1968,t:'Intel成立',d:'Noyce/Moore',big:1},{y:1971,t:'4004 μP',d:'Intel'},{y:1985,t:'退出DRAM',d:'All-in CPU',big:1},{y:1987,t:'SEMATECH',d:'制造联盟'},{y:1993,t:'Qualcomm',d:'CDMA基带'},{y:1999,t:'NVIDIA GPU',d:'GeForce 256'},{y:2007,t:'iPhone',d:'移动芯片引爆',big:1},{y:2012,t:'NVIDIA AI',d:'CUDA深度学习'},{y:2020,t:'NVIDIA A100',d:'AI训练霸主',big:1},{y:2022,t:'CHIPS法案',d:'$52B制造回流',big:1},{y:2024,t:'★NVIDIA $2T',d:'全球市值第一',big:1},{y:2025,t:'TSMC Arizona',d:'4nm美制'},{y:2026,t:'B200/GB200',d:'Blackwell架构'}];
 const jp=[{y:1962,t:'NEC引进工艺',d:'Fairchild授权'},{y:1976,t:'VLSI计划',d:'5巨头',big:1},{y:1980,t:'★品质碾压美国',d:'惠普测试',big:1},{y:1985,t:'★NEC全球第一',d:'DRAM>80%',big:1},{y:1986,t:'美日协议',d:'被迫开放'},{y:1990,t:'Nikon光刻霸主',d:'全球>50%'},{y:2000,t:'退守材料/设备',d:'TEL/信越/JSR'},{y:2008,t:'尔必达破产',d:'DRAM全军覆没'}];
 const eu=[{y:1984,t:'★ASML成立',d:'飞利浦+ASMI平房',big:1},{y:1990,t:'PAS 5500',d:'首款成功产品'},{y:1999,t:'★ASML入EUV',d:'Nikon/Canon出局',big:1},{y:2004,t:'★浸没式超Nikon',d:'ASML称霸光刻',big:1},{y:2012,t:'客户投资',d:'Intel/TSMC/Samsung入股'},{y:2018,t:'★EUV独家量产',d:'全球唯一极紫外',big:1},{y:2023,t:'High-NA交付',d:'€3.5亿 Intel首发'},{y:2026,t:'Hyper-NA规划',d:'NA>0.75 1nm以下'},];
 const tw=[{y:1980,t:'联电UMC',d:'首家具代工能力'},{y:1987,t:'★TSMC成立',d:'张忠谋',big:1},{y:1988,t:'Intel认证',d:'Grove背书'},{y:2002,t:'全球最大Foundry',d:'$50亿+',big:1},{y:2018,t:'★7nm 登顶',d:'超越Intel',big:1},{y:2024,t:'N2试产',d:'GAA+BS'}];
