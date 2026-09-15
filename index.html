@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v2.0 | 2026-09-15 | 目录重构 | 逻辑#1.1-1.8 存储#2.1-2.7 -->
+<!-- version: v3.0 | 2026-09-15 | 新增第三篇功率半导体 | 逻辑#1.1-1.8 存储#2.1-2.7 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -1564,4 +1564,411 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:32px">本篇数据来源：长鑫科技招股书(2026.05)、TrendForce、中信证券深度报告(2026.05)、Tom's Hardware、Digitimes、各厂商财报<br>⚠ 部分HBM相关进度为媒体/行业推测，非官方确认。投资决策应以官方招股书和年报为准。</p>
 
 
-<!-- ====== SOURCES ====== -->
+
+
+<hr style="margin:60px 0 40px;border:none;border-top:4px solid #10b981">
+
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px">第三篇：功率半导体</h1>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:40px">SCR→MOSFET→IGBT→SiC→GaN · 从工业驱动到AI供电 · 电力电子的演进史诗</p>
+
+<div class="card" style="background:#ecfdf5;border-color:#6ee7b7">
+<div class="ttl" style="font-size:18px">本篇目录</div>
+<ol style="line-height:2.2;font-size:13px;padding-left:20px;margin-top:8px" start="16">
+<li><a href="#sec-power-timeline">功率半导体时间轴</a></li>
+<li><a href="#sec-power-pattern">功率产业格局变迁</a></li>
+<li><a href="#sec-power-breakthrough">功率器件六次重大突破（3D图解）</a></li>
+<li><a href="#sec-power-country">功率产业各国关键节点</a></li>
+<li><a href="#sec-power-events">功率产业重大事件详表</a></li>
+<li><a href="#sec-power-nodes">功率器件演进总表</a></li>
+<li><a href="#sec-power-deep">深度研究：SiC/GaN · 电动车800V · AI数据中心供电 · 新能源</a></li>
+</ol>
+</div>
+
+<!-- ====== POWER TIMELINE ====== -->
+<h2 style="max-width:1100px;margin:0 auto 8px;padding:0 24px;text-align:center;border:none;font-size:20px" id="sec-power-timeline">🟢 3.1 功率半导体时间轴（← 横向滚动 →）</h2>
+<div class="tl-wrap" style="margin-top:8px"><div class="tl-inner" id="ptl" style="min-width:3400px"></div></div>
+
+<!-- ====== POWER PATTERN ====== -->
+<h2 id="sec-power-pattern">🌐 3.2 功率半导体产业五大格局转折</h2>
+
+<div class="card"><span class="tag tu">美</span><span class="yr">1956—1980</span>
+<div class="ttl">美国开创：从晶闸管到功率MOSFET</div>
+<div class="by">GE / Westinghouse / International Rectifier</div>
+<div class="dsc">
+<p>1956年通用电气(GE)发明第一款晶闸管(SCR)，标志着功率半导体时代的开端。SCR可控制大电流开关，但无法自关断——是"半控型"器件。1975年IR(国际整流器公司)推出首款功率VDMOSFET，实现高频开关。美国企业主导了功率半导体的前25年。</p>
+<p><b>格局：</b>GE、Westinghouse、RCA、Motorola、IR五家美国公司占据功率半导体90%以上市场份额。<b>功率半导体的本质与逻辑芯片完全不同</b>——不是追求晶体管密度，而是追求<b>耐压(V)×电流(A)=功率(W)</b>的极限。</p>
+</div></div>
+
+<div class="card"><span class="tag tj">日</span><span class="yr">1980—2000</span>
+<div class="ttl">日本崛起：IGBT商业化与功率模块时代</div>
+<div class="by">三菱电机 / 东芝 / 富士电机 / 日立</div>
+<div class="dsc">
+<p>1984年GE发明IGBT后，日本企业凭借在精密制造和模块封装上的优势迅速成为IGBT商业化的主力。三菱电机推出首款IPM智能功率模块(1989)，富士电机发明超结SJ-MOSFET(1997)。</p>
+<p>日本在功率模块封装（DIPIPM、IGBT模块外壳散热、引线键合、银烧结等技术）上积累了大量核心专利，至今仍是全球功率模块技术最强的国家。三菱、富士电机、东芝、日立、罗姆五家日本公司长期占据全球功率半导体TOP20。</p>
+</div></div>
+
+<div class="card"><span class="tag te">欧</span><span class="tag tu">美</span><span class="yr">2000—2020</span>
+<div class="ttl">欧洲反超：英飞凌登顶全球功率第一</div>
+<div class="by">英飞凌（德）| ST意法半导体（意/法）| 安森美（美）</div>
+<div class="dsc">
+<p>1999年英飞凌从西门子独立后，通过持续并购（IR 2014年）和全产品线布局（覆盖低压MOSFET→中压IGBT→高压晶闸管→宽禁带SiC/GaN），在2010年代超越日本和美国的竞争对手，成为全球最大的功率半导体厂商（市占率~20%）。</p>
+<p>意法半导体(ST)在汽车功率器件和SiC领域建立领先地位——特斯拉Model 3首次大规模采用ST的SiC MOSFET(2018)。安森美通过收购Fairchild(2016)和GTAT(2021)完成SiC全产业链布局。</p>
+</div></div>
+
+<div class="card"><span class="tag tc">中</span><span class="yr">2020—2024</span>
+<div class="ttl">中国功率半导体崛起：从追赶者到全球前十</div>
+<div class="by">士兰微 / 华润微 / 闻泰科技(Nexperia) / 比亚迪半导体 / 中车时代 / 斯达半导</div>
+<div class="dsc">
+<p>中国功率半导体在新能源汽车和光伏储能两大终端市场拉动下实现跨越式发展。士兰微2025年跻身全球功率分立器件第五（Omdia排名），成为首家中资全球TOP5功率厂商。比亚迪半导体自供IGBT+SiC模块彻底改变车规功率格局。中车时代在高铁/电网的超高压IGBT领域独占鳌头。</p>
+<p><b>差距与机会：</b>在高端SiC衬底（Wolfspeed/Coherent主导）、车规级模块可靠性、AI数据中心800V高压供电方案上仍落后海外3-5年。但在成熟硅基器件（二极管/低压MOS）的国产化率超70%，具备全球竞争力。</p>
+</div></div>
+
+<div class="card"><span class="tag te">欧</span><span class="tag tu">美</span><span class="tag tc">中</span><span class="yr">2025—2026</span>
+<div class="ttl">AI供电革命：功率半导体的"第二增长曲线"</div>
+<div class="by">英飞凌+英伟达 | GaN 12英寸量产前夜 | SiC价格战</div>
+<div class="dsc">
+<p><b>AI数据中心800V HVDC供电：</b>AI GPU集群功率从2023年的10kW/机柜飙升至2026年的100kW+/机柜。传统48V供电方案无法支撑kA级电流需求→800V高压直流供电成为确定方向。英飞凌与英伟达合作开发800V HVDC电源系统，SiC MOSFET和GaN HEMT成为核心器件。每GW数据中心对应的功率半导体价值量从~$80M提升到$180M+。</p>
+<p><b>GaN 12英寸量产(2026-27)：</b>英飞凌全球首发300mm GaN晶圆技术，预计2026底量产→GaN从"可用"跨入"规模可用"，成本大幅下降→消费电源和数据中心供电两个市场将首先爆发。</p>
+</div></div>
+
+<!-- ====== POWER BREAKTHROUGHS ====== -->
+<h2 id="sec-power-breakthrough">🔬 3.3 功率器件六次重大突破（3D图解）</h2>
+
+<div class="d3-grid"><div class="d3-card" style="border-left:4px solid #2563eb">
+<div class="d3t">突破 #1：晶闸管 SCR (1956)</div>
+<div class="d3m">General Electric | 首个可商业化的大功率固态开关 | 替代汞弧整流器和水银开关</div>
+<div class="d3-desc"><b>解决了什么？</b>20世纪50年代前，电力控制依靠继电器、汞弧整流器、水银开关和可变变压器——体积庞大、效率极低、机械磨损严重。GE的SCR(可控硅整流器)用固态半导体实现了大电流可控整流和开关。</div>
+<svg viewBox="0 0 720 140">
+<rect x="40" y="20" width="640" height="110" rx="6" fill="#eff6ff" stroke="#93c5fd"/>
+<text x="360" y="42" text-anchor="middle" font-size="11" font-weight="700" fill="#1e40af">SCR (Silicon Controlled Rectifier) 四层PNPN结构</text>
+<rect x="100" y="58" width="70" height="20" rx="4" fill="#3b82f6"/><text x="135" y="72" text-anchor="middle" font-size="7" fill="#fff" font-weight="700">P+ ANODE</text>
+<rect x="190" y="58" width="70" height="20" rx="4" fill="#94a3b8"/><text x="225" y="72" text-anchor="middle" font-size="7" fill="#fff">N- Base</text>
+<rect x="280" y="58" width="70" height="20" rx="4" fill="#f59e0b"/><text x="315" y="72" text-anchor="middle" font-size="7" fill="#78350f">P Gate</text>
+<rect x="370" y="58" width="70" height="20" rx="4" fill="#94a3b8"/><text x="405" y="72" text-anchor="middle" font-size="7" fill="#fff">N+ CATHODE</text>
+<rect x="470" y="72" width="120" height="14" rx="3" fill="#cbd5e1"/>
+<text x="530" y="82" text-anchor="middle" font-size="7" fill="#475569">Si Substrate</text>
+<text x="360" y="102" text-anchor="middle" font-size="8" fill="#475569">PNPN四层结构→触发导通后持续导通(擎住效应)→不能自关断</text>
+<text x="360" y="116" text-anchor="middle" font-size="8" fill="#94a3b8">导通后需外部电路强制关断→应用于交流电自然过零点关断</text>
+</svg>
+<div class="d3-lim">⚠ 半控型：只能控制导通，不能控制关断→需辅助换流电路→系统复杂。工作频率<400Hz。</div>
+<div class="d3-stats"><span class="d3-stat">PNPN四层</span><span class="d3-stat">半控型</span><span class="d3-stat">GE 1956</span><span class="d3-stat">kV/kA级</span></div>
+</div></div>
+
+<div class="d3-grid"><div class="d3-card" style="border-left:4px solid #7c3aed">
+<div class="d3t">突破 #2：功率 MOSFET (1975-1979)</div>
+<div class="d3m">International Rectifier (IR) | 电压控制·高频开关 | 从工频→MHz级切换</div>
+<div class="d3-desc"><b>解决了什么？</b>SCR不能自关断、频率低。MOSFET通过电场效应控制导电沟道——栅极加电压即开通、撤电压即关断。实现了<b>全控型+100kHz+高频开关</b>，让开关电源(SMPS)取代线性电源，体积缩小10倍。</div>
+<svg viewBox="0 0 720 150">
+<rect x="40" y="20" width="640" height="120" rx="6" fill="#f3e8ff" stroke="#c4b5fd"/>
+<text x="360" y="42" text-anchor="middle" font-size="11" font-weight="700" fill="#6d28d9">VDMOSFET (Vertical DMOS) — 垂直导电·高耐压·低导通电阻</text>
+<rect x="130" y="58" width="80" height="16" rx="4" fill="#7c3aed"/><text x="170" y="69" text-anchor="middle" font-size="7" fill="#fff" font-weight="700">GATE (PolySi)</text>
+<rect x="230" y="52" width="100" height="8" rx="2" fill="#a78bfa" opacity=".5"/><text x="280" y="58" text-anchor="middle" font-size="6" fill="#6d28d9">SiO₂ Gate Oxide</text>
+<rect x="100" y="78" width="60" height="12" rx="3" fill="#7c3aed"/><text x="130" y="87" text-anchor="middle" font-size="6" fill="#fff">SOURCE N+</text>
+<rect x="400" y="78" width="60" height="12" rx="3" fill="#7c3aed"/><text x="430" y="87" text-anchor="middle" font-size="6" fill="#fff">SOURCE N+</text>
+<rect x="180" y="76" width="200" height="16" rx="3" fill="#c4b5fd" opacity=".4"/><text x="280" y="87" text-anchor="middle" font-size="6" fill="#6d28d9">P-Well (Channel)</text>
+<rect x="120" y="96" width="320" height="16" rx="3" fill="#94a3b8"/><text x="280" y="107" text-anchor="middle" font-size="7" fill="#fff">N- Drift Region (耐压层)</text>
+<rect x="110" y="114" width="340" height="12" rx="3" fill="#3b82f6"/><text x="280" y="123" text-anchor="middle" font-size="7" fill="#fff">N+ DRAIN Substrate</text>
+</svg>
+<div class="d3-sol">✅ 全控型+高频(>100kHz)+电压驱动→开关电源(SMPS)革命。导通电阻Rds(on)与耐压平方成正比→高压MOSFET导通损耗大。</div>
+<div class="d3-lim">⚠ 高压(>600V)时导通电阻急剧上升(R∝BV²·⁵)→不适合高压大电流场景。</div>
+<div class="d3-stats"><span class="d3-stat">全控型</span><span class="d3-stat">电压驱动</span><span class="d3-stat">100kHz+</span><span class="d3-stat">IR 1979</span></div>
+</div></div>
+
+<div class="d3-grid"><div class="d3-card" style="border-left:4px solid #f59e0b">
+<div class="d3t">突破 #3：IGBT (1984)</div>
+<div class="d3m">General Electric → 日本三菱/富士电机商业化 | MOSFET的电压控制 + BJT的低导通压降</div>
+<div class="d3-desc"><b>解决了什么？</b>MOSFET高压时电阻太大，BJT低导通压降但开关慢且需大驱动电流。IGBT将MOSFET的栅极和BJT的集电极-发射极结构结合→<b>MOSFET的简易驱动 × BJT的低导通损耗</b>。这是功率半导体历史上最重要的"杂交"器件。</div>
+<svg viewBox="0 0 720 140">
+<rect x="20" y="20" width="680" height="110" rx="6" fill="#fffbeb" stroke="#fde68a"/>
+<text x="360" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">IGBT (Insulated Gate Bipolar Transistor) — MOSFET+BJT融合结构</text>
+<rect x="100" y="54" width="80" height="14" rx="4" fill="#fbbf24"/><text x="140" y="64" text-anchor="middle" font-size="7" fill="#78350f" font-weight="700">GATE (MOS控制)</text>
+<rect x="200" y="52" width="100" height="6" rx="1" fill="#fef08a" opacity=".5"/><text x="250" y="57" text-anchor="middle" font-size="5" fill="#a16207">SiO₂</text>
+<rect x="80" y="72" width="60" height="10" rx="3" fill="#3b82f6"/><text x="110" y="79" text-anchor="middle" font-size="6" fill="#fff">EMITTER N+</text>
+<rect x="180" y="70" width="160" height="14" rx="3" fill="#fcd34d" opacity=".4"/><text x="260" y="79" text-anchor="middle" font-size="6" fill="#92400e">P-Well (MOSFET Channel)</text>
+<rect x="100" y="88" width="300" height="14" rx="3" fill="#94a3b8"/><text x="250" y="97" text-anchor="middle" font-size="7" fill="#fff">N- Drift Region (耐压层·BJT基区)</text>
+<rect x="120" y="106" width="260" height="12" rx="3" fill="#d97706"/><text x="250" y="114" text-anchor="middle" font-size="7" fill="#fff">P+ COLLECTOR (BJT发射极)</text>
+<text x="500" y="80" text-anchor="middle" font-size="8" fill="#92400e">MOSFET栅极控制<br>→开通关断简便</text>
+<text x="600" y="107" text-anchor="middle" font-size="8" fill="#92400e">BJT导电调制<br>→低Vce(sat)</text>
+</svg>
+<div class="d3-sol">✅ 兼具MOSFET易驱动和BJT低导通损耗。600V-6500V全覆盖→变频器、电机驱动、高铁牵引、新能源发电的标准器件。</div>
+<div class="d3-lim">⚠ 关断时存在拖尾电流(少子复合慢)→关断损耗高于MOSFET→频率上限~20-50kHz。</div>
+<div class="d3-stats"><span class="d3-stat">MOS+BJT融合</span><span class="d3-stat">GE 1984</span><span class="d3-stat">600V-6500V</span><span class="d3-stat">变频器/牵引</span></div>
+</div></div>
+
+<div class="d3-grid"><div class="d3-card" style="border-left:4px solid #dc2626">
+<div class="d3t">突破 #4：超结 MOSFET (1997)</div>
+<div class="d3m">富士电机 (SJ-MOSFET) | 突破硅材料"耐压×导通电阻"的理论极限</div>
+<div class="d3-desc"><b>解决了什么？</b>传统MOSFET的导通电阻与耐压存在Rds(on)∝BV²·⁵的物理极限(硅极限线)。富士电机通过在N-漂移区中交替插入P柱形成"超结"结构，将电场分布从三角形变为矩形→相同耐压下电阻降低5-10倍。</div>
+<svg viewBox="0 0 720 120">
+<rect x="20" y="15" width="320" height="95" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
+<text x="180" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#dc2626">传统MOSFET: R∝BV²·⁵</text>
+<rect x="60" y="42" width="240" height="14" rx="3" fill="#fca5a5" opacity=".5"/>
+<text x="180" y="51" text-anchor="middle" font-size="7" fill="#991b1b">N- Drift Region (单一掺杂)</text>
+<text x="180" y="72" text-anchor="middle" font-size="7" fill="#dc2626">电场分布: 三角形→峰值高</text>
+<text x="180" y="86" text-anchor="middle" font-size="7" fill="#dc2626">高压时Rds(on)急剧增大</text>
+
+<text x="358" y="60" font-size="20">→</text>
+
+<rect x="380" y="15" width="320" height="95" rx="6" fill="#ecfdf5" stroke="#6ee7b7"/>
+<text x="540" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#059669">SJ-MOSFET: R∝BV¹·³</text>
+<rect x="400" y="40" width="280" height="20" rx="3" fill="#d1fae5"/>
+<rect x="410" y="42" width="10" height="16" rx="2" fill="#7c3aed"/>
+<rect x="432" y="42" width="10" height="16" rx="2" fill="#7c3aed"/>
+<rect x="454" y="42" width="10" height="16" rx="2" fill="#7c3aed"/>
+<rect x="476" y="42" width="10" height="16" rx="2" fill="#7c3aed"/>
+<rect x="498" y="42" width="10" height="16" rx="2" fill="#7c3aed"/>
+<rect x="520" y="42" width="10" height="16" rx="2" fill="#7c3aed"/>
+<rect x="421" y="42" width="118" height="16" rx="2" fill="#6ee7b7" opacity=".5"/>
+<text x="540" y="70" text-anchor="middle" font-size="7" fill="#059669">P柱·N柱交替(超结)</text>
+<text x="540" y="84" text-anchor="middle" font-size="7" fill="#059669">电场分布: 矩形→峰值低</text>
+</svg>
+<div class="d3-sol">✅ 突破硅极限线→Rds(on)降低5-10×。600-900V区间IGBT的部分市场被SJ-MOSFET取代。充电桩PFC和服务器电源主力。</div>
+<div class="d3-lim">⚠ 超结结构仅在600-900V区间最优→>1200V仍以IGBT为主。P/N柱工艺精度要求高。</div>
+<div class="d3-stats"><span class="d3-stat">Si-Limit突破</span><span class="d3-stat">富士电机1997</span><span class="d3-stat">R↓5-10×</span><span class="d3-stat">600-900V</span></div>
+</div></div>
+
+<div class="d3-grid"><div class="d3-card" style="border-left:4px solid #059669">
+<div class="d3t">突破 #5：SiC MOSFET (2011—)</div>
+<div class="d3m">Cree(Wolfspeed)首款商用→ST 2018为Tesla Model 3供货→全行业跟进</div>
+<div class="d3-desc"><b>解决了什么？</b>硅材料已逼近物理极限(临界击穿场强0.3MV/cm)。碳化硅(SiC)的临界击穿场强是硅的10倍(3MV/cm)，热导率是硅的3倍，禁带宽度是硅的3倍。相同耐压下SiC MOSFET的漂移区厚度可减少90%→导通电阻降低100-1000倍。</div>
+<svg viewBox="0 0 720 130">
+<rect x="20" y="15" width="300" height="105" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
+<text x="170" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#dc2626">Si MOSFET 600V：厚漂移区</text>
+<rect x="70" y="42" width="200" height="50" rx="3" fill="#fca5a5" opacity=".5"/>
+<text x="170" y="60" text-anchor="middle" font-size="7" fill="#991b1b">N- Drift 50μm厚</text>
+<text x="170" y="74" text-anchor="middle" font-size="7" fill="#991b1b">Rds(on)=100mΩ</text>
+<text x="170" y="96" text-anchor="middle" font-size="7" fill="#dc2626">开关损耗高·频率<100kHz</text>
+
+<text x="345" y="68" font-size="20">→</text>
+
+<rect x="380" y="15" width="320" height="105" rx="6" fill="#ecfdf5" stroke="#6ee7b7"/>
+<text x="540" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#059669">SiC MOSFET 600V：薄10倍漂移区</text>
+<rect x="430" y="48" width="220" height="10" rx="3" fill="#6ee7b7" opacity=".5"/>
+<text x="540" y="56" text-anchor="middle" font-size="7" fill="#047857">N- Drift 5μm (1/10)</text>
+<text x="540" y="72" text-anchor="middle" font-size="7" fill="#047857">Rds(on)=10mΩ (1/10)</text>
+<text x="540" y="86" text-anchor="middle" font-size="7" fill="#059669">开关频率>200kHz</text>
+<text x="540" y="100" text-anchor="middle" font-size="7" fill="#059669">耐温200°C+</text>
+</svg>
+<div class="d3-sol">✅ 特斯拉Model 3(2018)首用SiC→续航+5-10%。800V电动车标配。光伏逆变器效率从98%→99%+。AI数据中心800V供电核心器件。</div>
+<div class="d3-lim">⚠ 衬底缺陷密度远高于硅(导致良率+成本问题)。Wolfspeed主导衬底市场。2024-25年产能过剩价格战。栅氧可靠性仍需验证。</div>
+<div class="d3-stats"><span class="d3-stat">Ecrit=3MV/cm(×10 Si)</span><span class="d3-stat">Cree 2011→ST 2018量产</span><span class="d3-stat">Rds(on)↓100×</span><span class="d3-stat">EV/光伏/AI供电</span></div>
+</div></div>
+
+<div class="d3-grid"><div class="d3-card" style="border-left:4px solid #0891b2">
+<div class="d3t">突破 #6：GaN HEMT (2010s—)</div>
+<div class="d3m">EPC/Transphorm/Navitas (初创) → 英飞凌/ST/TI跟进 | 12英寸量产(2026-27)</div>
+<div class="d3-desc"><b>解决了什么？</b>GaN(氮化镓)的二维电子气(2DEG)在AlGaN/GaN异质结界面自然形成高迁移率导电沟道→无需掺杂即可获得极低电阻。开关速度比SiC快10倍(MHz级)、比SiMOSFET快100倍。<b>GaN是高频功率器件的终极方案。</b></div>
+<svg viewBox="0 0 720 130">
+<rect x="20" y="15" width="680" height="105" rx="6" fill="#e0f2fe" stroke="#7dd3fc"/>
+<text x="360" y="32" text-anchor="middle" font-size="11" font-weight="700" fill="#0c4a6e">GaN HEMT (High Electron Mobility Transistor) — 二维电子气(2DEG)常开型</text>
+<rect x="100" y="48" width="80" height="14" rx="4" fill="#0369a1"/><text x="140" y="58" text-anchor="middle" font-size="7" fill="#fff">GATE (Schottky)</text>
+<rect x="220" y="46" width="100" height="6" rx="1" fill="#bae6fd" opacity=".5"/><text x="270" y="51" text-anchor="middle" font-size="5" fill="#0369a1">AlGaN Barrier</text>
+<rect x="340" y="48" width="80" height="14" rx="4" fill="#0369a1"/><text x="380" y="58" text-anchor="middle" font-size="7" fill="#fff">DRAIN</text>
+<rect x="200" y="56" width="220" height="4" rx="2" fill="#7dd3fc" opacity=".7"/><text x="310" y="59" text-anchor="middle" font-size="5" fill="#0369a1">2DEG Channel (无需掺杂·自然形成高迁移率)</text>
+<rect x="150" y="64" width="320" height="16" rx="3" fill="#94a3b8"/><text x="310" y="75" text-anchor="middle" font-size="7" fill="#fff">GaN Buffer + Si Substrate (硅基GaN外延)</text>
+<rect x="160" y="84" width="300" height="14" rx="3" fill="#cbd5e1"/><text x="310" y="93" text-anchor="middle" font-size="7" fill="#475569">Si Substrate (低成本·大尺寸)</text>
+</svg>
+<div class="d3-sol">✅ 开关频率>1MHz→变压器体积缩小10×。快充(65W-300W GaN充电器普及)。AI数据中心48V→1V PoL转换。英飞凌全球首发300mm GaN晶圆(2026-27量产)→成本急剧下降。</div>
+<div class="d3-lim">⚠ 常开型(耗尽型)→需级联(cascode)低压Si MOSFET实现常关→增加复杂度。E-mode(增强型)GaN在研发中。>650V高压可靠性待验证。</div>
+<div class="d3-stats"><span class="d3-stat">2DEG无掺杂</span><span class="d3-stat">MHz级开关</span><span class="d3-stat">Navitas/EPC 2010s</span><span class="d3-stat">快充/服务器PoL</span><span class="d3-stat">300mm 2026-27</span></div>
+</div></div>
+
+<!-- ====== POWER COUNTRY SECTIONS ====== -->
+<h2 id="sec-power-country">🏛️ 3.4 功率半导体各国关键节点</h2>
+
+<div class="card"><span class="tag tu">美国</span><div class="ttl">美国：功率半导体的开创者 → IGBT原创 → SiC先驱</div>
+<div class="dsc"><dl>
+<dt>1956 晶闸管SCR</dt><dd>GE发明→开启功率半导体时代。</dd>
+<dt>1975-79 功率MOSFET</dt><dd>IR(国际整流器)推出首款VDMOSFET→开关电源革命。</dd>
+<dt>1984 IGBT发明</dt><dd>GE的Baliga发明IGBT(获2014年IEEE荣誉勋章)→授日本企业商业化。</dd>
+<dt>2011 SiC MOSFET量产</dt><dd>Cree(Wolfspeed)→全球首家SiC MOSFET商用。</dd>
+<dt>2016 安森美收购Fairchild</dt><dd>$24亿→成为全球第二大功率半导体厂商。</dd>
+<dt>2023 Wolfspeed纽约工厂</dt><dd>全球最大200mm SiC晶圆厂投产→年产能~100万片。</dd>
+<dt>2025 TI推出集成GaN方案</dt><dd>800V数据中心电源→AI供电新赛道。</dd>
+</dl></div></div>
+
+<div class="card"><span class="tag tj">日本</span><div class="ttl">日本：IGBT商业化引擎 → 模块封装全球最强</div>
+<div class="dsc"><dl>
+<dt>1989 IPM智能功率模块</dt><dd>三菱电机首发→集成IGBT+驱动+保护。</dd>
+<dt>1997 超结SJ-MOSFET</dt><dd>富士电机发明→突破硅极限。</dd>
+<dt>2000s 功率模块霸权</dt><dd>三菱/富士/日立/东芝/罗姆五家日本公司长期占全球TOP20。DIPIPM模块、银烧结技术全球领先。</dd>
+<dt>2020s 日企SiC/GaN跟进</dt><dd>罗姆SiC MOSFET→汽车和工业领域。三菱SiC模块用于新干线。</dd>
+</dl></div></div>
+
+<div class="card"><span class="tag te">欧</span><div class="ttl">欧洲：英飞凌——全球功率半导体王者</div>
+<div class="dsc"><dl>
+<dt>1999 英飞凌独立</dt><dd>从西门子拆分→专注功率和汽车半导体。</dd>
+<dt>2014 收购IR</dt><dd>$30亿→补全低压MOSFET产品线→成为全品类功率半导体第一。</dd>
+<dt>2018 ST SiC为特斯拉供货</dt><dd>Model 3采用ST SiC MOSFET→车规SiC元年。</dd>
+<dt>2020s 欧洲三强格局</dt><dd>英飞凌(~20%)、ST(~8%)、安森美(~8%)稳居全球功率TOP3。</dd>
+<dt>2025 英飞凌+英伟达</dt><dd>合作800V HVDC AI数据中心供电→AI供电新标准。</dd>
+<dt>2026 英飞凌300mm GaN</dt><dd>全球首发12英寸GaN晶圆→GaN从利基→主流。</dd>
+</dl></div></div>
+
+<div class="card"><span class="tag tc">中</span><div class="ttl">中国：从追赶者到全球TOP5</div>
+<div class="dsc"><dl>
+<dt>2010s 起步追赶</dt><dd>士兰微/华润微/斯达半导从低压MOSFET和二极管起步。</dd>
+<dt>2018 比亚迪IGBT自供</dt><dd>比亚迪成为全球唯一自研自产车规IGBT的新能源车企。</dd>
+<dt>2020 中车高铁IGBT</dt><dd>中车时代电气实现6500V/750A高铁IGBT国产化。</dd>
+<dt>2022 闻泰收购安世(Nexperia)</dt><dd>获得全球标准器件产能→功率分立器件全球TOP15。</dd>
+<dt>2025 士兰微全球第五</dt><dd>Omdia 2025年排名→首家中国功率厂商进入全球TOP5。</dd>
+<dt>2026 国产SiC突破</dt><dd>天科合达/天岳先进SiC衬底→比亚迪/斯达半导SiC模块量产→800V国产电动车标配。</dd>
+</dl></div></div>
+
+<!-- ====== POWER EVENTS ====== -->
+<h2 id="sec-power-events">📋 3.5 功率半导体重大事件</h2>
+
+<div class="card"><span class="tag ts">功率</span><span class="yr">1956</span><div class="ttl">GE发明晶闸管(SCR)</div><div class="by">General Electric | 开启固态电力控制时代</div><div class="dsc"><p>第一个可商业化的大功率固态开关器件→替代汞弧整流器和水银开关。SCR至今仍在HVDC输电(800kV/5kA级)和工业加热中广泛使用。</p></div><div class="src">来源：GE历史档案; IEEE History Center</div></div>
+
+<div class="card"><span class="tag ts">功率</span><span class="yr">1984</span><div class="ttl">IGBT发明</div><div class="by">B. Jayant Baliga (General Electric) | MOSFET门控+BJT导通 = 最成功的功率器件融合</div><div class="dsc"><p>Baliga发明IGBT后，日本三菱和富士电机迅速实现了商业化。IGBT成为电机驱动、变频器、高铁牵引、新能源发电的核心器件。Baliga因此获2014年IEEE荣誉勋章(被誉为"IGBT之父")。全球IGBT市场规模2025年约$85亿。</p></div><div class="src">来源：Baliga, "The IGBT Device" (Elsevier, 2015); IEEE Medal of Honor 2014</div></div>
+
+<div class="card"><span class="tag ts">功率</span><span class="yr">1997</span><div class="ttl">超结MOSFET发明</div><div class="by">富士电机 | 突破硅材料"R×BV"理论极限线</div><div class="dsc"><p>通过在N-漂移区中嵌入P柱形成超结(Super Junction)结构，将电场从三角形变为矩形分布。相同耐压下导通电阻降低5-10倍。600-900V充电桩PFC和服务器电源的标准器件。英飞凌CoolMOS系列是SJ-MOSFET的代表产品。</p></div></div>
+
+<div class="card"><span class="tag ts">功率</span><span class="yr">2018</span><div class="ttl">特斯拉Model 3大批量采用SiC MOSFET</div><div class="by">ST意法半导体 | 车规SiC商业化元年</div><div class="dsc"><p>特斯拉在Model 3的逆变器中首次大批量采用ST的SiC MOSFET模块(每车24-48颗SiC MOSFET)→续航提升5-10%。这标志着SiC从"小批量高端应用"进入"百万辆级汽车量产"，彻底改变了功率半导体的产业格局。此后比亚迪、蔚来、小鹏等中国车企全面跟进800V SiC平台。</p></div><div class="src">来源：ST官方; Tesla Model 3逆向拆解(Munro & Associates, 2018)</div></div>
+
+<div class="card"><span class="tag ts">功率</span><span class="yr">2025</span><div class="ttl">AI数据中心800V HVDC供电标准确立</div><div class="by">英飞凌+英伟达合作 | GaN 300mm量产前夜</div><div class="dsc"><p>AI GPU集群功率突破100kW/机柜→48V供电无法满足kA级电流需求→800V高压直流(HVDC)成为确定方向。英飞凌与英伟达合作开发800V供电架构，SiC MOSFET负责AC-DC整流级(11kW PSU)，GaN HEMT负责DC-DC转换级。每GW数据中心对应功率半导体价值量从$80M→$180M+。英飞凌全球首发300mm GaN晶圆，预计2026底量产→GaN规模化元年。</p></div><div class="src">来源：英飞凌2025投资者日; Yole Group "Power Electronics for AI Data Centers" (2025)</div></div>
+
+<!-- ====== POWER NODES TABLE ====== -->
+<h2 id="sec-power-nodes">📊 3.6 功率器件演进总表</h2>
+<div class="card">
+<div class="ttl">功率半导体不以"制程nm"衡量——以耐压(V)、电流(A)、开关频率(Hz)为性能指标</div>
+<table class="node-table">
+<thead><tr><th>年</th><th>器件类型</th><th>发明/主导方</th><th>电压范围</th><th>频率/开关速度</th><th>代表应用</th></tr></thead>
+<tbody>
+<tr><td>1956</td><td>SCR晶闸管</td><td>GE(美)</td><td>100V-8000V</td><td><400Hz</td><td>HVDC输电、工业加热</td></tr>
+<tr><td>1975</td><td>功率MOSFET(VDMOS)</td><td>IR(美)</td><td>50V-1000V</td><td>100kHz+</td><td>开关电源(SMPS)</td></tr>
+<tr><td>1984</td><td><b>★IGBT</b></td><td>GE→三菱(日)</td><td>600V-6500V</td><td>1-50kHz</td><td>变频器、电机驱动、高铁</td></tr>
+<tr><td>1989</td><td>IPM智能功率模块</td><td>三菱(日)</td><td>600V-1200V</td><td>5-20kHz</td><td>空调变频、工业伺服</td></tr>
+<tr><td>1997</td><td><b>★超结SJ-MOSFET</b></td><td>富士电机(日)</td><td>500V-900V</td><td>100kHz+</td><td>充电桩PFC、服务器电源</td></tr>
+<tr><td>2001</td><td>SiC肖特基二极管</td><td>英飞凌/Cree</td><td>600V-1700V</td><td>MHz级</td><td>光伏逆变器Boost</td></tr>
+<tr><td>2011</td><td><b>★SiC MOSFET</b></td><td>Cree→ST 2018量产</td><td>650V-3300V</td><td>>200kHz</td><td>EV逆变器(Tesla M3)</td></tr>
+<tr><td>2012</td><td>GaN HEMT(耗尽型)</td><td>EPC/Transphorm(美)</td><td>100V-650V</td><td>1MHz+</td><td>快充、LiDAR</td></tr>
+<tr><td>2018</td><td>GaN HEMT(增强型)</td><td>Navitas/PI(美)</td><td>650V</td><td>>1MHz</td><td>消费快充、服务器PoL</td></tr>
+<tr><td>2023</td><td>SiC 200mm晶圆量产</td><td>Wolfspeed(美)</td><td>650V-1700V</td><td>200kHz+</td><td>800V EV平台标配</td></tr>
+<tr><td>2025</td><td><b>★800V HVDC AI电源</b></td><td>英飞凌+英伟达</td><td>800V Bus</td><td>SiC/GaN混合</td><td>AI数据中心供电</td></tr>
+<tr><td>2026</td><td><b>★GaN 300mm (12英寸)</b></td><td>英飞凌</td><td>650V</td><td>>1MHz</td><td>规模量产元年</td></tr>
+</tbody></table></div>
+
+<!-- ====== POWER DEEP DIVE ====== -->
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-power-deep">3.7 功率半导体深度研究</h1>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:40px">SiC/GaN宽禁带革命 · 800V电动车 · AI数据中心供电 · 新能源电力电子</p>
+
+<h3>3.7.1 功率半导体的底层逻辑：与逻辑芯片完全不同</h3>
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="dsc">
+<p><b>逻辑芯片追求晶体管密度(Tr/mm²)，功率芯片追求功率密度(W/cm²)。</b>这是两种完全不同的物理目标和商业逻辑：</p>
+<table class="node-table"><thead><tr><th>维度</th><th>逻辑芯片</th><th>功率芯片</th></tr></thead>
+<tbody>
+<tr><td>核心指标</td><td>晶体管密度/性能/功耗</td><td><b>耐压(V)×电流(A)=功率(W)</b></td></tr>
+<tr><td>制程节点</td><td>3nm→2nm→1.4nm(缩微)</td><td>不追求nm——IGBT用μm级线宽</td></tr>
+<tr><td>材料</td><td>硅(99.9%+)</td><td>硅→SiC→GaN(材料革命是主线)</td></tr>
+<tr><td>物理极限</td><td>量子隧穿→GAA/CFET</td><td>临界击穿场强→宽禁带材料</td></tr>
+<tr><td>成本结构</td><td>晶圆代工+设计IP</td><td>衬底+外延+封装(封装成本占比30-50%)</td></tr>
+<tr><td>技术节奏</td><td>18-24月一代(摩尔定律)</td><td><b>材料换代以10年为单位</b></td></tr>
+</tbody></table>
+<p><b>关键含义：</b>功率半导体的竞争不是"谁能把线宽做更细"，而是"谁能把材料、器件结构、封装三个维度同时优化"。这就是为什么英飞凌(全品类IDM)比纯Fabless设计公司更有竞争力——功率芯片的性能60%靠工艺、30%靠封装、仅10%靠电路设计。</p>
+</div></div>
+
+<h3>3.7.2 SiC vs GaN：两种宽禁带材料的定位与竞争</h3>
+<div class="card" style="border-left:4px solid #059669">
+<div class="ttl">SiC和GaN不是"竞争对手"——它们在不同电压/频率象限各有主场</div>
+<div class="dsc">
+<table class="node-table"><thead><tr><th>维度</th><th>SiC</th><th>GaN</th></tr></thead>
+<tbody>
+<tr><td>禁带宽度(eV)</td><td>3.26</td><td>3.39</td></tr>
+<tr><td>临界场强(MV/cm)</td><td>3.0(×10 Si)</td><td>3.3(×11 Si)</td></tr>
+<tr><td>电子迁移率</td><td>~900 cm²/Vs</td><td><b>~2000 cm²/Vs (2DEG两倍于Si)</b></td></tr>
+<tr><td>热导率(W/mK)</td><td><b>490(×3 Si)</b></td><td>130(劣于Si)</td></tr>
+<tr><td>电压主场</td><td><b>650V-3300V</b>(中高压)</td><td>100V-650V(中低压)</td></tr>
+<tr><td>频率主场</td><td>100kHz-500kHz</td><td><b>1MHz-10MHz+</b></td></tr>
+<tr><td>核心市场</td><td>EV主驱逆变器、光伏、轨交</td><td>快充、数据中心PoL、LiDAR</td></tr>
+<tr><td>衬底价格(2026)</td><td>6英寸$500-800</td><td>6英寸$200-300(硅基GaN)</td></tr>
+<tr><td>2025市场规模</td><td>~$65亿(Yole)</td><td>~$12亿(Yole)</td></tr>
+</tbody></table>
+<p><b>产业共识：</b>SiC是高压大功率的"确定性"路线(已进入百万辆级汽车量产验证)；GaN是高频中低压的"爆发前夜"路线(300mm晶圆2026-27量产是关键转折)。<b>两者不是替代关系——SiC承担"运输电力"（高压粗电缆），GaN承担"精调电力"（靠近芯片的精细调压）。</b></p>
+</div></div>
+
+<h3>3.7.3 AI数据中心供电：功率半导体最大增量市场</h3>
+<div class="card" style="border-left:4px solid #dc2626;background:#fef2f2">
+<div class="ttl">AI GPU集群从48V→800V HVDC供电的必然性</div>
+<div class="dsc">
+<p><b>物理瓶颈：</b>NVIDIA B200单GPU功耗1000W→NVL72机架72颗GPU=72kW→加上网络+存储≈100kW/机柜。48V供电下，100kW意味着2,083A电流——铜排截面需>1000mm²(相当于手臂粗)，物理上无法布线。</p>
+<p>800V HVDC(高压直流)将电流降至125A(48V的1/16)，布线可行且损耗降低97%(I²R)。这需要SiC MOSFET在电网→800V的AC-DC前端整流，GaN HEMT在800V→48V→芯片核心电压(0.8V)的DC-DC多级转换。</p>
+<p><b>市场影响：</b>Yole预测AI数据中心功率半导体市场2031年达$106亿(全球功率413亿的~25%)。英飞凌2027年AI业务目标>€25亿(三年十倍)。每GW数据中心对应的功率半导体价值量从$80M→$180M+。</p>
+</div></div>
+
+<h3>3.7.4 三个非共识观点（功率篇）</h3>
+
+<div class="card" style="border-left:4px solid #dc2626;background:#fef2f2">
+<div class="ttl">非共识 #1：SiC产能"过剩"是假象——真正过剩的是低端6英寸，高端车规8英寸仍紧缺</div>
+<div class="dsc"><p>市场共识：2024-25 SiC产能过剩，价格暴跌，行业进入寒冬。反向证据：过剩的是6英寸低端衬底（用于二极管），而特斯拉/比亚迪800V平台需要的车规级8英寸SiC MOSFET良率仍然偏低，实际有效产能不足。Wolfspeed 200mm工厂的爬坡速度远慢于预期。</p></div></div>
+
+<div class="card" style="border-left:4px solid #d97706;background:#fffbeb">
+<div class="ttl">非共识 #2：GaN的"iPhone时刻"不是快充——是AI数据中心的48V→1V PoL转换</div>
+<div class="dsc"><p>市场共识：GaN主要用于消费快充(65-300W)。反向证据：NVIDIA B200的GPU核心需要0.8V/1000A供电——传统DrMOS方案损耗>15%、占PCB面积巨大。英飞凌+英伟达正在将GaN HEMT集成到GPU板卡级供电方案中，这个市场的价值将是快充的10倍+。</p></div></div>
+
+<div class="card" style="border-left:4px solid #0891b2;background:#ecfdf5">
+<div class="ttl">非共识 #3：中国功率半导体的"国际化"路径不是出海——是绑定国内800V EV+光伏双市场</div>
+<div class="dsc"><p>市场共识：中国功率厂商要成为全球巨头必须出海。反向证据：中国是全球最大的电动车市场(2025年销量>1000万辆)和光伏装机市场，这两个市场的SiC/IGBT需求超过全球其他地区之和。士兰微、比亚迪半导体不需要出海——国内市场本身就有$100亿+的TAM。</p></div></div>
+
+<p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:32px">数据来源：英飞凌/ST/安森美/Wolfspeed年报、Yole Group "Power Electronics 2025-2031"、Omdia功率器件排名(2025)、IEEE功率器件论文、各公司投资者日</p>
+
+
+<!-- ====== SOURCES ====== --
+
+// ====== POWER TIMELINE ======
+const PS=1956,PE=2026,PT=PE-PS;
+function PP(y){return((y-PS)/PT*100).toFixed(2)}
+
+const pdom=[
+  {s:1956,e:1980,l:'美国开创(SCR/MOSFET)',c:'#2563eb'},
+  {s:1980,e:2000,l:'日本崛起(IGBT/模块)',c:'#d97706'},
+  {s:2000,e:2018,l:'欧洲反超(英飞凌登顶)',c:'#7c3aed'},
+  {s:2018,e:2024,l:'SiC量产(Tesla) + 中国崛起',c:'#059669'},
+  {s:2024,e:2026,l:'AI供电革命(800V HVDC)',c:'#dc2626'},
+];
+const pdev=[
+  {y:1956,t:'★SCR晶闸管',d:'GE发明',big:1},{y:1975,t:'功率MOSFET',d:'IR推出'},{y:1984,t:'★IGBT',d:'GE发明→日本量产',big:1},{y:1989,t:'IPM模块',d:'三菱'},{y:1997,t:'★SJ-MOSFET',d:'富士电机',big:1},{y:2011,t:'★SiC MOSFET',d:'Cree/Wolfspeed',big:1},{y:2018,t:'SiC上车',d:'Tesla M3·ST'},{y:2023,t:'200mm SiC',d:'Wolfspeed量产'},{y:2025,t:'800V HVDC AI',d:'英飞凌+英伟达',big:1},{y:2026,t:'★GaN 300mm',d:'英飞凌12英寸',big:1},];
+const papp=[{y:1956,t:'SCR',d:'工业加热/HVDC'},{y:1975,t:'SMPS开关电源',d:'PC/消费'},{y:1984,t:'电机驱动/变频',d:'工业/家电'},{y:2000,t:'光伏逆变器',d:'可再生能源',big:1},{y:2018,t:'★EV逆变器',d:'SiC量产元年',big:1},{y:2022,t:'AI数据中心',d:'800V供电',big:1},{y:2025,t:'固态变压器SST',d:'电网现代化'}];
+const pus=[{y:1956,t:'GE SCR',d:'首创'},{y:1975,t:'IR MOSFET',d:'开关电源革命'},{y:1984,t:'GE IGBT',d:'Baliga发明'},{y:2011,t:'Cree SiC',d:'Wolfspeed'},{y:2016,t:'ON→Fairchild',d:'$24亿收购'},{y:2025,t:'TI+GaN',d:'AI供电'}];
+const pjp=[{y:1989,t:'★三菱IPM',d:'智能模块',big:1},{y:1997,t:'★富士SJ-MOS',d:'超结突破',big:1},{y:2000s,t:'功率模块霸权',d:'全球TOP10占5席'},{y:2020s,t:'罗姆SiC',d:'车规追赶'}];
+const peu=[{y:1999,t:'★英飞凌独立',d:'西门子剥离',big:1},{y:2014,t:'→收购IR',d:'$30亿'},{y:2018,t:'★ST SiC供货Tesla',d:'SiC上车元年',big:1},{y:2025,t:'英飞凌+英伟达',d:'800V AI供电'},{y:2026,t:'★GaN 300mm',d:'英飞凌首发',big:1}];
+const pcn=[{y:2010s,t:'起步',d:'二极管/低压MOS'},{y:2018,t:'比亚迪IGBT',d:'自研自供'},{y:2020,t:'中车高铁IGBT',d:'6500V国产化'},{y:2022,t:'★闻泰→安世',d:'全球布局',big:1},{y:2024,t:'★士兰微TOP5',d:'全球第五',big:1},{y:2026,t:'SiC模块量产',d:'800V EV标配'}];
+
+const ptl=document.getElementById('ptl');
+if(ptl){
+  let h='<div class="dom-band">';
+  pdom.forEach(d=>{let bg=d.c;h+='<div class="dom-block" style="left:'+PP(d.s)+'%;width:'+((d.e-d.s)/PT*100).toFixed(1)+'%;background:'+bg+';color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3)">'+d.l+'</div>';});
+  h+='</div>';ptl.innerHTML=h;
+  h='<div class="yr-ruler">';
+  for(let y=PS;y<=PE;y++){if(y%5===0)h+='<div class="yr'+(y%10===0?' mjr':'')+'" style="left:'+PP(y)+'%">'+y+'</div>';}
+  h+='</div>';ptl.innerHTML+=h;
+  [   {s:1956,e:1980,bg:'#eff6ff',l:'SCR/MOSFET时代(美国)'},{s:1980,e:2000,bg:'#fef3c7',l:'IGBT/模块时代(日本)'},{s:2000,e:2018,bg:'#ecfdf5',l:'英飞凌登顶+SiC起步'},{s:2018,e:2024,bg:'#f3e8ff',l:'SiC量产+中国崛起'},{s:2024,e:2027,bg:'#fce7f3',l:'GaN+AI供电时代'},].forEach(e=>{ptl.innerHTML+='<div class="era-bar" style="background:'+e.bg+'"><span class="era-lbl">'+e.l+'</span></div>';});
+
+  function plane(title,cls,data,sp){
+    let d=layoutS(data,sp||2.5);
+    let nRows=Math.max(...d.map(e=>e.row||0))+1;
+    let h='<div class="lane '+cls+'"><div class="lane-hdr"><span class="lbl">'+title+'</span></div>';
+    h+='<div class="lane-body"><div class="baseline"></div>';
+    let rH=18;let mid=(nRows-1)/2;
+    d.forEach(e=>{
+      let x=PP(e.y);
+      let row=e.row||0;
+      let yOff=(row-mid)*rH;
+      let dotCls=e.big?' hg':'';
+      h+='<div class="ev" style="left:'+x+'%;top:'+(50+yOff/80*100)+'%;transform:translate(-50%,-50%)" title="'+e.y+': '+e.t+' | '+(e.d||'')+'">';
+      h+='<span class="yr">'+e.y+'</span><span class="dot'+dotCls+'"></span><span class="tx">'+e.t+'</span>';
+      if(e.d)h+='<span class="cp">'+e.d+'</span>';
+      h+='</div>';
+    });
+    h+='</div></div>';return h;
+  }
+  ptl.innerHTML+=plane('🔵 功率器件演进','proc',pdev,3);
+  ptl.innerHTML+=plane('🟢 应用市场驱动','pack',papp,5);
+  ptl.innerHTML+=plane('🔴 美国','us',pus,6);
+  ptl.innerHTML+=plane('🟠 日本','jp',pjp,6);
+  ptl.innerHTML+=plane('🟣 欧洲(英飞凌/ST)','eue',peu,5);
+  ptl.innerHTML+=plane('🩷 中国','cn',pcn,5);
+}
+
+>
