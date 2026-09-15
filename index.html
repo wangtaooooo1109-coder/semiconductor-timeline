@@ -135,11 +135,43 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <span class="lg">|</span><span style="font-size:9px;color:#94a3b8">← 滚动查看总览 →</span>
 </div>
 
-<div class="tl-wrap"><div class="tl-inner" id="tl"></div></div>
+<!-- ====== TABLE OF CONTENTS ====== -->
+<div class="content" style="padding-top:16px;padding-bottom:0">
+<div class="card" style="background:#f1f5f9;border:none">
+<div class="ttl" style="font-size:20px">📑 目录</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:14px;margin-top:12px">
+<div>
+<b>第一篇：逻辑芯片</b>
+<ol style="padding-left:20px;line-height:2">
+<li><a href="#sec-timeline">全景时间轴</a></li>
+<li><a href="#sec-pattern">全球格局六大转折</a></li>
+<li><a href="#sec-breakthrough">制程六次重大突破（图解）</a></li>
+<li><a href="#sec-litho">光刻技术→制程对应表</a></li>
+<li><a href="#sec-country">分国家/地区关键节点</a></li>
+<li><a href="#sec-events">重大事件详表</a></li>
+<li><a href="#sec-nodes">制程节点演进总表</a></li>
+</ol>
+</div>
+<div>
+<b>第二篇：存储芯片</b>
+<ol start="8" style="padding-left:20px;line-height:2">
+<li><a href="#sec-storage-timeline">存储技术时间轴</a></li>
+<li><a href="#sec-storage-pattern">存储产业格局变迁</a></li>
+<li><a href="#sec-storage-breakthrough">存储技术五次重大突破</a></li>
+<li><a href="#sec-storage-country">存储产业各国进展</a></li>
+<li><a href="#sec-storage-events">存储重大事件详表</a></li>
+<li><a href="#sec-storage-nodes">存储制程演进总表</a></li>
+<li><a href="#sec-sources">参考文献</a></li>
+</ol>
+</div>
+</div>
+</div></div>
+
+<div id="sec-timeline" class="tl-wrap"><div class="tl-inner" id="tl"></div></div>
 
 <div class="content">
 
-<h2>🌐 全球格局六大转折</h2>
+<h2 id="sec-pattern">🌐 全球格局六大转折</h2>
 
 <div class="card"><span class="tag tu">美</span><span class="yr">1947—1980</span>
 <div class="ttl">美国独霸：从晶体管到微处理器</div>
@@ -186,7 +218,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <p>AI大模型训练需求引爆全球算力军备竞赛。NVIDIA B200/B100 Blackwell架构GPU供不应求,全部由TSMC 4nm代工+CoWoS先进封装。AMD MI400系列追赶。TSMC N2(2nm GAA)2025下半年规模量产,美国亚利桑那厂4nm产线投产,日本熊本厂和德国德累斯顿厂建设中。ASML High-NA EUV进入产线,Hyper-NA(NA>0.75)研发启动,为2030年代的1nm以下节点做准备。</p></div>
 <div class="src">来源：NVIDIA/AMD/TSMC/ASML 2025年报及投资者日</div></div>
 
-<h2>🔬 制程六次重大突破（详细图解）</h2>
+<h2 id="sec-breakthrough">🔬 制程六次重大突破（详细图解）</h2>
 
 <!-- Breakthrough 1: Planar Transistor -->
 <div class="d3-grid"><div class="d3-card" style="border-left:4px solid var(--p)">
@@ -426,7 +458,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 </div></div>
 
 <!-- ====== LITHO-PROCESS CORRELATION ====== -->
-<h2>🔗 光刻技术演进与制程突破的对应关系</h2>
+<h2 id="sec-litho">🔗 光刻技术演进与制程突破的对应关系</h2>
 <div class="card">
 <div class="ttl">光刻技术是制程节点的"发动机"——每一次光刻突破,直接解锁下一代制程</div>
 <table class="node-table">
@@ -447,7 +479,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 
 <!-- ====== COUNTRY SECTIONS ====== -->
 
-<h2>🏛️ 分国家/地区关键节点</h2>
+<h2 id="sec-country">🏛️ 分国家/地区关键节点</h2>
 
 <div class="card"><span class="tag tu">美国</span><div class="ttl">美国：从绝对霸权到AI时代芯片设计+设备领导者</div>
 <div class="dsc">
@@ -532,7 +564,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <div class="src">来源：中国国务院/工信部公告; SMIC官方; 美国BIS联邦公报; TechInsights(2023.8); CSIS分析</div></div>
 
 <!-- ====== EVENT DETAILS ====== -->
-<h2>📋 重大事件详表</h2>
+<h2 id="sec-events">📋 重大事件详表</h2>
 
 <div class="card"><span class="tag ts">里程碑</span><span class="yr">1947.12.16</span>
 <div class="ttl">晶体管发明</div><div class="by">Bell Labs: Bardeen / Brattain / Shockley (1956诺奖)</div>
@@ -595,7 +627,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <div class="src">来源：BIS联邦公报2018-24; CSIS(2023.5); TechInsights(2023.8); 华为官方</div></div>
 
 <!-- ====== NODE TABLE ====== -->
-<h2>📊 制程节点演进总表</h2>
+<h2 id="sec-nodes">📊 制程节点演进总表</h2>
 <div class="card">
 <table class="node-table">
 <thead><tr><th>年</th><th>节点</th><th>主导</th><th>核心光刻</th><th>关键突破</th><th>代表产品</th></tr></thead>
@@ -627,33 +659,354 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 </tbody></table>
 <div class="src">来源：WikiChip; Intel/Samsung/TSMC白皮书; ASML年报; Nature(2025)</div></div>
 
-<h2>存储芯片（DRAM/NAND）制程演进</h2>
+<hr style="margin:60px 0 40px;border:none;border-top:4px solid #1e3a5f">
+
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px">第二篇：存储芯片</h1>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:40px">DRAM（动态随机存储器） & NAND Flash（闪存）——半导体产业的"粮仓"</p>
+
+<h2 id="sec-storage-pattern">🌐 存储产业五大格局转折</h2>
+
+<div class="card"><span class="tag tu">美</span><span class="yr">1970—1980</span>
+<div class="ttl">美国开创：DRAM 的诞生与早期主导</div>
+<div class="by">Intel / Mostek / Texas Instruments</div>
+<div class="dsc">
+<p>1970年Intel推出全球首款商用DRAM芯片1103（1Kb，10μm工艺），定价远低于当时的磁芯存储器，迅速成为计算机主存的标配。1103被誉为"改变计算机历史的芯片"。随后Mostek推出4Kb DRAM，TI跟进16Kb。</p>
+<p><b>格局：</b>整个1970年代，DRAM市场由美国企业绝对主导——Intel、Mostek、TI、Motorola占据全球90%以上份额。DRAM是Intel最早的核心业务，也是其起家的根基。1975年DRAM已成为半导体产业最大的单一产品类别。</p>
+</div>
+<div class="src">来源：Intel官方历史; 《Chip War》Ch.6-7; IEEE "The DRAM Story"</div></div>
+
+<div class="card"><span class="tag tj">日</span><span class="yr">1980—1986</span>
+<div class="ttl">日本逆袭：VLSI 计划→64K/256K DRAM 品质碾压→全球第一</div>
+<div class="by">NEC / 东芝 / 日立 / 富士通 / 三菱</div>
+<div class="dsc">
+<p>1976年日本通产省VLSI计划启动后，DRAM成为首要攻坚目标。1980年惠普16K DRAM招标测试中，日本三家完胜美国三家——美国最优产品的不合格率比日本最差产品还高6倍。日本DRAM良率高30%、价格低60%。</p>
+<p>1982年日本成为全球最大DRAM生产国。1985年NEC登顶全球第一，日本DRAM市占超80%。<b>Intel被迫于1985年退出DRAM市场</b>——这是Intel历史上最重要的战略转折。</p>
+</div>
+<div class="src">来源：《Chip War》Ch.7-8; 惠普1980年DRAM质量测试报告; 《Only the Paranoid Survive》(Grove,1996)</div></div>
+
+<div class="card"><span class="tag tu">美</span><span class="tag tc">韩</span><span class="yr">1986—2000</span>
+<div class="ttl">韩国崛起：三星"逆周期投资"→DRAM霸主</div>
+<div class="by">三星电子 / SK海力士（现代电子）</div>
+<div class="dsc">
+<p>1983年三星宣布进军DRAM，采用"逆周期投资"策略——在行业低迷时大规模扩产。1984年开发256K DRAM，1986年1M DRAM，1992年超越日本成为全球最大DRAM厂商。1997年亚洲金融危机中再次逆向扩产，进一步扩大领先优势。SK海力士（原现代电子）紧随其后崛起。韩国两大DRAM厂商合计市占从1990年不足10%跃升至2000年超50%。</p>
+<p><b>1999年DRAM市场格局：</b>三星~21%、现代(海力士)~15%、美光~14%、英飞凌~12%、NEC/日立/东芝/富士通（正在退出）。日本DRAM产业全面崩溃的前夜。</p>
+</div>
+<div class="src">来源：Samsung Semiconductor官方历史; SK Hynix官方历史; 《Chip War》Ch.11-12</div></div>
+
+<div class="card"><span class="tag tc">韩</span><span class="tag tu">美</span><span class="yr">2000—2020</span>
+<div class="ttl">DRAM三国时代 + 3D NAND革命</div>
+<div class="by">DRAM：三星/海力士/美光 | NAND：三星/东芝(铠侠)/海力士/美光/西部数据</div>
+<div class="dsc">
+<p><b>DRAM三国时代：</b>经过2000年代的多轮价格战和行业整合后，全球DRAM市场稳定为三星、SK海力士、美光三巨头格局（合计>95%）。日本2008年尔必达破产标志着日本彻底退出DRAM产业。</p>
+<p><b>3D NAND革命：</b>2007年东芝提出BiCS（Bit Cost Scalable）3D堆叠NAND概念。2013年三星率先量产V-NAND（24层），从2D平面走向3D垂直堆叠，彻底改变了NAND的演进规律——从以制程节点为驱动变为以层数为驱动。此后三星、东芝、美光、海力士、西部数据在3D NAND层数上展开竞赛：24层→32层→48层→64层→96层→128层→176层→232层→300+层。</p>
+</div>
+<div class="src">来源：Samsung/SK Hynix/Micron/Kioxia官方年报; TechInsights存储分析</div></div>
+
+<div class="card"><span class="tag tc">韩</span><span class="tag tu">美</span><span class="yr">2020—2026</span>
+<div class="ttl">HBM时代：AI引爆存储需求 + 中国存储崛起</div>
+<div class="by">SK海力士 HBM3E领先 | NVIDIA AI GPU驱动 | 长江存储(YMTC)中国NAND突破</div>
+<div class="dsc">
+<p><b>HBM（高带宽存储器）：</b>AI大模型训练对显存带宽提出极高要求。NVIDIA H100/H200/B200全部搭载HBM3/HBM3E。SK海力士凭借TSV技术积累，成为NVIDIA HBM3E的独家供应商，市值和营收大幅增长。三星和美光在HBM3E上追赶，HBM4（2048-bit接口）2025年进入量产。</p>
+<p><b>中国存储崛起：</b>长江存储（YMTC）2016年成立，2018年推出Xtacking架构（晶圆键合技术的3D NAND），2022年量产232层3D NAND——达到国际一线水平。长鑫存储（CXMT）在DRAM领域取得DDR4/DDR5量产突破。中国存储芯片在美国制裁下仍保持快速追赶势头。</p>
+<p><b>2025-2026：</b>HBM4量产，NAND超400层，DDR6/LPDDR6普及。AI推理对HBM需求持续爆发。</p>
+</div>
+<div class="src">来源：SK Hynix/Samsung/Micron 2024-2026年报; 长江存储/长鑫存储官方; NVIDIA GTC 2024-2025</div></div>
+
+<h2 id="sec-storage-breakthrough">🔬 存储技术五次重大突破（图解）</h2>
+
+<!-- Storage Breakthrough 1: DRAM Invention -->
+<div class="d3-grid"><div class="d3-card" style="border-left:4px solid var(--p)">
+<div class="d3t">突破 #1：DRAM 单晶体管单元 (1T1C)</div>
+<div class="d3m">1966—1970 | IBM Robert Dennard (1966 专利) → Intel 1103 (1970 量产)</div>
+<div class="d3-desc"><b>解决了什么问题？</b>此前计算机主存使用磁芯存储器（体积大、速度慢、手工编织）。IBM的Dennard发明了单晶体管+单电容(1T1C)的DRAM存储单元——用一个晶体管和一个电容存储1个比特。相比磁芯存储器，DRAM体积缩小百倍、速度提升数十倍、可自动化生产。</div>
+<svg viewBox="0 0 720 150">
+<defs><linearGradient id="sd1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#1d4ed8"/></linearGradient></defs>
+<text x="360" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a5f">3D 示意图：DRAM 1T1C 存储单元</text>
+<rect x="60" y="45" width="600" height="40" rx="3" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1"/>
+<text x="360" y="70" text-anchor="middle" font-size="10" fill="#475569">P-type Silicon Substrate</text>
+<!-- Wordline -->
+<rect x="250" y="20" width="200" height="14" rx="4" fill="url(#sd1)"/>
+<text x="350" y="30" text-anchor="middle" font-size="8" fill="#fff" font-weight="700">WORDLINE (WL) 字线</text>
+<!-- Bitline -->
+<rect x="100" y="25" width="120" height="14" rx="4" fill="#2563eb" opacity=".5"/>
+<text x="160" y="35" text-anchor="middle" font-size="8" fill="#1d4ed8">BITLINE (BL) 位线</text>
+<!-- Capacitor - deep trench -->
+<rect x="150" y="40" width="30" height="25" rx="3" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+<text x="165" y="56" text-anchor="middle" font-size="6" fill="#92400e" font-weight="700">Cs</text>
+<text x="165" y="76" text-anchor="middle" font-size="7" fill="#92400e">存储电容</text>
+<!-- Transistor -->
+<rect x="210" y="38" width="30" height="20" rx="3" fill="#3b82f6" opacity=".6" stroke="#2563eb" stroke-width="1"/>
+<text x="225" y="52" text-anchor="middle" font-size="6" fill="#fff">Tr</text>
+<text x="225" y="76" text-anchor="middle" font-size="7" fill="#2563eb">存取晶体管</text>
+<text x="360" y="95" text-anchor="middle" font-size="9" fill="#64748b">1T1C = 1 Transistor + 1 Capacitor → 每位只需1个晶体管+1个电容（vs SRAM需6个晶体管）</text>
+<text x="360" y="110" text-anchor="middle" font-size="8" fill="#94a3b8">写入：WL开→BL电压充入Cs | 读取：WL开→Cs电荷共享至BL→灵敏放大器(SA)检测</text>
+<text x="360" y="130" text-anchor="middle" font-size="9" fill="#64748b">电容必须周期性刷新(refresh)→"动态"(Dynamic)随机存储器 | 密度高、成本低</text>
+</svg>
+<div class="d3-sol">✅ DDR SDRAM普及→主频2→5.2GT/s(DDR5)。容量从1Kb→32Gb(4GB单芯片，10亿倍增长)。成为所有计算机和服务器的主内存标准。</div>
+<div class="d3-lim">⚠ 新限制：①电容深槽刻蚀深宽比>50:1→工艺难度极大 ②刷新功耗随密度增加 ③DRAM制程不能像逻辑芯片那样无限缩微→1znm(~15nm)后接近物理极限</div>
+<div class="d3-stats"><span class="d3-stat">1T1C单元</span><span class="d3-stat">1Kb→32Gb</span><span class="d3-stat">DDR1→DDR6</span><span class="d3-stat">Dennard 1966</span><span class="d3-stat">Intel 1103 1970</span></div>
+</div></div>
+
+<!-- Storage Breakthrough 2: SDRAM + DDR -->
+<div class="d3-grid"><div class="d3-card" style="border-left:4px solid var(--l)">
+<div class="d3t">突破 #2：SDRAM → DDR SDRAM 同步接口革命</div>
+<div class="d3m">1993 三星首款SDRAM → 2000 DDR SDRAM标准(JEDEC) → 2003 DDR2 → 2007 DDR3 → 2014 DDR4 → 2020 DDR5</div>
+<div class="d3-desc"><b>解决了什么问题？</b>传统异步DRAM(EDO/FPM)需要CPU等待DRAM就绪。SDRAM引入时钟同步接口——所有操作与系统时钟同步，消除了等待周期，吞吐量翻倍。DDR(Double Data Rate)在时钟上升沿和下降沿各传输一次数据→带宽再翻倍。</div>
+<svg viewBox="0 0 720 130">
+<text x="360" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a5f">DDR 代际演进：带宽的指数增长</text>
+<rect x="20" y="30" width="680" height="88" rx="6" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<text x="60" y="50" text-anchor="middle" font-size="8" fill="#64748b">SDRAM</text>
+<text x="60" y="105" text-anchor="middle" font-size="7" fill="#94a3b8">133MHz</text>
+<rect x="40" y="60" width="40" height="20" rx="3" fill="#94a3b8"/>
+<text x="60" y="73" text-anchor="middle" font-size="6" fill="#fff">1x</text>
+
+<text x="150" y="50" text-anchor="middle" font-size="8" fill="#64748b">DDR1</text>
+<text x="150" y="105" text-anchor="middle" font-size="7" fill="#94a3b8">400MT/s</text>
+<rect x="115" y="55" width="70" height="30" rx="3" fill="#3b82f6"/>
+<text x="150" y="73" text-anchor="middle" font-size="7" fill="#fff">1.6GB/s</text>
+
+<text x="240" y="50" text-anchor="middle" font-size="8" fill="#64748b">DDR2</text>
+<text x="240" y="105" text-anchor="middle" font-size="7" fill="#94a3b8">800MT/s</text>
+<rect x="205" y="52" width="70" height="36" rx="3" fill="#2563eb"/>
+<text x="240" y="73" text-anchor="middle" font-size="7" fill="#fff">3.2GB/s</text>
+
+<text x="330" y="50" text-anchor="middle" font-size="8" fill="#64748b">DDR3</text>
+<text x="330" y="105" text-anchor="middle" font-size="7" fill="#94a3b8">2133MT/s</text>
+<rect x="295" y="48" width="70" height="44" rx="3" fill="#1d4ed8"/>
+<text x="330" y="73" text-anchor="middle" font-size="7" fill="#fff">17GB/s</text>
+
+<text x="430" y="50" text-anchor="middle" font-size="8" fill="#64748b">DDR4</text>
+<text x="430" y="105" text-anchor="middle" font-size="7" fill="#94a3b8">3200MT/s</text>
+<rect x="390" y="44" width="80" height="52" rx="3" fill="#1e40af"/>
+<text x="430" y="73" text-anchor="middle" font-size="7" fill="#fff">25GB/s</text>
+
+<text x="550" y="50" text-anchor="middle" font-size="8" fill="#64748b">DDR5</text>
+<text x="550" y="105" text-anchor="middle" font-size="7" fill="#94a3b8">6400MT/s</text>
+<rect x="505" y="40" width="90" height="60" rx="3" fill="#1e3a8a"/>
+<text x="550" y="73" text-anchor="middle" font-size="7" fill="#fff">51GB/s</text>
+
+<text x="670" y="50" text-anchor="middle" font-size="8" fill="#64748b">DDR6</text>
+<text x="670" y="105" text-anchor="middle" font-size="7" fill="#94a3b8">12800MT/s</text>
+<rect x="625" y="36" width="90" height="66" rx="3" fill="#172554"/>
+<text x="670" y="73" text-anchor="middle" font-size="7" fill="#fff">>100GB/s</text>
+</svg>
+<div class="d3-sol">✅ 单通道带宽从133MB/s(SDRAM)增长到>51GB/s(DDR5)→近400倍提升。DDR6预计>100GB/s。</div>
+<div class="d3-lim">⚠ 新限制：①DDR频率继续提升面临信号完整性挑战(PCB布线、串扰) ②DDR功耗随频率指数增长→Server DIMM需要主动散热 ③DDR5引入片上ECC和电源管理(PMIC)</div>
+<div class="d3-stats"><span class="d3-stat">SDRAM 1993</span><span class="d3-stat">DDR1→DDR6</span><span class="d3-stat">133MB/s→>100GB/s</span><span class="d3-stat">JEDEC标准</span><span class="d3-stat">三星/海力士/美光</span></div>
+</div></div>
+
+<!-- Storage Breakthrough 3: 3D NAND -->
+<div class="d3-grid"><div class="d3-card" style="border-left:4px solid var(--ms)">
+<div class="d3t">突破 #3：3D NAND 垂直堆叠 (从2D平面→3D摩天大楼)</div>
+<div class="d3m">2007 东芝BiCS概念→2013 三星V-NAND 24层量产→2026 400+层</div>
+<div class="d3-desc"><b>解决了什么问题？</b>2D NAND缩小到15nm以下时，相邻存储单元的电子串扰(Cell-to-Cell Interference)变得无法容忍——继续缩微只会增加错误率。东芝2007年提出的BiCS方案将NAND存储单元垂直堆叠，不再依赖平面缩微。三星2013年率先量产V-NAND(24层)，宣告NAND从"更小"转向"更高"。</div>
+<svg viewBox="0 0 720 180">
+<text x="360" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a5f">3D：2D NAND (左) vs 3D NAND (右) — 从平面到摩天大楼</text>
+<!-- 2D NAND -->
+<rect x="20" y="28" width="300" height="80" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+<text x="170" y="46" text-anchor="middle" font-size="10" font-weight="700" fill="#dc2626">2D NAND ─ 平面 (已到极限)</text>
+<rect x="50" y="54" width="30" height="30" rx="3" fill="#fca5a5" opacity=".7"/>
+<text x="65" y="72" text-anchor="middle" font-size="6" fill="#991b1b">Cell</text>
+<rect x="90" y="54" width="30" height="30" rx="3" fill="#fca5a5" opacity=".7"/>
+<rect x="130" y="54" width="30" height="30" rx="3" fill="#fca5a5" opacity=".7"/>
+<rect x="170" y="54" width="30" height="30" rx="3" fill="#fca5a5" opacity=".7"/>
+<rect x="210" y="54" width="30" height="30" rx="3" fill="#fca5a5" opacity=".7"/>
+<text x="170" y="100" text-anchor="middle" font-size="7" fill="#dc2626">⚠ 15nm以下串扰失控</text>
+
+<text x="345" y="68" text-anchor="middle" font-size="28">→</text>
+
+<!-- 3D NAND -->
+<rect x="380" y="28" width="320" height="80" rx="6" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+<text x="540" y="46" text-anchor="middle" font-size="10" font-weight="700" fill="#059669">3D NAND ─ 垂直堆叠 (无限潜力)</text>
+<rect x="430" y="54" width="20" height="46" rx="3" fill="#6ee7b7" opacity=".8"/>
+<rect x="465" y="54" width="20" height="46" rx="3" fill="#6ee7b7" opacity=".8"/>
+<rect x="500" y="54" width="20" height="46" rx="3" fill="#6ee7b7" opacity=".8"/>
+<rect x="535" y="54" width="20" height="46" rx="3" fill="#6ee7b7" opacity=".8"/>
+<rect x="570" y="54" width="20" height="46" rx="3" fill="#6ee7b7" opacity=".8"/>
+<rect x="605" y="54" width="20" height="46" rx="3" fill="#6ee7b7" opacity=".8"/>
+<text x="540" y="100" text-anchor="middle" font-size="7" fill="#059669">✅ 层数无限增长→容量翻倍</text>
+
+<text x="360" y="140" text-anchor="middle" font-size="9" color="#64748b">东芝BiCS(2007)→三星V-NAND 24层(2013)→96层QLC(2018)→176层(2020美光)→232层(2022)→400+层(2026)</text>
+<text x="360" y="156" text-anchor="middle" font-size="8" color="#94a3b8">每层含数千个存储单元 | 通过垂直通道(Vertical Channel)连接→每条垂直柱就是一个NAND串(NAND String)</text>
+</svg>
+<div class="d3-sol">✅ NAND容量从128Gb (2D)增长到1Tb+ (3D 232层)→8倍+增长。成本/bit持续下降。3D NAND已发展到232层(2022)→300层+(2024)→400层+(2026)。</div>
+<div class="d3-lim">⚠ 新限制：①超高深宽比(HAR)刻蚀——>100:1刻蚀垂直通道孔→工艺极限 ②层数增加→每个垂直通道的均匀性更难保证 ③应力累积→晶圆翘曲 ④层间对准精度</div>
+<div class="d3-stats"><span class="d3-stat">2D→3D</span><span class="d3-stat">24层→400+层</span><span class="d3-stat">容量↑8x+</span><span class="d3-stat">东芝(概念)→三星(量产)</span><span class="d3-stat">垂直通道HAR刻蚀</span></div>
+</div></div>
+
+<!-- Storage Breakthrough 4: HBM -->
+<div class="d3-grid"><div class="d3-card" style="border-left:4px solid var(--cn)">
+<div class="d3t">突破 #4：HBM 高带宽存储器 (TSV 3D堆叠)</div>
+<div class="d3m">2013 HBM1(JEDEC)→2016 HBM2→2020 HBM2E→2023 HBM3→2024 HBM3E→2025 HBM4</div>
+<div class="d3-desc"><b>解决了什么问题？</b>传统DRAM通过PCB走线连接GPU/CPU，带宽受限于引脚数和PCB布线密度。HBM通过硅通孔(TSV)将多层DRAM芯片垂直堆叠，底部通过硅中介层(Interposer)与GPU/CPU超短距离连接→带宽从几十GB/s飙升至1TB/s+。AI大模型训练对显存带宽的需求(>2TB/s)只能靠HBM满足。</div>
+<svg viewBox="0 0 720 170">
+<text x="360" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a5f">3D：HBM 堆叠结构 (以NVIDIA H100为例：6颗HBM3=96GB)</text>
+<!-- GPU + HBM stack -->
+<rect x="30" y="30" width="120" height="30" rx="4" fill="#3b82f6"/>
+<text x="90" y="49" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">GPU Die</text>
+<rect x="40" y="62" width="100" height="14" rx="3" fill="#0891b2" opacity=".6"/>
+<text x="90" y="72" text-anchor="middle" font-size="7" fill="#fff">Silicon Interposer</text>
+<rect x="50" y="78" width="80" height="10" rx="3" fill="#cbd5e1"/>
+<text x="90" y="85" text-anchor="middle" font-size="6" fill="#475569">Package Substrate</text>
+
+<text x="170" y="50" font-size="20">+</text>
+
+<!-- HBM stack -->
+<rect x="200" y="30" width="100" height="10" rx="2" fill="#fcd34d"/>
+<text x="250" y="38" text-anchor="middle" font-size="5" fill="#92400e">DRAM 8</text>
+<rect x="200" y="42" width="100" height="10" rx="2" fill="#fcd34d"/>
+<text x="250" y="50" text-anchor="middle" font-size="5" fill="#92400e">DRAM 7</text>
+<rect x="200" y="54" width="100" height="10" rx="2" fill="#fcd34d"/> <text x="250" y="62" text-anchor="middle" font-size="5" fill="#92400e">DRAM 6</text>
+<rect x="200" y="66" width="100" height="10" rx="2" fill="#fcd34d"/> <text x="250" y="74" text-anchor="middle" font-size="5" fill="#92400e">DRAM 5</text>
+<rect x="200" y="78" width="100" height="10" rx="2" fill="#fcd34d"/> <text x="250" y="86" text-anchor="middle" font-size="5" fill="#92400e">DRAM 4</text>
+<rect x="200" y="90" width="100" height="10" rx="2" fill="#fcd34d"/> <text x="250" y="98" text-anchor="middle" font-size="5" fill="#92400e">DRAM 3</text>
+<rect x="200" y="102" width="100" height="10" rx="2" fill="#fcd34d"/> <text x="250" y="110" text-anchor="middle" font-size="5" fill="#92400e">DRAM 2</text>
+<rect x="200" y="114" width="100" height="10" rx="2" fill="#fcd34d"/> <text x="250" y="122" text-anchor="middle" font-size="5" fill="#92400e">DRAM 1</text>
+<rect x="210" y="126" width="80" height="6" rx="2" fill="#fbbf24"/>
+<text x="250" y="131" text-anchor="middle" font-size="5" fill="#92400e">Logic Die (Base)</text>
+
+<text x="320" y="70" font-size="14">← TSV</text>
+
+<text x="360" y="140" text-anchor="middle" font-size="9" fill="#64748b">HBM3E: 8层/12层DRAM堆叠 | 1024-bit每通道 | 带宽>1.2TB/s | NVIDIA H200: 141GB HBM3E</text>
+<text x="360" y="155" text-anchor="middle" font-size="8" fill="#94a3b8">SK海力士独家供应NVIDIA HBM3E(2024-) → HBM4: 2048-bit, >1.6TB/s (2025)</text>
+</svg>
+<div class="d3-sol">✅ HBM3E带宽>1.2TB/s (vs 传统GDDR6X ~1TB/s但因布线限制通常只有768GB/s)。NVIDIA H200搭载141GB HBM3E→AI训练速度翻倍。HBM4目标2048-bit→>1.6TB/s。</div>
+<div class="d3-lim">⚠ 挑战：①TSV制造良率→每增加一层堆叠，良率指数下降 ②热密度→多层DRAM堆叠散热困难 ③产能瓶颈→SK海力士HBM产能被NVIDIA完全吃下→三星/美光追赶 ④封装精度→12层堆叠的对准精度<1μm</div>
+<div class="d3-stats"><span class="d3-stat">TSV 3D堆叠</span><span class="d3-stat">HBM1→HBM4</span><span class="d3-stat">128GB/s→>1.6TB/s</span><span class="d3-stat">SK海力士领先</span><span class="d3-stat">AI GPU标配</span></div>
+</div></div>
+
+<!-- Storage Breakthrough 5: Xtacking -->
+<div class="d3-grid"><div class="d3-card" style="border-left:4px solid var(--tw)">
+<div class="d3t">突破 #5：Xtacking 混合键合 (长江存储)</div>
+<div class="d3m">2018 长江存储YMTC Xtacking 1.0→2022 Xtacking 3.0 232层→2024 Xtacking 4.0 300+层</div>
+<div class="d3-desc"><b>解决了什么问题？</b>传统3D NAND的存储阵列和外围CMOS电路在同一晶圆上制作→外围电路占面积且受高温存储工艺限制→I/O速度受限。Xtacking将存储阵列和CMOS逻辑电路分别在不同晶圆上制造，通过数百万个金属键合点(Vertical Interconnect)面对面键合→存储密度提升+I/O速度翻倍+开发周期缩短。</div>
+<svg viewBox="0 0 720 160">
+<text x="360" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a5f">3D：Xtacking 混合键合原理 (长江存储 YMTC)</text>
+<!-- Traditional -->
+<rect x="15" y="30" width="300" height="80" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+<text x="165" y="48" text-anchor="middle" font-size="10" font-weight="700" fill="#dc2626">传统：存储+逻辑在同一晶圆</text>
+<rect x="45" y="56" width="240" height="16" rx="3" fill="#fca5a5" opacity=".5"/>
+<text x="165" y="67" text-anchor="middle" font-size="7" fill="#991b1b">3D NAND 存储阵列 (阵列效率~60-70%)</text>
+<rect x="65" y="76" width="200" height="20" rx="3" fill="#ef4444" opacity=".6"/>
+<text x="165" y="90" text-anchor="middle" font-size="7" fill="#fff">CMOS外围电路 Peri.(占面积~30-40%)</text>
+<text x="165" y="105" text-anchor="middle" font-size="7" fill="#dc2626">⚠ 外围电路拖累存储密度/I/O速度</text>
+
+<text x="340" y="70" text-anchor="middle" font-size="28">→</text>
+
+<!-- Xtacking -->
+<rect x="380" y="30" width="325" height="80" rx="6" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+<text x="542" y="48" text-anchor="middle" font-size="10" font-weight="700" fill="#059669">Xtacking：存储+逻辑 独立晶圆键合</text>
+<rect x="420" y="56" width="245" height="14" rx="3" fill="#6ee7b7" opacity=".7"/>
+<text x="542" y="66" text-anchor="middle" font-size="7" fill="#047857">3D NAND 存储阵列 (阵列效率>90%)</text>
+<rect x="460" y="72" width="165" height="6" rx="2" fill="#fbbf24" opacity=".7"/>
+<text x="542" y="77" text-anchor="middle" font-size="5" fill="#92400e">数百万金属键合点 (Cu-Cu Hybrid Bonding)</text>
+<rect x="430" y="80" width="225" height="16" rx="3" fill="#059669" opacity=".7"/>
+<text x="542" y="92" text-anchor="middle" font-size="7" fill="#fff">CMOS外围电路 Peri. 独立晶圆</text>
+<text x="542" y="106" text-anchor="middle" font-size="7" fill="#059669">✅ I/O速度+3x 存储密度↑ 开发周期-3月</text>
+
+<text x="360" y="136" text-anchor="middle" font-size="9" fill="#64748b">YMTC Xtacking 1.0 (2018,64层)→2.0(2020,128层)→3.0(2022,232层,达国际一线)→4.0(2024,300+层)</text>
+</svg>
+<div class="d3-sol">✅ Xtacking使长江存储在3D NAND层数上迅速追赶国际一线——2022年即量产232层(Xtacking 3.0)，性能与三星/美光/海力士同类产品持平。证明了非传统NAND厂商可以通过架构创新弯道超车。</div>
+<div class="d3-lim">⚠ 挑战：①Cu-Cu混合键合的对准精度要求极高(<0.5μm) ②键合界面质量→影响可靠性和成品率 ③美国制裁→YMTC获取设备和材料受限→后续层数提升节奏受影响</div>
+<div class="d3-stats"><span class="d3-stat">异构集成</span><span class="d3-stat">Cu-Cu Hybrid Bonding</span><span class="d3-stat">YMTC 2018</span><span class="d3-stat">232层 Xtacking 3.0</span><span class="d3-stat">I/O速度+3x</span></div>
+</div></div>
+
+<h2 id="sec-storage-country">🏛️ 存储产业各国关键节点</h2>
+
+<div class="card"><span class="tag tu">美国</span><div class="ttl">美国：DRAM开创者 → 退守美光一席</div>
+<div class="dsc">
+<dl>
+<dt>1970 Intel 1103</dt><dd>全球首款商用DRAM→取代磁芯存储器→Intel起家之基。</dd>
+<dt>1970s 美国DRAM全盛</dt><dd>Intel/Mostek/TI/Motorola占据全球>90%DRAM市场。</dd>
+<dt>1980 被日本碾压</dt><dd>惠普测试→美国最优质DRAM不如日本最差产品。</dd>
+<dt>1985 Intel退出DRAM</dt><dd>Grove-Moore历史性决策→放弃存储器→All-in微处理器。</dd>
+<dt>1990s 美光独撑</dt><dd>美光科技(Micron)成为唯一存活下来的美国DRAM厂商→通过并购德州仪器DRAM业务等持续壮大。</dd>
+<dt>2000-至今 美光三国之一</dt><dd>美光与三星、SK海力士三分DRAM天下(各~20-25%市占)。2020年率先量产176层3D NAND。2022年232层3D NAND。2024年HBM3E追赶SK海力士。</dd>
+</dl></div>
+<div class="src">来源：Intel/Micron官方历史; 《Chip War》Ch.6-8; 《Only the Paranoid Survive》(Grove,1996)</div></div>
+
+<div class="card"><span class="tag tj">日本</span><div class="ttl">日本：DRAM绝对霸主 → 全军覆没 → 铠侠孤军</div>
+<div class="dsc">
+<dl>
+<dt>1976 VLSI计划</dt><dd>DRAM主攻方向→四年内技术全面超越美国。</dd>
+<dt>1980 品质碾压</dt><dd>惠普测试日本DRAM完胜→良率高30%/价格低60%。</dd>
+<dt>1985 巅峰</dt><dd>日本DRAM全球市占>80%→NEC全球第一。</dd>
+<dt>1986 美日协议→衰退</dt><dd>被迫限制出口→叠加日元升值→成本优势瓦解。</dd>
+<dt>1990s 全盘崩溃</dt><dd>NEC/日立/东芝/富士通相继退出DRAM。2008年尔必达破产→日本DRAM全军覆没。</dd>
+<dt>2007 东芝3D NAND</dt><dd>东芝发明BiCS 3D NAND概念→改变NAND演进方向。</dd>
+<dt>2018 铠侠成立</dt><dd>东芝将NAND业务剥离为铠侠(Kioxia)→在日本NAND市场艰难维持。</dd>
+</dl></div>
+<div class="src">来源：日本通产省VLSI档案; NEC/东芝/日立/尔必达/铠侠官方历史</div></div>
+
+<div class="card"><span class="tag tc">韩</span><div class="ttl">韩国：逆周期投资成就存储器绝对霸主</div>
+<div class="dsc">
+<dl>
+<dt>1983 三星进军DRAM</dt><dd>李健熙"东京宣言"→宣布三星成为DRAM供应商。</dd>
+<dt>1985 逆周期投资</dt><dd>DRAM价格暴跌时加倍投资→挤垮日本对手。</dd>
+<dt>1992 三星DRAM全球第一</dt><dd>不到10年从零到全球最大→至今保持DRAM第一。</dd>
+<dt>1997 再次逆周期</dt><dd>亚洲金融危机中再扩产→进一步扩大优势。</dd>
+<dt>2013 三星V-NAND 24层</dt><dd>全球首家量产3D NAND→重新定义NAND技术方向。</dd>
+<dt>SK海力士崛起</dt><dd>2001年现代电子更名海力士→2012年SK集团收购→仅次于三星的全球第二大存储器厂。</dd>
+<dt>2023 HBM3E领先</dt><dd>SK海力士独家供应NVIDIA HBM3E→AI时代最大受益者之一。韩系合计控DRAM>70%+NAND>50%。</dd>
+</dl></div>
+<div class="src">来源：Samsung Semiconductor/SK Hynix官方历史; 《Chip War》Ch.11-12</div></div>
+
+<div class="card"><span class="tag tc">中</span><div class="ttl">中国大陆：从零到封锁中崛起的存储新势力</div>
+<div class="dsc">
+<dl>
+<dt>2016 长江存储(YMTC)成立</dt><dd>国家大基金投资→专注3D NAND Flash。</dd>
+<dt>2016 长鑫存储(CXMT)成立</dt><dd>专注DRAM→从奇梦达(Qimonda)引进技术。</dd>
+<dt>2018 Xtacking架构</dt><dd>YMTC发布Xtacking 1.0→混合键合技术实现存储/逻辑分离→中国存储芯片最具原创性的技术创新。</dd>
+<dt>2020 Xtacking 2.0 128层</dt><dd>追赶至国际主流水平。</dd>
+<dt>2022 Xtacking 3.0 232层</dt><dd>达到国际一线水平(与三星/美光/海力士持平)。</dd>
+<dt>2022 美国制裁</dt><dd>YMTC/CXMT被列入实体清单→限制先进设备获取。</dd>
+<dt>2024 Xtacking 4.0</dt><dd>在制裁下依然推出300+层3D NAND。CXMT量产DDR4/DDR5。</dd>
+</dl></div>
+<div class="src">来源：YMTC/CXMT官方; TechInsights拆解分析; BIS联邦公报</div></div>
+
+<h2 id="sec-storage-events">📋 存储重大事件详表</h2>
+
+<div class="card"><span class="tag ts">存储</span><span class="yr">1970</span><div class="ttl">Intel 1103：首款商用DRAM</div><div class="by">Intel | 1Kb, 10μm | 定价远低于磁芯存储器</div><div class="dsc"><p>1103是"改变计算机历史的芯片"——它将计算机主存从昂贵、笨重的磁芯存储器升级为半导体DRAM，体积缩小百倍，速度提升数十倍。1103是Intel第一个大获成功的产品，为Intel积累了早期资金和技术实力。1974年1103成为全球销量最大的半导体芯片。</p></div><div class="src">来源：Intel官方历史; IEEE Spectrum "25 Microchips That Shook the World"</div></div>
+
+<div class="card"><span class="tag ts">存储</span><span class="yr">1980</span><div class="ttl">惠普DRAM测试：日本品质碾压美国</div><div class="by">惠普对16K DRAM招标测试 | NEC/日立/富士通 vs Intel/TI/Mostek</div><div class="dsc"><p>测试结果震惊了全球半导体行业：美国DRAM的不合格率是日本的6-10倍。日本DRAM良率高30%、价格低60%。这一测试成为日本半导体崛起的标志性事件，也推动了Intel退出DRAM市场的决定。</p></div><div class="src">来源：惠普1980年内部质量测试报告; 《Chip War》Ch.7</div></div>
+
+<div class="card"><span class="tag ts">存储</span><span class="yr">1992</span><div class="ttl">三星成为全球最大DRAM厂商</div><div class="by">三星电子 | 逆周期投资策略</div><div class="dsc"><p>1983年宣布进军DRAM，不到10年即超越日本成为全球第一。逆周期投资策略被反复验证为存储器行业最有效的竞争策略——在行业低谷时扩大投资扩产，用资金优势挤垮竞争对手。</p></div><div class="src">来源：Samsung Semiconductor官方历史; 《Chip War》Ch.11-12</div></div>
+
+<div class="card"><span class="tag ts">存储</span><span class="yr">2013</span><div class="ttl">三星 V-NAND 24层：全球首款3D NAND量产</div><div class="by">三星电子</div><div class="dsc"><p>基于东芝2007年BiCS概念，三星率先将3D垂直堆叠NAND推向大规模量产。从24层起步，3D NAND开启了NAND容量增长的新范式——不再依赖制程缩微，而是通过增加堆叠层数来提升容量、降低成本。</p></div><div class="src">来源：Samsung Semiconductor 2013年报; TechInsights NAND分析</div></div>
+
+<div class="card"><span class="tag ts">存储</span><span class="yr">2023</span><div class="ttl">HBM3E：AI时代的"新石油"——SK海力士独家供应NVIDIA</div><div class="by">SK海力士 | NVIDIA H100/H200/HB200</div><div class="dsc"><p>AI大模型训练对GPU显存带宽需求飙升至>2TB/s。SK海力士凭借十多年的TSV技术积累，成为NVIDIA H100系列唯一的HBM3E供应商——每颗NVIDIA H100/H200 GPU搭载6颗HBM3/HBM3E（总容量80-141GB）。HBM业务使SK海力士在2024年市值和营收大幅增长。三星、美光在HBM3E上仍处于追赶状态。2025年HBM4预计带宽>1.6TB/s。</p></div><div class="src">来源：SK Hynix/NVIDIA 2024年报; GTC 2024-2025; IEEE ISSCC HBM论文</div></div>
+
+<div class="card"><span class="tag ts">存储</span><span class="yr">2022-2024</span><div class="ttl">长江存储 Xtacking 232层：中国存储的里程碑</div><div class="by">YMTC（长江存储）| Xtacking 3.0 架构</div><div class="dsc"><p>2022年YMTC率先量产232层3D NAND（Xtacking 3.0），达到国际一线水平，震惊全球存储行业。核心创新Cu-Cu Hybrid Bonding混合键合技术将存储阵列和CMOS逻辑分别制造在不同晶圆上再键合——这是非传统NAND厂商通过架构创新弯道超车的典型案例。美国2022年将YMTC列入实体清单，试图阻止其获取先进设备，但YMTC在制裁下依然在2024年推出Xtacking 4.0（300+层）。</p></div><div class="src">来源：YMTC官方; TechInsights YMTC 232L NAND拆解(2022); CSIS分析</div></div>
+
+<h2 id="sec-storage-nodes">存储芯片（DRAM/NAND）制程演进</h2>
 <div class="card">
 <div class="ttl">存储器制程与逻辑制程不同——DRAM/NAND以容量密度和层数为核心衡量标准</div>
 <table class="node-table">
-<thead><tr><th>年</th><th>DRAM制程</th><th>NAND层数</th><th>主导厂商</th><th>关键技术</th></tr></thead>
+<thead><tr><th>年</th><th>DRAM</th><th>NAND层数</th><th>主导厂商</th><th>关键技术</th></tr></thead>
 <tbody>
-<tr><td>1970</td><td>Intel 1103 1Kb 10μm</td><td>—</td><td>Intel</td><td>首款商用DRAM</td></tr>
-<tr><td>1980</td><td>64Kb → 256Kb</td><td>—</td><td>NEC/日立/富士通</td><td>日本VLSI品质碾压美国</td></tr>
+<tr><td>1970</td><td>Intel 1103 1Kb 10μm</td><td>—</td><td>Intel</td><td>首款商用DRAM,1T1C单元</td></tr>
+<tr><td>1980</td><td>64Kb→256Kb</td><td>—</td><td>NEC/日立/富士通</td><td>日本VLSI品质碾压美国</td></tr>
 <tr><td>1985</td><td>1Mb DRAM</td><td>—</td><td>NEC/东芝</td><td>日本DRAM全球>80%</td></tr>
 <tr><td>1992</td><td>16Mb DRAM</td><td>—</td><td><b>三星(全球第一)</b></td><td>逆周期投资策略</td></tr>
-<tr><td>2000</td><td>256Mb, DDR</td><td>—</td><td>三星/海力士/美光</td><td>DDR SDRAM时代</td></tr>
-<tr><td>2007</td><td>1Gb DDR3</td><td>东芝BiCS 3D</td><td>三星/东芝</td><td><b>东芝发明3D NAND概念</b></td></tr>
-<tr><td>2013</td><td>DDR4 20nm级</td><td>三星V-NAND 24层</td><td>三星</td><td><b>三星3D NAND量产</b></td></tr>
-<tr><td>2016</td><td>DDR4 1xnm</td><td>64层</td><td>三星/东芝/美光/海力士</td><td>3D堆叠成为主流</td></tr>
-<tr><td>2018</td><td>DDR4 1ynm</td><td>96层 QLC</td><td>三星/美光/海力士/东芝</td><td>QLC(4bit/cell)商用</td></tr>
-<tr><td>2020</td><td>DDR5, 1znm</td><td><b>176层</b></td><td><b>美光率先</b></td><td>美光176层领先</td></tr>
-<tr><td>2022</td><td>DDR5, 1αnm</td><td>232层</td><td>美光/SK海力士</td><td>CMOS-Under-Array</td></tr>
-<tr><td>2023</td><td>DDR5, 1βnm</td><td><b>HBM3E</b></td><td>SK海力士(独家供NVIDIA)</td><td><b>HBM3E AI训练核心</b></td></tr>
-<tr><td>2024</td><td>DDR5, 1γnm</td><td>300+层</td><td>SK海力士/三星</td><td>Hybrid Bonding</td></tr>
-<tr><td>2025</td><td>LPDDR6</td><td>HBM4 2048-bit</td><td>SK海力士/三星/美光</td><td>HBM4+逻辑Die集成</td></tr>
-<tr><td>2026</td><td>DDR6</td><td><b>400+层</b></td><td>美光/SK海力士</td><td>400层+超高密度</td></tr>
+<tr><td>1993</td><td>SDRAM 1→133MHz</td><td>—</td><td>三星</td><td>同步接口(时钟同步)</td></tr>
+<tr><td>2000</td><td>DDR1 256Mb</td><td>2D NAND 缩小制程</td><td>三星/海力士/美光</td><td>DDR双沿传输→带宽翻倍</td></tr>
+<tr><td>2003</td><td>DDR2</td><td>2D NAND ~50nm</td><td>三星/海力士/美光</td><td>FBGA封装,片内终结ODT</td></tr>
+<tr><td>2007</td><td>DDR3</td><td>东芝BiCS 3D概念</td><td>三星/东芝</td><td><b>★东芝发明3D NAND概念</b></td></tr>
+<tr><td>2013</td><td>DDR4</td><td>三星V-NAND 24层</td><td>三星</td><td><b>★3D NAND量产元年</b></td></tr>
+<tr><td>2016</td><td>DDR4 1xnm</td><td>64层 3D NAND</td><td>三星/东芝/美光/海力士</td><td>3D堆叠成主流</td></tr>
+<tr><td>2018</td><td>DDR4 1ynm</td><td>96层 QLC</td><td>三星/美光/海力士/铠侠</td><td>QLC(4bit/cell),YMTC Xtacking</td></tr>
+<tr><td>2020</td><td>DDR5 1znm</td><td><b>176层</b></td><td><b>美光率先/三星/海力士</b></td><td>★美光176层领先</td></tr>
+<tr><td>2022</td><td>DDR5 1αnm</td><td>232层</td><td>美光/海力士/<b>YMTC</b></td><td>CMOS-Under-Array,YMTC Xtacking 3.0</td></tr>
+<tr><td>2023</td><td>DDR5 1βnm</td><td><b>HBM3E</b></td><td>SK海力士(供NVIDIA)</td><td>★HBM3E AI训练核心</td></tr>
+<tr><td>2024</td><td>DDR5 1γnm</td><td>300+层</td><td>海力士/三星/YMTC</td><td>Hybrid Bonding,Xtacking 4.0</td></tr>
+<tr><td>2025</td><td>LPDDR6</td><td>HBM4 2048-bit</td><td>海力士/三星/美光</td><td>HBM4逻辑Die集成</td></tr>
+<tr><td>2026</td><td>DDR6</td><td><b>400+层</b></td><td>美光/海力士/YMTC</td><td>400层+超高密度</td></tr>
 </tbody></table>
-<p style="font-size:13px;color:#475569;margin-top:8px"><b>说明：</b>存储芯片（DRAM/NAND）的制程演进与逻辑芯片不同。DRAM以1x/1y/1z/1α/1β/1γ代际标识而非nm命名。NAND Flash从2D平面走向3D堆叠，以层数为核心指标。AI时代的HBM（高带宽存储器）成为GPU关键配套——SK海力士目前独家供应NVIDIA HBM3E。全球存储市场三星/SK海力士/美光三分天下。</p>
-<div class="src">来源：Samsung/SK Hynix/Micron/Kioxia官方年报; TechInsights存储分析; IEEE ISSCC论文</div></div>
+<p style="font-size:13px;color:#475569;margin-top:8px"><b>说明：</b>存储芯片的制程演进规律与逻辑芯片完全不同。DRAM不以栅长nm命名（以1x/1y/1z/1α/1β/1γ代际标识），核心驱动力是容量增长和带宽提升。NAND从2D走向3D堆叠后以层数为核心指标。AI时代的HBM（高带宽存储器）利用TSV 3D堆叠技术，成为GPU的关键配套——SK海力士目前独家供应NVIDIA HBM3E。全球DRAM市场由三星、SK海力士、美光三分天下；NAND市场由三星、SK海力士、铠侠/西部数据、美光、YMTC（长江存储）五方竞争。</p>
+<div class="src">来源：Samsung/SK Hynix/Micron/Kioxia/WD/YMTC官方年报; TechInsights存储分析; IEEE ISSCC各年论文</div></div>
 
 <!-- ====== SOURCES ====== -->
-<h2>📚 参考文献</h2>
+<h2 id="sec-sources">📚 参考文献</h2>
 <div class="card"><div class="srcs">
 <p><b>核心书籍：</b></p><ol>
 <li>Miller, Chris. <i>Chip War: The Fight for the World's Most Critical Technology</i>. Scribner,2022.</li>
