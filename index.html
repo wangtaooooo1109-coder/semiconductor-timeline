@@ -161,6 +161,8 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <li><a href="#sec-storage-country">存储产业各国进展</a></li>
 <li><a href="#sec-storage-events">存储重大事件详表</a></li>
 <li><a href="#sec-storage-nodes">存储制程演进总表</a></li>
+<li><a href="#sec-logic-deep">逻辑芯片深度研究（制程竞赛/ASML/中美博弈/Chiplet/AI芯片）</a></li>
+<li><a href="#sec-storage-deep">存储深度研究（范式转移/长鑫/长江）</a></li>
 <li><a href="#sec-sources">参考文献</a></li>
 </ol>
 </div>
@@ -1008,289 +1010,558 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <p style="font-size:13px;color:#475569;margin-top:8px"><b>说明：</b>存储芯片的制程演进规律与逻辑芯片完全不同。DRAM不以栅长nm命名（以1x/1y/1z/1α/1β/1γ代际标识），核心驱动力是容量增长和带宽提升。NAND从2D走向3D堆叠后以层数为核心指标。AI时代的HBM（高带宽存储器）利用TSV 3D堆叠技术，成为GPU的关键配套——SK海力士目前独家供应NVIDIA HBM3E。全球DRAM市场由三星、SK海力士、美光三分天下；NAND市场由三星、SK海力士、铠侠/西部数据、美光、YMTC（长江存储）五方竞争。</p>
 <div class="src">来源：Samsung/SK Hynix/Micron/Kioxia/WD/YMTC官方年报; TechInsights存储分析; IEEE ISSCC各年论文</div></div>
 
-<!-- ====== SOURCES ====== -->
-<h2 id="sec-sources">📚 参考文献</h2>
-<div class="card"><div class="srcs">
-<p><b>核心书籍：</b></p><ol>
-<li>Miller, Chris. <i>Chip War: The Fight for the World's Most Critical Technology</i>. Scribner,2022.</li>
-<li>Grove, Andrew S. <i>Only the Paranoid Survive</i>. Currency Doubleday,1996.</li>
-<li>Malone, Michael S. <i>The Intel Trinity</i>. Harper Business,2014.</li>
-<li>张忠谋. <i>张忠谋自传</i>. 天下文化,1998/2024.</li></ol>
-<p><b>百科: </b>WikiChip Technology Node; Wikipedia相关条目</p>
-<p><b>官方: </b>Intel/Samsung/TSMC/ASML/NEC/东芝/日立/SMIC/Fairchild/TI官方历史及技术白皮书; Bell Labs档案; Nobel Prize官方; BIS联邦公报2018-2024; CSIS分析(2023)</p>
-<p><b>学术: </b>Moore, <i>Electronics</i> 1965; Lin, SPIE 2002; Nature, "Inverse Lithography" 2025; TechInsights麒麟9000S拆解(2023.8); AnandTech A9分析(2015); 惠普1980 DRAM质量测试报告</p>
+
+
+<hr style="margin:60px 0 40px;border:none;border-top:4px solid #2563eb">
+
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px">第四篇：逻辑芯片深度研究</h1>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:40px">从摩尔定律到AI算力军备竞赛 · 制程竞争 · ASML垄断 · 中美博弈</p>
+
+<div class="card" style="background:#eff6ff;border-color:#93c5fd"><div class="ttl" style="font-size:18px">本篇目录</div>
+<ol style="line-height:2.2;font-size:13px;padding-left:20px;margin-top:8px">
+<li>范式转移：从PC时代的Wintel到AI时代的GPU+Foundry</li>
+<li>摩尔定律的"死亡"与"复活"：为什么制程缩微在继续但成本不降了</li>
+<li>制程竞争全景：Intel/TSMC/Samsung 的二十年制程路线图对比</li>
+<li>ASML EUV垄断：从政治博弈到全球半导体"单点故障"</li>
+<li>Foundry模式的胜利：为什么IDM输给了Fabless+Foundry</li>
+<li>中美芯片战争深度：从单点制裁到系统性脱钩的技术经济学</li>
+<li>Chiplet与先进封装：后摩尔时代芯片性能增长的"第二曲线"</li>
+<li>AI芯片军备竞赛：NVIDIA/AMD/Google/Meta/华为/寒武纪</li>
+<li>三个非共识观点（逻辑芯片篇）</li>
+</ol></div>
+
+<h2>1. 范式转移：从Wintel到GPU+Foundry</h2>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl">旧范式：PC时代的Wintel双头垄断</div>
+<div class="dsc"><p>1990年代到2010年代，全球芯片产业被两个巨头定义：Intel提供CPU，Microsoft提供操作系统。"摩尔定律"（每18个月晶体管翻倍）不是物理定律，是Intel为维持x86霸权而设的"业绩指标"——每代制程升级带来20-30%性能提升，Intel以此锁定PC产业链的定价权。</p>
+<dl><dt>Intel的财务模式</dt><dd>毛利率60%+，净利率25%+。每代制程的研发成本（$20-50亿）通过海量出货摊薄。巅峰时期（2010年前后），Intel一家独占全球半导体利润的35%+。"Intel inside"不是技术标签，是利润标签。</dd>
+<dt>崩塌的三重原因</dt><dd>① 智能手机崛起：ARM+TSMC替代Intel成为新王；② 10nm地狱（2016-19）：Intel过度追求密度（100.8 MTr/mm²）且拒绝EUV，自毁制程节奏；③ AI时代：GPU成为"新CPU"，而NVIDIA不需要自己的工厂。</dd></dl></div></div>
+
+<div class="card" style="border-left:4px solid #7c3aed">
+<div class="ttl">新范式：AI时代的GPU+Foundry二重奏</div>
+<div class="dsc"><p>2020年代起，芯片产业的权力结构发生根本性转移：<b>设计权从Intel转到NVIDIA</b>（GPU成为算力中心），<b>制造权从IDM转到TSMC</b>（Foundry成为制程王者）。Fabless设计公司不再受制于Intel的制程节奏，而是共享TSMC的工艺平台。</p>
+<dl><dt>权力结构的重新分配</dt><dd>2024年NVIDIA市值超过$3万亿（超越Intel+AWS+Google之和），TSMC市值接近$1万亿。这两家公司在20年前都不在半导体的"权力中心"。Intel市值从2020年$250B跌至2024年$150B。</dd><dt>关键含义</dt><dd>芯片产业从"一家公司垄断制程与设计"的垂直模式，转变为"设计公司百花齐放+一家Foundry统一制造"的水平模式。TSMC成为这个新秩序中最不可替代的单一节点。</dd></dl></div></div>
+
+<h2>2. 摩尔定律的"死亡"与"复活"</h2>
+
+<div class="card" style="border-left:4px solid #d97706">
+<div class="ttl">为什么说摩尔定律"死了"？——晶体管成本不再随缩微自动下降</div>
+<div class="dsc">
+<p>2000年以前，每代制程缩微会自动带来约30-40%的晶体管成本下降（更多芯片从同一片wafer产出）。但自FinFET时代（2011年后），这一规律被打破：</p>
+<dl><dt>单晶体管成本拐点（约2014-2018）</dt><dd>在28nm节点，每个晶体管的制造成本达到最低点。7nm节点的成本比28nm高出约2-3倍（因EUV、多重曝光、更长的工艺周期）。这意味着"先进制程不再天然更便宜"。</dd><dt>为什么还在缩微？</dt><dd>① 性能驱动：相同面积下更多晶体管=更快处理速度（AI/数据中心不在乎成本只在乎算力密度）；② 功耗驱动：更小晶体管=更低单位功耗（移动端至关重要）；③ 竞争驱动：不能停，停下来就会被竞争者超越。</dd></dl>
 </div></div>
 
+<div class="card" style="border-left:4px solid #059669">
+<div class="ttl">"复活"路径：先进封装+Chiplet——制程以外的第二增长曲线</div>
+<div class="dsc">
+<p><b>Chiplet + 先进封装</b>为芯片性能增长提供了不依赖制程缩微的新路径：</p>
+<dl><dt>Chiplet的经济学</dt><dd>将单一巨大芯片拆分为多个小芯片：计算芯（用最先进制程，如5nm） + I/O芯（用成熟制程，如14nm）→ 小芯片良率更高（缺陷概率降低）→ 总成本降低30-50%。AMD已用Chiplet在服务器市场从Intel手中夺取30%+份额。</dd><dt>3D堆叠</dt><dd>TSMC SoIC、Intel Foveros、Samsung X-Cube——将芯片垂直堆叠，用TSV互联。相当于从"平房"变成"摩天大楼"，在垂直维度获取晶体管密度增长。</dd><dt>含义</dt><dd>制程缩微不再是唯一路径。先进封装+Chiplet已成为与制程并列的"第二摩尔定律"。这也是为什么TSMC同时投资$300亿+在先进封装产能上——CoWoS产能已成AI芯片最大瓶颈之一。</dd></dl>
+</div></div>
+
+<h2>3. 制程竞争全景：Intel/TSMC/Samsung 二十年路线图</h2>
+
+<div class="card"><div class="ttl">三大巨头制程路线对比（2011-2026）</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th>年</th><th>Intel</th><th>TSMC</th><th>Samsung</th><th>行业主导者</th></tr></thead>
+<tbody>
+<tr><td>2011</td><td style="color:#2563eb"><b>22nm FinFET</b></td><td>28nm</td><td>32nm</td><td style="color:#2563eb">Intel</td></tr>
+<tr><td>2014</td><td style="color:#2563eb">14nm</td><td>20nm→16nm FinFET</td><td>14nm FinFET</td><td style="color:#2563eb">Intel(性能)</td></tr>
+<tr><td>2016</td><td>14nm+(延迟)</td><td>10nm→12FFC</td><td style="color:#d97706"><b>10nm首发</b></td><td style="color:#d97706">三星(进度)</td></tr>
+<tr><td style="background:#fef2f2">2018</td><td style="background:#fef2f2">14nm+++(10nm地狱)</td><td style="background:#ecfdf5"><b>★7nm FinFET</b></td><td>8nm(10nm改)</td><td style="background:#ecfdf5;color:#059669"><b>★TSMC 登顶</b></td></tr>
+<tr><td style="background:#fef2f2">2020</td><td style="background:#fef2f2">10nm(终于量产)</td><td style="background:#ecfdf5"><b>★5nm N5 EUV</b></td><td>5nm LPE</td><td style="background:#ecfdf5;color:#059669"><b>★TSMC</b></td></tr>
+<tr><td>2022</td><td>Intel 7(原10nm+)</td><td style="color:#059669"><b>3nm N3 FinFlex</b></td><td style="color:#d97706">★3nm GAA</td><td>三星(GAA)/TSMC(量产)</td></tr>
+<tr><td>2024</td><td style="color:#2563eb">Intel 3 + 20A RibbonFET</td><td style="color:#059669">N3E/N3P</td><td>SF3 GAA改进</td><td>竞争白热化</td></tr>
+<tr><td>2025</td><td>18A(BS+GAARibbon)</td><td style="color:#059669"><b>★N2 GAA量产</b></td><td>SF2 GAA</td><td style="color:#059669">TSMC(量产规模)</td></tr>
+<tr><td>2026</td><td>18A-P(改进)</td><td style="color:#059669">A16 1.4nm BSPDN</td><td>SF2P</td><td style="color:#059669">TSMC</td></tr>
+</tbody></table>
+<p style="margin-top:8px;font-size:12px;color:#64748b">★=制程领导者 | 红色=关键转折（2018 TSMC超越Intel）</p></div></div>
+
+<div class="card"><div class="ttl">Intel 衰落的核心原因：三个致命决策</div>
+<div class="dsc">
+<ol style="line-height:2">
+<li><b>拒绝EUV（2014-18）：</b>Intel认为EUV不够成熟，坚持用DUV多重曝光（SADP/SAQP）做10nm。TSMC在2018年N7+率先使用EUV。Intel错过了EUV的学习曲线窗口。</li>
+<li><b>过激的密度目标（2016-19）：</b>Intel 10nm目标密度100.8 MTr/mm²（远超TSMC N7和三星7nm的~95 MTr/mm²）。过高的密度=极低的良率="10nm地狱"。</li>
+<li><b>IDM模式的惯性：</b>Intel坚持"设计-制造一体化"，Hardware-CPU设计团队和制程团队绑定，无法像TSMC那样根据客户反馈快速迭代工艺。Fabless客户（Apple/Qualcomm/AMD）用脚投票转向TSMC。</li>
+</ol>
+</div></div>
+
+<h2>4. ASML EUV垄断：全球半导体产业的"单点故障"</h2>
+
+<div class="card" style="border-left:4px solid #7c3aed"><div class="ttl">ASML为什么能垄断？——不是技术，是政治</div>
+<div class="dsc">
+<p>ASML的EUV垄断不是市场竞争的自然结果，而是1990年代末美国国家安全决策的产物。</p>
+<dl><dt>1997 EUV LLC联盟成立的真正目的</dt><dd>表面：Intel牵头攻关13.5nm极紫外光刻技术。实质：美国能源部和国防部将EUV视为"战略技术"，必须确保美国及其盟友（ASML代表的荷兰）控制，不能被日本（Nikon/Canon）掌握。</dd><dt>Nikon和Canon为什么出局？</dt><dd>美国以"知识产权保护"和"技术安全"为由，拒绝日本企业加入EUV LLC。这不是技术选择，是地缘政治选择。Nikon至今停留在DUV浸没式光刻机。</dd><dt>垄断的代价</dt><dd>全球所有7nm以下先进芯片100%依赖ASML的EUV光刻机。每台EUV售价~€1.5亿（High-NA~€3.5亿）。年产量仅50-60台。TSMC买了50%。这使ASML成为全球半导体产业最大的"单点故障"——如果ASML断供，整个先进芯片产业停摆。</dd></dl></div></div>
+
+<div class="card"><div class="ttl">EUV技术为什么这么难？——五个"不可能"被逐一攻克</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th>挑战</th><th>困难程度</th><th>解决方案</th><th>耗费时间</th></tr></thead>
+<tbody>
+<tr><td>光源功率（需250W+）</td><td>极高</td><td>CO₂激光激发锡滴等离子体（LPP）</td><td>10年（2006-2016）</td></tr>
+<tr><td>反射镜（多层Mo/Si反射膜）</td><td>极高</td><td>蔡司原子级抛光+镀膜，反射率~70%</td><td>持续改进</td></tr>
+<tr><td>光罩缺陷（零缺陷掩模）</td><td>极高</td><td>EUV pellicle（保护膜）+ 计算光刻补偿</td><td>持续改进</td></tr>
+<tr><td>光刻胶灵敏度/分辨率平衡</td><td>高</td><td>化学放大光刻胶（CAR）+ 金属氧化物光刻胶（MOR）</td><td>持续改进</td></tr>
+<tr><td>真空环境（EUV被空气吸收）</td><td>中</td><td>全真空光路设计</td><td>系统设计</td></tr>
+</tbody></table>
+<p>ASML累计投入超€60亿，耗时20年才等到EUV开花结果。世界上没有第二家公司能在没有美国政府和三大客户（Intel/TSMC/Samsung）支持下完成这样的研发。</p>
+</div></div>
+
+<h2>5. Foundry模式的胜利：为什么IDM输给了Fabless+Foundry？</h2>
+
+<div class="card" style="border-left:4px solid #0891b2">
+<div class="ttl">经济学解释：专业化 vs 垂直整合</div>
+<div class="dsc">
+<dl><dt>IDM的困境（Intel为代表）</dt><dd>① 制程研发成本指数增长（从28nm $10亿 → 3nm $50亿+），必须通过海量自有产品摊薄；② 设计团队和制程团队的利益冲突（设计的人想保守，制程的人想激进）；③ 客户就是竞争对手（Intel做CPU，Apple想做自己的CPU时只能离开Intel找TSMC）。</dd><dt>Foundry的优势（TSMC为代表）</dt><dd>① 制程研发成本被所有客户分摊（NVIDIA+Apple+AMD+Qualcomm+Intel自己）；② 不与客户竞争（"信任"是Foundry的核心资产）；③ 来自不同客户的需求反馈加速了工艺迭代（Apple要低功耗、NVIDIA要高性能、AMD要平衡—TSMC在一代工艺中学习三种需求）。</dd><dt>结果</dt><dd>TSMC的制程研发效率远超任何IDM。2024年TSMC研发投入约$60亿，Intel约$170亿——但TSMC的制程节点领先Intel至少一代（N2 vs 18A）。</dd></dl></div></div>
+
+<h2>6. 中美芯片战争：从单点制裁到系统性脱钩的经济学</h2>
+
+<div class="card" style="border-left:4px solid #dc2626;background:#fef2f2">
+<div class="ttl">美国对华芯片管制的逻辑链条</div>
+<div class="dsc">
+<dl><dt>第一层：限制最终产品（2018-19）</dt><dd>中兴（2018）→华为（2019）——限制特定公司获取美国芯片和技术。效果：华为手机海外市场崩塌，但中国公司找到了替代方案（国产化+多元化供应链）。</dd><dt>第二层：限制制造能力（2020-22）</dt><dd>FDPR（2020）→SMIC实体清单→2022.10.7规则——限制中国制造先进芯片的能力本身。效果：中国无法获得EUV/先进DUV设备，14nm以下被卡死。这是从"限制谁买"到"限制谁能造"的质变。</dd><dt>第三层：限制设计能力（2022-24）</dt><dd>限制EDA工具（GAA晶体管设计工具）→限制高端GPU（A100/H100/B200）→限制AI芯片。效果：中国AI公司无法获得最先进GPU，被迫用国产替代（昇腾/寒武纪），但性能差距2-3代。</dd><dt>2025-2026：MATCH法案与"锁全身"</dt><dd>MATCH法案将出口管制从"美国技术含量>25%"降到">0%"，实质上是将任何使用美国技术的产品纳入管制。荷兰/日本加入设备管制联盟。"外国直接产品规则"范围持续扩大。</dd></dl></div></div>
+
+<div class="card"><div class="ttl">中国芯片自主化的真实进展与差距</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th>领域</th><th>全球领先水平</th><th>中国当前水平</th><th>差距</th><th>关键瓶颈</th></tr></thead>
+<tbody>
+<tr><td>逻辑制程</td><td>TSMC N2(2025)</td><td>SMIC 7nm N+2(2023)</td><td>2-3代(~5年)</td><td>EUV光刻机</td></tr>
+<tr><td>DRAM制程</td><td>三星 1b nm</td><td>长鑫 16nm</td><td>1-2代(~3年)</td><td>EUV+电容工艺</td></tr>
+<tr><td>3D NAND层数</td><td>232-300+层</td><td>YMTC 232层 Xtacking 3.0</td><td>0.5-1代(~1年)</td><td>美国设备维保</td></tr>
+<tr><td>GPU/AI芯片</td><td>NVIDIA B200 (4nm, 208B Tr)</td><td>昇腾910B (7nm)</td><td>2-3代</td><td>制程+内存带宽</td></tr>
+<tr><td>EDA工具</td><td>Synopsys/Cadence全流程</td><td>华大九天+概伦</td><td>5-10年</td><td>全流程覆盖+IP生态</td></tr>
+<tr><td>光刻机</td><td>ASML High-NA EUV</td><td>上海微电子 90nm DUV</td><td>15-20年</td><td>光源/镜头/平台全链</td></tr>
+</tbody></table>
+</div></div>
+
+<h2>7. Chiplet与先进封装：后摩尔时代的"第二曲线"</h2>
+
+<div class="card" style="border-left:4px solid #059669">
+<div class="ttl">Chiplet的经济学：为什么"分而治之"比"大一统"更好？</div>
+<div class="dsc">
+<dl><dt>单片SoC的问题</dt><dd>芯片面积越大→缺陷概率指数上升→良率急剧下降。假设单一缺陷密度是0.1/cm²，一个600mm²的芯片良率约为55%；拆成3个200mm²的小芯片，每个良率约82%→用Chiplet集成的总良率约55%（加上封装损耗），但可以灵活组合不同制程。</dd><dt>Chiplet真实优势</dt><dd>① 计算芯用最先进制程（贵但值），I/O芯用成熟制程（便宜且够用）；② 不同功能模块独立开发和迭代（不互相阻塞）；③ 灵活搭配不同产品线（同一计算芯可配不同I/O芯做不同产品）。</dd><dt>标准化（UCIe 2022）</dt><dd>Intel/AMD/ARM/TSMC/三星等联合制定UCIe（Universal Chiplet Interconnect Express）标准——相当于Chiplet的"USB接口"。标准化后，不同厂家的Chiplet可以互操作，类似于PC时代的PCIe标准。</dd></dl></div></div>
+
+<div class="card"><div class="ttl">TSMC的封装组合：CoWoS + InFO + SoIC</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th>技术</th><th>类型</th><th>互连密度</th><th>典型应用</th><th>市场地位</th></tr></thead>
+<tbody>
+<tr><td><b>CoWoS</b></td><td>2.5D（硅中介层）</td><td>中等</td><td>NVIDIA H100/B200, AMD MI300</td><td>AI芯片标配，产能紧缺</td></tr>
+<tr><td><b>InFO</b></td><td>扇出型封装</td><td>中低</td><td>Apple A系列（自A10起），移动SoC</td><td>移动端主流</td></tr>
+<tr><td><b>SoIC</b></td><td>3D堆叠（Hybrid Bonding）</td><td><b>极高</b></td><td>AMD 3D V-Cache, Apple M系列Ultra</td><td>最高端，产能有限</td></tr>
+</tbody></table>
+<p>CoWoS产能已成为2024-2026年AI芯片的最大瓶颈之一。NVIDIA H100/B200的等待时间从2023年的2周延长到2024年的3-6个月——不是因为GPU die缺，而是CoWoS封装产能不够。</p>
+</div></div>
+
+<h2>8. AI芯片军备竞赛</h2>
+
+<div class="card"><div class="ttl">全球AI芯片玩家图谱（2024-2026）</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th>厂商</th><th>核心产品</th><th>制程</th><th>内存</th><th>定位</th><th>2024年状态</th></tr></thead>
+<tbody>
+<tr><td style="color:#059669"><b>NVIDIA</b></td><td>H200/B200/GB200</td><td>TSMC 4nm</td><td>HBM3E 141-192GB</td><td>AI训练+推理</td><td style="color:#059669">绝对霸主~80%市占</td></tr>
+<tr><td><b>AMD</b></td><td>MI300X/MI400</td><td>TSMC 5nm/3nm</td><td>HBM3 192GB</td><td>AI训练+推理</td><td>追赶中~10%市占</td></tr>
+<tr><td><b>Intel</b></td><td>Gaudi 3/Falcon Shores</td><td>Intel 4/TSMC</td><td>HBM2E</td><td>AI推理</td><td>份额小，软件生态弱</td></tr>
+<tr><td><b>Google</b></td><td>TPU v5p/v6</td><td>TSMC 4nm</td><td>HBM3</td><td>内部+Google Cloud</td><td>自用为主</td></tr>
+<tr><td><b>Amazon</b></td><td>Trainium2/Inferentia3</td><td>TSMC 5nm</td><td>HBM3</td><td>AWS内部</td><td>自用为主</td></tr>
+<tr><td><b>华为</b></td><td>昇腾910B/920</td><td>SMIC 7nm</td><td>HBM2(国产)</td><td>国产AI替代</td><td>中国最大AI芯片商</td></tr>
+<tr><td><b>寒武纪</b></td><td>思元590</td><td>SMIC 7nm</td><td>LPDDR5X</td><td>国产AI训练</td><td>软件生态需完善</td></tr>
+</tbody></table>
+<p><b>NVIDIA的护城河不是硬件而是CUDA：</b>超过400万开发者、15年积累的软件生态。即使国产GPU硬件性能追平，没有CUDA替代生态（华为CANN/寒武纪BANG），开发者迁移成本极高。这就是为什么美国对华GPU禁令的实质效果是"冻结中国AI的算力天花板"。</p>
+</div></div>
+
+<h2>9. 三个非共识观点（逻辑芯片篇）</h2>
+
+<div class="card" style="border-left:4px solid #2563eb;background:#eff6ff">
+<div class="ttl">非共识 #1：Intel不会"死"——它正在变成第二个AMD</div>
+<div class="dsc"><p>市场共识：Intel在制程和AI双线溃败，IDM模式已死。</p>
+<p><b>反向证据：</b>Intel Foundry已独立运营，18A良率超预期（2024 Q2达到量产水平），获得微软/Amazon等大客户订单。Intel正从"被TSMC吃掉的IDM"变成"能挑战TSMC的第二个Foundry"。CHIPS法案$85亿补贴是最低保障。</p></div></div>
+
+<div class="card" style="border-left:4px solid #0891b2;background:#ecfdf5">
+<div class="ttl">非共识 #2：Chiplet不是"万能药"——先进封装也有自己的摩尔定律</div>
+<div class="dsc"><p>市场共识：Chiplet+先进封装可以无限替代制程缩微。</p>
+<p><b>反向证据：</b>CoWoS产能受限于TSMC的先进封装设备（从ASMPT/DISCO采购）→每年只能扩产30-40%。Chiplet的功耗/延迟开销（互连功耗占总功耗15-25%）限制了堆叠层数和D2D带宽。</p></div></div>
+
+<div class="card" style="border-left:4px solid #dc2626;background:#fef2f2">
+<div class="ttl">非共识 #3：中国半导体"去美国化"的真正瓶颈不是EUV——是全产业链生态</div>
+<div class="dsc"><p>市场共识：中国半导体自主化的核心卡点是EUV光刻机。</p>
+<p><b>反向证据：</b>即使明天中国拿到EUV，没有Synopsys/Cadence的EDA全流程工具、没有AMAT/LAM/KLA的设备生态、没有ARM/x86的IP授权——也造不出TSMC N3级别的芯片。中国半导体自主化是一个<b>全产业链重建</b>的系统工程，不是单一设备突破就能解决的。28nm全国产化比7nm EUV突破可能更有长期产业价值。</p></div></div>
+
+<p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:32px">本篇数据来源：《Chip War》(Miller,2022)、TSMC/Samsung/Intel年报、ASML官方、BIS联邦公报、CSIS分析、NVIDIA/AMD官方<br>制程数据来自WikiChip和各公司技术论坛</p>
+
+
+<hr style="margin:60px 0 40px;border:none;border-top:4px solid #eab308">
+
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px">第三篇：存储深度研究</h1>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:40px">AI时代的存储范式转移 · 长鑫科技 & 长江存储 · 从技术原理到产业格局</p>
+
+<!-- ====== TOC for section 3 ====== -->
+<div class="card" style="background:#fffbeb;border-color:#fde68a">
+<div class="ttl" style="font-size:18px">本篇目录</div>
+<ol style="line-height:2.2;font-size:13px;padding-left:20px;margin-top:8px">
+<li>范式转移：从CPU时代到Token经济学</li>
+<li>三级存储金字塔与HBM物理底层</li>
+<li>三种AI场景的显存需求瓶颈</li>
+<li>供给侧逻辑反转：DDR4退出 × HBM转线</li>
+<li>存储完整分类树与厂商矩阵</li>
+<li>全球存储格局2026（市占率/产能/价格周期）</li>
+<li>长鑫科技（CXMT）深度剖析</li>
+<li>长江存储（YMTC）深度剖析</li>
+<li>三个非共识观点</li>
+</ol>
 </div>
 
-<script>
-const S=1947,E=2026,T=E-S;function P(y){return((y-S)/T*100).toFixed(2)}
+<!-- ====== SECTION 1: PARADIGM SHIFT ====== -->
+<h2>1. 行业范式转移：为什么这次存储周期不一样？</h2>
 
-const dom=[
-  {s:1947,e:1980,l:'美国独霸：Fairchild→Intel→TI',c:'#2563eb'},
-  {s:1980,e:1986,l:'日本DRAM逆袭 →',c:'#d97706'},
-  {s:1986,e:1992,l:'美日协议·日本衰退',c:'linear-gradient(90deg,#d97706,#94a3b8)'},
-  {s:1992,e:2000,l:'Intel+三星+Foundry兴起',c:'linear-gradient(90deg,#2563eb,#dc2626,#0891b2)'},
-  {s:2000,e:2018,l:'TSMC Foundry + ASML EUV 霸权',c:'#0891b2'},
-  {s:2018,e:2022,l:'中美芯片战争爆发',c:'linear-gradient(90deg,#db2777,#2563eb)'},
-  {s:2022,e:2026,l:'管制升级·AI爆发·双轨并行',c:'linear-gradient(90deg,#2563eb,#0891b2)'},
-];
+<div class="card" style="border-left:4px solid #eab308">
+<div class="ttl">旧范式：CPU算力时代 — DRAM是配角</div>
+<div class="dsc">
+<p>过去三十年，CPU主导算力，最高KPI是performance。但DDR带宽即便提升一倍，CPU performance通常只能提高不到20%。原因：CPU通过superscalar、海量ROB、L1/L2 cache等架构隐藏DDR延迟；CPU工作负载对DDR带宽要求不高。结果：<b>DDR3到DDR5走了15年</b>；过去十年平均PC内存容量从7-8GB涨到23GB（仅3倍）。DRAM在这个时代是"添花性质的附属品"。</p>
+</div></div>
 
-// Process - with key litho linkage annotations
-const proc=[
-  {y:1947,t:'晶体管',d:'Bell Labs',big:1},{y:1958,t:'IC发明',d:'TI/Fairchild',big:1},{y:1965,t:'摩尔定律',d:'Gordon Moore'},
-  {y:1971,t:'10μm',d:'Intel 4004',big:1},{y:1974,t:'6μm NMOS',d:'Intel 8080'},{y:1978,t:'3μm',d:'Intel 8086'},
-  {y:1982,t:'1.5μm',d:'80286'},{y:1985,t:'★1μm CMOS',d:'Intel 80386',big:1},{y:1989,t:'0.8μm',d:'80486'},
-  {y:1993,t:'0.8→0.35μm',d:'Pentium'},{y:1997,t:'0.25μm',d:'Intel/AMD'},{y:1999,t:'180nm 铜互连',d:'Intel'},
-  {y:2001,t:'130nm',d:'Intel/TSMC'},{y:2003,t:'90nm 应变硅',d:'Intel'},
-  {y:2005,t:'65nm',d:'Intel'},
-  {y:2007,t:'★45nm HKMG',d:'Intel(材料革命)',big:1},
-  {y:2011,t:'★22nm FinFET',d:'Intel(3D晶体管)',big:1},
-  {y:2014,t:'14/16nm',d:'Samsung/TSMC'},{y:2016,t:'10nm',d:'Samsung首发'},
-  {y:2018,t:'★7nm EUV',d:'TSMC 登顶',big:1},{y:2020,t:'5nm EUV',d:'TSMC'},
-  {y:2022,t:'★3nm GAA',d:'Samsung/TSMC',big:1},{y:2024,t:'★2nm GAA+BS',d:'Intel 18A/TSMC N2',big:1},{y:2025,t:'N2量产',d:'TSMC GAA规模量产'},{y:2026,t:'A16 1.4nm',d:'TSMC BSPDN',big:1},
-];
+<div class="card" style="border-left:4px solid #7c3aed">
+<div class="ttl">新范式：Token经济学第一性原理</div>
+<div class="dsc">
+<p>GenAI时代，GPU的最高KPI已经不是TOPS/FLOPS，而是每瓦特、每美元下的token吞吐量。Jensen Huang称之为"AI Factory"。</p>
+<div style="background:#f1f5f9;padding:16px;border-radius:8px;margin:12px 0;text-align:center;font-size:16px;font-weight:800;color:#1e3a5f">
+Token Throughput ≈ HBM Size × HBM Bandwidth
+</div>
+<p><b>核心推论：</b>维持token throughput每代2×增长，意味着每代单GPU的HBM Size × HBM BW之积要增长2倍。这是历史上第一次，HBM容量直接决定GPU的最高KPI。</p>
+<p><b>机场接驳车比喻：</b>用户请求（绿点流入）→ KV Cache缓存区驻留（受HBM Size限制）→ 经车门输出tokens（受HBM Bandwidth限制）。两个维度乘积即为单GPU token吞吐天花板。单独把HBM容量或带宽提升4×，吞吐只能线性增长4×；而两个维度同时×4，吞吐就是<b>16×（平方级）</b>。</p>
+</div></div>
 
-const litho=[
-  {y:1961,t:'接触式',d:'GCA(美)→10μm'},
-  {y:1973,t:'投影扫描',d:'PE→3μm'},
-  {y:1978,t:'Stepper',d:'GCA→1.5μm'},
-  {y:1980,t:'Nikon NSR',d:'日称霸→1μm'},
-  {y:1995,t:'DUV KrF 248nm',d:'Nikon→0.25μm',big:1},
-  {y:1999,t:'ArF 193nm',d:'→180nm'},
-  {y:2002,t:'★浸没式提出',d:'林本坚 TSMC',big:1},
-  {y:2004,t:'浸没量产',d:'ASML→65nm↓',big:1},
-  {y:2006,t:'EUV原型机',d:'ASML@IMEC'},
-  {y:2013,t:'首台EUV',d:'NXE:3300B'},
-  {y:2016,t:'EUV量产就绪',d:'NXE:3400B'},
-  {y:2018,t:'★EUV量产',d:'→7nm TSMC',big:1},
-  {y:2024,t:'High-NA EUV',d:'→2nm NA=0.55',big:1},{y:2025,t:'High-NA量产',d:'ASML→2nm/1.4nm'},{y:2026,t:'Hyper-NA规划',d:'ASML NA>0.75'},
-];
+<!-- ====== SECTION 2: STORAGE PYRAMID ====== -->
+<h2>2. 三级存储金字塔：HBM为什么是AI核心增量？</h2>
 
-const pack=[{y:1964,t:'DIP封装',d:'Fairchild'},{y:1980,t:'QFP/SOP',d:'SMT时代'},{y:1990,t:'BGA',d:'Motorola'},{y:2000,t:'WLP/SiP',d:'英飞凌/Amkor'},{y:2011,t:'CoWoS',d:'TSMC 2.5D',big:1},{y:2014,t:'InFO',d:'TSMC(A10)'},{y:2017,t:'Chiplet',d:'AMD EPYC',big:1},{y:2022,t:'UCIe标准',d:'标准化'}];
-const storage=[{y:1970,t:'Intel 1103 DRAM',d:'1Kb 10μm'},{y:1980,t:'64Kb DRAM',d:'日本称霸',big:1},{y:1985,t:'1Mb DRAM',d:'日/韩竞逐'},{y:1992,t:'★16Mb DRAM',d:'三星第一',big:1},{y:2000,t:'256Mb DDR',d:'DDR时代'},{y:2007,t:'东芝 3D NAND',d:'BiCS发明',big:1},{y:2013,t:'三星V-NAND 24层',d:'3D NAND量产',big:1},{y:2016,t:'64层 NAND',d:'三星/东芝/美光'},{y:2020,t:'★176层 NAND',d:'美光率先',big:1},{y:2022,t:'232层 NAND',d:'美光/海力士'},{y:2023,t:'★HBM3E',d:'AI标配',big:1},{y:2025,t:'HBM4',d:'2048-bit'},{y:2026,t:'★400+层 NAND',d:'美光/海力士',big:1},];
+<div class="card">
+<div class="ttl">AI服务器 vs 传统服务器 — 存储结构根本不同</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th>存储层级</th><th>传统服务器</th><th>AI服务器（8×H100为例）</th><th>倍数</th></tr></thead>
+<tbody>
+<tr><td><b>SRAM（片上缓存）</b></td><td>~300 MB</td><td><b>~2,500 MB</b></td><td><b>8-10×</b></td></tr>
+<tr><td><b>HBM（近存计算）</b></td><td>—（不存在）</td><td><b>~3,000 GB</b></td><td><b>全新层级</b></td></tr>
+<tr><td><b>DRAM（系统内存）</b></td><td>~500 GB</td><td><b>~2,700 GB</b></td><td><b>4-5×</b></td></tr>
+<tr><td><b>NAND（SSD存储）</b></td><td>~5 TB</td><td><b>~20 TB</b></td><td><b>4×</b></td></tr>
+</tbody></table>
+<dl style="margin-top:12px">
+<dt>核心洞察</dt>
+<dd>HBM从0→3,000 GB：传统服务器没有HBM这一层，AI服务器整层凭空冒出来——这就是HBM厂"无中生有"的市场。HBM3占NVIDIA H100 GPU BOM的近50%，超过GPU die本身（27.5%）。</dd>
+</dl>
+</div></div>
 
-const us=[{y:1957,t:'Fairchild',d:'八叛逆'},{y:1968,t:'Intel成立',d:'Noyce/Moore',big:1},{y:1971,t:'4004 μP',d:'Intel'},{y:1985,t:'退出DRAM',d:'All-in CPU',big:1},{y:1987,t:'SEMATECH',d:'制造联盟'},{y:1993,t:'Qualcomm',d:'CDMA基带'},{y:1999,t:'NVIDIA GPU',d:'GeForce 256'},{y:2007,t:'iPhone',d:'移动芯片引爆',big:1},{y:2012,t:'NVIDIA AI',d:'CUDA深度学习'},{y:2020,t:'NVIDIA A100',d:'AI训练霸主',big:1},{y:2022,t:'CHIPS法案',d:'$52B制造回流',big:1},{y:2024,t:'★NVIDIA $2T',d:'全球市值第一',big:1},{y:2025,t:'TSMC Arizona',d:'4nm美制'},{y:2026,t:'B200/GB200',d:'Blackwell架构'}];
-const jp=[{y:1962,t:'NEC引进工艺',d:'Fairchild授权'},{y:1976,t:'VLSI计划',d:'5巨头',big:1},{y:1980,t:'★品质碾压美国',d:'惠普测试',big:1},{y:1985,t:'★NEC全球第一',d:'DRAM>80%',big:1},{y:1986,t:'美日协议',d:'被迫开放'},{y:1990,t:'Nikon光刻霸主',d:'全球>50%'},{y:2000,t:'退守材料/设备',d:'TEL/信越/JSR'},{y:2008,t:'尔必达破产',d:'DRAM全军覆没'}];
-const eu=[{y:1984,t:'★ASML成立',d:'飞利浦+ASMI平房',big:1},{y:1990,t:'PAS 5500',d:'首款成功产品'},{y:1999,t:'★ASML入EUV',d:'Nikon/Canon出局',big:1},{y:2004,t:'★浸没式超Nikon',d:'ASML称霸光刻',big:1},{y:2012,t:'客户投资',d:'Intel/TSMC/Samsung入股'},{y:2018,t:'★EUV独家量产',d:'全球唯一极紫外',big:1},{y:2023,t:'High-NA交付',d:'€3.5亿 Intel首发'},{y:2026,t:'Hyper-NA规划',d:'NA>0.75 1nm以下'},];
-const tw=[{y:1980,t:'联电UMC',d:'首家具代工能力'},{y:1987,t:'★TSMC成立',d:'张忠谋',big:1},{y:1988,t:'Intel认证',d:'Grove背书'},{y:2002,t:'全球最大Foundry',d:'$50亿+',big:1},{y:2018,t:'★7nm 登顶',d:'超越Intel',big:1},{y:2024,t:'N2试产',d:'GAA+BS'}];
-const cn=[{y:1965,t:'首块IC',d:'中科院'},{y:1990,t:'908工程',d:'审批5年'},{y:1995,t:'909工程',d:'华虹NEC'},{y:2000,t:'★SMIC成立',d:'张汝京上海',big:1},{y:2014,t:'大基金一期',d:'1,387亿元'},{y:2018,t:'★中兴事件',d:'卡脖子警钟',big:1},{y:2019,t:'华为实体清单',d:'GMS/ARM断'},{y:2020,t:'★华为断供',d:'麒麟绝唱',big:1},{y:2022,t:'★10.7 BIS',d:'最严管制',big:1},{y:2023,t:'Mate60回归',d:'中芯7nm'},{y:2025,t:'BIS再升级',d:'AI芯片全面封堵'},{y:2026,t:'国产DUV突破',d:'28nm自主产线'}];
-const mstones=[{y:1947,t:'晶体管',d:'Bell Labs'},{y:1958,t:'IC发明',d:'TI/Fairchild'},{y:1965,t:'摩尔定律',d:'Moore'},{y:1968,t:'Intel成立',d:''},{y:1971,t:'4004 μP',d:'Intel'},{y:1976,t:'VLSI计划',d:'日本'},{y:1980,t:'日本称霸DRAM',d:'品质碾压'},{y:1985,t:'NEC全球第一',d:'DRAM>80%'},{y:1986,t:'美日协议',d:'产业链重构'},{y:1987,t:'TSMC成立',d:'Foundry革命'},{y:1992,t:'三星DRAM第一',d:'逆周期投资'},{y:1997,t:'EUV LLC',d:'Intel+ASML'},{y:2000,t:'SMIC成立',d:'中国代工开始'},{y:2002,t:'浸没式光刻',d:'林本坚'},{y:2007,t:'iPhone发布',d:'移动芯片引爆'},{y:2011,t:'FinFET量产',d:'Intel 22nm'},{y:2014,t:'大基金一期',d:'中国加速'},{y:2018,t:'中兴事件',d:'中美芯片战'},{y:2020,t:'华为断供',d:'麒麟绝唱'},{y:2022,t:'10.7 BIS',d:'最严管制'},{y:2023,t:'Mate 60 Pro',d:'中芯7nm'},{y:2024,t:'TSMC N2试产',d:'GAA时代'},{y:2025,t:'AI芯片大爆发',d:'NVIDIA B200/AMD MI400'},{y:2026,t:'1.4nm/国产DUV',d:'新格局'}];
+<div class="card">
+<div class="ttl">显存DRAM vs 非显存DRAM — 同是DRAM，属性差异巨大</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th>维度</th><th>显存DRAM（HBM/GDDR）</th><th>非显存DRAM（DDR/LPDDR）</th></tr></thead>
+<tbody>
+<tr><td>用途</td><td>专用于GPU/TPU，存储AI计算数据</td><td>为CPU服务，存储OS/应用数据</td></tr>
+<tr><td>接口</td><td>HBM专用1024-bit总线 / GDDR专用接口</td><td>DDR标准DIMM插槽（64-bit总线）</td></tr>
+<tr><td>架构</td><td>多芯片TSV垂直堆叠（HBM 12-16层）</td><td>单芯片或双列直插模块</td></tr>
+<tr><td>带宽</td><td>极高：数百GB/s至TB/s级</td><td>较低：数十GB/s（DDR5 ~51GB/s）</td></tr>
+<tr><td>物理位置</td><td>直接焊在GPU板卡上</td><td>插在主板内存插槽</td></tr>
+</tbody></table>
+</div></div>
 
-// Smart layout: assign events to rows to avoid overlap
-function layout(events,spacing){
-  let sorted=[...events].map((e,i)=>({...e,i})).sort((a,b)=>a.y-b.y);
-  let rows=[];
-  sorted.forEach(e=>{
-    let x=parseFloat(P(e.y));
-    let placed=false;
-    for(let r=0;r<rows.length;r++){
-      if(!rows[r]||x>=rows[r]){
-        rows[r]=x+spacing;
-        e.row=r;placed=true;break;
-      }
-    }
-    if(!placed){e.row=rows.length;rows.push(x+spacing);}
-  });
-  sorted.sort((a,b)=>a.i-b.i);
-  return sorted;
-}
+<!-- ====== SECTION 3: THREE AI SCENARIOS ====== -->
+<h2>3. 三种AI场景的显存需求瓶颈</h2>
 
-const tl=document.getElementById('tl');
-let h='<div class="dom-band">';
-dom.forEach(d=>{let bg=d.c;h+=`<div class="dom-block" style="left:${P(d.s)}%;width:${((d.e-d.s)/T*100).toFixed(1)}%;background:${bg};color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3)">${d.l}</div>`;});
-h+='</div>';tl.innerHTML=h;
+<div class="card">
+<div class="ttl">云端训练 vs 云端推理 vs 终端推理 — 瓶颈各不相同</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th>维度</th><th>云端训练</th><th>云端推理（多用户）</th><th>终端推理（单用户）</th></tr></thead>
+<tbody>
+<tr><td>主要瓶颈</td><td><b>算力（FLOPS）为核心</b></td><td><b>显存带宽（多用户线性放大）</b></td><td><b>显存带宽+功耗</b></td></tr>
+<tr><td>容量需求</td><td>参数×4-5倍（LLaMA 70B→1,120GB）</td><td>参数×1.2+KV Cache×用户数</td><td>参数×1.2倍（7B INT8→8GB）</td></tr>
+<tr><td>带宽需求</td><td>30-50 TB/s（H100 3.35/H200 4.8/B200 8）</td><td>用户数线性放大（100用户→8,873GB/s）</td><td>700GB/s足够</td></tr>
+<tr><td>主流方案</td><td><b>HBM绝对主导</b></td><td><b>HBM+CUBE补充</b></td><td><b>LPDDR5X+CUBE 2.0</b></td></tr>
+<tr><td>对中国含义</td><td>长鑫HBM3追赶</td><td>长鑫+兆易CUBE切入</td><td>长鑫LPDDR5X量产（国产空间最大）</td></tr>
+</tbody></table>
+</div></div>
 
-h='<div class="yr-ruler">';
-for(let y=S;y<=E;y++){if(y%5===0)h+=`<div class="yr${y%10===0?' mjr':''}" style="left:${P(y)}%">${y}</div>`;}
-h+='</div>';
-tl.innerHTML+=h;
+<div class="card">
+<div class="ttl">实战案例：RTX 5090能跑Llama 70B INT8 @ 100 tps吗？</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th>指标</th><th>RTX 5090配置</th><th>70B INT8需求</th><th>缺口</th></tr></thead>
+<tbody>
+<tr><td>容量</td><td>32 GB GDDR7</td><td>84 GB（70GB权重+14GB KV）</td><td><b>缺口62%</b></td></tr>
+<tr><td>带宽</td><td>1.79 TB/s</td><td>7,000 GB/s</td><td><b>缺口74%</b></td></tr>
+</tbody></table>
+<p><b>反直觉结论：</b>5090的带宽缺口（74%）比容量缺口（62%）更严重。部署70B @ 100tps的最低单卡成本路径：仅<b>B200（$30-40K）</b>可行——192GB HBM3E+8TB/s带宽。H200只能跑~68tps。</p>
+</div></div>
 
-// Era bars — aligned with dominance bands
-const eras=[
-  {s:1947,e:1980,bg:'#eff6ff',l:'美国独霸：晶体管→IC→μP'},
-  {s:1980,e:1986,bg:'#fef3c7',l:'日本DRAM逆袭'},
-  {s:1986,e:1992,bg:'#fef2f2',l:'美日协议·全球重构'},
-  {s:1992,e:2000,bg:'#ecfdf5',l:'三星崛起+Foundry兴起'},
-  {s:2000,e:2018,bg:'#f3e8ff',l:'TSMC/ASML霸权·移动时代'},
-  {s:2018,e:2022,bg:'#fce7f3',l:'中美芯片战爆发'},
-  {s:2022,e:2027,bg:'#e0f2fe',l:'管制升级·AI爆发·双轨并行'},
-];
-eras.forEach(e=>{
-  h=`<div class="era-bar" style="background:${e.bg}"><span class="era-lbl">${e.l}</span></div>`;
-  tl.innerHTML+=h;
-});
+<!-- ====== SECTION 4: SUPPLY SIDE ====== -->
+<h2>4. 供给侧逻辑反转：HBM 3:1晶圆转换比</h2>
 
-function lane(title,cls,data,sp){
-  let d=layout(data,sp||2.5);
-  let nRows=Math.max(...d.map(e=>e.row||0))+1;
-  let h=`<div class="lane ${cls}"><div class="lane-hdr"><span class="lbl">${title}</span></div>`;
-  h+=`<div class="lane-body"><div class="baseline"></div>`;
-  let rH=20;let mid=(nRows-1)/2;
-  d.forEach(e=>{
-    let x=P(e.y);
-    let row=e.row||0;
-    let yOff=(row-mid)*rH;
-    let dotCls=e.big?' hg':'';
-    h+=`<div class="ev" style="left:${x}%;top:${50+yOff/112*100}%;transform:translate(-50%,-50%)" title="${e.y}: ${e.t} | ${e.d||''}">`;
-    h+=`<span class="yr">${e.y}</span><span class="dot${dotCls}"></span><span class="tx">${e.t}</span>`;
-    if(e.d)h+=`<span class="cp">${e.d}</span>`;
-    h+=`</div>`;
-  });
-  h+='</div></div>';return h;
-}
+<div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
+<div class="ttl">DDR4退出 × HBM转线 = 供给端历史性紧缩</div>
+<div class="dsc">
+<p>2024年起，三大原厂走出了与历史完全相反的路径——不再是需求下行被动减产，而是在需求高位主动技术转线。</p>
+<dl>
+<dt>DDR4退出路线（原计划→实际演变）</dt>
+<dd>美光 2025 Q4退出 / 三星 原定2025.12 → 推迟至2026.12（因DDR4价格反超DDR5"价格倒挂"）/ SK海力士 2026.4退出</dd>
+<dt>3:1晶圆转换比（Tom's Hardware引Micron Q1 2026财报会）</dt>
+<dd>每生产1GB HBM，等价占用3GB DDR5的wafer容量。HBM die是DDR5的~2× + TSV堆叠降良率。</dd>
+<dt>2023→2025全球DRAM代际迁移（长鑫招股书披露）</dt>
+<dd>DDR4市占率 64%→27%，DDR5 32%→71% / LPDDR4 47%→27%，LPDDR5 52%→72%</dd>
+<dt>HBM毛利率</dt>
+<dd>业内估算：普通DDR5毛利率~30-35%；HBM3E毛利率60%+，HBM4预计可达70%。这是三大原厂主动转线的根本动力。</dd>
+</dl>
+</div></div>
 
-tl.innerHTML+=lane('🔵 制程节点（光刻关联→）','proc',proc,2.3);
-tl.innerHTML+=lane('🟣 光刻技术 → 解锁制程','litho',litho,2.8);
-tl.innerHTML+=lane('🟢 封装技术','pack',pack,4);
-tl.innerHTML+=lane('🔴 美国','us',us,4);
-tl.innerHTML+=lane('🟠 日本','jp',jp,4);
-tl.innerHTML+=lane('🟣 欧洲','eue',eu,5);
-tl.innerHTML+=lane('🔵 台湾','tw',tw,5);
-tl.innerHTML+=lane('🩷 中国大陆','cn',cn,3);
-tl.innerHTML+=lane('⭐ 产业里程碑','mstone',mstones,2.2);
+<!-- ====== SECTION 5: TAXONOMY & MATRIX ====== -->
+<h2>5. 存储完整分类树与厂商矩阵</h2>
+
+<div class="card">
+<div class="ttl">DRAM vs NAND产线：本质不同决定中国策略差异</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th>维度</th><th>DRAM产线</th><th>3D NAND产线</th></tr></thead>
+<tbody>
+<tr><td>核心难点</td><td>制造极小电容（Cap）的精度</td><td>数百层薄膜堆叠+高深宽比通道孔蚀刻</td></tr>
+<tr><td>关键光刻</td><td><b>已引入EUV极紫外光刻（卡点）</b></td><td><b>DUV足够（无需EUV）</b></td></tr>
+<tr><td>关键设备</td><td>EUV/DUV+电容工艺</td><td>CVD化学气相沉积+深蚀刻Etch</td></tr>
+<tr><td>国产替代难度</td><td><b>极高</b>——卡在EUV/ArFi DUV</td><td><b>相对低</b>——CVD/Etch国产化进度快</td></tr>
+<tr><td>对应中国玩家</td><td>长鑫科技（撞EUV墙）</td><td>长江存储（Xtacking绕开先进光刻）</td></tr>
+</tbody></table>
+<p><b>结构性洞察：</b>长鑫与长江不是两家"做同一件事"的公司——长鑫卡在DRAM的EUV瓶颈，长江通过NAND的工艺特性绕过了先进光刻。这决定了两家在制裁敏感性、技术节奏、国产化路径上的根本差异。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl">全球6家原厂 × 存储产品定位矩阵（2026）</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th>厂商</th><th>DDR4</th><th>DDR5</th><th>LPDDR5X</th><th>HBM3</th><th>HBM3E</th><th>HBM4</th><th>3D NAND</th></tr></thead>
+<tbody>
+<tr><td><b>三星</b></td><td style="color:#d97706">2025.12退出</td><td style="color:#059669">主力</td><td style="color:#059669">主力</td><td style="color:#059669">量产</td><td style="color:#059669">通过NVIDIA认证</td><td style="color:#059669">2026.2量产</td><td style="color:#059669">主力</td></tr>
+<tr><td><b>SK海力士</b></td><td style="color:#d97706">2026.4退出</td><td style="color:#059669">主力</td><td style="color:#059669">主力</td><td style="color:#059669">量产</td><td style="color:#059669">★60%全球份额</td><td style="color:#059669">已被NV锁单</td><td style="color:#059669">主力</td></tr>
+<tr><td><b>美光</b></td><td style="color:#d97706">2025 Q4退出</td><td style="color:#059669">主力</td><td style="color:#059669">主力</td><td style="color:#059669">量产</td><td style="color:#2563eb">追赶中</td><td style="color:#2563eb">追赶</td><td style="color:#059669">主力</td></tr>
+<tr><td><b>长鑫科技</b></td><td style="color:#d97706">仍生产</td><td style="color:#059669">量产</td><td style="color:#059669">10.7Gbps量产</td><td style="color:#d97706">样品</td><td style="color:#94a3b8">2027研发</td><td style="color:#94a3b8">未定</td><td style="color:#94a3b8">—</td></tr>
+<tr><td><b>长江存储</b></td><td style="color:#94a3b8">—</td><td style="color:#94a3b8">—</td><td style="color:#94a3b8">—</td><td style="color:#94a3b8">—</td><td style="color:#94a3b8">—</td><td style="color:#94a3b8">—</td><td style="color:#059669">☆Xtacking 4.0 294层</td></tr>
+<tr><td><b>铠侠/闪迪</b></td><td style="color:#94a3b8">—</td><td style="color:#94a3b8">—</td><td style="color:#94a3b8">—</td><td style="color:#94a3b8">—</td><td style="color:#94a3b8">—</td><td style="color:#94a3b8">—</td><td style="color:#059669">主力</td></tr>
+</tbody></table>
+<p style="font-size:11px;color:#64748b;margin-top:4px">🟢 主力 | 🔵 参与/追赶 | 🟠 退出/样品 | ⬜ 未布局</p>
+</div></div>
+
+<!-- ====== SECTION 6: MARKET LANDSCAPE ====== -->
+<h2>6. 全球存储格局 2026</h2>
+
+<div class="card">
+<div class="ttl">DRAM Q4 2025全球市占率（TrendForce 2026.02.26）</div>
+<div class="dsc">
+<svg viewBox="0 0 720 160">
+<text x="360" y="20" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a5f">DRAM市占率（按销售额）</text>
+<!-- Samsung bar -->
+<rect x="20" y="35" width="500" height="22" rx="4" fill="#3b82f6"/>
+<text x="30" y="50" font-size="10" fill="#fff" font-weight="700">三星 36%</text>
+<rect x="60" y="62" width="500" height="22" rx="4" fill="#7c3aed"/>
+<text x="70" y="77" font-size="10" fill="#fff" font-weight="700">SK海力士 34.5%</text>
+<rect x="100" y="89" width="350" height="22" rx="4" fill="#059669"/>
+<text x="110" y="104" font-size="10" fill="#fff" font-weight="700">美光 19.8%</text>
+<rect x="200" y="116" width="100" height="22" rx="4" fill="#eab308"/>
+<text x="210" y="131" font-size="10" fill="#78350f" font-weight="700">长鑫 7.67%</text>
+<text x="320" y="131" font-size="9" fill="#94a3b8">#4全球 · 中国#1</text>
+<text x="500" y="148" font-size="8" fill="#94a3b8">2025是DRAM格局大年：Q1 SK海力士36.3%历史性超三星32.7%（33年来首次失冠）；Q4三星回归#1</text>
+</svg>
+</div>
+<div class="src">来源：TrendForce 2026.02.26; Counterpoint Research</div></div>
+
+<div class="card">
+<div class="ttl">全球DRAM bit供应五年走势（2022-2026，M GB）</div>
+<div class="dsc">
+<svg viewBox="0 0 720 180">
+<text x="360" y="16" text-anchor="middle" font-size="10" font-weight="700" fill="#1e3a5f">各厂商bit供应量（高度=bit量）</text>
+<text x="360" y="30" text-anchor="middle" font-size="8" fill="#94a3b8">来源：TrendForce / 战略部测算</text>
+<!-- Simplified bar chart -->
+<rect x="50" y="45" width="80" height="105" rx="3" fill="#3b82f6" opacity=".8"/>
+<text x="90" y="160" text-anchor="middle" font-size="8" fill="#2563eb">三星</text>
+<rect x="150" y="55" width="80" height="95" rx="3" fill="#7c3aed" opacity=".8"/>
+<text x="190" y="160" text-anchor="middle" font-size="8" fill="#7c3aed">SK海</text>
+<rect x="250" y="75" width="80" height="75" rx="3" fill="#059669" opacity=".8"/>
+<text x="290" y="160" text-anchor="middle" font-size="8" fill="#059669">美光</text>
+<rect x="350" y="115" width="60" height="35" rx="3" fill="#eab308" opacity=".8"/>
+<text x="380" y="160" text-anchor="middle" font-size="8" fill="#b45309">长鑫</text>
+<text x="360" y="175" text-anchor="middle" font-size="9" fill="#64748b">2026全行业bit供应同比+23%（30,020→36,875 M GB）· SK海力士斜率最陡(+35%)· 长鑫温和但持续向上(+10%)</text>
+</svg>
+</div></div>
+
+<div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
+<div class="ttl">DRAM需求结构剧变：HBM从1%→10%（2023→2026）</div>
+<div class="dsc">
+<svg viewBox="0 0 720 150">
+<text x="360" y="16" text-anchor="middle" font-size="10" font-weight="700" fill="#1e3a5f">HBM需求 187 → 4,516 M GB（24倍增长）</text>
+<rect x="30" y="35" width="140" height="90" rx="4" fill="#f1f5f9" stroke="#e2e8f0"/>
+<text x="100" y="55" text-anchor="middle" font-size="9" font-weight="700" fill="#64748b">2023</text>
+<text x="100" y="72" text-anchor="middle" font-size="8" fill="#475569">手机 34%</text>
+<text x="100" y="86" text-anchor="middle" font-size="8" fill="#475569">数据中心 28%</text>
+<text x="100" y="100" text-anchor="middle" font-size="8" fill="#475569">PC 20%</text>
+<text x="100" y="114" text-anchor="middle" font-size="8" fill="#dc2626" font-weight="700">HBM 1%</text>
+
+<text x="220" y="80" font-size="24">→</text>
+
+<rect x="270" y="35" width="140" height="90" rx="4" fill="#ecfdf5" stroke="#6ee7b7"/>
+<text x="340" y="55" text-anchor="middle" font-size="9" font-weight="700" fill="#64748b">2026</text>
+<text x="340" y="72" text-anchor="middle" font-size="8" fill="#475569">数据中心 40%</text>
+<text x="340" y="86" text-anchor="middle" font-size="8" fill="#475569">手机 26%</text>
+<text x="340" y="100" text-anchor="middle" font-size="8" fill="#475569">PC 18%</text>
+<text x="340" y="114" text-anchor="middle" font-size="8" fill="#059669" font-weight="700">★HBM 10%</text>
+
+<text x="500" y="80" text-anchor="middle" font-size="9" color="#64748b">HBM 4年24倍增长<br>是DRAM史上任何产品<br>都未实现过的增速</text>
+</svg>
+</div></div>
+
+<!-- ====== SECTION 7: CXMT DEEP DIVE ====== -->
+<h2>7. 长鑫科技（CXMT）深度剖析</h2>
+
+<div class="card" style="border-left:4px solid #eab308">
+<div class="ttl">关键财务指标（招股书口径）</div>
+<div class="dsc">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0">
+<div style="background:#eff6ff;padding:14px;border-radius:8px;text-align:center">
+<div style="font-size:24px;font-weight:800;color:#2563eb">617.99亿</div>
+<div style="font-size:11px;color:#64748b">2025全年营收 同比+155%</div>
+</div>
+<div style="background:#ecfdf5;padding:14px;border-radius:8px;text-align:center">
+<div style="font-size:24px;font-weight:800;color:#059669">508亿</div>
+<div style="font-size:11px;color:#64748b">2026 Q1单季营收 同比+719%</div>
+</div>
+<div style="background:#fef3c7;padding:14px;border-radius:8px;text-align:center">
+<div style="font-size:24px;font-weight:800;color:#b45309">247.62亿</div>
+<div style="font-size:11px;color:#64748b">2026 Q1归母净利润</div>
+</div>
+<div style="background:#fce7f3;padding:14px;border-radius:8px;text-align:center">
+<div style="font-size:24px;font-weight:800;color:#db2777">41.02%</div>
+<div style="font-size:11px;color:#64748b">2025主营业务毛利率（从2024的5%跃升36pp）</div>
+</div>
+</div>
+<p><b>媒体测算：</b>2026 Q1净利润超过科创板605家上市公司归母净利润之和（剔除中芯国际、华虹等红筹企业）。这是A股历史上单家公司单季盈利首次超过整个板块。[腾讯科技]</p>
+</div></div>
+
+<div class="card">
+<div class="ttl">收入结构（2025招股书）——非共识#3的硬证据</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th>产品系列</th><th>2025年度（万元）</th><th>占比</th><th>2024年度（万元）</th><th>占比</th></tr></thead>
+<tbody>
+<tr><td>DDR系列（PC/服务器内存）</td><td>1,953,128</td><td>31.87%</td><td>317,397</td><td>13.26%</td></tr>
+<tr><td>LPDDR系列（手机/AI PC）</td><td>4,070,354</td><td>66.43%</td><td>1,979,825</td><td>82.74%</td></tr>
+<tr><td>其他产品及服务</td><td>104,054</td><td>1.70%</td><td>95,651</td><td>4.00%</td></tr>
+<tr style="background:#fef2f2"><td><b>HBM</b></td><td><b>0</b></td><td><b>0%</b></td><td><b>0</b></td><td><b>0%</b></td></tr>
+</tbody></table>
+<p><b>最关键的发现：</b>HBM在2025年没有任何收入贡献。2026 Q1的+719%营收增长纯粹由DDR5/LPDDR5X价格上涨+出货放量驱动，跟HBM无关。LPDDR系列是绝对主体（66.43%），反映中国手机产业链对长鑫的强依赖。DDR占比从2024的13%升至32%，服务器DDR5涨价+放量。</p>
+</div>
+<div class="src">来源：长鑫科技招股说明书申报稿（2026.05.17更新稿）[上交所]</div></div>
+
+<div class="card">
+<div class="ttl">产能与制程路线</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th>维度</th><th>2025</th><th>2026</th><th>2027</th></tr></thead>
+<tbody>
+<tr><td>DRAM总产能</td><td>合肥+北京~20万片/月</td><td>合肥二期达产 28-30万片/月</td><td>合肥三期+上海扩产</td></tr>
+<tr><td>制程节点</td><td>17/19nm</td><td>16nm量产/14nm流片</td><td>14nm量产/11nm研发</td></tr>
+<tr><td>主力产品</td><td>DDR4/DDR5/LPDDR5</td><td>LPDDR5X 10.7Gbps量产+DDR5主力</td><td>DDR5高速版+HBM3E</td></tr>
+<tr><td>HBM进度</td><td>HBM3样品（媒体）</td><td>HBM3拟量产（媒体·待证实）</td><td>HBM3E业界预期</td></tr>
+</tbody></table>
+<p><b>重要披露：</b>长鑫不是"全垂直IDM"，是"Fab-Lite IDM"。晶圆制造自有，封装委外给OSAT（长电/通富/华天）。HBM核心难点不在DRAM die本身（长鑫能做），而在TSV/混合键合等先进封装——需要OSAT升级配合。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl">IPO募资295亿元用途</div>
+<div class="dsc">
+<svg viewBox="0 0 720 100">
+<rect x="20" y="20" width="420" height="60" rx="6" fill="#3b82f6"/>
+<text x="230" y="42" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">DRAM先进制程技术升级 130亿（44%）</text>
+<text x="230" y="60" text-anchor="middle" font-size="9" fill="#bfdbfe">17nm→14nm节点迁移+产线改造</text>
+<rect x="450" y="20" width="250" height="60" rx="6" fill="#7c3aed"/>
+<text x="575" y="42" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">前瞻技术研发 90亿（31%）</text>
+<text x="575" y="60" text-anchor="middle" font-size="9" fill="#ede9fe">含HBM研发（非专项）</text>
+<rect x="100" y="84" width="140" height="12" rx="3" fill="#059669"/>
+<text x="170" y="93" text-anchor="middle" font-size="8" fill="#fff">补充流动资金 75亿（25%）</text>
+</svg>
+<p>科创板史上第二大IPO（仅次于中芯国际532.3亿）。74%投向DRAM主业，不是跨界。HBM资金散在前瞻研发中——非主要资金锚定方向，再次印证非共识#3。</p>
+</div></div>
+
+<!-- ====== SECTION 8: YMTC DEEP DIVE ====== -->
+<h2>8. 长江存储（YMTC）深度剖析</h2>
+
+<div class="card" style="border-left:4px solid #0891b2">
+<div class="ttl">Xtacking混合键合架构：中国半导体的技术名片</div>
+<div class="dsc">
+<p>长江存储在3D NAND的核心创新是<b>Xtacking混合键合</b>——将存储阵列和CMOS外围电路分别在不同晶圆上制造，通过数百万个Cu-Cu金属键合点面对面键合。</p>
+<dl>
+<dt>与传统3D NAND的本质区别</dt>
+<dd>传统方案：存储阵列和CMOS在同晶圆→外围电路占面积~30-40%，I/O速度受限。Xtacking：存储/CMOS独立晶圆→存储阵列效率>90%，I/O速度提升3倍，开发周期缩短3个月。</dd>
+<dt>反向技术授权（2025.02）</dt>
+<dd>三星电子下一代V10 NAND（420-430层）正式付费使用长存Xtacking混合键合专利。这是中国半导体历史上首次国际巨头反向授权高端NAND工艺IP。SK海力士也在谈判类似协议。[Digitimes/TrendForce]</dd>
+<dt>2025全球NAND份额~13%（估算），Xtacking 4.0：232 active/294 total层</dt>
+</dl>
+</div>
+<div class="src">来源：长江存储官网; CFM闪存市场; Digitimes 2025.02; TrendForce 2025.02</div></div>
+
+<div class="card">
+<div class="ttl">重大战略转向：从NAND单一玩家→DRAM+NAND双线IDM</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th>阶段</th><th>武汉一二期</th><th>武汉三期</th><th>远期规划</th></tr></thead>
+<tbody>
+<tr><td>状态</td><td>已运营</td><td>2026 H2投产</td><td>三期达产后</td></tr>
+<tr><td>月产能</td><td>18-20万片</td><td>新增10万→总30万</td><td>合计50万片/月</td></tr>
+<tr><td>产品分配</td><td>100% NAND</td><td><b>~50% NAND+50% DRAM</b></td><td>NAND为主力，DRAM视长鑫位势调整</td></tr>
+<tr><td>占全球NAND</td><td>~13%</td><td>+5-8pp增量（NAND侧）</td><td>20%+目标</td></tr>
+</tbody></table>
+<p><b>战略含义：</b>① 对长鑫短期不构成直接冲突（长存DRAM从commodity/入门LPDDR切入）；② 对全球NAND供给紧6-9个月（新增产能50%不进NAND）；③ 对长存估值从NAND单业务→平台化双业务溢价。</p>
+</div>
+<div class="src">来源：华尔街见闻 2026.02; 电子工程专辑 2026.02</div></div>
+
+<!-- ====== SECTION 9: THREE CONTRARIAN VIEWS ====== -->
+<h2>9. 三个非共识观点（Contrarian Views）</h2>
+
+<div class="card" style="border-left:4px solid #dc2626;background:#fef2f2">
+<div class="ttl">非共识 #1：存储已不再是周期股 — 估值应从P/B转向P/E+P/S</div>
+<div class="dsc">
+<p>市场共识：存储是大宗商品，2026/27必然下行，估值打周期股折扣。</p>
+<p><b>反向证据：</b>Goldman Sachs预测2026 DRAM供需缺口4.9%（15年最严重），缺口持续到2027+；Nomura直言supply-side增量在2028前不可能meaningful；Morgan Stanley把super-cycle延伸至2027 year-end。</p>
+<p><b>含义：</b>长鑫/长江估值不应套用传统DRAM周期股的1-1.5× P/B，而应以AI基建关键节点P/S 8-12×重估。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #d97706;background:#fffbeb">
+<div class="ttl">非共识 #2：DDR4不是被遗忘的旧产品 — 是国产玩家未来18个月最大现金牛</div>
+<div class="dsc">
+<p>市场共识：DDR4是落后产品，三大停产后将被完全取代。</p>
+<p><b>反向证据：</b>三星把DDR4停产推迟至2026.12；SK海力士无锡旧厂增产；TrendForce直接命名为"Unexpected Cash Cow"；三星与大客户签NCNR长协锁定价格。</p>
+<p><b>含义：</b>长鑫+兆易+江波龙等中国DDR4玩家在三大主动让出的市场拿超额利润，套利窗口至少持续到2027 H1。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #059669;background:#ecfdf5">
+<div class="ttl">非共识 #3：长鑫真正护城河不在HBM — 而在DDR5/LPDDR5X国产化稀缺性</div>
+<div class="dsc">
+<p>市场共识：长鑫的核心叙事=HBM追赶；HBM落后3-4年=估值天花板低。</p>
+<p><b>反向证据：</b>长鑫95%+收入来自DDR4/DDR5/LPDDR5X（招股书披露），HBM3仍在样品阶段。LPDDR5X 10.7Gbps已规模量产，成为中国手机厂商（小米/OV/华为）的国产替代核心选择。2026 Q1营收+719%直接来自DDR5/LPDDR5X涨价，跟HBM没关系。</p>
+<p><b>含义：</b>HBM是option value（成功则估值翻倍），而非main thesis。DDR5+LPDDR5X才是2026-2027业绩主驱动；定价主线应从HBM进度→DDR5国产化渗透率。消费级AI PC主力跑7B-13B模型——长鑫LPDDR5X/兆易CUBE 2.0完全够。</p>
+</div></div>
+
+<!-- ====== MOE NOTE ====== -->
+<div class="card" style="background:#f1f5f9;margin-top:20px">
+<div class="ttl">方法论提示：Dense vs MoE模型对存储需求的颠覆性影响</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th>维度</th><th>Dense（Llama 70B）</th><th>MoE（DeepSeek-V3 671B/37B active）</th></tr></thead>
+<tbody>
+<tr><td>容量需求</td><td>70 GB（全部参数）</td><td>671 GB（所有expert都需load）<b>↑更大</b></td></tr>
+<tr><td>带宽需求</td><td>7 TB/s（全部参数×100tps）</td><td>3.7 TB/s（仅active expert×100tps）<b>↓大幅降低</b></td></tr>
+</tbody></table>
+<p>MoE的本质：用更多容量换带宽。这对长鑫追赶HBM3反而是利好——<b>容量先到位比带宽先到位更重要</b>。MoE大模型更需要大容量HBM而非超高带宽。</p>
+</div></div>
+
+<p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:32px">本篇数据来源：长鑫科技招股书(2026.05)、TrendForce、中信证券深度报告(2026.05)、Tom's Hardware、Digitimes、各厂商财报<br>⚠ 部分HBM相关进度为媒体/行业推测，非官方确认。投资决策应以官方招股书和年报为准。</p>
 
 
-// ====== STORAGE TIMELINE ======
-const SS=1970,SE=2026,ST=SE-SS;
-function PS(y){return((y-SS)/ST*100).toFixed(2)}
-
-const sdom=[
-  {s:1970,e:1980,l:'美国开创DRAM',c:'#2563eb'},
-  {s:1980,e:1986,l:'日本DRAM称霸',c:'#d97706'},
-  {s:1986,e:1992,l:'美日协议→韩国崛起',c:'linear-gradient(90deg,#d97706,#dc2626)'},
-  {s:1992,e:2007,l:'三星DRAM霸主+2D NAND',c:'#dc2626'},
-  {s:2007,e:2018,l:'3D NAND革命+HBM诞生',c:'linear-gradient(90deg,#059669,#7c3aed)'},
-  {s:2018,e:2026,l:'HBM AI爆发+中国存储崛起',c:'linear-gradient(90deg,#db2777,#f59e0b)'},
-];
-
-const sdram=[
-  {y:1970,t:'Intel 1103 1Kb',d:'首款商用DRAM',big:1},
-  {y:1980,t:'64Kb DRAM',d:'日本品质碾压',big:1},
-  {y:1985,t:'1Mb DRAM',d:'NEC全球第一'},
-  {y:1992,t:'★16Mb DRAM',d:'三星全球第一',big:1},
-  {y:1993,t:'SDRAM 133MHz',d:'同步接口革命'},
-  {y:2000,t:'DDR1 400MT/s',d:'双沿传输'},
-  {y:2003,t:'DDR2 800MT/s',d:'FBGA封装'},
-  {y:2007,t:'DDR3 2133MT/s',d:'低功耗'},
-  {y:2014,t:'DDR4 3200MT/s',d:'高带宽'},
-  {y:2020,t:'★DDR5 6400MT/s',d:'片上ECC+PMIC',big:1},
-  {y:2023,t:'★HBM3E',d:'AI核心 SK海力士',big:1},
-  {y:2025,t:'HBM4',d:'2048-bit'},
-  {y:2026,t:'DDR6',d:'>100GB/s'},
-];
-
-const snand=[
-  {y:1987,t:'NAND发明',d:'东芝 舛冈富士雄'},
-  {y:2007,t:'★东芝 BiCS 3D',d:'3D NAND概念',big:1},
-  {y:2013,t:'★三星V-NAND 24层',d:'3D NAND量产',big:1},
-  {y:2016,t:'64层',d:'三星/东芝/美光'},
-  {y:2018,t:'96层 QLC',d:'YMTC Xtacking 1.0'},
-  {y:2020,t:'★176层',d:'美光率先',big:1},
-  {y:2022,t:'232层',d:'YMTC/美光/海力士',big:1},
-  {y:2024,t:'300+层',d:'海力士/三星/YMTC'},
-  {y:2026,t:'★400+层',d:'美光/海力士',big:1},
-];
-
-const sus=[
-  {y:1970,t:'Intel 1103',d:'首款DRAM',big:1},
-  {y:1985,t:'Intel退出DRAM',d:'All-in CPU',big:1},
-  {y:1990,t:'美光并购',d:'成唯一幸存者'},
-  {y:2000,t:'三国之一',d:'美光稳居前三'},
-  {y:2020,t:'★176层 NAND',d:'美光率先',big:1},
-  {y:2024,t:'232层+HBM',d:'追赶海力士'},
-];
-
-const sjp=[
-  {y:1976,t:'VLSI计划',d:'DRAM主攻',big:1},
-  {y:1980,t:'★品质碾压美国',d:'惠普测试',big:1},
-  {y:1985,t:'★全球DRAM>80%',d:'NEC第一',big:1},
-  {y:2007,t:'东芝 BiCS 3D',d:'发明3D NAND',big:1},
-  {y:2008,t:'尔必达破产',d:'DRAM全军覆没'},
-  {y:2018,t:'铠侠成立',d:'东芝NAND独立'},
-];
-
-const skr=[
-  {y:1983,t:'三星进军DRAM',d:'东京宣言',big:1},
-  {y:1992,t:'★三星DRAM第一',d:'逆周期投资',big:1},
-  {y:2012,t:'SK收购海力士',d:'双雄并立'},
-  {y:2013,t:'★三星V-NAND',d:'24层3D量产',big:1},
-  {y:2023,t:'★HBM3E独家',d:'供NVIDIA',big:1},
-  {y:2025,t:'HBM4+HBM4E',d:'下一代AI存储'},
-];
-
-const scn=[
-  {y:2016,t:'YMTC/CXMT成立',d:'大基金推动',big:1},
-  {y:2018,t:'Xtacking 1.0',d:'原创架构',big:1},
-  {y:2022,t:'★Xtacking 3.0',d:'232层国际一线',big:1},
-  {y:2022,t:'美国制裁',d:'列入实体清单'},
-  {y:2024,t:'Xtacking 4.0',d:'300+层突破'},
-  {y:2026,t:'DDR5量产',d:'CXMT突破'},
-];
-
-// Layout helper (same as logic timeline)
-function layoutS(events,spacing){
-  let sorted=[...events].map((e,i)=>({...e,i})).sort((a,b)=>a.y-b.y);
-  let rows=[];
-  sorted.forEach(e=>{
-    let x=parseFloat(PS(e.y));
-    let placed=false;
-    for(let r=0;r<rows.length;r++){
-      if(!rows[r]||x>=rows[r]){
-        rows[r]=x+spacing;
-        e.row=r;placed=true;break;
-      }
-    }
-    if(!placed){e.row=rows.length;rows.push(x+spacing);}
-  });
-  sorted.sort((a,b)=>a.i-b.i);
-  return sorted;
-}
-
-const stl=document.getElementById('stl');
-if(stl){
-let h='<div class="dom-band">';
-sdom.forEach(d=>{let bg=d.c;h+=`<div class="dom-block" style="left:${PS(d.s)}%;width:${((d.e-d.s)/ST*100).toFixed(1)}%;background:${bg};color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3)">${d.l}</div>`;});
-h+='</div>';stl.innerHTML=h;
-
-h='<div class="yr-ruler">';
-for(let y=SS;y<=SE;y++){if(y%5===0)h+=`<div class="yr${y%10===0?' mjr':''}" style="left:${PS(y)}%">${y}</div>`;}
-h+='</div>';
-stl.innerHTML+=h;
-
-const seras=[{s:1970,e:1980,bg:'#eff6ff',l:'DRAM诞生(美国)'},{s:1980,e:1986,bg:'#fef3c7',l:'日本DRAM霸权'},{s:1986,e:1992,bg:'#fef2f2',l:'韩国逆袭'},{s:1992,e:2007,bg:'#ecfdf5',l:'三国时代+2D NAND'},{s:2007,e:2018,bg:'#f3e8ff',l:'3D NAND+HBM革命'},{s:2018,e:2027,bg:'#fce7f3',l:'AI存储+中国崛起'},];
-seras.forEach(e=>{
-  h='<div class="era-bar" style="background:'+e.bg+'"><span class="era-lbl">'+e.l+'</span></div>';
-  stl.innerHTML+=h;
-});
-
-function slane(title,cls,data,sp){
-  let d=layoutS(data,sp||2.5);
-  let nRows=Math.max(...d.map(e=>e.row||0))+1;
-  let h='<div class="lane '+cls+'"><div class="lane-hdr"><span class="lbl">'+title+'</span></div>';
-  h+='<div class="lane-body"><div class="baseline"></div>';
-  let rH=18;let mid=(nRows-1)/2;
-  d.forEach(e=>{
-    let x=PS(e.y);
-    let row=e.row||0;
-    let yOff=(row-mid)*rH;
-    let dotCls=e.big?' hg':'';
-    h+='<div class="ev" style="left:'+x+'%;top:'+(50+yOff/80*100)+'%;transform:translate(-50%,-50%)" title="'+e.y+': '+e.t+' | '+(e.d||'')+'">';
-    h+='<span class="yr">'+e.y+'</span><span class="dot'+dotCls+'"></span><span class="tx">'+e.t+'</span>';
-    if(e.d)h+='<span class="cp">'+e.d+'</span>';
-    h+='</div>';
-  });
-  h+='</div></div>';return h;
-}
-
-stl.innerHTML+=slane('🔵 DRAM 演进','proc',sdram,3);
-stl.innerHTML+=slane('🟢 NAND Flash 演进','pack',snand,4);
-stl.innerHTML+=slane('🔴 美国(美光)','us',sus,5);
-stl.innerHTML+=slane('🟠 日本(NEC→铠侠)','jp',sjp,6);
-stl.innerHTML+=slane('🔴 韩国(三星/海力士)','storage',skr,4);
-stl.innerHTML+=slane('🩷 中国(YMTC/CXMT)','cn',scn,5);
-}
-
-</script>
-</body>
-</html>
+<!-- ====== SOURCES ====== -->
