@@ -1030,7 +1030,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <li>三个非共识观点（逻辑芯片篇）</li>
 </ol></div>
 
-<h2>1. 范式转移：从Wintel到GPU+Foundry</h2>
+<h3>1.8.1 1. 范式转移：从Wintel到GPU+Foundry</h3>
 
 <div class="card" style="border-left:4px solid #2563eb">
 <div class="ttl">旧范式：PC时代的Wintel双头垄断</div>
@@ -1043,7 +1043,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <div class="dsc"><p>2020年代起，芯片产业的权力结构发生根本性转移：<b>设计权从Intel转到NVIDIA</b>（GPU成为算力中心），<b>制造权从IDM转到TSMC</b>（Foundry成为制程王者）。Fabless设计公司不再受制于Intel的制程节奏，而是共享TSMC的工艺平台。</p>
 <dl><dt>权力结构的重新分配</dt><dd>2024年NVIDIA市值超过$3万亿（超越Intel+AWS+Google之和），TSMC市值接近$1万亿。这两家公司在20年前都不在半导体的"权力中心"。Intel市值从2020年$250B跌至2024年$150B。</dd><dt>关键含义</dt><dd>芯片产业从"一家公司垄断制程与设计"的垂直模式，转变为"设计公司百花齐放+一家Foundry统一制造"的水平模式。TSMC成为这个新秩序中最不可替代的单一节点。</dd></dl></div></div>
 
-<h2>2. 摩尔定律的"死亡"与"复活"</h2>
+<h3>1.8.2 2. 摩尔定律的"死亡"与"复活"</h3>
 
 <div class="card" style="border-left:4px solid #d97706">
 <div class="ttl">为什么说摩尔定律"死了"？——晶体管成本不再随缩微自动下降</div>
@@ -1059,7 +1059,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <dl><dt>Chiplet的经济学</dt><dd>将单一巨大芯片拆分为多个小芯片：计算芯（用最先进制程，如5nm） + I/O芯（用成熟制程，如14nm）→ 小芯片良率更高（缺陷概率降低）→ 总成本降低30-50%。AMD已用Chiplet在服务器市场从Intel手中夺取30%+份额。</dd><dt>3D堆叠</dt><dd>TSMC SoIC、Intel Foveros、Samsung X-Cube——将芯片垂直堆叠，用TSV互联。相当于从"平房"变成"摩天大楼"，在垂直维度获取晶体管密度增长。</dd><dt>含义</dt><dd>制程缩微不再是唯一路径。先进封装+Chiplet已成为与制程并列的"第二摩尔定律"。这也是为什么TSMC同时投资$300亿+在先进封装产能上——CoWoS产能已成AI芯片最大瓶颈之一。</dd></dl>
 </div></div>
 
-<h2>3. 制程竞争全景：Intel/TSMC/Samsung 二十年路线图</h2>
+<h3>1.8.3 3. 制程竞争全景：Intel/TSMC/Samsung 二十年路线图</h3>
 
 <div class="card"><div class="ttl">三大巨头制程路线对比（2011-2026）</div>
 <div class="dsc">
@@ -1087,7 +1087,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 </ol>
 </div></div>
 
-<h2>4. ASML EUV垄断：全球半导体产业的"单点故障"</h2>
+<h3>1.8.4 4. ASML EUV垄断：全球半导体产业的"单点故障"</h3>
 
 <div class="card" style="border-left:4px solid #7c3aed"><div class="ttl">ASML为什么能垄断？——不是技术，是政治</div>
 <div class="dsc">
@@ -1108,14 +1108,14 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <p>ASML累计投入超€60亿，耗时20年才等到EUV开花结果。世界上没有第二家公司能在没有美国政府和三大客户（Intel/TSMC/Samsung）支持下完成这样的研发。</p>
 </div></div>
 
-<h2>5. Foundry模式的胜利：为什么IDM输给了Fabless+Foundry？</h2>
+<h3>1.8.5 5. Foundry模式的胜利：为什么IDM输给了Fabless+Foundry？</h3>
 
 <div class="card" style="border-left:4px solid #0891b2">
 <div class="ttl">经济学解释：专业化 vs 垂直整合</div>
 <div class="dsc">
 <dl><dt>IDM的困境（Intel为代表）</dt><dd>① 制程研发成本指数增长（从28nm $10亿 → 3nm $50亿+），必须通过海量自有产品摊薄；② 设计团队和制程团队的利益冲突（设计的人想保守，制程的人想激进）；③ 客户就是竞争对手（Intel做CPU，Apple想做自己的CPU时只能离开Intel找TSMC）。</dd><dt>Foundry的优势（TSMC为代表）</dt><dd>① 制程研发成本被所有客户分摊（NVIDIA+Apple+AMD+Qualcomm+Intel自己）；② 不与客户竞争（"信任"是Foundry的核心资产）；③ 来自不同客户的需求反馈加速了工艺迭代（Apple要低功耗、NVIDIA要高性能、AMD要平衡—TSMC在一代工艺中学习三种需求）。</dd><dt>结果</dt><dd>TSMC的制程研发效率远超任何IDM。2024年TSMC研发投入约$60亿，Intel约$170亿——但TSMC的制程节点领先Intel至少一代（N2 vs 18A）。</dd></dl></div></div>
 
-<h2>6. 中美芯片战争：从单点制裁到系统性脱钩的经济学</h2>
+<h3>1.8.6 6. 中美芯片战争：从单点制裁到系统性脱钩的经济学</h3>
 
 <div class="card" style="border-left:4px solid #dc2626;background:#fef2f2">
 <div class="ttl">美国对华芯片管制的逻辑链条</div>
@@ -1136,7 +1136,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 </tbody></table>
 </div></div>
 
-<h2>7. Chiplet与先进封装：后摩尔时代的"第二曲线"</h2>
+<h3>1.8.7 7. Chiplet与先进封装：后摩尔时代的"第二曲线"</h3>
 
 <div class="card" style="border-left:4px solid #059669">
 <div class="ttl">Chiplet的经济学：为什么"分而治之"比"大一统"更好？</div>
@@ -1155,7 +1155,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <p>CoWoS产能已成为2024-2026年AI芯片的最大瓶颈之一。NVIDIA H100/B200的等待时间从2023年的2周延长到2024年的3-6个月——不是因为GPU die缺，而是CoWoS封装产能不够。</p>
 </div></div>
 
-<h2>8. AI芯片军备竞赛</h2>
+<h3>1.8.8 8. AI芯片军备竞赛</h3>
 
 <div class="card"><div class="ttl">全球AI芯片玩家图谱（2024-2026）</div>
 <div class="dsc">
@@ -1173,7 +1173,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <p><b>NVIDIA的护城河不是硬件而是CUDA：</b>超过400万开发者、15年积累的软件生态。即使国产GPU硬件性能追平，没有CUDA替代生态（华为CANN/寒武纪BANG），开发者迁移成本极高。这就是为什么美国对华GPU禁令的实质效果是"冻结中国AI的算力天花板"。</p>
 </div></div>
 
-<h2>9. 三个非共识观点（逻辑芯片篇）</h2>
+<h3>1.8.9 9. 三个非共识观点（逻辑芯片篇）</h3>
 
 <div class="card" style="border-left:4px solid #2563eb;background:#eff6ff">
 <div class="ttl">非共识 #1：Intel不会"死"——它正在变成第二个AMD</div>
@@ -1215,7 +1215,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 </div>
 
 <!-- ====== SECTION 1: PARADIGM SHIFT ====== -->
-<h2>1. 行业范式转移：为什么这次存储周期不一样？</h2>
+<h3>2.7.1 1. 行业范式转移：为什么这次存储周期不一样？</h3>
 
 <div class="card" style="border-left:4px solid #eab308">
 <div class="ttl">旧范式：CPU算力时代 — DRAM是配角</div>
@@ -1235,7 +1235,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <!-- ====== SECTION 2: STORAGE PYRAMID ====== -->
-<h2>2. 三级存储金字塔：HBM为什么是AI核心增量？</h2>
+<h3>2.7.2 2. 三级存储金字塔：HBM为什么是AI核心增量？</h3>
 
 <div class="card">
 <div class="ttl">AI服务器 vs 传统服务器 — 存储结构根本不同</div>
@@ -1269,7 +1269,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <!-- ====== SECTION 3: THREE AI SCENARIOS ====== -->
-<h2>3. 三种AI场景的显存需求瓶颈</h2>
+<h3>2.7.3 3. 三种AI场景的显存需求瓶颈</h3>
 
 <div class="card">
 <div class="ttl">云端训练 vs 云端推理 vs 终端推理 — 瓶颈各不相同</div>
@@ -1298,7 +1298,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <!-- ====== SECTION 4: SUPPLY SIDE ====== -->
-<h2>4. 供给侧逻辑反转：HBM 3:1晶圆转换比</h2>
+<h3>2.7.4 4. 供给侧逻辑反转：HBM 3:1晶圆转换比</h3>
 
 <div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
 <div class="ttl">DDR4退出 × HBM转线 = 供给端历史性紧缩</div>
@@ -1317,7 +1317,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <!-- ====== SECTION 5: TAXONOMY & MATRIX ====== -->
-<h2>5. 存储完整分类树与厂商矩阵</h2>
+<h3>2.7.5 5. 存储完整分类树与厂商矩阵</h3>
 
 <div class="card">
 <div class="ttl">DRAM vs NAND产线：本质不同决定中国策略差异</div>
@@ -1351,7 +1351,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <!-- ====== SECTION 6: MARKET LANDSCAPE ====== -->
-<h2>6. 全球存储格局 2026</h2>
+<h3>2.7.6 6. 全球存储格局 2026</h3>
 
 <div class="card">
 <div class="ttl">DRAM Q4 2025全球市占率（TrendForce 2026.02.26）</div>
@@ -1418,7 +1418,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <!-- ====== SECTION 7: CXMT DEEP DIVE ====== -->
-<h2>7. 长鑫科技（CXMT）深度剖析</h2>
+<h3>2.7.7 7. 长鑫科技（CXMT）深度剖析</h3>
 
 <div class="card" style="border-left:4px solid #eab308">
 <div class="ttl">关键财务指标（招股书口径）</div>
@@ -1490,7 +1490,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <!-- ====== SECTION 8: YMTC DEEP DIVE ====== -->
-<h2>8. 长江存储（YMTC）深度剖析</h2>
+<h3>2.7.8 8. 长江存储（YMTC）深度剖析</h3>
 
 <div class="card" style="border-left:4px solid #0891b2">
 <div class="ttl">Xtacking混合键合架构：中国半导体的技术名片</div>
@@ -1522,7 +1522,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="src">来源：华尔街见闻 2026.02; 电子工程专辑 2026.02</div></div>
 
 <!-- ====== SECTION 9: THREE CONTRARIAN VIEWS ====== -->
-<h2>9. 三个非共识观点（Contrarian Views）</h2>
+<h3>2.7.9 9. 三个非共识观点（Contrarian Views）</h3>
 
 <div class="card" style="border-left:4px solid #dc2626;background:#fef2f2">
 <div class="ttl">非共识 #1：存储已不再是周期股 — 估值应从P/B转向P/E+P/S</div>
