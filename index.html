@@ -156,6 +156,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <b>第二篇：存储芯片</b>
 <ol start="8" style="padding-left:20px;line-height:2">
 <li><a href="#sec-storage-timeline">存储技术时间轴</a></li>
+<li><a href="#sec-storage-timeline">存储时间轴</a></li>
 <li><a href="#sec-storage-pattern">存储产业格局变迁</a></li>
 <li><a href="#sec-storage-breakthrough">存储技术五次重大突破</a></li>
 <li><a href="#sec-storage-country">存储产业各国进展</a></li>
@@ -664,6 +665,9 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px">第二篇：存储芯片</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:40px">DRAM（动态随机存储器） & NAND Flash（闪存）——半导体产业的"粮仓"</p>
 
+
+<div id="sec-storage-timeline" class="tl-wrap" style="margin-top:16px"><div class="tl-inner" id="stl"></div></div>
+
 <h2 id="sec-storage-pattern">🌐 存储产业五大格局转折</h2>
 
 <div class="card"><span class="tag tu">美</span><span class="yr">1970—1980</span>
@@ -1146,6 +1150,148 @@ tl.innerHTML+=lane('🟣 欧洲','eue',eu,5);
 tl.innerHTML+=lane('🔵 台湾','tw',tw,5);
 tl.innerHTML+=lane('🩷 中国大陆','cn',cn,3);
 tl.innerHTML+=lane('⭐ 产业里程碑','mstone',mstones,2.2);
+
+
+// ====== STORAGE TIMELINE ======
+const SS=1970,SE=2026,ST=SE-SS;
+function PS(y){return((y-SS)/ST*100).toFixed(2)}
+
+const sdom=[
+  {s:1970,e:1980,l:'美国开创DRAM',c:'#2563eb'},
+  {s:1980,e:1986,l:'日本DRAM称霸',c:'#d97706'},
+  {s:1986,e:1992,l:'美日协议→韩国崛起',c:'linear-gradient(90deg,#d97706,#dc2626)'},
+  {s:1992,e:2007,l:'三星DRAM霸主+2D NAND',c:'#dc2626'},
+  {s:2007,e:2018,l:'3D NAND革命+HBM诞生',c:'linear-gradient(90deg,#059669,#7c3aed)'},
+  {s:2018,e:2026,l:'HBM AI爆发+中国存储崛起',c:'linear-gradient(90deg,#db2777,#f59e0b)'},
+];
+
+const sdram=[
+  {y:1970,t:'Intel 1103 1Kb',d:'首款商用DRAM',big:1},
+  {y:1980,t:'64Kb DRAM',d:'日本品质碾压',big:1},
+  {y:1985,t:'1Mb DRAM',d:'NEC全球第一'},
+  {y:1992,t:'★16Mb DRAM',d:'三星全球第一',big:1},
+  {y:1993,t:'SDRAM 133MHz',d:'同步接口革命'},
+  {y:2000,t:'DDR1 400MT/s',d:'双沿传输'},
+  {y:2003,t:'DDR2 800MT/s',d:'FBGA封装'},
+  {y:2007,t:'DDR3 2133MT/s',d:'低功耗'},
+  {y:2014,t:'DDR4 3200MT/s',d:'高带宽'},
+  {y:2020,t:'★DDR5 6400MT/s',d:'片上ECC+PMIC',big:1},
+  {y:2023,t:'★HBM3E',d:'AI核心 SK海力士',big:1},
+  {y:2025,t:'HBM4',d:'2048-bit'},
+  {y:2026,t:'DDR6',d:'>100GB/s'},
+];
+
+const snand=[
+  {y:1987,t:'NAND发明',d:'东芝 舛冈富士雄'},
+  {y:2007,t:'★东芝 BiCS 3D',d:'3D NAND概念',big:1},
+  {y:2013,t:'★三星V-NAND 24层',d:'3D NAND量产',big:1},
+  {y:2016,t:'64层',d:'三星/东芝/美光'},
+  {y:2018,t:'96层 QLC',d:'YMTC Xtacking 1.0'},
+  {y:2020,t:'★176层',d:'美光率先',big:1},
+  {y:2022,t:'232层',d:'YMTC/美光/海力士',big:1},
+  {y:2024,t:'300+层',d:'海力士/三星/YMTC'},
+  {y:2026,t:'★400+层',d:'美光/海力士',big:1},
+];
+
+const sus=[
+  {y:1970,t:'Intel 1103',d:'首款DRAM',big:1},
+  {y:1985,t:'Intel退出DRAM',d:'All-in CPU',big:1},
+  {y:1990,t:'美光并购',d:'成唯一幸存者'},
+  {y:2000,t:'三国之一',d:'美光稳居前三'},
+  {y:2020,t:'★176层 NAND',d:'美光率先',big:1},
+  {y:2024,t:'232层+HBM',d:'追赶海力士'},
+];
+
+const sjp=[
+  {y:1976,t:'VLSI计划',d:'DRAM主攻',big:1},
+  {y:1980,t:'★品质碾压美国',d:'惠普测试',big:1},
+  {y:1985,t:'★全球DRAM>80%',d:'NEC第一',big:1},
+  {y:2007,t:'东芝 BiCS 3D',d:'发明3D NAND',big:1},
+  {y:2008,t:'尔必达破产',d:'DRAM全军覆没'},
+  {y:2018,t:'铠侠成立',d:'东芝NAND独立'},
+];
+
+const skr=[
+  {y:1983,t:'三星进军DRAM',d:'东京宣言',big:1},
+  {y:1992,t:'★三星DRAM第一',d:'逆周期投资',big:1},
+  {y:2012,t:'SK收购海力士',d:'双雄并立'},
+  {y:2013,t:'★三星V-NAND',d:'24层3D量产',big:1},
+  {y:2023,t:'★HBM3E独家',d:'供NVIDIA',big:1},
+  {y:2025,t:'HBM4+HBM4E',d:'下一代AI存储'},
+];
+
+const scn=[
+  {y:2016,t:'YMTC/CXMT成立',d:'大基金推动',big:1},
+  {y:2018,t:'Xtacking 1.0',d:'原创架构',big:1},
+  {y:2022,t:'★Xtacking 3.0',d:'232层国际一线',big:1},
+  {y:2022,t:'美国制裁',d:'列入实体清单'},
+  {y:2024,t:'Xtacking 4.0',d:'300+层突破'},
+  {y:2026,t:'DDR5量产',d:'CXMT突破'},
+];
+
+// Layout helper (same as logic timeline)
+function layoutS(events,spacing){
+  let sorted=[...events].map((e,i)=>({...e,i})).sort((a,b)=>a.y-b.y);
+  let rows=[];
+  sorted.forEach(e=>{
+    let x=parseFloat(PS(e.y));
+    let placed=false;
+    for(let r=0;r<rows.length;r++){
+      if(!rows[r]||x>=rows[r]){
+        rows[r]=x+spacing;
+        e.row=r;placed=true;break;
+      }
+    }
+    if(!placed){e.row=rows.length;rows.push(x+spacing);}
+  });
+  sorted.sort((a,b)=>a.i-b.i);
+  return sorted;
+}
+
+const stl=document.getElementById('stl');
+if(stl){
+let h='<div class="dom-band">';
+sdom.forEach(d=>{let bg=d.c;h+=`<div class="dom-block" style="left:${PS(d.s)}%;width:${((d.e-d.s)/ST*100).toFixed(1)}%;background:${bg};color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3)">${d.l}</div>`;});
+h+='</div>';stl.innerHTML=h;
+
+h='<div class="yr-ruler">';
+for(let y=SS;y<=SE;y++){if(y%5===0)h+=`<div class="yr${y%10===0?' mjr':''}" style="left:${PS(y)}%">${y}</div>`;}
+h+='</div>';
+stl.innerHTML+=h;
+
+const seras=[{s:1970,e:1980,bg:'#eff6ff',l:'DRAM诞生(美国)'},{s:1980,e:1986,bg:'#fef3c7',l:'日本DRAM霸权'},{s:1986,e:1992,bg:'#fef2f2',l:'韩国逆袭'},{s:1992,e:2007,bg:'#ecfdf5',l:'三国时代+2D NAND'},{s:2007,e:2018,bg:'#f3e8ff',l:'3D NAND+HBM革命'},{s:2018,e:2027,bg:'#fce7f3',l:'AI存储+中国崛起'},];
+seras.forEach(e=>{
+  h='<div class="era-bar" style="background:'+e.bg+'"><span class="era-lbl">'+e.l+'</span></div>';
+  stl.innerHTML+=h;
+});
+
+function slane(title,cls,data,sp){
+  let d=layoutS(data,sp||2.5);
+  let nRows=Math.max(...d.map(e=>e.row||0))+1;
+  let h='<div class="lane '+cls+'"><div class="lane-hdr"><span class="lbl">'+title+'</span></div>';
+  h+='<div class="lane-body"><div class="baseline"></div>';
+  let rH=18;let mid=(nRows-1)/2;
+  d.forEach(e=>{
+    let x=PS(e.y);
+    let row=e.row||0;
+    let yOff=(row-mid)*rH;
+    let dotCls=e.big?' hg':'';
+    h+='<div class="ev" style="left:'+x+'%;top:'+(50+yOff/112*100)+'%;transform:translate(-50%,-50%)" title="'+e.y+': '+e.t+' | '+(e.d||'')+'">';
+    h+='<span class="yr">'+e.y+'</span><span class="dot'+dotCls+'"></span><span class="tx">'+e.t+'</span>';
+    if(e.d)h+='<span class="cp">'+e.d+'</span>';
+    h+='</div>';
+  });
+  h+='</div></div>';return h;
+}
+
+stl.innerHTML+=slane('🔵 DRAM 演进','proc',sdram,3);
+stl.innerHTML+=slane('🟢 NAND Flash 演进','pack',snand,4);
+stl.innerHTML+=slane('🔴 美国(美光)','us',sus,5);
+stl.innerHTML+=slane('🟠 日本(NEC→铠侠)','jp',sjp,6);
+stl.innerHTML+=slane('🔴 韩国(三星/海力士)','storage',skr,4);
+stl.innerHTML+=slane('🩷 中国(YMTC/CXMT)','cn',scn,5);
+}
+
 </script>
 </body>
 </html>
