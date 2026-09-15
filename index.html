@@ -20,7 +20,7 @@ h3{font-size:17px;font-weight:700;color:#1e3a5f;margin:28px 0 8px}
 .tl-wrap::-webkit-scrollbar{height:5px}
 .tl-wrap::-webkit-scrollbar-track{background:#f1f5f9}
 .tl-wrap::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
-.tl-inner{min-width:5000px;padding:10px 20px 30px;position:relative}
+.tl-inner{min-width:4200px;padding:10px 20px 30px;position:relative}
 
 .dom-band{position:relative;height:52px;margin-bottom:8px}
 .dom-block{position:absolute;top:6px;height:40px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;white-space:nowrap;padding:0 8px;opacity:.9}
@@ -33,7 +33,7 @@ h3{font-size:17px;font-weight:700;color:#1e3a5f;margin:28px 0 8px}
 .era-bar{position:relative;height:22px;margin-bottom:2px;border-radius:3px;opacity:.08}
 .era-bar .era-lbl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:10px;font-weight:700;color:#475569;padding:0 10px;border-radius:4px}
 
-.lane{margin-bottom:72px}
+.lane{margin-bottom:30px}
 .lane-hdr{display:flex;align-items:center;gap:6px;margin-bottom:4px;padding-left:2px}
 .lane-hdr .lbl{font-size:11px;font-weight:700;color:#475569}
 .lane-body{position:relative;height:112px;background:var(--lb-bg,transparent);border-radius:4px}
@@ -155,7 +155,6 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <div>
 <b>第二篇：存储芯片</b>
 <ol start="8" style="padding-left:20px;line-height:2">
-<li><a href="#sec-storage-timeline">存储技术时间轴</a></li>
 <li><a href="#sec-storage-timeline">存储时间轴</a></li>
 <li><a href="#sec-storage-pattern">存储产业格局变迁</a></li>
 <li><a href="#sec-storage-breakthrough">存储技术五次重大突破</a></li>
@@ -666,7 +665,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:40px">DRAM（动态随机存储器） & NAND Flash（闪存）——半导体产业的"粮仓"</p>
 
 
-<div id="sec-storage-timeline" class="tl-wrap" style="margin-top:16px"><div class="tl-inner" id="stl"></div></div>
+<div id="sec-storage-timeline" class="tl-wrap" style="margin-top:8px"><div class="tl-inner" id="stl" style="min-width:3400px"></div></div>
 
 <h2 id="sec-storage-pattern">🌐 存储产业五大格局转折</h2>
 
@@ -1276,7 +1275,7 @@ function slane(title,cls,data,sp){
     let row=e.row||0;
     let yOff=(row-mid)*rH;
     let dotCls=e.big?' hg':'';
-    h+='<div class="ev" style="left:'+x+'%;top:'+(50+yOff/112*100)+'%;transform:translate(-50%,-50%)" title="'+e.y+': '+e.t+' | '+(e.d||'')+'">';
+    h+='<div class="ev" style="left:'+x+'%;top:'+(50+yOff/80*100)+'%;transform:translate(-50%,-50%)" title="'+e.y+': '+e.t+' | '+(e.d||'')+'">';
     h+='<span class="yr">'+e.y+'</span><span class="dot'+dotCls+'"></span><span class="tx">'+e.t+'</span>';
     if(e.d)h+='<span class="cp">'+e.d+'</span>';
     h+='</div>';
