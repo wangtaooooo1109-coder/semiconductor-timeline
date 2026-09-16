@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- version: v3.0 | 2026-09-15 | 新增第三篇功率半导体 | 逻辑#1.1-1.8 存储#2.1-2.7 -->
+<!-- version: v4.0 | 2026-09-16 | 新增第四篇车载MCU | 逻辑#1.1-1.8 存储#2.1-2.7 功率#3.1-3.7 MCU#4.1-4.7 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>半导体工业全景时间轴 1947—2026</title>
+<title>半导体工业全景时间轴 1947—2026 · 车载MCU专篇</title>
 <style>:root{--p:#2563eb;--l:#7c3aed;--pk:#059669;--us:#dc2626;--jp:#d97706;--eu:#7c3aed;--tw:#0891b2;--cn:#db2777;--ms:#f59e0b;--st:#eab308}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:#f8fafc;color:#1e293b;line-height:1.7}
@@ -140,7 +140,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <div class="content" style="padding-top:16px;padding-bottom:0">
 <div class="card" style="background:#f1f5f9;border:none">
 <div class="ttl" style="font-size:20px">📑 目录</div>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;font-size:13px;margin-top:12px">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;font-size:13px;margin-top:12px">
 <div>
 <div style="font-weight:800;color:#2563eb;font-size:15px;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #bfdbfe">第一篇 · 逻辑芯片</div>
 <ol style="padding-left:20px;line-height:2.2">
@@ -176,6 +176,20 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <li><a href="#sec-power-events">3.5 功率半导体重大事件</a></li>
 <li><a href="#sec-power-nodes">3.6 功率器件演进总表</a></li>
 <li><a href="#sec-power-deep">3.7 深度研究 · SiC · GaN · AI供电 · 车规</a></li>
+</ol>
+</div>
+</div>
+</div>
+<div>
+<div style="font-weight:800;color:#dc2626;font-size:15px;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #fca5a5">第四篇 · 车载MCU</div>
+<ol style="padding-left:20px;line-height:2.2">
+<li><a href="#sec-mcu-timeline">4.1 车载MCU时间轴</a></li>
+<li><a href="#sec-mcu-pattern">4.2 MCU产业格局变迁</a></li>
+<li><a href="#sec-mcu-breakthrough">4.3 MCU技术六次重大突破（3D图解）</a></li>
+<li><a href="#sec-mcu-country">4.4 MCU各国关键节点</a></li>
+<li><a href="#sec-mcu-events">4.5 MCU重大事件详表</a></li>
+<li><a href="#sec-mcu-nodes">4.6 MCU内核与制程演进总表</a></li>
+<li><a href="#sec-mcu-deep">4.7 深度研究 · 架构 · 安全 · 国产替代 · RISC-V</a></li>
 </ol>
 </div>
 </div>
@@ -1886,6 +1900,264 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:32px">数据来源：英飞凌/ST/安森美/Wolfspeed年报、Yole Group "Power Electronics 2025-2031"、Omdia功率器件排名(2025)、IEEE功率器件论文、各公司投资者日</p>
 
 
+
+<hr style="margin:60px 0 40px;border:none;border-top:4px solid #dc2626">
+
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px">第四篇：车载MCU</h1>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:40px">8位→16位→32位 · 分布式ECU→域控→中央计算 · 车内隐形大脑的进化史</p>
+
+<!-- ====== MCU TIMELINE (4.1) ====== -->
+<h2 style="max-width:1100px;margin:0 auto 8px;padding:0 24px;text-align:center;border:none;font-size:20px" id="sec-mcu-timeline">🔴 4.1 车载MCU时间轴（← 横向滚动 →）</h2>
+<div class="tl-wrap" style="margin-top:8px"><div class="tl-inner" id="mtl" style="min-width:4200px"></div></div>
+
+<div class="content">
+
+<h2 id="sec-mcu-pattern">🌐 4.2 车载MCU产业五大格局转折</h2>
+
+<div class="card"><span class="tag tu">美</span><span class="yr">1978—1995</span>
+<div class="ttl">美国开创：从机械控制到电子引擎</div>
+<div class="by">Intel · Motorola · GM · Ford | ECU从0到1</div>
+<div class="dsc">
+<p>1978年通用汽车在Oldsmobile Toronado上首次引入基于Intel 8048的电子点火控制系统，标志着汽车MCU时代的开启。1981年博世发明CAN总线协议，为多ECU分布式架构奠定通信基础。摩托罗拉6800/68HC11系列在80年代成为汽车ECU标配，福特、通用全面电子化。</p>
+<dl><dt>格局</dt><dd>美国主机厂+美国芯片商主导。Intel提供8位MCU(8048/8051)，Motorola成为车规MCU事实标准。日本刚刚起步(东芝、日立跟进)。欧洲博世是Tier1主导者但芯片依赖美国。</dd></dl></div>
+<div class="src">来源：GM Heritage Center; Bosch CAN历史; Motorola/Freescale历史</div></div>
+
+<div class="card"><span class="tag tj">日</span><span class="yr">1985—2005</span>
+<div class="ttl">日本崛起：精益生产 × 电子化双轮驱动</div>
+<div class="by">丰田·本田·日产 | Renesas(日立+三菱) | 东芝·富士通</div>
+<div class="dsc">
+<p>日本汽车工业在80年代末超越美国成为全球第一。丰田精益生产模式高度依赖电子化——Just-in-Time需要精确的ECU控制。日立的H8系列、三菱的M16C系列在日本车企中广泛采用。2003年日立与三菱半导体合并成立瑞萨(Renesas)，迅速成为全球最大车载MCU供应商。</p>
+<p>日本车企的特殊性：垂直整合(丰田-电装-瑞萨铁三角)、长期供货协议(10年+)、MCU与整车同步开发。这使得外部MCU供应商极难打入日系供应链。</p></div>
+<div class="src">来源：Renesas公司历史; 丰田生产系统(TPS)文献; 日本半导体产业史</div></div>
+
+<div class="card"><span class="tag te">欧</span><span class="tag tu">美</span><span class="yr">1997—2015</span>
+<div class="ttl">欧洲反超：TriCore的诞生与Infineon登顶</div>
+<div class="by">Infineon(德) · NXP(荷) · ST(法/意) | Tier1: Bosch·Continental·ZF</div>
+<div class="dsc">
+<p>1997年英飞凌(时属西门子)推出TriCore架构——全球首款将RISC、DSP和实时控制统一到单核的32位MCU架构。TriCore专为汽车动力总成和底盘控制设计，内置硬件锁步核满足ASIL-D功能安全。1999年英飞凌独立上市。</p>
+<p>同期NXP(2006年从飞利浦独立)推出Power Architecture系列(MPC5x)，ST推出SPC5系列。欧洲形成Infineon+NXP+ST的铁三角。2015年Infineon车规MCU市占率首次超越Renesas成为全球第一。</p></div>
+<div class="src">来源：Infineon年报; TriCore架构白皮书; NXP/ST官方历史</div></div>
+
+<div class="card"><span class="tag tu">美</span><span class="tag te">欧</span><span class="yr">2011—2021</span>
+<div class="ttl">ARM架构入侵：从消费到车规的跨越</div>
+<div class="by">ARM(英) · NXP(荷) · TI(美) · ST(法) | Cortex-R5/R7/M7</div>
+<div class="dsc">
+<p>2011年ARM推出Cortex-R5——首款支持双核锁步(Lockstep)的实时处理器，天然满足ISO 26262 ASIL-D要求。这打破了Infineon TriCore和Renesas RH850的架构壁垒——车企可以用统一的ARM生态，降低软件移植成本。NXP S32K(基于Cortex-M4/M7)和S32G(基于Cortex-A53+M7)成为域控和网关MCU的标杆。</p>
+<p><b>2021年全球缺芯：</b>新冠疫情+得州暴雪+瑞萨火灾三重打击→车规MCU短缺导致全球减产超1,100万辆汽车。MCU从"普通零部件"升级为"国家战略物资"。</p></div>
+<div class="src">来源：ARM Cortex-R技术白皮书; NXP S32平台; IHS Markit缺芯影响报告(2021)</div></div>
+
+<div class="card"><span class="tag tc">中</span><span class="tag tu">美</span><span class="yr">2021—2026</span>
+<div class="ttl">国产替代加速：从缺芯危机到自主突破</div>
+<div class="by">杰发科技(AutoChips) · 芯旺微(ChipON) · 兆易创新 · 国芯科技 · 比亚迪半导体</div>
+<div class="dsc">
+<p><b>2021缺芯是国产量产化的分水岭。</b>缺芯前国产车规MCU市占率<5%；到2025年车身域国产化率已达~47%，出货量突破2亿颗(芯旺微KungFu系列)。2024年杰发科技MCU出货突破1亿颗；2025年国内厂商合计市占率约11%。</p>
+<p><b>但动力总成、底盘等高安全等级(ASIL-D)领域，英飞凌+NXP+Renesas依旧占据>90%份额。</b>国芯科技CCFC3007PT(对标TC277)已通过ASIL-D认证并量产。东风DF30全国产化(CPU内核、工艺、封测100%国产)2026年量产上市。RISC-V车规MCU开始流片验证。</p>
+<p>国产替代的典型路径：车身域(ASIL-B,40%国产化)→座舱域→→动力底盘(ASIL-D,5-10%国产化)。预计2030年国产车规MCU总体市占率>30%。</p></div>
+<div class="src">来源：中国汽车工业协会; 各厂商官方发布; TechInsights; Omdia汽车MCU报告(2025)</div></div>
+
+<h2 id="sec-mcu-breakthrough">🔬 4.3 MCU六次技术重大突破（3D图解）</h2>
+
+<div class="d3-grid">
+<div class="d3-card" style="border-left:4px solid var(--p)">
+<div class="d3t">突破 #1：ECU的诞生——从化油器到电子喷射 (1978)</div>
+<div class="d3m">Intel 8048 · GM Oldsmobile Toronado · 全球首个车载电子控制系统</div>
+<svg viewBox="0 0 560 120"><rect x="20" y="40" width="120" height="60" rx="8" fill="#eff6ff" stroke="#93c5fd"/><text x="80" y="72" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a5f">Intel 8048</text><text x="80" y="88" text-anchor="middle" font-size="8" fill="#64748b">8-bit · 1KB ROM</text><rect x="170" y="40" width="120" height="60" rx="8" fill="#f0fdf4" stroke="#86efac"/><text x="230" y="72" text-anchor="middle" font-size="10" font-weight="700" fill="#166534">电子点火控制</text><text x="230" y="88" text-anchor="middle" font-size="8" fill="#64748b">空燃比闭环调节</text><rect x="320" y="40" width="140" height="60" rx="8" fill="#fef2f2" stroke="#fca5a5"/><text x="390" y="72" text-anchor="middle" font-size="11" font-weight="700" fill="#991b1b">排放降低60%</text><text x="390" y="88" text-anchor="middle" font-size="8" fill="#64748b">油耗降低15%</text></svg>
+<div class="d3-desc"><b>解决了什么？</b>在此之前，汽车发动机完全由机械装置(化油器、分电器)控制。电子点火系统首次实现了空燃比的精确闭环控制，是汽车电子化"从0到1"的突破。Intel 8048单片机的1KB ROM和64B RAM在那个时代已经是"高性能计算"。</div>
+</div>
+
+<div class="d3-card" style="border-left:4px solid var(--pk)">
+<div class="d3t">突破 #2：CAN总线革命——从独立ECU到网络化 (1983)</div>
+<div class="d3m">Bosch CAN 2.0 · ISO 11898 · 分布式控制成为可能</div>
+<svg viewBox="0 0 560 120"><rect x="20" y="35" width="100" height="55" rx="8" fill="#eff6ff" stroke="#93c5fd"/><text x="70" y="58" text-anchor="middle" font-size="10" font-weight="700" fill="#1e3a5f">Engine ECU</text><text x="70" y="74" text-anchor="middle" font-size="8" fill="#64748b">MCU #1</text><line x1="120" y1="62" x2="165" y2="62" stroke="#059669" stroke-width="2"/><rect x="165" y="20" width="160" height="85" rx="6" fill="#ecfdf5" stroke="#6ee7b7"/><text x="245" y="48" text-anchor="middle" font-size="10" font-weight="700" fill="#047857">CAN Bus</text><text x="245" y="65" text-anchor="middle" font-size="9" fill="#64748b">差分信号·双绞线</text><text x="245" y="82" text-anchor="middle" font-size="8" fill="#94a3b8">1Mbps·多主节点</text><line x1="325" y1="62" x2="370" y2="62" stroke="#059669" stroke-width="2"/><rect x="370" y="35" width="100" height="55" rx="8" fill="#eff6ff" stroke="#93c5fd"/><text x="420" y="58" text-anchor="middle" font-size="10" font-weight="700" fill="#1e3a5f">ABS ECU</text><text x="420" y="74" text-anchor="middle" font-size="8" fill="#64748b">MCU #2</text></svg>
+<div class="d3-sol"><b>解决方案：</b>CAN总线让多个ECU无需点对点连线即可实时共享数据，是汽车分布式架构的核心"神经系统"。到90年代末一辆豪华车拥有30-50个ECU、超过1,500个信号交互，全程依赖CAN网络。</div>
+</div>
+
+<div class="d3-card" style="border-left:4px solid var(--jp)">
+<div class="d3t">突破 #3：32位TriCore架构——动力/底盘ASIL-D的基石 (1997)</div>
+<div class="d3m">Infineon TriCore · RISC+DSP统一架构 · 硬件锁步核</div>
+<svg viewBox="0 0 560 130"><rect x="15" y="35" width="150" height="70" rx="8" fill="#eff6ff" stroke="#93c5fd"/><text x="90" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="#1e3a5f">TriCore Core</text><text x="90" y="70" text-anchor="middle" font-size="8" fill="#64748b">RISC指令集</text><text x="90" y="85" text-anchor="middle" font-size="8" fill="#64748b">DSP MAC单元</text><text x="90" y="100" text-anchor="middle" font-size="8" fill="#64748b">实时中断<1μs</text><rect x="195" y="35" width="140" height="70" rx="8" fill="#fef2f2" stroke="#fca5a5"/><text x="265" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="#991b1b">Lockstep Checker</text><text x="265" y="70" text-anchor="middle" font-size="8" fill="#64748b">双核同步执行</text><text x="265" y="85" text-anchor="middle" font-size="8" fill="#64748b">结果逐周期比对</text><text x="265" y="100" text-anchor="middle" font-size="8" fill="#64748b">ASIL-D实现</text><rect x="365" y="35" width="150" height="70" rx="8" fill="#f0fdf4" stroke="#86efac"/><text x="440" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="#166534">应用覆盖</text><text x="440" y="70" text-anchor="middle" font-size="8" fill="#64748b">发动机控制</text><text x="440" y="85" text-anchor="middle" font-size="8" fill="#64748b">变速箱TCU</text><text x="440" y="100" text-anchor="middle" font-size="8" fill="#64748b">EPS/ESP/ABS</text></svg>
+<div class="d3-desc"><b>解决了什么？</b>此前的汽车MCU要么是纯粹的RISC(性能好但实时性差)，要么是DSP(实时好但编程复杂)。TriCore将两者融合+硬件锁步核，开创了"一颗芯片搞定动力总成+安全等级ASIL-D"的时代。至今TriCore仍是全球市占率最高的车规MCU架构(Infineon Aurix TC2xx/3xx/4xx)。</div>
+</div>
+
+<div class="d3-card" style="border-left:4px solid var(--l)">
+<div class="d3t">突破 #4：ARM Cortex-R/M进入车规——生态统一战 (2011)</div>
+<div class="d3m">ARM Cortex-R5/R7 · NXP S32K · 从专有架构到开放生态</div>
+<div class="d3-desc"><b>核心变革：</b>在TriCore和RH850两家专有架构垄断15年后，ARM Cortex-R5用标准化的ISA+丰富的第三方软件生态打破了壁垒。车企终于可以用同一套ARM工具链覆盖多个供应商的MCU，软件开发效率和可移植性大幅提升。2015年后NXP S32K(S32K1基于Cortex-M4, S32K3基于Cortex-M7)迅速取代传统16位MCU成为车身域标配。</div>
+<div class="d3-sol"><b>生态效应：</b>Cortex-R5/R7已有超过20家MCU供应商，AUTOSAR Classic Platform标准驱动层由ARM统一维护，车企的软件投入不再被单一芯片供应商"锁定"。</div>
+</div>
+
+<div class="d3-card" style="border-left:4px solid var(--ms)">
+<div class="d3t">突破 #5：多核异构域控MCU——从ECU到DCU (2018)</div>
+<div class="d3m">Infineon Aurix TC3xx(6核) · NXP S32G(16核) · RH850 U2A</div>
+<svg viewBox="0 0 560 140"><rect x="15" y="10" width="100" height="50" rx="6" fill="#eff6ff" stroke="#93c5fd"/><text x="65" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#1e3a5f">Lockstep核×2</text><text x="65" y="48" text-anchor="middle" font-size="7" fill="#64748b">ASIL-D安全</text><rect x="130" y="10" width="100" height="50" rx="6" fill="#f0fdf4" stroke="#86efac"/><text x="180" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#166534">性能核×2</text><text x="180" y="48" text-anchor="middle" font-size="7" fill="#64748b">~300MHz</text><rect x="245" y="10" width="100" height="50" rx="6" fill="#fef3c7" stroke="#fcd34d"/><text x="295" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#92400e">应用核×2</text><text x="295" y="48" text-anchor="middle" font-size="7" fill="#64748b">AUTOSAR</text><rect x="360" y="10" width="100" height="50" rx="6" fill="#f3e8ff" stroke="#c4b5fd"/><text x="410" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#6b21a8">HSM硬件安全</text><text x="410" y="48" text-anchor="middle" font-size="7" fill="#64748b">EVITA-Full</text><rect x="15" y="75" width="530" height="45" rx="6" fill="#f8fafc" stroke="#e2e8f0"/><text x="280" y="95" text-anchor="middle" font-size="10" font-weight="700" fill="#1e3a5f">共享: GTM定时器 · 4MB Flash · ECC保护 · 以太网AVB/TSN · PCIe接口</text><text x="280" y="112" text-anchor="middle" font-size="8" fill="#64748b">制程: 40nm→28nm→16nm</text></svg>
+<div class="d3-desc"><b>解决了什么？</b>域控制器需要一颗MCU同时处理不同ASIL等级的任务——比如ASIL-D制动+ASIL-B车身控制+QM级的网关数据转发。多核异构架构通过物理隔离（不同的核处理不同安全等级的任务）+ 硬件虚拟化实现了"一颗芯片=多个虚拟ECU"，是整车EE架构从分布式走向域集中的硬件基础。</div>
+</div>
+
+<div class="d3-card" style="border-left:4px solid var(--cn)">
+<div class="d3t">突破 #6：国产ASIL-D + RISC-V——打破架构封锁 (2023-2026)</div>
+<div class="d3m">国芯科技CCFC3007PT · 东风DF30 · 芯驰E3 · RISC-V车规</div>
+<div class="dsc">
+<p><b>历史性时刻：</b>2024年国芯科技CCFC3007PT通过ASIL-D车规认证——国内首款对标英飞凌TC277的全国产化动力域MCU(基于Power Architecture)。2025年东风DF30完成流片——CPU内核、晶圆制造、封装测试100%国产，计划2026年量产。2023年国内首款RISC-V车规MCU流片成功，标志着中国车企开始探索"第三条架构道路"。</p>
+<div class="d3-prob">挑战：ASIL-D认证周期3-5年、OEM验证壁垒极高(更换MCU需要重新验证整车)、软件生态积累不足(没有15年的AUTOSAR适配历史)、高端动力域(发动机/变速箱/线控制动)国产率<5%。</div>
+<div class="d3-sol">突破路径：从车身域(ASIL-B)→座舱域→网关→底盘域→动力域，逐层攻坚。借助中国新能源车全球最大市场(年销>1000万辆)的规模效应，以比亚迪、东风、吉利等整车厂为"锚客户"实现从0到1的规模化上车。</div>
+</div>
+</div>
+
+<h2 id="sec-mcu-country">🏛️ 4.4 车载MCU各国关键节点</h2>
+
+<div class="card"><span class="tag tu">美国</span><div class="ttl">美国：MCU发明者 → 架构定义者 → 逐步失守制造</div>
+<div class="by">Intel(发明，已退出) → Motorola→Freescale→NXP(已被荷兰收购) → TI</div>
+<div class="dsc">
+<dl>
+<dt>1978 车载MCU诞生</dt><dd>Intel 8048首次应用于GM电子点火，标志着汽车MCU时代开启。</dd>
+<dt>1980-90 Motorola称霸</dt><dd>68HC11/68HC16系列成为全球车规MCU事实标准，市占>50%。</dd>
+<dt>2004 Freescale独立</dt><dd>Motorola半导体剥离→Freescale，专注汽车+网络芯片。</dd>
+<dt>2015 NXP收购Freescale</dt><dd>$118亿→荷兰公司接管美国MCU遗产，合并后成为全球最大车规MCU供应商。</dd>
+<dt>2020s TI回归</dt><dd>TI Hercules(C2000)系列在底盘安全领域重建地位，2025市占回升至7.5%。</dd>
+</dl></div></div>
+
+<div class="card"><span class="tag tj">日本</span><div class="ttl">日本：全球车企第一 → 全球MCU第一(Renesas)</div>
+<div class="by">瑞萨(日立+三菱合并) · 丰田-电装-瑞萨铁三角</div>
+<div class="dsc">
+<dl>
+<dt>1983 日立H8进入汽车</dt><dd>丰田首次采用日立H8 MCU控制发动机，形成"丰田→电装→日立"垂直供应链。</dd>
+<dt>1990s 三菱M16C</dt><dd>三菱M16C系列以低功耗和丰富外设成为亚洲车身控制首选MCU。</dd>
+<dt>2003 ★瑞萨成立</dt><dd>日立+三菱半导体合并→Renesas。立即成为全球最大车规MCU供应商(市占>25%)。</dd>
+<dt>2020s 守成期</dt><dd>中国市场国产替代加速+Infineon反超，Renesas保持#2地位但份额缓慢下滑至~17%。</dd>
+</dl></div></div>
+
+<div class="card"><span class="tag te">欧</span><div class="ttl">欧洲：Infineon·NXP·ST铁三角——车规MCU的"王座"</div>
+<div class="by">Infineon(德): Gemany | NXP(荷): Netherlands | ST(法/意): France/Italy</div>
+<div class="dsc">
+<dl>
+<dt>1997 ★TriCore架构诞生</dt><dd>英飞凌TriCore——奠定其在动力总成领域30年统治地位。</dd>
+<dt>2006 NXP从飞利浦独立</dt><dd>携Power Architecture MPC5x系列+ARM Cortex-M生态，成为#3。</dd>
+<dt>2015 Infineon登顶</dt><dd>Infineon车规MCU市占率首次超越Renesas成为全球第一。</dd>
+<dt>2018 Aurix TC3xx量产</dt><dd>6核异构·4MB Flash·ASIL-D，全球动力/底盘域标配MCU。</dd>
+<dt>2025 Infineon 36%份额</dt><dd>"功率+MCU+模拟+传感器"全栈布局形成垄断优势。</dd>
+</dl></div></div>
+
+<div class="card"><span class="tag tc">中国</span><div class="ttl">中国：从零起步 → 全球最大车规MCU市场 → 国产替代攻坚</div>
+<div class="by">杰发科技·芯旺微·兆易创新·国芯科技·比亚迪半导体</div>
+<div class="dsc">
+<dl>
+<dt>2016 杰发科技成立</dt><dd>联发科剥离车规MCU业务→AutoChips，专注ARM Cortex-M车规MCU。</dd>
+<dt>2020 芯旺微自主内核</dt><dd>KungFu架构(非ARM授权)，车规MCU累计出货>2亿颗(2025)。</dd>
+<dt>2024 ★国芯CCFC3007PT ASIL-D</dt><dd>国内首款ASIL-D认证动力域MCU，对标英飞凌TC277。</dd>
+<dt>2025 ★东风DF30流片</dt><dd>100%全国产化车规MCU(CPU内核+制造+封测)，预计2026量产。</dd>
+<dt>2026 国产化率目标>15%</dt><dd>车身域>47%国产化；动力底盘域5-10%，快速追赶中。</dd>
+</dl></div></div>
+
+<h2 id="sec-mcu-events">📋 4.5 车载MCU重大事件详表</h2>
+
+<div class="card"><span class="tag ts">MCU</span><span class="yr">1978</span><div class="ttl">全球首款车载MCU应用：Intel 8048搭载于GM Oldsmobile</div><div class="by">Intel · General Motors | 汽车电子化元年</div><div class="dsc"><p>GM在Oldsmobile Toronado上引入基于Intel 8048单片机的电子点火控制系统(ECM)。这是汽车从机械控制走向电子控制的历史分水岭。8048集成了8位CPU、1KB ROM、64B RAM，在当时已属"高性能计算"。此后5年内，几乎所有美国车企都开始部署电子控制系统。</p></div><div class="src">来源：GM Heritage Center; Intel 8048 Datasheet</div></div>
+
+<div class="card"><span class="tag ts">MCU</span><span class="yr">1981</span><div class="ttl">博世发明CAN总线协议</div><div class="by">Robert Bosch GmbH | CAN 2.0 → ISO 11898</div><div class="dsc"><p>CAN(Controller Area Network)总线解决了多个ECU之间的实时数据通信问题。采用差分信号+多主节点架构，1Mbps速率满足汽车控制需求。CAN总线的出现使得汽车从"独立ECU"进化到"ECU网络"，是分布式架构的基石。至今CAN仍是汽车最核心的通信协议之一。</p></div><div class="src">来源：Bosch CAN Specification 2.0; ISO 11898标准</div></div>
+
+<div class="card"><span class="tag ts">MCU</span><span class="yr">1997</span><div class="ttl">Infineon推出TriCore架构</div><div class="by">Infineon(西门子半导体) | 全球首款RISC+DSP+实时控制统一架构</div><div class="dsc"><p>TriCore将RISC指令集(高性能)、DSP单元(信号处理)和实时中断系统(延迟<1μs)融合到单核架构中，并首创硬件锁步核(Lockstep Core)实现ASIL-D级功能安全。这一架构奠定了Infineon在未来30年车载MCU市场的领导地位。至今Aurix TC3xx仍是最广泛使用的动力域MCU。</p></div><div class="src">来源：Infineon TriCore Architecture Manual; Infineon 2025投资者日</div></div>
+
+<div class="card"><span class="tag ts">MCU</span><span class="yr">2011</span><div class="ttl">ARM Cortex-R5发布——车规安全的"通用语言"</div><div class="by">ARM Ltd. | Cortex-R实时处理器系列</div><div class="dsc"><p>Cortex-R5是首款支持双核锁步的ARM架构实时处理器，天然符合ISO 26262 ASIL-D要求。它的发布意味着车企不必再被TriCore或RH850等专有架构"绑定"——ARM生态的编译器、调试器、RTOS和AUTOSAR MCAL都可以跨芯片供应商复用。这是车规MCU从"封闭专有"走向"开放生态"的关键转折。</p></div><div class="src">来源：ARM Cortex-R5 TRM; ISO 26262:2011</div></div>
+
+<div class="card"><span class="tag ts">MCU</span><span class="yr">2021</span><div class="ttl">全球汽车缺芯危机——MCU成为战略物资</div><div class="by">疫情+得州暴雪+瑞萨火灾 | 全球减产>1,100万辆</div><div class="dsc"><p>2021年三大黑天鹅事件叠加导致车规MCU全球断供：新冠疫情打乱供应链→得州冬季暴雪导致三星/NXP/Infineon工厂停产→瑞萨那珂工厂火灾(车载MCU核心产线)。全球车企减产超1,100万辆，直接损失>$210B。缺芯彻底重塑了车企对MCU供应链的认知——从"JIT采购"到"战略储备+多元供应+国产替代"。</p></div><div class="src">来源：IHS Markit; AlixPartners缺芯影响报告; 各车企年报(2021)</div></div>
+
+<div class="card"><span class="tag ts">MCU</span><span class="yr">2024</span><div class="ttl">国产ASIL-D车规MCU突破：国芯科技CCFC3007PT量产</div><div class="by">国芯科技(C*Core) · 对标英飞凌TC277</div><div class="dsc"><p>CCFC3007PT基于Power Architecture架构，通过ISO 26262 ASIL-D认证，进入Tier1供应商合格供方清单。主要应用于发电机控制(GCU)和部分VCU，是中国首款真正能对标国际巨头产品的动力域MCU。同期东风DF30全国产化MCU流片成功——CPU内核、晶圆制造、封装测试100%国产。</p></div><div class="src">来源：国芯科技官方公告; 东风汽车研发总院; 国家新能源汽车技术创新中心</div></div>
+
+<div class="card"><span class="tag ts">MCU</span><span class="yr">2026</span><div class="ttl">Infineon 36%份额垄断 + 中国国产化率冲刺15%</div><div class="by">Infineon · Renesas · NXP · 中国厂商(杰发/芯旺微/兆易/国芯)</div><div class="dsc"><p>Infineon凭借"功率+MCU+模拟+传感器+连接"全栈布局，在车规MCU市场形成36%的垄断地位(微芯从7.2%跌至3.4%近腰斩)。中国厂商在车身域MCU的国产化率达~47%，但动力底盘域仍只有5-10%。2026年国内车规MCU市场规模预计达~300亿元，32位产品占新订单的90%。</p></div><div class="src">来源：Infineon 2025年报; TechInsights; Omdia车载MCU排名(2025); 中国汽车工业协会</div></div>
+
+<h2 id="sec-mcu-nodes">📊 4.6 车载MCU内核与制程演进总表</h2>
+
+<div class="card">
+<div class="ttl">车载MCU的性能进化不是"制程竞赛"——是功能安全和实时性的持续升级</div>
+<table class="node-table"><thead><tr><th class="hl">年份</th><th class="hl">位宽</th><th class="hl">代表芯片</th><th class="hl">内核架构</th><th class="hl">制程</th><th class="hl">Flash</th><th class="hl">安全等级</th><th class="hl">典型应用</th></tr></thead>
+<tbody>
+<tr><td>1978</td><td>8位</td><td>Intel 8048</td><td>MCS-48</td><td>5μm</td><td>1KB ROM</td><td>QM</td><td>电子点火</td></tr>
+<tr><td>1985</td><td>8位</td><td>Motorola 68HC11</td><td>68HC</td><td>3μm</td><td>8KB</td><td>QM</td><td>发动机/ABS</td></tr>
+<tr><td class="hl">1995</td><td class="hl">16位</td><td class="hl">Infineon C166</td><td class="hl">C166</td><td class="hl">0.5μm</td><td class="hl">128KB</td><td class="hl">ASIL-B</td><td class="hl">动力总成标配</td></tr>
+<tr><td class="hl">1999</td><td class="hl">32位</td><td class="hl">Infineon TriCore TC1</td><td class="hl">TriCore v1.3</td><td class="hl">0.25μm</td><td class="hl">1MB</td><td class="hl">★ASIL-D</td><td class="hl">发动机/变速箱</td></tr>
+<tr><td>2005</td><td>32位</td><td>Renesas SH-2A</td><td>SuperH</td><td>130nm</td><td>1.5MB</td><td>ASIL-D</td><td>底盘/转向</td></tr>
+<tr><td>2012</td><td>32位</td><td>Infineon Aurix TC2xx</td><td>TriCore v1.6</td><td>90nm</td><td>2.5MB</td><td>ASIL-D</td><td>动力+底盘+ADAS</td></tr>
+<tr><td class="hl">2018</td><td class="hl">32位</td><td class="hl">★Aurix TC3xx(6核)</td><td class="hl">TriCore 1.8</td><td class="hl">40nm</td><td class="hl">4MB</td><td class="hl">★ASIL-D+HSM</td><td class="hl">域控·多域融合</td></tr>
+<tr><td>2019</td><td>32/64位</td><td>NXP S32G(网关)</td><td>Cortex-A53+M7</td><td>16nm FinFET</td><td>—</td><td>ASIL-D</td><td>车载以太网网关</td></tr>
+<tr><td>2022</td><td>32位</td><td>NXP S32K3</td><td>Cortex-M7</td><td>40nm</td><td>8MB</td><td>ASIL-D</td><td>车身+底盘</td></tr>
+<tr><td class="hl">2024</td><td class="hl">32位</td><td class="hl">★国芯CCFC3007PT</td><td class="hl">Power e200</td><td class="hl">55nm</td><td class="hl">4MB</td><td class="hl">★ASIL-D</td><td class="hl">动力·国产替代</td></tr>
+<tr><td>2025</td><td>32位</td><td>Renesas RH850 U2B</td><td>RH850 G4</td><td>28nm</td><td>16MB</td><td>ASIL-D</td><td>跨域融合DCU</td></tr>
+<tr><td class="hl">2026</td><td class="hl">32/64位</td><td class="hl">★东风DF30(规划)</td><td class="hl">RISC-V</td><td class="hl">40nm</td><td class="hl">—</td><td class="hl">★ASIL-D</td><td class="hl">全国产化动力域</td></tr>
+</tbody></table>
+<div class="src">来源：各厂商Datasheet; Infineon/NXP/Renesas白皮书; 国芯科技/东风公告</div></div>
+
+<hr style="margin:60px 0 40px;border:none;border-top:4px solid #dc2626">
+
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-mcu-deep">4.7 车载MCU深度研究</h1>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:40px">功能安全 · 架构路线之争 · 国产替代真实坐标 · RISC-V能否破局？</p>
+
+<h3>4.7.1 车载MCU的"不可能三角"：性能 vs 安全 vs 成本</h3>
+<div class="card" style="border-left:4px solid #dc2626;background:#fef2f2">
+<div class="ttl">为什么消费级MCU不能直接装车？——车规9大"隐形壁垒"</div>
+<div class="dsc">
+<table class="node-table"><thead><tr><th>壁垒</th><th>消费级</th><th>车规(ISO 26262)</th></tr></thead>
+<tbody>
+<tr><td>工作温度</td><td>-20~85°C</td><td><b>-40~150°C(引擎舱175°C+)</b></td></tr>
+<tr><td>寿命</td><td>3-5年</td><td><b>10-15年+零失效</b>(ASIL-D要求<1FIT)</td></tr>
+<tr><td>故障率目标</td><td>~100 FIT</td><td><b>ASIL-D: <10 FIT</b>(每10亿小时失效<10次)</td></tr>
+<tr><td>认证周期</td><td>无需</td><td><b>AEC-Q100: 12-18个月; 改版重测</b></td></tr>
+<tr><td>安全架构</td><td>无</td><td><b>双核锁步+ECC+看门狗+自检+BIST</b></td></tr>
+<tr><td>软件维护</td><td>1-2年</td><td><b>10-15年+OTA终身更新</b></td></tr>
+<tr><td>EMC/EMI</td><td>基本</td><td><b>CISPR 25 Class 5(最严苛电磁兼容)</b></td></tr>
+<tr><td>供应链保证</td><td>无</td><td><b>15年供货承诺+IATF 16949</b></td></tr>
+<tr><td>网络安全</td><td>可选</td><td><b>硬件HSM+UNECE R155强制</b></td></tr>
+</tbody></table>
+<p><b>关键结论：</b>将一颗消费级MCU"升级"为车规级，需要的不是简单的芯片改版，而是<em>整个设计方法论、验证体系和供应链管理的重构</em>。这也是为什么国产车规MCU从发布到真正大批量装车，平均需要3-5年。</p>
+</div></div>
+
+<h3>4.7.2 三大架构路线之争：TriCore vs ARM vs RISC-V</h3>
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl">车规MCU的CPU内核架构正在从"二选一"走向"三国演义"</div>
+<div class="dsc">
+<table class="node-table"><thead><tr><th>维度</th><th>Infineon TriCore</th><th>ARM Cortex-R/M</th><th>RISC-V(车规)</th></tr></thead>
+<tbody>
+<tr><td>授权模式</td><td>自研·独家(不授权)</td><td>IP授权($0.01-0.1/颗)</td><td>开源·免授权费</td></tr>
+<tr><td>生态成熟度</td><td>★★★★★(30年)</td><td>★★★★☆(15年)</td><td>★★☆☆☆(验证中)</td></tr>
+<tr><td>工具链</td><td>HIGHTECH/Green Hills($$$)</td><td>Keil/IAR/GCC(丰富)</td><td>GCC/LLVM(可定制)</td></tr>
+<tr><td>AUTOSAR MCAL</td><td>完整(Vector/EB)</td><td>完整(多供应商)</td><td>开发中</td></tr>
+<tr><td>市占率(2025)</td><td>~36%(Infineon)</td><td>~40%(NXP+TI+ST+国产)</td><td><1%(起步)</td></tr>
+<tr><td>优势</td><td><b>动力总成性能最优</b><br>实时性极强</td><td><b>生态最丰富</b><br>跨供应商可移植</td><td><b>自主可控</b><br>免授权费</td></tr>
+<tr><td>劣势</td><td>独家供应·价格昂贵<br>无替代来源</td><td>授权费成本<br>仍有供应链风险</td><td>生态不成熟<br>车规验证未闭环</td></tr>
+</tbody></table>
+<p><b>趋势判断：</b>短期内(2026-2030)ARM将在中低端MCU(车身/座舱/网关)成为主流，TriCore在高端动力域保持优势。RISC-V有望在2028-2030年在中国车企率先规模化(东风DF30为代表)，长期看可能成为"第三条路线"——尤其适合没有TriCore和ARM历史包袱的中国车规MCU厂商。</p>
+</div></div>
+
+<h3>4.7.3 汽车EE架构演进 × MCU需求变化</h3>
+<div class="card" style="border-left:4px solid #059669">
+<div class="ttl">每代EE架构升级都创造了新的MCU需求层次</div>
+<div class="dsc">
+<table class="node-table"><thead><tr><th>架构代际</th><th>时期</th><th>MCU数量</th><th>典型MCU</th><th>关键变化</th></tr></thead>
+<tbody>
+<tr><td><b>分布式ECU</b></td><td>1980-2010</td><td>30-80颗</td><td>8/16位: C166·HC11</td><td>每个功能独立ECU</td></tr>
+<tr><td><b>功能集成化</b></td><td>2010-2018</td><td>20-50颗</td><td>32位ARM: S32K·RH850</td><td>多个简单ECU合并</td></tr>
+<tr><td><b>域集中(DCU)</b></td><td>2018-2025</td><td>10-20颗</td><td>多核: TC3xx·S32G</td><td>5大域控取代分散ECU</td></tr>
+<tr><td><b>跨域融合</b></td><td>2025-2028</td><td>5-10颗</td><td>异构: U2A·TC4xx</td><td>域间功能融合</td></tr>
+<tr><td><b>中央计算+Zone</b></td><td>2028+</td><td>3-5颗</td><td>高性能SoC+安全MCU</td><td>MCU退守安全底座</td></tr>
+</tbody></table>
+<p><b>对MCU的深层影响：</b>架构集中化≠MCU需求减少。反而——每颗"中央大脑"需要一个ASIL-D安全MCU做监控；每个Zone控制器需要一颗高性能MCU做执行；整车MCU数量从峰值80颗降到20颗，但<em>单颗价值量从$1-2提升到$20-50</em>，<b>MCU总价值量(BOM)不降反升</b>。</p>
+</div></div>
+
+<h3>4.7.4 三个非共识观点（MCU篇）</h3>
+
+<div class="card" style="border-left:4px solid #dc2626;background:#fef2f2">
+<div class="ttl">非共识 #1：32位全面取代8/16位被夸大了——8位MCU在汽车上至少再活10年</div>
+<div class="dsc"><p>市场共识：32位MCU占新订单90%，8/16位已死亡。反向证据：一辆车有20-30个"极简单"节点(车窗开关、座椅加热、氛围灯)，这些功能用32位MCU是严重过度设计——增加了成本、功耗、PCB面积和软件复杂度。8位MCU单价<$0.3，32位最低$1+——对于年销百万辆的车企，这是$1000万/年的成本差异。8位MCU的"长尾"将维持到2035年。</p></div></div>
+
+<div class="card" style="border-left:4px solid #d97706;background:#fffbeb">
+<div class="ttl">非共识 #2：RISC-V在车规MCU的真正优势不是"免费"——是允许中国车企修改ISA扩展安全指令</div>
+<div class="dsc"><p>市场共识：RISC-V的优势是免ARM授权费。反向证据：ARM授权费每颗$0.01-0.1，在车规MCU BOM(>$5)中占比<2%，不是核心矛盾。RISC-V真正的战略价值是<em>允许自定义指令集扩展</em>——中国车企可以添加专用的硬件安全指令、国密算法加速指令、实时调度指令。在ARM生态中这些都是"黑盒IP"，在RISC-V中是"白盒可审计"。</p></div></div>
+
+<div class="card" style="border-left:4px solid #0891b2;background:#ecfdf5">
+<div class="ttl">非共识 #3：英飞凌36%的垄断优势恰恰是它的"阿喀琉斯之踵"</div>
+<div class="dsc"><p>市场共识：英飞凌全栈布局无敌。反向证据：2021年缺芯时，过度依赖单一供应商的车企损失最惨重。整车厂从"战略安全"角度正在<em>主动分散MCU供应源</em>——同一车型设计2-3个可互换MCU方案。叠加中美脱钩风险，中国车企将加速采用国产MCU作为"战略备份"，即使性能稍差也接受。英飞凌份额可能已触顶。</p></div></div>
+
+<p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:32px">数据来源：Infineon/NXP/Renesas/ST/TI年报、Omdia车载MCU排名(2025)、TechInsights、中国汽车工业协会、各中国MCU厂商官方发布、IHS Markit、Yole Group</p>
+
+
 <!-- ====== SOURCES ====== -->
 <h2 id="sec-sources" style="text-align:center;margin-top:60px">📚 参考文献</h2>
 <div class="content">
@@ -2050,6 +2322,56 @@ if(ptl){ptl.style.minWidth='3400px';
   ptl.innerHTML+=plane('🩷 中国','cn',pCN,5);
 }
 })();
+
+// ====== 4.1 MCU TIMELINE (1978—2026) ======
+(function(){
+const S=1978,E=2026,R=(E-S),P=y=>((y-S)/R*100).toFixed(2);
+const dom=[{s:1978,e:1997,l:'8/16位 · ECU萌芽',c:'#dc2626'},{s:1997,e:2011,l:'32位 · TriCore/ARM革命',c:'#d97706'},{s:2011,e:2021,l:'ARM生态统一 · 缺芯危机',c:'#2563eb'},{s:2021,e:2026,l:'国产替代 · RISC-V',c:'#db2777'},];
+const mArch=[{y:1978,t:'★Intel 8048',d:'GM·首款车载MCU',big:1},{y:1983,t:'68HC11',d:'Motorola·8位'},{y:1986,t:'8051车规版',d:'Intel·经典8位'},{y:1990,t:'68HC16',d:'Motorola·16位'},{y:1995,t:'C166',d:'Infineon·16位'},{y:1997,t:'★TriCore',d:'Infineon·32位RISC+DSP',big:1},{y:2003,t:'Renesas成立',d:'日立+三菱合并'},{y:2005,t:'SH-2A',d:'Renesas'},{y:2011,t:'★Cortex-R5',d:'ARM·锁步核ASIL-D',big:1},{y:2015,t:'NXP S32K1',d:'ARM Cortex-M4'},{y:2018,t:'★Aurix TC3xx',d:'6核异构·域控MCU',big:1},{y:2020,t:'RH850 U2A',d:'Renesas·跨域'},{y:2024,t:'★CCFC3007PT',d:'国芯·ASIL-D国产替代',big:1},{y:2025,t:'东风DF30流片',d:'100%国产化'},{y:2026,t:'AoSiP/RISC-V',d:'新架构验证',big:1},];
+const mBus=[{y:1981,t:'★CAN总线',d:'Bosch·ISO 11898',big:1},{y:1998,t:'LIN总线',d:'低成本子网'},{y:2001,t:'FlexRay',d:'BMW·高速安全'},{y:2008,t:'MOST',d:'多媒体光纤'},{y:2013,t:'车载以太网',d:'100Base-T1'},{y:2020,t:'CAN FD',d:'8Mbps'},{y:2022,t:'TSN以太网',d:'域控骨干网'}];
+const mSafety=[{y:2005,t:'ISO 26262草案',d:'功能安全标准'},{y:2011,t:'★ISO 26262:2011',d:'ASIL定义发布',big:1},{y:2018,t:'★ISO 26262:2018',d:'第二版·半导体扩展',big:1},{y:2020,t:'UNECE R155',d:'强制网络安全',big:1},{y:2023,t:'R156 SW更新',d:'OTA强制规范'}];
+const mUS_mcu=[{y:1978,t:'★首款车载MCU',d:'Intel 8048+GM',big:1},{y:1985,t:'Motorola称霸',d:'68HC11/16'},{y:1998,t:'TI Hercules',d:'C2000·底盘安全'},{y:2004,t:'Freescale独立',d:'Motorola半导体剥离'},{y:2015,t:'★NXP收购Freescale',d:'$118亿·全球第一',big:1}];
+const mJP_mcu=[{y:1983,t:'日立H8进汽车',d:'丰田采用'},{y:1995,t:'三菱M16C',d:'亚洲车身首选'},{y:2003,t:'★Renesas成立',d:'日立+三菱→全球#1',big:1},{y:2022,t:'份额缓慢下滑',d:'Infineon反超'}];
+const mEU_mcu=[{y:1997,t:'★TriCore诞生',d:'Infineon·30年统治',big:1},{y:2006,t:'NXP独立',d:'飞利浦剥离'},{y:2015,t:'★Infineon登顶#1',d:'超越Renesas',big:1},{y:2018,t:'Aurix TC3xx',d:'动力域标配'},{y:2025,t:'★36%份额垄断',d:'全栈布局',big:1}];
+const mCN_mcu=[{y:2016,t:'杰发科技成立',d:'联发科车规MCU'},{y:2020,t:'★芯旺微自研内核',d:'KungFu架构',big:1},{y:2022,t:'兆易GD32车规',d:'ARM Cortex-M'},{y:2024,t:'★CCFC3007PT量产',d:'ASIL-D·动力域突破',big:1},{y:2025,t:'★东风DF30流片',d:'100%国产化',big:1},{y:2026,t:'RISC-V车规',d:'多厂家验证中'}];
+
+const mtl=document.getElementById('mtl');
+if(mtl){mtl.style.minWidth='4200px';
+  let h='<div class="dom-band">';
+  dom.forEach(d=>{h+='<div class="dom-block" style="left:'+P(d.s)+'%;width:'+((d.e-d.s)/R*100).toFixed(1)+'%;background:'+d.c+'">'+d.l+'</div>';});
+  h+='</div>';mtl.innerHTML=h;
+  h='<div class="yr-ruler">';
+  for(let y=S;y<=E;y+=5){h+='<div class="yr'+(y%10===0?' mjr':'')+'" style="left:'+P(y)+'%">'+y+'</div>';}
+  h+='</div>';mtl.innerHTML+=h;
+  [{s:1978,e:1997,bg:'#fecaca',l:'8/16位·机械→电子'},{s:1997,e:2011,bg:'#fed7aa',l:'32位·TriCore/ARM'},{s:2011,e:2021,bg:'#dbeafe',l:'ARM生态·缺芯冲击'},{s:2021,e:2026,bg:'#fce7f3',l:'国产替代·RISC-V'},].forEach(e=>{mtl.innerHTML+='<div class="era-bar" style="background:'+e.bg+'"><span class="era-lbl">'+e.l+'</span></div>';});
+  function plane(title,cls,data,sp){
+    let d=layoutS(data,sp||2.5);
+    let nRows=Math.max(...d.map(e=>e.row||0))+1;
+    let h='<div class="lane '+cls+'"><div class="lane-hdr"><span class="lbl">'+title+'</span></div>';
+    h+='<div class="lane-body"><div class="baseline"></div>';
+    let rH=18;let mid=(nRows-1)/2;
+    d.forEach(e=>{
+      let x=P(e.y);
+      let row=e.row||0;
+      let yOff=(row-mid)*rH;
+      let dotCls=e.big?' hg':'';
+      h+='<div class="ev" style="left:'+x+'%;top:'+(50+yOff/80*100)+'%;transform:translate(-50%,-50%)" title="'+e.y+': '+e.t+' | '+(e.d||'')+'">';
+      h+='<span class="yr">'+e.y+'</span><span class="dot'+dotCls+'"></span><span class="tx">'+e.t+'</span>';
+      if(e.d)h+='<span class="cp">'+e.d+'</span>';
+      h+='</div>';
+    });
+    h+='</div></div>';return h;
+  }
+  mtl.innerHTML+=plane('🔴 内核架构演进','proc',mArch,2.5);
+  mtl.innerHTML+=plane('🟢 通信总线','pack',mBus,3);
+  mtl.innerHTML+=plane('🟡 功能安全标准','storage',mSafety,3);
+  mtl.innerHTML+=plane('🔴 美国','us',mUS_mcu,3);
+  mtl.innerHTML+=plane('🟠 日本','jp',mJP_mcu,3);
+  mtl.innerHTML+=plane('🟣 欧洲','eue',mEU_mcu,3);
+  mtl.innerHTML+=plane('💗 中国','cn',mCN_mcu,3);
+}
+})();
+
 </script>
 </body>
 </html>
