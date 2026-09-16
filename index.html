@@ -2091,7 +2091,190 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <p><b>对MCU的深层影响：</b>架构集中化≠MCU需求减少。反而——每颗"中央大脑"需要一个ASIL-D安全MCU做监控；每个Zone控制器需要一颗高性能MCU做执行；整车MCU数量从峰值80颗降到20颗，但<em>单颗价值量从$1-2提升到$20-50</em>，<b>MCU总价值量(BOM)不降反升</b>。</p>
 </div></div>
 
-<h3>4.7.4 三个非共识观点（MCU篇）</h3>
+<h3>4.7.4 不同性能MCU的设计区别：8位→16位→32位的架构演进</h3>
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl">车规MCU的性能分层不是简单的"位数翻倍"——每一代都是架构范式的跃迁</div>
+<div class="dsc">
+<table class="node-table"><thead><tr><th>维度</th><th>8位MCU</th><th>16位MCU</th><th>32位MCU(单核)</th><th>32位多核域控MCU</th></tr></thead>
+<tbody>
+<tr><td>代表芯片</td><td>8051·PIC18</td><td>Infineon C166·S12X</td><td>S32K3·RH850·TriCore TC2</td><td>Aurix TC3xx(6核)·S32G</td></tr>
+<tr><td>数据总线宽度</td><td>8-bit</td><td>16-bit</td><td>32-bit</td><td>32-bit×N核</td></tr>
+<tr><td>ALU位宽</td><td>8b→处理16b数需2次指令</td><td>16b→32b运算需软件模拟</td><td>32b→原生支持浮点/定点</td><td>32b+SIMD+DSP加速</td></tr>
+<tr><td>地址空间</td><td>64KB(直接寻址)</td><td>1-16MB(分段)</td><td><b>4GB线性地址空间</b></td><td>4GB×N+MMU/MPU</td></tr>
+<tr><td>Flash容量</td><td>2-128KB</td><td>32-512KB</td><td>512KB-8MB</td><td>4-16MB</td></tr>
+<tr><td>SRAM容量</td><td>128B-4KB</td><td>2-64KB</td><td>64KB-1MB</td><td>1-8MB</td></tr>
+<tr><td>主频</td><td>8-40MHz</td><td>20-80MHz</td><td>80-300MHz</td><td>200-400MHz×N</td></tr>
+<tr><td>中断延迟</td><td>~10周期</td><td>~15周期</td><td><b>~6周期(Cortex-R)</b></td><td>~6周期+优先级抢占</td></tr>
+<tr><td>功能安全等级</td><td>QM(无要求)</td><td>ASIL-A/B</td><td>ASIL-B/D(锁步)</td><td><b>ASIL-D(多锁步域)</b></td></tr>
+<tr><td>硬件安全模块</td><td>无</td><td>可选</td><td>HSM(部分)</td><td><b>EVITA-Full HSM</b></td></tr>
+<tr><td>通信接口</td><td>UART·SPI·I2C</td><td>+CAN·LIN</td><td>+CAN FD·FlexRay</td><td>+TSN以太网·PCIe</td></tr>
+<tr><td>单价</td><td><$0.5</td><td>$0.5-3</td><td>$3-15</td><td>$15-80+</td></tr>
+<tr><td>典型应用</td><td>车窗·座椅·传感器</td><td>车身控制·网关</td><td>发动机·变速箱·ABS</td><td>域控·ADAS·中央网关</td></tr>
+</tbody></table>
+<table class="node-table" style="margin-top:10px"><thead><tr><th style="width:30%">关键架构差异</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td class="hl">① 内存保护单元(MPU)</td><td><b>32位以上标配。</b>MPU将物理内存划分为多个区域，为不同任务设置独立的读写/执行权限。一个任务的非法内存访问不会破坏其他任务的数据——这是实现AUTOSAR软件组件隔离的硬件基础。8/16位MCU没有MPU→无法安全地复用来自不同供应商的软件。</td></tr>
+<tr><td class="hl">② 特权模式</td><td><b>32位标配。支持User/Supervisor双特权级。</b>用户态代码(如第三方算法)不能直接访问外设寄存器，必须通过Supervisor态的系统调用。即使软件存在Bug，也无法绕过硬件权限控制去破坏安全关键功能。</td></tr>
+<tr><td class="hl">③ 浮点运算单元(FPU)</td><td>8/16位：无，浮点运算需软件模拟(100-1000倍慢)。<b>32位：单精度FPU标准(Cortex-M4F/M7)，双精度FPU在高端型号。</b>现代电机控制算法(FOC矢量控制)、电池SOC估算等需频繁三角/矩阵运算→硬件FPU是刚需。</td></tr>
+<tr><td class="hl">④ 直接存储器访问(DMA)</td><td>8位：无或仅1-2通道。16位：4-8通道。<b>32位：16-128通道+Scatter-Gather。</b>DMA让数据从ADC/通信接口直接写入RAM而不占用CPU→CPU专注控制算法，而非数据搬运。发动机控制中曲轴角度采样需每μs级→没有DMA几乎不可实现。</td></tr>
+<tr><td class="hl">⑤ 硬件安全模块(HSM)</td><td>无。<b>32位中高端：集成专用处理器+加密引擎。</b>HSM是一个芯片内的独立安全岛(通常是Cortex-M0或专用32位核心)，运行独立固件。负责Secure Boot(启动时验签)、密钥存储、硬件加速AES/SHA/国密，物理隔离于主CPU→即使主CPU被攻破，密钥仍安全。</td></tr>
+<tr><td class="hl">⑥ Flash分区与OTA</td><td>单一Flash区域。<b>32位：双Bank Flash。</b>支持A/B分区：一个Bank在正常运行程序时，另一个Bank在后台写入更新固件→写入完成后硬件切换Bank指针→OTA不中断车辆功能。8位MCU要实现OTA需外部Flash且需停机升级。</td></tr>
+</tbody></table>
+<p><b>本质区别概括：</b>8位MCU是"硬件状态机替代品"（替代继电器和机械开关）；16位MCU是"带闭环控制的硬件控制器"；32位MCU是"可运行完整操作系统的嵌入式计算机"；多核域控MCU是"虚拟化平台"——硬件Hypervisor让一颗芯片运行多个独立ECU的软件栈。</p>
+</div></div>
+
+<h3>4.7.5 MCU融入SoC：从独立芯片到系统内的安全底座</h3>
+<div class="card" style="border-left:4px solid #059669">
+<div class="ttl">中央计算架构下MCU不会消失——它从"主控"变为"安全管家"</div>
+<div class="dsc">
+<p><b>行业迷思：</b>很多人认为从MCU→SoC意味着MCU被淘汰。实际情况恰恰相反——<em>MCU以"安全岛"(Safety Island)的形式被集成到SoC内部</em>，承担SoC本身无法完成的功能安全监控任务。</p>
+<table class="node-table"><thead><tr><th>SoC(应用处理器)</th><th>SOC内的MCU安全岛</th><th>分立MCU(Zone控制器)</th></tr></thead><tbody>
+<tr><td><b>算力型</b>：ARM Cortex-A/GPU/NPU<br>TOPS级AI推理·图像处理</td><td><b>实时+安全型</b>：Cortex-R5/M7锁步<br>监控SoC主核的"生命体征"</td><td><b>执行+桥接型</b>：Cortex-M4/M7/R5<br>驱动执行器·CAN/LIN通信</td></tr>
+<tr><td>Linux/QNX·非实时</td><td><b>RTOS·硬实时</b>·μs级响应</td><td>AUTOSAR Classic·硬实时</td></tr>
+<tr><td>无独立安全认证</td><td><b>独立ASIL-D认证域</b></td><td>ASIL-B/D</td></tr>
+<tr><td>大功耗·需散热</td><td><b>μW-mW级</b>·可常开</td><td>mW级</td></tr>
+</tbody></table>
+<div style="margin-top:12px">
+<svg viewBox="0 0 620 260">
+<rect x="10" y="10" width="600" height="240" rx="10" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/>
+<text x="310" y="35" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a5f">中央计算SoC芯片内部架构</text>
+<rect x="25" y="50" width="280" height="180" rx="6" fill="#eff6ff" stroke="#93c5fd"/>
+<text x="165" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a5f">应用域（高性能·Linux/QNX）</text>
+<rect x="40" y="80" width="115" height="35" rx="4" fill="#dbeafe"/><text x="97" y="102" text-anchor="middle" font-size="9" font-weight="600" fill="#1e40af">Cortex-A78×4</text>
+<rect x="165" y="80" width="110" height="35" rx="4" fill="#dbeafe"/><text x="220" y="102" text-anchor="middle" font-size="9" font-weight="600" fill="#1e40af">GPU/NPU(TOPS)</text>
+<text x="165" y="140" text-anchor="middle" font-size="10" fill="#64748b">运行ADAS感知/定位/规划</text>
+<text x="165" y="155" text-anchor="middle" font-size="10" fill="#64748b">非实时·秒级响应</text>
+<text x="165" y="190" text-anchor="middle" font-size="10" fill="#dc2626">没有ASIL-D认证</text>
+<text x="165" y="210" text-anchor="middle" font-size="9" fill="#94a3b8">主核崩溃→需要安全岛接管</text>
+<rect x="325" y="50" width="270" height="180" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
+<text x="460" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#991b1b">安全岛（MCU·硬实时·AUTOSAR）</text>
+<rect x="340" y="80" width="110" height="35" rx="4" fill="#fecaca"/><text x="395" y="102" text-anchor="middle" font-size="9" font-weight="600" fill="#991b1b">Cortex-R5锁步核</text>
+<rect x="460" y="80" width="120" height="35" rx="4" fill="#fecaca"/><text x="520" y="102" text-anchor="middle" font-size="9" font-weight="600" fill="#991b1b">HSM安全模块</text>
+<text x="460" y="130" text-anchor="middle" font-size="10" fill="#991b1b">监控SoC主核心跳(WDG)</text>
+<text x="460" y="148" text-anchor="middle" font-size="10" fill="#991b1b">Secure Boot验签+密钥管理</text>
+<text x="460" y="166" text-anchor="middle" font-size="10" fill="#991b1b">ASIL-D独立认证域</text>
+<text x="460" y="184" text-anchor="middle" font-size="10" fill="#991b1b">主核故障时执行安全降级</text>
+<text x="460" y="205" text-anchor="middle" font-size="10" fill="#047857">μW-级→可在SoC休眠时独立工作</text>
+</svg>
+</div>
+<p><b>三种集成模式的演变：</b></p>
+<table class="node-table"><thead><tr><th>模式</th><th>描述</th><th>代表</th><th>MCU角色</th></tr></thead><tbody>
+<tr><td><b>分立模式（传统）</b></td><td>MCU和SoC两块独立芯片，通过SPI/CAN通信</td><td>特斯拉HW3.0</td><td>MCU做VCU+网关，SoC做ADAS</td></tr>
+<tr><td><b>SoC内嵌安全岛（当前主流）</b></td><td>MCU级锁步核作为SoC内部独立子域，物理隔离但共享封装</td><td>Mobileye EyeQ6·NVIDIA Thor·高通Ride</td><td><b>安全岛监控SoC主核·失效时安全降级</b></td></tr>
+<tr><td><b>Zone MCU（未来）</b></td><td>中央SoC+分布在车身的Zonal MCU，通过车载以太网TSN互联</td><td>特斯拉Cybertruck·蔚来NT3</td><td>每个Zone的MCU驱动执行器，中央SoC做决策</td></tr>
+</tbody></table>
+<p><b>安全岛的物理隔离机制：</b>安全岛与SoC主域之间通过<em>硬件防火墙(Bridge Firewall)</em>隔离——安全岛可以单向读取主域的状态但主域不能写入安全岛的关键寄存器。供电独立（安全岛有独立LDO），时钟独立（独立RC振荡器做时钟源）。即使主域的电源或时钟崩溃，安全岛仍能发出紧急制动指令。安全岛之所以能在SoC休眠时独立工作，是因为它有自己的always-on电源域——电流仅需几微安，在整车上电前就已完成自检。</p>
+</div></div>
+
+<h3>4.7.6 功能安全关键机制的物理实现：锁步·ECC·BIST·看门狗</h3>
+<div class="card" style="border-left:4px solid #dc2626;background:#fef2f2">
+<div class="ttl">ISO 26262 ASIL-D不是"更贵更好的芯片"——是从晶体管布局开始的硬件设计哲学</div>
+<div class="dsc">
+<p>以下四种机制是车规MCU区别于消费级MCU的核心硬件设计，每一项都在硅片上"烧"了额外的晶体管和面积——这就是为什么车规MCU的裸片面积是相同算力消费芯片的1.5-3倍。</p>
+</div></div>
+
+<div class="d3-grid" style="margin-top:0">
+<div class="d3-card" style="border-left:4px solid var(--us)">
+<div class="d3t">锁步 (Dual-Core Lockstep)</div>
+<div class="d3m">ASIL-D的最核心硬件实现 · Master Core + Checker Core</div>
+<svg viewBox="0 0 560 170">
+<rect x="15" y="55" width="60" height="60" rx="4" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="45" y="82" text-anchor="middle" font-size="8" fill="#64748b">指令</text>
+<text x="45" y="95" text-anchor="middle" font-size="8" fill="#64748b">数据</text>
+<text x="45" y="108" text-anchor="middle" font-size="8" fill="#64748b">时钟</text>
+<rect x="105" y="25" width="150" height="50" rx="5" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+<text x="180" y="48" text-anchor="middle" font-size="11" font-weight="800" fill="#1e3a5f">Master Core</text>
+<text x="180" y="65" text-anchor="middle" font-size="8" fill="#64748b">指令执行+逻辑反转</text>
+<text x="110" y="12" font-size="7" fill="#94a3b8">输入延时2周期(防共模干扰)</text>
+<rect x="105" y="100" width="150" height="50" rx="5" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+<text x="180" y="123" text-anchor="middle" font-size="11" font-weight="800" fill="#991b1b">Checker Core</text>
+<text x="180" y="140" text-anchor="middle" font-size="8" fill="#64748b">相同指令流·无逻辑反转</text>
+<text x="110" y="157" font-size="7" fill="#94a3b8">输出延时2周期(对齐比对)</text>
+<line x1="75" y1="75" x2="105" y2="42" stroke="#64748b" stroke-width="1"/>
+<line x1="75" y1="95" x2="105" y2="125" stroke="#64748b" stroke-width="1"/>
+<rect x="290" y="100" width="14" height="50" rx="3" fill="#f1f5f9" stroke="#94a3b8"/>
+<rect x="295" y="25" width="130" height="45" rx="4" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+<text x="360" y="42" text-anchor="middle" font-size="9" font-weight="700" fill="#166534">硬件比较器</text>
+<text x="360" y="58" text-anchor="middle" font-size="8" fill="#64748b">逐周期比对输出</text>
+<line x1="255" y1="40" x2="295" y2="40" stroke="#22c55e" stroke-width="1.5"/>
+<line x1="304" y1="125" x2="320" y2="125" stroke="#64748b" stroke-width="1"/>
+<rect x="450" y="25" width="90" height="45" rx="4" fill="#eff6ff" stroke="#3b82f6"/>
+<text x="495" y="42" text-anchor="middle" font-size="9" font-weight="700" fill="#1e3a5f">错误信号</text>
+<text x="495" y="58" text-anchor="middle" font-size="8" fill="#64748b">中断/复位</text>
+<line x1="425" y1="47" x2="450" y2="47" stroke="#ef4444" stroke-width="1.5"/>
+</svg>
+<div class="d3-desc">
+<p><b>物理实现要点：</b></p>
+<p style="font-size:12px">① <b>物理隔离布局：</b>Master和Checker在硅片上相隔至少100μm，使用独立的电源轨和时钟树——同一颗α粒子或EMI干扰不可能同时影响两个核。</p>
+<p style="font-size:12px">② <b>延时锁步(Delayed Lockstep)：</b>Master和Checker不是严格同一时刻执行——Checker的输入延迟2个时钟周期，Master的输出同样延迟2个周期再进入比较器。这样即使存在短暂的电源噪声跨越2个周期，也无法在两个核上产生相同的错误（时序多样性）。</p>
+<p style="font-size:12px">③ <b>逻辑反转：</b>Master核中部分关键路径的逻辑门被替换为反逻辑(AND→NAND/OR→NOR)，Checker核使用正常逻辑。如果同一电压/温度偏置导致两个核同时出错，逻辑反转确保错误表现不同→比较器能检测到。</p>
+<p style="font-size:12px">④ <b>开销：</b>一对锁步核提供单核的算力——Checker核不贡献任何"有效"计算，纯粹是安全冗余。这解释了为什么8核Aurix TC3xx的实际可用算力相当于4核。</p>
+</div>
+</div>
+
+<div class="d3-card" style="border-left:4px solid var(--pk)">
+<div class="d3t">ECC纠错码 (Error Correction Code)</div>
+<div class="d3m">保护Flash·SRAM·Cache·总线——每一比特数据都有"保镖"</div>
+<svg viewBox="0 0 560 130">
+<text x="20" y="25" font-size="9" fill="#64748b">64位数据字写入</text>
+<rect x="20" y="32" width="64" height="16" rx="2" fill="#dbeafe" stroke="none"/>
+<rect x="100" y="20" width="80" height="40" rx="4" fill="#fef3c7" stroke="#f59e0b"/>
+<text x="140" y="36" text-anchor="middle" font-size="8" font-weight="700" fill="#92400e">ECC编码器</text>
+<text x="140" y="50" text-anchor="middle" font-size="7" fill="#92400e">Hamming/SEC-DED</text>
+<line x1="84" y1="38" x2="100" y2="38" stroke="#64748b" stroke-width="1"/>
+<rect x="210" y="20" width="150" height="40" rx="4" fill="#f0fdf4" stroke="#22c55e"/>
+<text x="285" y="34" text-anchor="middle" font-size="8" font-weight="700" fill="#166534">存储单元: 64b数据+8b ECC位</text>
+<text x="285" y="50" text-anchor="middle" font-size="7" fill="#166534">总72b | 8b开销=12.5%面积</text>
+<line x1="180" y1="38" x2="210" y2="38" stroke="#64748b" stroke-width="1"/>
+<rect x="390" y="20" width="90" height="40" rx="4" fill="#fef3c7" stroke="#f59e0b"/>
+<text x="435" y="36" text-anchor="middle" font-size="8" font-weight="700" fill="#92400e">ECC解码器</text>
+<text x="435" y="50" text-anchor="middle" font-size="7" fill="#92400e">检测+纠正</text>
+<line x1="360" y1="38" x2="390" y2="38" stroke="#64748b" stroke-width="1"/>
+<rect x="510" y="28" width="40" height="24" rx="3" fill="#eff6ff" stroke="#3b82f6"/>
+<text x="530" y="44" text-anchor="middle" font-size="8" fill="#1e3a5f">64b</text>
+<line x1="480" y1="38" x2="510" y2="38" stroke="#64748b" stroke-width="1"/>
+<rect x="20" y="78" width="520" height="42" rx="4" fill="#fef2f2" stroke="#fca5a5"/>
+<text x="280" y="95" text-anchor="middle" font-size="9" font-weight="600" fill="#991b1b">1-bit错误：自动纠错(不中断运行) → 记录到错误寄存器 | 2-bit错误：检测但无法纠正 → 触发NMI → 系统进入安全状态</text>
+<text x="280" y="112" text-anchor="middle" font-size="8" fill="#991b1b">典型配置：Flash用SEC-DED(单错纠正·双错检测) | SRAM用DEC-TED(双纠三检) | 总线用奇偶校验</text>
+</svg>
+<div class="d3-desc"><b>为什么需要ECC？</b>车规芯片的存储单元面临最严苛环境——-40°C到150°C温度循环、强EMI、宇宙射线中子翻转(海拔3000m，每天每Gb有~1次soft error)。没有ECC保护，发动机控制代码中的一个bit翻转可能导致燃油喷射量翻倍→发动机损坏。ECC的12.5%面积开销看似浪费，实则是安全带——在某些安全场景必须使用DEC-TED(双纠三检)，开销升至25%。</div>
+</div>
+
+<div class="d3-card" style="border-left:4px solid var(--l)">
+<div class="d3t">BIST (Built-In Self-Test)</div>
+<div class="d3m">芯片上电自检——启动前验证硬件完整性</div>
+<svg viewBox="0 0 560 120">
+<rect x="15" y="10" width="70" height="30" rx="4" fill="#dbeafe"/><text x="50" y="30" text-anchor="middle" font-size="9" font-weight="600" fill="#1e40af">上电复位</text>
+<rect x="120" y="5" width="120" height="40" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+<text x="180" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#92400e">MBIST</text>
+<text x="180" y="38" text-anchor="middle" font-size="8" fill="#92400e">全SRAM逐位读写测试</text>
+<line x1="85" y1="25" x2="120" y2="25" stroke="#64748b" stroke-width="1.5"/>
+<rect x="275" y="5" width="120" height="40" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+<text x="335" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#92400e">LBIST</text>
+<text x="335" y="38" text-anchor="middle" font-size="8" fill="#92400e">数字逻辑路径测试</text>
+<line x1="240" y1="25" x2="275" y2="25" stroke="#64748b" stroke-width="1.5"/>
+<rect x="455" y="55" width="90" height="30" rx="4" fill="#f0fdf4" stroke="#22c55e"/><text x="500" y="74" text-anchor="middle" font-size="9" font-weight="600" fill="#166534">通过→启动OS</text>
+<line x1="395" y1="25" x2="455" y2="55" stroke="#22c55e" stroke-width="1.5"/>
+<rect x="395" y="55" width="40" height="30" rx="4" fill="#fecaca" stroke="#ef4444"/><text x="415" y="74" text-anchor="middle" font-size="9" font-weight="600" fill="#991b1b">失败</text>
+<line x1="415" y1="55" x2="415" y2="45" stroke="#ef4444" stroke-width="2"/>
+<text x="100" y="70" text-anchor="middle" font-size="8" fill="#64748b">March-C算法</text>
+<text x="305" y="70" text-anchor="middle" font-size="8" fill="#64748b">伪随机序列·扫描链</text>
+<text x="195" y="100" text-anchor="middle" font-size="8" fill="#94a3b8">MBIST 3-5ms | LBIST 10-30ms | 总启动耗时&lt;100ms(满足汽车启动安全窗口)</text>
+</svg>
+<div class="d3-desc"><b>BIST的必要性：</b>如果MCU的SRAM或逻辑门存在潜伏缺陷(制造缺陷未在出厂测试中暴露，但在温度循环后触发)，芯片可能在行驶中突然失效。BIST在每次上电时检测硬件完整性——类似飞机起飞前的checklist。MBIST专门测试SRAM(每个存储单元写0→写1→读回)，LBIST测试组合逻辑(用伪随机向量注入扫描链→输出与预期值比对)。一旦BIST失败→MCU拒绝启动→车辆显示故障灯→维修。</div>
+</div>
+</div>
+
+<div class="card" style="border-left:4px solid var(--ms);margin-top:14px">
+<div class="ttl">窗口看门狗 (Window Watchdog) + 时钟监控 (Clock Monitor)</div>
+<div class="dsc">
+<p><b>看门狗的物理实现：</b>看门狗是一个<em>完全独立的硬件计数器</em>——有自己的RC振荡器(不依赖系统时钟，主晶振故障时仍工作)。软件必须在"窗口"内(不能太早也不能太晚)写入特定序列刷新计数器。如果主程序跑飞或死锁→计数器超时→触发硬复位。</p>
+<p><b>窗口机制的物理意义：</b>如果只看"不能太晚"(超时复位)，恶意或故障代码可以高频刷新来规避。窗口看门狗要求刷新必须在"下限"之后——如果刷新过早(太快)，同样触发复位。这防止了代码卡在刷新循环里而不执行实际控制逻辑。</p>
+<p><b>时钟监控(Clock Monitor)：</b>MCU内部有独立的RC振荡器持续对比主晶振频率。一旦检测到频率偏差超过±10%→<em>立即切断所有输出</em>→所有PWM输出强制设为安全状态(例如电机驱动PWM全部关断)。这在物理上用模拟比较器实现——不依赖任何数字逻辑。</p>
+<p><b>安全状态(Safe State)：</b>上述机制检测到故障后，MCU不是简单的"复位重启"，而是进入预定义的<em>安全状态</em>——例如EPS(电动助力转向)MCU故障时，不是切断助力(导致方向盘突然变重)，而是维持最后有效扭矩值+仪表盘告警。这是硬件状态机配合软件定义的"降级运行"(Fail-Operational)，而非简单的Fail-Safe。</p>
+</div></div>
+
+<h3>4.7.7 三个非共识观点（MCU篇）</h3>
 
 <div class="card" style="border-left:4px solid #dc2626;background:#fef2f2">
 <div class="ttl">非共识 #1：32位全面取代8/16位被夸大了——8位MCU在汽车上至少再活10年</div>
