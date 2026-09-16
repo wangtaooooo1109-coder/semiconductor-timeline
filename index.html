@@ -1914,7 +1914,7 @@ const nProc=[{y:1947,t:'★晶体管',d:'Bell Labs',big:1},{y:1958,t:'★集成�
 const nLitho=[{y:1960,t:'接触式',d:'GCA Mann'},{y:1973,t:'接近式',d:'Perkin-Elmer'},{y:1978,t:'步进式',d:'GCA 4800'},{y:1986,t:'i-Line 365nm',d:'Nikon/ASML'},{y:1995,t:'DUV 248nm',d:'KrF激光'},{y:2003,t:'★浸没式193nm',d:'林本坚·TSMC',big:1},{y:2018,t:'★EUV量产',d:'ASML NA=0.33',big:1},{y:2024,t:'High-NA EUV',d:'NA=0.55'},{y:2026,t:'Hyper-NA研发',d:'NA>0.75'}];
 const nPack=[{y:1970,t:'DIP',d:'双列直插'},{y:1980,t:'QFP/SOP',d:'表面贴装'},{y:1995,t:'BGA',d:'球栅阵列'},{y:2006,t:'WLP',d:'晶圆级封装'},{y:2012,t:'2.5D Interposer',d:'Xilinx/TSMC'},{y:2015,t:'★CoWoS/HBM',d:'NVIDIA·AI',big:1},{y:2022,t:'Chiplet UCIe',d:'Intel/AMD/ARM'},{y:2025,t:'★3D Hybrid Bond',d:'TSMC SoIC',big:1}];
 const nUS=[{y:1947,t:'★晶体管',d:'Bell Labs',big:1},{y:1957,t:'★Fairchild',d:'八叛逆',big:1},{y:1968,t:'★Intel创立',d:'Noyce/Moore/Grove',big:1},{y:1971,t:'4004处理器'},{y:1993,t:'NVIDIA创立',d:'黄仁勋'},{y:2010,t:'Apple A4',d:'自研芯片'}];
-const nJP=[{y:1962,t:'NEC引进IC',d:'平面工艺'},{y:1976,t:'★VLSI计划',d:'通产省·5巨头',big:1},{y:1985,t:'★NEC全球第一',d:'DRAM市占>80%',big:1},{y:1986,t:'美日半导体协议',d:'衰退开始'},{y:2000s,t:'退守材料/设备'}];
+const nJP=[{y:1962,t:'NEC引进IC',d:'平面工艺'},{y:1976,t:'★VLSI计划',d:'通产省·5巨头',big:1},{y:1985,t:'★NEC全球第一',d:'DRAM市占>80%',big:1},{y:1986,t:'美日半导体协议',d:'衰退开始'},{y:2005,t:'退守材料/设备'}];
 const nTW=[{y:1987,t:'★台积电成立',d:'张忠谋·Foundry',big:1},{y:2002,t:'全球第一Foundry',d:'营收$50亿'},{y:2018,t:'7nm EUV量产',d:'超越Intel'},{y:2025,t:'亚利桑那4nm',d:'美国投产'}];
 const nCN=[{y:1965,t:'首块IC',d:'落后7年'},{y:2000,t:'中芯国际成立',d:'张汝京'},{y:2019,t:'华为入实体清单',d:'麒麟断供'},{y:2023,t:'★Mate60回归',d:'中芯7nm',big:1},{y:2025,t:'★国产DUV 28nm',d:'光刻机突破',big:1}];
 const nMS=[{y:1947,t:'★晶体管',big:1},{y:1958,t:'★IC诞生',big:1},{y:1965,t:'★摩尔定律',big:1},{y:1987,t:'★台积电Foundry',big:1},{y:2018,t:'EUV量产'},{y:2020,t:'★芯片战争',big:1}];
@@ -1962,9 +1962,9 @@ if(tl){tl.style.minWidth='4200px';
 const S=1970,E=2026,R=(E-S),P=y=>((y-S)/R*100).toFixed(2);
 const dom=[{s:1970,e:1985,l:'美国开创DRAM',c:'#dc2626'},{s:1985,e:2000,l:'韩国逆袭登顶',c:'#d97706'},{s:2000,e:2013,l:'NAND崛起·3D革命',c:'#059669'},{s:2013,e:2026,l:'3D堆叠·AI HBM',c:'#7c3aed'},];
 const sDRAM=[{y:1970,t:'★1Kb DRAM',d:'Intel 1103',big:1},{y:1974,t:'4Kb',d:'Mostek'},{y:1976,t:'16Kb',d:'Mostek'},{y:1980,t:'64Kb',d:'日本反超'},{y:1984,t:'256Kb',d:'日本称霸'},{y:1992,t:'★4Mb·三星第一',d:'逆周期投资',big:1},{y:1996,t:'SDRAM 64Mb',d:'同步DRAM'},{y:1999,t:'DDR SDRAM'},{y:2005,t:'DDR2',d:'1Gb颗粒'},{y:2007,t:'DDR3'},{y:2014,t:'★DDR4',d:'HBM首发',big:1},{y:2020,t:'DDR5'},{y:2025,t:'★DDR6',d:'HBM4',big:1}];
-const sNAND=[{y:1984,t:'★NAND发明',d:'东芝·舛冈富士雄',big:1},{y:1991,t:'4Mb NAND',d:'东芝量产'},{y:2000s,t:'MLC/TLC',d:'多值化'},{y:2007,t:'★3D NAND概念',d:'东芝提出',big:1},{y:2013,t:'★V-NAND 24层',d:'三星率先量产',big:1},{y:2018,t:'96层',d:'QLC'},{y:2020,t:'128层',d:'多厂商'},{y:2022,t:'176层',d:'美光'},{y:2024,t:'★238层',d:'美光/长江',big:1},{y:2025,t:'321层',d:'长江·Xtacking4'}];
+const sNAND=[{y:1984,t:'★NAND发明',d:'东芝·舛冈富士雄',big:1},{y:1991,t:'4Mb NAND',d:'东芝量产'},{y:2005,t:'MLC/TLC',d:'多值化'},{y:2007,t:'★3D NAND概念',d:'东芝提出',big:1},{y:2013,t:'★V-NAND 24层',d:'三星率先量产',big:1},{y:2018,t:'96层',d:'QLC'},{y:2020,t:'128层',d:'多厂商'},{y:2022,t:'176层',d:'美光'},{y:2024,t:'★238层',d:'美光/长江',big:1},{y:2025,t:'321层',d:'长江·Xtacking4'}];
 const sUS=[{y:1970,t:'Intel 1103',d:'首款商用DRAM'},{y:1978,t:'Mostek',d:'16Kb'},{y:1998,t:'★Micron崛起',d:'收购TI DRAM',big:1},{y:2015,t:'3D XPoint',d:'Intel/Micron'}];
-const sJP=[{y:1984,t:'★NAND发明',d:'舛冈富士雄·东芝',big:1},{y:1980s,t:'DRAM霸权',d:'全球>80%',big:1},{y:1999,t:'★Elpida成立',d:'NEC+日立DRAM合并',big:1},{y:2012,t:'Elpida破产',d:'美光收购·$25亿'}];
+const sJP=[{y:1984,t:'★NAND发明',d:'舛冈富士雄·东芝',big:1},{y:1988,t:'DRAM霸权',d:'全球>80%',big:1},{y:1999,t:'★Elpida成立',d:'NEC+日立DRAM合并',big:1},{y:2012,t:'Elpida破产',d:'美光收购·$25亿'}];
 const sKR=[{y:1983,t:'三星进DRAM',d:'李秉喆'},{y:1992,t:'★三星DRAM第一',d:'逆周期投资',big:1},{y:2013,t:'★V-NAND首发',d:'三星·24层',big:1},{y:2015,t:'HBM2量产',d:'SK海力士·三星'},{y:2024,t:'★HBM3E',d:'SK海力士市占>50%',big:1}];
 const sCN=[{y:2016,t:'★YMTC成立',d:'长江存储',big:1},{y:2019,t:'Xtacking',d:'自主研发架构'},{y:2022,t:'★232层NAND',d:'全球首发·YMTC',big:1},{y:2024,t:'CXMT DDR5',d:'长鑫·18.5nm'},{y:2025,t:'Xtacking 4.0',d:'321层'}];
 
@@ -2011,9 +2011,9 @@ const dom=[{s:1956,e:1980,l:'美国开创(SCR/MOSFET)',c:'#2563eb'},{s:1980,e:20
 const pDev=[{y:1956,t:'★SCR晶闸管',d:'GE发明',big:1},{y:1975,t:'功率MOSFET',d:'IR推出'},{y:1984,t:'★IGBT',d:'GE发明→日本量产',big:1},{y:1989,t:'IPM模块',d:'三菱'},{y:1997,t:'★SJ-MOSFET',d:'富士电机',big:1},{y:2011,t:'★SiC MOSFET',d:'Cree/Wolfspeed',big:1},{y:2018,t:'SiC上车',d:'Tesla M3·ST'},{y:2023,t:'200mm SiC',d:'Wolfspeed量产'},{y:2025,t:'800V HVDC AI',d:'英飞凌+英伟达',big:1},{y:2026,t:'★GaN 300mm',d:'英飞凌12英寸',big:1},];
 const pApp=[{y:1956,t:'SCR',d:'工业加热/HVDC'},{y:1975,t:'SMPS开关电源',d:'PC/消费'},{y:1984,t:'电机驱动/变频',d:'工业/家电'},{y:2000,t:'光伏逆变器',d:'可再生能源',big:1},{y:2018,t:'★EV逆变器',d:'SiC量产元年',big:1},{y:2022,t:'AI数据中心',d:'800V供电',big:1},{y:2025,t:'固态变压器SST',d:'电网现代化'}];
 const pUS=[{y:1956,t:'GE SCR',d:'首创'},{y:1975,t:'IR MOSFET',d:'开关电源革命'},{y:1984,t:'GE IGBT',d:'Baliga发明'},{y:2011,t:'Cree SiC',d:'Wolfspeed'},{y:2016,t:'ON→Fairchild',d:'$24亿收购'},{y:2025,t:'TI+GaN',d:'AI供电'}];
-const pJP=[{y:1989,t:'★三菱IPM',d:'智能模块',big:1},{y:1997,t:'★富士SJ-MOS',d:'超结突破',big:1},{y:2000s,t:'功率模块霸权',d:'全球TOP10占5席'},{y:2020s,t:'罗姆SiC',d:'车规追赶'}];
+const pJP=[{y:1989,t:'★三菱IPM',d:'智能模块',big:1},{y:1997,t:'★富士SJ-MOS',d:'超结突破',big:1},{y:2005,t:'功率模块霸权',d:'全球TOP10占5席'},{y:2022,t:'罗姆SiC',d:'车规追赶'}];
 const pEU=[{y:1999,t:'★英飞凌独立',d:'西门子剥离',big:1},{y:2014,t:'→收购IR',d:'$30亿'},{y:2018,t:'★ST SiC供货Tesla',d:'SiC上车元年',big:1},{y:2025,t:'英飞凌+英伟达',d:'800V AI供电'},{y:2026,t:'★GaN 300mm',d:'英飞凌首发',big:1}];
-const pCN=[{y:2010s,t:'起步',d:'二极管/低压MOS'},{y:2018,t:'比亚迪IGBT',d:'自研自供'},{y:2020,t:'中车高铁IGBT',d:'6500V国产化'},{y:2022,t:'★闻泰→安世',d:'全球布局',big:1},{y:2024,t:'★士兰微TOP5',d:'全球第五',big:1},{y:2026,t:'SiC模块量产',d:'800V EV标配'}];
+const pCN=[{y:2013,t:'起步',d:'二极管/低压MOS'},{y:2018,t:'比亚迪IGBT',d:'自研自供'},{y:2020,t:'中车高铁IGBT',d:'6500V国产化'},{y:2022,t:'★闻泰→安世',d:'全球布局',big:1},{y:2024,t:'★士兰微TOP5',d:'全球第五',big:1},{y:2026,t:'SiC模块量产',d:'800V EV标配'}];
 
 const ptl=document.getElementById('ptl');
 if(ptl){ptl.style.minWidth='3400px';
