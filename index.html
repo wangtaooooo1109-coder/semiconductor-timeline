@@ -112,7 +112,17 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 .srcs{font-size:13px;color:#475569;line-height:2.2}
 .srcs b{color:#1e3a5f}
 
+/* Multi-column card layout */
+.card-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.card-row .card{margin-bottom:0}
+.card-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.card-row-3 .card{margin-bottom:0}
+
 @media(max-width:768px){.content{padding:16px 12px 60px}.card{padding:16px}.d3-card{padding:16px}}
+
+@media(max-width:768px){
+.card-row,.card-row-3{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
