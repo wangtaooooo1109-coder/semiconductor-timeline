@@ -107,7 +107,12 @@ table.node-table{width:100%;border-collapse:collapse;font-size:13px}
 table.node-table th{background:#f1f5f9;padding:8px;text-align:left;border:1px solid #e2e8f0;font-size:12px;font-weight:700;color:#475569}
 table.node-table td{padding:6px 8px;border:1px solid #e2e8f0}
 table.node-table tr:nth-child(even){background:#f8fafc}
-table.node-table .hl{font-weight:700;color:var(--p)}
+table.node-table .hl
+
+/* compact table variant */
+table.node-table.nopad th,table.node-table.nopad td{padding:3px 6px;font-size:12px}
+table.node-table.nopad .hl{font-size:12px}
+{font-weight:700;color:var(--p)}
 
 .srcs{font-size:13px;color:#475569;line-height:2.2}
 .srcs b{color:#1e3a5f}
@@ -213,13 +218,13 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 
 <h2 id="sec-pattern">🌐 1.2 全球格局六大转折</h2>
 
-<div class="card"><span class="tag tu">美</span><span class="yr">1947—1980</span>
-<div class="ttl">美国独霸：从晶体管到微处理器</div>
+<div class="card"><span class="tag tu">美</span><div class="ttl">美国独霸：从晶体管到微处理器</div>
 <div class="by">主导：贝尔实验室 → Fairchild → Intel → TI</div>
-<div class="dsc">
-<p>1947年Bell Labs发明晶体管（Bardeen/Brattain/Shockley,1956诺奖）。1958年TI Kilby发明IC,1959年Fairchild Noyce发明硅基平面工艺IC——可量产的芯片诞生。1965年Moore提出摩尔定律。1968年Noyce/Moore/Grove创立Intel,1971年推出全球首款微处理器4004（10μm,2300Tr）。</p>
-<dl><dt>格局</dt><dd>全球半导体100%美国主导。Fairchild是"硅谷摇篮"（八叛逆→Intel/AMD等）。日本1962年NEC引进平面工艺起步,中国1965年首块IC落后7年。</dd></dl></div>
-<div class="src">来源：贝尔实验室档案; Nobel Prize官方; 《Chip War》Ch.1-4; Intel/Fairchild/TI官方历史</div></div>
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">格局</td><td>全球半导体100%美国主导。Fairchild是"硅谷摇篮"（八叛逆→Intel/AMD等）。日本1962年NEC引进平面工艺起步,中国1965年首块IC落后7年。</td></tr>
+</tbody></table>
+<div class="src">来源：贝尔实验室档案; Nobel Prize官方; 《Chip War》Ch.1-4; Intel/Fairchild/TI官方历史</div>
+</div>
 
 <div class="card"><span class="tag tj">日</span><span class="yr">1976—1991</span>
 <div class="ttl">日本逆袭与衰退：VLSI计划 → DRAM霸权 → 美日协议</div>
@@ -521,87 +526,47 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 
 <h2 id="sec-country">🏛️ 1.5 分国家/地区关键节点</h2>
 
+<div class="card-row">
 <div class="card"><span class="tag tu">美国</span><div class="ttl">美国：从绝对霸权到AI时代芯片设计+设备领导者</div>
-<div class="dsc">
-<dl>
-<dt>1947 晶体管</dt><dd>Bell Labs Bardeen/Brattain/Shockley发明→1956诺贝尔奖。美国成为半导体技术源头。</dd>
-<dt>1958-59 IC发明</dt><dd>TI Kilby + Fairchild Noyce。平面工艺成为所有芯片制造的基础。</dd>
-<dt>1965 摩尔定律</dt><dd>Gordon Moore提出→驱动行业50年的"自我实现预言"。</dd>
-<dt>1968 Intel成立</dt><dd>Noyce/Moore/Grove→1971 4004微处理器→x86架构统治PC 40+年。</dd>
-<dt>1985 Intel退出DRAM</dt><dd>Grove-Moore历史性决策→All-in CPU→成就Intel全球CPU霸主。</dd>
-<dt>1987 SEMATECH</dt><dd>美国14家半导体企业+政府组建联盟,试图用VLSI模式夺回制造能力。</dd>
-<dt>1997 EUV LLC</dt><dd>Intel牵头EUV研发联盟,ASML加入(Nikon/Canon被排除),奠定ASML垄断。</dd>
-<dt>2000-2010 Fabless黄金期</dt><dd>Qualcomm/NVIDIA/Broadcom/AMD→美国芯片设计全球占比~65%。</dd>
-<dt>2018-2024 芯片战争</dt><dd>美国发动对华半导体出口管制→从单点制裁到系统性脱钩。</dd>
-<dt>1999 NVIDIA GPU</dt><dd>GeForce 256发布→GPU从游戏显卡步步演化为AI计算核心引擎。</dd><dt>2012 NVIDIA AI转型</dt><dd>AlexNet使用CUDA+GPU训练→深度学习革命开启→NVIDIA从游戏公司转型AI算力平台。</dd><dt>2020 NVIDIA A100</dt><dd>Ampere架构→AI训练的“黄金标准”→全球数据中心抢购。</dd><dt>2022 CHIPS法案</dt><dd>$527亿补贴本土制造→Intel/TSMC/Samsung在美建厂。美光宣布$400亿扩产DRAM。</dd><dt>2024 NVIDIA市值$3万亿+</dt><dd>AI大模型引爆GPU需求。NVIDIA H100/B200供不应求。高通骁龙8 Elite进入PC AI芯片市场。美光HBM3E量产。</dd><dt>2025—2026 AI军备竞赛</dt><dd>TSMC亚利桑那4nm量产。Intel 18A推进。NVIDIA Blackwell(B200/GB200)量产。AI芯片年收入突破$1000亿。高通骁龙8 Elite持续迭代。美光HBM4研发。</dd>
-</dl></div>
-<div class="src">来源：《Chip War》; Intel/Fairchild/TI官方历史; 美国国会CHIPS法案; BIS联邦公报</div></div>
+
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">1947 晶体管</td><td>Bell Labs Bardeen/Brattain/Shockley发明→1956诺贝尔奖。美国成为半导体技术源头。</td></tr><tr><td class="hl">1958-59 IC发明</td><td>TI Kilby + Fairchild Noyce。平面工艺成为所有芯片制造的基础。</td></tr><tr><td class="hl">1965 摩尔定律</td><td>Gordon Moore提出→驱动行业50年的"自我实现预言"。</td></tr><tr><td class="hl">1968 Intel成立</td><td>Noyce/Moore/Grove→1971 4004微处理器→x86架构统治PC 40+年。</td></tr><tr><td class="hl">1985 Intel退出DRAM</td><td>Grove-Moore历史性决策→All-in CPU→成就Intel全球CPU霸主。</td></tr><tr><td class="hl">1987 SEMATECH</td><td>美国14家半导体企业+政府组建联盟,试图用VLSI模式夺回制造能力。</td></tr><tr><td class="hl">1997 EUV LLC</td><td>Intel牵头EUV研发联盟,ASML加入(Nikon/Canon被排除),奠定ASML垄断。</td></tr><tr><td class="hl">2000-2010 Fabless黄金期</td><td>Qualcomm/NVIDIA/Broadcom/AMD→美国芯片设计全球占比~65%。</td></tr><tr><td class="hl">2018-2024 芯片战争</td><td>美国发动对华半导体出口管制→从单点制裁到系统性脱钩。</td></tr><tr><td class="hl">1999 NVIDIA GPU</td><td>GeForce 256发布→GPU从游戏显卡步步演化为AI计算核心引擎。</td></tr><tr><td class="hl">2012 NVIDIA AI转型</td><td>AlexNet使用CUDA+GPU训练→深度学习革命开启→NVIDIA从游戏公司转型AI算力平台。</td></tr><tr><td class="hl">2020 NVIDIA A100</td><td>Ampere架构→AI训练的“黄金标准”→全球数据中心抢购。</td></tr><tr><td class="hl">2022 CHIPS法案</td><td>$527亿补贴本土制造→Intel/TSMC/Samsung在美建厂。美光宣布$400亿扩产DRAM。</td></tr><tr><td class="hl">2024 NVIDIA市值$3万亿+</td><td>AI大模型引爆GPU需求。NVIDIA H100/B200供不应求。高通骁龙8 Elite进入PC AI芯片市场。美光HBM3E量产。</td></tr><tr><td class="hl">2025—2026 AI军备竞赛</td><td>TSMC亚利桑那4nm量产。Intel 18A推进。NVIDIA Blackwell(B200/GB200)量产。AI芯片年收入突破$1000亿。高通骁龙8 Elite持续迭代。美光HBM4研发。</td></tr>
+</tbody></table>
+<div class="src">来源：《Chip War》; Intel/Fairchild/TI官方历史; 美国国会CHIPS法案; BIS联邦公报</div>
+</div>
 
 <div class="card"><span class="tag tj">日本</span><div class="ttl">日本：从DRAM霸主到材料设备王国</div>
-<div class="dsc">
-<dl>
-<dt>1962 NEC引进平面工艺</dt><dd>从Fairchild购买授权→日本半导体产业起点。</dd>
-<dt>1976 VLSI国家计划</dt><dd>通产省+5巨头→720亿日元攻关DRAM→4年内从跟随者变超越者。</dd>
-<dt>1980 惠普测试震惊世界</dt><dd>日本DRAM良率比美国高30%,价格低60%。美国质量最好不如日本最差。</dd>
-<dt>1985 巅峰</dt><dd>NEC全球营收第一(连续7年),日本DRAM全球>80%。全产业链闭环。</dd>
-<dt>1986 美日协议→衰退</dt><dd>被迫开放市场+限制出口价格+广场协议→日元升值→成本优势消失。</dd>
-<dt>1990s 撤退时代</dt><dd>NEC/日立/东芝/富士通相继退出DRAM。Nikon光刻机市场被ASML吞噬。</dd>
-<dt>2008 尔必达破产</dt><dd>日本DRAM最后的希望破产→DRAM全军覆没。</dd>
-<dt>2018-至今 材料设备王国</dt><dd>信越化学/SUMCO(硅片),JSR/TOK(光刻胶),TEL(涂胶显影/刻蚀)→仍控全球~50%半导体材料市场。</dd>
-</dl></div>
-<div class="src">来源：日本通产省VLSI档案; NEC/东芝/日立官方历史; 信越化学/TEL年报</div></div>
+
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">1962 NEC引进平面工艺</td><td>从Fairchild购买授权→日本半导体产业起点。</td></tr><tr><td class="hl">1976 VLSI国家计划</td><td>通产省+5巨头→720亿日元攻关DRAM→4年内从跟随者变超越者。</td></tr><tr><td class="hl">1980 惠普测试震惊世界</td><td>日本DRAM良率比美国高30%,价格低60%。美国质量最好不如日本最差。</td></tr><tr><td class="hl">1985 巅峰</td><td>NEC全球营收第一(连续7年),日本DRAM全球>80%。全产业链闭环。</td></tr><tr><td class="hl">1986 美日协议→衰退</td><td>被迫开放市场+限制出口价格+广场协议→日元升值→成本优势消失。</td></tr><tr><td class="hl">1990s 撤退时代</td><td>NEC/日立/东芝/富士通相继退出DRAM。Nikon光刻机市场被ASML吞噬。</td></tr><tr><td class="hl">2008 尔必达破产</td><td>日本DRAM最后的希望破产→DRAM全军覆没。</td></tr><tr><td class="hl">2018-至今 材料设备王国</td><td>信越化学/SUMCO(硅片),JSR/TOK(光刻胶),TEL(涂胶显影/刻蚀)→仍控全球~50%半导体材料市场。</td></tr>
+</tbody></table>
+<div class="src">来源：日本通产省VLSI档案; NEC/东芝/日立官方历史; 信越化学/TEL年报</div>
+</div>
 
 <div class="card"><span class="tag te">欧</span><div class="ttl">欧洲：ASML——从平房到全球半导体产业"守门人"</div>
-<div class="dsc">
-<p>欧洲在全球半导体产业链的核心角色是<b>ASML</b>——一家从飞利浦漏水平房起步、如今掌握全球最尖端芯片制造命脉的企业。ASML是全球唯一能生产极紫外(EUV)光刻机的公司，没有ASML就没有7nm以下的先进芯片。</p>
-<dl>
-<dt>1960s 起源：飞利浦光刻部门</dt><dd>荷兰飞利浦的半导体事业部内的光刻设备研发小组，即ASML的前身。飞利浦曾多次考虑关闭该业务。</dd>
-<dt>1984 ASML成立</dt><dd>飞利浦与ASM International合资成立ASM Lithography。蜗居飞利浦一栋漏水平房，员工仅数十人。当时全球光刻机市场由日本Nikon和Canon垄断（合计>70%）。首款产品PAS 2000（1986）市场反应冷淡，公司一度难以为继。</dd>
-<dt>1990 PAS 5500</dt><dd>ASML首款获得商业成功的步进式光刻机→奠定生存基础。该平台持续销售十余年。</dd>
-<dt>1995 上市</dt><dd>ASML在阿姆斯特丹和纽约证券交易所上市。</dd>
-<dt>1999 ★加入EUV LLC</dt><dd>Intel牵头的EUV研发联盟中，ASML作为唯一非美国光刻设备商获准加入——条件是Nikon和Canon因政治原因被排除在外+ASML承诺在美国建厂（加州和康涅狄格州）+美国供应链占比>50%。这一政治决策直接决定了20年后光刻机产业的最终格局。</dd>
-<dt>2004 ★浸没式光刻超越Nikon</dt><dd>台积电林本坚提出浸没式方案后，ASML率先采纳该技术路线→Nikon/Canon因坚持157nm干式路线而失败→ASML光刻机全球市占率从~30%跃升至65%+，彻底反超日本企业。成立20年后，ASML首次成为全球光刻机市场第一。</dd>
-<dt>2012 客户投资计划</dt><dd>Intel、TSMC、Samsung三大客户分别投资ASML（合计约€5亿欧元购买股权），共同分摊EUV研发风险→这三大客户深度绑定，确保了EUV的量产需求和资金。</dd>
-<dt>2018 ★EUV大规模量产</dt><dd>历经20年研发、累计投入超€60亿后，ASML的EUV光刻机（13.5nm波长，NA=0.33）终于进入TSMC 7nm+大规模量产。ASML自此成为全球唯一EUV供应商，每台售价~€1.5亿，年产量仅数十台。全球所有7nm以下先进芯片100%依赖ASML的EUV光刻机。</dd>
-<dt>2023-24 ★High-NA EUV交付</dt><dd>下一代High-NA EUV（NA=0.55）交付→单台€3.5亿，重达150吨→Intel率先接收安装于俄勒冈州研发中心。支持2nm至1.4nm节点。ASML全球光刻机市场份额超85%。</dd>
-<dt>2026 Hyper-NA EUV规划</dt><dd>ASML启动Hyper-NA（NA>0.75）EUV研发，配合变形光学系统，为2030年代的1nm以下节点做准备。光刻机从研发到量产的周期长达10-15年。</dd>
-</dl>
-<p><b>ASML的产业地位：</b>在全球半导体产业链中，ASML是唯一具有<b>不可替代性</b>的欧洲企业——它掌握的是整个行业的"瓶颈"设备。EUV光刻机是已知人类制造的最复杂的机器之一（超10万个精密零件，需要40个集装箱运输），也是现代半导体产业最关键的单一设备。欧洲其他半导体企业（如ARM的芯片架构、英飞凌的汽车功率芯片、意法半导体的MCU）虽各有所长，但在"产业时间主导者"意义上，ASML的地位无可匹敌。</p>
+
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">1960s 起源：飞利浦光刻部门</td><td>荷兰飞利浦的半导体事业部内的光刻设备研发小组，即ASML的前身。飞利浦曾多次考虑关闭该业务。</td></tr><tr><td class="hl">1984 ASML成立</td><td>飞利浦与ASM International合资成立ASM Lithography。蜗居飞利浦一栋漏水平房，员工仅数十人。当时全球光刻机市场由日本Nikon和Canon垄断（合计>70%）。首款产品PAS 2000（1986）市场反应冷淡，公司一度难以为继。</td></tr><tr><td class="hl">1990 PAS 5500</td><td>ASML首款获得商业成功的步进式光刻机→奠定生存基础。该平台持续销售十余年。</td></tr><tr><td class="hl">1995 上市</td><td>ASML在阿姆斯特丹和纽约证券交易所上市。</td></tr><tr><td class="hl">1999 ★加入EUV LLC</td><td>Intel牵头的EUV研发联盟中，ASML作为唯一非美国光刻设备商获准加入——条件是Nikon和Canon因政治原因被排除在外+ASML承诺在美国建厂（加州和康涅狄格州）+美国供应链占比>50%。这一政治决策直接决定了20年后光刻机产业的最终格局。</td></tr><tr><td class="hl">2004 ★浸没式光刻超越Nikon</td><td>台积电林本坚提出浸没式方案后，ASML率先采纳该技术路线→Nikon/Canon因坚持157nm干式路线而失败→ASML光刻机全球市占率从~30%跃升至65%+，彻底反超日本企业。成立20年后，ASML首次成为全球光刻机市场第一。</td></tr><tr><td class="hl">2012 客户投资计划</td><td>Intel、TSMC、Samsung三大客户分别投资ASML（合计约€5亿欧元购买股权），共同分摊EUV研发风险→这三大客户深度绑定，确保了EUV的量产需求和资金。</td></tr><tr><td class="hl">2018 ★EUV大规模量产</td><td>历经20年研发、累计投入超€60亿后，ASML的EUV光刻机（13.5nm波长，NA=0.33）终于进入TSMC 7nm+大规模量产。ASML自此成为全球唯一EUV供应商，每台售价~€1.5亿，年产量仅数十台。全球所有7nm以下先进芯片100%依赖ASML的EUV光刻机。</td></tr><tr><td class="hl">2023-24 ★High-NA EUV交付</td><td>下一代High-NA EUV（NA=0.55）交付→单台€3.5亿，重达150吨→Intel率先接收安装于俄勒冈州研发中心。支持2nm至1.4nm节点。ASML全球光刻机市场份额超85%。</td></tr><tr><td class="hl">2026 Hyper-NA EUV规划</td><td>ASML启动Hyper-NA（NA>0.75）EUV研发，配合变形光学系统，为2030年代的1nm以下节点做准备。光刻机从研发到量产的周期长达10-15年。</td></tr>
+</tbody></table>
+<div class="src">来源：ASML官方历史 & 2000-2025年报; ASML投资者日材料(2024-2026); 《Chip War》Ch.16-18; 百度百科"极紫外光刻"</div>
 </div>
-<div class="src">来源：ASML官方历史 & 2000-2025年报; ASML投资者日材料(2024-2026); 《Chip War》Ch.16-18; 百度百科"极紫外光刻"</div></div>
 
 <div class="card"><span class="tag tt">台湾</span><div class="ttl">台湾：Foundry革命到制程绝对王者</div>
-<div class="dsc">
-<dl>
-<dt>1975 ITRI成立</dt><dd>台湾工研院→孙运璿访韩后推动→选派工程师赴美RCA学习IC技术。</dd>
-<dt>1980 联电(UMC)成立</dt><dd>台湾第一家半导体公司,从工研院衍生,提供部分代工服务。</dd>
-<dt>1987 TSMC成立★</dt><dd>张忠谋(前TI SVP,55岁)创立→纯晶圆代工模式→彻底改变全球产业。</dd>
-<dt>1988 Intel认证TSMC</dt><dd>Grove亲自审查→通过→TSMC获得最关键背书。</dd>
-<dt>1997 联发科(MTK)成立</dt><dd>蔡明介从联电分拆→手机SoC巨头。</dd>
-<dt>2002 TSMC全球十大</dt><dd>Foundry模式验证→营收$50亿+→已然最大。</dd>
-<dt>2011 TSMC 28nm</dt><dd>台积电28nm成为Foundry史上最成功节点→寿命10+年。</dd>
-<dt>2018 TSMC 7nm登顶</dt><dd>率先量产7nm FinFET→超越Intel→N7+首次用EUV→全球制程领跑。</dd>
-<dt>2020 TSMC 5nm</dt><dd>Apple A14+麒麟9000→EUV全面应用→独占先进制程。</dd>
-<dt>2024 TSMC N2试产</dt><dd>从FinFET→GAA→全球最先进3nm/2nm量产→Foundry市占>60%。</dd>
-</dl></div>
-<div class="src">来源：张忠谋自传; TSMC年报; ITRI档案; 《Chip War》Ch.13-15</div></div>
+
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">1975 ITRI成立</td><td>台湾工研院→孙运璿访韩后推动→选派工程师赴美RCA学习IC技术。</td></tr><tr><td class="hl">1980 联电(UMC)成立</td><td>台湾第一家半导体公司,从工研院衍生,提供部分代工服务。</td></tr><tr><td class="hl">1987 TSMC成立★</td><td>张忠谋(前TI SVP,55岁)创立→纯晶圆代工模式→彻底改变全球产业。</td></tr><tr><td class="hl">1988 Intel认证TSMC</td><td>Grove亲自审查→通过→TSMC获得最关键背书。</td></tr><tr><td class="hl">1997 联发科(MTK)成立</td><td>蔡明介从联电分拆→手机SoC巨头。</td></tr><tr><td class="hl">2002 TSMC全球十大</td><td>Foundry模式验证→营收$50亿+→已然最大。</td></tr><tr><td class="hl">2011 TSMC 28nm</td><td>台积电28nm成为Foundry史上最成功节点→寿命10+年。</td></tr><tr><td class="hl">2018 TSMC 7nm登顶</td><td>率先量产7nm FinFET→超越Intel→N7+首次用EUV→全球制程领跑。</td></tr><tr><td class="hl">2020 TSMC 5nm</td><td>Apple A14+麒麟9000→EUV全面应用→独占先进制程。</td></tr><tr><td class="hl">2024 TSMC N2试产</td><td>从FinFET→GAA→全球最先进3nm/2nm量产→Foundry市占>60%。</td></tr>
+</tbody></table>
+<div class="src">来源：张忠谋自传; TSMC年报; ITRI档案; 《Chip War》Ch.13-15</div>
+</div>
 
 <div class="card"><span class="tag tc">中</span><div class="ttl">中国大陆：从零起步到封锁中突围</div>
-<div class="dsc">
-<dl>
-<dt>1965 首块IC</dt><dd>中科院研制→落后国际~7年。</dd>
-<dt>1990 908工程</dt><dd>目标0.8-1μm产线→审批5年→投产时已落后2-3代。</dd>
-<dt>1995 909工程</dt><dd>投资100亿→华虹NEC合资→8英寸0.5μm→1999投产,中国首条8英寸线。</dd>
-<dt>2000 中芯国际(SMIC)</dt><dd>张汝京上海张江创立→首轮融资$10亿→迅速成中国最大代工厂。</dd>
-<dt>2014 大基金一期</dt><dd>1,387亿元→系统推动芯片制造/设计/封测/设备/材料。</dd>
-<dt>2018 中兴事件→警钟</dt><dd>美国出口禁令→中兴"休克"→罚款$14亿+合规监督→芯片卡脖子警钟。</dd>
-<dt>2019 华为实体清单</dt><dd>GMS+ARM断供→华为手机海外市场崩塌→全栈自研加速。</dd>
-<dt>2020 华为彻底断供</dt><dd>台积电停代→麒麟9000绝唱→中国芯片被迫全链路重建。</dd>
-<dt>2022 10.7 BIS管制</dt><dd>14nm↓逻辑/18nm↓DRAM/128层↑NAND设备禁售→最严规则。</dd>
-<dt>2023 Mate 60回归</dt><dd>麒麟9000S+中芯7nm→封锁下突破→引发全球关注。</dd>
-<dt>2024 加速自主</dt><dd>大基金三期3,000亿+→DUV国产化/先进封装/RISC-V/第三代半导体全力推进。</dd>
-</dl></div>
-<div class="src">来源：中国国务院/工信部公告; SMIC官方; 美国BIS联邦公报; TechInsights(2023.8); CSIS分析</div></div>
+
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">1965 首块IC</td><td>中科院研制→落后国际~7年。</td></tr><tr><td class="hl">1990 908工程</td><td>目标0.8-1μm产线→审批5年→投产时已落后2-3代。</td></tr><tr><td class="hl">1995 909工程</td><td>投资100亿→华虹NEC合资→8英寸0.5μm→1999投产,中国首条8英寸线。</td></tr><tr><td class="hl">2000 中芯国际(SMIC)</td><td>张汝京上海张江创立→首轮融资$10亿→迅速成中国最大代工厂。</td></tr><tr><td class="hl">2014 大基金一期</td><td>1,387亿元→系统推动芯片制造/设计/封测/设备/材料。</td></tr><tr><td class="hl">2018 中兴事件→警钟</td><td>美国出口禁令→中兴"休克"→罚款$14亿+合规监督→芯片卡脖子警钟。</td></tr><tr><td class="hl">2019 华为实体清单</td><td>GMS+ARM断供→华为手机海外市场崩塌→全栈自研加速。</td></tr><tr><td class="hl">2020 华为彻底断供</td><td>台积电停代→麒麟9000绝唱→中国芯片被迫全链路重建。</td></tr><tr><td class="hl">2022 10.7 BIS管制</td><td>14nm↓逻辑/18nm↓DRAM/128层↑NAND设备禁售→最严规则。</td></tr><tr><td class="hl">2023 Mate 60回归</td><td>麒麟9000S+中芯7nm→封锁下突破→引发全球关注。</td></tr><tr><td class="hl">2024 加速自主</td><td>大基金三期3,000亿+→DUV国产化/先进封装/RISC-V/第三代半导体全力推进。</td></tr>
+</tbody></table>
+<div class="src">来源：中国国务院/工信部公告; SMIC官方; 美国BIS联邦公报; TechInsights(2023.8); CSIS分析</div>
+</div>
+</div>
 
 <!-- ====== EVENT DETAILS ====== -->
 <h2 id="sec-events">📋 1.6 重大事件详表</h2>
@@ -957,59 +922,43 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 
 <h2 id="sec-storage-country">🏛️ 2.4 存储产业各国关键节点</h2>
 
+<div class="card-row">
 <div class="card"><span class="tag tu">美国</span><div class="ttl">美国：DRAM开创者 → 退守美光一席</div>
-<div class="dsc">
-<dl>
-<dt>1970 Intel 1103</dt><dd>全球首款商用DRAM→取代磁芯存储器→Intel起家之基。</dd>
-<dt>1970s 美国DRAM全盛</dt><dd>Intel/Mostek/TI/Motorola占据全球>90%DRAM市场。</dd>
-<dt>1980 被日本碾压</dt><dd>惠普测试→美国最优质DRAM不如日本最差产品。</dd>
-<dt>1985 Intel退出DRAM</dt><dd>Grove-Moore历史性决策→放弃存储器→All-in微处理器。</dd>
-<dt>1990s 美光独撑</dt><dd>美光科技(Micron)成为唯一存活下来的美国DRAM厂商→通过并购德州仪器DRAM业务等持续壮大。</dd>
-<dt>2000-至今 美光三国之一</dt><dd>美光与三星、SK海力士三分DRAM天下(各~20-25%市占)。2020年率先量产176层3D NAND。2022年232层3D NAND。2024年HBM3E追赶SK海力士。</dd>
-</dl></div>
-<div class="src">来源：Intel/Micron官方历史; 《Chip War》Ch.6-8; 《Only the Paranoid Survive》(Grove,1996)</div></div>
+
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">1970 Intel 1103</td><td>全球首款商用DRAM→取代磁芯存储器→Intel起家之基。</td></tr><tr><td class="hl">1970s 美国DRAM全盛</td><td>Intel/Mostek/TI/Motorola占据全球>90%DRAM市场。</td></tr><tr><td class="hl">1980 被日本碾压</td><td>惠普测试→美国最优质DRAM不如日本最差产品。</td></tr><tr><td class="hl">1985 Intel退出DRAM</td><td>Grove-Moore历史性决策→放弃存储器→All-in微处理器。</td></tr><tr><td class="hl">1990s 美光独撑</td><td>美光科技(Micron)成为唯一存活下来的美国DRAM厂商→通过并购德州仪器DRAM业务等持续壮大。</td></tr><tr><td class="hl">2000-至今 美光三国之一</td><td>美光与三星、SK海力士三分DRAM天下(各~20-25%市占)。2020年率先量产176层3D NAND。2022年232层3D NAND。2024年HBM3E追赶SK海力士。</td></tr>
+</tbody></table>
+<div class="src">来源：Intel/Micron官方历史; 《Chip War》Ch.6-8; 《Only the Paranoid Survive》(Grove,1996)</div>
+</div>
 
 <div class="card"><span class="tag tj">日本</span><div class="ttl">日本：DRAM绝对霸主 → 全军覆没 → 铠侠孤军</div>
-<div class="dsc">
-<dl>
-<dt>1976 VLSI计划</dt><dd>DRAM主攻方向→四年内技术全面超越美国。</dd>
-<dt>1980 品质碾压</dt><dd>惠普测试日本DRAM完胜→良率高30%/价格低60%。</dd>
-<dt>1985 巅峰</dt><dd>日本DRAM全球市占>80%→NEC全球第一。</dd>
-<dt>1986 美日协议→衰退</dt><dd>被迫限制出口→叠加日元升值→成本优势瓦解。</dd>
-<dt>1990s 全盘崩溃</dt><dd>NEC/日立/东芝/富士通相继退出DRAM。2008年尔必达破产→日本DRAM全军覆没。</dd>
-<dt>2007 东芝3D NAND</dt><dd>东芝发明BiCS 3D NAND概念→改变NAND演进方向。</dd>
-<dt>2018 铠侠成立</dt><dd>东芝将NAND业务剥离为铠侠(Kioxia)→在日本NAND市场艰难维持。</dd>
-</dl></div>
-<div class="src">来源：日本通产省VLSI档案; NEC/东芝/日立/尔必达/铠侠官方历史</div></div>
+
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">1976 VLSI计划</td><td>DRAM主攻方向→四年内技术全面超越美国。</td></tr><tr><td class="hl">1980 品质碾压</td><td>惠普测试日本DRAM完胜→良率高30%/价格低60%。</td></tr><tr><td class="hl">1985 巅峰</td><td>日本DRAM全球市占>80%→NEC全球第一。</td></tr><tr><td class="hl">1986 美日协议→衰退</td><td>被迫限制出口→叠加日元升值→成本优势瓦解。</td></tr><tr><td class="hl">1990s 全盘崩溃</td><td>NEC/日立/东芝/富士通相继退出DRAM。2008年尔必达破产→日本DRAM全军覆没。</td></tr><tr><td class="hl">2007 东芝3D NAND</td><td>东芝发明BiCS 3D NAND概念→改变NAND演进方向。</td></tr><tr><td class="hl">2018 铠侠成立</td><td>东芝将NAND业务剥离为铠侠(Kioxia)→在日本NAND市场艰难维持。</td></tr>
+</tbody></table>
+<div class="src">来源：日本通产省VLSI档案; NEC/东芝/日立/尔必达/铠侠官方历史</div>
+</div>
 
 <div class="card"><span class="tag tc">韩</span><div class="ttl">韩国：逆周期投资成就存储器绝对霸主</div>
-<div class="dsc">
-<dl>
-<dt>1983 三星进军DRAM</dt><dd>李健熙"东京宣言"→宣布三星成为DRAM供应商。</dd>
-<dt>1985 逆周期投资</dt><dd>DRAM价格暴跌时加倍投资→挤垮日本对手。</dd>
-<dt>1992 三星DRAM全球第一</dt><dd>不到10年从零到全球最大→至今保持DRAM第一。</dd>
-<dt>1997 再次逆周期</dt><dd>亚洲金融危机中再扩产→进一步扩大优势。</dd>
-<dt>2013 三星V-NAND 24层</dt><dd>全球首家量产3D NAND→重新定义NAND技术方向。</dd>
-<dt>SK海力士崛起</dt><dd>2001年现代电子更名海力士→2012年SK集团收购→仅次于三星的全球第二大存储器厂。</dd>
-<dt>2023 HBM3E领先</dt><dd>SK海力士独家供应NVIDIA HBM3E→AI时代最大受益者之一。韩系合计控DRAM>70%+NAND>50%。</dd>
-</dl></div>
-<div class="src">来源：Samsung Semiconductor/SK Hynix官方历史; 《Chip War》Ch.11-12</div></div>
+
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">1983 三星进军DRAM</td><td>李健熙"东京宣言"→宣布三星成为DRAM供应商。</td></tr><tr><td class="hl">1985 逆周期投资</td><td>DRAM价格暴跌时加倍投资→挤垮日本对手。</td></tr><tr><td class="hl">1992 三星DRAM全球第一</td><td>不到10年从零到全球最大→至今保持DRAM第一。</td></tr><tr><td class="hl">1997 再次逆周期</td><td>亚洲金融危机中再扩产→进一步扩大优势。</td></tr><tr><td class="hl">2013 三星V-NAND 24层</td><td>全球首家量产3D NAND→重新定义NAND技术方向。</td></tr><tr><td class="hl">SK海力士崛起</td><td>2001年现代电子更名海力士→2012年SK集团收购→仅次于三星的全球第二大存储器厂。</td></tr><tr><td class="hl">2023 HBM3E领先</td><td>SK海力士独家供应NVIDIA HBM3E→AI时代最大受益者之一。韩系合计控DRAM>70%+NAND>50%。</td></tr>
+</tbody></table>
+<div class="src">来源：Samsung Semiconductor/SK Hynix官方历史; 《Chip War》Ch.11-12</div>
+</div>
 
 <div class="card"><span class="tag tc">中</span><div class="ttl">中国大陆：从零到封锁中崛起的存储新势力</div>
-<div class="dsc">
-<dl>
-<dt>2016 长江存储(YMTC)成立</dt><dd>国家大基金投资→专注3D NAND Flash。</dd>
-<dt>2016 长鑫存储(CXMT)成立</dt><dd>专注DRAM→从奇梦达(Qimonda)引进技术。</dd>
-<dt>2018 Xtacking架构</dt><dd>YMTC发布Xtacking 1.0→混合键合技术实现存储/逻辑分离→中国存储芯片最具原创性的技术创新。</dd>
-<dt>2020 Xtacking 2.0 128层</dt><dd>追赶至国际主流水平。</dd>
-<dt>2022 Xtacking 3.0 232层</dt><dd>达到国际一线水平(与三星/美光/海力士持平)。</dd>
-<dt>2022 美国制裁</dt><dd>YMTC/CXMT被列入实体清单→限制先进设备获取。</dd>
-<dt>2024 Xtacking 4.0</dt><dd>在制裁下依然推出300+层3D NAND。CXMT量产DDR4/DDR5。</dd>
-</dl></div>
-<div class="src">来源：YMTC/CXMT官方; TechInsights拆解分析; BIS联邦公报</div></div>
+
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">2016 长江存储(YMTC)成立</td><td>国家大基金投资→专注3D NAND Flash。</td></tr><tr><td class="hl">2016 长鑫存储(CXMT)成立</td><td>专注DRAM→从奇梦达(Qimonda)引进技术。</td></tr><tr><td class="hl">2018 Xtacking架构</td><td>YMTC发布Xtacking 1.0→混合键合技术实现存储/逻辑分离→中国存储芯片最具原创性的技术创新。</td></tr><tr><td class="hl">2020 Xtacking 2.0 128层</td><td>追赶至国际主流水平。</td></tr><tr><td class="hl">2022 Xtacking 3.0 232层</td><td>达到国际一线水平(与三星/美光/海力士持平)。</td></tr><tr><td class="hl">2022 美国制裁</td><td>YMTC/CXMT被列入实体清单→限制先进设备获取。</td></tr><tr><td class="hl">2024 Xtacking 4.0</td><td>在制裁下依然推出300+层3D NAND。CXMT量产DDR4/DDR5。</td></tr>
+</tbody></table>
+<div class="src">来源：YMTC/CXMT官方; TechInsights拆解分析; BIS联邦公报</div>
+</div>
+</div>
 
 <h2 id="sec-storage-events">📋 2.5 存储重大事件详表</h2>
 
+<div class="card-row">
 <div class="card"><span class="tag ts">存储</span><span class="yr">1970</span><div class="ttl">Intel 1103：首款商用DRAM</div><div class="by">Intel | 1Kb, 10μm | 定价远低于磁芯存储器</div><div class="dsc"><p>1103是"改变计算机历史的芯片"——它将计算机主存从昂贵、笨重的磁芯存储器升级为半导体DRAM，体积缩小百倍，速度提升数十倍。1103是Intel第一个大获成功的产品，为Intel积累了早期资金和技术实力。1974年1103成为全球销量最大的半导体芯片。</p></div><div class="src">来源：Intel官方历史; IEEE Spectrum "25 Microchips That Shook the World"</div></div>
 
 <div class="card"><span class="tag ts">存储</span><span class="yr">1980</span><div class="ttl">惠普DRAM测试：日本品质碾压美国</div><div class="by">惠普对16K DRAM招标测试 | NEC/日立/富士通 vs Intel/TI/Mostek</div><div class="dsc"><p>测试结果震惊了全球半导体行业：美国DRAM的不合格率是日本的6-10倍。日本DRAM良率高30%、价格低60%。这一测试成为日本半导体崛起的标志性事件，也推动了Intel退出DRAM市场的决定。</p></div><div class="src">来源：惠普1980年内部质量测试报告; 《Chip War》Ch.7</div></div>
@@ -1021,6 +970,7 @@ table.node-table .hl{font-weight:700;color:var(--p)}
 <div class="card"><span class="tag ts">存储</span><span class="yr">2023</span><div class="ttl">HBM3E：AI时代的"新石油"——SK海力士独家供应NVIDIA</div><div class="by">SK海力士 | NVIDIA H100/H200/HB200</div><div class="dsc"><p>AI大模型训练对GPU显存带宽需求飙升至>2TB/s。SK海力士凭借十多年的TSV技术积累，成为NVIDIA H100系列唯一的HBM3E供应商——每颗NVIDIA H100/H200 GPU搭载6颗HBM3/HBM3E（总容量80-141GB）。HBM业务使SK海力士在2024年市值和营收大幅增长。三星、美光在HBM3E上仍处于追赶状态。2025年HBM4预计带宽>1.6TB/s。</p></div><div class="src">来源：SK Hynix/NVIDIA 2024年报; GTC 2024-2025; IEEE ISSCC HBM论文</div></div>
 
 <div class="card"><span class="tag ts">存储</span><span class="yr">2022-2024</span><div class="ttl">长江存储 Xtacking 232层：中国存储的里程碑</div><div class="by">YMTC（长江存储）| Xtacking 3.0 架构</div><div class="dsc"><p>2022年YMTC率先量产232层3D NAND（Xtacking 3.0），达到国际一线水平，震惊全球存储行业。核心创新Cu-Cu Hybrid Bonding混合键合技术将存储阵列和CMOS逻辑分别制造在不同晶圆上再键合——这是非传统NAND厂商通过架构创新弯道超车的典型案例。美国2022年将YMTC列入实体清单，试图阻止其获取先进设备，但YMTC在制裁下依然在2024年推出Xtacking 4.0（300+层）。</p></div><div class="src">来源：YMTC官方; TechInsights YMTC 232L NAND拆解(2022); CSIS分析</div></div>
+</div>
 
 <h2 id="sec-storage-nodes">📊 2.6 存储制程演进总表</h2>
 <div class="card">
@@ -1772,48 +1722,44 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <!-- ====== POWER COUNTRY SECTIONS ====== -->
 <h2 id="sec-power-country">🏛️ 3.4 功率半导体各国关键节点</h2>
 
+<div class="card-row">
 <div class="card"><span class="tag tu">美国</span><div class="ttl">美国：功率半导体的开创者 → IGBT原创 → SiC先驱</div>
-<div class="dsc"><dl>
-<dt>1956 晶闸管SCR</dt><dd>GE发明→开启功率半导体时代。</dd>
-<dt>1975-79 功率MOSFET</dt><dd>IR(国际整流器)推出首款VDMOSFET→开关电源革命。</dd>
-<dt>1984 IGBT发明</dt><dd>GE的Baliga发明IGBT(获2014年IEEE荣誉勋章)→授日本企业商业化。</dd>
-<dt>2011 SiC MOSFET量产</dt><dd>Cree(Wolfspeed)→全球首家SiC MOSFET商用。</dd>
-<dt>2016 安森美收购Fairchild</dt><dd>$24亿→成为全球第二大功率半导体厂商。</dd>
-<dt>2023 Wolfspeed纽约工厂</dt><dd>全球最大200mm SiC晶圆厂投产→年产能~100万片。</dd>
-<dt>2025 TI推出集成GaN方案</dt><dd>800V数据中心电源→AI供电新赛道。</dd>
-</dl></div></div>
+
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">1956 晶闸管SCR</td><td>GE发明→开启功率半导体时代。</td></tr><tr><td class="hl">1975-79 功率MOSFET</td><td>IR(国际整流器)推出首款VDMOSFET→开关电源革命。</td></tr><tr><td class="hl">1984 IGBT发明</td><td>GE的Baliga发明IGBT(获2014年IEEE荣誉勋章)→授日本企业商业化。</td></tr><tr><td class="hl">2011 SiC MOSFET量产</td><td>Cree(Wolfspeed)→全球首家SiC MOSFET商用。</td></tr><tr><td class="hl">2016 安森美收购Fairchild</td><td>$24亿→成为全球第二大功率半导体厂商。</td></tr><tr><td class="hl">2023 Wolfspeed纽约工厂</td><td>全球最大200mm SiC晶圆厂投产→年产能~100万片。</td></tr><tr><td class="hl">2025 TI推出集成GaN方案</td><td>800V数据中心电源→AI供电新赛道。</td></tr>
+</tbody></table>
+
+</div>
 
 <div class="card"><span class="tag tj">日本</span><div class="ttl">日本：IGBT商业化引擎 → 模块封装全球最强</div>
-<div class="dsc"><dl>
-<dt>1989 IPM智能功率模块</dt><dd>三菱电机首发→集成IGBT+驱动+保护。</dd>
-<dt>1997 超结SJ-MOSFET</dt><dd>富士电机发明→突破硅极限。</dd>
-<dt>2000s 功率模块霸权</dt><dd>三菱/富士/日立/东芝/罗姆五家日本公司长期占全球TOP20。DIPIPM模块、银烧结技术全球领先。</dd>
-<dt>2020s 日企SiC/GaN跟进</dt><dd>罗姆SiC MOSFET→汽车和工业领域。三菱SiC模块用于新干线。</dd>
-</dl></div></div>
+
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">1989 IPM智能功率模块</td><td>三菱电机首发→集成IGBT+驱动+保护。</td></tr><tr><td class="hl">1997 超结SJ-MOSFET</td><td>富士电机发明→突破硅极限。</td></tr><tr><td class="hl">2000s 功率模块霸权</td><td>三菱/富士/日立/东芝/罗姆五家日本公司长期占全球TOP20。DIPIPM模块、银烧结技术全球领先。</td></tr><tr><td class="hl">2020s 日企SiC/GaN跟进</td><td>罗姆SiC MOSFET→汽车和工业领域。三菱SiC模块用于新干线。</td></tr>
+</tbody></table>
+
+</div>
 
 <div class="card"><span class="tag te">欧</span><div class="ttl">欧洲：英飞凌——全球功率半导体王者</div>
-<div class="dsc"><dl>
-<dt>1999 英飞凌独立</dt><dd>从西门子拆分→专注功率和汽车半导体。</dd>
-<dt>2014 收购IR</dt><dd>$30亿→补全低压MOSFET产品线→成为全品类功率半导体第一。</dd>
-<dt>2018 ST SiC为特斯拉供货</dt><dd>Model 3采用ST SiC MOSFET→车规SiC元年。</dd>
-<dt>2020s 欧洲三强格局</dt><dd>英飞凌(~20%)、ST(~8%)、安森美(~8%)稳居全球功率TOP3。</dd>
-<dt>2025 英飞凌+英伟达</dt><dd>合作800V HVDC AI数据中心供电→AI供电新标准。</dd>
-<dt>2026 英飞凌300mm GaN</dt><dd>全球首发12英寸GaN晶圆→GaN从利基→主流。</dd>
-</dl></div></div>
+
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">1999 英飞凌独立</td><td>从西门子拆分→专注功率和汽车半导体。</td></tr><tr><td class="hl">2014 收购IR</td><td>$30亿→补全低压MOSFET产品线→成为全品类功率半导体第一。</td></tr><tr><td class="hl">2018 ST SiC为特斯拉供货</td><td>Model 3采用ST SiC MOSFET→车规SiC元年。</td></tr><tr><td class="hl">2020s 欧洲三强格局</td><td>英飞凌(~20%)、ST(~8%)、安森美(~8%)稳居全球功率TOP3。</td></tr><tr><td class="hl">2025 英飞凌+英伟达</td><td>合作800V HVDC AI数据中心供电→AI供电新标准。</td></tr><tr><td class="hl">2026 英飞凌300mm GaN</td><td>全球首发12英寸GaN晶圆→GaN从利基→主流。</td></tr>
+</tbody></table>
+
+</div>
 
 <div class="card"><span class="tag tc">中</span><div class="ttl">中国：从追赶者到全球TOP5</div>
-<div class="dsc"><dl>
-<dt>2010s 起步追赶</dt><dd>士兰微/华润微/斯达半导从低压MOSFET和二极管起步。</dd>
-<dt>2018 比亚迪IGBT自供</dt><dd>比亚迪成为全球唯一自研自产车规IGBT的新能源车企。</dd>
-<dt>2020 中车高铁IGBT</dt><dd>中车时代电气实现6500V/750A高铁IGBT国产化。</dd>
-<dt>2022 闻泰收购安世(Nexperia)</dt><dd>获得全球标准器件产能→功率分立器件全球TOP15。</dd>
-<dt>2025 士兰微全球第五</dt><dd>Omdia 2025年排名→首家中国功率厂商进入全球TOP5。</dd>
-<dt>2026 国产SiC突破</dt><dd>天科合达/天岳先进SiC衬底→比亚迪/斯达半导SiC模块量产→800V国产电动车标配。</dd>
-</dl></div></div>
+
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">2010s 起步追赶</td><td>士兰微/华润微/斯达半导从低压MOSFET和二极管起步。</td></tr><tr><td class="hl">2018 比亚迪IGBT自供</td><td>比亚迪成为全球唯一自研自产车规IGBT的新能源车企。</td></tr><tr><td class="hl">2020 中车高铁IGBT</td><td>中车时代电气实现6500V/750A高铁IGBT国产化。</td></tr><tr><td class="hl">2022 闻泰收购安世(Nexperia)</td><td>获得全球标准器件产能→功率分立器件全球TOP15。</td></tr><tr><td class="hl">2025 士兰微全球第五</td><td>Omdia 2025年排名→首家中国功率厂商进入全球TOP5。</td></tr><tr><td class="hl">2026 国产SiC突破</td><td>天科合达/天岳先进SiC衬底→比亚迪/斯达半导SiC模块量产→800V国产电动车标配。</td></tr>
+</tbody></table>
+
+</div>
+</div>
 
 <!-- ====== POWER EVENTS ====== -->
 <h2 id="sec-power-events">📋 3.5 功率半导体重大事件</h2>
 
+<div class="card-row">
 <div class="card"><span class="tag ts">功率</span><span class="yr">1956</span><div class="ttl">GE发明晶闸管(SCR)</div><div class="by">General Electric | 开启固态电力控制时代</div><div class="dsc"><p>第一个可商业化的大功率固态开关器件→替代汞弧整流器和水银开关。SCR至今仍在HVDC输电(800kV/5kA级)和工业加热中广泛使用。</p></div><div class="src">来源：GE历史档案; IEEE History Center</div></div>
 
 <div class="card"><span class="tag ts">功率</span><span class="yr">1984</span><div class="ttl">IGBT发明</div><div class="by">B. Jayant Baliga (General Electric) | MOSFET门控+BJT导通 = 最成功的功率器件融合</div><div class="dsc"><p>Baliga发明IGBT后，日本三菱和富士电机迅速实现了商业化。IGBT成为电机驱动、变频器、高铁牵引、新能源发电的核心器件。Baliga因此获2014年IEEE荣誉勋章(被誉为"IGBT之父")。全球IGBT市场规模2025年约$85亿。</p></div><div class="src">来源：Baliga, "The IGBT Device" (Elsevier, 2015); IEEE Medal of Honor 2014</div></div>
@@ -1823,6 +1769,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="card"><span class="tag ts">功率</span><span class="yr">2018</span><div class="ttl">特斯拉Model 3大批量采用SiC MOSFET</div><div class="by">ST意法半导体 | 车规SiC商业化元年</div><div class="dsc"><p>特斯拉在Model 3的逆变器中首次大批量采用ST的SiC MOSFET模块(每车24-48颗SiC MOSFET)→续航提升5-10%。这标志着SiC从"小批量高端应用"进入"百万辆级汽车量产"，彻底改变了功率半导体的产业格局。此后比亚迪、蔚来、小鹏等中国车企全面跟进800V SiC平台。</p></div><div class="src">来源：ST官方; Tesla Model 3逆向拆解(Munro & Associates, 2018)</div></div>
 
 <div class="card"><span class="tag ts">功率</span><span class="yr">2025</span><div class="ttl">AI数据中心800V HVDC供电标准确立</div><div class="by">英飞凌+英伟达合作 | GaN 300mm量产前夜</div><div class="dsc"><p>AI GPU集群功率突破100kW/机柜→48V供电无法满足kA级电流需求→800V高压直流(HVDC)成为确定方向。英飞凌与英伟达合作开发800V供电架构，SiC MOSFET负责AC-DC整流级(11kW PSU)，GaN HEMT负责DC-DC转换级。每GW数据中心对应功率半导体价值量从$80M→$180M+。英飞凌全球首发300mm GaN晶圆，预计2026底量产→GaN规模化元年。</p></div><div class="src">来源：英飞凌2025投资者日; Yole Group "Power Electronics for AI Data Centers" (2025)</div></div>
+</div>
 
 <!-- ====== POWER NODES TABLE ====== -->
 <h2 id="sec-power-nodes">📊 3.6 功率器件演进总表</h2>
@@ -1924,13 +1871,13 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <h2 id="sec-mcu-pattern">🌐 4.2 车载MCU产业五大格局转折</h2>
 
-<div class="card"><span class="tag tu">美</span><span class="yr">1978—1995</span>
-<div class="ttl">美国开创：从机械控制到电子引擎</div>
+<div class="card"><span class="tag tu">美</span><div class="ttl">美国开创：从机械控制到电子引擎</div>
 <div class="by">Intel · Motorola · GM · Ford | ECU从0到1</div>
-<div class="dsc">
-<p>1978年通用汽车在Oldsmobile Toronado上首次引入基于Intel 8048的电子点火控制系统，标志着汽车MCU时代的开启。1981年博世发明CAN总线协议，为多ECU分布式架构奠定通信基础。摩托罗拉6800/68HC11系列在80年代成为汽车ECU标配，福特、通用全面电子化。</p>
-<dl><dt>格局</dt><dd>美国主机厂+美国芯片商主导。Intel提供8位MCU(8048/8051)，Motorola成为车规MCU事实标准。日本刚刚起步(东芝、日立跟进)。欧洲博世是Tier1主导者但芯片依赖美国。</dd></dl></div>
-<div class="src">来源：GM Heritage Center; Bosch CAN历史; Motorola/Freescale历史</div></div>
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">格局</td><td>美国主机厂+美国芯片商主导。Intel提供8位MCU(8048/8051)，Motorola成为车规MCU事实标准。日本刚刚起步(东芝、日立跟进)。欧洲博世是Tier1主导者但芯片依赖美国。</td></tr>
+</tbody></table>
+<div class="src">来源：GM Heritage Center; Bosch CAN历史; Motorola/Freescale历史</div>
+</div>
 
 <div class="card"><span class="tag tj">日</span><span class="yr">1985—2005</span>
 <div class="ttl">日本崛起：精益生产 × 电子化双轮驱动</div>
@@ -2015,51 +1962,43 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <h2 id="sec-mcu-country">🏛️ 4.4 车载MCU各国关键节点</h2>
 
+<div class="card-row">
 <div class="card"><span class="tag tu">美国</span><div class="ttl">美国：MCU发明者 → 架构定义者 → 逐步失守制造</div>
 <div class="by">Intel(发明，已退出) → Motorola→Freescale→NXP(已被荷兰收购) → TI</div>
-<div class="dsc">
-<dl>
-<dt>1978 车载MCU诞生</dt><dd>Intel 8048首次应用于GM电子点火，标志着汽车MCU时代开启。</dd>
-<dt>1980-90 Motorola称霸</dt><dd>68HC11/68HC16系列成为全球车规MCU事实标准，市占>50%。</dd>
-<dt>2004 Freescale独立</dt><dd>Motorola半导体剥离→Freescale，专注汽车+网络芯片。</dd>
-<dt>2015 NXP收购Freescale</dt><dd>$118亿→荷兰公司接管美国MCU遗产，合并后成为全球最大车规MCU供应商。</dd>
-<dt>2020s TI回归</dt><dd>TI Hercules(C2000)系列在底盘安全领域重建地位，2025市占回升至7.5%。</dd>
-</dl></div></div>
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">1978 车载MCU诞生</td><td>Intel 8048首次应用于GM电子点火，标志着汽车MCU时代开启。</td></tr><tr><td class="hl">1980-90 Motorola称霸</td><td>68HC11/68HC16系列成为全球车规MCU事实标准，市占>50%。</td></tr><tr><td class="hl">2004 Freescale独立</td><td>Motorola半导体剥离→Freescale，专注汽车+网络芯片。</td></tr><tr><td class="hl">2015 NXP收购Freescale</td><td>$118亿→荷兰公司接管美国MCU遗产，合并后成为全球最大车规MCU供应商。</td></tr><tr><td class="hl">2020s TI回归</td><td>TI Hercules(C2000)系列在底盘安全领域重建地位，2025市占回升至7.5%。</td></tr>
+</tbody></table>
+
+</div>
 
 <div class="card"><span class="tag tj">日本</span><div class="ttl">日本：全球车企第一 → 全球MCU第一(Renesas)</div>
 <div class="by">瑞萨(日立+三菱合并) · 丰田-电装-瑞萨铁三角</div>
-<div class="dsc">
-<dl>
-<dt>1983 日立H8进入汽车</dt><dd>丰田首次采用日立H8 MCU控制发动机，形成"丰田→电装→日立"垂直供应链。</dd>
-<dt>1990s 三菱M16C</dt><dd>三菱M16C系列以低功耗和丰富外设成为亚洲车身控制首选MCU。</dd>
-<dt>2003 ★瑞萨成立</dt><dd>日立+三菱半导体合并→Renesas。立即成为全球最大车规MCU供应商(市占>25%)。</dd>
-<dt>2020s 守成期</dt><dd>中国市场国产替代加速+Infineon反超，Renesas保持#2地位但份额缓慢下滑至~17%。</dd>
-</dl></div></div>
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">1983 日立H8进入汽车</td><td>丰田首次采用日立H8 MCU控制发动机，形成"丰田→电装→日立"垂直供应链。</td></tr><tr><td class="hl">1990s 三菱M16C</td><td>三菱M16C系列以低功耗和丰富外设成为亚洲车身控制首选MCU。</td></tr><tr><td class="hl">2003 ★瑞萨成立</td><td>日立+三菱半导体合并→Renesas。立即成为全球最大车规MCU供应商(市占>25%)。</td></tr><tr><td class="hl">2020s 守成期</td><td>中国市场国产替代加速+Infineon反超，Renesas保持#2地位但份额缓慢下滑至~17%。</td></tr>
+</tbody></table>
+
+</div>
 
 <div class="card"><span class="tag te">欧</span><div class="ttl">欧洲：Infineon·NXP·ST铁三角——车规MCU的"王座"</div>
 <div class="by">Infineon(德): Gemany | NXP(荷): Netherlands | ST(法/意): France/Italy</div>
-<div class="dsc">
-<dl>
-<dt>1997 ★TriCore架构诞生</dt><dd>英飞凌TriCore——奠定其在动力总成领域30年统治地位。</dd>
-<dt>2006 NXP从飞利浦独立</dt><dd>携Power Architecture MPC5x系列+ARM Cortex-M生态，成为#3。</dd>
-<dt>2015 Infineon登顶</dt><dd>Infineon车规MCU市占率首次超越Renesas成为全球第一。</dd>
-<dt>2018 Aurix TC3xx量产</dt><dd>6核异构·4MB Flash·ASIL-D，全球动力/底盘域标配MCU。</dd>
-<dt>2025 Infineon 36%份额</dt><dd>"功率+MCU+模拟+传感器"全栈布局形成垄断优势。</dd>
-</dl></div></div>
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">1997 ★TriCore架构诞生</td><td>英飞凌TriCore——奠定其在动力总成领域30年统治地位。</td></tr><tr><td class="hl">2006 NXP从飞利浦独立</td><td>携Power Architecture MPC5x系列+ARM Cortex-M生态，成为#3。</td></tr><tr><td class="hl">2015 Infineon登顶</td><td>Infineon车规MCU市占率首次超越Renesas成为全球第一。</td></tr><tr><td class="hl">2018 Aurix TC3xx量产</td><td>6核异构·4MB Flash·ASIL-D，全球动力/底盘域标配MCU。</td></tr><tr><td class="hl">2025 Infineon 36%份额</td><td>"功率+MCU+模拟+传感器"全栈布局形成垄断优势。</td></tr>
+</tbody></table>
+
+</div>
 
 <div class="card"><span class="tag tc">中国</span><div class="ttl">中国：从零起步 → 全球最大车规MCU市场 → 国产替代攻坚</div>
 <div class="by">杰发科技·芯旺微·兆易创新·国芯科技·比亚迪半导体</div>
-<div class="dsc">
-<dl>
-<dt>2016 杰发科技成立</dt><dd>联发科剥离车规MCU业务→AutoChips，专注ARM Cortex-M车规MCU。</dd>
-<dt>2020 芯旺微自主内核</dt><dd>KungFu架构(非ARM授权)，车规MCU累计出货>2亿颗(2025)。</dd>
-<dt>2024 ★国芯CCFC3007PT ASIL-D</dt><dd>国内首款ASIL-D认证动力域MCU，对标英飞凌TC277。</dd>
-<dt>2025 ★东风DF30流片</dt><dd>100%全国产化车规MCU(CPU内核+制造+封测)，预计2026量产。</dd>
-<dt>2026 国产化率目标>15%</dt><dd>车身域>47%国产化；动力底盘域5-10%，快速追赶中。</dd>
-</dl></div></div>
+<table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
+<tr><td class="hl">2016 杰发科技成立</td><td>联发科剥离车规MCU业务→AutoChips，专注ARM Cortex-M车规MCU。</td></tr><tr><td class="hl">2020 芯旺微自主内核</td><td>KungFu架构(非ARM授权)，车规MCU累计出货>2亿颗(2025)。</td></tr><tr><td class="hl">2024 ★国芯CCFC3007PT ASIL-D</td><td>国内首款ASIL-D认证动力域MCU，对标英飞凌TC277。</td></tr><tr><td class="hl">2025 ★东风DF30流片</td><td>100%全国产化车规MCU(CPU内核+制造+封测)，预计2026量产。</td></tr><tr><td class="hl">2026 国产化率目标>15%</td><td>车身域>47%国产化；动力底盘域5-10%，快速追赶中。</td></tr>
+</tbody></table>
+
+</div>
+</div>
 
 <h2 id="sec-mcu-events">📋 4.5 车载MCU重大事件详表</h2>
 
+<div class="card-row">
 <div class="card"><span class="tag ts">MCU</span><span class="yr">1978</span><div class="ttl">全球首款车载MCU应用：Intel 8048搭载于GM Oldsmobile</div><div class="by">Intel · General Motors | 汽车电子化元年</div><div class="dsc"><p>GM在Oldsmobile Toronado上引入基于Intel 8048单片机的电子点火控制系统(ECM)。这是汽车从机械控制走向电子控制的历史分水岭。8048集成了8位CPU、1KB ROM、64B RAM，在当时已属"高性能计算"。此后5年内，几乎所有美国车企都开始部署电子控制系统。</p></div><div class="src">来源：GM Heritage Center; Intel 8048 Datasheet</div></div>
 
 <div class="card"><span class="tag ts">MCU</span><span class="yr">1981</span><div class="ttl">博世发明CAN总线协议</div><div class="by">Robert Bosch GmbH | CAN 2.0 → ISO 11898</div><div class="dsc"><p>CAN(Controller Area Network)总线解决了多个ECU之间的实时数据通信问题。采用差分信号+多主节点架构，1Mbps速率满足汽车控制需求。CAN总线的出现使得汽车从"独立ECU"进化到"ECU网络"，是分布式架构的基石。至今CAN仍是汽车最核心的通信协议之一。</p></div><div class="src">来源：Bosch CAN Specification 2.0; ISO 11898标准</div></div>
@@ -2073,6 +2012,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="card"><span class="tag ts">MCU</span><span class="yr">2024</span><div class="ttl">国产ASIL-D车规MCU突破：国芯科技CCFC3007PT量产</div><div class="by">国芯科技(C*Core) · 对标英飞凌TC277</div><div class="dsc"><p>CCFC3007PT基于Power Architecture架构，通过ISO 26262 ASIL-D认证，进入Tier1供应商合格供方清单。主要应用于发电机控制(GCU)和部分VCU，是中国首款真正能对标国际巨头产品的动力域MCU。同期东风DF30全国产化MCU流片成功——CPU内核、晶圆制造、封装测试100%国产。</p></div><div class="src">来源：国芯科技官方公告; 东风汽车研发总院; 国家新能源汽车技术创新中心</div></div>
 
 <div class="card"><span class="tag ts">MCU</span><span class="yr">2026</span><div class="ttl">Infineon 36%份额垄断 + 中国国产化率冲刺15%</div><div class="by">Infineon · Renesas · NXP · 中国厂商(杰发/芯旺微/兆易/国芯)</div><div class="dsc"><p>Infineon凭借"功率+MCU+模拟+传感器+连接"全栈布局，在车规MCU市场形成36%的垄断地位(微芯从7.2%跌至3.4%近腰斩)。中国厂商在车身域MCU的国产化率达~47%，但动力底盘域仍只有5-10%。2026年国内车规MCU市场规模预计达~300亿元，32位产品占新订单的90%。</p></div><div class="src">来源：Infineon 2025年报; TechInsights; Omdia车载MCU排名(2025); 中国汽车工业协会</div></div>
+</div>
 
 <h2 id="sec-mcu-nodes">📊 4.6 车载MCU内核与制程演进总表</h2>
 
