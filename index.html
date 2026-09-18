@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v4.6 | 2026-09-18 | 原厂素材核实第二批: SS摆幅方向纠正+公式, HBM3E改单堆栈口径+美光官方规格, SiC区分理论1-300与实测100x, 200C标为预期, IGBT商用里程碑分层, GaN300mm/800V标计划 -->
+<!-- version: v5.0 | 2026-09-18 | 原厂讲义扩充: 新增1.9晶圆制造全流程(十大功能区+光刻五步+Rayleigh+浸没式+CVD-PVD+硬掩模+CMP-damascene+CMOS 32步Traveler), 2.9 DRAM-NAND美光官方原理(破坏性读出+浮栅±20V+HBM×LLM量化), 3.8功率损耗模型与Kelvin source实测 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -200,6 +200,7 @@ table.node-table.nopad .hl{font-size:12px}
 <li><a href="#sec-events">1.6 重大事件详表</a></li>
 <li><a href="#sec-nodes">1.7 制程节点演进总表</a></li>
 <li><a href="#sec-logic-deep">1.8 深度研究 · 制程竞赛 · ASML · 中美博弈 · Chiplet · AI芯片</a></li>
+<li><a href="#sec-fab"><b>1.9 晶圆制造工艺全流程（原厂讲义·动画）</b></a></li>
 </ol>
 </div>
 <div>
@@ -213,6 +214,7 @@ table.node-table.nopad .hl{font-size:12px}
 <li><a href="#sec-storage-nodes">2.6 存储制程演进总表</a></li>
 <li><a href="#sec-storage-deep">2.7 深度研究 · 长鑫 · 长江 · AI范式</a></li>
 <li><a href="#sec-mem-atlas"><b>2.8 全类型RAM/ROM原理图解（动画）</b></a></li>
+<li><a href="#sec-mem-official"><b>2.9 DRAM/NAND原理（美光官方版·动画）</b></a></li>
 </ol>
 </div>
 <div>
@@ -225,6 +227,7 @@ table.node-table.nopad .hl{font-size:12px}
 <li><a href="#sec-power-events">3.5 功率半导体重大事件</a></li>
 <li><a href="#sec-power-nodes">3.6 功率器件演进总表</a></li>
 <li><a href="#sec-power-deep">3.7 深度研究 · SiC · GaN · AI供电 · 车规</a></li>
+<li><a href="#sec-power-loss"><b>3.8 损耗模型与栅驱实测（原厂·动画）</b></a></li>
 </ol>
 </div>
 </div>
@@ -694,6 +697,429 @@ table.node-table.nopad .hl{font-size:12px}
 </tbody></table>
 <div class="src">来源：WikiChip; Intel/Samsung/TSMC白皮书; ASML年报; Nature(2025)</div></div>
 
+
+<hr style="margin:60px 0 40px;border:none;border-top:4px solid #2563eb">
+
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-fab">1.9 晶圆制造工艺全流程（原厂讲义版）</h1>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">十大功能区 · 一千多步 Traveler · 从裸硅到钝化的完整 CMOS 建造顺序</p>
+<div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#eff6ff;border-left:3px solid #2563eb;border-radius:6px;font-size:12px;color:#1e3a5f">
+本节主体依据 <b>美光（Micron）官方教育课程讲义</b>：《Intro to Fabrication》(97页) 与《Intro to Photolithography》(90页)，均为 Reviewed 2025 版；另以 Lam Research 原子层刻蚀技术简报、ASML 年报与 imec 公开材料交叉验证。凡标注「原厂」为讲义原文口径，「业界」为通用补充。<br>
+<span style="color:#64748b">© 2020-2025 Micron Technology, Inc. 课程内容版权归美光所有，此处为教育性引用与转述。</span>
+</div>
+
+<h2 id="sec-fab-zones">🏭 1.9.1 十大功能区与五类基本动作</h2>
+<div class="card">
+<div class="ttl">美光官方把一座 Fab 分成十个功能区——注意是十个，不是常说的九个</div>
+<div class="dsc">
+<p>常见科普把工艺分成"九大模块"，通常是把量测与检测合并了。<b>美光官方讲义明确分十个功能区</b>，量测（Metrology）与实时缺陷分析（RDA）是<b>分列的两个区</b>——因为前者测"结构做对了没有"，后者查"有没有引入缺陷"，职责不同。</p>
+<table class="node-table nopad"><thead><tr><th style="width:15%">五类基本动作</th><th style="width:24%">对应功能区</th><th>本质</th></tr></thead>
+<tbody>
+<tr><td class="hl">① 加材料<br>Add Material</td><td><b>Diffusion</b>（扩散炉）<br><b>CVD</b> 化学气相沉积<br><b>PVD</b> 物理气相沉积<br>Wet Process（电镀）</td><td>在晶圆表面长出或铺上一层膜：绝缘的、导电的、半导体的</td></tr>
+<tr><td class="hl">② 去材料<br>Remove</td><td><b>Dry Etch</b> 干法刻蚀<br>Wet Process 湿法<br><b>CMP</b> 化学机械平坦化</td><td>把不需要的部分去掉——可以是选择性去膜，也可以是磨平起伏</td></tr>
+<tr><td class="hl">③ 造图形<br>Create Patterns</td><td><b>Photolithography</b> 光刻</td><td>唯一负责"画图"的区。定义每一层的形状与位置</td></tr>
+<tr><td class="hl">④ 改电性<br>Change Electrical</td><td><b>Implant</b> 离子注入</td><td>把掺杂原子打进硅里，改变导电类型与浓度</td></tr>
+<tr><td class="hl">⑤ 测与检<br>Measure / Inspect</td><td><b>Metrology</b> 量测<br><b>RDA</b> 实时缺陷分析</td><td><b>都不改变晶圆结构与电性</b>——是"眼睛"，不是"手"</td></tr>
+</tbody></table>
+<p><b>原厂的流程环（简化）：</b></p>
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px;font-size:12.5px;line-height:2;color:#334155">
+Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退火·电镀) → <span style="color:#0891b2">Wet Clean</span> → <b>Photo</b> 图形化 → <span style="color:#0891b2">Wet Clean</span> → [<b>Implant</b> 注入 ｜ <b>Dry Etch</b> 刻蚀] → <span style="color:#0891b2">Wet Clean</span> → <b>CMP</b> 平坦化 → <span style="color:#0891b2">Wet Clean</span> → …<b>循环数十次</b>… → Probe（制造结束）
+</div>
+<p style="margin-top:8px"><b>两个容易被忽略的原厂要点：</b>① <b>湿法清洗在 Traveler 里步骤占比最高</b>——几乎每个有效工序之后都要洗一次，因为每次图形化都会留下光刻胶残余、有机物和颗粒；② 量测与 RDA 可以插在<b>任何一个工艺区之后</b>，不是集中在最后。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl">Traveler：一颗芯片的"工艺路线单"，超过一千步</div>
+<div class="dsc">
+<p><b>原厂定义：</b>Traveler（又叫 routing sheet / lot traveler）是制造一颗存储芯片所需<b>全部步骤的顺序清单，可超过一千步</b>。每一步都归属十个功能区之一，并各自绑定一个 <b>Recipe</b>——含温度、压力、气体与化学品种类、稀释比、时间等详细指令。早年这份单子印在纸上，随晶圆盒在洁净室里"旅行"，如今全程数字化跟踪。</p>
+<table class="node-table nopad"><thead><tr><th>原厂给出的规模数字</th><th>值</th></tr></thead>
+<tbody>
+<tr><td>完整制造周期</td><td><b>45–140 天</b></td></tr>
+<tr><td>晶圆规格</td><td>直径 <b>300 mm</b>、厚度 &lt;1 mm、双面抛光、带对准 notch、轻掺杂 P 型衬底</td></tr>
+<tr><td>单片产出</td><td><b>&gt;1000 颗 die</b>（示例 DRAM die = 7.5 mm × 5.0 mm）</td></tr>
+<tr><td>搬运</td><td>25 片装一个 FOUP，由 AMHS 自动搬运系统运送</td></tr>
+<tr><td>洁净室等级</td><td>ISO 4 / ISO 5（≈旧 Class 10 / Class 100），靠 HEPA 过滤；<b>比医院手术室洁净约 100 倍</b></td></tr>
+<tr><td>扩散炉</td><td>立式炉管批处理，一次最多 <b>125 片</b>；温度可达 <b>1000 °C</b></td></tr>
+<tr><td>运行制度</td><td>24×7×365 不停机</td></tr>
+<tr><td>尺度类比</td><td>300 mm 晶圆 ≈ 一张黑胶唱片；人的头发丝约 70 µm，而栅氧只有 &lt;3 nm</td></tr>
+</tbody></table>
+</div></div>
+
+<h2 id="sec-fab-photo">🔬 1.9.2 光刻：唯一"画图"的工序（动画）</h2>
+
+<div class="anim-card">
+<div class="at">光刻五步循环 · 胶是用完就扔的"牺牲层"</div>
+<div class="am">美光官方五步：涂胶 → 曝光 → 显影 → 刻蚀/注入 → 剥胶</div>
+<svg viewBox="0 0 760 210">
+  <rect x="0" y="0" width="760" height="210" fill="#fcfdfe"/>
+  <!-- step 1: coat -->
+  <text x="75" y="20" text-anchor="middle" font-size="11" font-weight="800" fill="#1e3a5f">①涂胶</text>
+  <rect x="20" y="95" width="110" height="26" fill="#cbd5e1"/>
+  <text x="75" y="136" text-anchor="middle" font-size="8.5" fill="#64748b">衬底/待刻层</text>
+  <rect x="20" y="78" width="110" height="17" fill="#fcd34d">
+    <animate attributeName="opacity" values="0;1;1;1;1" dur="5s" repeatCount="indefinite"/>
+  </rect>
+  <text x="75" y="70" text-anchor="middle" font-size="8" fill="#b45309">光刻胶</text>
+
+  <!-- step 2: expose -->
+  <text x="225" y="20" text-anchor="middle" font-size="11" font-weight="800" fill="#1e3a5f">②曝光</text>
+  <rect x="175" y="30" width="100" height="12" fill="#94a3b8"/>
+  <text x="225" y="28" text-anchor="middle" font-size="7.5" fill="#475569">Reticle(图形大4×)</text>
+  <rect x="195" y="30" width="18" height="12" fill="#fff"/>
+  <rect x="240" y="30" width="18" height="12" fill="#fff"/>
+  <!-- UV rays through openings -->
+  <line x1="204" y1="42" x2="204" y2="78" stroke="#7c3aed" stroke-width="3" opacity="0.8">
+    <animate attributeName="opacity" values="0;0;0.9;0.9;0" dur="5s" repeatCount="indefinite"/>
+  </line>
+  <line x1="249" y1="42" x2="249" y2="78" stroke="#7c3aed" stroke-width="3" opacity="0.8">
+    <animate attributeName="opacity" values="0;0;0.9;0.9;0" dur="5s" repeatCount="indefinite"/>
+  </line>
+  <text x="298" y="60" font-size="8" fill="#7c3aed">UV</text>
+  <rect x="170" y="95" width="110" height="26" fill="#cbd5e1"/>
+  <rect x="170" y="78" width="110" height="17" fill="#fcd34d"/>
+  <!-- exposed regions turn pale -->
+  <rect x="199" y="78" width="10" height="17" fill="#fef3c7">
+    <animate attributeName="opacity" values="0;0;1;1;1" dur="5s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="244" y="78" width="10" height="17" fill="#fef3c7">
+    <animate attributeName="opacity" values="0;0;1;1;1" dur="5s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- step 3: develop -->
+  <text x="375" y="20" text-anchor="middle" font-size="11" font-weight="800" fill="#1e3a5f">③显影</text>
+  <rect x="320" y="95" width="110" height="26" fill="#cbd5e1"/>
+  <rect x="320" y="78" width="110" height="17" fill="#fcd34d"/>
+  <!-- develop removes exposed resist -->
+  <rect x="349" y="78" width="10" height="17" fill="#fcfdfe">
+    <animate attributeName="opacity" values="0;0;0;1;1" dur="5s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="394" y="78" width="10" height="17" fill="#fcfdfe">
+    <animate attributeName="opacity" values="0;0;0;1;1" dur="5s" repeatCount="indefinite"/>
+  </rect>
+  <text x="375" y="140" text-anchor="middle" font-size="8" fill="#64748b">胶上出现开口</text>
+
+  <!-- step 4: etch -->
+  <text x="525" y="20" text-anchor="middle" font-size="11" font-weight="800" fill="#1e3a5f">④刻蚀/注入</text>
+  <rect x="470" y="95" width="110" height="26" fill="#cbd5e1"/>
+  <rect x="470" y="78" width="110" height="17" fill="#fcd34d"/>
+  <rect x="499" y="78" width="10" height="17" fill="#fcfdfe"/>
+  <rect x="544" y="78" width="10" height="17" fill="#fcfdfe"/>
+  <!-- etched into substrate through openings -->
+  <rect x="499" y="95" width="10" height="26" fill="#fcfdfe">
+    <animate attributeName="opacity" values="0;0;0;0;1" dur="5s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="544" y="95" width="10" height="26" fill="#fcfdfe">
+    <animate attributeName="opacity" values="0;0;0;0;1" dur="5s" repeatCount="indefinite"/>
+  </rect>
+  <text x="525" y="140" text-anchor="middle" font-size="8" fill="#64748b">图形转入下层</text>
+
+  <!-- step 5: strip -->
+  <text x="672" y="20" text-anchor="middle" font-size="11" font-weight="800" fill="#1e3a5f">⑤剥胶</text>
+  <rect x="620" y="95" width="105" height="26" fill="#cbd5e1"/>
+  <rect x="644" y="95" width="10" height="26" fill="#fcfdfe"/>
+  <rect x="689" y="95" width="10" height="26" fill="#fcfdfe"/>
+  <text x="672" y="140" text-anchor="middle" font-size="8" fill="#059669" font-weight="700">胶已去除·图形永久</text>
+
+  <!-- arrows -->
+  <g stroke="#94a3b8" stroke-width="1.5" fill="none">
+    <path d="M136 108 L166 108" marker-end="url(#fa)"/>
+    <path d="M286 108 L316 108" marker-end="url(#fa)"/>
+    <path d="M436 108 L466 108" marker-end="url(#fa)"/>
+    <path d="M586 108 L616 108" marker-end="url(#fa)"/>
+  </g>
+  <defs><marker id="fa" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 z" fill="#94a3b8"/></marker></defs>
+  <text x="380" y="175" text-anchor="middle" font-size="10.5" fill="#475569">光刻胶只是<b>临时掩模</b>——它的唯一使命是让下一步的刻蚀或注入只发生在指定位置</text>
+  <text x="380" y="195" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b45309">一片晶圆要反复过光刻区数十次，每次换一张不同的掩模</text>
+</svg>
+<div class="anim-note">
+<p><b>原厂细化工序（Track + Scanner 联机）：</b>气相预处理(HMDS 提升附着力) → 旋涂 BARC 抗反射层 → 旋涂光刻胶(转速数千 rpm 决定胶厚) → <b>EBR 边珠去除</b>(晶圆边缘胶厚可达正常 3–5 倍，要去掉 0.5mm 边缘) → 软烘(~100–200°C) → 对准曝光 → <b>PEB 曝后烘</b>(线宽 CD 对此温度极敏感) → 显影(TMAH 显影液) → 检查。</p>
+<p><b>为什么胶不合格还能救：</b>光刻后若检出 CD 或套刻不良，可以<b>剥胶重做（rework）</b>；但<b>一旦进了刻蚀或注入就无法返工，只能报废</b>——这是光刻区必须严格在线检测的根本原因。</p>
+<p><b>Reticle（掩模）：</b>石英加铬的二元掩模，上面的图形比晶圆上<b>大 4 倍</b>，经投影透镜缩小。一张 reticle 上排若干颗 die，填满整片需多次曝光，每次叫一个 <b>shot</b>，一片可能需要 <b>100+ shots</b>，逐场并排推进叫 <b>stepping</b>。</p>
+<div class="kv"><span class="warn">光刻机是 Fab 里最贵的设备</span><span>胶=牺牲层</span><span>掩模图形放大4×</span><span class="good">刻蚀前可返工</span></div>
+</div>
+</div>
+
+<div class="anim-row">
+<div class="anim-card">
+<div class="at">Rayleigh 判据 · 为什么要缩波长、增 NA</div>
+<div class="am">R = k₁ × λ / NA —— 分辨率与聚焦深度的永恒拉锯</div>
+<svg viewBox="0 0 520 200">
+  <rect x="0" y="0" width="520" height="200" fill="#fcfdfe"/>
+  <text x="260" y="24" text-anchor="middle" font-size="14" font-weight="800" fill="#1e3a5f">R = k₁ · λ / NA</text>
+  <!-- wavelength bars shrinking -->
+  <text x="60" y="52" font-size="10" font-weight="700" fill="#475569">λ 波长</text>
+  <g>
+    <rect x="120" y="42" width="240" height="14" rx="3" fill="#a78bfa"/>
+    <text x="372" y="53" font-size="9" fill="#6d28d9">365nm i-line</text>
+  </g>
+  <g>
+    <rect x="120" y="62" width="163" height="14" rx="3" fill="#8b5cf6"/>
+    <text x="295" y="73" font-size="9" fill="#6d28d9">248nm KrF</text>
+  </g>
+  <g>
+    <rect x="120" y="82" width="127" height="14" rx="3" fill="#7c3aed"/>
+    <text x="259" y="93" font-size="9" fill="#6d28d9">193nm ArF</text>
+  </g>
+  <g>
+    <rect x="120" y="102" width="9" height="14" rx="2" fill="#4c1d95"/>
+    <text x="141" y="113" font-size="9" font-weight="700" fill="#4c1d95">13.5nm EUV（跨代跳变）</text>
+  </g>
+  <!-- resolution dots shrinking -->
+  <text x="60" y="144" font-size="10" font-weight="700" fill="#475569">可印尺寸</text>
+  <circle cx="140" cy="140" r="16" fill="#fca5a5"/><text x="140" y="168" text-anchor="middle" font-size="8" fill="#991b1b">280-350nm</text>
+  <circle cx="215" cy="140" r="9" fill="#fdba74"/><text x="215" y="168" text-anchor="middle" font-size="8" fill="#9a3412">80-110nm</text>
+  <circle cx="280" cy="140" r="6.5" fill="#fcd34d"/><text x="280" y="168" text-anchor="middle" font-size="8" fill="#92400e">57-65nm</text>
+  <circle cx="345" cy="140" r="4.5" fill="#86efac"/><text x="345" y="168" text-anchor="middle" font-size="8" fill="#166534">38nm 浸没</text>
+  <circle cx="410" cy="140" r="2.2" fill="#67e8f9"/><text x="412" y="168" text-anchor="middle" font-size="8" fill="#0e7490">13nm EUV</text>
+  <!-- pulsing to draw attention -->
+  <circle cx="410" cy="140" r="2.2" fill="none" stroke="#0891b2" stroke-width="1.5">
+    <animate attributeName="r" values="2.2;10;2.2" dur="2.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;0;1" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <text x="260" y="192" text-anchor="middle" font-size="10" fill="#dc2626" font-weight="700">但 DOF 聚焦深度 ∝ 1/NA² —— NA 越大，可容忍的高低差越小</text>
+</svg>
+<div class="anim-note">
+<p><b>原厂参数表（半节距）：</b>i-line 365nm/NA 0.45-0.65 → 280-350nm；KrF 248nm/NA 0.8 → 80-110nm；ArF 193nm 干式/NA 0.93 → 57-65nm；<b>ArF 浸没/NA 1.35 → 38nm</b>；<b>EUV 13.5nm/NA 0.33 → 13nm</b>。</p>
+<p><b>k₁ 的意义：</b>工艺系数，理论下限 0.25，当前量产已压到 &lt;0.3。压低 k₁ 靠的是分辨率增强技术（RET）：相移掩模 PSM、离轴照明 OAI、光学邻近校正 OPC、偏振控制——这些是"在同样波长下多榨出一点分辨率"的手段。</p>
+<p><b>业界补充（非美光讲义）：</b>High-NA EUV 把 NA 从 0.33 提到 0.55（+67%），分辨率提升可达 1.7×、密度约 2.9×，目标单次曝光印 16nm 节距，面向 2nm 及以下节点。</p>
+</div>
+</div>
+
+<div class="anim-card">
+<div class="at">浸没式光刻 · 往镜头和晶圆之间注水</div>
+<div class="am">NA = n·sinθ —— 把介质从空气(n≈1)换成水(n=1.33)</div>
+<svg viewBox="0 0 520 200">
+  <rect x="0" y="0" width="520" height="200" fill="#fcfdfe"/>
+  <!-- lens -->
+  <path d="M150 30 Q260 62 370 30 L370 48 Q260 80 150 48 Z" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/>
+  <text x="260" y="24" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1e3a5f">投影透镜</text>
+  <!-- water gap appearing -->
+  <rect x="180" y="80" width="160" height="34" fill="#a5f3fc" opacity="0">
+    <animate attributeName="opacity" values="0;0;0.85;0.85;0" dur="6s" repeatCount="indefinite"/>
+  </rect>
+  <text x="392" y="101" font-size="9.5" font-weight="700" fill="#0e7490" opacity="0">
+    DI 水 n=1.33
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="6s" repeatCount="indefinite"/>
+  </text>
+  <text x="392" y="101" font-size="9.5" fill="#94a3b8">
+    空气 n≈1
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="6s" repeatCount="indefinite"/>
+  </text>
+  <!-- wafer -->
+  <rect x="150" y="114" width="220" height="20" fill="#cbd5e1"/>
+  <rect x="150" y="108" width="220" height="6" fill="#fcd34d"/>
+  <text x="260" y="128" text-anchor="middle" font-size="9" fill="#475569">晶圆 + 光刻胶</text>
+  <!-- narrow cone (air) -->
+  <g>
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="6s" repeatCount="indefinite"/>
+    <line x1="260" y1="62" x2="228" y2="108" stroke="#7c3aed" stroke-width="2"/>
+    <line x1="260" y1="62" x2="292" y2="108" stroke="#7c3aed" stroke-width="2"/>
+    <text x="260" y="156" text-anchor="middle" font-size="9.5" fill="#6d28d9">收光角小 → NA 小 → 分辨率受限</text>
+  </g>
+  <!-- wide cone (water) -->
+  <g>
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="6s" repeatCount="indefinite"/>
+    <line x1="260" y1="62" x2="196" y2="108" stroke="#0891b2" stroke-width="2.5"/>
+    <line x1="260" y1="62" x2="324" y2="108" stroke="#0891b2" stroke-width="2.5"/>
+    <text x="260" y="156" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0e7490">收光角变宽 → 有效 NA 达 1.35 → 可印 38nm</text>
+  </g>
+  <text x="260" y="176" text-anchor="middle" font-size="9.5" fill="#475569">折射率参考：真空/空气 1 · <b>水 1.33</b> · 油 ~1.7 · 玻璃 1.4-1.6</text>
+  <text x="260" y="192" text-anchor="middle" font-size="9.5" fill="#059669" font-weight="700">不换光源、不做更大透镜，仅靠注水就等效放大 NA</text>
+</svg>
+<div class="anim-note">
+<p>这是半导体史上"<b>性价比最高的一次工艺创新</b>"之一：193nm 光源不变、透镜不变，只在镜头与晶圆之间填一层去离子水，就把 NA 从 0.93 推到 1.35，可印半节距从 57-65nm 直接降到 38nm。</p>
+<p>正因为这一步，ArF 193nm 这个波长被延寿了近二十年——在 EUV 迟迟不能量产的那些年，全球先进制程几乎全靠浸没式加多重曝光硬撑。</p>
+</div>
+</div>
+</div>
+
+<h2 id="sec-fab-modules">⚙️ 1.9.3 加材料与去材料：CVD/PVD/刻蚀/CMP（动画）</h2>
+
+<div class="anim-row">
+<div class="anim-card">
+<div class="at">CVD vs PVD · 共形性决定了谁能填深孔</div>
+<div class="am">原厂结论：深孔与沟槽必须用 CVD，PVD 填不进去</div>
+<svg viewBox="0 0 520 210">
+  <rect x="0" y="0" width="520" height="210" fill="#fcfdfe"/>
+  <!-- CVD side -->
+  <text x="130" y="20" text-anchor="middle" font-size="11.5" font-weight="800" fill="#047857">CVD 化学气相沉积</text>
+  <rect x="60" y="40" width="140" height="120" fill="#e2e8f0"/>
+  <rect x="115" y="40" width="30" height="95" fill="#fcfdfe"/>
+  <text x="130" y="176" text-anchor="middle" font-size="9" fill="#64748b">深孔/沟槽</text>
+  <!-- conformal film grows evenly on all surfaces -->
+  <g fill="#6ee7b7" opacity="0.95">
+    <rect x="115" y="40" width="5" height="95"><animate attributeName="width" values="0;5" dur="3s" repeatCount="indefinite"/></rect>
+    <rect x="140" y="40" width="5" height="95"><animate attributeName="width" values="0;5" dur="3s" repeatCount="indefinite"/></rect>
+    <rect x="115" y="130" width="30" height="5"><animate attributeName="height" values="0;5" dur="3s" repeatCount="indefinite"/></rect>
+    <rect x="60" y="40" width="55" height="5"><animate attributeName="height" values="0;5" dur="3s" repeatCount="indefinite"/></rect>
+    <rect x="145" y="40" width="55" height="5"><animate attributeName="height" values="0;5" dur="3s" repeatCount="indefinite"/></rect>
+  </g>
+  <text x="130" y="194" text-anchor="middle" font-size="9.5" font-weight="700" fill="#047857">膜厚各处均匀 → 无空洞填满</text>
+
+  <line x1="260" y1="15" x2="260" y2="200" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- PVD side -->
+  <text x="390" y="20" text-anchor="middle" font-size="11.5" font-weight="800" fill="#b91c1c">PVD 溅射</text>
+  <rect x="320" y="40" width="140" height="120" fill="#e2e8f0"/>
+  <rect x="375" y="40" width="30" height="95" fill="#fcfdfe"/>
+  <!-- directional flux: thick on top, thin at bottom -->
+  <g fill="#fca5a5">
+    <rect x="320" y="40" width="55" height="9"><animate attributeName="height" values="0;9" dur="3s" repeatCount="indefinite"/></rect>
+    <rect x="405" y="40" width="55" height="9"><animate attributeName="height" values="0;9" dur="3s" repeatCount="indefinite"/></rect>
+    <rect x="375" y="128" width="30" height="7"><animate attributeName="height" values="0;7" dur="3s" repeatCount="indefinite"/></rect>
+    <rect x="375" y="40" width="3" height="40" opacity="0.7"><animate attributeName="height" values="0;40" dur="3s" repeatCount="indefinite"/></rect>
+    <rect x="402" y="40" width="3" height="40" opacity="0.7"><animate attributeName="height" values="0;40" dur="3s" repeatCount="indefinite"/></rect>
+  </g>
+  <!-- sputtered atoms arriving vertically -->
+  <circle r="3" fill="#dc2626">
+    <animateMotion dur="1.6s" repeatCount="indefinite" path="M390 25 L390 45"/>
+  </circle>
+  <circle r="3" fill="#dc2626">
+    <animateMotion dur="1.6s" begin="0.5s" repeatCount="indefinite" path="M345 25 L345 45"/>
+  </circle>
+  <circle r="3" fill="#dc2626">
+    <animateMotion dur="1.6s" begin="1s" repeatCount="indefinite" path="M435 25 L435 45"/>
+  </circle>
+  <text x="390" y="176" text-anchor="middle" font-size="9" fill="#64748b">方向性入射</text>
+  <text x="390" y="194" text-anchor="middle" font-size="9.5" font-weight="700" fill="#b91c1c">顶部厚·侧壁与底部薄 → 填不满</text>
+</svg>
+<div class="anim-note">
+<p><b>CVD：</b>气体进腔室反应生成固体膜（Gas A + Gas B → Solid C + 副产物），多数带等离子体。<b>核心优势是共形性极好</b>，能无空洞填窄孔深沟。原厂用它做：碳硬掩模~100nm、硅硬掩模~30nm、STI 填充氧化物~500nm、栅侧壁 spacer、<b>接触孔的钨(W)~150nm</b>、钝化氮化硅&gt;1000nm。</p>
+<p><b>PVD：</b>即溅射——离子轰击金属靶，溅出的原子沉积到晶圆。几乎无化学反应、室温、快、便宜，但<b>共形性差、不能填深孔</b>。原厂用它做栅金属层（~20nm）。</p>
+<p><b>⚠️ 一个常见误解：</b>以为金属都靠 PVD。原厂分工很清楚——<b>栅金属用 PVD、接触孔的钨用 CVD、而 M1 的铜用湿法电镀</b>（晶圆浸硫酸铜溶液通电，Cu 离子迁移沉积）。深沟填厚铜用电镀比 PVD 经济得多。</p>
+<div class="kv"><span class="good">CVD：共形·可填深孔</span><span class="good">PVD：快·便宜·低温</span><span class="warn">PVD：填不了深孔</span><span>铜=电镀</span></div>
+</div>
+</div>
+
+<div class="anim-card">
+<div class="at">硬掩模 · 为什么薄胶还要加一层"替身"</div>
+<div class="am">薄胶利于分辨率，却扛不住刻蚀——于是先把图形转给硬掩模</div>
+<svg viewBox="0 0 520 210">
+  <rect x="0" y="0" width="520" height="210" fill="#fcfdfe"/>
+  <!-- left: thin resist alone fails -->
+  <text x="130" y="20" text-anchor="middle" font-size="11" font-weight="800" fill="#b91c1c">只用薄胶</text>
+  <rect x="55" y="95" width="150" height="45" fill="#cbd5e1"/>
+  <rect x="55" y="78" width="150" height="17" fill="#fcd34d"/>
+  <rect x="115" y="78" width="30" height="17" fill="#fcfdfe"/>
+  <!-- resist erodes away during etch -->
+  <g>
+    <rect x="55" y="78" width="150" height="17" fill="#fcfdfe" opacity="0">
+      <animate attributeName="opacity" values="0;0;0.9;1" dur="4s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  <text x="130" y="160" text-anchor="middle" font-size="9.5" fill="#b91c1c" font-weight="700">刻蚀未完成，胶已被蚀穿</text>
+  <text x="130" y="176" text-anchor="middle" font-size="9" fill="#64748b">→ 图形失真/下层被误刻</text>
+
+  <line x1="260" y1="15" x2="260" y2="200" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- right: thin resist + thick hardmask -->
+  <text x="390" y="20" text-anchor="middle" font-size="11" font-weight="800" fill="#047857">薄胶 + 厚硬掩模</text>
+  <rect x="315" y="112" width="150" height="30" fill="#cbd5e1"/>
+  <rect x="315" y="82" width="150" height="30" fill="#a5b4fc"/>
+  <text x="478" y="101" font-size="8" fill="#3730a3">硬掩模</text>
+  <rect x="315" y="65" width="150" height="17" fill="#fcd34d"/>
+  <rect x="375" y="65" width="30" height="17" fill="#fcfdfe"/>
+  <!-- step1: pattern transfers into hardmask -->
+  <rect x="375" y="82" width="30" height="30" fill="#fcfdfe" opacity="0">
+    <animate attributeName="opacity" values="0;1;1;1" dur="4s" repeatCount="indefinite"/>
+  </rect>
+  <!-- step2: resist consumed but hardmask holds -->
+  <rect x="315" y="65" width="150" height="17" fill="#fcfdfe" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" dur="4s" repeatCount="indefinite"/>
+  </rect>
+  <!-- step3: hardmask protects while substrate etched -->
+  <rect x="375" y="112" width="30" height="30" fill="#fcfdfe" opacity="0">
+    <animate attributeName="opacity" values="0;0;0;1" dur="4s" repeatCount="indefinite"/>
+  </rect>
+  <text x="390" y="160" text-anchor="middle" font-size="9.5" fill="#047857" font-weight="700">硬掩模抗蚀，撑到刻蚀结束</text>
+  <text x="390" y="176" text-anchor="middle" font-size="9" fill="#64748b">→ 图形完整转入永久层</text>
+  <text x="260" y="200" text-anchor="middle" font-size="9.5" fill="#475569">原厂组合：碳硬掩模 ~100nm + 硅硬掩模 ~30nm</text>
+</svg>
+<div class="anim-note">
+<p><b>这是光刻与刻蚀之间的一个根本矛盾：</b>光刻希望胶越薄越好——薄胶分辨率高、聚焦深度好、还不容易倒胶（原厂经验：<b>深宽比 ≥3 就容易倒</b>）；但刻蚀希望掩模越厚越好——否则刻到一半掩模先被蚀穿。</p>
+<p><b>硬掩模就是这个矛盾的解法：</b>用薄胶先把图形转到抗蚀的硬掩模上（这一步原厂叫 <b>Dry Develop</b>，胶在此过程中被完全消耗），再由硬掩模扛着完成对永久层的深刻蚀。</p>
+<p><b>另一个反直觉的原厂结论：</b>特征尺寸<b>不完全由光刻波长决定</b>——干法刻蚀可以通过侧壁刻蚀/undercut 做出<b>比光刻能印出的更小的特征（&lt;20nm）</b>。光刻定图形，刻蚀还能再缩一手。</p>
+</div>
+</div>
+</div>
+
+<div class="anim-card">
+<div class="at">CMP 平坦化 + 大马士革铜互连</div>
+<div class="am">先磨平，再在沟槽里镶嵌铜——现代多层金属互连的基本套路</div>
+<svg viewBox="0 0 760 190">
+  <rect x="0" y="0" width="760" height="190" fill="#fcfdfe"/>
+  <!-- stage 1: bumpy topography -->
+  <text x="110" y="20" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1e3a5f">①起伏表面</text>
+  <path d="M30 100 L60 100 L60 80 L100 80 L100 105 L145 105 L145 85 L190 85 L190 110 L190 130 L30 130 Z" fill="#cbd5e1" stroke="#94a3b8"/>
+  <text x="110" y="150" text-anchor="middle" font-size="8.5" fill="#64748b">沉积后形貌不平</text>
+
+  <!-- stage 2: CMP pad polishing -->
+  <text x="300" y="20" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1e3a5f">②CMP 抛平</text>
+  <rect x="220" y="100" width="160" height="30" fill="#cbd5e1" stroke="#94a3b8"/>
+  <!-- polishing pad sweeping -->
+  <rect x="225" y="78" width="60" height="16" rx="3" fill="#fda4af" stroke="#f43f5e">
+    <animate attributeName="x" values="225;315;225" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <text x="300" y="70" text-anchor="middle" font-size="8" fill="#be123c">抛光垫+浆料(slurry)</text>
+  <text x="300" y="150" text-anchor="middle" font-size="8.5" fill="#64748b">机械+化学联合去除</text>
+  <text x="300" y="164" text-anchor="middle" font-size="8" fill="#059669">停止方式：停在膜上(SON)或定时停在膜中</text>
+
+  <!-- stage 3: trench + electroplate copper -->
+  <text x="490" y="20" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1e3a5f">③刻沟槽·电镀铜</text>
+  <rect x="415" y="100" width="150" height="30" fill="#cbd5e1" stroke="#94a3b8"/>
+  <rect x="440" y="100" width="30" height="22" fill="#fcfdfe"/>
+  <rect x="505" y="100" width="30" height="22" fill="#fcfdfe"/>
+  <!-- copper filling and overflowing -->
+  <g fill="#f59e0b">
+    <rect x="440" y="122" width="30" height="0"><animate attributeName="height" values="0;22" dur="3s" repeatCount="indefinite"/><animate attributeName="y" values="122;100" dur="3s" repeatCount="indefinite"/></rect>
+    <rect x="505" y="122" width="30" height="0"><animate attributeName="height" values="0;22" dur="3s" repeatCount="indefinite"/><animate attributeName="y" values="122;100" dur="3s" repeatCount="indefinite"/></rect>
+    <rect x="415" y="92" width="150" height="0" opacity="0.85"><animate attributeName="height" values="0;0;8" dur="3s" repeatCount="indefinite"/></rect>
+  </g>
+  <text x="490" y="150" text-anchor="middle" font-size="8.5" fill="#b45309">铜会溢出沟槽(overburden)</text>
+
+  <!-- stage 4: CMP removes overburden -->
+  <text x="672" y="20" text-anchor="middle" font-size="10.5" font-weight="800" fill="#1e3a5f">④再CMP</text>
+  <rect x="600" y="100" width="145" height="30" fill="#cbd5e1" stroke="#94a3b8"/>
+  <rect x="622" y="100" width="28" height="22" fill="#f59e0b"/>
+  <rect x="686" y="100" width="28" height="22" fill="#f59e0b"/>
+  <text x="672" y="150" text-anchor="middle" font-size="8.5" font-weight="700" fill="#059669">只留沟内铜线</text>
+  <text x="672" y="164" text-anchor="middle" font-size="8" fill="#64748b">= damascene 镶嵌</text>
+
+  <text x="380" y="184" text-anchor="middle" font-size="10" fill="#475569">CMP 的首要目的是<b>平坦化</b>（Planarization）——表面不平，光刻就无法在全场同时聚焦</text>
+</svg>
+<div class="anim-note">
+<p><b>CMP 做两件事：</b>① 消除表面形貌起伏，让光刻能在整个曝光场内同时聚焦（这是能继续缩小特征的前提）；② 去掉多余的表面金属（overburden）。手段是抛光垫加<b>浆料 slurry</b>（细磨粒悬浮于稀化学液），机械与化学联合作用，可选择性地抛某些膜。</p>
+<p><b>两种停法：</b><b>Stop on Film</b>（如 STI 氧化物 CMP 靠传感器检测硬度/光学差异，停在氮化物上）与 <b>Stop in Film</b>（定时工艺，如接触氧化物 CMP 在栅上留 ~150nm）。</p>
+<p><b>Damascene（大马士革）：</b>先刻出沟槽、填入金属、再 CMP 磨掉表面多余金属，只留镶嵌在沟里的金属线。名字来自叙利亚大马士革的古代金属镶嵌工艺。原厂 M1 用<b>电镀铜 ~250nm</b>，因为铜电阻率低。</p>
+</div>
+</div>
+
+<h2 id="sec-fab-cmos">🧱 1.9.4 完整 CMOS 建造顺序（原厂 Traveler）</h2>
+<div class="card">
+<div class="ttl">从裸硅到钝化：一层金属的完整旅程</div>
+<div class="dsc">
+<p><b>掩模层代码（原厂）：</b>NW(N阱) · PW(P阱) · AA(有源区) · TG(晶体管栅) · NA(NMOS源漏) · PA(PMOS源漏) · CN(接触) · M1(一层金属) · BP(钝化+焊盘)。<b>真实 DRAM/NAND 有数十张掩模</b>，讲义只演示到一层金属。</p>
+<table class="node-table nopad"><thead><tr><th style="width:17%">阶段</th><th style="width:44%">关键步骤</th><th>原厂参数</th></tr></thead>
+<tbody>
+<tr><td class="hl">阱与隔离</td><td>裸硅 → 长垫氧 → 沉积氮化硅 → NW 光刻+磷注入(深/低剂量) → PW 光刻+硼注入 → AA 硬掩模 → AA 光刻 → 硬掩模干刻 → <b>STI 沟槽干刻</b> → 剥胶 → STI 填氧 → <b>CMP(停在氮化物)</b> → 湿法去氮化硅与垫氧</td><td>STI 沟深 <b>~300nm</b><br>STI 填充氧 <b>~500nm</b><br>碳硬掩模~100nm+硅~30nm<br>CMP 去氮化物 &lt;10nm</td></tr>
+<tr><td class="hl">栅形成</td><td>长<b>栅氧</b> → 沉积多晶硅(掺N/P) → PVD 栅金属 → CVD Cap 氧化物 → 硬掩模 → TG 光刻 → 硬掩模干刻 → 栅干刻 → 剥胶 → 沉积 spacer 氧化物 → spacer 干刻(只去水平面，侧壁留下)</td><td><b>栅氧 &lt;3nm</b>（最关键尺寸）<br>多晶硅 ~35nm<br>栅金属(PVD) ~20nm<br>Cap 氧化物 ~50nm</td></tr>
+<tr><td class="hl">源漏<br>（自对准）</td><td>NA 光刻 → <b>砷注入</b>(近表面/高剂量) → 剥胶 → PA 光刻 → <b>硼注入</b>(近表面/高剂量) → 剥胶 → 退火激活</td><td>栅与 spacer 自动限定注入位置<br>= <b>self-aligned 自对准</b><br>退火兼修复注入损伤</td></tr>
+<tr><td class="hl">接触</td><td>CVD 接触氧化物 → <b>CMP(定时，栅上留~150nm)</b> → 硬掩模 → CN 光刻 → 接触孔干刻(选择性停在源漏硅/栅金属) → 剥胶 → <b>CVD 钨填孔</b> → CMP 去 overburden</td><td>接触孔 CD ~100nm<br>钨(W) <b>~150nm</b><br>用 CVD 因需无空洞填孔</td></tr>
+<tr><td class="hl">M1 金属</td><td>CVD 氧化物 → 硬掩模 → M1 光刻 → 干刻沟槽(露出钨顶) → 剥胶 → <b>湿法电镀铜</b> → CMP 去 overburden（damascene）</td><td>M1 氧化物 ~150nm<br>电镀铜 <b>~250nm</b><br>线间距 CD ~100nm</td></tr>
+<tr><td class="hl">钝化</td><td>CVD 氮化硅钝化层 → 在钝化层上刻大开口，供探针测试与封装连接</td><td>钝化氮化硅 <b>&gt;1000nm</b><br>防潮/防污染/防机械损伤</td></tr>
+</tbody></table>
+<p><b>请记住这个循环——每增加一层金属就要重复一遍：</b>CVD 沉积介质 → CVD 沉积硬掩模 → 光刻图形 → 干法刻蚀沟槽 → 湿法剥胶 → 电镀/沉积金属填充 → CMP 去 overburden。现代逻辑芯片有<b>十几层金属</b>，这个循环就要走十几遍——这就是为什么 Traveler 能超过一千步、周期要 45–140 天。</p>
+<p><b>⚠️ 术语说明：</b>本表按原厂 Traveler 顺序组织。美光讲义<b>通篇未使用 FEOL/BEOL（前道/后道）这组术语</b>，它用的是「Traveler + 掩模层代码 + 十大功能区」体系。若按业界通用划分对应：阱/隔离/栅/源漏属 FEOL，接触属 MOL/中道，金属互连与钝化属 BEOL——<b>但这是行业通用说法，不是美光原文措辞</b>。</p>
+<div class="src">来源：Micron《Intro to Fabrication》(97页, Reviewed 2025)、《Intro to Photolithography》(90页)；Lam Research «All About ALE» 技术简报；ASML 年报与 imec 公开材料（High-NA 部分）。© 2020-2025 Micron Technology, Inc.</div>
+</div></div>
+
+<div class="card" style="border-left:4px solid #0891b2">
+<div class="ttl">补充：原子层刻蚀 ALE 与"扩散"这个译名的陷阱</div>
+<div class="dsc">
+<p><b>ALE（原子层刻蚀，Lam Research 口径）：</b>把刻蚀拆成「A 改性 + B 去除」两个<b>自限性</b>步骤，每循环只去掉一个原子层。以硅为例：Cl₂ 吸附形成氯化层（改性，各向同性）→ Ar 离子轰击去除（各向异性）。最大价值是<b>与深宽比无关</b>——消除 ARDE 效应，不同深宽比的结构能等量刻蚀。它<b>不替代</b>传统等离子刻蚀，而是在自对准接触等精密结构上作补充。参照尺度：先进特征的 CD 已经小到约 50 个原子宽。</p>
+<p><b>「扩散」这个中文译名容易误导：</b>看到 Diffusion 很容易以为是"掺杂扩散"，但<b>美光的 Diffusion 区主要做三件事：氧化（长 SiO₂）、成膜沉积、热处理/退火</b>，用的是立式炉管批处理（一次最多 125 片、温度可达 1000°C）。<b>掺杂是 Implant 离子注入区的职责，不是 Diffusion 区。</b></p>
+<p><b>氧化会吃掉硅：</b>原厂特别指出，热氧化时氧穿过已生成的氧化膜继续与硅反应，<b>会消耗表层硅</b>——原始硅表面是向下移动的。这是氧化与"沉积一层膜"的本质区别。</p>
+<p><b>CMP 的译名：</b>常译"化学机械抛光"，美光官方用 <b>Planarization（平坦化）</b>，词汇表里注明"(or Polishing)"。两者原厂都承认，但首要目的是平坦化，抛光只是手段。</p>
+</div></div>
 <hr style="margin:60px 0 40px;border:none;border-top:4px solid #1e3a5f">
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px">第二篇：存储芯片</h1>
@@ -1679,11 +2105,11 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
     刷新写回
     <animate attributeName="opacity" values="0;0;0;1;1" dur="4s" repeatCount="indefinite"/>
   </text>
-  <text x="260" y="200" text-anchor="middle" font-size="10.5" font-weight="700" fill="#92400e">每 32-64ms 必须把全部单元读出再写回一次</text>
+  <text x="260" y="200" text-anchor="middle" font-size="10.5" font-weight="700" fill="#92400e">刷新：美光教育口径每 bank 每 64ms（JEDEC 随温度可加严至 32ms）</text>
 </svg>
 <div class="anim-note">
 <p><b>原理：</b>信息就是电容里有没有电荷。读取时打开晶体管，电容电荷倾泻到位线上引起极小的电压摆动（几十 mV），由灵敏放大器判读。<b>读取本身会破坏电荷</b>，所以每次读完都要写回——这叫破坏性读出。</p>
-<p><b>工艺细节：</b>难点全在电容。为了在越来越小的面积里保住足够电容量，电容从平面做成<b>深沟槽（trench）</b>再到<b>高深宽比柱状（stack capacitor，深宽比已超过 100:1）</b>，介质从 SiO₂ 换到 ZrO₂/HfO₂ 等高 κ 材料。这也是为什么 DRAM 工艺无法像逻辑一样直接缩微，只能靠 1α/1β/1γ 这种"半代"推进。</p>
+<p><b>工艺细节：</b>难点全在电容。为了在越来越小的面积里保住足够电容量，电容从平面做成<b>深沟槽（trench）</b>再到<b>高深宽比柱状（stack capacitor）</b>——美光官方教育口径：圆柱形「容器」的<b>高度约为其晶圆上 footprint 直径的 40 倍</b>。增容三法为增大极板面积、减薄介质、改用高 κ 材料：介电常数 k 依次为 SiO₂ 3.9 / Si₃N₄ 7.5 / Ta₂O₅ 22 / <b>HfO₂ 与 ZrO₂ 均约 25</b> / TiO₂ 80。这也是为什么 DRAM 工艺无法像逻辑一样直接缩微，只能靠 1α/1β/1γ 这种"半代"推进。</p>
 <p><b>发展趋势：</b>平面缩微已近极限 → 业界正走向 <b>3D DRAM（电容与晶体管垂直堆叠）</b>，思路和 NAND 当年"不缩线宽改堆层"完全一致；另一条线是 <b>HBM</b>——不改单元机理，改封装，用 TSV 把十几颗 die 垂直互连换带宽。</p>
 <div class="kv"><span class="good">密度高·成本低</span><span class="warn">必须刷新（刷新功耗）</span><span class="warn">破坏性读出</span><span class="warn">电容工艺极难</span></div>
 </div>
@@ -2142,7 +2568,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <table class="node-table nopad"><thead><tr><th style="width:11%">类型</th><th style="width:16%">核心工艺难点</th><th style="width:20%">当前状态</th><th>演进方向与判断</th></tr></thead>
 <tbody>
 <tr><td class="hl">SRAM</td><td>先进节点下面积缩小停滞（SRAM scaling wall）</td><td>不可替代，但成为芯片面积与成本主要压力</td><td>短期靠电路技巧与工艺定制；长期看 <b>SOT-MRAM</b> 有机会替代末级缓存。<b>L1 层级不会被替代。</b></td></tr>
-<tr><td class="hl">DRAM</td><td>高深宽比电容（&gt;100:1）+ 高 κ 介质</td><td>平面缩微逼近极限，只能靠 1α/1β/1γ 半代推进</td><td><b>3D DRAM</b>（垂直堆叠电容与晶体管）是确定方向，路径与 NAND 当年一致；良率与成本是胜负关键。</td></tr>
+<tr><td class="hl">DRAM</td><td>高深宽比电容（柱高≈footprint直径40×，美光口径）+ 高 κ 介质(HfO₂/ZrO₂ k≈25)</td><td>平面缩微逼近极限，只能靠 1α/1β/1γ 半代推进</td><td><b>3D DRAM</b>（垂直堆叠电容与晶体管）是确定方向，路径与 NAND 当年一致；良率与成本是胜负关键。</td></tr>
 <tr><td class="hl">HBM</td><td>TSV 硅通孔、混合键合、散热</td><td>AI 算力的第一瓶颈，产能长期紧张</td><td>层数与带宽持续升级；<b>混合键合（hybrid bonding）取代微凸块</b>是下一代关键；定制 HBM（base die 集成逻辑）成为新战场。</td></tr>
 <tr><td class="hl">Mask ROM</td><td>—</td><td>已淘汰</td><td>无。灵活性为零，任何改动成本不可接受。</td></tr>
 <tr><td class="hl">OTP / 反熔丝</td><td>击穿一致性控制</td><td><b>活得很好</b></td><td>不可逆恰是安全优势 → 芯片 ID、密钥根、trim 参数长期保留，<b>不会消失</b>。</td></tr>
@@ -2171,6 +2597,212 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 
+
+<h2 id="sec-mem-official">🏭 2.9 DRAM / NAND 工作原理（美光官方讲义版·动画）</h2>
+<div style="max-width:1100px;margin:0 auto 16px;padding:10px 14px;background:#fffbeb;border-left:3px solid #f59e0b;border-radius:6px;font-size:12px;color:#92400e">
+本节依据 <b>美光官方教育课程</b>《Intro to Memory》(85页)、《Intro to Memory Packaging》(33页)、《Build an SSD》及配套 Quiz。2.8 节讲的是"各类存储器的物理机理横向对比"，本节补的是<b>原厂对 DRAM 与 NAND 读写时序的逐步讲法</b>——两者互补。<br>
+<span style="color:#64748b">© 2020-2025 Micron Technology, Inc. 版权归美光所有，此处为教育性引用与转述。</span>
+</div>
+
+<div class="card">
+<div class="ttl">先看一张原厂分类表：五种硅基存储技术</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:9%">简称</th><th style="width:11%">全称</th><th style="width:30%">存储原理（原厂原话口径）</th><th>速度/密度</th><th>主要应用</th></tr></thead>
+<tbody>
+<tr><td class="hl">SRAM</td><td>Static RAM</td><td>数据存为<b>数字触发器(flip-flop)的状态</b>；<b>不需要刷新</b></td><td>读写都极快<br>密度低</td><td>CPU 与其他内存间的 <b>Cache</b></td></tr>
+<tr><td class="hl">DRAM</td><td>Dynamic RAM</td><td>数据存为<b>电容上的电荷</b>；电荷很快丢失，必须不断刷新</td><td>读写快<br>密度高</td><td>CPU 的 <b>"Scratch Pad"</b> 草稿本：PC/服务器/手机/AI</td></tr>
+<tr><td class="hl">NAND</td><td>NAND Flash</td><td>靠在<b>膜中"俘获"电荷</b>存储；无需刷新，可存<b>最多 10 年</b></td><td>读慢、写极慢<br><b>密度极高</b></td><td>长期存储：手机/相机/U盘/SSD</td></tr>
+<tr><td class="hl">NOR</td><td>NOR Flash</td><td>与 NAND 类似，但阵列为<b>更快读写</b>而设计</td><td>访问快于 NAND<br>密度中</td><td>需快速访问：<b>代码执行/启动 OS</b></td></tr>
+</tbody></table>
+<p><b>⚠️ 一个几乎人人搞错的点：NAND / NOR 不是缩写。</b>原厂在讲义里强调过两次：<b>NAND 指存储单元<b>串联</b>(series) 排列，形似 NAND(Not AND) 逻辑门；NOR 指单元<b>并联</b>(parallel) 排列，形似 NOR 逻辑门</b>。它们描述的是<b>阵列接线拓扑</b>，不是某个词组的首字母。</p>
+<p><b>原厂的存储介质四分法：</b>按"用什么物理量存信息"分——<b>磁</b>（HDD：读头感知磁畴方向变化）、<b>光</b>（CD/DVD/蓝光：金属膜凹坑；CD 750MB/780nm 红激光 → 蓝光 25GB/405nm 蓝激光）、<b>电荷</b>（DRAM 与 NAND）、<b>电阻</b>（Cross-Point/3D XPoint）。原厂也记下了 3D XPoint 的完整生命：<b>2012 推出、2021 终止</b>。</p>
+</div></div>
+
+<div class="anim-card">
+<div class="at">DRAM 破坏性读出全过程 · 为什么"读一次就得写回一次"</div>
+<div class="am">美光官方五步：开字线 → 电荷泄到位线 → 电荷"暂时丢失" → Sense Amp 放大判读 → 必须刷新</div>
+<svg viewBox="0 0 760 240">
+  <rect x="0" y="0" width="760" height="240" fill="#fcfdfe"/>
+  <!-- word line -->
+  <line x1="40" y1="45" x2="500" y2="45" stroke="#f59e0b" stroke-width="2.5"/>
+  <text x="44" y="38" font-size="10" font-weight="700" fill="#b45309">Word Line 字线（控制晶体管开关）</text>
+  <line x1="150" y1="45" x2="150" y2="88" stroke="#f59e0b" stroke-width="2.5"/>
+  <!-- transistor (access device) -->
+  <rect x="118" y="88" width="64" height="34" rx="5" fill="#fde68a" stroke="#f59e0b" stroke-width="2"/>
+  <text x="150" y="102" text-anchor="middle" font-size="9" font-weight="700" fill="#92400e">MOSFET</text>
+  <text x="150" y="115" text-anchor="middle" font-size="7.5" fill="#92400e">存取器件</text>
+  <!-- capacitor (container) -->
+  <line x1="245" y1="80" x2="320" y2="80" stroke="#475569" stroke-width="4"/>
+  <line x1="245" y1="100" x2="320" y2="100" stroke="#475569" stroke-width="4"/>
+  <text x="282" y="70" text-anchor="middle" font-size="9" font-weight="700" fill="#334155">电容「容器」</text>
+  <text x="282" y="118" text-anchor="middle" font-size="7.5" fill="#64748b">存储节点·圆柱形</text>
+  <line x1="182" y1="105" x2="282" y2="105" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="282" y1="100" x2="282" y2="105" stroke="#94a3b8" stroke-width="2"/>
+  <!-- charges in capacitor draining out -->
+  <g>
+    <circle cx="258" cy="90" r="4" fill="#fbbf24"><animate attributeName="opacity" values="1;1;0;0;0;1" dur="6s" repeatCount="indefinite"/></circle>
+    <circle cx="272" cy="90" r="4" fill="#fbbf24"><animate attributeName="opacity" values="1;1;0;0;0;1" dur="6s" repeatCount="indefinite"/></circle>
+    <circle cx="286" cy="90" r="4" fill="#fbbf24"><animate attributeName="opacity" values="1;1;0;0;0;1" dur="6s" repeatCount="indefinite"/></circle>
+    <circle cx="300" cy="90" r="4" fill="#fbbf24"><animate attributeName="opacity" values="1;1;0;0;0;1" dur="6s" repeatCount="indefinite"/></circle>
+  </g>
+  <!-- charge flowing to bit line -->
+  <circle r="4" fill="#f59e0b">
+    <animateMotion dur="6s" repeatCount="indefinite" path="M282 100 L282 105 L182 105 L150 105 L150 160 L400 160"/>
+    <animate attributeName="opacity" values="0;1;1;0;0;0" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  <!-- bit line -->
+  <line x1="150" y1="160" x2="560" y2="160" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="156" y="176" font-size="10" font-weight="700" fill="#1d4ed8">Digit / Bit Line 位线（预充到 Vccr/2）</text>
+  <!-- sense amp -->
+  <rect x="400" y="132" width="120" height="56" rx="6" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+  <text x="460" y="152" text-anchor="middle" font-size="10" font-weight="800" fill="#1e3a5f">Sense Amp</text>
+  <text x="460" y="166" text-anchor="middle" font-size="8" fill="#475569">灵敏放大器</text>
+  <text x="460" y="180" text-anchor="middle" font-size="7.5" fill="#64748b">放大位线微小电压变化</text>
+  <!-- tiny voltage wiggle amplified -->
+  <path d="M530 160 L545 160 L552 150 L560 170 L568 150 L575 160 L590 160" fill="none" stroke="#dc2626" stroke-width="2" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" dur="6s" repeatCount="indefinite"/>
+  </path>
+  <text x="600" y="152" font-size="9" fill="#991b1b" opacity="0">
+    判读：正=1 / 负=0
+    <animate attributeName="opacity" values="0;0;1;1;0;0" dur="6s" repeatCount="indefinite"/>
+  </text>
+  <!-- refresh arrow back -->
+  <path d="M460 132 L460 112 L282 112 L282 104" fill="none" stroke="#059669" stroke-width="2.5" stroke-dasharray="5 3" opacity="0" marker-end="url(#mrg)">
+    <animate attributeName="opacity" values="0;0;0;0;1;1" dur="6s" repeatCount="indefinite"/>
+  </path>
+  <defs><marker id="mrg" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#059669"/></marker></defs>
+  <text x="600" y="112" font-size="10" font-weight="700" fill="#047857" opacity="0">
+    必须刷新（等同一次写）
+    <animate attributeName="opacity" values="0;0;0;0;1;1" dur="6s" repeatCount="indefinite"/>
+  </text>
+  <!-- key numbers -->
+  <text x="380" y="210" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">原厂原话：「电容上的电荷被暂时丢失」→「丢失的电荷必须被刷新，等同一次写操作」</text>
+  <text x="380" y="230" text-anchor="middle" font-size="10.5" fill="#475569">刷新频率（美光教育口径）：<b>每个 bank 每 64 毫秒</b>刷新一次 · 电容深度 ~1µm（头发丝约 70µm）</text>
+</svg>
+<div class="anim-note">
+<p><b>原厂把三个部件起了很形象的名字：</b>字线是"开关控制线"、晶体管叫 <b>access device（存取器件）</b>、电容叫 <b>container（容器）</b>。美光明确 DRAM cell 里用的晶体管类型<b>就是 MOSFET</b>。</p>
+<p><b>写操作五步：</b>位线送正电压 → 字线给栅加正压形成沟道、晶体管导通 → 电压经源到漏抵达电容 → 底极板充正电=写"1"（充负电=存"0"）→ 字线关断，电荷被<b>"困住(trapped)"</b>在电容上。</p>
+<p><b>读操作的关键在于位线先被预充到 Vccr/2：</b>字线打开后，电容里那点电荷只能让位线产生<b>极小的电压扰动</b>，Sense Amp 的职责就是"放大位线上的电压变化"并判成 1 或 0。读完之后电容已经空了——所以<b>读是破坏性的，每次读完必须写回</b>。这也是 DRAM 与 SRAM 最根本的使用差异。</p>
+<p><b>Row hit（行命中）的原厂定义：</b>某一行已经打开、可以再次访问——顺带说明"<b>行 = 一条字线</b>"。行/列/bank 是用来选中特定 bit 集合的寻址系统。</p>
+<div class="kv"><span class="warn">破坏性读出</span><span class="warn">每bank每64ms刷新</span><span>位线预充 Vccr/2</span><span>行=字线</span></div>
+</div>
+</div>
+
+<div class="anim-card">
+<div class="at">NAND 浮栅的编程 / 擦除 / 读 · ±20V 与 VREAD=3.0V</div>
+<div class="am">美光官方电压与逻辑极性：已编程读作 0，已擦除读作 1</div>
+<svg viewBox="0 0 760 230">
+  <rect x="0" y="0" width="760" height="230" fill="#fcfdfe"/>
+
+  <!-- PROGRAM -->
+  <text x="125" y="20" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1e3a5f">编程 Program</text>
+  <rect x="55" y="34" width="140" height="18" fill="#94a3b8"/>
+  <text x="125" y="47" text-anchor="middle" font-size="8.5" fill="#fff">控制栅 +20V</text>
+  <rect x="55" y="52" width="140" height="10" fill="#e2e8f0"/>
+  <rect x="55" y="62" width="140" height="20" fill="#fde68a" stroke="#f59e0b"/>
+  <text x="125" y="76" text-anchor="middle" font-size="8.5" font-weight="700" fill="#92400e">浮栅</text>
+  <rect x="55" y="82" width="140" height="11" fill="#cbd5e1"/>
+  <text x="212" y="91" font-size="7" fill="#64748b">隧穿氧化层</text>
+  <rect x="55" y="93" width="140" height="34" fill="#dbeafe" stroke="#93c5fd"/>
+  <text x="125" y="115" text-anchor="middle" font-size="8.5" fill="#1e3a5f">衬底（接地）</text>
+  <!-- electrons tunneling up -->
+  <circle r="3.5" fill="#2563eb"><animateMotion dur="2.2s" repeatCount="indefinite" path="M100 100 L100 72"/></circle>
+  <circle r="3.5" fill="#2563eb"><animateMotion dur="2.2s" begin="0.7s" repeatCount="indefinite" path="M150 100 L150 72"/></circle>
+  <text x="125" y="146" text-anchor="middle" font-size="9" fill="#475569">电子隧穿进浮栅</text>
+  <text x="125" y="160" text-anchor="middle" font-size="9" font-weight="700" fill="#b45309">→ 阈值电压升高</text>
+
+  <line x1="255" y1="15" x2="255" y2="200" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- ERASE -->
+  <text x="380" y="20" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1e3a5f">擦除 Erase</text>
+  <rect x="310" y="34" width="140" height="18" fill="#94a3b8"/>
+  <text x="380" y="47" text-anchor="middle" font-size="8.5" fill="#fff">控制栅 接地</text>
+  <rect x="310" y="52" width="140" height="10" fill="#e2e8f0"/>
+  <rect x="310" y="62" width="140" height="20" fill="#fde68a" stroke="#f59e0b"/>
+  <rect x="310" y="82" width="140" height="11" fill="#cbd5e1"/>
+  <rect x="310" y="93" width="140" height="34" fill="#dbeafe" stroke="#93c5fd"/>
+  <text x="380" y="115" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1e3a5f">衬底 +20V</text>
+  <!-- electrons tunneling back down -->
+  <circle r="3.5" fill="#2563eb"><animateMotion dur="2.2s" repeatCount="indefinite" path="M355 72 L355 100"/></circle>
+  <circle r="3.5" fill="#2563eb"><animateMotion dur="2.2s" begin="0.7s" repeatCount="indefinite" path="M405 72 L405 100"/></circle>
+  <text x="380" y="146" text-anchor="middle" font-size="9" fill="#475569">电子隧穿回衬底</text>
+  <text x="380" y="160" text-anchor="middle" font-size="9" font-weight="700" fill="#047857">→ 阈值电压降低</text>
+
+  <line x1="505" y1="15" x2="505" y2="200" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- READ -->
+  <text x="632" y="20" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1e3a5f">读 Read（VREAD=3.0V）</text>
+  <rect x="560" y="34" width="145" height="18" fill="#94a3b8"/>
+  <text x="632" y="47" text-anchor="middle" font-size="8.5" fill="#fff">控制栅 3.0V</text>
+  <rect x="560" y="52" width="145" height="10" fill="#e2e8f0"/>
+  <rect x="560" y="62" width="145" height="20" fill="#fde68a" stroke="#f59e0b"/>
+  <!-- trapped electrons present/absent alternating -->
+  <g>
+    <animate attributeName="opacity" values="1;1;1;0;0;0" dur="6s" repeatCount="indefinite"/>
+    <circle cx="600" cy="72" r="3.5" fill="#1d4ed8"/>
+    <circle cx="632" cy="72" r="3.5" fill="#1d4ed8"/>
+    <circle cx="664" cy="72" r="3.5" fill="#1d4ed8"/>
+  </g>
+  <rect x="560" y="82" width="145" height="11" fill="#cbd5e1"/>
+  <rect x="560" y="93" width="145" height="34" fill="#dbeafe" stroke="#93c5fd"/>
+  <!-- channel forms only when erased -->
+  <rect x="575" y="95" width="115" height="6" fill="#22c55e" opacity="0">
+    <animate attributeName="opacity" values="0;0;0;1;1;0" dur="6s" repeatCount="indefinite"/>
+  </rect>
+  <!-- current flow when channel exists -->
+  <circle r="3" fill="#16a34a" opacity="0">
+    <animateMotion dur="1.2s" repeatCount="indefinite" path="M578 98 L688 98"/>
+    <animate attributeName="opacity" values="0;0;0;1;1;0" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  <text x="632" y="146" text-anchor="middle" font-size="9.5" font-weight="700" fill="#991b1b">
+    有电子→阻止沟道→无电流→读作「0」
+    <animate attributeName="opacity" values="1;1;1;0;0;0" dur="6s" repeatCount="indefinite"/>
+  </text>
+  <text x="632" y="146" text-anchor="middle" font-size="9.5" font-weight="700" fill="#166534">
+    无电子→沟道形成→有电流→读作「1」
+    <animate attributeName="opacity" values="0;0;0;1;1;0" dur="6s" repeatCount="indefinite"/>
+  </text>
+  <text x="632" y="160" text-anchor="middle" font-size="8.5" fill="#64748b">drain 0.5V · source 0V</text>
+
+  <text x="380" y="190" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">注意逻辑极性极易记反：已编程（浮栅有电子）= 0，已擦除 = 1</text>
+  <text x="380" y="212" text-anchor="middle" font-size="10.5" fill="#475569">原厂：部分产品<b>数据保持保证 10 年</b>；多比特靠阈值电压 V<sub>TH</sub> 分区来区分不同电荷态</text>
+</svg>
+<div class="anim-note">
+<p><b>SLC→QLC 的原厂数字（注意电荷态数）：</b>SLC=1bit/cell（2 态）；MLC=2bit（4 态）；TLC=3bit（8 态）；<b>QLC=4bit（16 态 = 1 个擦除态 + 15 个编程态）</b>。实现方式是让单元处于多个"部分充满"的状态，靠阈值电压分区分辨。</p>
+<p><b>相对容量增益（原厂口径，注意不是线性翻倍）：</b>MLC 约 1.5×、TLC 约 1.3×、QLC 约 2×——这是相对上一档的语境值。</p>
+<p><b>2D→3D 的原厂说法很朴素：</b>2D NAND 把单元水平排成"NAND String"（含 SGD/SGS 选择栅与多条字线，共享位线）；要提密度就得占更多 X×Y 面积，于是干脆把这条串<b>"立起来(stand on end)"</b>，在垂直方向堆很多 tier。尺度参考：3D NAND 堆叠层高约 <b>10µm</b>，而头发丝约 70µm。</p>
+<p><b>CuA（CMOS Under Array）——美光的密度杀招：</b>把全部外围支持电路挪到存储阵列<b>下方</b>，进一步缩小 die 尺寸、提升 bit 密度。原厂的比喻很到位：<b>"像把所有配套设施和停车场都建在摩天楼底下"</b>。美光并记有：全球首个 176 层 3D NAND；2022-01-11 量产业界首款 176 层 QLC NAND；一块 2TB SSD 里装 16 颗 176 层 1Tb die。</p>
+<div class="kv"><span>编程/擦除 ±20V</span><span>VREAD 3.0V</span><span class="warn">QLC=16态</span><span class="good">保持10年</span><span class="good">CuA 省面积</span></div>
+</div>
+</div>
+
+<div class="card">
+<div class="ttl">HBM × 大模型推理：美光两份工程报告的可引用量化结论</div>
+<div class="dsc">
+<p>这部分来自美光《HBM 对模型推理影响》(2024-07) 与《用 HBM 微调 LLM》(2025-10) 两份工程报告，是<b>带实测数字的原厂材料</b>，比市面泛泛而谈的"内存墙"叙事要硬。</p>
+<table class="node-table nopad"><thead><tr><th style="width:26%">结论</th><th>原厂数据</th></tr></thead>
+<tbody>
+<tr><td class="hl">① 推理两阶段的瓶颈完全不同<br><span style="font-weight:400;font-size:11.5px">（最重要的一条）</span></td><td><b>Prefill 阶段 = compute-bound（算力受限）；Decoding 阶段 = memory-bound（内存受限）</b>。不要笼统地说"推理是 memory-bound"——生成每个 token 时才是。注意力成本随序列长度 <b>∝N²</b> 增长。</td></tr>
+<tr><td class="hl">② 70B 模型装不进单卡</td><td>Llama 2 70B 以 FP16 精度需 <b>约 140GB</b> 显存 → 超出单张 80GB H100；H200 的 141GB 正好卡在这条线上（容量较 H100 <b>+80%</b>）。</td></tr>
+<tr><td class="hl">③ 带宽直接变成吞吐</td><td>HBM3E 使 H200 的带宽比 H100 高 <b>&gt;40%</b>；仅把 HBM 时钟从 1593MHz 提到 2619MHz，大 batch 吞吐就 <b>+21%</b>。</td></tr>
+<tr><td class="hl">④ 量化比"offload"划算得多</td><td>INT4 量化相对"FP16 + 显存不足时 offload 到 CPU 内存"的方案，吞吐约 <b>3×</b>。单卡 INT4 跑 70B 可支持 <b>48 路并发</b>（上下文 1024）或 24 路（上下文 2048）。</td></tr>
+<tr><td class="hl">⑤ 微调的显存优化幅度惊人</td><td><b>QLoRA 把 65B 模型微调所需 HBM 从 &gt;780GB 压到 &lt;48GB</b>；ZeRO 可把每卡占用从 120GB 降到 1.9GB。</td></tr>
+<tr><td class="hl">⑥ offload 的代价与门槛</td><td>7B 微调提高 HBM 时钟带来 <b>+15%</b> 收益；而 65B 走 offload 路线仅 <b>+3.3%</b>，且要求<b>每 GPU 配 ≥256GB DDR</b>——换言之 offload 是"能跑但不划算"。</td></tr>
+<tr><td class="hl">⑦ HBM3E 官方规格</td><td>带宽 <b>&gt;1.2TB/s</b>、8-high <b>24GB</b>、容量较 HBM3 <b>+50%</b>、性能/瓦 <b>2.5×</b>、功耗较竞品低约 <b>30%</b>。</td></tr>
+</tbody></table>
+<p><b>关于 KV cache 那个骇人的数字：</b>确实有"KV cache 可达 3TB"的引用，但那是<b>特定极端配置</b>（500B+ 参数、batch 512、上下文 2048）下的值，<b>不是普遍数字</b>——引用时必须带上条件，否则就成了误导。</p>
+<div class="src">来源：Micron《Analyzing LLM Performance: The Impact of HBM on Model Inference》(2024-07)、《A Memory Perspective: Fine-Tuning LLMs with HBM》(2025-10)、《Intro to Memory》(85页)、《Intro to Memory Packaging》(33页)、《Build an SSD》。© 2020-2025 Micron Technology, Inc.</div>
+</div></div>
+
+<div class="card" style="border-left:4px solid #0891b2">
+<div class="ttl">封装与 SSD：原厂要点速览</div>
+<div class="dsc">
+<p><b>键合方式：</b>原厂 2024-25 教育材料称 <b>&gt;80% 的集成电路仍使用引线键合（wire bond）</b>；另一条路线是 flip chip / bump（倒装焊）。<b>3D 堆叠靠 TSV 硅通孔</b>，HBM 即为此类（原厂示例：8 颗 1β 制程 die 堆叠）；移动端另有 PoP（Package on Package）。</p>
+<p><b>封装的五个目的：</b>供电与信号互连、散热、机械保护、防潮防污染、以及提供便于装配测试的标准外形。</p>
+<p><b>SSD 六大部件（原厂）：</b>PCB（基础）、Connector（对外接口，多连接器更快）、<b>Controller（"SSD 的大脑"，管理数据在 NAND 与 DRAM 间进出）</b>、Power Management（供电稳压）、NAND（真正存数据的地方）、<b>DRAM（注意：它是 controller 与 NAND 之间的缓冲/临时存储，不是主存储）</b>。</p>
+<p><b>原厂为什么说 HDD 还没死：</b>SSD 更快、更耐用、更安静、更省电——<b>HDD 唯一且决定性的优势是更便宜</b>。</p>
+<p style="color:#64748b;font-size:12px"><b>诚实声明：</b>tRCD/tRP/CL 时序参数、FTL 闪存转换层、SLC 缓存、TBW/IOPS、混合键合、NVMe 带宽等内容<b>不在这批入门级课程中</b>，本节未据此编造；相关数字若需引用，应另找美光技术笔记或 JEDEC 规格。</p>
+</div></div>
 <hr style="margin:60px 0 40px;border:none;border-top:4px solid #10b981">
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px">第三篇：功率半导体</h1>
@@ -2500,6 +3132,163 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 
+
+<h2 id="sec-power-loss">📐 3.8 功率器件损耗模型与栅驱实测（原厂应用笔记版）</h2>
+<div style="max-width:1100px;margin:0 auto 16px;padding:10px 14px;background:#ecfdf5;border-left:3px solid #059669;border-radius:6px;font-size:12px;color:#065f46">
+本节依据 <b>罗姆(ROHM) 官方应用笔记</b> 62AN040E / 66AN032E 全文、<b>富士电机</b> IGBT 应用手册 RCH984、<b>三菱电机</b>技术资料，以及 <b>ECPE AQG324</b> 车规功率模块认证规范。这部分是功率半导体最"工程"的一层——<b>为什么同一颗芯片换个封装，损耗能差 38%</b>。
+</div>
+
+<div class="anim-card">
+<div class="at">总损耗三件套 · 以及为什么高频不是免费的</div>
+<div class="am">罗姆官方公式：P_LOSS = (E_on + E_off + E_COND) × f_SW</div>
+<svg viewBox="0 0 760 200">
+  <rect x="0" y="0" width="760" height="200" fill="#fcfdfe"/>
+  <text x="380" y="26" text-anchor="middle" font-size="15" font-weight="800" fill="#065f46">P_LOSS = (E_on + E_off + E_COND) × f_SW</text>
+  <!-- switching waveform -->
+  <line x1="50" y1="130" x2="700" y2="130" stroke="#cbd5e1" stroke-width="1.5"/>
+  <!-- low freq pulses -->
+  <g>
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="6s" repeatCount="indefinite"/>
+    <rect x="90" y="75" width="70" height="55" fill="#a7f3d0" stroke="#059669"/>
+    <rect x="270" y="75" width="70" height="55" fill="#a7f3d0" stroke="#059669"/>
+    <rect x="450" y="75" width="70" height="55" fill="#a7f3d0" stroke="#059669"/>
+    <rect x="630" y="75" width="60" height="55" fill="#a7f3d0" stroke="#059669"/>
+    <!-- loss spikes at edges -->
+    <polygon points="90,75 96,50 102,75" fill="#dc2626"/><polygon points="154,75 160,50 166,75" fill="#dc2626"/>
+    <polygon points="270,75 276,50 282,75" fill="#dc2626"/><polygon points="334,75 340,50 346,75" fill="#dc2626"/>
+    <polygon points="450,75 456,50 462,75" fill="#dc2626"/><polygon points="514,75 520,50 526,75" fill="#dc2626"/>
+    <text x="380" y="164" text-anchor="middle" font-size="10.5" font-weight="700" fill="#047857">低频：开关次数少 → 开关损耗占比小，导通损耗为主</text>
+  </g>
+  <!-- high freq pulses: many more spikes -->
+  <g>
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="6s" repeatCount="indefinite"/>
+    <g fill="#a7f3d0" stroke="#059669">
+      <rect x="70" y="90" width="26" height="40"/><rect x="122" y="90" width="26" height="40"/>
+      <rect x="174" y="90" width="26" height="40"/><rect x="226" y="90" width="26" height="40"/>
+      <rect x="278" y="90" width="26" height="40"/><rect x="330" y="90" width="26" height="40"/>
+      <rect x="382" y="90" width="26" height="40"/><rect x="434" y="90" width="26" height="40"/>
+      <rect x="486" y="90" width="26" height="40"/><rect x="538" y="90" width="26" height="40"/>
+      <rect x="590" y="90" width="26" height="40"/><rect x="642" y="90" width="26" height="40"/>
+    </g>
+    <g fill="#dc2626">
+      <polygon points="70,90 74,52 78,90"/><polygon points="92,90 96,52 100,90"/>
+      <polygon points="122,90 126,52 130,90"/><polygon points="144,90 148,52 152,90"/>
+      <polygon points="174,90 178,52 182,90"/><polygon points="196,90 200,52 204,90"/>
+      <polygon points="226,90 230,52 234,90"/><polygon points="248,90 252,52 256,90"/>
+      <polygon points="278,90 282,52 286,90"/><polygon points="300,90 304,52 308,90"/>
+      <polygon points="330,90 334,52 338,90"/><polygon points="352,90 356,52 360,90"/>
+      <polygon points="382,90 386,52 390,90"/><polygon points="404,90 408,52 412,90"/>
+      <polygon points="434,90 438,52 442,90"/><polygon points="456,90 460,52 464,90"/>
+      <polygon points="486,90 490,52 494,90"/><polygon points="508,90 512,52 516,90"/>
+      <polygon points="538,90 542,52 546,90"/><polygon points="560,90 564,52 568,90"/>
+      <polygon points="590,90 594,52 598,90"/><polygon points="612,90 616,52 620,90"/>
+      <polygon points="642,90 646,52 650,90"/><polygon points="664,90 668,52 672,90"/>
+    </g>
+    <text x="380" y="164" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b91c1c">高频：每个红色尖峰都是一次 E_on/E_off → 开关损耗线性堆叠成主导项</text>
+  </g>
+  <text x="380" y="186" text-anchor="middle" font-size="10" fill="#475569">红色尖峰 = 开关瞬间的能量损失　绿色方块 = 导通期（对应 E_COND）</text>
+</svg>
+<div class="anim-note">
+<p><b>罗姆官方给的降损只有两条路：</b>① 降开关频率 f_SW——但很多应用做不到（降频意味着变压器和电感变大，与小型化目标冲突）；② <b>优化栅极驱动电路</b>——这才是工程上真正能动的地方。</p>
+<p><b>三个寄生电容各管什么（罗姆官方分工）：</b></p>
+<table class="node-table nopad"><thead><tr><th style="width:14%">电容</th><th style="width:20%">构成</th><th>作用</th></tr></thead>
+<tbody>
+<tr><td class="hl">C<sub>iss</sub></td><td>C<sub>gs</sub> + C<sub>gd</sub></td><td>必须充放电才能开关，充电电荷即 Q<sub>g</sub>——<b>决定开关延时</b></td></tr>
+<tr><td class="hl">C<sub>oss</sub></td><td>输出电容</td><td><b>影响关断特性</b>：C<sub>oss</sub> 越大关断越慢、开通峰值电流越大</td></tr>
+<tr><td class="hl">C<sub>rss</sub></td><td>= C<sub>gd</sub>（米勒电容）</td><td><b>决定开关速率</b>：C<sub>rss</sub> 大则 dV<sub>DS</sub> 变化慢</td></tr>
+</tbody></table>
+<p>罗姆指出：第 4 代<b>沟槽型</b> SiC MOSFET 通过缩小芯片面积与先进工艺，寄生电容比平面结构更小——这是"同样耐压下开关更快"的结构性来源。另外栅极外部电阻 R<sub>G</sub> 越低，E_on 与 E_off 都下降。</p>
+</div>
+</div>
+
+<div class="anim-card">
+<div class="at">Kelvin Source：加两根引脚，开关损耗降 24-38%</div>
+<div class="am">罗姆 SCT3040 系列双脉冲实测（1200V/40mΩ，V_DC=800V，I_D=50A，R_G=10Ω）</div>
+<svg viewBox="0 0 760 215">
+  <rect x="0" y="0" width="760" height="215" fill="#fcfdfe"/>
+  <!-- LEFT: 3-pin, source inductance in gate loop -->
+  <text x="185" y="20" text-anchor="middle" font-size="11.5" font-weight="800" fill="#b91c1c">TO-247N（3脚，无 Kelvin）</text>
+  <rect x="120" y="42" width="130" height="58" rx="5" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+  <text x="185" y="76" text-anchor="middle" font-size="10" font-weight="700" fill="#334155">SiC MOSFET</text>
+  <!-- gate driver -->
+  <rect x="30" y="118" width="70" height="34" rx="4" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="65" y="139" text-anchor="middle" font-size="9" fill="#1e3a5f">栅驱</text>
+  <!-- shared source path with parasitic inductance -->
+  <path d="M185 100 L185 130 L100 130" fill="none" stroke="#475569" stroke-width="2.5"/>
+  <path d="M185 130 L185 175 L280 175" fill="none" stroke="#dc2626" stroke-width="3"/>
+  <!-- inductor symbol on shared path -->
+  <path d="M195 175 q6 -10 12 0 q6 -10 12 0 q6 -10 12 0" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+  <text x="238" y="196" font-size="9" font-weight="700" fill="#b91c1c">L_SOURCE（数 nH~十几 nH）</text>
+  <!-- surge current animation through shared inductance -->
+  <circle r="4" fill="#dc2626">
+    <animateMotion dur="1.5s" repeatCount="indefinite" path="M185 105 L185 175 L280 175"/>
+  </circle>
+  <text x="185" y="118" text-anchor="middle" font-size="8.5" fill="#991b1b">大电流 dI/dt</text>
+  <!-- voltage subtracting from VGS -->
+  <text x="112" y="163" font-size="9" font-weight="700" fill="#b91c1c" opacity="0">
+    V=L·dI/dt 反扣 V_GS
+    <animate attributeName="opacity" values="0.2;1;0.2" dur="1.5s" repeatCount="indefinite"/>
+  </text>
+
+  <line x1="380" y1="15" x2="380" y2="205" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- RIGHT: 4-pin with driver source separated -->
+  <text x="570" y="20" text-anchor="middle" font-size="11.5" font-weight="800" fill="#047857">TO-247-4L（4脚，带 driver source）</text>
+  <rect x="505" y="42" width="130" height="58" rx="5" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+  <text x="570" y="76" text-anchor="middle" font-size="10" font-weight="700" fill="#334155">SiC MOSFET</text>
+  <rect x="415" y="118" width="70" height="34" rx="4" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="450" y="139" text-anchor="middle" font-size="9" fill="#1e3a5f">栅驱</text>
+  <!-- separate kelvin path: clean, no big current -->
+  <path d="M555 100 L555 135 L485 135" fill="none" stroke="#059669" stroke-width="2.5"/>
+  <text x="520" y="152" font-size="8.5" font-weight="700" fill="#047857">Kelvin source（独立回路·无主电流）</text>
+  <!-- power source path separate -->
+  <path d="M600 100 L600 175 L690 175" fill="none" stroke="#dc2626" stroke-width="3"/>
+  <path d="M610 175 q6 -10 12 0 q6 -10 12 0 q6 -10 12 0" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+  <text x="640" y="196" font-size="9" fill="#b91c1c">L_SOURCE 仍在，但已在栅回路之外</text>
+  <circle r="4" fill="#dc2626">
+    <animateMotion dur="1.5s" repeatCount="indefinite" path="M600 105 L600 175 L690 175"/>
+  </circle>
+  <!-- clean VGS indicator -->
+  <text x="497" y="168" font-size="9" font-weight="700" fill="#047857">V_GS 不再被削弱</text>
+</svg>
+<div class="anim-note">
+<p><b>机理（罗姆官方）：</b>SiC 开关极快，dI<sub>D</sub>/dt 可达 <b>A/ns 量级</b>。三脚封装里栅极回路与主功率回路<b>共用 source 引脚</b>，这段寄生电感 L_SOURCE 上会产生 <b>V = L_SOURCE · dI_D/dt</b>，这个电压<b>反向抵扣芯片内部真实的 V<sub>GS</sub></b>——峰值可超过 10V，直接拖慢开关、放大损耗。加一根独立的 driver source（Kelvin source）引脚，把栅极回路从主电流路径中<b>摘出来</b>，问题就解决了。</p>
+<table class="node-table nopad"><thead><tr><th>封装</th><th>型号</th><th>E_on (μJ)</th><th>E_off (μJ)</th><th>相对改善</th></tr></thead>
+<tbody>
+<tr><td>TO-247N（3脚）</td><td>SCT3040KL</td><td>2742</td><td>2093</td><td>基准</td></tr>
+<tr><td class="hl">TO-247-4L（4脚）</td><td>SCT3040KR</td><td><b>1690</b></td><td><b>1462</b></td><td class="hl">开通 <b>−38%</b>·关断约 −30%</td></tr>
+<tr><td class="hl">TO-263-7L（7脚）</td><td>SCT3040KW7</td><td><b>2083</b></td><td><b>1488</b></td><td class="hl">开通 <b>−24%</b></td></tr>
+</tbody></table>
+<p><b>但天下没有白拿的好处——罗姆同时给了代价：</b>开关变快后<b>关断浪涌电压升高</b>，TO-247-4L 比 TO-247N 高约 <b>119V</b>；开通峰值电流也更大（4L 比 3 脚高约 23A，7L 达 60A）。因此必须配套 <b>Miller clamp、nF 级栅源电容或 snubber</b> 来抑制。此外 SiC 体二极管的 V<sub>F</sub> 比 Si 更依赖电流，dV<sub>F</sub>/dt 会通过 C<sub>gd</sub> 耦合出栅源浪涌尖峰，也需针对性抑制。</p>
+<p><b>栅压不能随便降（罗姆官方）：</b>SiC MOSFET 推荐 V<sub>GS</sub> <b>15–18V</b>——<b>低于 15V 导通电阻会急剧上升</b>。这与 Si MOSFET 的使用习惯不同，是 SiC 换代时最常踩的坑之一。</p>
+<div class="kv"><span class="good">Kelvin source 降损24-38%</span><span class="warn">代价:浪涌+119V</span><span class="warn">VGS&lt;15V 电阻暴涨</span><span>需 Miller clamp</span></div>
+</div>
+</div>
+
+<div class="card">
+<div class="ttl">IGBT 为什么能又耐压又低导通压降：富士电机的原厂讲法</div>
+<div class="dsc">
+<p><b>结构本质（富士电机 IGBT 应用手册）：</b>IGBT = <b>MOSFET 栅控 + 集电极侧增加一层 p 层</b>，构成 Bi-MOS（达林顿式）复合结构。它同时拿到了两边的好处：<b>输入端是 MOS 栅——电压驱动、几乎不耗驱动功率；输出端是双极导通——靠电导率调制降低通态压降</b>。</p>
+<p><b>核心机理是电导率调制（conductivity modulation）：</b>集电极侧的 p 层向高阻的 n 型漂移区<b>注入空穴</b>，与电子形成过剩载流子等离子体，使漂移区电阻大幅下降。这正是 IGBT 能在 1200V 以上电压段做到远低于同耐压 MOSFET 通态压降的原因——<b>而纯 MOSFET 的漂移区电阻随耐压升高急剧恶化</b>。</p>
+<p><b>代价也来自同一机理：</b>关断时这些注入的过剩载流子必须被抽走或复合掉，形成<b>拖尾电流（tail current）</b>，构成 IGBT 关断损耗的主体。这就是 IGBT"耐压高、通态好，但开关频率上不去"的根因，也解释了为什么高频场合要让位给 SiC MOSFET。</p>
+<p><b>历史里程碑分层（原厂自述，注意与"发明"区分）：</b>Baliga 1982 年 12 月 IEDM 首次完整演示、1983 年 6 月 GE 发布首款产品；而<b>富士电机自述 1988 年产品化、三菱电机自述 IGBT 模块 1990 年商用化</b>。三菱后续演进出 CSTBT、RFC 等结构，已至第 7 代。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #dc2626">
+<div class="ttl">AQG324：车规功率模块凭什么比工业级贵得多</div>
+<div class="dsc">
+<p><b>ECPE AQG324</b> 是欧洲电力电子中心发布的车用功率模块认证规范，已成为车规功率模块的事实标准。它把测试分成<b>四大类</b>：</p>
+<table class="node-table nopad"><thead><tr><th style="width:12%">类别</th><th style="width:26%">含义</th><th>关注什么</th></tr></thead>
+<tbody>
+<tr><td class="hl">QM</td><td>Qualification of Module<br>模块级鉴定</td><td>模块整体的机械与电气基本特性</td></tr>
+<tr><td class="hl">QC</td><td>Characterization<br>特性表征</td><td>静态/动态参数是否符合规格书</td></tr>
+<tr><td class="hl">QE</td><td>Environmental<br>环境应力</td><td>温湿度、温度循环、振动冲击、盐雾等</td></tr>
+<tr><td class="hl">QL</td><td>Lifetime / Endurance<br>寿命耐久</td><td><b>功率循环（PC）与温度循环（TC）</b>——车规最核心的一项</td></tr>
+</tbody></table>
+<p><b>为什么功率循环是车规的命门：</b>车辆每次加速/制动都让功率器件经历一次结温摆动（ΔTj），十年寿命对应数十万次热循环。每次循环都在<b>键合线根部、焊料层、DBC 陶瓷基板界面</b>累积热机械疲劳，最终导致键合线剥离或焊层空洞——这类失效不是"电"坏的，是"热胀冷缩累坏的"。这也是为什么车规模块要用铜夹替代键合线、用 AMB 替代 DBC、乃至双面散热。</p>
+<p style="color:#64748b;font-size:12px"><b>诚实声明：</b>短路耐受时间 SCWT、Q<sub>rr</sub> 具体数值、栅氧长期可靠性数据、以及软开关（ZVS/ZCS）专题，均<b>未在本次获取的原厂文档中给出具体数字</b>，此处不做编造。GaN 的二维电子气(2DEG)与常关型方案、超结电场分布的原厂原文亦待补充。</p>
+<div class="src">来源：ROHM 应用笔记 62AN040E（driver source 降损，9页）与 66AN032E（SiC 栅驱基础，19页）全文；ROHM TechWeb SiC 基础教育页；富士电机 IGBT 应用手册 RCH984；三菱电机技术资料；ECPE AQG324 车用功率模块认证规范。</div>
+</div></div>
 <hr style="margin:60px 0 40px;border:none;border-top:4px solid #dc2626">
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px">第四篇：车载MCU</h1>
