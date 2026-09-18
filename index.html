@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v4.5 | 2026-09-18 | MCU原厂核实: TC4x RRAM 20MB/25MB双口径并存, Renesas补Fin-MONOS 16-14nm, S32Z主频改最高1GHz, 19MB SRAM标注待官方确认, Stellar补28nm FD-SOI+PCM xMemory -->
+<!-- version: v4.6 | 2026-09-18 | 原厂素材核实第二批: SS摆幅方向纠正+公式, HBM3E改单堆栈口径+美光官方规格, SiC区分理论1-300与实测100x, 200C标为预期, IGBT商用里程碑分层, GaN300mm/800V标计划 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -376,7 +376,7 @@ table.node-table.nopad .hl{font-size:12px}
 <text x="360" y="190" text-anchor="middle" font-size="9" fill="#64748b">Intel 投入10+年研发 | 45nm量产 | 性能+20% | 功耗-30% | 材料革命</text>
 </svg>
 <div class="d3-lim">⚠ 新限制：①铪基材料与标准CMOS工艺不兼容(Intel解决了此问题,投入10+年)；②平面晶体管的静电控制力已接近极限——沟道缩短后源漏之间的电场泄漏(S/D leakage）难以通过栅极调控</div>
-<div class="d3-prob">❌ 留下的问题：短沟道效应加剧→亚阈值斜率退化(DIBL,SS接近60mV/dec的理论极限)→漏电流再次上升。需要更强的栅极静电控制力。</div>
+<div class="d3-prob">❌ 留下的问题：短沟道效应加剧→亚阈值摆幅退化(DIBL；SS 从接近 60mV/dec 的室温理论极限持续恶化上升)→漏电流再次上升。需要更强的栅极静电控制力。<br><span style="font-size:11.5px;color:#64748b">注：SS=60·[1+C<sub>dep</sub>/C<sub>ox</sub>] mV/dec，60mV/dec 为室温理论下限；V<sub>T</sub> 每降 60mV，I<sub>off</sub> 增大约 10 倍。</span></div>
 <div class="d3-stats"><span class="d3-stat">HfO₂高K介质</span><span class="d3-stat">金属栅极</span><span class="d3-stat">漏电↓10x</span><span class="d3-stat">性能+20%</span><span class="d3-stat">功耗-30%</span><span class="d3-stat">主导: Intel</span></div>
 </div></div>
 
@@ -909,7 +909,7 @@ table.node-table.nopad .hl{font-size:12px}
 <text x="360" y="140" text-anchor="middle" font-size="9" fill="#64748b">HBM3E: 8层/12层DRAM堆叠 | 1024-bit每通道 | 带宽>1.2TB/s | NVIDIA H200: 141GB HBM3E</text>
 <text x="360" y="155" text-anchor="middle" font-size="8" fill="#94a3b8">SK海力士独家供应NVIDIA HBM3E(2024-) → HBM4: 2048-bit, >1.6TB/s (2025)</text>
 </svg>
-<div class="d3-sol">✅ HBM3E带宽>1.2TB/s (vs 传统GDDR6X ~1TB/s但因布线限制通常只有768GB/s)。NVIDIA H200搭载141GB HBM3E→AI训练速度翻倍。HBM4目标2048-bit→>1.6TB/s。</div>
+<div class="d3-sol">✅ <b>单堆栈</b> HBM3E 带宽 >1.2TB/s（美光官方口径：8-high 24GB、容量较 HBM3 +50%、性能/瓦 2.5×、功耗较竞品低约 30%）。注意这是<b>单 HBM 堆栈</b>指标，与 GDDR 的<b>整卡显存子系统</b>带宽不是同一口径，不可直接对比。NVIDIA H200 搭载 141GB HBM3E。HBM4 目标 2048-bit→>1.6TB/s。</div>
 <div class="d3-lim">⚠ 挑战：①TSV制造良率→每增加一层堆叠，良率指数下降 ②热密度→多层DRAM堆叠散热困难 ③产能瓶颈→SK海力士HBM产能被NVIDIA完全吃下→三星/美光追赶 ④封装精度→12层堆叠的对准精度<1μm</div>
 <div class="d3-stats"><span class="d3-stat">TSV 3D堆叠</span><span class="d3-stat">HBM1→HBM4</span><span class="d3-stat">128GB/s→>1.6TB/s</span><span class="d3-stat">SK海力士领先</span><span class="d3-stat">AI GPU标配</span></div>
 </div></div>
@@ -2195,7 +2195,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="ttl">日本崛起：IGBT商业化与功率模块时代</div>
 <div class="by">三菱电机 / 东芝 / 富士电机 / 日立</div>
 <div class="dsc">
-<p>1982-83年GE发明IGBT后，日本企业凭借在精密制造和模块封装上的优势迅速成为IGBT商业化的主力。三菱电机推出首款IPM智能功率模块(1989)，富士电机发明超结SJ-MOSFET(1997)。</p>
+<p>1982-83年GE发明IGBT后，日本企业凭借在精密制造和模块封装上的优势迅速成为IGBT商业化的主力。富士电机自述 IGBT 于 1988 年产品化、三菱电机自述 IGBT 模块 1990 年商用化（<b>与 1982-83 的「发明/首次演示」属不同里程碑</b>）；三菱推出首款 IPM 智能功率模块(1989)，富士电机提出超结 SJ-MOSFET 理论(1997)。</p>
 <p>日本在功率模块封装（DIPIPM、IGBT模块外壳散热、引线键合、银烧结等技术）上积累了大量核心专利，至今仍是全球功率模块技术最强的国家。三菱、富士电机、东芝、日立、罗姆五家日本公司长期占据全球功率半导体TOP20。</p>
 </div></div>
 
@@ -2322,7 +2322,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="d3-grid"><div class="d3-card" style="border-left:4px solid #059669">
 <div class="d3t">突破 #5：SiC MOSFET (2011—)</div>
 <div class="d3m">Cree(Wolfspeed)首款商用→ST 2018为Tesla Model 3供货→全行业跟进</div>
-<div class="d3-desc"><b>解决了什么？</b>硅材料已逼近物理极限(临界击穿场强0.3MV/cm)。碳化硅(SiC)的临界击穿场强是硅的10倍(3MV/cm)，热导率是硅的3倍，禁带宽度是硅的3倍。相同耐压下SiC MOSFET的漂移区厚度可减少90%→比导通电阻降低约100倍(两个数量级)。</div>
+<div class="d3-desc"><b>解决了什么？</b>硅材料已逼近物理极限(临界击穿场强0.3MV/cm)。碳化硅(SiC)的临界击穿场强是硅的10倍(3MV/cm)，热导率是硅的3倍，禁带宽度是硅的3倍。相同耐压下SiC MOSFET的漂移区厚度可减少约90%→<b>漂移层电阻理论极限可降至约 1/300（罗姆官方口径）</b>，工程实测的比导通电阻改善通常在<b>约 100 倍（两个数量级）</b>量级——引用时须区分理论值与实测值。</div>
 <svg viewBox="0 0 720 130">
 <rect x="20" y="15" width="300" height="105" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
 <text x="170" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#dc2626">Si MOSFET 600V：厚漂移区</text>
@@ -2339,7 +2339,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <text x="540" y="56" text-anchor="middle" font-size="7" fill="#047857">N- Drift 5μm (1/10)</text>
 <text x="540" y="72" text-anchor="middle" font-size="7" fill="#047857">Rds(on)=10mΩ (1/10)</text>
 <text x="540" y="86" text-anchor="middle" font-size="7" fill="#059669">开关频率>200kHz</text>
-<text x="540" y="100" text-anchor="middle" font-size="7" fill="#059669">耐温200°C+</text>
+<text x="540" y="100" text-anchor="middle" font-size="7" fill="#059669">耐温150-175°C</text><text x="540" y="110" text-anchor="middle" font-size="6" fill="#94a3b8">(200°C为预期)</text>
 </svg>
 <div class="d3-sol">✅ 特斯拉Model 3(2018)首用SiC→续航+5-10%。800V电动车标配。光伏逆变器效率从98%→99%+。AI数据中心800V供电核心器件。</div>
 <div class="d3-lim">⚠ 衬底缺陷密度远高于硅(导致良率+成本问题)。Wolfspeed主导衬底市场。2024-25年产能过剩价格战。栅氧可靠性仍需验证。</div>
@@ -2388,7 +2388,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="card"><span class="tag te">欧</span><div class="ttl">欧洲：英飞凌——全球功率半导体王者</div>
 
 <table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
-<tr><td class="hl">1999 英飞凌独立</td><td>从西门子拆分→专注功率和汽车半导体。</td></tr><tr><td class="hl">2014 收购IR</td><td>$30亿→补全低压MOSFET产品线→成为全品类功率半导体第一。</td></tr><tr><td class="hl">2018 ST SiC为特斯拉供货</td><td>Model 3采用ST SiC MOSFET→车规SiC元年。</td></tr><tr><td class="hl">2020s 欧洲三强格局</td><td>英飞凌(~20%)、ST(~8%)、安森美(~8%)稳居全球功率TOP3。</td></tr><tr><td class="hl">2025 英飞凌+英伟达</td><td>合作800V HVDC AI数据中心供电→AI供电新标准。</td></tr><tr><td class="hl">2026 英飞凌300mm GaN</td><td>全球首发12英寸GaN晶圆→GaN从利基→主流。</td></tr>
+<tr><td class="hl">1999 英飞凌独立</td><td>从西门子拆分→专注功率和汽车半导体。</td></tr><tr><td class="hl">2014 收购IR</td><td>$30亿→补全低压MOSFET产品线→成为全品类功率半导体第一。</td></tr><tr><td class="hl">2018 ST SiC为特斯拉供货</td><td>Model 3采用ST SiC MOSFET→车规SiC元年。</td></tr><tr><td class="hl">2020s 欧洲三强格局</td><td>英飞凌(~20%)、ST(~8%)、安森美(~8%)稳居全球功率TOP3。</td></tr><tr><td class="hl">2025 英飞凌+英伟达</td><td>宣布合作800V HVDC AI数据中心供电路线图（2027起过渡，非当期量产）。</td></tr><tr><td class="hl">2026 英飞凌300mm GaN<br>(计划)</td><td>宣布全球首发12英寸GaN晶圆、<b>计划2026底量产</b>→若落地则GaN从利基→主流。</td></tr>
 </tbody></table>
 
 </div>
@@ -2411,7 +2411,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 <div class="card-row-3 dense">
 <div class="card"><span class="tag ts">功率</span><span class="yr">2018</span><div class="ttl">特斯拉Model 3大批量采用SiC MOSFET</div><div class="by">ST意法半导体 | 车规SiC商业化元年</div><div class="dsc"><p>特斯拉在Model 3的逆变器中首次大批量采用ST的SiC MOSFET模块(每车24-48颗SiC MOSFET)→续航提升5-10%。这标志着SiC从"小批量高端应用"进入"百万辆级汽车量产"，彻底改变了功率半导体的产业格局。此后比亚迪、蔚来、小鹏等中国车企全面跟进800V SiC平台。</p></div><div class="src">来源：ST官方; Tesla Model 3逆向拆解(Munro & Associates, 2018)</div></div>
-<div class="card"><span class="tag ts">功率</span><span class="yr">2025</span><div class="ttl">AI数据中心800V HVDC供电标准确立</div><div class="by">英飞凌+英伟达合作 | GaN 300mm量产前夜</div><div class="dsc"><p>AI GPU集群功率突破100kW/机柜→48V供电无法满足kA级电流需求→800V高压直流(HVDC)成为确定方向。英飞凌与英伟达合作开发800V供电架构，SiC MOSFET负责AC-DC整流级(11kW PSU)，GaN HEMT负责DC-DC转换级。每GW数据中心对应功率半导体价值量从$80M→$180M+。英飞凌全球首发300mm GaN晶圆，预计2026底量产→GaN规模化元年。</p></div><div class="src">来源：英飞凌2025投资者日; Yole Group "Power Electronics for AI Data Centers" (2025)</div></div>
+<div class="card"><span class="tag ts">功率</span><span class="yr">2025</span><div class="ttl">AI数据中心800V HVDC供电路线图确立（2025宣布·2027起过渡）</div><div class="by">英飞凌+英伟达合作（路线图，非已量产部署）| GaN 300mm量产前夜</div><div class="dsc"><p>AI GPU集群功率突破100kW/机柜→48V供电无法满足kA级电流需求→800V高压直流(HVDC)成为确定方向。英飞凌与英伟达合作开发800V供电架构，SiC MOSFET负责AC-DC整流级(11kW PSU)，GaN HEMT负责DC-DC转换级。每GW数据中心对应功率半导体价值量从$80M→$180M+。英飞凌全球首发300mm GaN晶圆，预计2026底量产→GaN规模化元年。</p></div><div class="src">来源：英飞凌2025投资者日; Yole Group "Power Electronics for AI Data Centers" (2025)</div></div>
 </div>
 
 <h2 id="sec-power-nodes">📊 3.6 功率器件演进总表</h2>
@@ -2431,7 +2431,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <tr><td>2018</td><td>GaN HEMT(增强型)</td><td>Navitas/PI(美)</td><td>650V</td><td>>1MHz</td><td>消费快充、服务器PoL</td></tr>
 <tr><td>2023</td><td>SiC 200mm晶圆量产</td><td>Wolfspeed(美)</td><td>650V-1700V</td><td>200kHz+</td><td>800V EV平台标配</td></tr>
 <tr><td>2025</td><td><b>★800V HVDC AI电源</b></td><td>英飞凌+英伟达</td><td>800V Bus</td><td>SiC/GaN混合</td><td>AI数据中心供电</td></tr>
-<tr><td>2026</td><td><b>★GaN 300mm (12英寸)</b></td><td>英飞凌</td><td>650V</td><td>>1MHz</td><td>规模量产元年</td></tr>
+<tr><td>2026<br>(计划)</td><td><b>★GaN 300mm (12英寸)</b></td><td>英飞凌</td><td>650V</td><td>>1MHz</td><td>计划量产元年<br>(2026底目标)</td></tr>
 </tbody></table></div>
 
 <!-- ====== POWER DEEP DIVE ====== -->
