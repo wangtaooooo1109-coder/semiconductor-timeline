@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v4.2 | 2026-09-18 | 新增2.8 存储器全类型原理图解(图例+SVG动画): SRAM/DRAM/ROM四代/浮栅/NOR-NAND/3D NAND/MRAM/RRAM/PCM/FeRAM + 金字塔与趋势 -->
+<!-- version: v4.3 | 2026-09-18 | 事件详表改3卡密集布局(1.6/2.5/3.5/4.5) + 五章勘误: IGBT 1982-83, SCR 1957, 摩尔定律1975修订, 平面工艺Hoerni, 尔必达2012, HBM代际年份, 8xH100 HBM容量, Xtacking4.0 294层, 瑞萨2010合并, CAN 1986, TC3xx 40nm, SRAM面积6-15x -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -122,6 +122,17 @@ table.node-table.nopad .hl{font-size:12px}
 .card-row .card{margin-bottom:0}
 .card-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
 .card-row-3 .card{margin-bottom:0}
+/* dense variant for event-detail sections: tighter padding + smaller type */
+.dense{gap:10px;margin-bottom:10px}
+.dense .card{padding:12px 14px}
+.dense .card .ttl{font-size:14px;margin-bottom:4px;line-height:1.35}
+.dense .card .yr{font-size:11px;margin-bottom:2px}
+.dense .card .by{font-size:11px;margin-bottom:5px;line-height:1.45}
+.dense .card .dsc{font-size:12px;line-height:1.7}
+.dense .card .src{font-size:10px;margin-top:6px;padding-top:5px}
+.dense .card .tag{font-size:9px;padding:1px 5px}
+@media(max-width:1100px){.dense{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.dense{grid-template-columns:1fr}}
 
 @media(max-width:768px){.content{padding:16px 12px 60px}.card{padding:16px}.d3-card{padding:16px}}
 
@@ -253,7 +264,7 @@ table.node-table.nopad .hl{font-size:12px}
 <div class="ttl">日本逆袭与衰退：VLSI计划 → DRAM霸权 → 美日协议</div>
 <div class="by">NEC/东芝/日立/富士通/三菱 | 美方：USTR、SIA</div>
 <div class="dsc">
-<p>1976年日本通产省联合5大企业,投资720亿日元攻关DRAM。1980年惠普测试日本DRAM品质碾压美国（美国最优<日本最差）。1985年NEC登顶全球营收第一（连续7年）,日本DRAM全球市占>80%。Intel被迫退出DRAM——Grove与Moore做出All-in CPU的历史性决策。</p>
+<p>1976年日本通产省联合5大企业,投资720亿日元攻关DRAM。1980年惠普测试日本DRAM品质碾压美国（美国最好的产品不良率≈日本最差的）。1985年NEC登顶全球营收第一（连续7年）,日本DRAM全球市占>80%。Intel被迫退出DRAM——Grove与Moore做出All-in CPU的历史性决策。</p>
 <p>1986年《美日半导体协议》：日本被迫开放市场、限制出口价格。叠加《广场协议》日元升值,日本半导体霸主地位崩塌。全球产业链由此大重构：DRAM→韩国,逻辑→台湾,设计→美国,日本退守材料/设备。</p></div>
 <div class="src">来源：《Chip War》Ch.6-11; 《Only the Paranoid Survive》(Grove,1996); 美日半导体协议(Federal Register); 惠普1980测试报告</div></div>
 
@@ -290,8 +301,8 @@ table.node-table.nopad .hl{font-size:12px}
 
 <!-- Breakthrough 1: Planar Transistor -->
 <div class="d3-grid"><div class="d3-card" style="border-left:4px solid var(--p)">
-<div class="d3t">突破 #1：平面晶体管 (Planar FET)</div>
-<div class="d3m">1959—1960 | Robert Noyce (Fairchild) | 支撑了约52年(10μm→32nm)</div>
+<div class="d3t">突破 #1：平面工艺 / 平面晶体管 (Planar Process)</div>
+<div class="d3m">1959—1960 | Jean Hoerni（平面工艺）+ Robert Noyce（平面IC）·Fairchild | 支撑了约52年(10μm→32nm)</div>
 <div class="d3-desc"><b>解决了什么问题？</b>Kilby的锗基IC用金线飞线连接,无法量产。Noyce用硅基平面工艺+铝金属互连替代飞线——所有元件通过光刻/刻蚀在同一平面上制造,可大规模自动化生产。<b>这是从"手工作坊"到"流水线"的质变。</b></div>
 <svg viewBox="0 0 720 160">
 <defs><linearGradient id="p1g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#1d4ed8"/></linearGradient><linearGradient id="p1g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#d97706"/></linearGradient></defs>
@@ -593,66 +604,62 @@ table.node-table.nopad .hl{font-size:12px}
 
 <!-- ====== EVENT DETAILS ====== -->
 <h2 id="sec-events">📋 1.6 重大事件详表</h2>
-
+<div class="card-row-3 dense">
 <div class="card"><span class="tag ts">里程碑</span><span class="yr">1947.12.16</span>
 <div class="ttl">晶体管发明</div><div class="by">Bell Labs: Bardeen / Brattain / Shockley (1956诺奖)</div>
 <div class="dsc"><p>第一个点接触式锗晶体管→替代真空管→信息时代的开端。1954年TI Gordon Teal发明硅晶体管(锗→硅),硅成为半导体主要材料。</p></div>
 <div class="src">来源：AT&T Bell Labs档案; Nobel Prize官方; 《Chip War》Ch.1</div></div>
-
 <div class="card"><span class="tag ts">里程碑</span><span class="yr">1958—1959</span>
 <div class="ttl">集成电路(IC)发明</div><div class="by">TI Kilby(1958锗基)+Fairchild Noyce(1959硅基平面工艺)</div>
 <div class="dsc"><p>Kilby首块IC(金线飞线),Noyce硅基平面工艺(铝金属连线+光刻)→可量产IC诞生。Kilby获2000诺奖。Noyce的硅基方案成为现代芯片的起点。</p></div>
 <div class="src">来源：TI/Fairchild官方; Nobel Prize(Kilby 2000); 《Chip War》Ch.2</div></div>
-
 <div class="card"><span class="tag ts">里程碑</span><span class="yr">1965.4.19</span>
 <div class="ttl">摩尔定律</div><div class="by">Gordon Moore,《Electronics》杂志</div>
-<div class="dsc"><p>"集成电路上晶体管数量每年翻番"(1975修订为约18-24月)→半导体行业50年"自我实现预言"。</p></div>
+<div class="dsc"><p>"集成电路上晶体管数量每年翻番"(1975年摩尔本人修订为约每两年翻倍；"18个月"实为Intel高管David House的提法)→半导体行业50年"自我实现预言"。</p></div>
 <div class="src">来源：Moore, "Cramming More Components…", <i>Electronics</i>, Vol.38 No.8, 1965.4.19</div></div>
-
+</div>
+<div class="card-row-3 dense">
 <div class="card"><span class="tag ts">里程碑</span><span class="yr">1968 & 1971</span>
 <div class="ttl">Intel成立→4004微处理器</div><div class="by">Noyce/Moore/Grove(1968) | Faggin/Hoff(1971 4004)</div>
 <div class="dsc"><p>4004: 10μm PMOS,2300晶体管,108KHz→将计算机大脑集成在一芯片上。最初为Busicom计算器定制。</p></div>
 <div class="src">来源：Intel官方历史; 《The Intel Trinity》(Malone,2014)</div></div>
-
 <div class="card"><span class="tag ts">里程碑</span><span class="yr">1976—1985</span>
 <div class="ttl">日本VLSI→DRAM霸权</div><div class="by">通产省+NEC/东芝/日立/富士通/三菱</div>
 <div class="dsc"><p>VLSI计划(720亿日元)→1980品质碾压美国→1985 NEC全球第一→日本DRAM>80%。Intel退出DRAM转向CPU。</p></div>
 <div class="src">来源：日本通产省VLSI档案; 《Only the Paranoid Survive》(Grove,1996); 《Chip War》Ch.7-8</div></div>
-
 <div class="card"><span class="tag ts">里程碑</span><span class="yr">1986</span>
 <div class="ttl">美日半导体协议</div><div class="by">USTR vs 日本通产省 (SIA推动)</div>
 <div class="dsc"><p>日本被迫开放市场+限制出口价格。1987年100%惩罚关税。全球产业链最大重构：DRAM→韩,逻辑→台,设计→美,日本→材料设备。</p></div>
 <div class="src">来源：美日协议(Federal Register); 《Chip War》Ch.9-11</div></div>
-
+</div>
+<div class="card-row-3 dense">
 <div class="card"><span class="tag ts">里程碑</span><span class="yr">1987.2.21</span>
 <div class="ttl">台积电成立</div><div class="by">张忠谋(Morris Chang),新竹科学园区</div>
 <div class="dsc"><p>55岁张忠谋(前TI SVP)创立→纯晶圆代工模式→打破IDM封闭格局→Fabless公司(Qualcomm/NVIDIA/Broadcom)得以诞生。1988 Intel认证→全球信任。</p></div>
 <div class="src">来源：张忠谋自传; TSMC年报; 《Chip War》Ch.13-15</div></div>
-
 <div class="card"><span class="tag ts">里程碑</span><span class="yr">1992</span>
 <div class="ttl">三星全球DRAM第一</div><div class="by">三星电子 李健熙</div>
 <div class="dsc"><p>1983进DRAM→逆周期投资(行业低谷扩产)→不到10年超越日本成为全球最大DRAM厂商。至今韩系控DRAM>70%+NAND领先。</p></div>
 <div class="src">来源：Samsung Semiconductor官方历史; 《Chip War》Ch.11-12</div></div>
-
 <div class="card"><span class="tag ts">里程碑</span><span class="yr">1997</span>
 <div class="ttl">EUV LLC→ASML垄断之源</div><div class="by">Intel牵头+AMD/Motorola+LLNL/SNL/LBNL国家级实验室</div>
 <div class="dsc"><p>1999年ASML作为唯一光刻设备商加入(Nikon/Canon被排除在外)→条件:ASML在美建厂+美国供应链>50%→20年后ASML成全球唯一EUV供应商。</p></div>
 <div class="src">来源：《Chip War》Ch.17; ASML官方历史; Intel/EUV LLC联合声明</div></div>
-
+</div>
+<div class="card-row-3 dense">
 <div class="card"><span class="tag ts">里程碑</span><span class="yr">2002</span>
 <div class="ttl">浸没式光刻→ASML超Nikon</div><div class="by">林本坚(Burn-Jeng Lin),TSMC研发副总,SPIE会议</div>
 <div class="dsc"><p>水填充镜头-晶圆间隙→193nm ArF等效134nm→分辨率跃升。Nikon/Canon押注157nm干式失败→ASML成为光刻机绝对领导者。</p></div>
 <div class="src">来源：Lin, SPIE 2002; 《Chip War》Ch.16; Nature(2025)</div></div>
-
 <div class="card"><span class="tag ts">里程碑</span><span class="yr">2007, 2011</span>
 <div class="ttl">Intel两连击：HKMG+FinFET</div><div class="by">Intel (Penryn 2007, Ivy Bridge 2011)</div>
 <div class="dsc"><p>45nm HKMG: HfO₂替代SiO₂→漏电↓10x→材料革命。22nm FinFET: 3D鳍式晶体管→漏电↓50%→结构革命。Intel制程领先巅峰。但10nm地狱(2016-19)→被TSMC/Samsung反超。</p></div>
 <div class="src">来源：Intel HKMG白皮书(2007); Intel FinFET白皮书(2011); WikiChip</div></div>
-
 <div class="card"><span class="tag ts">里程碑</span><span class="yr">2018—2024</span>
 <div class="ttl">中美芯片战争全阶段</div><div class="by">美国BIS → 中兴→华为→SMIC→全面管制</div>
 <div class="dsc"><p>2018中兴→2019华为→2020断供(麒麟绝唱)→2022.10.7最严管制→2023 Mate60回归(中芯7nm)→2024管制升级+中国加速自主→两个平行体系正在形成。</p></div>
 <div class="src">来源：BIS联邦公报2018-24; CSIS(2023.5); TechInsights(2023.8); 华为官方</div></div>
+</div>
 
 <!-- ====== NODE TABLE ====== -->
 <h2 id="sec-nodes">📊 1.7 制程节点演进总表</h2>
@@ -711,7 +718,7 @@ table.node-table.nopad .hl{font-size:12px}
 <div class="ttl">日本逆袭：VLSI 计划→64K/256K DRAM 品质碾压→全球第一</div>
 <div class="by">NEC / 东芝 / 日立 / 富士通 / 三菱</div>
 <div class="dsc">
-<p>1976年日本通产省VLSI计划启动后，DRAM成为首要攻坚目标。1980年惠普16K DRAM招标测试中，日本三家完胜美国三家——美国最优产品的不合格率比日本最差产品还高6倍。日本DRAM良率高30%、价格低60%。</p>
+<p>1976年日本通产省VLSI计划启动后，DRAM成为首要攻坚目标。1980年惠普16K DRAM招标测试中，日本三家完胜美国三家——美国最优产品的不合格率比日本最差产品还高6倍。日本DRAM在良率与成本上全面领先。</p>
 <p>1982年日本成为全球最大DRAM生产国。1985年NEC登顶全球第一，日本DRAM市占超80%。<b>Intel被迫于1985年退出DRAM市场</b>——这是Intel历史上最重要的战略转折。</p>
 </div>
 <div class="src">来源：《Chip War》Ch.7-8; 惠普1980年DRAM质量测试报告; 《Only the Paranoid Survive》(Grove,1996)</div></div>
@@ -729,7 +736,7 @@ table.node-table.nopad .hl{font-size:12px}
 <div class="ttl">DRAM三国时代 + 3D NAND革命</div>
 <div class="by">DRAM：三星/海力士/美光 | NAND：三星/东芝(铠侠)/海力士/美光/西部数据</div>
 <div class="dsc">
-<p><b>DRAM三国时代：</b>经过2000年代的多轮价格战和行业整合后，全球DRAM市场稳定为三星、SK海力士、美光三巨头格局（合计>95%）。日本2008年尔必达破产标志着日本彻底退出DRAM产业。</p>
+<p><b>DRAM三国时代：</b>经过2000年代的多轮价格战和行业整合后，全球DRAM市场稳定为三星、SK海力士、美光三巨头格局（合计>95%）。日本2012年尔必达破产标志着日本彻底退出DRAM产业。</p>
 <p><b>3D NAND革命：</b>2007年东芝提出BiCS（Bit Cost Scalable）3D堆叠NAND概念。2013年三星率先量产V-NAND（24层），从2D平面走向3D垂直堆叠，彻底改变了NAND的演进规律——从以制程节点为驱动变为以层数为驱动。此后三星、东芝、美光、海力士、西部数据在3D NAND层数上展开竞赛：24层→32层→48层→64层→96层→128层→176层→232层→300+层。</p>
 </div>
 <div class="src">来源：Samsung/SK Hynix/Micron/Kioxia官方年报; TechInsights存储分析</div></div>
@@ -869,10 +876,10 @@ table.node-table.nopad .hl{font-size:12px}
 <!-- Storage Breakthrough 4: HBM -->
 <div class="d3-grid"><div class="d3-card" style="border-left:4px solid var(--cn)">
 <div class="d3t">突破 #4：HBM 高带宽存储器 (TSV 3D堆叠)</div>
-<div class="d3m">2013 HBM1(JEDEC)→2016 HBM2→2020 HBM2E→2023 HBM3→2024 HBM3E→2025 HBM4</div>
+<div class="d3m">2013 HBM1(JEDEC)→2016 HBM2→2019 HBM2E→2022 HBM3→2024 HBM3E→2025 HBM4</div>
 <div class="d3-desc"><b>解决了什么问题？</b>传统DRAM通过PCB走线连接GPU/CPU，带宽受限于引脚数和PCB布线密度。HBM通过硅通孔(TSV)将多层DRAM芯片垂直堆叠，底部通过硅中介层(Interposer)与GPU/CPU超短距离连接→带宽从几十GB/s飙升至1TB/s+。AI大模型训练对显存带宽的需求(>2TB/s)只能靠HBM满足。</div>
 <svg viewBox="0 0 720 170">
-<text x="360" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a5f">3D：HBM 堆叠结构 (以NVIDIA H100为例：6颗HBM3=96GB)</text>
+<text x="360" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a5f">3D：HBM 堆叠结构 (以NVIDIA H100为例：6颗HBM3堆栈·物理96GB/启用80GB)</text>
 <!-- GPU + HBM stack -->
 <rect x="30" y="30" width="120" height="30" rx="4" fill="#3b82f6"/>
 <text x="90" y="49" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">GPU Die</text>
@@ -910,7 +917,7 @@ table.node-table.nopad .hl{font-size:12px}
 <!-- Storage Breakthrough 5: Xtacking -->
 <div class="d3-grid"><div class="d3-card" style="border-left:4px solid var(--tw)">
 <div class="d3t">突破 #5：Xtacking 混合键合 (长江存储)</div>
-<div class="d3m">2018 长江存储YMTC Xtacking 1.0→2022 Xtacking 3.0 232层→2024 Xtacking 4.0 300+层</div>
+<div class="d3m">2018 Xtacking架构发布(2019首款64层量产)→2022 Xtacking 3.0 232层→2024 Xtacking 4.0 294层(232有效层)</div>
 <div class="d3-desc"><b>解决了什么问题？</b>传统3D NAND的存储阵列和外围CMOS电路在同一晶圆上制作→外围电路占面积且受高温存储工艺限制→I/O速度受限。Xtacking将存储阵列和CMOS逻辑电路分别在不同晶圆上制造，通过数百万个金属键合点(Vertical Interconnect)面对面键合→存储密度提升+I/O速度翻倍+开发周期缩短。</div>
 <svg viewBox="0 0 720 160">
 <text x="360" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a5f">3D：Xtacking 混合键合原理 (长江存储 YMTC)</text>
@@ -936,7 +943,7 @@ table.node-table.nopad .hl{font-size:12px}
 <text x="542" y="92" text-anchor="middle" font-size="7" fill="#fff">CMOS外围电路 Peri. 独立晶圆</text>
 <text x="542" y="106" text-anchor="middle" font-size="7" fill="#059669">✅ I/O速度+3x 存储密度↑ 开发周期-3月</text>
 
-<text x="360" y="136" text-anchor="middle" font-size="9" fill="#64748b">YMTC Xtacking 1.0 (2018,64层)→2.0(2020,128层)→3.0(2022,232层,达国际一线)→4.0(2024,300+层)</text>
+<text x="360" y="136" text-anchor="middle" font-size="9" fill="#64748b">YMTC Xtacking 1.0(2018架构发布/2019量产64层)→2.0(2020,128层)→3.0(2022,232层,达国际一线)→4.0(2024,294层)</text>
 </svg>
 <div class="d3-sol">✅ Xtacking使长江存储在3D NAND层数上迅速追赶国际一线——2022年即量产232层(Xtacking 3.0)，性能与三星/美光/海力士同类产品持平。证明了非传统NAND厂商可以通过架构创新弯道超车。</div>
 <div class="d3-lim">⚠ 挑战：①Cu-Cu混合键合的对准精度要求极高(<0.5μm) ②键合界面质量→影响可靠性和成品率 ③美国制裁→YMTC获取设备和材料受限→后续层数提升节奏受影响</div>
@@ -957,7 +964,7 @@ table.node-table.nopad .hl{font-size:12px}
 <div class="card"><span class="tag tj">日本</span><div class="ttl">日本：DRAM绝对霸主 → 全军覆没 → 铠侠孤军</div>
 
 <table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
-<tr><td class="hl">1976 VLSI计划</td><td>DRAM主攻方向→四年内技术全面超越美国。</td></tr><tr><td class="hl">1980 品质碾压</td><td>惠普测试日本DRAM完胜→良率高30%/价格低60%。</td></tr><tr><td class="hl">1985 巅峰</td><td>日本DRAM全球市占>80%→NEC全球第一。</td></tr><tr><td class="hl">1986 美日协议→衰退</td><td>被迫限制出口→叠加日元升值→成本优势瓦解。</td></tr><tr><td class="hl">1990s 全盘崩溃</td><td>NEC/日立/东芝/富士通相继退出DRAM。2008年尔必达破产→日本DRAM全军覆没。</td></tr><tr><td class="hl">2007 东芝3D NAND</td><td>东芝发明BiCS 3D NAND概念→改变NAND演进方向。</td></tr><tr><td class="hl">2018 铠侠成立</td><td>东芝将NAND业务剥离为铠侠(Kioxia)→在日本NAND市场艰难维持。</td></tr>
+<tr><td class="hl">1976 VLSI计划</td><td>DRAM主攻方向→四年内技术全面超越美国。</td></tr><tr><td class="hl">1980 品质碾压</td><td>惠普测试日本DRAM完胜→良率与不良率表现全面领先、价格更低。</td></tr><tr><td class="hl">1985 巅峰</td><td>日本DRAM全球市占>80%→NEC全球第一。</td></tr><tr><td class="hl">1986 美日协议→衰退</td><td>被迫限制出口→叠加日元升值→成本优势瓦解。</td></tr><tr><td class="hl">1990s 全盘崩溃</td><td>NEC/日立/东芝/富士通相继退出DRAM。2008年尔必达破产→日本DRAM全军覆没。</td></tr><tr><td class="hl">2007 东芝3D NAND</td><td>东芝发明BiCS 3D NAND概念→改变NAND演进方向。</td></tr><tr><td class="hl">2018 铠侠成立</td><td>东芝将NAND业务剥离为铠侠(Kioxia)→在日本NAND市场艰难维持。</td></tr>
 </tbody></table>
 <div class="src">来源：日本通产省VLSI档案; NEC/东芝/日立/尔必达/铠侠官方历史</div>
 </div>
@@ -973,26 +980,22 @@ table.node-table.nopad .hl{font-size:12px}
 <div class="card"><span class="tag tc">中</span><div class="ttl">中国大陆：从零到封锁中崛起的存储新势力</div>
 
 <table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
-<tr><td class="hl">2016 长江存储(YMTC)成立</td><td>国家大基金投资→专注3D NAND Flash。</td></tr><tr><td class="hl">2016 长鑫存储(CXMT)成立</td><td>专注DRAM→从奇梦达(Qimonda)引进技术。</td></tr><tr><td class="hl">2018 Xtacking架构</td><td>YMTC发布Xtacking 1.0→混合键合技术实现存储/逻辑分离→中国存储芯片最具原创性的技术创新。</td></tr><tr><td class="hl">2020 Xtacking 2.0 128层</td><td>追赶至国际主流水平。</td></tr><tr><td class="hl">2022 Xtacking 3.0 232层</td><td>达到国际一线水平(与三星/美光/海力士持平)。</td></tr><tr><td class="hl">2022 美国制裁</td><td>YMTC/CXMT被列入实体清单→限制先进设备获取。</td></tr><tr><td class="hl">2024 Xtacking 4.0</td><td>在制裁下依然推出300+层3D NAND。CXMT量产DDR4/DDR5。</td></tr>
+<tr><td class="hl">2016 长江存储(YMTC)成立</td><td>国家大基金投资→专注3D NAND Flash。</td></tr><tr><td class="hl">2016 长鑫存储(CXMT)成立</td><td>专注DRAM→从奇梦达(Qimonda)引进技术。</td></tr><tr><td class="hl">2018 Xtacking架构</td><td>YMTC发布Xtacking 1.0→混合键合技术实现存储/逻辑分离→中国存储芯片最具原创性的技术创新。</td></tr><tr><td class="hl">2020 Xtacking 2.0 128层</td><td>追赶至国际主流水平。</td></tr><tr><td class="hl">2022 Xtacking 3.0 232层</td><td>达到国际一线水平(与三星/美光/海力士持平)。</td></tr><tr><td class="hl">2022 美国制裁</td><td>YMTC/CXMT被列入实体清单→限制先进设备获取。</td></tr><tr><td class="hl">2024 Xtacking 4.0</td><td>在制裁下依然推出294层(232有效层)3D NAND。CXMT量产DDR4/DDR5。</td></tr>
 </tbody></table>
 <div class="src">来源：YMTC/CXMT官方; TechInsights拆解分析; BIS联邦公报</div>
 </div>
 </div>
 
 <h2 id="sec-storage-events">📋 2.5 存储重大事件详表</h2>
-
-<div class="card-row">
+<div class="card-row-3 dense">
 <div class="card"><span class="tag ts">存储</span><span class="yr">1970</span><div class="ttl">Intel 1103：首款商用DRAM</div><div class="by">Intel | 1Kb, 10μm | 定价远低于磁芯存储器</div><div class="dsc"><p>1103是"改变计算机历史的芯片"——它将计算机主存从昂贵、笨重的磁芯存储器升级为半导体DRAM，体积缩小百倍，速度提升数十倍。1103是Intel第一个大获成功的产品，为Intel积累了早期资金和技术实力。1974年1103成为全球销量最大的半导体芯片。</p></div><div class="src">来源：Intel官方历史; IEEE Spectrum "25 Microchips That Shook the World"</div></div>
-
-<div class="card"><span class="tag ts">存储</span><span class="yr">1980</span><div class="ttl">惠普DRAM测试：日本品质碾压美国</div><div class="by">惠普对16K DRAM招标测试 | NEC/日立/富士通 vs Intel/TI/Mostek</div><div class="dsc"><p>测试结果震惊了全球半导体行业：美国DRAM的不合格率是日本的6-10倍。日本DRAM良率高30%、价格低60%。这一测试成为日本半导体崛起的标志性事件，也推动了Intel退出DRAM市场的决定。</p></div><div class="src">来源：惠普1980年内部质量测试报告; 《Chip War》Ch.7</div></div>
-
+<div class="card"><span class="tag ts">存储</span><span class="yr">1980</span><div class="ttl">惠普DRAM测试：日本品质碾压美国</div><div class="by">惠普对16K DRAM招标测试 | NEC/日立/富士通 vs Intel/TI/Mostek</div><div class="dsc"><p>测试结果震惊了全球半导体行业：美国DRAM的不合格率是日本的6-10倍。日本DRAM在良率与成本上全面领先。这一测试成为日本半导体崛起的标志性事件，也推动了Intel退出DRAM市场的决定。</p></div><div class="src">来源：惠普1980年内部质量测试报告; 《Chip War》Ch.7</div></div>
 <div class="card"><span class="tag ts">存储</span><span class="yr">1992</span><div class="ttl">三星成为全球最大DRAM厂商</div><div class="by">三星电子 | 逆周期投资策略</div><div class="dsc"><p>1983年宣布进军DRAM，不到10年即超越日本成为全球第一。逆周期投资策略被反复验证为存储器行业最有效的竞争策略——在行业低谷时扩大投资扩产，用资金优势挤垮竞争对手。</p></div><div class="src">来源：Samsung Semiconductor官方历史; 《Chip War》Ch.11-12</div></div>
-
+</div>
+<div class="card-row-3 dense">
 <div class="card"><span class="tag ts">存储</span><span class="yr">2013</span><div class="ttl">三星 V-NAND 24层：全球首款3D NAND量产</div><div class="by">三星电子</div><div class="dsc"><p>基于东芝2007年BiCS概念，三星率先将3D垂直堆叠NAND推向大规模量产。从24层起步，3D NAND开启了NAND容量增长的新范式——不再依赖制程缩微，而是通过增加堆叠层数来提升容量、降低成本。</p></div><div class="src">来源：Samsung Semiconductor 2013年报; TechInsights NAND分析</div></div>
-
-<div class="card"><span class="tag ts">存储</span><span class="yr">2023</span><div class="ttl">HBM3E：AI时代的"新石油"——SK海力士独家供应NVIDIA</div><div class="by">SK海力士 | NVIDIA H100/H200/HB200</div><div class="dsc"><p>AI大模型训练对GPU显存带宽需求飙升至>2TB/s。SK海力士凭借十多年的TSV技术积累，成为NVIDIA H100系列唯一的HBM3E供应商——每颗NVIDIA H100/H200 GPU搭载6颗HBM3/HBM3E（总容量80-141GB）。HBM业务使SK海力士在2024年市值和营收大幅增长。三星、美光在HBM3E上仍处于追赶状态。2025年HBM4预计带宽>1.6TB/s。</p></div><div class="src">来源：SK Hynix/NVIDIA 2024年报; GTC 2024-2025; IEEE ISSCC HBM论文</div></div>
-
-<div class="card"><span class="tag ts">存储</span><span class="yr">2022-2024</span><div class="ttl">长江存储 Xtacking 232层：中国存储的里程碑</div><div class="by">YMTC（长江存储）| Xtacking 3.0 架构</div><div class="dsc"><p>2022年YMTC率先量产232层3D NAND（Xtacking 3.0），达到国际一线水平，震惊全球存储行业。核心创新Cu-Cu Hybrid Bonding混合键合技术将存储阵列和CMOS逻辑分别制造在不同晶圆上再键合——这是非传统NAND厂商通过架构创新弯道超车的典型案例。美国2022年将YMTC列入实体清单，试图阻止其获取先进设备，但YMTC在制裁下依然在2024年推出Xtacking 4.0（300+层）。</p></div><div class="src">来源：YMTC官方; TechInsights YMTC 232L NAND拆解(2022); CSIS分析</div></div>
+<div class="card"><span class="tag ts">存储</span><span class="yr">2023</span><div class="ttl">HBM3E：AI时代的"新石油"——SK海力士独家供应NVIDIA</div><div class="by">SK海力士 | NVIDIA H100/H200/HB200</div><div class="dsc"><p>AI大模型训练对GPU显存带宽需求飙升至>2TB/s。SK海力士凭借十多年的TSV技术积累，成为NVIDIA H100系列唯一的HBM3E供应商——每颗NVIDIA H100/H200 GPU封装6个HBM堆栈位（H100=HBM3、启用80GB；H200=HBM3E、141GB）。HBM业务使SK海力士在2024年市值和营收大幅增长。三星、美光在HBM3E上仍处于追赶状态。2025年HBM4预计带宽>1.6TB/s。</p></div><div class="src">来源：SK Hynix/NVIDIA 2024年报; GTC 2024-2025; IEEE ISSCC HBM论文</div></div>
+<div class="card"><span class="tag ts">存储</span><span class="yr">2022-2024</span><div class="ttl">长江存储 Xtacking 232层：中国存储的里程碑</div><div class="by">YMTC（长江存储）| Xtacking 3.0 架构</div><div class="dsc"><p>2022年YMTC率先量产232层3D NAND（Xtacking 3.0），达到国际一线水平，震惊全球存储行业。核心创新Cu-Cu Hybrid Bonding混合键合技术将存储阵列和CMOS逻辑分别制造在不同晶圆上再键合——这是非传统NAND厂商通过架构创新弯道超车的典型案例。美国2022年将YMTC列入实体清单，试图阻止其获取先进设备，但YMTC在制裁下依然在2024年推出Xtacking 4.0（294层，其中232为有效存储层）。</p></div><div class="src">来源：YMTC官方; TechInsights YMTC 232L NAND拆解(2022); CSIS分析</div></div>
 </div>
 
 <h2 id="sec-storage-nodes">📊 2.6 存储制程演进总表</h2>
@@ -1015,7 +1018,7 @@ table.node-table.nopad .hl{font-size:12px}
 <tr><td>2020</td><td>DDR5 1znm</td><td><b>176层</b></td><td><b>美光率先/三星/海力士</b></td><td>★美光176层领先</td></tr>
 <tr><td>2022</td><td>DDR5 1αnm</td><td>232层</td><td>美光/海力士/<b>YMTC</b></td><td>CMOS-Under-Array,YMTC Xtacking 3.0</td></tr>
 <tr><td>2023</td><td>DDR5 1βnm</td><td><b>HBM3E</b></td><td>SK海力士(供NVIDIA)</td><td>★HBM3E AI训练核心</td></tr>
-<tr><td>2024</td><td>DDR5 1γnm</td><td>300+层</td><td>海力士/三星/YMTC</td><td>Hybrid Bonding,Xtacking 4.0</td></tr>
+<tr><td>2024</td><td>DDR5 1γnm</td><td>294-300+层</td><td>海力士/三星/YMTC</td><td>Hybrid Bonding,Xtacking 4.0</td></tr>
 <tr><td>2025</td><td>LPDDR6</td><td>HBM4 2048-bit</td><td>海力士/三星/美光</td><td>HBM4逻辑Die集成</td></tr>
 <tr><td>2026</td><td>DDR6</td><td><b>400+层</b></td><td>美光/海力士/YMTC</td><td>400层+超高密度</td></tr>
 </tbody></table>
@@ -1226,13 +1229,13 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <thead><tr><th>存储层级</th><th>传统服务器</th><th>AI服务器（8×H100为例）</th><th>倍数</th></tr></thead>
 <tbody>
 <tr><td><b>SRAM（片上缓存）</b></td><td>~300 MB</td><td><b>~2,500 MB</b></td><td><b>8-10×</b></td></tr>
-<tr><td><b>HBM（近存计算）</b></td><td>—（不存在）</td><td><b>~3,000 GB</b></td><td><b>全新层级</b></td></tr>
+<tr><td><b>HBM（近存计算）</b></td><td>—（不存在）</td><td><b>~640 GB</b>（8×80GB；若为8×H200则约1.1TB）</td><td><b>全新层级</b></td></tr>
 <tr><td><b>DRAM（系统内存）</b></td><td>~500 GB</td><td><b>~2,700 GB</b></td><td><b>4-5×</b></td></tr>
 <tr><td><b>NAND（SSD存储）</b></td><td>~5 TB</td><td><b>~20 TB</b></td><td><b>4×</b></td></tr>
 </tbody></table>
 <dl style="margin-top:12px">
 <dt>核心洞察</dt>
-<dd>HBM从0→3,000 GB：传统服务器没有HBM这一层，AI服务器整层凭空冒出来——这就是HBM厂"无中生有"的市场。HBM3占NVIDIA H100 GPU BOM的近50%，超过GPU die本身（27.5%）。</dd>
+<dd>HBM从0→约640 GB（8×H100；8×H200约1.1TB）：传统服务器没有HBM这一层，AI服务器整层凭空冒出来——这就是HBM厂"无中生有"的市场。HBM3占NVIDIA H100 GPU BOM的近50%，超过GPU die本身（27.5%）。</dd>
 </dl>
 </div></div>
 
@@ -1569,13 +1572,13 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <tr><td><b>HBM</b></td><td>同 DRAM（封装创新，非新机理）</td><td>DRAM die × 8-16 层 + TSV</td><td>~20ns / 超高带宽</td><td>无限</td><td>丢</td><td>AI 算力核心瓶颈</td></tr>
 <tr><td rowspan="4" class="hl">ROM 家族<br>（只读→可改）</td><td><b>Mask ROM</b></td><td>光罩阶段决定是否接通</td><td>1T（有/无连接）</td><td>~50ns / 不可写</td><td>—</td><td>留</td><td>已基本淘汰</td></tr>
 <tr><td><b>PROM / OTP</b></td><td>熔丝烧断（不可逆）</td><td>1T + 熔丝/反熔丝</td><td>~50ns / 一次</td><td>1 次</td><td>留</td><td>仍用于芯片 ID、密钥、trim 参数</td></tr>
-<tr><td><b>EPROM</b></td><td>浮栅电荷（紫外整片擦除）</td><td>1T 浮栅 + 石英窗</td><td>~100ns / 慢</td><td>~100 次</td><td>留</td><td>已淘汰</td></tr>
+<tr><td><b>EPROM</b></td><td>浮栅电荷（紫外整片擦除）</td><td>1T 浮栅 + 石英窗</td><td>~100ns / 慢</td><td>~100-1000 次</td><td>留</td><td>已淘汰</td></tr>
 <tr><td><b>EEPROM</b></td><td>浮栅电荷（电可按字节擦）</td><td>2T 浮栅</td><td>~200ns / ms 级</td><td>100 万次</td><td>留</td><td>车规参数存储仍在用</td></tr>
 <tr><td rowspan="2" class="hl">Flash</td><td><b>NOR Flash</b></td><td>浮栅电荷（并联位线）</td><td>1T 浮栅</td><td>~70ns / 慢<br><b>可 XIP</b></td><td>10 万次</td><td>留</td><td>代码存储，停在 45-65nm</td></tr>
 <tr><td><b>NAND Flash</b></td><td>浮栅 / 电荷陷阱（串联位线）</td><td>1T·可 3D 堆叠</td><td>25-100μs / 页写<br><b>不可 XIP</b></td><td>TLC ~1000 次</td><td>留</td><td>SSD 主力，已堆到 300+ 层</td></tr>
 <tr><td rowspan="4" class="hl">新型 NVM<br>（存算融合候选）</td><td><b>MRAM</b></td><td>磁性层磁矩平行/反平行</td><td>1T1MTJ</td><td>~10ns / ~10ns</td><td>10¹²+</td><td>留</td><td>已量产替代嵌入式 SRAM/Flash</td></tr>
 <tr><td><b>RRAM</b></td><td>氧空位细丝通/断</td><td>1T1R / 1S1R</td><td>~10ns / ~50ns</td><td>10⁶-10⁹</td><td>留</td><td><b>英飞凌 TC4x 已用于车规 MCU</b></td></tr>
-<tr><td><b>PCM</b></td><td>硫系材料晶态/非晶态</td><td>1S1R（含选通管）</td><td>~50ns / ~100ns</td><td>10⁸</td><td>留</td><td>3D XPoint 已退市，ST 用于车规</td></tr>
+<tr><td><b>PCM</b></td><td>硫系材料晶态/非晶态</td><td>1R（交叉点阵列为 1S1R）</td><td>~50ns / ~100ns</td><td>10⁸</td><td>留</td><td>3D XPoint 已退市，ST 用于车规</td></tr>
 <tr><td><b>FeRAM / FeFET</b></td><td>铁电极化方向</td><td>1T1C / 1T</td><td>~20ns / ~20ns</td><td>10¹⁰-10¹⁴</td><td>留</td><td>HfO₂ 铁电重新点火，小容量量产</td></tr>
 </tbody></table>
 <p><b>看这张表最关键的一条线索：</b>从上往下，存储机理从"<em>存电荷</em>"逐渐转向"<em>改变材料本身的物理状态</em>"。这不是审美偏好——<b>电荷存储在缩微中必然失效</b>（电子数量随体积线性减少，28nm 的 eFlash 单元只剩约 100 个电子），而磁矩、晶相、离子位置这些"状态量"不随尺寸缩小而变少。这正是 2020 年代后所有新型存储器的共同设计思路。</p>
@@ -1628,7 +1631,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </svg>
 <div class="anim-note">
 <p><b>原理：</b>两个反相器输出接对方输入，形成正反馈环。只要通电，节点电位就被对方持续"顶住"，状态自我维持，<b>不需要刷新、也不需要读出再写回</b>。因此读写都是纯逻辑门速度（亚纳秒）。</p>
-<p><b>工艺细节：</b>与 CPU 逻辑工艺完全同源，可直接跟随 5nm/3nm 缩微。但一个 bit 要 6 个晶体管，面积约为 DRAM 单元的 <b>60-100 倍</b>，这就是缓存做不大的根本原因。先进节点下 SRAM 面积缩小已明显放缓（所谓 "SRAM scaling wall"），是当前 GPU/CPU 面积成本的主要压力来源之一。</p>
+<p><b>工艺细节：</b>与 CPU 逻辑工艺完全同源，可直接跟随 5nm/3nm 缩微。但一个 bit 要 6 个晶体管，单元面积约为 DRAM 单元的 <b>6-15 倍</b>（按 F² 计：SRAM 约 120-150F²，DRAM 约 6-26F²；再叠加 DRAM 专用高密度工艺，实际每 GB 成本差距更大），这就是缓存做不大的根本原因。先进节点下 SRAM 面积缩小已明显放缓（所谓 "SRAM scaling wall"），是当前 GPU/CPU 面积成本的主要压力来源之一。</p>
 <div class="kv"><span class="good">最快</span><span class="good">无需刷新</span><span class="warn">面积最大</span><span class="warn">漏电功耗高</span><span class="warn">断电即失</span></div>
 </div>
 </div>
@@ -1694,11 +1697,11 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <table class="node-table nopad"><thead><tr><th style="width:14%">类型</th><th style="width:26%">写入方式</th><th>物理机理与工艺</th><th style="width:20%">为什么被淘汰/保留</th></tr></thead>
 <tbody>
 <tr><td class="hl">Mask ROM</td><td>制造时由<b>光罩</b>决定</td><td>某个单元位置上要么做出晶体管连接、要么不做。数据是"刻"在光罩里的。</td><td>改一个 bit 要重开光罩（数十万美元 + 数周）→ 被淘汰</td></tr>
-<tr><td class="hl">PROM / OTP<br>反熔丝</td><td>出厂后<b>烧一次</b></td><td>加高压把熔丝烧断（或把反熔丝的介质击穿形成永久导通）。<b>物理不可逆</b>。</td><td><b>仍在用</b>：芯片 ID、密钥根、模拟 trim 参数——正因为不可逆才安全</td></tr>
+<tr><td class="hl">PROM / OTP<br>熔丝 / 反熔丝</td><td>出厂后<b>烧一次</b></td><td>加高压把熔丝烧断（或把反熔丝的介质击穿形成永久导通）。<b>物理不可逆</b>。</td><td><b>仍在用</b>：芯片 ID、密钥根、模拟 trim 参数——正因为不可逆才安全</td></tr>
 <tr><td class="hl">EPROM</td><td>电写入 +<br><b>紫外光整片擦除</b></td><td>浮栅注入电子写入；擦除靠紫外线照射给电子足够能量越过氧化层势垒。封装上要开<b>石英窗</b>。</td><td>擦一次要拆下来照 20 分钟、且只能整片擦 → 被 EEPROM 取代</td></tr>
 <tr><td class="hl">EEPROM</td><td>电写入 +<br><b>电可按字节擦除</b></td><td>薄氧化层（~10nm）让电子可双向隧穿（Fowler-Nordheim 隧穿）。每单元多一个选择管（2T）以支持按字节操作。</td><td><b>车规仍在用</b>：里程表、标定参数、故障码——需要频繁改少量字节（可擦 100 万次）</td></tr>
 </tbody></table>
-<p><b>一条关键的技术分野：</b>EEPROM 和 Flash 的物理机理其实<b>完全相同</b>（都是浮栅 + 隧穿），区别只在<em>擦除粒度</em>——EEPROM 每个单元都配独立选择管，所以能按字节擦，代价是面积翻倍；Flash 砍掉了这个管子改为按扇区/块整体擦，面积减半、密度飙升。Flash 名字的来源就是"像闪光灯一样一次擦一大片"。这是一次典型的<b>用灵活性换密度</b>的取舍。</p>
+<p><b>一条关键的技术分野：</b>EEPROM 和 Flash <b>同属浮栅电荷存储、擦除都靠 F-N 隧穿</b>（写入侧则有差异：NAND 写/擦均用 F-N 隧穿，NOR 编程多用热电子注入 CHE），主要区别在<em>擦除粒度</em>——EEPROM 每个单元都配独立选择管，所以能按字节擦，代价是面积翻倍；Flash 砍掉了这个管子改为按扇区/块整体擦，面积减半、密度飙升。Flash 名字的来源就是"像闪光灯一样一次擦一大片"。这是一次典型的<b>用灵活性换密度</b>的取舍。</p>
 </div></div>
 
 <h3>2.8.3 Flash：浮栅、NOR/NAND 分野、以及 3D 堆叠</h3>
@@ -2183,7 +2186,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="ttl">美国开创：从晶闸管到功率MOSFET</div>
 <div class="by">GE / Westinghouse / International Rectifier</div>
 <div class="dsc">
-<p>1956年通用电气(GE)发明第一款晶闸管(SCR)，标志着功率半导体时代的开端。SCR可控制大电流开关，但无法自关断——是"半控型"器件。1975年IR(国际整流器公司)推出首款功率VDMOSFET，实现高频开关。美国企业主导了功率半导体的前25年。</p>
+<p>1956年贝尔实验室提出PNPN四层开关原理，1957年通用电气(GE)推出第一款商用晶闸管(SCR)，标志着功率半导体时代的开端。SCR可控制大电流开关，但无法自关断——是"半控型"器件。1975年IR(国际整流器公司)推出首款功率VDMOSFET，实现高频开关。美国企业主导了功率半导体的前25年。</p>
 <p><b>格局：</b>GE、Westinghouse、RCA、Motorola、IR五家美国公司占据功率半导体90%以上市场份额。<b>功率半导体的本质与逻辑芯片完全不同</b>——不是追求晶体管密度，而是追求<b>耐压(V)×电流(A)=功率(W)</b>的极限。</p>
 </div></div>
 
@@ -2191,7 +2194,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="ttl">日本崛起：IGBT商业化与功率模块时代</div>
 <div class="by">三菱电机 / 东芝 / 富士电机 / 日立</div>
 <div class="dsc">
-<p>1984年GE发明IGBT后，日本企业凭借在精密制造和模块封装上的优势迅速成为IGBT商业化的主力。三菱电机推出首款IPM智能功率模块(1989)，富士电机发明超结SJ-MOSFET(1997)。</p>
+<p>1982-83年GE发明IGBT后，日本企业凭借在精密制造和模块封装上的优势迅速成为IGBT商业化的主力。三菱电机推出首款IPM智能功率模块(1989)，富士电机发明超结SJ-MOSFET(1997)。</p>
 <p>日本在功率模块封装（DIPIPM、IGBT模块外壳散热、引线键合、银烧结等技术）上积累了大量核心专利，至今仍是全球功率模块技术最强的国家。三菱、富士电机、东芝、日立、罗姆五家日本公司长期占据全球功率半导体TOP20。</p>
 </div></div>
 
@@ -2207,7 +2210,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="ttl">中国功率半导体崛起：从追赶者到全球前十</div>
 <div class="by">士兰微 / 华润微 / 闻泰科技(Nexperia) / 比亚迪半导体 / 中车时代 / 斯达半导</div>
 <div class="dsc">
-<p>中国功率半导体在新能源汽车和光伏储能两大终端市场拉动下实现跨越式发展。士兰微2025年跻身全球功率分立器件第五（Omdia排名），成为首家中资全球TOP5功率厂商。比亚迪半导体自供IGBT+SiC模块彻底改变车规功率格局。中车时代在高铁/电网的超高压IGBT领域独占鳌头。</p>
+<p>中国功率半导体在新能源汽车和光伏储能两大终端市场拉动下实现跨越式发展。士兰微2025年跻身全球功率分立器件第五（据Omdia排名），成为首家中资全球TOP5功率厂商。比亚迪半导体自供IGBT+SiC模块彻底改变车规功率格局。中车时代在高铁/电网的超高压IGBT领域独占鳌头。</p>
 <p><b>差距与机会：</b>在高端SiC衬底（Wolfspeed/Coherent主导）、车规级模块可靠性、AI数据中心800V高压供电方案上仍落后海外3-5年。但在成熟硅基器件（二极管/低压MOS）的国产化率超70%，具备全球竞争力。</p>
 </div></div>
 
@@ -2223,7 +2226,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <h2 id="sec-power-breakthrough">🔬 3.3 功率器件六次重大突破（3D图解）</h2>
 
 <div class="d3-grid"><div class="d3-card" style="border-left:4px solid #2563eb">
-<div class="d3t">突破 #1：晶闸管 SCR (1956)</div>
+<div class="d3t">突破 #1：晶闸管 SCR (1956原理·1957商用)</div>
 <div class="d3m">General Electric | 首个可商业化的大功率固态开关 | 替代汞弧整流器和水银开关</div>
 <div class="d3-desc"><b>解决了什么？</b>20世纪50年代前，电力控制依靠继电器、汞弧整流器、水银开关和可变变压器——体积庞大、效率极低、机械磨损严重。GE的SCR(可控硅整流器)用固态半导体实现了大电流可控整流和开关。</div>
 <svg viewBox="0 0 720 140">
@@ -2239,7 +2242,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <text x="360" y="116" text-anchor="middle" font-size="8" fill="#94a3b8">导通后需外部电路强制关断→应用于交流电自然过零点关断</text>
 </svg>
 <div class="d3-lim">⚠ 半控型：只能控制导通，不能控制关断→需辅助换流电路→系统复杂。工作频率<400Hz。</div>
-<div class="d3-stats"><span class="d3-stat">PNPN四层</span><span class="d3-stat">半控型</span><span class="d3-stat">GE 1956</span><span class="d3-stat">kV/kA级</span></div>
+<div class="d3-stats"><span class="d3-stat">PNPN四层</span><span class="d3-stat">半控型</span><span class="d3-stat">贝尔1956→GE 1957</span><span class="d3-stat">kV/kA级</span></div>
 </div></div>
 
 <div class="d3-grid"><div class="d3-card" style="border-left:4px solid #7c3aed">
@@ -2263,7 +2266,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="d3-grid"><div class="d3-card" style="border-left:4px solid #f59e0b">
-<div class="d3t">突破 #3：IGBT (1984)</div>
+<div class="d3t">突破 #3：IGBT (1982发明·1983商用)</div>
 <div class="d3m">General Electric → 日本三菱/富士电机商业化 | MOSFET的电压控制 + BJT的低导通压降</div>
 <div class="d3-desc"><b>解决了什么？</b>MOSFET高压时电阻太大，BJT低导通压降但开关慢且需大驱动电流。IGBT将MOSFET的栅极和BJT的集电极-发射极结构结合→<b>MOSFET的简易驱动 × BJT的低导通损耗</b>。这是功率半导体历史上最重要的"杂交"器件。</div>
 <svg viewBox="0 0 720 140">
@@ -2280,7 +2283,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </svg>
 <div class="d3-sol">✅ 兼具MOSFET易驱动和BJT低导通损耗。600V-6500V全覆盖→变频器、电机驱动、高铁牵引、新能源发电的标准器件。</div>
 <div class="d3-lim">⚠ 关断时存在拖尾电流(少子复合慢)→关断损耗高于MOSFET→频率上限~20-50kHz。</div>
-<div class="d3-stats"><span class="d3-stat">MOS+BJT融合</span><span class="d3-stat">GE 1984</span><span class="d3-stat">600V-6500V</span><span class="d3-stat">变频器/牵引</span></div>
+<div class="d3-stats"><span class="d3-stat">MOS+BJT融合</span><span class="d3-stat">GE 1982-83</span><span class="d3-stat">600V-6500V</span><span class="d3-stat">变频器/牵引</span></div>
 </div></div>
 
 <div class="d3-grid"><div class="d3-card" style="border-left:4px solid #dc2626">
@@ -2318,7 +2321,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="d3-grid"><div class="d3-card" style="border-left:4px solid #059669">
 <div class="d3t">突破 #5：SiC MOSFET (2011—)</div>
 <div class="d3m">Cree(Wolfspeed)首款商用→ST 2018为Tesla Model 3供货→全行业跟进</div>
-<div class="d3-desc"><b>解决了什么？</b>硅材料已逼近物理极限(临界击穿场强0.3MV/cm)。碳化硅(SiC)的临界击穿场强是硅的10倍(3MV/cm)，热导率是硅的3倍，禁带宽度是硅的3倍。相同耐压下SiC MOSFET的漂移区厚度可减少90%→导通电阻降低100-1000倍。</div>
+<div class="d3-desc"><b>解决了什么？</b>硅材料已逼近物理极限(临界击穿场强0.3MV/cm)。碳化硅(SiC)的临界击穿场强是硅的10倍(3MV/cm)，热导率是硅的3倍，禁带宽度是硅的3倍。相同耐压下SiC MOSFET的漂移区厚度可减少90%→比导通电阻降低约100倍(两个数量级)。</div>
 <svg viewBox="0 0 720 130">
 <rect x="20" y="15" width="300" height="105" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
 <text x="170" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#dc2626">Si MOSFET 600V：厚漂移区</text>
@@ -2368,7 +2371,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="card"><span class="tag tu">美国</span><div class="ttl">美国：功率半导体的开创者 → IGBT原创 → SiC先驱</div>
 
 <table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
-<tr><td class="hl">1956 晶闸管SCR</td><td>GE发明→开启功率半导体时代。</td></tr><tr><td class="hl">1975-79 功率MOSFET</td><td>IR(国际整流器)推出首款VDMOSFET→开关电源革命。</td></tr><tr><td class="hl">1984 IGBT发明</td><td>GE的Baliga发明IGBT(获2014年IEEE荣誉勋章)→授日本企业商业化。</td></tr><tr><td class="hl">2011 SiC MOSFET量产</td><td>Cree(Wolfspeed)→全球首家SiC MOSFET商用。</td></tr><tr><td class="hl">2016 安森美收购Fairchild</td><td>$24亿→成为全球第二大功率半导体厂商。</td></tr><tr><td class="hl">2023 Wolfspeed纽约工厂</td><td>全球最大200mm SiC晶圆厂投产→年产能~100万片。</td></tr><tr><td class="hl">2025 TI推出集成GaN方案</td><td>800V数据中心电源→AI供电新赛道。</td></tr>
+<tr><td class="hl">1957 晶闸管SCR</td><td>贝尔1956提出PNPN原理→GE 1957首款商用品→开启功率半导体时代。</td></tr><tr><td class="hl">1975-79 功率MOSFET</td><td>IR(国际整流器)推出首款VDMOSFET→开关电源革命。</td></tr><tr><td class="hl">1982-83 IGBT发明</td><td>GE的Baliga发明IGBT(1982 IEDM首次演示、1983.6首款产品；获2014年IEEE荣誉勋章)→授日本企业商业化。</td></tr><tr><td class="hl">2011 SiC MOSFET量产</td><td>Cree(Wolfspeed)→全球首家SiC MOSFET商用。</td></tr><tr><td class="hl">2016 安森美收购Fairchild</td><td>$24亿→成为全球第二大功率半导体厂商。</td></tr><tr><td class="hl">2023 Wolfspeed纽约工厂</td><td>全球最大200mm SiC晶圆厂投产→年产能~100万片。</td></tr><tr><td class="hl">2025 TI推出集成GaN方案</td><td>800V数据中心电源→AI供电新赛道。</td></tr>
 </tbody></table>
 
 </div>
@@ -2400,20 +2403,16 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <!-- ====== POWER EVENTS ====== -->
 <h2 id="sec-power-events">📋 3.5 功率半导体重大事件</h2>
-
-<div class="card-row">
+<div class="card-row-3 dense">
 <div class="card"><span class="tag ts">功率</span><span class="yr">1956</span><div class="ttl">GE发明晶闸管(SCR)</div><div class="by">General Electric | 开启固态电力控制时代</div><div class="dsc"><p>第一个可商业化的大功率固态开关器件→替代汞弧整流器和水银开关。SCR至今仍在HVDC输电(800kV/5kA级)和工业加热中广泛使用。</p></div><div class="src">来源：GE历史档案; IEEE History Center</div></div>
-
-<div class="card"><span class="tag ts">功率</span><span class="yr">1984</span><div class="ttl">IGBT发明</div><div class="by">B. Jayant Baliga (General Electric) | MOSFET门控+BJT导通 = 最成功的功率器件融合</div><div class="dsc"><p>Baliga发明IGBT后，日本三菱和富士电机迅速实现了商业化。IGBT成为电机驱动、变频器、高铁牵引、新能源发电的核心器件。Baliga因此获2014年IEEE荣誉勋章(被誉为"IGBT之父")。全球IGBT市场规模2025年约$85亿。</p></div><div class="src">来源：Baliga, "The IGBT Device" (Elsevier, 2015); IEEE Medal of Honor 2014</div></div>
-
+<div class="card"><span class="tag ts">功率</span><span class="yr">1982—1985</span><div class="ttl">IGBT发明</div><div class="by">B. Jayant Baliga (General Electric) | MOSFET门控+BJT导通 = 最成功的功率器件融合</div><div class="dsc"><p>1982年12月 Baliga 在 IEDM 首次完整演示 IGBT 结构，1983年6月 GE 发布首款产品(D94FQ4/R4)，1985年起东苝チ三菱チ富士电机等日本企业迅速推进规模商业化。IGBT成为电机驱动、变频器、高铁牵引、新能源发电的核心器件。Baliga因此获2014年IEEE荣誉勋章(被誉为"IGBT之父")。全球IGBT市场规模2025年约$85亿。</p></div><div class="src">来源：Baliga, "The IGBT Device" (Elsevier, 2015); IEEE Medal of Honor 2014</div></div>
 <div class="card"><span class="tag ts">功率</span><span class="yr">1997</span><div class="ttl">超结MOSFET发明</div><div class="by">富士电机 | 突破硅材料"R×BV"理论极限线</div><div class="dsc"><p>通过在N-漂移区中嵌入P柱形成超结(Super Junction)结构，将电场从三角形变为矩形分布。相同耐压下导通电阻降低5-10倍。600-900V充电桩PFC和服务器电源的标准器件。英飞凌CoolMOS系列是SJ-MOSFET的代表产品。</p></div></div>
-
+</div>
+<div class="card-row-3 dense">
 <div class="card"><span class="tag ts">功率</span><span class="yr">2018</span><div class="ttl">特斯拉Model 3大批量采用SiC MOSFET</div><div class="by">ST意法半导体 | 车规SiC商业化元年</div><div class="dsc"><p>特斯拉在Model 3的逆变器中首次大批量采用ST的SiC MOSFET模块(每车24-48颗SiC MOSFET)→续航提升5-10%。这标志着SiC从"小批量高端应用"进入"百万辆级汽车量产"，彻底改变了功率半导体的产业格局。此后比亚迪、蔚来、小鹏等中国车企全面跟进800V SiC平台。</p></div><div class="src">来源：ST官方; Tesla Model 3逆向拆解(Munro & Associates, 2018)</div></div>
-
 <div class="card"><span class="tag ts">功率</span><span class="yr">2025</span><div class="ttl">AI数据中心800V HVDC供电标准确立</div><div class="by">英飞凌+英伟达合作 | GaN 300mm量产前夜</div><div class="dsc"><p>AI GPU集群功率突破100kW/机柜→48V供电无法满足kA级电流需求→800V高压直流(HVDC)成为确定方向。英飞凌与英伟达合作开发800V供电架构，SiC MOSFET负责AC-DC整流级(11kW PSU)，GaN HEMT负责DC-DC转换级。每GW数据中心对应功率半导体价值量从$80M→$180M+。英飞凌全球首发300mm GaN晶圆，预计2026底量产→GaN规模化元年。</p></div><div class="src">来源：英飞凌2025投资者日; Yole Group "Power Electronics for AI Data Centers" (2025)</div></div>
 </div>
 
-<!-- ====== POWER NODES TABLE ====== -->
 <h2 id="sec-power-nodes">📊 3.6 功率器件演进总表</h2>
 <div class="card">
 <div class="ttl">功率半导体不以"制程nm"衡量——以耐压(V)、电流(A)、开关频率(Hz)为性能指标</div>
@@ -2422,7 +2421,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <tbody>
 <tr><td>1956</td><td>SCR晶闸管</td><td>GE(美)</td><td>100V-8000V</td><td><400Hz</td><td>HVDC输电、工业加热</td></tr>
 <tr><td>1975</td><td>功率MOSFET(VDMOS)</td><td>IR(美)</td><td>50V-1000V</td><td>100kHz+</td><td>开关电源(SMPS)</td></tr>
-<tr><td>1984</td><td><b>★IGBT</b></td><td>GE→三菱(日)</td><td>600V-6500V</td><td>1-50kHz</td><td>变频器、电机驱动、高铁</td></tr>
+<tr><td>1982-83</td><td><b>★IGBT</b></td><td>GE→三菱(日)</td><td>600V-6500V</td><td>1-50kHz</td><td>变频器、电机驱动、高铁</td></tr>
 <tr><td>1989</td><td>IPM智能功率模块</td><td>三菱(日)</td><td>600V-1200V</td><td>5-20kHz</td><td>空调变频、工业伺服</td></tr>
 <tr><td>1997</td><td><b>★超结SJ-MOSFET</b></td><td>富士电机(日)</td><td>500V-900V</td><td>100kHz+</td><td>充电桩PFC、服务器电源</td></tr>
 <tr><td>2001</td><td>SiC肖特基二极管</td><td>英飞凌/Cree</td><td>600V-1700V</td><td>MHz级</td><td>光伏逆变器Boost</td></tr>
@@ -2525,7 +2524,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="ttl">日本崛起：精益生产 × 电子化双轮驱动</div>
 <div class="by">丰田·本田·日产 | Renesas(日立+三菱) | 东芝·富士通</div>
 <div class="dsc">
-<p>日本汽车工业在80年代末超越美国成为全球第一。丰田精益生产模式高度依赖电子化——Just-in-Time需要精确的ECU控制。日立的H8系列、三菱的M16C系列在日本车企中广泛采用。2003年日立与三菱半导体合并成立瑞萨(Renesas)，迅速成为全球最大车载MCU供应商。</p>
+<p>日本汽车工业在80年代末超越美国成为全球第一。丰田精益生产模式高度依赖电子化——Just-in-Time需要精确的ECU控制。日立的H8系列、三菱的M16C系列在日本车企中广泛采用。2003年日立与三菱半导体合并成立瑞萨科技(Renesas Technology)，2010年4月NEC电子并入后组成今日的瑞萨电子(Renesas Electronics)，并由此成为全球最大车载MCU供应商。</p>
 <p>日本车企的特殊性：垂直整合(丰田-电装-瑞萨铁三角)、长期供货协议(10年+)、MCU与整车同步开发。这使得外部MCU供应商极难打入日系供应链。</p></div>
 <div class="src">来源：Renesas公司历史; 丰田生产系统(TPS)文献; 日本半导体产业史</div></div>
 
@@ -2541,7 +2540,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="ttl">ARM架构入侵：从消费到车规的跨越</div>
 <div class="by">ARM(英) · NXP(荷) · TI(美) · ST(法) | Cortex-R5/R7/M7</div>
 <div class="dsc">
-<p>2011年ARM推出Cortex-R5——首款支持双核锁步(Lockstep)的实时处理器，天然满足ISO 26262 ASIL-D要求。这打破了Infineon TriCore和Renesas RH850的架构壁垒——车企可以用统一的ARM生态，降低软件移植成本。NXP S32K(基于Cortex-M4/M7)和S32G(基于Cortex-A53+M7)成为域控和网关MCU的标杆。</p>
+<p>2011年ARM推出Cortex-R5——首款把双核锁步(Lockstep)做成<b>标准化IP</b>的ARM实时处理器内核(锁步本身并非其首创，TriCore 1997 等已采用)，天然满足ISO 26262 ASIL-D要求。这打破了Infineon TriCore和Renesas RH850的架构壁垒——车企可以用统一的ARM生态，降低软件移植成本。NXP S32K(基于Cortex-M4/M7)和S32G(基于Cortex-A53+M7)成为域控和网关MCU的标杆。</p>
 <p><b>2021年全球缺芯：</b>新冠疫情+得州暴雪+瑞萨火灾三重打击→车规MCU短缺导致全球减产超1,100万辆汽车。MCU从"普通零部件"升级为"国家战略物资"。</p></div>
 <div class="src">来源：ARM Cortex-R技术白皮书; NXP S32平台; IHS Markit缺芯影响报告(2021)</div></div>
 
@@ -2565,7 +2564,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="d3-card" style="border-left:4px solid var(--pk)">
-<div class="d3t">突破 #2：CAN总线革命——从独立ECU到网络化 (1983)</div>
+<div class="d3t">突破 #2：CAN总线革命——从独立ECU到网络化 (1983研发·1986发布)</div>
 <div class="d3m">Bosch CAN 2.0 · ISO 11898 · 分布式控制成为可能</div>
 <svg viewBox="0 0 560 120"><rect x="20" y="35" width="100" height="55" rx="8" fill="#eff6ff" stroke="#93c5fd"/><text x="70" y="58" text-anchor="middle" font-size="10" font-weight="700" fill="#1e3a5f">Engine ECU</text><text x="70" y="74" text-anchor="middle" font-size="8" fill="#64748b">MCU #1</text><line x1="120" y1="62" x2="165" y2="62" stroke="#059669" stroke-width="2"/><rect x="165" y="20" width="160" height="85" rx="6" fill="#ecfdf5" stroke="#6ee7b7"/><text x="245" y="48" text-anchor="middle" font-size="10" font-weight="700" fill="#047857">CAN Bus</text><text x="245" y="65" text-anchor="middle" font-size="9" fill="#64748b">差分信号·双绞线</text><text x="245" y="82" text-anchor="middle" font-size="8" fill="#94a3b8">1Mbps·多主节点</text><line x1="325" y1="62" x2="370" y2="62" stroke="#059669" stroke-width="2"/><rect x="370" y="35" width="100" height="55" rx="8" fill="#eff6ff" stroke="#93c5fd"/><text x="420" y="58" text-anchor="middle" font-size="10" font-weight="700" fill="#1e3a5f">ABS ECU</text><text x="420" y="74" text-anchor="middle" font-size="8" fill="#64748b">MCU #2</text></svg>
 <div class="d3-sol"><b>解决方案：</b>CAN总线让多个ECU无需点对点连线即可实时共享数据，是汽车分布式架构的核心"神经系统"。到90年代末一辆豪华车拥有30-50个ECU、超过1,500个信号交互，全程依赖CAN网络。</div>
@@ -2608,7 +2607,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="card"><span class="tag tu">美国</span><div class="ttl">美国：MCU发明者 → 架构定义者 → 逐步失守制造</div>
 <div class="by">Intel(发明，已退出) → Motorola→Freescale→NXP(已被荷兰收购) → TI</div>
 <table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
-<tr><td class="hl">1978 车载MCU诞生</td><td>Intel 8048首次应用于GM电子点火，标志着汽车MCU时代开启。</td></tr><tr><td class="hl">1980-90 Motorola称霸</td><td>68HC11/68HC16系列成为全球车规MCU事实标准，市占>50%。</td></tr><tr><td class="hl">2004 Freescale独立</td><td>Motorola半导体剥离→Freescale，专注汽车+网络芯片。</td></tr><tr><td class="hl">2015 NXP收购Freescale</td><td>$118亿→荷兰公司接管美国MCU遗产，合并后成为全球最大车规MCU供应商。</td></tr><tr><td class="hl">2020s TI回归</td><td>TI Hercules(C2000)系列在底盘安全领域重建地位，2025市占回升至7.5%。</td></tr>
+<tr><td class="hl">1978 车载MCU诞生</td><td>Intel 8048首次应用于GM电子点火，标志着汽车MCU时代开启。</td></tr><tr><td class="hl">1980-90 Motorola称霸</td><td>68HC11/68HC16系列成为全球车规MCU事实标准，市占>50%。</td></tr><tr><td class="hl">2004 Freescale独立</td><td>Motorola半导体剥离→Freescale，专注汽车+网络芯片。</td></tr><tr><td class="hl">2015 NXP收购Freescale</td><td>$118亿→荷兰公司接管美国MCU遗产，合并后成为全球最大车规MCU供应商。</td></tr><tr><td class="hl">2020s TI回归</td><td>TI Hercules(TMS570/RM4x，Cortex-R锁步)系列在底盘安全领域重建地位，2025市占回升至7.5%。</td></tr>
 </tbody></table>
 
 </div>
@@ -2616,7 +2615,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="card"><span class="tag tj">日本</span><div class="ttl">日本：全球车企第一 → 全球MCU第一(Renesas)</div>
 <div class="by">瑞萨(日立+三菱合并) · 丰田-电装-瑞萨铁三角</div>
 <table class="node-table nopad"><thead><tr><th style="width:140px">年份/事件</th><th>要点</th></tr></thead><tbody>
-<tr><td class="hl">1983 日立H8进入汽车</td><td>丰田首次采用日立H8 MCU控制发动机，形成"丰田→电装→日立"垂直供应链。</td></tr><tr><td class="hl">1990s 三菱M16C</td><td>三菱M16C系列以低功耗和丰富外设成为亚洲车身控制首选MCU。</td></tr><tr><td class="hl">2003 ★瑞萨成立</td><td>日立+三菱半导体合并→Renesas。立即成为全球最大车规MCU供应商(市占>25%)。</td></tr><tr><td class="hl">2020s 守成期</td><td>中国市场国产替代加速+Infineon反超，Renesas保持#2地位但份额缓慢下滑至~17%。</td></tr>
+<tr><td class="hl">1983 日立H8进入汽车</td><td>丰田首次采用日立H8 MCU控制发动机，形成"丰田→电装→日立"垂直供应链。</td></tr><tr><td class="hl">1990s 三菱M16C</td><td>三菱M16C系列以低功耗和丰富外设成为亚洲车身控制首选MCU。</td></tr><tr><td class="hl">2003/2010 ★瑞萨成立</td><td>2003 日立+三菱半导体合并→瑞萨科技；2010 NEC电子并入→瑞萨电子。合并后成为全球最大车规MCU供应商(峰值市占>25%)。</td></tr><tr><td class="hl">2020s 守成期</td><td>中国市场国产替代加速+Infineon反超，Renesas保持#2地位但份额缓慢下滑至~17%。</td></tr>
 </tbody></table>
 
 </div>
@@ -2639,20 +2638,17 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <h2 id="sec-mcu-events">📋 4.5 车载MCU重大事件详表</h2>
-
-<div class="card-row">
+<div class="card-row-3 dense">
 <div class="card"><span class="tag ts">MCU</span><span class="yr">1978</span><div class="ttl">全球首款车载MCU应用：Intel 8048搭载于GM Oldsmobile</div><div class="by">Intel · General Motors | 汽车电子化元年</div><div class="dsc"><p>GM在Oldsmobile Toronado上引入基于Intel 8048单片机的电子点火控制系统(ECM)。这是汽车从机械控制走向电子控制的历史分水岭。8048集成了8位CPU、1KB ROM、64B RAM，在当时已属"高性能计算"。此后5年内，几乎所有美国车企都开始部署电子控制系统。</p></div><div class="src">来源：GM Heritage Center; Intel 8048 Datasheet</div></div>
-
-<div class="card"><span class="tag ts">MCU</span><span class="yr">1981</span><div class="ttl">博世发明CAN总线协议</div><div class="by">Robert Bosch GmbH | CAN 2.0 → ISO 11898</div><div class="dsc"><p>CAN(Controller Area Network)总线解决了多个ECU之间的实时数据通信问题。采用差分信号+多主节点架构，1Mbps速率满足汽车控制需求。CAN总线的出现使得汽车从"独立ECU"进化到"ECU网络"，是分布式架构的基石。至今CAN仍是汽车最核心的通信协议之一。</p></div><div class="src">来源：Bosch CAN Specification 2.0; ISO 11898标准</div></div>
-
+<div class="card"><span class="tag ts">MCU</span><span class="yr">1983—1986</span><div class="ttl">博世发明CAN总线协议</div><div class="by">Robert Bosch GmbH | 1983启动研发·1986 SAE正式发布·1991 CAN 2.0 → ISO 11898</div><div class="dsc"><p>CAN(Controller Area Network)总线解决了多个ECU之间的实时数据通信问题。采用差分信号+多主节点架构，1Mbps速率满足汽车控制需求。CAN总线的出现使得汽车从"独立ECU"进化到"ECU网络"，是分布式架构的基石。至今CAN仍是汽车最核心的通信协议之一。</p></div><div class="src">来源：Bosch CAN Specification 2.0; ISO 11898标准</div></div>
 <div class="card"><span class="tag ts">MCU</span><span class="yr">1997</span><div class="ttl">Infineon推出TriCore架构</div><div class="by">Infineon(西门子半导体) | 全球首款RISC+DSP+实时控制统一架构</div><div class="dsc"><p>TriCore将RISC指令集(高性能)、DSP单元(信号处理)和实时中断系统(延迟<1μs)融合到单核架构中，并首创硬件锁步核(Lockstep Core)实现ASIL-D级功能安全。这一架构奠定了Infineon在未来30年车载MCU市场的领导地位。至今Aurix TC3xx仍是最广泛使用的动力域MCU。</p></div><div class="src">来源：Infineon TriCore Architecture Manual; Infineon 2025投资者日</div></div>
-
-<div class="card"><span class="tag ts">MCU</span><span class="yr">2011</span><div class="ttl">ARM Cortex-R5发布——车规安全的"通用语言"</div><div class="by">ARM Ltd. | Cortex-R实时处理器系列</div><div class="dsc"><p>Cortex-R5是首款支持双核锁步的ARM架构实时处理器，天然符合ISO 26262 ASIL-D要求。它的发布意味着车企不必再被TriCore或RH850等专有架构"绑定"——ARM生态的编译器、调试器、RTOS和AUTOSAR MCAL都可以跨芯片供应商复用。这是车规MCU从"封闭专有"走向"开放生态"的关键转折。</p></div><div class="src">来源：ARM Cortex-R5 TRM; ISO 26262:2011</div></div>
-
+</div>
+<div class="card-row-3 dense">
+<div class="card"><span class="tag ts">MCU</span><span class="yr">2011</span><div class="ttl">ARM Cortex-R5发布——车规安全的"通用语言"</div><div class="by">ARM Ltd. | Cortex-R实时处理器系列</div><div class="dsc"><p>Cortex-R5是首款将双核锁步做成标准化IP的ARM架构实时处理器，天然符合ISO 26262 ASIL-D要求。它的发布意味着车企不必再被TriCore或RH850等专有架构"绑定"——ARM生态的编译器、调试器、RTOS和AUTOSAR MCAL都可以跨芯片供应商复用。这是车规MCU从"封闭专有"走向"开放生态"的关键转折。</p></div><div class="src">来源：ARM Cortex-R5 TRM; ISO 26262:2011</div></div>
 <div class="card"><span class="tag ts">MCU</span><span class="yr">2021</span><div class="ttl">全球汽车缺芯危机——MCU成为战略物资</div><div class="by">疫情+得州暴雪+瑞萨火灾 | 全球减产>1,100万辆</div><div class="dsc"><p>2021年三大黑天鹅事件叠加导致车规MCU全球断供：新冠疫情打乱供应链→得州冬季暴雪导致三星/NXP/Infineon工厂停产→瑞萨那珂工厂火灾(车载MCU核心产线)。全球车企减产超1,100万辆，直接损失>$210B。缺芯彻底重塑了车企对MCU供应链的认知——从"JIT采购"到"战略储备+多元供应+国产替代"。</p></div><div class="src">来源：IHS Markit; AlixPartners缺芯影响报告; 各车企年报(2021)</div></div>
-
 <div class="card"><span class="tag ts">MCU</span><span class="yr">2024</span><div class="ttl">国产ASIL-D车规MCU突破：国芯科技CCFC3007PT量产</div><div class="by">国芯科技(C*Core) · 对标英飞凌TC277</div><div class="dsc"><p>CCFC3007PT基于Power Architecture架构，通过ISO 26262 ASIL-D认证，进入Tier1供应商合格供方清单。主要应用于发电机控制(GCU)和部分VCU，是中国首款真正能对标国际巨头产品的动力域MCU。同期东风DF30全国产化MCU流片成功——CPU内核、晶圆制造、封装测试100%国产。</p></div><div class="src">来源：国芯科技官方公告; 东风汽车研发总院; 国家新能源汽车技术创新中心</div></div>
-
+</div>
+<div class="card-row-3 dense">
 <div class="card"><span class="tag ts">MCU</span><span class="yr">2026</span><div class="ttl">Infineon 36%份额垄断 + 中国国产化率冲刺15%</div><div class="by">Infineon · Renesas · NXP · 中国厂商(杰发/芯旺微/兆易/国芯)</div><div class="dsc"><p>Infineon凭借"功率+MCU+模拟+传感器+连接"全栈布局，在车规MCU市场形成36%的垄断地位(微芯从7.2%跌至3.4%近腰斩)。中国厂商在车身域MCU的国产化率达~47%，但动力底盘域仍只有5-10%。2026年国内车规MCU市场规模预计达~300亿元，32位产品占新订单的90%。</p></div><div class="src">来源：Infineon 2025年报; TechInsights; Omdia车载MCU排名(2025); 中国汽车工业协会</div></div>
 </div>
 
@@ -2961,7 +2957,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <table class="node-table"><thead><tr><th>厂商</th><th>系列</th><th>内核</th><th>制程</th><th>主频</th><th>Flash</th><th>安全等级</th><th>核心应用域</th><th>出货/状态</th></tr></thead>
 <tbody>
 <tr class="hl"><td colspan="9" style="background:#f1f5f9;font-weight:800;color:#1e3a5f">国际三巨头</td></tr>
-<tr><td rowspan="3"><b>Infineon<br/>(德)</b></td><td>AURIX TC3xx</td><td>TriCore 1.8<br/>自研·1~6核</td><td>28nm</td><td>300MHz</td><td>4MB</td><td>ASIL-D</td><td>动力总成·底盘·ADAS域控</td><td>大规模量产<br/>市场占有率最高</td></tr>
+<tr><td rowspan="3"><b>Infineon<br/>(德)</b></td><td>AURIX TC3xx</td><td>TriCore 1.8<br/>自研·1~6核</td><td>40nm</td><td>300MHz</td><td>4MB</td><td>ASIL-D</td><td>动力总成·底盘·ADAS域控</td><td>大规模量产<br/>市场占有率最高</td></tr>
 <tr><td>AURIX TC4xx</td><td>TriCore 2.0+PPU<br/>自研·含AI加速</td><td>16nm</td><td>500MHz</td><td>8MB</td><td>ASIL-D</td><td>跨域融合·AI推理</td><td>2025起量产<br/>面向中央计算</td></tr>
 <tr><td>Traveo II(CYT4)</td><td>Cortex-M4/M7<br/>ARM架构</td><td>40nm</td><td>160MHz</td><td>2MB</td><td>ASIL-B</td><td>车身·座舱外设</td><td>大规模量产</td></tr>
 <tr><td rowspan="2"><b>NXP<br/>(荷)</b></td><td>S32K3</td><td>Cortex-M7<br/>ARM·锁步可选</td><td>40nm</td><td>240MHz</td><td>8MB</td><td>ASIL-D</td><td>车身·BMS·OBC·网关</td><td>大规模量产<br/>全球车规MCU出货#1</td></tr>
@@ -3289,9 +3285,9 @@ if(stl){stl.style.minWidth='3400px';
 (function(){
 const S=1956,E=2026,R=(E-S),P=y=>((y-S)/R*100).toFixed(2);
 const dom=[{s:1956,e:1980,l:'美国开创(SCR/MOSFET)',c:'#2563eb'},{s:1980,e:2000,l:'日本崛起(IGBT/模块)',c:'#d97706'},{s:2000,e:2018,l:'欧洲反超(英飞凌登顶)',c:'#7c3aed'},{s:2018,e:2024,l:'SiC量产+中国崛起',c:'#059669'},{s:2024,e:2026,l:'AI供电革命',c:'#dc2626'},];
-const pDev=[{y:1956,t:'★SCR晶闸管',d:'GE发明',big:1},{y:1975,t:'功率MOSFET',d:'IR推出'},{y:1984,t:'★IGBT',d:'GE发明→日本量产',big:1},{y:1989,t:'IPM模块',d:'三菱'},{y:1997,t:'★SJ-MOSFET',d:'富士电机',big:1},{y:2011,t:'★SiC MOSFET',d:'Cree/Wolfspeed',big:1},{y:2018,t:'SiC上车',d:'Tesla M3·ST'},{y:2023,t:'200mm SiC',d:'Wolfspeed量产'},{y:2025,t:'800V HVDC AI',d:'英飞凌+英伟达',big:1},{y:2026,t:'★GaN 300mm',d:'英飞凌12英寸',big:1},];
+const pDev=[{y:1957,t:'★SCR晶闸管',d:'GE首款商用',big:1},{y:1975,t:'功率MOSFET',d:'IR推出'},{y:1983,t:'★IGBT',d:'GE发明→日本量产',big:1},{y:1989,t:'IPM模块',d:'三菱'},{y:1997,t:'★SJ-MOSFET',d:'富士电机',big:1},{y:2011,t:'★SiC MOSFET',d:'Cree/Wolfspeed',big:1},{y:2018,t:'SiC上车',d:'Tesla M3·ST'},{y:2023,t:'200mm SiC',d:'Wolfspeed量产'},{y:2025,t:'800V HVDC AI',d:'英飞凌+英伟达',big:1},{y:2026,t:'★GaN 300mm',d:'英飞凌12英寸',big:1},];
 const pApp=[{y:1956,t:'SCR',d:'工业加热/HVDC'},{y:1975,t:'SMPS开关电源',d:'PC/消费'},{y:1984,t:'电机驱动/变频',d:'工业/家电'},{y:2000,t:'光伏逆变器',d:'可再生能源',big:1},{y:2018,t:'★EV逆变器',d:'SiC量产元年',big:1},{y:2022,t:'AI数据中心',d:'800V供电',big:1},{y:2025,t:'固态变压器SST',d:'电网现代化'}];
-const pUS=[{y:1956,t:'GE SCR',d:'首创'},{y:1975,t:'IR MOSFET',d:'开关电源革命'},{y:1984,t:'GE IGBT',d:'Baliga发明'},{y:2011,t:'Cree SiC',d:'Wolfspeed'},{y:2016,t:'ON→Fairchild',d:'$24亿收购'},{y:2025,t:'TI+GaN',d:'AI供电'}];
+const pUS=[{y:1956,t:'GE SCR',d:'首创'},{y:1975,t:'IR MOSFET',d:'开关电源革命'},{y:1983,t:'GE IGBT',d:'Baliga发明'},{y:2011,t:'Cree SiC',d:'Wolfspeed'},{y:2016,t:'ON→Fairchild',d:'$24亿收购'},{y:2025,t:'TI+GaN',d:'AI供电'}];
 const pJP=[{y:1989,t:'★三菱IPM',d:'智能模块',big:1},{y:1997,t:'★富士SJ-MOS',d:'超结突破',big:1},{y:2005,t:'功率模块霸权',d:'全球TOP10占5席'},{y:2022,t:'罗姆SiC',d:'车规追赶'}];
 const pEU=[{y:1999,t:'★英飞凌独立',d:'西门子剥离',big:1},{y:2014,t:'→收购IR',d:'$30亿'},{y:2018,t:'★ST SiC供货Tesla',d:'SiC上车元年',big:1},{y:2025,t:'英飞凌+英伟达',d:'800V AI供电'},{y:2026,t:'★GaN 300mm',d:'英飞凌首发',big:1}];
 const pCN=[{y:2013,t:'起步',d:'二极管/低压MOS'},{y:2018,t:'比亚迪IGBT',d:'自研自供'},{y:2020,t:'中车高铁IGBT',d:'6500V国产化'},{y:2022,t:'★闻泰→安世',d:'全球布局',big:1},{y:2024,t:'★士兰微TOP5',d:'全球第五',big:1},{y:2026,t:'SiC模块量产',d:'800V EV标配'}];
@@ -3339,7 +3335,7 @@ const dom=[{s:1978,e:1997,l:'8/16位 · ECU萌芽',c:'#dc2626'},{s:1997,e:2011,l
 const mArch=[{y:1978,t:'★Intel 8048',d:'GM·首款车载MCU',big:1},{y:1983,t:'68HC11',d:'Motorola·8位'},{y:1986,t:'8051车规版',d:'Intel·经典8位'},{y:1990,t:'68HC16',d:'Motorola·16位'},{y:1995,t:'C166',d:'Infineon·16位'},{y:1997,t:'★TriCore',d:'Infineon·32位RISC+DSP',big:1},{y:2003,t:'Renesas成立',d:'日立+三菱合并'},{y:2005,t:'SH-2A',d:'Renesas'},{y:2011,t:'★Cortex-R5',d:'ARM·锁步核ASIL-D',big:1},{y:2015,t:'NXP S32K1',d:'ARM Cortex-M4'},{y:2018,t:'★Aurix TC3xx',d:'6核异构·域控MCU',big:1},{y:2020,t:'RH850 U2A',d:'Renesas·跨域'},{y:2024,t:'★CCFC3007PT',d:'国芯·ASIL-D国产替代',big:1},{y:2025,t:'东风DF30流片',d:'100%国产化'},{y:2026,t:'AoSiP/RISC-V',d:'新架构验证',big:1},];
 const mBus=[{y:1981,t:'★CAN总线',d:'Bosch·ISO 11898',big:1},{y:1998,t:'LIN总线',d:'低成本子网'},{y:2001,t:'FlexRay',d:'BMW·高速安全'},{y:2008,t:'MOST',d:'多媒体光纤'},{y:2013,t:'车载以太网',d:'100Base-T1'},{y:2020,t:'CAN FD',d:'8Mbps'},{y:2022,t:'TSN以太网',d:'域控骨干网'}];
 const mSafety=[{y:2005,t:'ISO 26262草案',d:'功能安全标准'},{y:2011,t:'★ISO 26262:2011',d:'ASIL定义发布',big:1},{y:2018,t:'★ISO 26262:2018',d:'第二版·半导体扩展',big:1},{y:2020,t:'UNECE R155',d:'强制网络安全',big:1},{y:2023,t:'R156 SW更新',d:'OTA强制规范'}];
-const mUS_mcu=[{y:1978,t:'★首款车载MCU',d:'Intel 8048+GM',big:1},{y:1985,t:'Motorola称霸',d:'68HC11/16'},{y:1998,t:'TI Hercules',d:'C2000·底盘安全'},{y:2004,t:'Freescale独立',d:'Motorola半导体剥离'},{y:2015,t:'★NXP收购Freescale',d:'$118亿·全球第一',big:1}];
+const mUS_mcu=[{y:1978,t:'★首款车载MCU',d:'Intel 8048+GM',big:1},{y:1985,t:'Motorola称霸',d:'68HC11/16'},{y:1998,t:'TI Hercules',d:'TMS570·底盘安全'},{y:2004,t:'Freescale独立',d:'Motorola半导体剥离'},{y:2015,t:'★NXP收购Freescale',d:'$118亿·全球第一',big:1}];
 const mJP_mcu=[{y:1983,t:'日立H8进汽车',d:'丰田采用'},{y:1995,t:'三菱M16C',d:'亚洲车身首选'},{y:2003,t:'★Renesas成立',d:'日立+三菱→全球#1',big:1},{y:2022,t:'份额缓慢下滑',d:'Infineon反超'}];
 const mEU_mcu=[{y:1997,t:'★TriCore诞生',d:'Infineon·30年统治',big:1},{y:2006,t:'NXP独立',d:'飞利浦剥离'},{y:2015,t:'★Infineon登顶#1',d:'超越Renesas',big:1},{y:2018,t:'Aurix TC3xx',d:'动力域标配'},{y:2025,t:'★36%份额垄断',d:'全栈布局',big:1}];
 const mCN_mcu=[{y:2016,t:'杰发科技成立',d:'联发科车规MCU'},{y:2020,t:'★芯旺微自研内核',d:'KungFu架构',big:1},{y:2022,t:'兆易GD32车规',d:'ARM Cortex-M'},{y:2024,t:'★CCFC3007PT量产',d:'ASIL-D·动力域突破',big:1},{y:2025,t:'★东风DF30流片',d:'100%国产化',big:1},{y:2026,t:'RISC-V车规',d:'多厂家验证中'}];
