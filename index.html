@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v4.4 | 2026-09-18 | 口径校正: 5nm密度标注HD/HP库, Intel10nm密度加库限定, 微芯/长鑫份额去过度精度, 长鑫2026Q1加未审计前瞻声明 -->
+<!-- version: v4.5 | 2026-09-18 | MCU原厂核实: TC4x RRAM 20MB/25MB双口径并存, Renesas补Fin-MONOS 16-14nm, S32Z主频改最高1GHz, 19MB SRAM标注待官方确认, Stellar补28nm FD-SOI+PCM xMemory -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -1928,7 +1928,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <div class="anim-card">
 <div class="at">RRAM · 氧空位导电细丝的生成与断开</div>
-<div class="am">英飞凌 AURIX TC4x 已把它用到车规 MCU（台积电 28nm、20MB）</div>
+<div class="am">英飞凌 AURIX TC4x 已把它用到车规 MCU（台积电 28nm；2022 公告 20MB RRAM，系列口径为多达 25MB 片上 NVM）</div>
 <svg viewBox="0 0 520 210">
   <rect x="0" y="0" width="520" height="210" fill="#fcfdfe"/>
   <text x="260" y="20" text-anchor="middle" font-size="11.5" font-weight="800" fill="#9d174d">金属–氧化物–金属（MIM）结构</text>
@@ -2151,7 +2151,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <tr><td class="hl">NOR Flash</td><td>并联结构接触孔占面积</td><td><b>主动停在 45-65nm</b></td><td>不追先进制程，靠可 XIP + 高可靠守代码存储。车规与 MCU 外挂需求稳定，<b>属于"不缩微也能活"的典型</b>。</td></tr>
 <tr><td class="hl">NAND Flash</td><td>高深宽比刻蚀、薄膜应力、晶圆键合</td><td>300+ 层量产</td><td>层数向 500-1000 推进；TLC→QLC→PLC；<b>瓶颈已从光刻转为制造工程</b>，越来越依赖主控纠错兜住可靠性。</td></tr>
 <tr><td class="hl">MRAM</td><td>MgO 层 ~1nm 均匀性、磁性材料产线</td><td><b>已量产（22-28nm eMRAM）</b></td><td>嵌入式替代 eFlash/SRAM 最成熟的一条；SOT-MRAM 冲击缓存层级。<b>确定性最高。</b></td></tr>
-<tr><td class="hl">RRAM</td><td>细丝随机性导致离散度大</td><td><b>已进车规（TC4x 28nm 20MB）</b></td><td>28nm 以下嵌入式 NVM 主力候选；因电阻可连续调节，是<b>存内计算</b>头号器件。</td></tr>
+<tr><td class="hl">RRAM</td><td>细丝随机性导致离散度大</td><td><b>已进车规（TC4x 台积电28nm；20MB RRAM／系列NVM多达25MB）</b></td><td>28nm 以下嵌入式 NVM 主力候选；因电阻可连续调节，是<b>存内计算</b>头号器件。</td></tr>
 <tr><td class="hl">PCM</td><td>热隔离、高温自结晶</td><td>独立产品线退市，车规嵌入式在用</td><td>大容量 SCM 路线已被证伪；留在嵌入式车规与神经形态计算。</td></tr>
 <tr><td class="hl">FeRAM / FeFET</td><td>极化疲劳、保持与耐久权衡</td><td>小容量量产，FeFET 研发中</td><td>HfO₂ 铁电让其重回主线，写入能量最低是杀手级优势；<b>能否做大容量仍未验证。</b></td></tr>
 </tbody></table>
@@ -2726,8 +2726,8 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <tr><td>上下文切换</td><td><b>CSA链表硬件保存</b><br>中断进入&lt;1μs·零软件开销</td><td>硬件寄存器组切换<br>+EIINT快速向量</td><td>软件保存为主<br>+硬件向量表</td><td>M:硬件压栈+尾链<br>R:软件保存</td><td>软件保存(CLIC可选)</td></tr>
 <tr><td>DSP / 向量</td><td>原生MAC+饱和运算<br>TC4x加<b>PPU(SIMD·AI)</b></td><td>G4MH双发射+FPU<br>+DSP指令；U2B含DFP</td><td>SPE信号处理扩展<br>单精度向量</td><td>M4/M7 DSP+FPU<br>M55 Helium向量</td><td>P/V扩展(标准未定)</td></tr>
 <tr><td>ASIL-D实现</td><td>Lockstep Checker核<br>（延迟周期比对）</td><td>双核锁步 +<br><b>ICU-M 安全模块</b></td><td>双核锁步<br>(MPC574x/SPC58)</td><td>R5/R52原生双核锁步<br>M7需厂商自建</td><td>需厂商自建<br>无标准安全方案</td></tr>
-<tr><td>旗舰规格</td><td>TC4x: ~500MHz × 6核+</td><td>U2B: ~400MHz × 8核</td><td>SPC58: ~200MHz × 3核</td><td>S32Z: R52 × 8核 @1GHz</td><td>200-400MHz(验证中)</td></tr>
-<tr><td>eFlash自主性</td><td>28nm eFlash(TSMC)<br>+ <b>TC4x 引入RRAM 20MB</b></td><td><b>自有SG-MONOS</b><br>28nm 车规量产</td><td>依赖代工厂eFlash<br>(TSMC/GF/三星)</td><td>ARM不含存储<br>由MCU厂自配</td><td>依赖SST/代工IP</td></tr>
+<tr><td>旗舰规格</td><td>TC4x: ~500MHz × 6核+</td><td>U2B: ~400MHz × 8核</td><td>SPC58: ~200MHz × 3核</td><td>S32Z/E: R52 × 8核<br>最高1GHz(600MHz-1GHz)</td><td>200-400MHz(验证中)</td></tr>
+<tr><td>eFlash自主性</td><td>28nm eFlash(TSMC)<br>+ <b>TC4x 引入RRAM</b><br>(20MB RRAM／系列NVM≤25MB)</td><td><b>自有SG-MONOS</b><br>28nm 车规量产<br>(已验证Fin-MONOS至16/14nm)</td><td>依赖代工厂eFlash<br>(TSMC/GF/三星)</td><td>ARM不含存储<br>由MCU厂自配</td><td>依赖SST/代工IP</td></tr>
 <tr><td>生态成熟度</td><td>★★★★★(30年)</td><td>★★★★★(30年·日系最深)</td><td>★★★★☆(20年)</td><td>★★★★☆(15年·最广)</td><td>★★☆☆☆(验证中)</td></tr>
 <tr><td>工具链</td><td>HighTec/TASKING<br>Green Hills($$$)</td><td><b>CS+/CC-RH(自家封闭)</b><br>Green Hills/IAR</td><td>S32DS/CodeWarrior<br>GHS/Diab</td><td>Keil/IAR/GCC/LLVM<br>(选择最多)</td><td>GCC/LLVM<br>(免费但需自证)</td></tr>
 <tr><td>市占率(2025，按厂商)</td><td>~36%(英飞凌整体)</td><td>~17%(瑞萨整体)</td><td>NXP+ST高端线存量</td><td>广泛(NXP/TI/ST/国产)</td><td>&lt;1%</td></tr>
@@ -2965,7 +2965,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <tr><td>S32G(网关)</td><td>Cortex-A53+M7<br/>多核异构</td><td>16nm<br/>FinFET</td><td>1GHz+</td><td>—</td><td>ASIL-D</td><td>高性能网关·域控</td><td>大规模量产</td></tr>
 <tr><td rowspan="2"><b>Renesas<br/>(日)</b></td><td>RH850 U2A/U2B</td><td>RH850 G4MH<br/>自研·多核</td><td>28nm</td><td>400MHz</td><td>16MB</td><td>ASIL-D</td><td>底盘·EPS·车身·域控</td><td>大规模量产<br/>日系车企标配</td></tr>
 <tr><td>RH850 F/P系列</td><td>RH850<br/>自研·单/多核</td><td>40nm</td><td>80-320MHz</td><td>2-8MB</td><td>ASIL-D</td><td>车身·发动机·变速箱</td><td>全球最大装机量</td></tr>
-<tr><td><b>ST<br/>(法/意)</b></td><td>Stellar SR6</td><td>Cortex-R52+<br/>ARM·多核锁步</td><td>28nm</td><td>500MHz</td><td>20MB</td><td>ASIL-D</td><td>域控·动力·ADAS</td><td>2024起量产<br/>配套欧系车企</td></tr>
+<tr><td><b>ST<br/>(法/意)</b></td><td>Stellar SR6</td><td>Cortex-R52/R52+<br/>ARM·锁步+分核可配</td><td>28nm FD-SOI</td><td>最高600MHz</td><td>PCM(xMemory)<br/>家族≤40MB+</td><td>ASIL-D</td><td>域控·动力·ADAS</td><td>2024起量产<br/>配套欧系车企</td></tr>
 <tr class="hl"><td colspan="9" style="background:#f1f5f9;font-weight:800;color:#1e3a5f">国产四强</td></tr>
 <tr><td><b>芯驰科技</b></td><td>E3系列<br/>E3650(旗舰)</td><td>Cortex-R5/R52+<br/>ARM·6核</td><td>22nm<br/>台积电车规</td><td>600~800MHz</td><td>16MB</td><td>ASIL-D</td><td>线控底盘·BMS·ADAS<br/>区域控制器·域控</td><td>累计>500万片<br/>覆盖60+车型<br/>2025年国产#1</td></tr>
 <tr><td><b>杰发科技<br/>(AutoChips)</b></td><td>AC78xx系列</td><td>Cortex-M4F<br/>ARM</td><td>55nm</td><td>120MHz</td><td>1MB</td><td>ASIL-B</td><td>车身(BCM·PEPS·TPMS)</td><td>出货>1000万颗<br/>吉利/长城/比亚迪</td></tr>
@@ -2989,8 +2989,8 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <tr><td><b>40nm</b></td><td>勉强可行·成本上升</td><td>15-20年</td><td>5-10万次</td><td>8-10层</td><td>NXP S32K3·Renesas RH850<br/>ST SPC5·GD32A7·东风DF30</td></tr>
 <tr><td class="hl"><b>28nm</b></td><td class="hl">临界点·每个单元仅~100电子</td><td class="hl">需特殊加固</td><td class="hl">3-5万次</td><td class="hl">10-12层</td><td class="hl">Infineon TC3xx·Renesas U2A/B<br/>ST Stellar SR6</td></tr>
 <tr><td class="hl"><b>22nm</b></td><td class="hl">极困难·代工厂特殊工艺</td><td class="hl">需新型NVM替代</td><td class="hl">—</td><td class="hl">新型存储</td><td class="hl">芯驰E3650(台积电22nm车规)</td></tr>
-<tr><td class="hl"><b>28nm 新型NVM</b></td><td class="hl">eFlash已到经济极限<br/>转RRAM/MRAM</td><td class="hl">对标Flash水平</td><td class="hl">可bit级写入<br/>无需先擦除</td><td class="hl">少于eFlash</td><td class="hl"><b>Infineon TC4x: 台积电28nm RRAM 20MB</b><br/>ST Stellar: PCM(相变存储)</td></tr>
-<tr><td class="hl"><b>16nm FinFET</b></td><td class="hl">eFlash物理不可行</td><td class="hl">只能外挂Flash<br/>或新型NVM</td><td class="hl">—</td><td class="hl">纯逻辑工艺</td><td class="hl"><b>NXP S32Z/S32E: 无内置Flash</b><br/>19MB SRAM + 外挂QSPI Flash<br/>NXP S32G(网关·同样外挂)</td></tr>
+<tr><td class="hl"><b>28nm 新型NVM</b></td><td class="hl">eFlash已到经济极限<br/>转RRAM/MRAM</td><td class="hl">对标Flash水平</td><td class="hl">可bit级写入<br/>无需先擦除</td><td class="hl">少于eFlash</td><td class="hl"><b>Infineon TC4x: 台积电28nm RRAM</b>(20MB RRAM／系列NVM多达25MB)<br/>ST Stellar: 28nm FD-SOI + PCM(xMemory)</td></tr>
+<tr><td class="hl"><b>16nm FinFET</b></td><td class="hl">eFlash物理不可行</td><td class="hl">只能外挂Flash<br/>或新型NVM</td><td class="hl">—</td><td class="hl">纯逻辑工艺</td><td class="hl"><b>NXP S32Z/S32E: 无内置Flash</b><br/>大容量片上SRAM(约19MB，二手来源待官方确认) + 外挂QSPI Flash<br/>NXP S32G(网关·同样外挂)</td></tr>
 </tbody></table>
 <p><b>为什么eFlash是车规MCU制造的最大壁垒？</b></p>
 <p>① <b>物理机理：</b>Flash通过将电子"压"进浮栅层的绝缘氧化物(氧化硅)中存储数据。制程越小→绝缘层越薄→电子越容易泄漏。到28nm节点，每个存储单元只剩下约100个电子来维持一个bit——任何温度/电压波动都可能让数据出错。在-40°C~150°C车规温度范围下，电子泄漏呈指数级加速。</p>
@@ -3000,8 +3000,8 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <p><b>三条现实路线已经分叉（这是当前最值得盯的分水岭）：</b></p>
 <table class="node-table"><thead><tr><th style="width:22%">厂商·产品</th><th style="width:26%">路线选择</th><th>含义与代价</th></tr></thead>
 <tbody>
-<tr><td class="hl">Infineon<br/>AURIX TC4x</td><td><b>坚持片内，换存储介质</b><br/>台积电28nm <b>RRAM</b>、20MB<br/>(早期样品仍为28nm eFlash)</td><td>保住"程序就在片上"的安全与实时模型，客户软件架构无需改。代价是绑定台积电 RRAM 特殊工艺、靠 10 年联合研发换来的先发优势。</td></tr>
-<tr><td class="hl">NXP<br/>S32Z / S32E / S32G</td><td><b>放弃内置NVM</b><br/>16nm 纯逻辑工艺<br/>19MB SRAM + 外挂QSPI Flash</td><td>换来了 8×Cortex-R52 @1GHz 的算力和先进工艺成本。代价：启动需将代码从外部Flash搜进 SRAM，启动时间和硬实时模型全部重构；只适用于“区控/域控”而<em>不适用于气囊、EPS、BMS 这类必须毫秒级上电就工作的节点</em>。</td></tr>
+<tr><td class="hl">Infineon<br/>AURIX TC4x</td><td><b>坚持片内，换存储介质</b><br/>台积电28nm <b>RRAM</b>：2022公告 20MB RRAM，<br/>TC4x 系列口径「多达 25MB 片上 NVM」<br/>(早期样品仍为28nm eFlash)</td><td>保住"程序就在片上"的安全与实时模型，客户软件架构无需改。代价是绑定台积电 RRAM 特殊工艺、靠 10 年联合研发换来的先发优势。</td></tr>
+<tr><td class="hl">NXP<br/>S32Z / S32E / S32G</td><td><b>放弃内置NVM</b><br/>16nm 纯逻辑工艺<br/>大容量片上SRAM(约19MB，待官方确认)<br/>+ 外挂QSPI Flash</td><td>换来了 8×Cortex-R52（最高1GHz）的算力和先进工艺成本。代价：启动需将代码从外部Flash搜进 SRAM，启动时间和硬实时模型全部重构；只适用于“区控/域控”而<em>不适用于气囊、EPS、BMS 这类必须毫秒级上电就工作的节点</em>。</td></tr>
 <tr><td class="hl">Renesas<br/>RH850 U2A/U2B</td><td><b>自有存储工艺撑到极限</b><br/>28nm 自研 MONOS eFlash</td><td>唯一把大容量(十几MB)eFlash 做在 28nm 并量产的厂商。代价是必须自建 IDM 产线、往下一代迁移同样会撞墙。</td></tr>
 <tr><td class="hl">ST<br/>Stellar</td><td>28nm <b>PCM</b>(相变存储)</td><td>ST 在 PCM 上有历史积累，支持 OTA 双库并行写入。代价是生态孤立、且 PCM 对高温保持特性需额外加固。</td></tr>
 <tr><td class="hl">国产阵营</td><td>40/55nm eFlash 为主<br/>芯驰E3650 走台积电22nm</td><td>28nm 以下的 eFlash 和新型 NVM 基本无自主选项，路线选择权在代工厂手里。</td></tr>
@@ -3014,7 +3014,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <p>这是整个 eFlash 问题最容易被跟过的一步：既然 28nm 以下 eFlash 这么难，那为什么不像手机 SoC 一样，把程序存在外面一颗便宜的 NOR/NAND Flash 里？答案不是"厂商懒"，而是<b>六个硬约束同时成立</b>。</p>
 <table class="node-table"><thead><tr><th style="width:18%">约束</th><th style="width:38%">片内 eFlash</th><th>片外独立 Flash</th></tr></thead>
 <tbody>
-<tr><td class="hl">① 执行模式<br/>（最根本）</td><td><b>XIP 就地执行</b>：CPU 通过内部总线直接从 Flash 取指，位宽 128-256bit、延迟几个周期，还有 Flash 预取缓存。<b>永远不需要把代码拷到 RAM。</b></td><td>外部 QSPI/Octal-SPI 位宽只有 1-8bit、序列传输，直接 XIP 取指会把 CPU 饿死。实际做法只能是启动时<b>把几MB代码整体搜进片内 SRAM</b>→必须配大容量 SRAM(S32Z 就放了 19MB)，而 SRAM 硅面积单位成本远高于 Flash。</td></tr>
+<tr><td class="hl">① 执行模式<br/>（最根本）</td><td><b>XIP 就地执行</b>：CPU 通过内部总线直接从 Flash 取指，位宽 128-256bit、延迟几个周期，还有 Flash 预取缓存。<b>永远不需要把代码拷到 RAM。</b></td><td>外部 QSPI/Octal-SPI 位宽只有 1-8bit、序列传输，直接 XIP 取指会把 CPU 饿死。实际做法只能是启动时<b>把几MB代码整体搜进片内 SRAM</b>→必须配大容量 SRAM(S32Z 约 19MB，该数字来自二手资料、待官方数据手册确认)，而 SRAM 硅面积单位成本远高于 Flash。</td></tr>
 <tr><td class="hl">② 启动时间</td><td>上电到第一条指令 <b>&lt;1ms</b>，完成安全自检后数 ms 就能控制输出。</td><td>搜运几 MB 代码需 <b>数十至上百 ms</b>。而汽车硬指标：CAN 唤醒后 50-100ms 必须上网络、气囊/制动控制器要求上电即刻可用。<b>这一项就直接判死了大量安全节点。</b></td></tr>
 <tr><td class="hl">③ 实时确定性</td><td>取指廲时固定可算，中断延迟可以做最坏情况分析(WCET)→这是 ASIL-D 时序论证的前提。</td><td>外部总线仲裁、缓存未命中、Flash 内部擦除挂起都会引入<b>不确定的百μs 级抖动</b>。发动机喷油正时、电机 FOC 环路算不起这个延迟。</td></tr>
 <tr><td class="hl">④ 功能安全<br/>（ISO 26262）</td><td>Flash 阵列、ECC、读取通路全在芯片内部，故障模式可控、诊断覆盖率容易做到 &gt;99%。</td><td>片外走线引入全新失效源：焊点开路、接触不良、串扰、总线卡死。<b>每一根信号线都要单独做 FMEDA 并补上诊断机制</b>，体系性与随机硬件失效率都恶化。</td></tr>
@@ -3057,7 +3057,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <tr><td class="hl">NAND Flash</td><td><b>制造工程极限</b>（深孔刻蚀·应力·单元电子数）</td><td><b>已经换了赛道。</b>2013 年起不再缩微线宽，改为垂直堆叠层数 + 晶圆键合，因此还能持续降成本。</td></tr>
 </tbody></table>
 <p><b>最关键的一点差异：</b>NAND 的可靠性是<em>系统级兜住的</em>——它本身耐久只有千次量级、常温保持只有几年，靠主控 LDPC 纠错、磨损均衡、定期刷新才能用；而<b>eFlash 的可靠性必须是器件本身兜住的</b>——车子停在车库半年断电不刷新，上电必须立即读到正确代码，而且要在 150°C 下撑 15-20 年。这才是 eFlash 真正无法绵开的地方，也是为什么它的车规可靠性数据库需要积累 20 年、无法用钱购买。</p>
-<div class="src">来源：Infineon/TSMC RRAM 联合公告(2022.11、AURIX TC4x 20MB RRAM @28nm)、NXP S32Z2/S32E2 产品资料（16nm·19MB SRAM·外挂Flash）、Renesas MONOS eFlash 技术资料、Yole “Emerging NVM” 报告、JEDEC JESD47/JESD22 数据保持与耐久标准、AEC-Q100 Grade 0/1</div>
+<div class="src">来源：Infineon/TSMC RRAM 联合公告(2022.11，AURIX TC4x 20MB RRAM @28nm；英飞凌峰会口径「多达25MB片上NVM」)、NXP S32Z2/S32E2 产品资料（16nm·无内置eFlash·外挂Flash+大容量SRAM；19MB 为二手来源，待官方数据手册确认）、Renesas SG-MONOS eFlash 技术资料、Yole “Emerging NVM” 报告、JEDEC JESD47/JESD22 数据保持与耐久标准、AEC-Q100 Grade 0/1</div>
 </div></div>
 
 <div class="card" style="border-left:4px solid #059669;margin-top:14px">
