@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v4.3 | 2026-09-18 | 事件详表改3卡密集布局(1.6/2.5/3.5/4.5) + 五章勘误: IGBT 1982-83, SCR 1957, 摩尔定律1975修订, 平面工艺Hoerni, 尔必达2012, HBM代际年份, 8xH100 HBM容量, Xtacking4.0 294层, 瑞萨2010合并, CAN 1986, TC3xx 40nm, SRAM面积6-15x -->
+<!-- version: v4.4 | 2026-09-18 | 口径校正: 5nm密度标注HD/HP库, Intel10nm密度加库限定, 微芯/长鑫份额去过度精度, 长鑫2026Q1加未审计前瞻声明 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -686,7 +686,7 @@ table.node-table.nopad .hl{font-size:12px}
 <tr><td>2014</td><td>14/16nm</td><td>Samsung/TSMC</td><td>浸没式+DP</td><td>FinFET跟进</td><td>A9/Exynos</td></tr>
 <tr><td>2016</td><td>10nm</td><td>Samsung首发</td><td>浸没式+MP</td><td>Intel延误</td><td>骁龙835/A11</td></tr>
 <tr><td class="hl">2018</td><td class="hl">7nm</td><td class="hl">TSMC</td><td class="hl">★ EUV(N7+)</td><td class="hl">★ TSMC超越Intel</td><td class="hl">A12/麒麟980/Zen2</td></tr>
-<tr><td class="hl">2020</td><td class="hl">5nm</td><td class="hl">TSMC</td><td class="hl">EUV 全面</td><td class="hl">★ 171 MTr/mm²</td><td class="hl">A14/麒麟9000</td></tr>
+<tr><td class="hl">2020</td><td class="hl">5nm</td><td class="hl">TSMC</td><td class="hl">EUV 全面</td><td class="hl">★ ~130-170 MTr/mm²<br/>(视HD/HP库)</td><td class="hl">A14/麒麟9000</td></tr>
 <tr><td class="hl">2022</td><td class="hl">3nm</td><td class="hl">Samsung/TSMC</td><td class="hl">EUV NA=0.33</td><td class="hl">★ 三星GAA首发</td><td class="hl">A17 Pro</td></tr>
 <tr><td class="hl">2024</td><td class="hl">2nm</td><td class="hl">TSMC/Intel/Samsung</td><td class="hl">High-NA EUV</td><td class="hl">★ GAA+BSPDN</td><td class="hl">—</td></tr>
 <tr><td class="hl">2025</td><td class="hl">N2</td><td class="hl">TSMC</td><td class="hl">High-NA EUV</td><td class="hl">★ GAA规模量产</td><td class="hl">Apple A20 Pro</td></tr>
@@ -1084,7 +1084,7 @@ table.node-table.nopad .hl{font-size:12px}
 <div class="dsc">
 <ol style="line-height:2">
 <li><b>拒绝EUV（2014-18）：</b>Intel认为EUV不够成熟，坚持用DUV多重曝光（SADP/SAQP）做10nm。TSMC在2018年N7+率先使用EUV。Intel错过了EUV的学习曲线窗口。</li>
-<li><b>过激的密度目标（2016-19）：</b>Intel 10nm目标密度100.8 MTr/mm²（远超TSMC N7和三星7nm的~95 MTr/mm²）。过高的密度=极低的良率="10nm地狱"。</li>
+<li><b>过激的密度目标（2016-19）：</b>Intel 10nm目标密度100.8 MTr/mm²（高密度库口径；同期 TSMC N7 约 91-96、三星 7LPP 约 95 MTr/mm²）。过高的密度=极低的良率="10nm地狱"。</li>
 <li><b>IDM模式的惯性：</b>Intel坚持"设计-制造一体化"，Hardware-CPU设计团队和制程团队绑定，无法像TSMC那样根据客户反馈快速迭代工艺。Fabless客户（Apple/Qualcomm/AMD）用脚投票转向TSMC。</li>
 </ol>
 </div></div>
@@ -1351,7 +1351,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <rect x="100" y="89" width="350" height="22" rx="4" fill="#059669"/>
 <text x="110" y="104" font-size="10" fill="#fff" font-weight="700">美光 19.8%</text>
 <rect x="200" y="116" width="100" height="22" rx="4" fill="#eab308"/>
-<text x="210" y="131" font-size="10" fill="#78350f" font-weight="700">长鑫 7.67%</text>
+<text x="210" y="131" font-size="10" fill="#78350f" font-weight="700">长鑫 约7-8%</text>
 <text x="320" y="131" font-size="9" fill="#94a3b8">#4全球 · 中国#1</text>
 <text x="500" y="148" font-size="8" fill="#94a3b8">2025是DRAM格局大年：Q1 SK海力士36.3%历史性超三星32.7%（33年来首次失冠）；Q4三星回归#1</text>
 </svg>
@@ -1407,6 +1407,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <div class="card" style="border-left:4px solid #eab308">
 <div class="ttl">关键财务指标（招股书口径）</div>
+<div style="background:#fffbeb;border-left:3px solid #f59e0b;padding:8px 12px;border-radius:6px;font-size:11.5px;color:#92400e;margin-bottom:10px">⚠ <b>口径说明：</b>以下 2026 Q1 数据来自招股书/媒体测算，<b>属单季度及前瞻口径、未经审计</b>，不应视为已审定年报数据。投资判断请以官方招股书与定期报告为准。</div>
 <div class="dsc">
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0">
 <div style="background:#eff6ff;padding:14px;border-radius:8px;text-align:center">
@@ -1440,7 +1441,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <tr><td>其他产品及服务</td><td>104,054</td><td>1.70%</td><td>95,651</td><td>4.00%</td></tr>
 <tr style="background:#fef2f2"><td><b>HBM</b></td><td><b>0</b></td><td><b>0%</b></td><td><b>0</b></td><td><b>0%</b></td></tr>
 </tbody></table>
-<p><b>最关键的发现：</b>HBM在2025年没有任何收入贡献。2026 Q1的+719%营收增长纯粹由DDR5/LPDDR5X价格上涨+出货放量驱动，跟HBM无关。LPDDR系列是绝对主体（66.43%），反映中国手机产业链对长鑫的强依赖。DDR占比从2024的13%升至32%，服务器DDR5涨价+放量。</p>
+<p><b>最关键的发现：</b>HBM在2025年没有任何收入贡献。2026 Q1（招股书口径，未经审计）的+719%营收增长纯粹由DDR5/LPDDR5X价格上涨+出货放量驱动，跟HBM无关。LPDDR系列是绝对主体（66.43%），反映中国手机产业链对长鑫的强依赖。DDR占比从2024的13%升至32%，服务器DDR5涨价+放量。</p>
 </div>
 <div class="src">来源：长鑫科技招股说明书申报稿（2026.05.17更新稿）[上交所]</div></div>
 
@@ -1529,7 +1530,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="ttl">非共识 #3：长鑫真正护城河不在HBM — 而在DDR5/LPDDR5X国产化稀缺性</div>
 <div class="dsc">
 <p>市场共识：长鑫的核心叙事=HBM追赶；HBM落后3-4年=估值天花板低。</p>
-<p><b>反向证据：</b>长鑫95%+收入来自DDR4/DDR5/LPDDR5X（招股书披露），HBM3仍在样品阶段。LPDDR5X 10.7Gbps已规模量产，成为中国手机厂商（小米/OV/华为）的国产替代核心选择。2026 Q1营收+719%直接来自DDR5/LPDDR5X涨价，跟HBM没关系。</p>
+<p><b>反向证据：</b>长鑫95%+收入来自DDR4/DDR5/LPDDR5X（招股书披露），HBM3仍在样品阶段。LPDDR5X 10.7Gbps已规模量产，成为中国手机厂商（小米/OV/华为）的国产替代核心选择。2026 Q1（招股书口径，未经审计）营收+719%直接来自DDR5/LPDDR5X涨价，跟HBM没关系。</p>
 <p><b>含义：</b>HBM是option value（成功则估值翻倍），而非main thesis。DDR5+LPDDR5X才是2026-2027业绩主驱动；定价主线应从HBM进度→DDR5国产化渗透率。消费级AI PC主力跑7B-13B模型——长鑫LPDDR5X/兆易CUBE 2.0完全够。</p>
 </div></div>
 
@@ -2649,7 +2650,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="card"><span class="tag ts">MCU</span><span class="yr">2024</span><div class="ttl">国产ASIL-D车规MCU突破：国芯科技CCFC3007PT量产</div><div class="by">国芯科技(C*Core) · 对标英飞凌TC277</div><div class="dsc"><p>CCFC3007PT基于Power Architecture架构，通过ISO 26262 ASIL-D认证，进入Tier1供应商合格供方清单。主要应用于发电机控制(GCU)和部分VCU，是中国首款真正能对标国际巨头产品的动力域MCU。同期东风DF30全国产化MCU流片成功——CPU内核、晶圆制造、封装测试100%国产。</p></div><div class="src">来源：国芯科技官方公告; 东风汽车研发总院; 国家新能源汽车技术创新中心</div></div>
 </div>
 <div class="card-row-3 dense">
-<div class="card"><span class="tag ts">MCU</span><span class="yr">2026</span><div class="ttl">Infineon 36%份额垄断 + 中国国产化率冲刺15%</div><div class="by">Infineon · Renesas · NXP · 中国厂商(杰发/芯旺微/兆易/国芯)</div><div class="dsc"><p>Infineon凭借"功率+MCU+模拟+传感器+连接"全栈布局，在车规MCU市场形成36%的垄断地位(微芯从7.2%跌至3.4%近腰斩)。中国厂商在车身域MCU的国产化率达~47%，但动力底盘域仍只有5-10%。2026年国内车规MCU市场规模预计达~300亿元，32位产品占新订单的90%。</p></div><div class="src">来源：Infineon 2025年报; TechInsights; Omdia车载MCU排名(2025); 中国汽车工业协会</div></div>
+<div class="card"><span class="tag ts">MCU</span><span class="yr">2026</span><div class="ttl">Infineon 36%份额垄断 + 中国国产化率冲刺15%</div><div class="by">Infineon · Renesas · NXP · 中国厂商(杰发/芯旺微/兆易/国芯)</div><div class="dsc"><p>Infineon凭借"功率+MCU+模拟+传感器+连接"全栈布局，在车规MCU市场形成36%的垄断地位(微芯份额亦明显下滑，约由7%级降至3%级；口径为车规MCU、年份区间见来源)。中国厂商在车身域MCU的国产化率达~47%，但动力底盘域仍只有5-10%。2026年国内车规MCU市场规模预计达~300亿元，32位产品占新订单的90%。</p></div><div class="src">来源：Infineon 2025年报; TechInsights; Omdia车载MCU排名(2025); 中国汽车工业协会</div></div>
 </div>
 
 <h2 id="sec-mcu-nodes">📊 4.6 车载MCU内核与制程演进总表</h2>
