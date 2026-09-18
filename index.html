@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- version: v4.1 | 2026-09-18 | MCU架构补齐瑞萨RH850+五大架构对比 | eFlash新增"为何不能外挂"与"三类Flash瓶颈差异" -->
+<!-- version: v4.2 | 2026-09-18 | 新增2.8 存储器全类型原理图解(图例+SVG动画): SRAM/DRAM/ROM四代/浮栅/NOR-NAND/3D NAND/MRAM/RRAM/PCM/FeRAM + 金字塔与趋势 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>半导体工业全景时间轴 1947—2026 · 车载MCU专篇</title>
+<title>半导体工业全景时间轴 1947—2026 · 存储原理动画 · 车载MCU专篇</title>
 <style>:root{--p:#2563eb;--l:#7c3aed;--pk:#059669;--us:#dc2626;--jp:#d97706;--eu:#7c3aed;--tw:#0891b2;--cn:#db2777;--ms:#f59e0b;--st:#eab308}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:#f8fafc;color:#1e293b;line-height:1.7}
@@ -128,6 +128,28 @@ table.node-table.nopad .hl{font-size:12px}
 @media(max-width:768px){
 .card-row,.card-row-3{grid-template-columns:1fr}
 }
+
+/* ===== 2.8 存储器全类型图解：图例 + 动画 ===== */
+.mem-legend{display:flex;flex-wrap:wrap;gap:12px;padding:14px 16px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;margin:14px 0}
+.mem-legend .mi{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#475569}
+.mem-legend .sw{width:14px;height:14px;border-radius:4px;border:1px solid rgba(0,0,0,.1);flex:none}
+.sw-vol{background:#93c5fd}.sw-chg{background:#fcd34d}.sw-res{background:#f9a8d4}
+.sw-mag{background:#a5b4fc}.sw-pcm{background:#fdba74}.sw-fe{background:#86efac}
+.sw-3d{background:#67e8f9}.sw-sel{background:#cbd5e1}
+.anim-card{border:1px solid #e2e8f0;border-radius:12px;background:#fff;padding:18px 20px;margin-bottom:14px}
+.anim-card .at{font-size:16px;font-weight:800;color:#0f172a;margin-bottom:2px}
+.anim-card .am{font-size:12px;color:#64748b;margin-bottom:8px}
+.anim-card svg{width:100%;max-height:250px;display:block;margin:4px 0 8px;background:#fcfdfe;border-radius:8px}
+.anim-note{font-size:12.5px;color:#475569;line-height:1.8}
+.anim-note b{color:#1e3a5f}
+.anim-note p{margin:6px 0}
+.kv{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.kv span{background:#f1f5f9;border-radius:4px;padding:3px 9px;font-size:11.5px;font-weight:600;color:#334155}
+.kv span.warn{background:#fef2f2;color:#991b1b}
+.kv span.good{background:#ecfdf5;color:#047857}
+.anim-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+@media(max-width:900px){.anim-row{grid-template-columns:1fr}.anim-card svg{max-height:200px}}
+@media(prefers-reduced-motion:reduce){.anim-card svg *{animation:none!important}}
 </style>
 </head>
 <body>
@@ -179,6 +201,7 @@ table.node-table.nopad .hl{font-size:12px}
 <li><a href="#sec-storage-events">2.5 存储重大事件详表</a></li>
 <li><a href="#sec-storage-nodes">2.6 存储制程演进总表</a></li>
 <li><a href="#sec-storage-deep">2.7 深度研究 · 长鑫 · 长江 · AI范式</a></li>
+<li><a href="#sec-mem-atlas"><b>2.8 全类型RAM/ROM原理图解（动画）</b></a></li>
 </ol>
 </div>
 <div>
@@ -1521,6 +1544,625 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:32px">本篇数据来源：长鑫科技招股书(2026.05)、TrendForce、中信证券深度报告(2026.05)、Tom's Hardware、Digitimes、各厂商财报<br>⚠ 部分HBM相关进度为媒体/行业推测，非官方确认。投资决策应以官方招股书和年报为准。</p>
+
+<h2 id="sec-mem-atlas">🧬 2.8 存储器全类型原理图解（图例 + 动画）</h2>
+<p style="font-size:13.5px;color:#64748b;margin-bottom:10px">把 RAM / ROM 家族的每一种存储机理拆开看：<b>靠什么记住一个 bit、工艺上怎么做出来、以及各自的演进方向</b>。下面所有图示均为动画，展示的是电子/磁矩/离子/晶相在写入与读取时的真实运动方式。</p>
+
+<div class="mem-legend">
+<div class="mi"><span class="sw sw-sel"></span>图例（存储机理）</div>
+<div class="mi"><span class="sw sw-vol"></span>易失·靠供电维持（SRAM/DRAM）</div>
+<div class="mi"><span class="sw sw-chg"></span>电荷存储（浮栅/电荷陷阱 Flash、EPROM）</div>
+<div class="mi"><span class="sw sw-res"></span>阻变·细丝导电（RRAM/ReRAM）</div>
+<div class="mi"><span class="sw sw-mag"></span>磁矩方向（MRAM/STT-MRAM）</div>
+<div class="mi"><span class="sw sw-pcm"></span>晶相变化（PCM/3D XPoint）</div>
+<div class="mi"><span class="sw sw-fe"></span>铁电极化（FeRAM/FeFET）</div>
+<div class="mi"><span class="sw sw-3d"></span>三维堆叠工艺（3D NAND/3D DRAM）</div>
+</div>
+
+<div class="card">
+<div class="ttl">全家谱：一张表先分清 12 种存储器</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th>大类</th><th>类型</th><th>存 bit 靠什么</th><th>单元结构</th><th>读/写延迟</th><th>耐久</th><th>断电</th><th>现状</th></tr></thead>
+<tbody>
+<tr><td rowspan="3" class="hl">易失 RAM</td><td><b>SRAM</b></td><td>双稳态锁存（两个反相器互锁）</td><td>6T（6 个晶体管）</td><td>&lt;1ns / &lt;1ns</td><td>无限</td><td>丢</td><td>CPU L1-L3 缓存，面积极大</td></tr>
+<tr><td><b>DRAM</b></td><td>电容上的电荷量</td><td>1T1C（1 管 1 电容）</td><td>~15ns / ~15ns</td><td>无限</td><td>丢</td><td>主存，必须刷新</td></tr>
+<tr><td><b>HBM</b></td><td>同 DRAM（封装创新，非新机理）</td><td>DRAM die × 8-16 层 + TSV</td><td>~20ns / 超高带宽</td><td>无限</td><td>丢</td><td>AI 算力核心瓶颈</td></tr>
+<tr><td rowspan="4" class="hl">ROM 家族<br>（只读→可改）</td><td><b>Mask ROM</b></td><td>光罩阶段决定是否接通</td><td>1T（有/无连接）</td><td>~50ns / 不可写</td><td>—</td><td>留</td><td>已基本淘汰</td></tr>
+<tr><td><b>PROM / OTP</b></td><td>熔丝烧断（不可逆）</td><td>1T + 熔丝/反熔丝</td><td>~50ns / 一次</td><td>1 次</td><td>留</td><td>仍用于芯片 ID、密钥、trim 参数</td></tr>
+<tr><td><b>EPROM</b></td><td>浮栅电荷（紫外整片擦除）</td><td>1T 浮栅 + 石英窗</td><td>~100ns / 慢</td><td>~100 次</td><td>留</td><td>已淘汰</td></tr>
+<tr><td><b>EEPROM</b></td><td>浮栅电荷（电可按字节擦）</td><td>2T 浮栅</td><td>~200ns / ms 级</td><td>100 万次</td><td>留</td><td>车规参数存储仍在用</td></tr>
+<tr><td rowspan="2" class="hl">Flash</td><td><b>NOR Flash</b></td><td>浮栅电荷（并联位线）</td><td>1T 浮栅</td><td>~70ns / 慢<br><b>可 XIP</b></td><td>10 万次</td><td>留</td><td>代码存储，停在 45-65nm</td></tr>
+<tr><td><b>NAND Flash</b></td><td>浮栅 / 电荷陷阱（串联位线）</td><td>1T·可 3D 堆叠</td><td>25-100μs / 页写<br><b>不可 XIP</b></td><td>TLC ~1000 次</td><td>留</td><td>SSD 主力，已堆到 300+ 层</td></tr>
+<tr><td rowspan="4" class="hl">新型 NVM<br>（存算融合候选）</td><td><b>MRAM</b></td><td>磁性层磁矩平行/反平行</td><td>1T1MTJ</td><td>~10ns / ~10ns</td><td>10¹²+</td><td>留</td><td>已量产替代嵌入式 SRAM/Flash</td></tr>
+<tr><td><b>RRAM</b></td><td>氧空位细丝通/断</td><td>1T1R / 1S1R</td><td>~10ns / ~50ns</td><td>10⁶-10⁹</td><td>留</td><td><b>英飞凌 TC4x 已用于车规 MCU</b></td></tr>
+<tr><td><b>PCM</b></td><td>硫系材料晶态/非晶态</td><td>1S1R（含选通管）</td><td>~50ns / ~100ns</td><td>10⁸</td><td>留</td><td>3D XPoint 已退市，ST 用于车规</td></tr>
+<tr><td><b>FeRAM / FeFET</b></td><td>铁电极化方向</td><td>1T1C / 1T</td><td>~20ns / ~20ns</td><td>10¹⁰-10¹⁴</td><td>留</td><td>HfO₂ 铁电重新点火，小容量量产</td></tr>
+</tbody></table>
+<p><b>看这张表最关键的一条线索：</b>从上往下，存储机理从"<em>存电荷</em>"逐渐转向"<em>改变材料本身的物理状态</em>"。这不是审美偏好——<b>电荷存储在缩微中必然失效</b>（电子数量随体积线性减少，28nm 的 eFlash 单元只剩约 100 个电子），而磁矩、晶相、离子位置这些"状态量"不随尺寸缩小而变少。这正是 2020 年代后所有新型存储器的共同设计思路。</p>
+</div></div>
+
+<h3>2.8.1 易失存储：SRAM 与 DRAM 为什么一断电就忘</h3>
+<div class="anim-row">
+
+<div class="anim-card">
+<div class="at">SRAM · 6T 双稳态锁存</div>
+<div class="am">两个反相器首尾互锁，互相"顶住"对方的状态</div>
+<svg viewBox="0 0 520 210">
+  <rect x="0" y="0" width="520" height="210" fill="#fcfdfe"/>
+  <!-- inverter 1 -->
+  <rect x="90" y="60" width="110" height="80" rx="8" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/>
+  <text x="145" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a5f">反相器 A</text>
+  <text x="145" y="115" text-anchor="middle" font-size="10" fill="#64748b">2T (P+N)</text>
+  <!-- inverter 2 -->
+  <rect x="320" y="60" width="110" height="80" rx="8" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/>
+  <text x="375" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a5f">反相器 B</text>
+  <text x="375" y="115" text-anchor="middle" font-size="10" fill="#64748b">2T (P+N)</text>
+  <!-- cross coupling paths -->
+  <path d="M200 80 L260 80 L260 45 L320 45 L320 80" fill="none" stroke="#2563eb" stroke-width="2"/>
+  <path d="M320 120 L260 120 L260 155 L200 155 L200 120" fill="none" stroke="#2563eb" stroke-width="2"/>
+  <!-- travelling signal dots showing the latch holding itself -->
+  <circle r="5" fill="#2563eb">
+    <animateMotion dur="2.4s" repeatCount="indefinite"
+      path="M200 80 L260 80 L260 45 L320 45 L320 80"/>
+  </circle>
+  <circle r="5" fill="#1d4ed8">
+    <animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite"
+      path="M320 120 L260 120 L260 155 L200 155 L200 120"/>
+  </circle>
+  <text x="260" y="32" text-anchor="middle" font-size="10" fill="#2563eb" font-weight="700">A 的输出 → B 的输入</text>
+  <text x="260" y="180" text-anchor="middle" font-size="10" fill="#2563eb" font-weight="700">B 的输出 → A 的输入（互锁成环）</text>
+  <!-- access transistors -->
+  <rect x="20" y="85" width="50" height="30" rx="4" fill="#e2e8f0" stroke="#94a3b8"/>
+  <text x="45" y="104" text-anchor="middle" font-size="9" fill="#475569">存取管</text>
+  <rect x="450" y="85" width="50" height="30" rx="4" fill="#e2e8f0" stroke="#94a3b8"/>
+  <text x="475" y="104" text-anchor="middle" font-size="9" fill="#475569">存取管</text>
+  <line x1="70" y1="100" x2="90" y2="100" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="430" y1="100" x2="450" y2="100" stroke="#94a3b8" stroke-width="2"/>
+  <!-- power indicator that blinks off -->
+  <g>
+    <text x="260" y="203" text-anchor="middle" font-size="10" font-weight="700" fill="#dc2626">
+      供电中断 → 环路塌陷 → 数据瞬间消失
+      <animate attributeName="opacity" values="0;0;1;1;0" dur="4.8s" repeatCount="indefinite"/>
+    </text>
+  </g>
+</svg>
+<div class="anim-note">
+<p><b>原理：</b>两个反相器输出接对方输入，形成正反馈环。只要通电，节点电位就被对方持续"顶住"，状态自我维持，<b>不需要刷新、也不需要读出再写回</b>。因此读写都是纯逻辑门速度（亚纳秒）。</p>
+<p><b>工艺细节：</b>与 CPU 逻辑工艺完全同源，可直接跟随 5nm/3nm 缩微。但一个 bit 要 6 个晶体管，面积约为 DRAM 单元的 <b>60-100 倍</b>，这就是缓存做不大的根本原因。先进节点下 SRAM 面积缩小已明显放缓（所谓 "SRAM scaling wall"），是当前 GPU/CPU 面积成本的主要压力来源之一。</p>
+<div class="kv"><span class="good">最快</span><span class="good">无需刷新</span><span class="warn">面积最大</span><span class="warn">漏电功耗高</span><span class="warn">断电即失</span></div>
+</div>
+</div>
+
+<div class="anim-card">
+<div class="at">DRAM · 1T1C 电容漏电与刷新</div>
+<div class="am">一个电容存电荷，一个管子控制通断；电荷会漏，所以必须周期性刷新</div>
+<svg viewBox="0 0 520 210">
+  <rect x="0" y="0" width="520" height="210" fill="#fcfdfe"/>
+  <!-- word line / bit line -->
+  <line x1="40" y1="45" x2="480" y2="45" stroke="#f59e0b" stroke-width="2"/>
+  <text x="46" y="38" font-size="10" fill="#b45309" font-weight="700">字线 WL（开关控制）</text>
+  <line x1="150" y1="45" x2="150" y2="85" stroke="#f59e0b" stroke-width="2"/>
+  <!-- transistor -->
+  <rect x="120" y="85" width="60" height="34" rx="5" fill="#fde68a" stroke="#f59e0b" stroke-width="2"/>
+  <text x="150" y="107" text-anchor="middle" font-size="10" font-weight="700" fill="#92400e">1T</text>
+  <!-- capacitor -->
+  <line x1="260" y1="78" x2="330" y2="78" stroke="#475569" stroke-width="4"/>
+  <line x1="260" y1="96" x2="330" y2="96" stroke="#475569" stroke-width="4"/>
+  <text x="295" y="68" text-anchor="middle" font-size="10" font-weight="700" fill="#334155">电容 C（存电荷）</text>
+  <line x1="180" y1="102" x2="295" y2="102" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="295" y1="96" x2="295" y2="102" stroke="#94a3b8" stroke-width="2"/>
+  <!-- charges inside cap, draining away then refilled -->
+  <g>
+    <circle cx="272" cy="87" r="4" fill="#fbbf24"><animate attributeName="opacity" values="1;1;0;0;1" dur="4s" repeatCount="indefinite"/></circle>
+    <circle cx="286" cy="87" r="4" fill="#fbbf24"><animate attributeName="opacity" values="1;0.4;0;0;1" dur="4s" repeatCount="indefinite"/></circle>
+    <circle cx="300" cy="87" r="4" fill="#fbbf24"><animate attributeName="opacity" values="1;0.2;0;0;1" dur="4s" repeatCount="indefinite"/></circle>
+    <circle cx="314" cy="87" r="4" fill="#fbbf24"><animate attributeName="opacity" values="1;0;0;0;1" dur="4s" repeatCount="indefinite"/></circle>
+  </g>
+  <!-- leaking electrons falling out -->
+  <circle r="3.5" fill="#f59e0b" opacity="0.85">
+    <animateMotion dur="4s" repeatCount="indefinite" path="M300 96 L318 150"/>
+    <animate attributeName="opacity" values="0.9;0.9;0" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="3.5" fill="#f59e0b" opacity="0.85">
+    <animateMotion dur="4s" begin="0.9s" repeatCount="indefinite" path="M286 96 L272 150"/>
+    <animate attributeName="opacity" values="0.9;0.9;0" dur="4s" begin="0.9s" repeatCount="indefinite"/>
+  </circle>
+  <text x="295" y="168" text-anchor="middle" font-size="10" fill="#b45309">电荷泄漏（结漏电 + 亚阈值漏电）</text>
+  <!-- refresh arrow -->
+  <path d="M400 120 L400 90 L340 90" fill="none" stroke="#059669" stroke-width="2.5" marker-end="url(#agrn)"/>
+  <defs><marker id="agrn" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#059669"/></marker></defs>
+  <text x="408" y="136" font-size="10" font-weight="700" fill="#047857">
+    刷新写回
+    <animate attributeName="opacity" values="0;0;0;1;1" dur="4s" repeatCount="indefinite"/>
+  </text>
+  <text x="260" y="200" text-anchor="middle" font-size="10.5" font-weight="700" fill="#92400e">每 32-64ms 必须把全部单元读出再写回一次</text>
+</svg>
+<div class="anim-note">
+<p><b>原理：</b>信息就是电容里有没有电荷。读取时打开晶体管，电容电荷倾泻到位线上引起极小的电压摆动（几十 mV），由灵敏放大器判读。<b>读取本身会破坏电荷</b>，所以每次读完都要写回——这叫破坏性读出。</p>
+<p><b>工艺细节：</b>难点全在电容。为了在越来越小的面积里保住足够电容量，电容从平面做成<b>深沟槽（trench）</b>再到<b>高深宽比柱状（stack capacitor，深宽比已超过 100:1）</b>，介质从 SiO₂ 换到 ZrO₂/HfO₂ 等高 κ 材料。这也是为什么 DRAM 工艺无法像逻辑一样直接缩微，只能靠 1α/1β/1γ 这种"半代"推进。</p>
+<p><b>发展趋势：</b>平面缩微已近极限 → 业界正走向 <b>3D DRAM（电容与晶体管垂直堆叠）</b>，思路和 NAND 当年"不缩线宽改堆层"完全一致；另一条线是 <b>HBM</b>——不改单元机理，改封装，用 TSV 把十几颗 die 垂直互连换带宽。</p>
+<div class="kv"><span class="good">密度高·成本低</span><span class="warn">必须刷新（刷新功耗）</span><span class="warn">破坏性读出</span><span class="warn">电容工艺极难</span></div>
+</div>
+</div>
+
+</div>
+
+<h3>2.8.2 ROM 家族的演化：从"光罩写死"到"电可擦写"</h3>
+<div class="card">
+<div class="ttl">四代 ROM 的本质是同一个问题：如何让"改一次"变成"随便改"</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:14%">类型</th><th style="width:26%">写入方式</th><th>物理机理与工艺</th><th style="width:20%">为什么被淘汰/保留</th></tr></thead>
+<tbody>
+<tr><td class="hl">Mask ROM</td><td>制造时由<b>光罩</b>决定</td><td>某个单元位置上要么做出晶体管连接、要么不做。数据是"刻"在光罩里的。</td><td>改一个 bit 要重开光罩（数十万美元 + 数周）→ 被淘汰</td></tr>
+<tr><td class="hl">PROM / OTP<br>反熔丝</td><td>出厂后<b>烧一次</b></td><td>加高压把熔丝烧断（或把反熔丝的介质击穿形成永久导通）。<b>物理不可逆</b>。</td><td><b>仍在用</b>：芯片 ID、密钥根、模拟 trim 参数——正因为不可逆才安全</td></tr>
+<tr><td class="hl">EPROM</td><td>电写入 +<br><b>紫外光整片擦除</b></td><td>浮栅注入电子写入；擦除靠紫外线照射给电子足够能量越过氧化层势垒。封装上要开<b>石英窗</b>。</td><td>擦一次要拆下来照 20 分钟、且只能整片擦 → 被 EEPROM 取代</td></tr>
+<tr><td class="hl">EEPROM</td><td>电写入 +<br><b>电可按字节擦除</b></td><td>薄氧化层（~10nm）让电子可双向隧穿（Fowler-Nordheim 隧穿）。每单元多一个选择管（2T）以支持按字节操作。</td><td><b>车规仍在用</b>：里程表、标定参数、故障码——需要频繁改少量字节（可擦 100 万次）</td></tr>
+</tbody></table>
+<p><b>一条关键的技术分野：</b>EEPROM 和 Flash 的物理机理其实<b>完全相同</b>（都是浮栅 + 隧穿），区别只在<em>擦除粒度</em>——EEPROM 每个单元都配独立选择管，所以能按字节擦，代价是面积翻倍；Flash 砍掉了这个管子改为按扇区/块整体擦，面积减半、密度飙升。Flash 名字的来源就是"像闪光灯一样一次擦一大片"。这是一次典型的<b>用灵活性换密度</b>的取舍。</p>
+</div></div>
+
+<h3>2.8.3 Flash：浮栅、NOR/NAND 分野、以及 3D 堆叠</h3>
+<div class="anim-row">
+
+<div class="anim-card">
+<div class="at">浮栅写入 · 电子隧穿进"绝缘孤岛"</div>
+<div class="am">Flash / EPROM / EEPROM 共同的物理内核</div>
+<svg viewBox="0 0 520 220">
+  <rect x="0" y="0" width="520" height="220" fill="#fcfdfe"/>
+  <!-- control gate -->
+  <rect x="120" y="30" width="280" height="26" rx="4" fill="#94a3b8"/>
+  <text x="260" y="48" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">控制栅 Control Gate</text>
+  <!-- top oxide -->
+  <rect x="120" y="56" width="280" height="14" fill="#e2e8f0"/>
+  <text x="410" y="67" font-size="9" fill="#94a3b8">阻挡氧化层</text>
+  <!-- floating gate -->
+  <rect x="120" y="70" width="280" height="30" rx="3" fill="#fde68a" stroke="#f59e0b" stroke-width="2"/>
+  <text x="260" y="90" text-anchor="middle" font-size="11" font-weight="800" fill="#92400e">浮栅 Floating Gate（四周全绝缘）</text>
+  <!-- tunnel oxide -->
+  <rect x="120" y="100" width="280" height="16" fill="#cbd5e1"/>
+  <text x="404" y="112" font-size="9" fill="#64748b">隧穿氧化层 ~8-10nm</text>
+  <!-- channel / substrate -->
+  <rect x="80" y="116" width="360" height="60" fill="#dbeafe" stroke="#93c5fd"/>
+  <text x="260" y="152" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a5f">沟道 / 衬底</text>
+  <rect x="80" y="116" width="50" height="26" fill="#bfdbfe" stroke="#60a5fa"/>
+  <text x="105" y="133" text-anchor="middle" font-size="9" fill="#1e3a5f">源</text>
+  <rect x="390" y="116" width="50" height="26" fill="#bfdbfe" stroke="#60a5fa"/>
+  <text x="415" y="133" text-anchor="middle" font-size="9" fill="#1e3a5f">漏</text>
+  <!-- electrons tunneling upward into floating gate -->
+  <circle r="4.5" fill="#2563eb">
+    <animateMotion dur="3s" repeatCount="indefinite" path="M200 130 L200 86"/>
+    <animate attributeName="opacity" values="1;1;0.9;0" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="4.5" fill="#2563eb">
+    <animateMotion dur="3s" begin="0.7s" repeatCount="indefinite" path="M260 130 L260 86"/>
+    <animate attributeName="opacity" values="1;1;0.9;0" dur="3s" begin="0.7s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="4.5" fill="#2563eb">
+    <animateMotion dur="3s" begin="1.4s" repeatCount="indefinite" path="M320 130 L320 86"/>
+    <animate attributeName="opacity" values="1;1;0.9;0" dur="3s" begin="1.4s" repeatCount="indefinite"/>
+  </circle>
+  <!-- trapped electrons accumulating -->
+  <circle cx="170" cy="85" r="4" fill="#1d4ed8"><animate attributeName="opacity" values="0;1;1" dur="3s" repeatCount="indefinite"/></circle>
+  <circle cx="230" cy="85" r="4" fill="#1d4ed8"><animate attributeName="opacity" values="0;0;1;1" dur="3s" repeatCount="indefinite"/></circle>
+  <circle cx="350" cy="85" r="4" fill="#1d4ed8"><animate attributeName="opacity" values="0;0;0;1" dur="3s" repeatCount="indefinite"/></circle>
+  <text x="60" y="30" font-size="10.5" font-weight="700" fill="#dc2626">写入需 9-18V 高压</text>
+  <text x="260" y="196" text-anchor="middle" font-size="10.5" fill="#475569">电子被"压"过绝缘层困在浮栅里 → 改变晶体管阈值电压 Vth</text>
+  <text x="260" y="212" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b45309">读取时：Vth 高 = 存了电子 = "0"；Vth 低 = "1"</text>
+</svg>
+<div class="anim-note">
+<p><b>为什么能断电不丢：</b>浮栅四周被绝缘层完全包裹，电子进去后没有导电通路可以出来，理论上能困住十几年。</p>
+<p><b>为什么会磨损：</b>每次写/擦都要强迫电子<b>穿越</b>那层氧化层，每次都会造成微小的晶格损伤并留下陷阱电荷。损伤累积 → 氧化层漏电增加 → 保持时间下降 → 最终失效。<b>这就是 Flash 有擦写寿命上限、而 SRAM/DRAM 没有的根本原因。</b></p>
+<p><b>缩微极限：</b>浮栅越小，困住的电子越少（28nm 仅约 100 个）。少几十个电子就足以让判读出错，且 150°C 下泄漏呈指数加速——这正是 2.8.5 里 eFlash "28nm 悬崖"的物理来源。演进路线：浮栅 → <b>电荷陷阱（Charge Trap，用氮化硅捕获电子，抗单点缺陷更好）</b> → 彻底换机理（RRAM/MRAM）。</p>
+<div class="kv"><span class="good">断电保持 10-20 年</span><span class="warn">写入需高压</span><span class="warn">有擦写寿命</span><span class="warn">缩微到 28nm 即撞墙</span></div>
+</div>
+</div>
+
+<div class="anim-card">
+<div class="at">NOR vs NAND · 同样的单元，接线方式不同</div>
+<div class="am">一个并联、一个串联，决定了两者截然不同的命运</div>
+<svg viewBox="0 0 520 220">
+  <rect x="0" y="0" width="520" height="220" fill="#fcfdfe"/>
+  <!-- NOR side -->
+  <text x="130" y="22" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a5f">NOR：单元并联到位线</text>
+  <line x1="40" y1="40" x2="220" y2="40" stroke="#2563eb" stroke-width="3"/>
+  <text x="26" y="44" font-size="9" fill="#2563eb">位线</text>
+  <g>
+    <rect x="55" y="60" width="34" height="26" rx="4" fill="#fde68a" stroke="#f59e0b"/>
+    <rect x="113" y="60" width="34" height="26" rx="4" fill="#fde68a" stroke="#f59e0b"/>
+    <rect x="171" y="60" width="34" height="26" rx="4" fill="#fde68a" stroke="#f59e0b"/>
+    <line x1="72" y1="40" x2="72" y2="60" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="130" y1="40" x2="130" y2="60" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="188" y1="40" x2="188" y2="60" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="72" y1="86" x2="72" y2="105" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="130" y1="86" x2="130" y2="105" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="188" y1="86" x2="188" y2="105" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="40" y1="105" x2="220" y2="105" stroke="#64748b" stroke-width="2"/>
+  </g>
+  <!-- direct random access dot -->
+  <circle r="5" fill="#059669">
+    <animateMotion dur="1.6s" repeatCount="indefinite" path="M40 40 L130 40 L130 60"/>
+  </circle>
+  <text x="130" y="128" text-anchor="middle" font-size="10" font-weight="700" fill="#047857">任一单元可直接寻址 → 可 XIP</text>
+  <text x="130" y="144" text-anchor="middle" font-size="9.5" fill="#64748b">每单元要接触孔 → 面积大、密度低</text>
+  <text x="130" y="160" text-anchor="middle" font-size="9.5" fill="#64748b">读 ~70ns · 可字节读 · 代码存储</text>
+
+  <!-- divider -->
+  <line x1="260" y1="15" x2="260" y2="205" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- NAND side -->
+  <text x="390" y="22" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a5f">NAND：单元串联成一条串</text>
+  <line x1="300" y1="40" x2="480" y2="40" stroke="#2563eb" stroke-width="3"/>
+  <text x="286" y="44" font-size="9" fill="#2563eb">位线</text>
+  <line x1="390" y1="40" x2="390" y2="55" stroke="#94a3b8" stroke-width="2"/>
+  <g>
+    <rect x="373" y="55" width="34" height="22" rx="3" fill="#fde68a" stroke="#f59e0b"/>
+    <rect x="373" y="82" width="34" height="22" rx="3" fill="#fde68a" stroke="#f59e0b"/>
+    <rect x="373" y="109" width="34" height="22" rx="3" fill="#fde68a" stroke="#f59e0b"/>
+    <rect x="373" y="136" width="34" height="22" rx="3" fill="#fde68a" stroke="#f59e0b"/>
+    <line x1="390" y1="77" x2="390" y2="82" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="390" y1="104" x2="390" y2="109" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="390" y1="131" x2="390" y2="136" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="390" y1="158" x2="390" y2="172" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="330" y1="172" x2="450" y2="172" stroke="#64748b" stroke-width="2"/>
+  </g>
+  <!-- current must pass through whole string -->
+  <circle r="5" fill="#dc2626">
+    <animateMotion dur="2.6s" repeatCount="indefinite" path="M390 40 L390 172"/>
+  </circle>
+  <text x="390" y="192" text-anchor="middle" font-size="10" font-weight="700" fill="#b91c1c">电流必须穿过整串 → 无法单独读一个单元</text>
+  <text x="390" y="207" text-anchor="middle" font-size="9.5" fill="#64748b">省掉接触孔 → 密度最高 · 页读 25-100μs · 必须整块擦</text>
+</svg>
+<div class="anim-note">
+<p><b>核心差异只有一句：</b>NOR 每个单元都直连位线（并联），所以能随机访问、能就地执行代码；NAND 把十几个单元串成一串共用一个接触孔（串联），<b>面积省下来了，但代价是失去随机访问能力</b>——只能按页读、按块擦。</p>
+<p><b>由此分化出的产业结局：</b>NOR 主动停在 45-65nm 成熟工艺，靠"可 XIP + 高可靠"守住代码存储（车规、BIOS、MCU 外挂）；NAND 走上容量与成本的规模战争，成为 SSD/手机存储主力，也因此必须配一套复杂的主控（LDPC 纠错、磨损均衡、坏块管理）才能用。</p>
+<div class="kv"><span class="good">NOR：可 XIP·高可靠</span><span class="warn">NOR：密度低·贵</span><span class="good">NAND：密度与成本最优</span><span class="warn">NAND：不可 XIP·需强纠错</span></div>
+</div>
+</div>
+
+</div>
+
+<div class="anim-card">
+<div class="at">3D NAND · 不再缩线宽，改为垂直堆叠</div>
+<div class="am">2013 年起的范式转移：从"平面缩微"换到"垂直层数 + 晶圆键合"</div>
+<svg viewBox="0 0 520 210">
+  <rect x="0" y="0" width="520" height="210" fill="#fcfdfe"/>
+  <!-- planar side -->
+  <text x="110" y="22" text-anchor="middle" font-size="11.5" font-weight="800" fill="#64748b">2D 平面（已终止）</text>
+  <g>
+    <rect x="45" y="40" width="26" height="18" fill="#fde68a" stroke="#f59e0b"/>
+    <rect x="79" y="40" width="26" height="18" fill="#fde68a" stroke="#f59e0b"/>
+    <rect x="113" y="40" width="26" height="18" fill="#fde68a" stroke="#f59e0b"/>
+    <rect x="147" y="40" width="26" height="18" fill="#fde68a" stroke="#f59e0b"/>
+  </g>
+  <text x="110" y="76" text-anchor="middle" font-size="9.5" fill="#94a3b8">靠把单元做得更小来提密度</text>
+  <text x="110" y="94" text-anchor="middle" font-size="9.5" font-weight="700" fill="#dc2626">→ 15nm 后单元间干扰 + 电子数太少</text>
+  <text x="110" y="110" text-anchor="middle" font-size="9.5" font-weight="700" fill="#dc2626">→ 物理走不动了</text>
+
+  <line x1="200" y1="15" x2="200" y2="195" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- 3D stack building up layer by layer -->
+  <text x="360" y="22" text-anchor="middle" font-size="11.5" font-weight="800" fill="#0e7490">3D 垂直堆叠（现行）</text>
+  <g>
+    <rect x="270" y="150" width="180" height="14" fill="#a5f3fc" stroke="#22d3ee"/>
+    <rect x="270" y="134" width="180" height="14" fill="#a5f3fc" stroke="#22d3ee"><animate attributeName="opacity" values="0;1;1;1;1" dur="5s" repeatCount="indefinite"/></rect>
+    <rect x="270" y="118" width="180" height="14" fill="#a5f3fc" stroke="#22d3ee"><animate attributeName="opacity" values="0;0;1;1;1" dur="5s" repeatCount="indefinite"/></rect>
+    <rect x="270" y="102" width="180" height="14" fill="#a5f3fc" stroke="#22d3ee"><animate attributeName="opacity" values="0;0;0;1;1" dur="5s" repeatCount="indefinite"/></rect>
+    <rect x="270" y="86" width="180" height="14" fill="#a5f3fc" stroke="#22d3ee"><animate attributeName="opacity" values="0;0;0;0;1" dur="5s" repeatCount="indefinite"/></rect>
+    <rect x="270" y="70" width="180" height="14" fill="#67e8f9" stroke="#22d3ee" stroke-dasharray="3 3"><animate attributeName="opacity" values="0;0;0;0;0.6" dur="5s" repeatCount="indefinite"/></rect>
+  </g>
+  <!-- vertical channel hole -->
+  <rect x="350" y="62" width="14" height="102" fill="#fbbf24" opacity="0.75"/>
+  <text x="470" y="115" font-size="9.5" fill="#0e7490">垂直沟道孔</text>
+  <text x="470" y="129" font-size="9.5" fill="#0e7490">(深宽比 &gt;60:1)</text>
+  <!-- etching drill animation -->
+  <circle r="5" fill="#dc2626">
+    <animateMotion dur="2.5s" repeatCount="indefinite" path="M357 55 L357 164"/>
+  </circle>
+  <text x="360" y="182" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0e7490">一次刻蚀打穿上百层 → 层数就是密度</text>
+  <text x="360" y="198" text-anchor="middle" font-size="9.5" fill="#64748b">2013 年 24 层 → 2026 年 300+ 层</text>
+</svg>
+<div class="anim-note">
+<p><b>范式转移的意义：</b>这是半导体史上少见的"<b>主动放弃摩尔定律式缩微</b>"案例。2D NAND 在 15nm 左右撞墙后，业界不再缩小单元，而是改为垂直堆叠层数，同时把单元尺寸放回 40-50nm 这种宽松节点——<b>单元变大反而更可靠</b>，密度靠层数来换。</p>
+<p><b>工艺细节与新瓶颈：</b>难点从光刻转移到<b>高深宽比刻蚀</b>（要一次性打穿上百层薄膜且孔径上下一致）、<b>薄膜应力控制</b>（层数越多晶圆越容易弯曲）、以及每层的沉积均匀性。近年的解法是 <b>String Stacking（分两次堆叠再对接）</b> 和 <b>晶圆键合（把外围 CMOS 电路单独做在另一片晶圆上再贴合，如长江存储 Xtacking）</b>。</p>
+<p><b>趋势：</b>层数往 500-1000 层推进；单元从 TLC→QLC→PLC 每单元存更多比特（代价是耐久与保持进一步恶化，更依赖主控纠错）。</p>
+<div class="kv"><span class="good">密度持续提升</span><span class="good">成本最低</span><span class="warn">刻蚀/应力工程极限</span><span class="warn">QLC/PLC 耐久下降</span></div>
+</div>
+</div>
+
+<h3>2.8.4 新型非易失存储器：不再靠"存电荷"，改为改变材料状态</h3>
+<div class="anim-row">
+
+<div class="anim-card">
+<div class="at">MRAM · 磁矩方向存 bit（STT-MRAM）</div>
+<div class="am">两层磁性薄膜：平行 = 低阻 = "1"，反平行 = 高阻 = "0"</div>
+<svg viewBox="0 0 520 210">
+  <rect x="0" y="0" width="520" height="210" fill="#fcfdfe"/>
+  <!-- MTJ stack -->
+  <text x="260" y="20" text-anchor="middle" font-size="11.5" font-weight="800" fill="#312e81">磁隧道结 MTJ</text>
+  <!-- free layer -->
+  <rect x="180" y="34" width="160" height="30" rx="4" fill="#c7d2fe" stroke="#6366f1" stroke-width="2"/>
+  <text x="112" y="53" font-size="10" font-weight="700" fill="#3730a3">自由层</text>
+  <!-- flipping arrow in free layer -->
+  <g>
+    <path d="M240 49 L290 49" stroke="#1e1b4b" stroke-width="3.5" marker-end="url(#mar)"/>
+    <animateTransform attributeName="transform" type="rotate"
+      values="0 265 49; 0 265 49; 180 265 49; 180 265 49; 0 265 49"
+      dur="4.4s" repeatCount="indefinite"/>
+  </g>
+  <defs><marker id="mar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#1e1b4b"/></marker></defs>
+  <!-- barrier -->
+  <rect x="180" y="64" width="160" height="16" fill="#e2e8f0" stroke="#94a3b8"/>
+  <text x="348" y="76" font-size="9" fill="#64748b">MgO 隧穿层（~1nm）</text>
+  <!-- pinned layer -->
+  <rect x="180" y="80" width="160" height="30" rx="4" fill="#a5b4fc" stroke="#4f46e5" stroke-width="2"/>
+  <text x="104" y="99" font-size="10" font-weight="700" fill="#3730a3">固定层（钉住）</text>
+  <path d="M240 95 L290 95" stroke="#1e1b4b" stroke-width="3.5" marker-end="url(#mar)"/>
+  <!-- spin-polarized current writing -->
+  <circle r="4.5" fill="#ec4899">
+    <animateMotion dur="2.2s" repeatCount="indefinite" path="M260 140 L260 100"/>
+  </circle>
+  <text x="260" y="158" text-anchor="middle" font-size="10" font-weight="700" fill="#be185d">写入：自旋极化电流翻转自由层磁矩</text>
+  <!-- state readout -->
+  <text x="260" y="180" text-anchor="middle" font-size="10.5" font-weight="700" fill="#3730a3">
+    状态：平行 → 低电阻 → 读作 "1"
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="4.4s" repeatCount="indefinite"/>
+  </text>
+  <text x="260" y="180" text-anchor="middle" font-size="10.5" font-weight="700" fill="#be185d">
+    状态：反平行 → 高电阻 → 读作 "0"
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="4.4s" repeatCount="indefinite"/>
+  </text>
+  <text x="260" y="200" text-anchor="middle" font-size="10" fill="#475569">读取只需测电阻，不扰动磁矩 → 非破坏性读出</text>
+</svg>
+<div class="anim-note">
+<p><b>原理：</b>信息存在自由层磁矩的<b>方向</b>里，不是电荷。写入靠通过自旋极化电流施加自旋转移力矩（STT）把磁矩"推"过去；读取只测隧穿电阻。</p>
+<p><b>工艺细节：</b>MTJ 做在<b>后段互连层（BEOL）</b>之间，不占用前段晶体管面积，可以叠加在标准 CMOS 之上——这是它最大的集成优势。难点在 MgO 隧穿层厚度必须控到约 1nm 且全片均匀，以及需要引入磁性材料沉积与刻蚀设备（现有 Fab 没有这步产线）。</p>
+<p><b>为什么重要：</b>无磨损写入（10¹²+）、无需高压、ns 级写入、非破坏性读出。<b>已在量产替代嵌入式 SRAM 和 eFlash</b>（台积电/三星/GF 都有 22-28nm eMRAM 平台，工业与车规 MCU 已采用）。</p>
+<p><b>趋势：</b>SOT-MRAM（自旋轨道力矩，读写路径分离，速度可逼近 SRAM）被视为"最后一级缓存替代"的候选；难点是密度与写电流。</p>
+<div class="kv"><span class="good">近乎无限耐久</span><span class="good">ns 级·低压</span><span class="good">可叠在 CMOS 上</span><span class="warn">单元面积偏大</span><span class="warn">需新增磁性材料产线</span></div>
+</div>
+</div>
+
+<div class="anim-card">
+<div class="at">RRAM · 氧空位导电细丝的生成与断开</div>
+<div class="am">英飞凌 AURIX TC4x 已把它用到车规 MCU（台积电 28nm、20MB）</div>
+<svg viewBox="0 0 520 210">
+  <rect x="0" y="0" width="520" height="210" fill="#fcfdfe"/>
+  <text x="260" y="20" text-anchor="middle" font-size="11.5" font-weight="800" fill="#9d174d">金属–氧化物–金属（MIM）结构</text>
+  <!-- top electrode -->
+  <rect x="150" y="32" width="220" height="24" rx="3" fill="#94a3b8"/>
+  <text x="260" y="49" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">上电极（活性金属，如 Ti）</text>
+  <!-- switching oxide layer -->
+  <rect x="150" y="56" width="220" height="72" fill="#fce7f3" stroke="#f472b6" stroke-width="2"/>
+  <text x="386" y="90" font-size="9.5" fill="#9d174d">阻变层</text>
+  <text x="386" y="104" font-size="9.5" fill="#9d174d">HfO₂ / TaOx</text>
+  <!-- bottom electrode -->
+  <rect x="150" y="128" width="220" height="24" rx="3" fill="#94a3b8"/>
+  <text x="260" y="145" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">下电极</text>
+  <!-- conductive filament forming and breaking -->
+  <g>
+    <circle cx="260" cy="120" r="4" fill="#db2777"><animate attributeName="opacity" values="0;1;1;1;1;0" dur="5s" repeatCount="indefinite"/></circle>
+    <circle cx="258" cy="106" r="4" fill="#db2777"><animate attributeName="opacity" values="0;0;1;1;1;0" dur="5s" repeatCount="indefinite"/></circle>
+    <circle cx="262" cy="92" r="4" fill="#db2777"><animate attributeName="opacity" values="0;0;0;1;1;0" dur="5s" repeatCount="indefinite"/></circle>
+    <circle cx="259" cy="78" r="4" fill="#db2777"><animate attributeName="opacity" values="0;0;0;0;1;0" dur="5s" repeatCount="indefinite"/></circle>
+    <circle cx="261" cy="64" r="4" fill="#db2777"><animate attributeName="opacity" values="0;0;0;0;1;0" dur="5s" repeatCount="indefinite"/></circle>
+  </g>
+  <!-- oxygen ions drifting -->
+  <circle r="3" fill="#0ea5e9">
+    <animateMotion dur="5s" repeatCount="indefinite" path="M230 100 L200 70"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="3" fill="#0ea5e9">
+    <animateMotion dur="5s" begin="1s" repeatCount="indefinite" path="M295 110 L325 75"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="5s" begin="1s" repeatCount="indefinite"/>
+  </circle>
+  <text x="260" y="172" text-anchor="middle" font-size="10.5" font-weight="700" fill="#9d174d">
+    SET：氧离子迁走 → 氧空位连成细丝 → 低阻态
+    <animate attributeName="opacity" values="1;1;1;1;0" dur="5s" repeatCount="indefinite"/>
+  </text>
+  <text x="260" y="172" text-anchor="middle" font-size="10.5" font-weight="700" fill="#475569">
+    RESET：氧离子回填 → 细丝断开 → 高阻态
+    <animate attributeName="opacity" values="0;0;0;0;1" dur="5s" repeatCount="indefinite"/>
+  </text>
+  <text x="260" y="194" text-anchor="middle" font-size="10" fill="#475569">可按 bit 写入，<b>无需先整块擦除</b>（与 Flash 的关键差别）</text>
+</svg>
+<div class="anim-note">
+<p><b>原理：</b>在氧化物里靠电场驱动氧离子迁移，留下的氧空位串联成一条纳米级导电细丝 → 电阻骤降（SET）；反向电压让氧离子回填、细丝断开 → 电阻升高（RESET）。读取只测电阻。</p>
+<p><b>工艺细节：</b>结构极其简单（两层金属夹一层氧化物），同样做在 BEOL，<b>额外光罩层数明显少于 eFlash</b>，且不需要 9-18V 高压电荷泵。这正是英飞凌选它替代 28nm eFlash 的核心原因——<b>把成本曲线重新拉回下降通道</b>。</p>
+<p><b>挑战：</b>细丝的形成位置有随机性 → 单元间与循环间离散度大（variability），需要更强的读出电路与 ECC 支撑；高温数据保持特性是车规认证的主战场。</p>
+<p><b>趋势：</b>除了做嵌入式 NVM，因为"电阻可连续调节"，RRAM 是<b>存内计算（in-memory computing）</b>做模拟矩阵乘法的头号候选器件。</p>
+<div class="kv"><span class="good">结构简单·光罩少</span><span class="good">无需高压·可 bit 写</span><span class="good">已车规量产</span><span class="warn">离散度大</span><span class="warn">高温保持需加固</span></div>
+</div>
+</div>
+</div>
+
+<div class="anim-row">
+
+<div class="anim-card">
+<div class="at">PCM · 晶态 ↔ 非晶态的相变</div>
+<div class="am">3D XPoint（Optane）的底层机理；ST 用于车规 Stellar</div>
+<svg viewBox="0 0 520 200">
+  <rect x="0" y="0" width="520" height="200" fill="#fcfdfe"/>
+  <text x="260" y="20" text-anchor="middle" font-size="11.5" font-weight="800" fill="#9a3412">硫系材料 GST（Ge-Sb-Te）</text>
+  <!-- cell body -->
+  <rect x="170" y="32" width="180" height="90" rx="6" fill="#ffedd5" stroke="#fb923c" stroke-width="2"/>
+  <!-- heater -->
+  <rect x="240" y="122" width="40" height="18" fill="#dc2626"/>
+  <text x="260" y="136" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">加热电极</text>
+  <!-- crystalline lattice (ordered) -->
+  <g>
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="5s" repeatCount="indefinite"/>
+    <circle cx="200" cy="55" r="4" fill="#ea580c"/><circle cx="230" cy="55" r="4" fill="#ea580c"/>
+    <circle cx="260" cy="55" r="4" fill="#ea580c"/><circle cx="290" cy="55" r="4" fill="#ea580c"/>
+    <circle cx="320" cy="55" r="4" fill="#ea580c"/>
+    <circle cx="200" cy="85" r="4" fill="#ea580c"/><circle cx="230" cy="85" r="4" fill="#ea580c"/>
+    <circle cx="260" cy="85" r="4" fill="#ea580c"/><circle cx="290" cy="85" r="4" fill="#ea580c"/>
+    <circle cx="320" cy="85" r="4" fill="#ea580c"/>
+    <circle cx="215" cy="105" r="4" fill="#ea580c"/><circle cx="245" cy="105" r="4" fill="#ea580c"/>
+    <circle cx="275" cy="105" r="4" fill="#ea580c"/><circle cx="305" cy="105" r="4" fill="#ea580c"/>
+  </g>
+  <!-- amorphous (disordered) -->
+  <g>
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="5s" repeatCount="indefinite"/>
+    <circle cx="196" cy="61" r="4" fill="#94a3b8"/><circle cx="238" cy="48" r="4" fill="#94a3b8"/>
+    <circle cx="266" cy="70" r="4" fill="#94a3b8"/><circle cx="296" cy="50" r="4" fill="#94a3b8"/>
+    <circle cx="326" cy="72" r="4" fill="#94a3b8"/>
+    <circle cx="208" cy="92" r="4" fill="#94a3b8"/><circle cx="242" cy="79" r="4" fill="#94a3b8"/>
+    <circle cx="272" cy="97" r="4" fill="#94a3b8"/><circle cx="302" cy="84" r="4" fill="#94a3b8"/>
+    <circle cx="228" cy="110" r="4" fill="#94a3b8"/><circle cx="288" cy="108" r="4" fill="#94a3b8"/>
+  </g>
+  <!-- heat pulse -->
+  <circle r="6" fill="#ef4444" opacity="0.8">
+    <animateMotion dur="5s" repeatCount="indefinite" path="M260 130 L260 90"/>
+    <animate attributeName="opacity" values="0;0.9;0;0" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  <text x="260" y="162" text-anchor="middle" font-size="10.5" font-weight="700" fill="#9a3412">
+    晶态：原子排列有序 → 低电阻 → "1"
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="5s" repeatCount="indefinite"/>
+  </text>
+  <text x="260" y="162" text-anchor="middle" font-size="10.5" font-weight="700" fill="#475569">
+    非晶态：急速冷却冻住无序 → 高电阻 → "0"
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="5s" repeatCount="indefinite"/>
+  </text>
+  <text x="260" y="184" text-anchor="middle" font-size="10" fill="#475569">写入 = 用电流脉冲加热熔化，再控制冷却速率决定结晶与否</text>
+</svg>
+<div class="anim-note">
+<p><b>原理：</b>用电流脉冲把材料加热到熔点以上，<b>急冷</b>则冻结成无序的非晶态（高阻），<b>缓冷</b>则结晶成有序晶态（低阻）。信息存在原子排列的有序度里。</p>
+<p><b>工艺细节：</b>关键是热隔离——必须让热量集中在单元内、不串扰到邻居，因此单元要做得细长并配置加热电极。3D XPoint 用 <b>1S1R 交叉点阵列（每个单元串一个 OTS 选通管）</b> 才能做到高密度无串扰。</p>
+<p><b>为什么 Optane 退市：</b>机理没问题，问题在<b>商业定位</b>——它比 DRAM 慢、比 NAND 贵，夹在中间。同时 NAND 靠 3D 堆叠把成本一路压下来，SSD 延迟也在改善，Optane 的性价比窗口被两头挤没了。<b>这是一个"技术优秀但生态位被消灭"的经典案例。</b></p>
+<p><b>仍活着的地方：</b>嵌入式车规 NVM（ST Stellar 用 28nm PCM，支持 OTA 双库并行写），以及神经形态计算研究（多阻态可模拟突触权重）。</p>
+<div class="kv"><span class="good">多阻态·可做MLC</span><span class="good">耐久优于 Flash</span><span class="warn">写入功耗高（要加热）</span><span class="warn">高温易自结晶→保持难</span></div>
+</div>
+</div>
+
+<div class="anim-card">
+<div class="at">FeRAM / FeFET · 铁电极化翻转</div>
+<div class="am">HfO₂ 铁电性（2011 年发现）让这条路重新复活</div>
+<svg viewBox="0 0 520 200">
+  <rect x="0" y="0" width="520" height="200" fill="#fcfdfe"/>
+  <text x="260" y="20" text-anchor="middle" font-size="11.5" font-weight="800" fill="#166534">铁电薄膜（PZT / 掺杂 HfO₂）</text>
+  <!-- electrodes -->
+  <rect x="150" y="34" width="220" height="20" rx="3" fill="#94a3b8"/>
+  <rect x="150" y="122" width="220" height="20" rx="3" fill="#94a3b8"/>
+  <!-- ferroelectric film -->
+  <rect x="150" y="54" width="220" height="68" fill="#dcfce7" stroke="#4ade80" stroke-width="2"/>
+  <text x="386" y="92" font-size="9.5" fill="#166534">铁电层</text>
+  <!-- dipoles flipping -->
+  <g>
+    <g>
+      <animate attributeName="opacity" values="1;1;0;0;1" dur="4.4s" repeatCount="indefinite"/>
+      <path d="M180 108 L180 68" stroke="#15803d" stroke-width="3" marker-end="url(#fup)"/>
+      <path d="M220 108 L220 68" stroke="#15803d" stroke-width="3" marker-end="url(#fup)"/>
+      <path d="M260 108 L260 68" stroke="#15803d" stroke-width="3" marker-end="url(#fup)"/>
+      <path d="M300 108 L300 68" stroke="#15803d" stroke-width="3" marker-end="url(#fup)"/>
+      <path d="M340 108 L340 68" stroke="#15803d" stroke-width="3" marker-end="url(#fup)"/>
+    </g>
+    <g>
+      <animate attributeName="opacity" values="0;0;1;1;0" dur="4.4s" repeatCount="indefinite"/>
+      <path d="M180 68 L180 108" stroke="#b91c1c" stroke-width="3" marker-end="url(#fdn)"/>
+      <path d="M220 68 L220 108" stroke="#b91c1c" stroke-width="3" marker-end="url(#fdn)"/>
+      <path d="M260 68 L260 108" stroke="#b91c1c" stroke-width="3" marker-end="url(#fdn)"/>
+      <path d="M300 68 L300 108" stroke="#b91c1c" stroke-width="3" marker-end="url(#fdn)"/>
+      <path d="M340 68 L340 108" stroke="#b91c1c" stroke-width="3" marker-end="url(#fdn)"/>
+    </g>
+  </g>
+  <defs>
+    <marker id="fup" markerWidth="8" markerHeight="8" refX="4" refY="7" orient="auto"><path d="M4 0 L8 8 L0 8 z" fill="#15803d"/></marker>
+    <marker id="fdn" markerWidth="8" markerHeight="8" refX="4" refY="1" orient="auto"><path d="M4 8 L0 0 L8 0 z" fill="#b91c1c"/></marker>
+  </defs>
+  <text x="260" y="162" text-anchor="middle" font-size="10.5" font-weight="700" fill="#166534">
+    电偶极子向上 → 极化态 P+ → "1"
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="4.4s" repeatCount="indefinite"/>
+  </text>
+  <text x="260" y="162" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b91c1c">
+    施加反向电场 → 偶极子整体翻转 → "0"
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="4.4s" repeatCount="indefinite"/>
+  </text>
+  <text x="260" y="184" text-anchor="middle" font-size="10" fill="#475569">断电后极化方向保留 → 非易失；翻转只需极小能量</text>
+</svg>
+<div class="anim-note">
+<p><b>原理：</b>铁电材料内部存在自发电偶极子，电场可以把它整体翻转，断电后方向保留。写入能量极低（无需高压、无需加热），速度可达 ns 级，耐久可到 10¹⁰-10¹⁴。</p>
+<p><b>历史包袱：</b>传统 FeRAM 用 PZT（锆钛酸铅），含铅、与 CMOS 工艺不兼容、难缩微，所以三十年只在智能卡、电表这类小容量场景存活。</p>
+<p><b>转折点：</b>2011 年发现<b>掺杂 HfO₂ 也具有铁电性</b>——而 HfO₂ 正是先进逻辑工艺早已在用的高 κ 栅介质材料。这意味着铁电存储第一次可以直接进先进 CMOS 产线。由此衍生出 <b>FeFET</b>（把铁电层直接做成晶体管栅介质，1T 单元，密度潜力最大）。</p>
+<p><b>挑战与趋势：</b>FeRAM 是<b>破坏性读出</b>（读完要写回）；FeFET 的保持与耐久权衡、以及极化疲劳仍在攻关。目前是嵌入式 NVM 和存内计算的重要候选，尚未大容量量产。</p>
+<div class="kv"><span class="good">写入能量最低</span><span class="good">ns 级·高耐久</span><span class="good">HfO₂ 与 CMOS 兼容</span><span class="warn">破坏性读出(FeRAM)</span><span class="warn">容量尚小</span></div>
+</div>
+</div>
+</div>
+
+<h3>2.8.5 全类型横向对比与发展趋势</h3>
+
+<div class="card">
+<div class="ttl">存储金字塔：为什么必须分层，以及新型存储想插进哪一层</div>
+<div class="dsc">
+<svg viewBox="0 0 700 300" style="width:100%;max-height:300px;background:#fcfdfe;border-radius:8px;margin:6px 0">
+  <!-- pyramid layers -->
+  <polygon points="350,20 400,70 300,70" fill="#bfdbfe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="350" y="52" text-anchor="middle" font-size="11" font-weight="800" fill="#1e3a5f">寄存器</text>
+
+  <polygon points="300,70 400,70 440,120 260,120" fill="#93c5fd" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="350" y="94" text-anchor="middle" font-size="11.5" font-weight="800" fill="#12324f">SRAM（L1-L3 缓存）</text>
+  <text x="350" y="110" text-anchor="middle" font-size="9.5" fill="#1e3a5f">&lt;1ns · 最贵 · MB 级</text>
+
+  <polygon points="260,120 440,120 480,180 220,180" fill="#fcd34d" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="350" y="146" text-anchor="middle" font-size="11.5" font-weight="800" fill="#78350f">DRAM / HBM（主存）</text>
+  <text x="350" y="164" text-anchor="middle" font-size="9.5" fill="#92400e">~15ns · 需刷新 · GB 级</text>
+
+  <polygon points="220,180 480,180 520,240 180,240" fill="#fbcfe8" stroke="#ec4899" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="350" y="204" text-anchor="middle" font-size="11.5" font-weight="800" fill="#831843">← 新型 NVM 想占的"断层"</text>
+  <text x="350" y="222" text-anchor="middle" font-size="9.5" fill="#9d174d">MRAM / RRAM / PCM · 10-100ns · 非易失</text>
+
+  <polygon points="180,240 520,240 560,290 140,290" fill="#a7f3d0" stroke="#059669" stroke-width="1.5"/>
+  <text x="350" y="264" text-anchor="middle" font-size="11.5" font-weight="800" fill="#064e3b">NAND Flash / SSD（存储）</text>
+  <text x="350" y="281" text-anchor="middle" font-size="9.5" fill="#065f46">25-100μs · 最便宜 · TB 级</text>
+
+  <!-- gap indicator arrows -->
+  <line x1="120" y1="150" x2="120" y2="265" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="112" y="212" text-anchor="end" font-size="10" font-weight="700" fill="#dc2626">性能断层</text>
+  <text x="112" y="226" text-anchor="end" font-size="10" font-weight="700" fill="#dc2626">约 1000 倍</text>
+
+  <text x="600" y="100" text-anchor="middle" font-size="10" fill="#64748b">快</text>
+  <text x="600" y="120" text-anchor="middle" font-size="10" fill="#64748b">贵</text>
+  <text x="600" y="250" text-anchor="middle" font-size="10" fill="#64748b">慢</text>
+  <text x="600" y="270" text-anchor="middle" font-size="10" fill="#64748b">便宜</text>
+  <line x1="600" y1="135" x2="600" y2="235" stroke="#cbd5e1" stroke-width="2" marker-end="url(#pyd)"/>
+  <defs><marker id="pyd" markerWidth="8" markerHeight="8" refX="4" refY="7" orient="auto"><path d="M4 8 L0 0 L8 0 z" fill="#cbd5e1"/></marker></defs>
+</svg>
+<p><b>金字塔存在的原因：</b>没有任何一种存储器能同时做到"快 + 便宜 + 大容量 + 非易失"，所以只能分层，用局部性原理让大部分访问命中上层。</p>
+<p><b>最关键的观察：</b>DRAM（~15ns）和 NAND（~50μs）之间有约<b>三个数量级的性能断层</b>。所有新型非易失存储器——MRAM、RRAM、PCM——本质上都在争夺这个断层的生态位，即所谓 <b>Storage Class Memory（SCM）</b>。Optane 是第一个认真尝试并失败的产品：它证明了断层客观存在，但也证明了<b>仅靠"填空"不足以立足</b>——两侧的 DRAM 和 NAND 都在持续进步，中间层的性价比窗口会被不断挤压。</p>
+<p><b>所以现在新型 NVM 的真实落地路径变了：</b>不再执着于做独立的内存条，而是转向<b>嵌入式</b>（做在 SoC/MCU 内部替代 eFlash 和 SRAM）——这里不跟 DRAM/NAND 比性价比，而是比"能否在先进节点上继续存在"。英飞凌 TC4x 的 RRAM、台积电的 eMRAM 平台走的都是这条路，也正是目前唯一被验证成立的商业模式。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl">12 种存储器一图定位（机理 · 工艺难点 · 演进方向）</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:11%">类型</th><th style="width:16%">核心工艺难点</th><th style="width:20%">当前状态</th><th>演进方向与判断</th></tr></thead>
+<tbody>
+<tr><td class="hl">SRAM</td><td>先进节点下面积缩小停滞（SRAM scaling wall）</td><td>不可替代，但成为芯片面积与成本主要压力</td><td>短期靠电路技巧与工艺定制；长期看 <b>SOT-MRAM</b> 有机会替代末级缓存。<b>L1 层级不会被替代。</b></td></tr>
+<tr><td class="hl">DRAM</td><td>高深宽比电容（&gt;100:1）+ 高 κ 介质</td><td>平面缩微逼近极限，只能靠 1α/1β/1γ 半代推进</td><td><b>3D DRAM</b>（垂直堆叠电容与晶体管）是确定方向，路径与 NAND 当年一致；良率与成本是胜负关键。</td></tr>
+<tr><td class="hl">HBM</td><td>TSV 硅通孔、混合键合、散热</td><td>AI 算力的第一瓶颈，产能长期紧张</td><td>层数与带宽持续升级；<b>混合键合（hybrid bonding）取代微凸块</b>是下一代关键；定制 HBM（base die 集成逻辑）成为新战场。</td></tr>
+<tr><td class="hl">Mask ROM</td><td>—</td><td>已淘汰</td><td>无。灵活性为零，任何改动成本不可接受。</td></tr>
+<tr><td class="hl">OTP / 反熔丝</td><td>击穿一致性控制</td><td><b>活得很好</b></td><td>不可逆恰是安全优势 → 芯片 ID、密钥根、trim 参数长期保留，<b>不会消失</b>。</td></tr>
+<tr><td class="hl">EPROM</td><td>紫外擦除需石英窗封装</td><td>已淘汰</td><td>无。被 EEPROM 完全取代。</td></tr>
+<tr><td class="hl">EEPROM</td><td>薄氧化层可靠性</td><td>车规参数存储仍在用</td><td>逐步被"Flash + 模拟 EEPROM 算法"或新型 NVM 取代，但按字节改写的需求会长期存在。</td></tr>
+<tr><td class="hl">NOR Flash</td><td>并联结构接触孔占面积</td><td><b>主动停在 45-65nm</b></td><td>不追先进制程，靠可 XIP + 高可靠守代码存储。车规与 MCU 外挂需求稳定，<b>属于"不缩微也能活"的典型</b>。</td></tr>
+<tr><td class="hl">NAND Flash</td><td>高深宽比刻蚀、薄膜应力、晶圆键合</td><td>300+ 层量产</td><td>层数向 500-1000 推进；TLC→QLC→PLC；<b>瓶颈已从光刻转为制造工程</b>，越来越依赖主控纠错兜住可靠性。</td></tr>
+<tr><td class="hl">MRAM</td><td>MgO 层 ~1nm 均匀性、磁性材料产线</td><td><b>已量产（22-28nm eMRAM）</b></td><td>嵌入式替代 eFlash/SRAM 最成熟的一条；SOT-MRAM 冲击缓存层级。<b>确定性最高。</b></td></tr>
+<tr><td class="hl">RRAM</td><td>细丝随机性导致离散度大</td><td><b>已进车规（TC4x 28nm 20MB）</b></td><td>28nm 以下嵌入式 NVM 主力候选；因电阻可连续调节，是<b>存内计算</b>头号器件。</td></tr>
+<tr><td class="hl">PCM</td><td>热隔离、高温自结晶</td><td>独立产品线退市，车规嵌入式在用</td><td>大容量 SCM 路线已被证伪；留在嵌入式车规与神经形态计算。</td></tr>
+<tr><td class="hl">FeRAM / FeFET</td><td>极化疲劳、保持与耐久权衡</td><td>小容量量产，FeFET 研发中</td><td>HfO₂ 铁电让其重回主线，写入能量最低是杀手级优势；<b>能否做大容量仍未验证。</b></td></tr>
+</tbody></table>
+</div></div>
+
+<div class="card" style="border-left:4px solid #7c3aed">
+<div class="ttl">五条贯穿全局的趋势判断</div>
+<div class="dsc">
+<p><b>① "存电荷"这条路线正在系统性退场。</b>电荷存储的致命缺陷是电子数量随体积线性减少——eFlash 在 28nm 只剩约 100 个电子。而磁矩方向、晶相有序度、离子位置这些状态量不随尺寸缩小而"变少"。所有新型存储器的共同点就是<b>把信息从"有多少电荷"换成"材料处于哪种状态"</b>。</p>
+<p><b>② 缩微不再是唯一提密度手段，"换维度"成为主流解法。</b>NAND 在 2013 年主动放弃平面缩微改堆层数，DRAM 正在走同一条路（3D DRAM），HBM 则是把 die 垂直堆起来。半导体行业已经形成一个共识：<b>当平面走不动时，向上走。</b></p>
+<p><b>③ 新型存储的商业落地集中在"嵌入式"，不是"独立内存"。</b>Optane 用一款产品证明了独立 SCM 产品的生态位会被 DRAM 和 NAND 两头挤死。反之，嵌入式路线（替代 SoC/MCU 里的 eFlash 和 SRAM）已经跑通——因为在那里它不需要打价格战，只需要回答"28nm 以下还能不能有片内非易失存储"。</p>
+<p><b>④ 可靠性责任正在从器件转移到系统。</b>NAND 本身耐久只有千次量级、常温保持几年，靠主控的 LDPC、磨损均衡、定期刷新才能用。这套"器件不够好、系统补上"的思路正在扩散到 RRAM（靠 ECC 压住离散度）。<b>但车规嵌入式是例外</b>——断电半年、150°C、上电即读对，系统无从补救，所以必须器件级达标。这也是车规存储壁垒最深的原因。</p>
+<p><b>⑤ 下一个战场是"存算融合"。</b>AI 推理的瓶颈早已不是算力而是数据搬运（内存墙）。RRAM 和 FeFET 因为电阻/极化可连续调节，能在存储阵列内直接完成模拟矩阵乘法，理论能效比数字方案高一到两个数量级。<b>这是新型存储器真正的长期叙事——不是替代 Flash，而是让存储单元本身成为计算单元。</b></p>
+<div class="src">来源：IEEE IEDM / ISSCC 近年存储器论文、Yole "Emerging NVM" 报告、Infineon+TSMC RRAM 联合公告(2022-11)、台积电/三星 eMRAM 平台资料、JEDEC JESD47/JESD22 保持与耐久标准、各厂商技术白皮书</div>
+</div></div>
 
 
 
