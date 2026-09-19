@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v5.2 | 2026-09-19 | 结构重构: 技术深水区统一收进基础篇(第零篇), 第1-4篇只保留宏观叙事 | 0.5晶圆制造(原1.9)/0.7存储原理(原2.8)/0.8 DRAM-NAND(原2.9)/0.9功率损耗(原3.8) 迁入基础篇, 各篇原位留宏观指引卡 | 0.6光刻独立成篇并大幅扩写: 新增八步量产工序(Track vs Scanner分工)/正负性胶三种组合与胶厚被下游倒逼/掩模4X缩放与stepping/焦深与剂量工艺窗口(DOF与NA平方成反比)/套刻误差六种模式动画/量测四类与SPC闭环/关键数字总表 | 锚点id全部保留, 旧链接不失效 -->
+<!-- version: v5.3 | 2026-09-19 | 新增基础篇 0.9 封装与3D堆叠(五大目的/一级二级互连/RDL/金线vs倒装动画/三条堆叠路线动画/TSV与HBM定义/散热与良率双约束/Probe在封装前的原因/五条连接链), 原0.9功率顺延为0.10 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -207,7 +207,8 @@ table.node-table.nopad .hl{font-size:12px}
   </div></li>
 <li><a href="#sec-mem-atlas">0.7 存储器全类型原理 🎬</a></li>
 <li><a href="#sec-mem-official">0.8 DRAM/NAND 官方原理 🎬</a></li>
-<li><a href="#sec-power-loss">0.9 功率损耗与栅驱 🎬</a></li>
+<li><a href="#sec-pkg">0.9 封装与3D堆叠 🎬</a></li>
+<li><a href="#sec-power-loss">0.10 功率损耗与栅驱 🎬</a></li>
 </ol>
 </div>
 <div>
@@ -252,7 +253,7 @@ table.node-table.nopad .hl{font-size:12px}
 <li><a href="#sec-power-nodes">3.6 功率器件演进总表</a></li>
 <li><a href="#sec-power-deep">3.7 深度研究 · SiC · GaN · AI供电 · 车规</a></li>
 </ol>
-<div style="font-size:11px;color:#7c3aed;padding-left:4px;line-height:1.6">📐 损耗模型与栅驱 → <a href="#sec-power-loss">基础篇 0.9</a></div>
+<div style="font-size:11px;color:#7c3aed;padding-left:4px;line-height:1.6">📐 损耗模型与栅驱 → <a href="#sec-power-loss">基础篇 0.10</a></div>
 <ol style="display:none">
 </ol>
 </div>
@@ -2033,12 +2034,300 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 
 <hr style="margin:60px 0 40px;border:none;border-top:4px solid #7c3aed">
 
-<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-power-eng">0.9 功率器件工程层 —— 损耗与栅极驱动</h1>
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-pkg">0.9 封装与 3D 堆叠 —— 从裸片到能用的东西，以及通往 HBM 的那座桥</h1>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">五大目的 · 金线 vs 倒装 · TSV 硅通孔 · 为什么 HBM 的护城河在封装良率</p>
+<div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#f5f3ff;border-left:3px solid #7c3aed;border-radius:6px;font-size:12px;color:#4c1d95">
+本节依据 <b>美光官方《Intro to Memory Packaging》讲义 33 页</b> 与配套 Quiz（Reviewed 2025）。<b>这是全套材料里最容易被低估的一份</b>——它表面讲「怎么把芯片包起来」，实际讲的是 AI 时代胜负手：为什么 HBM 拼的不是存储颗粒，而是封装。<br>
+<span style="color:#6d28d9">⚠️ 材料边界（原厂明确未讲）：HBM 的具体规格（层数/带宽/代际/位宽一律没有，只给了一句定义）、CoWoS 与 2.5D 中介层、混合键合（铜-铜直连）、Chiplet 与 UCIe 异构集成。凡本站涉及这些处均另有来源或标为推断。</span>
+</div>
+
+<div class="content">
+
+<div class="card" style="background:#faf5ff;border-left:4px solid #7c3aed">
+<div class="ttl">先建立画面：裸片有几个「没法直接用」的硬伤</div>
+<div class="dsc">
+<p>芯片在晶圆厂做完后，本质是一小片<b>硅</b>，上面刻着几十亿个晶体管。美光的定义很直白：<b>封装就是「环绕存储裸芯片、使其能够在电路中被使用」的那些组件</b>。【原厂】(PKG p8)</p>
+<p>层次是三段：<b>硅裸片 → 封装 → 电路板</b>。裸片在最里面，封装包着它，整体再焊到主板上。【原厂】(PKG p8)</p>
+<div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#4c1d95;margin-top:8px">
+<b>🔑 一个类比就够了：</b>裸片像一颗<b>剥了壳、还没装进任何东西的精密钟表机芯</b>——精密、脆弱、引脚细到肉眼看不清、还发烫。封装就是给它配上表壳（保护）、表带接口（标准化接口）、金属背盖（散热），再把机芯里密密麻麻的小齿轮引出到你能拧的表冠（尺度转接）。<b>没有这一层，机芯再好也戴不上手腕。</b>
+</div>
+</div></div>
+
+<h2 id="sec-pkg-purpose">📦 0.9.1 封装五大目的（原厂骨架）</h2>
+
+<div class="card">
+<div class="ttl">每一条都对应裸片的一个硬伤</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:6%">#</th><th style="width:22%">目的</th><th>解决什么 / 怎么做</th></tr></thead>
+<tbody>
+<tr><td>1</td><td class="hl">电气接口</td><td>裸片上的金属连接点是<b>微米尺度</b>，电路板走线是<b>毫米尺度</b>——<b>差了上千倍</b>。封装要在两个尺度之间做转接，同时改善信号质量。<span style="color:#64748b">像国际电源插头转换器：芯片说一种接口语言，主板说另一种，封装当中间人</span>【原厂】(PKG p14)</td></tr>
+<tr><td>2</td><td class="hl">物理保护</td><td>薄薄切下来的硅裸片<b>很脆</b>，怕机械应力也怕灰尘湿气。两种手段：<b>塑料封装</b>（注塑把裸片包进刚性塑料）或<b>金属盖</b>（密封在盖下）【原厂】(PKG p15)</td></tr>
+<tr><td>3</td><td class="hl">散热</td><td>复杂 IC 工作时发很多热，<b>没有封装帮忙散热，裸片会被自己烧坏</b>。手段：导热填充料把热导走、<b>扩热板</b>把热摊到更大面积、中间靠<b>热界面材料 TIM</b> 传导【原厂】(PKG p16)</td></tr>
+<tr><td>4</td><td class="hl">扩展功能 ⭐</td><td><b>堆叠裸片以成倍增加可用内存</b>；还能在封装里塞进逻辑芯片或不同类型存储做成混合存储。<b>这一条就是通往 3D 堆叠与 HBM 的入口</b>【原厂】(PKG p17)</td></tr>
+<tr><td>5</td><td class="hl">客户易用</td><td><b>标准化插槽</b>让客户能快速安装、更换、升级。封装把对外连接点做成<b>行业标准布局</b>，主板厂不用关心里面芯片长什么样【原厂】(PKG p18)</td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>原厂 Quiz 印证：</b>问「封装的目的是什么」，标准答案是 <b>D. 以上全部</b>【原厂】(PKG-Quiz #5)。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl">封装内部有什么：一级互连 vs 二级互连（这个分层很重要）</div>
+<div class="dsc">
+<p>美光用一张标注 A–F 的剖面图给出标准结构件清单【原厂】(PKG p13)：</p>
+<table class="node-table nopad"><thead><tr><th style="width:8%">标注</th><th style="width:26%">原厂名称</th><th>作用</th></tr></thead>
+<tbody>
+<tr><td>A</td><td class="hl">Silicon Die 硅裸片</td><td>半导体存储本体</td></tr>
+<tr><td>B</td><td class="hl">Interposer 中介层</td><td>裸片的支撑；<b>内部嵌入互连走线</b>。官方定义「裸片安装其上的基座，通常包含裸片-封装互连」。<b>记住这个词，它在 HBM 里是主角之一</b>【原厂】(PKG p29)</td></tr>
+<tr><td>C</td><td class="hl">二级互连<br><span style="font-weight:400;font-size:11.5px">die-to-package</span></td><td>裸片到封装那一跳：<b>金线 / 凸点 / 铜柱</b></td></tr>
+<tr><td>D</td><td class="hl">一级互连<br><span style="font-weight:400;font-size:11.5px">package-to-board</span></td><td>封装到主板那一跳：<b>引脚或焊球</b></td></tr>
+<tr><td>E</td><td>散热</td><td>扩热板 + 热界面材料 TIM</td></tr>
+<tr><td>F</td><td>环境保护</td><td>塑料/环氧密封；陶瓷或金属盖</td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>容易搞混的点：</b>BGA 封装底下那些「球」属于<b>一级互连</b>——因为它们是封装对外、连到板子的那一跳，不是芯片到封装那一跳。【原厂】(PKG-Quiz #2)</p>
+<p><b>RDL 重布线层：</b>额外的一层或多层互连，专门用来解决<b>裸片互连点与封装互连点对不上</b>的问题。说白了就是一层「改道走线」把两边对齐。【原厂】(PKG p30)</p>
+<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px;font-size:12.5px;line-height:1.85;color:#1e3a5f;margin-top:8px">
+<b>💼 封装为什么是个「集成项目」而不是「一道工艺」：</b>原厂点明它需要四个学科协同——<b>机械工程</b>（评估封装翘曲、机械完整性、热特性）、<b>电气工程</b>（设计裸片与中介层的电气布线）、<b>材料科学</b>（化学、冶金）、<b>工业工程</b>（引入更紧公差的新工具与工艺）。Quiz 第 8 题问「封装最偏好什么专业」，答案是<b>以上全部都需要</b>。【原厂】(PKG p12, PKG-Quiz #8)<br>
+<span style="color:#475569">任何一条掉链子——翘曲控制不住、走线阻抗没算对、材料膨胀系数不匹配——整个封装就废。<b>层数越多，跨学科耦合越强</b>，这对把 12 层芯片摞起来的 HBM 尤其致命。</span>
+</div>
+</div></div>
+
+<h2 id="sec-pkg-bond">🔗 0.9.2 金线 vs 倒装：路径长短决定带宽天花板（动画）</h2>
+
+<div class="card">
+<div class="ttl">问题的起点：连接点长在芯片的正面</div>
+<div class="dsc">
+<p>先记住一个物理事实：芯片制造时，电连接点被<b>暴露在裸片的顶面</b>。要把电引出来只有两条路——要么在顶面焊线绕出去，要么<b>把芯片翻过来</b>、让顶面朝下直接压到基板上。【原厂】(PKG p19)</p>
+<p><b>这个「翻不翻」的选择，决定了电路径的长短，而路径长短决定了能做多快。</b></p>
+</div></div>
+
+<div class="anim-card">
+<div class="at">两种键合方式 · 信号要走的路差多远</div>
+<div class="am">上：金线绕到边缘再往下 ｜ 下：凸点直接压在基板上。看小球跑完全程的距离差</div>
+<svg viewBox="0 0 760 260">
+  <rect x="0" y="0" width="760" height="260" fill="#fcfdfe"/>
+
+  <!-- wire bond -->
+  <text x="20" y="22" font-size="11" font-weight="800" fill="#b91c1c">① Wire Bond（金线键合）· 芯片正面朝上 · &gt;80% 的 IC 用它</text>
+  <rect x="150" y="52" width="300" height="12" fill="#e2e8f0" stroke="#94a3b8"/>
+  <text x="300" y="46" text-anchor="middle" font-size="8.5" fill="#475569">裸片（正面朝上，焊盘在顶面）</text>
+  <rect x="100" y="98" width="420" height="16" fill="#cbd5e1" stroke="#94a3b8"/>
+  <text x="310" y="110" text-anchor="middle" font-size="8" fill="#334155">中介层 / 基板</text>
+  <!-- bond wires -->
+  <path d="M165,52 Q130,60 118,98" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+  <path d="M435,52 Q470,60 502,98" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+  <text x="96" y="80" font-size="8" fill="#b45309">金线</text>
+  <circle r="4.5" fill="#dc2626">
+    <animateMotion dur="3.2s" repeatCount="indefinite" path="M300,58 L165,52 Q130,60 118,98 L118,106"/>
+  </circle>
+  <text x="560" y="72" font-size="9.5" font-weight="700" fill="#b91c1c">路径：长</text>
+  <text x="560" y="88" font-size="8.5" fill="#7f1d1d">先横着走到边缘</text>
+  <text x="560" y="102" font-size="8.5" fill="#7f1d1d">再沿金线绕下去</text>
+  <text x="560" y="118" font-size="8.5" font-weight="700" fill="#b91c1c">→ 寄生大·信号慢</text>
+
+  <line x1="30" y1="138" x2="730" y2="138" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- flip chip -->
+  <text x="20" y="162" font-size="11" font-weight="800" fill="#047857">② Flip Chip / Bump（倒装焊）· 芯片翻过来，正面朝下</text>
+  <rect x="150" y="186" width="300" height="12" fill="#d1fae5" stroke="#10b981"/>
+  <text x="300" y="181" text-anchor="middle" font-size="8.5" fill="#065f46">裸片（已翻转，焊盘在底面）</text>
+  <!-- bumps -->
+  <g fill="#10b981">
+    <circle cx="180" cy="206" r="5"/><circle cx="240" cy="206" r="5"/><circle cx="300" cy="206" r="5"/>
+    <circle cx="360" cy="206" r="5"/><circle cx="420" cy="206" r="5"/>
+  </g>
+  <text x="130" y="210" font-size="8" fill="#047857">凸点</text>
+  <rect x="100" y="214" width="420" height="16" fill="#cbd5e1" stroke="#94a3b8"/>
+  <text x="310" y="226" text-anchor="middle" font-size="8" fill="#334155">中介层 / 基板</text>
+  <circle r="4.5" fill="#dc2626">
+    <animateMotion dur="3.2s" repeatCount="indefinite" path="M300,192 L300,206 L300,222"/>
+  </circle>
+  <text x="560" y="192" font-size="9.5" font-weight="700" fill="#047857">路径：极短</text>
+  <text x="560" y="208" font-size="8.5" fill="#065f46">垂直下去就到了</text>
+  <text x="560" y="224" font-size="8.5" font-weight="700" fill="#047857">→ 寄生小·信号快·密度高</text>
+
+  <rect x="30" y="238" width="700" height="18" rx="4" fill="#f5f3ff" stroke="#c4b5fd"/>
+  <text x="380" y="251" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5b21b6">根本差异一句话：路径长短 → 寄生电感大小 → 高速大带宽能不能做</text>
+</svg>
+<div class="src">机理依据：Micron《Intro to Memory Packaging》p19–21。动画为编者按原厂描述重绘。</div>
+</div>
+
+<div class="card">
+<div class="ttl">两种方式的完整取舍（原厂优缺点逐条）</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:20%">维度</th><th style="width:38%">Wire Bond 金线</th><th>Flip Chip 倒装 / 凸点</th></tr></thead>
+<tbody>
+<tr><td class="hl">芯片朝向</td><td>正面朝上</td><td><b>翻过来，正面朝下</b></td></tr>
+<tr><td class="hl">连接方式</td><td>顶面焊盘拉<b>细长金线</b>绕到外面（通常是金）</td><td>底面<b>焊球凸点直接压</b>在基板焊盘上</td></tr>
+<tr><td class="hl">普及度</td><td><b>超过 80% 的集成电路用它</b>——行业绝对主流</td><td>用于高速大带宽场景</td></tr>
+<tr><td class="hl">优点</td><td>更便宜、工艺更容易；<b>对不同芯片尺寸适应性强</b>（改尺寸不用大改）</td><td><b>寄生电压损耗低得多</b>；支持高密度互连、<b>缩小整体封装尺寸</b></td></tr>
+<tr><td class="hl">缺点</td><td>需要<b>更大的封装尺寸</b>；<b>长导线寄生大、信号传输更慢</b></td><td>工艺<b>更复杂、成本更高</b>；芯片尺寸一变往往<b>要重新设计键合图案</b></td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>金线还有两种连法</b>【原厂】(PKG p20)：<b>级联式</b>——金线从一颗裸片接力跳到下一颗、最后落到基板（适合堆叠裸片）；<b>直连式</b>——每颗裸片各自直接连到基板。</p>
+<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#78350f;margin-top:8px">
+<b>🔑 为什么「路径短」就「电性能好」——给非专业读者的物理直觉：</b><br>
+把电信号想成水管里的水。金线是一根<b>又细又长、绕来绕去</b>的软管；凸点是一个<b>又短又粗、直接对接</b>的接头。<br>
+<b>长导线 = 大寄生电感</b>：导线越长越像一个电感，会<b>拖慢电流变化</b>、抵抗高频信号。数据速率越高（每秒切换次数越多），这种拖累越严重。<br>
+→ 所以要做喂给 AI 芯片的 HBM 这种东西，<b>金线的物理极限根本不够，必须上凸点乃至 TSV</b>。<br>
+<span style="color:#a16207">这也正好接回 <a href="#sec-phys-moscap" style="color:#92400e"><b>0.3 的寄生电容</b></a>——凸点减少的就是那些拖慢信号的寄生电感与电容。</span>
+</div>
+</div></div>
+
+<h2 id="sec-pkg-tsv">🏗️ 0.9.3 三条堆叠路线：从「绕边」到「打竖井」（动画）</h2>
+
+<div class="card">
+<div class="ttl">为什么要往上堆：横向没地方了</div>
+<div class="dsc">
+<p>封装五大目的第 4 条就是「堆叠裸片以成倍增加内存」。平面上芯片面积有限，<b>把芯片竖着摞起来，是在同样占板面积里塞进更多容量的唯一办法</b>。【原厂】(PKG p17)</p>
+<p>但「怎么摞、怎么把上下层电连起来」有三条完全不同的路线，<b>性能天差地别</b>。</p>
+</div></div>
+
+<div class="anim-card">
+<div class="at">三条堆叠路线对比 · 为什么只有第三条能做 HBM</div>
+<div class="am">信号从最上层裸片走到基板，要绕多远？</div>
+<svg viewBox="0 0 760 270">
+  <rect x="0" y="0" width="760" height="270" fill="#fcfdfe"/>
+
+  <!-- (a) cascading wire bond -->
+  <text x="125" y="20" text-anchor="middle" font-size="10" font-weight="800" fill="#b91c1c">(a) 金线级联堆叠</text>
+  <g stroke="#94a3b8" fill="#e2e8f0">
+    <rect x="70" y="40" width="110" height="11"/><rect x="62" y="58" width="110" height="11"/>
+    <rect x="54" y="76" width="110" height="11"/><rect x="46" y="94" width="110" height="11"/>
+  </g>
+  <path d="M70,45 Q46,50 40,68" fill="none" stroke="#f59e0b" stroke-width="2"/>
+  <path d="M62,63 Q40,68 34,86" fill="none" stroke="#f59e0b" stroke-width="2"/>
+  <path d="M54,81 Q32,86 28,104" fill="none" stroke="#f59e0b" stroke-width="2"/>
+  <path d="M46,99 Q26,104 24,128" fill="none" stroke="#f59e0b" stroke-width="2"/>
+  <rect x="20" y="128" width="170" height="14" fill="#cbd5e1" stroke="#94a3b8"/>
+  <circle r="4" fill="#dc2626">
+    <animateMotion dur="4s" repeatCount="indefinite" path="M125,45 L70,45 Q46,50 40,68 L62,63 Q40,68 34,86 L54,81 Q32,86 28,104 L46,99 Q26,104 24,128 L24,135"/>
+  </circle>
+  <text x="125" y="162" text-anchor="middle" font-size="8.5" fill="#7f1d1d">接力式绕边下行</text>
+  <text x="125" y="176" text-anchor="middle" font-size="8.5" font-weight="700" fill="#b91c1c">路径最长·最慢</text>
+  <text x="125" y="192" text-anchor="middle" font-size="8" fill="#64748b">适合成本敏感·速度不敏感</text>
+  <text x="125" y="205" text-anchor="middle" font-size="8" fill="#64748b">（如很多 NAND 堆叠）</text>
+
+  <!-- (b) PoP -->
+  <text x="380" y="20" text-anchor="middle" font-size="10" font-weight="800" fill="#c2410c">(b) PoP 封装堆叠</text>
+  <rect x="310" y="40" width="140" height="34" fill="#fed7aa" stroke="#ea580c"/>
+  <text x="380" y="60" text-anchor="middle" font-size="8" fill="#7c2d12">已完成的封装 #2</text>
+  <rect x="310" y="86" width="140" height="34" fill="#fed7aa" stroke="#ea580c"/>
+  <text x="380" y="106" text-anchor="middle" font-size="8" fill="#7c2d12">已完成的封装 #1</text>
+  <line x1="322" y1="74" x2="322" y2="86" stroke="#ea580c" stroke-width="3"/>
+  <line x1="438" y1="74" x2="438" y2="86" stroke="#ea580c" stroke-width="3"/>
+  <text x="464" y="84" font-size="7.5" fill="#c2410c">封装间通孔</text>
+  <rect x="290" y="128" width="180" height="14" fill="#cbd5e1" stroke="#94a3b8"/>
+  <circle r="4" fill="#dc2626">
+    <animateMotion dur="4s" repeatCount="indefinite" path="M380,55 L322,60 L322,86 L322,112 L330,135"/>
+  </circle>
+  <text x="380" y="162" text-anchor="middle" font-size="8.5" fill="#7c2d12">摞的是「成品封装」</text>
+  <text x="380" y="176" text-anchor="middle" font-size="8.5" font-weight="700" fill="#c2410c">不是裸片·更松散</text>
+  <text x="380" y="192" text-anchor="middle" font-size="8" fill="#64748b">起因：凸点裸片不好往上摞</text>
+  <text x="380" y="205" text-anchor="middle" font-size="8" fill="#64748b">那就退一步·摞整个封装</text>
+
+  <!-- (c) TSV -->
+  <text x="630" y="20" text-anchor="middle" font-size="10" font-weight="800" fill="#047857">(c) TSV 硅通孔 ⭐</text>
+  <g stroke="#10b981" fill="#d1fae5">
+    <rect x="570" y="40" width="120" height="17"/><rect x="570" y="61" width="120" height="17"/>
+    <rect x="570" y="82" width="120" height="17"/><rect x="570" y="103" width="120" height="17"/>
+  </g>
+  <g stroke="#059669" stroke-width="2.5">
+    <line x1="600" y1="40" x2="600" y2="128"/><line x1="630" y1="40" x2="630" y2="128"/><line x1="660" y1="40" x2="660" y2="128"/>
+  </g>
+  <text x="700" y="86" font-size="7.5" fill="#047857">硅内竖井</text>
+  <rect x="550" y="128" width="180" height="14" fill="#cbd5e1" stroke="#94a3b8"/>
+  <text x="640" y="139" text-anchor="middle" font-size="7.5" fill="#334155">中介层（内含通孔）</text>
+  <circle r="4" fill="#dc2626"><animateMotion dur="4s" repeatCount="indefinite" path="M600,45 L600,135"/></circle>
+  <circle r="4" fill="#dc2626"><animateMotion dur="4s" begin="0.4s" repeatCount="indefinite" path="M630,45 L630,135"/></circle>
+  <circle r="4" fill="#dc2626"><animateMotion dur="4s" begin="0.8s" repeatCount="indefinite" path="M660,45 L660,135"/></circle>
+  <text x="630" y="162" text-anchor="middle" font-size="8.5" fill="#065f46">直接在硅里打竖直金属井</text>
+  <text x="630" y="176" text-anchor="middle" font-size="8.5" font-weight="700" fill="#047857">路径最短·可极多根并行</text>
+  <text x="630" y="192" text-anchor="middle" font-size="8" font-weight="700" fill="#047857">→ 这就是 HBM 的物理基础</text>
+
+  <rect x="20" y="218" width="720" height="44" rx="6" fill="#f0fdf4" stroke="#86efac"/>
+  <text x="36" y="236" font-size="10" font-weight="800" fill="#065f46">🔑 为什么 HBM 必须是 TSV 而不能是金线？</text>
+  <text x="36" y="253" font-size="9" fill="#166534">因为 HBM 要的是「超宽接口一次搬很多数据」——几千根信号线并行。金线绕边，根数受限、路径长、速度慢，物理上做不到这么宽这么快。只有在硅里打竖井垂直直连，才能同时满足极多连接数 + 极短路径 + 极小寄生。</text>
+</svg>
+<div class="src">三条路线依据：Micron《Intro to Memory Packaging》p20（级联金线）、p22/p30（PoP 与封装间通孔）、p23/p30（TSV 定义与剖面）。动画为编者按原厂描述重绘。</div>
+</div>
+
+<div class="card">
+<div class="ttl">TSV 与 HBM：原厂把 TSV 直接写进了 HBM 的定义里</div>
+<div class="dsc">
+<p><b>TSV 官方定义：</b>贯穿硅裸片<b>厚度</b>的金属柱或「通孔」，用来电气连接裸片、并键合到中介层。【原厂】(PKG p23, p30)</p>
+<p><b>HBM 官方定义：</b>使用 <b>3D 堆叠</b>（利用 <b>TSV 和 3D 互连</b>垂直堆叠 DRAM 裸片）的多 DRAM 存储封装。【原厂】(PKG p29)</p>
+<div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#065f46;margin-top:6px">
+<b>拆开讲给非专业读者，三句话：</b><br>
+<b>① HBM 本质就是「把多层 DRAM 裸片用 TSV 竖着焊起来」</b>——<b>不是新的存储原理</b>，DRAM 还是那个 DRAM，突破全在封装方式。<br>
+<b>② 普通 DRAM 是「平房单门」，HBM 是「叠楼 + 满楼电梯 + 宽大门」。</b><br>
+<b>③ 所以结论是：TSV 直接决定了 HBM 能不能做。</b>没有成熟的 TSV 与 3D 互连工艺，HBM 就无从谈起。
+</div>
+<p style="margin-top:10px"><b>原厂给的其他 3D 架构词汇</b>【原厂】(PKG p29/p30)：<b>HMC</b>（混合内存立方：两颗或更多 DRAM 裸片<b>直接堆叠在一颗逻辑芯片之上</b>）、<b>F2F</b>（两颗裸片面对面通过凸点相连）、<b>SiP</b>（一个封装里互连一整套裸片构成完整系统）、<b>PiP</b>（多个带裸片堆叠的中间基板再叠成一个封装）、<b>eMMC</b>（含一颗逻辑控制器 + 一或多颗存储裸片的多芯片封装）。</p>
+<p><b>原厂的互连密度演进图（1980→2020）</b>把这条路画得很清楚【原厂】(PKG p24)：<br>
+<span style="font-size:12.5px;color:#334155">DIP/FP → BGA → Die Stack/CSP/Cards → 4+ Die Stack、PoP/PiP、RDL → 8+ Die Stack、eMMC SiP、F2F → 16 die stacks（SiP+）→ <b style="color:#7c3aed">HMC / HBM</b></span><br>
+互连密度从个位数一路涨到上万，<b>终点就是 HBM</b>。</p>
+</div></div>
+
+<div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
+<div class="ttl">🔥 为什么 HBM 的护城河不在存储颗粒，而在封装良率</div>
+<div class="dsc">
+<p>DRAM 颗粒各家都能做。真正难的是<b>把 8/12/16 层薄裸片无损地堆起来、打满 TSV、还要让中间层的热出得来、且每一层都得是好的</b>。原厂讲义点出了两个约束根源：</p>
+<table class="node-table nopad"><thead><tr><th style="width:18%">约束</th><th>为什么堆得越高越难</th></tr></thead>
+<tbody>
+<tr><td class="hl">散热</td><td>复杂 IC 发很多热，没有散热会烧掉裸片【原厂】(PKG p16)。而堆叠时，<b>夹在中间的那些层，热量被上下层夹住、出不来</b>。堆得越高，中间层越「闷」。扩热板和 TIM 只能帮到最外层，<b>中间层的热是结构性难题</b>。<span style="color:#64748b">【推断，基于 PKG p16 散热原理 + p17 堆叠】</span></td></tr>
+<tr><td class="hl">良率</td><td>把多颗裸片装进一个封装的固有风险：<b>一摞芯片里只要任何一层坏了，整摞就报废</b>——已经焊在一起了，拆不开也挑不出来。层数越多，「全部都好」的联合概率越低。<span style="color:#64748b">【推断，讲义未逐字写「整摞报废」，但 Probe 阶段「先挑出坏 die」的逻辑 (PKG p9) 支撑此风险】</span></td></tr>
+</tbody></table>
+<div style="background:#7f1d1d;color:#fff;border-radius:8px;padding:14px;font-size:13px;line-height:1.95;margin-top:10px">
+<b>联合良率的复利效应（示意，非原厂数字）：</b>假设单层良率 99%，堆 4 层联合良率约 96%，堆 12 层就掉到约 <b>89%</b>。<br>
+<span style="color:#fecaca">层数每增加，散热更难、联合良率更低，<b>两个约束同时收紧</b>。这正是 HBM 贵且难做的根本原因——它把层数推到 8/12/16 层，两条约束都逼到了极限。<b>谁能把高层数堆叠的良率做上去，谁就赢；壁垒在封装产线与工艺 know-how，不在颗粒。</b></span>
+</div>
+</div></div>
+
+<h2 id="sec-pkg-flow">🔄 0.9.4 从制造到封装的完整流程：为什么 Probe 必须在封装之前</h2>
+
+<div class="card">
+<div class="ttl">原厂端到端流程还原（封装是承上启下那一环）</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:6%">#</th><th style="width:26%">环节</th><th>做什么</th></tr></thead>
+<tbody>
+<tr><td>1</td><td class="hl">起始材料</td><td>硅被提纯并做成晶圆（<b>在美光之外</b>完成）</td></tr>
+<tr><td>2</td><td class="hl">晶圆级制造</td><td>在硅晶圆上制造晶体管/电阻/电容并互连成完整电路 <span style="color:#64748b">→ 详见 <a href="#sec-fab" style="color:#6d28d9">0.5</a></span></td></tr>
+<tr><td>3</td><td>参数测试</td><td>采集晶圆级电学数据，用于表征与改进工艺</td></tr>
+<tr><td>4</td><td class="hl">探针测试 Probe ⭐</td><td><b>逐颗裸片测功能，坏的做标记</b>；收集失效数据用于良率提升</td></tr>
+<tr><td>5</td><td class="hl">封装</td><td><b>通过 Probe 的裸片从晶圆上分离出来，组装成封装</b> ← 本节聚焦</td></tr>
+<tr><td>6</td><td>终测与老化</td><td>封装好的器件测功能；部分在<b>严苛条件下追加测试</b>验证可靠性</td></tr>
+<tr><td>7</td><td>分两条支线</td><td>部分 <b>DRAM</b> 封装件装进<b>模组</b>；<b>NAND</b> 封装件可能装进 <b>SSD</b></td></tr>
+<tr><td>8</td><td>交付客户</td><td>—</td></tr>
+</tbody></table>
+<div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#4c1d95;margin-top:8px">
+<b>🔑 注意 Probe 在封装之前，这个顺序不是随便排的：</b>先挑掉坏片再封装，是<b>控制堆叠良率的第一道闸门</b>。因为一旦封进去就「拆不开也挑不出来」——如果不先筛掉坏 die，堆 12 层的联合良率会直接崩掉。<br>
+<b>记忆链：</b>提纯硅 → 晶圆做电路 → 参数测 → <b>探针挑坏片</b> → 封装 → 终测老化 → DRAM 走模组 / NAND 走 SSD → 客户。【原厂】(PKG p9)
+</div>
+</div></div>
+
+<div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
+<div class="ttl">🧩 封装这一层如何连起全篇</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:22%">连到哪</th><th>逻辑链</th></tr></thead>
+<tbody>
+<tr><td class="hl">→ 器件物理 <a href="#sec-phys-moscap" style="color:#166534">0.3</a></td><td>凸点相对金线减少的，正是那些<b>拖慢信号的寄生电感与寄生电容</b>。封装讲的「路径短则性能好」，物理根源就是器件物理篇的寄生概念</td></tr>
+<tr><td class="hl">→ 制造工艺 <a href="#sec-fab-modules" style="color:#166534">0.5.2</a></td><td>TSV 要在硅里打竖井，依赖<b>深孔刻蚀、填铜、晶圆减薄</b>；而每叠一层前都要把表面磨到近乎完美平坦，这是 <b>CMP</b> 的活。<b>封装的先进程度被上游制造能力锁死</b></td></tr>
+<tr><td class="hl">→ 光刻 <a href="#sec-litho-overlay" style="color:#166534">0.6.6</a></td><td>堆叠层数还受<b>套刻精度</b>约束——误差逐层累积，堆得越高顶层相对底层越难对准</td></tr>
+<tr><td class="hl">→ 存储 <a href="#sec-mem-official" style="color:#166534">0.8</a></td><td>HBM 不是新存储原理，DRAM 还是那个 DRAM。<b>存储篇讲颗粒怎么存 bit，封装篇讲怎么把颗粒堆成 HBM</b></td></tr>
+<tr><td class="hl">→ 产业格局<br><span style="font-weight:400;font-size:11.5px">第二篇</span></td><td>既然壁垒在封装良率而非颗粒，那么 <b>HBM 的竞争就是封装产线与 know-how 的竞争</b>；而 HBM 吃掉大量晶圆产能，又推动了普通内存涨价与存储周期</td></tr>
+</tbody></table>
+</div></div>
+
+<div class="src">本节来源：Micron《Intro to Memory Packaging》(33页) 与 Packaging Quiz(6页)，Reviewed 2025。原厂页面已改版失效，PDF 经 Wayback 存档获取并逐页提取。© 2024-2025 Micron Technology, Inc. All Rights Reserved. 本节为教育性转述，非原文照搬。</div>
+
+</div>
+
+<hr style="margin:60px 0 40px;border:none;border-top:4px solid #7c3aed">
+
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-power-eng">0.10 功率器件工程层 —— 损耗与栅极驱动</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:24px">三块损耗与频率 · 三个寄生电容 · Kelvin source 实测 · 车规认证</p>
 
 <div class="content">
 
-<h2 id="sec-power-loss">📐 0.9 功率器件损耗模型与栅驱实测（原厂应用笔记版）</h2>
+<h2 id="sec-power-loss">📐 0.10 功率器件损耗模型与栅驱实测（原厂应用笔记版）</h2>
 <div style="max-width:1100px;margin:0 auto 16px;padding:10px 14px;background:#ecfdf5;border-left:3px solid #059669;border-radius:6px;font-size:12px;color:#065f46">
 本节依据 <b>罗姆(ROHM) 官方应用笔记</b> 62AN040E / 66AN032E 全文、<b>富士电机</b> IGBT 应用手册 RCH984、<b>三菱电机</b>技术资料，以及 <b>ECPE AQG324</b> 车规功率模块认证规范。这部分是功率半导体最"工程"的一层——<b>为什么同一颗芯片换个封装，损耗能差 38%</b>。
 </div>
@@ -3844,9 +4133,9 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 <div class="card" style="background:#f5f3ff;border-left:4px solid #7c3aed">
-<div class="ttl">📐 想看「损耗到底从哪来、栅极怎么驱动」？在 <a href="#sec-power-loss" style="color:#6d28d9">基础篇 0.9</a></div>
+<div class="ttl">📐 想看「损耗到底从哪来、栅极怎么驱动」？在 <a href="#sec-power-loss" style="color:#6d28d9">基础篇 0.10</a></div>
 <div class="dsc"><p>本篇（第三篇）只讲<b>宏观叙事</b>：器件代际演进、SiC/GaN 产能竞赛、车规与 AI 供电的市场格局。<br>
-而三块损耗如何随频率此消彼长、三个寄生电容各管哪一段、Kelvin source 凭什么把开通损耗降三成多，这类<b>工程层内容已收进基础篇</b>：<a href="#sec-power-loss" style="color:#6d28d9">0.9 功率器件损耗模型与栅驱实测</a>。</p></div></div>
+而三块损耗如何随频率此消彼长、三个寄生电容各管哪一段、Kelvin source 凭什么把开通损耗降三成多，这类<b>工程层内容已收进基础篇</b>：<a href="#sec-power-loss" style="color:#6d28d9">0.10 功率器件损耗模型与栅驱实测</a>。</p></div></div>
 
 <hr style="margin:60px 0 40px;border:none;border-top:4px solid #dc2626">
 
