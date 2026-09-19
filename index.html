@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v5.3 | 2026-09-19 | 新增基础篇 0.9 封装与3D堆叠(五大目的/一级二级互连/RDL/金线vs倒装动画/三条堆叠路线动画/TSV与HBM定义/散热与良率双约束/Probe在封装前的原因/五条连接链), 原0.9功率顺延为0.10 -->
+<!-- version: v5.4 | 2026-09-20 | 新增基础篇 0.10 HBM与内存墙(据美光Hot Chips 2026演讲中文转述): 内存墙与Roofline/HBM1-HBM4四维度演进(通道8-32,伪通道64,IO 1024-2048,带宽128GB-2.8TB,Bank 128-256)/整机带宽对比动画(DDR5 307GB/s vs 8颗HBM3 5.3TB/s)/硅面积3倍代价并为3:1晶圆转换比补上物理解释/78%训练中断源自硬件故障与双层ECC/液冷与混合键合/D2D与先进封装路径 | 关键数字已做独立自洽核验, 并诚实标注来源为转述非原始slides | 同步更新0.9封装材料边界(2.5D中介层-混合键合-HBM4三项已补) | 原0.10功率顺延为0.11 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -208,7 +208,8 @@ table.node-table.nopad .hl{font-size:12px}
 <li><a href="#sec-mem-atlas">0.7 存储器全类型原理 🎬</a></li>
 <li><a href="#sec-mem-official">0.8 DRAM/NAND 官方原理 🎬</a></li>
 <li><a href="#sec-pkg">0.9 封装与3D堆叠 🎬</a></li>
-<li><a href="#sec-power-loss">0.10 功率损耗与栅驱 🎬</a></li>
+<li><a href="#sec-hbm">0.10 HBM与内存墙 🎬</a></li>
+<li><a href="#sec-power-loss">0.11 功率损耗与栅驱 🎬</a></li>
 </ol>
 </div>
 <div>
@@ -253,7 +254,7 @@ table.node-table.nopad .hl{font-size:12px}
 <li><a href="#sec-power-nodes">3.6 功率器件演进总表</a></li>
 <li><a href="#sec-power-deep">3.7 深度研究 · SiC · GaN · AI供电 · 车规</a></li>
 </ol>
-<div style="font-size:11px;color:#7c3aed;padding-left:4px;line-height:1.6">📐 损耗模型与栅驱 → <a href="#sec-power-loss">基础篇 0.10</a></div>
+<div style="font-size:11px;color:#7c3aed;padding-left:4px;line-height:1.6">📐 损耗模型与栅驱 → <a href="#sec-power-loss">基础篇 0.11</a></div>
 <ol style="display:none">
 </ol>
 </div>
@@ -2038,7 +2039,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">五大目的 · 金线 vs 倒装 · TSV 硅通孔 · 为什么 HBM 的护城河在封装良率</p>
 <div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#f5f3ff;border-left:3px solid #7c3aed;border-radius:6px;font-size:12px;color:#4c1d95">
 本节依据 <b>美光官方《Intro to Memory Packaging》讲义 33 页</b> 与配套 Quiz（Reviewed 2025）。<b>这是全套材料里最容易被低估的一份</b>——它表面讲「怎么把芯片包起来」，实际讲的是 AI 时代胜负手：为什么 HBM 拼的不是存储颗粒，而是封装。<br>
-<span style="color:#6d28d9">⚠️ 材料边界（原厂明确未讲）：HBM 的具体规格（层数/带宽/代际/位宽一律没有，只给了一句定义）、CoWoS 与 2.5D 中介层、混合键合（铜-铜直连）、Chiplet 与 UCIe 异构集成。凡本站涉及这些处均另有来源或标为推断。</span>
+<span style="color:#6d28d9">⚠️ 材料边界（<b>这份 33 页讲义</b>明确未讲）：HBM 的具体规格（层数/带宽/代际/位宽一律没有，只给了一句定义）、CoWoS 与 2.5D 中介层、混合键合（铜-铜直连）、Chiplet 与 UCIe 异构集成。<br><b>其中 2.5D 中介层、混合键合、HBM4 规格三项，已由美光 Hot Chips 2026 演讲补上 → 见 <a href="#sec-hbm" style="color:#6d28d9"><b>0.10 HBM 与内存墙</b></a>。</b>Chiplet/UCIe 仍待补。</span>
 </div>
 
 <div class="content">
@@ -2322,12 +2323,245 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 
 <hr style="margin:60px 0 40px;border:none;border-top:4px solid #7c3aed">
 
-<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-power-eng">0.10 功率器件工程层 —— 损耗与栅极驱动</h1>
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-hbm">0.10 HBM 与内存墙 —— 存储与封装合成的那件产品</h1>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">内存墙与 Roofline · HBM1→HBM4 演进 · 整机带宽差一个数量级 · 硅面积代价 · RAS 与散热</p>
+<div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#f5f3ff;border-left:3px solid #7c3aed;border-radius:6px;font-size:12px;color:#4c1d95">
+本节依据 <b>美光（Micron）于 Hot Chips 2026 的 HBM 专题演讲</b>。<b>这一节把前面三节的成果合了起来</b>：<a href="#sec-mem-official" style="color:#6d28d9">0.8</a> 讲 DRAM 颗粒怎么存 bit、<a href="#sec-pkg" style="color:#6d28d9">0.9</a> 讲 TSV 怎么把裸片竖着焊起来，而 HBM 就是这两件事的乘积。<br>
+<span style="color:#b45309">⚠️ <b>来源诚实声明：</b>本节内容来自<b>该演讲的中文转述文章</b>，<b>我方未获取到 Hot Chips 演讲原始 slides</b>，因此这里是「转述的原厂口径」，严格程度低于本站其他节引用的原厂 PDF。文中关键数字我已做<b>独立自洽性核验</b>（见下方核验框），但仍建议正式引用前回到原始 slides 确认。</span>
+</div>
+
+<div class="content">
+
+<div class="card" style="background:#faf5ff;border-left:4px solid #7c3aed">
+<div class="ttl">先接上前面：HBM 不是一种新存储，是一种新封装</div>
+<div class="dsc">
+<p>这句话在 <a href="#sec-pkg-tsv" style="color:#6d28d9">0.9.3</a> 已经说过，这里再强化一次，因为它是理解全篇的钥匙：<b>HBM 里的 DRAM 颗粒，和内存条里的 DRAM 颗粒是同一类东西</b>。区别在于——</p>
+<div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#4c1d95">
+普通 DDR：颗粒平铺在内存条上，靠主板走线连到 CPU → <b>路径长、位宽受引脚数限制</b><br>
+HBM：颗粒<b>竖着摞起来</b>、用 <b>TSV 在硅内打竖井</b>直连，再通过 <b>2.5D 中介层</b>与 GPU 并排集成 → <b>路径极短、位宽可以做到几千位</b><br>
+<b>→ 所以 HBM 的全部突破在「怎么连」，不在「怎么存」。</b>
+</div>
+</div></div>
+
+<h2 id="sec-hbm-wall">🧱 0.10.1 内存墙：为什么 AI 的瓶颈是「搬」不是「算」</h2>
+
+<div class="card">
+<div class="ttl">算力涨得比带宽快，于是算力开始「饿着」</div>
+<div class="dsc">
+<p>演讲从 AI 系统的性能瓶颈切入。逻辑链是这样的【原厂转述】：</p>
+<p>① 按 OpenAI 的算力缩放规律，大模型能力提升要求<b>参数量、训练数据集、计算算力同步扩张</b>；<br>
+② 但算力这些年的增速远快于「把数据喂给算力」的能力；<br>
+③ 于是<b>内存带宽逐渐成为制约 AI 性能释放的核心瓶颈</b>——这就是<b>内存墙</b>。</p>
+<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#78350f;margin-top:6px">
+<b>🔑 Roofline 模型说明了什么（本节最值得理解的一个工具）：</b><br>
+Roofline 是把「算力上限」和「带宽上限」画在同一张图上的性能模型。任务落在图的哪一侧，决定了它被什么卡住：<br>
+· 落在<b>斜坡段</b> → 受<b>带宽</b>限制，加算力没用，得加带宽<br>
+· 落在<b>平台段</b> → 受<b>算力</b>限制，加带宽没用，得加算力<br>
+<b>演讲的结论是：AI 推理与训练任务属于内存带宽受限型负载，算力很难充分发挥。</b>【原厂转述】<br>
+<span style="color:#a16207">→ 这与 <a href="#sec-mem-official" style="color:#92400e"><b>0.8 那两份工程报告</b></a>的实测结论完全一致：decoding 阶段是 memory-bound。<b>两份独立材料互相印证，这条结论可以放心用。</b></span>
+</div>
+</div></div>
+
+<div class="anim-card">
+<div class="at">整机带宽差一个数量级 · 这就是为什么 AI 非要用 HBM</div>
+<div class="am">同样是「把数据搬给处理器」，两种架构的通道宽度差距</div>
+<svg viewBox="0 0 760 240">
+  <rect x="0" y="0" width="760" height="240" fill="#fcfdfe"/>
+
+  <!-- DDR5 side -->
+  <text x="180" y="22" text-anchor="middle" font-size="11" font-weight="800" fill="#b91c1c">传统 8 通道 DDR5 · 单 CPU</text>
+  <rect x="120" y="36" width="120" height="30" rx="4" fill="#94a3b8"/>
+  <text x="180" y="56" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">CPU</text>
+  <!-- 8 narrow channels -->
+  <g stroke="#dc2626" stroke-width="2">
+    <line x1="132" y1="66" x2="132" y2="150"/><line x1="146" y1="66" x2="146" y2="150"/>
+    <line x1="160" y1="66" x2="160" y2="150"/><line x1="174" y1="66" x2="174" y2="150"/>
+    <line x1="188" y1="66" x2="188" y2="150"/><line x1="202" y1="66" x2="202" y2="150"/>
+    <line x1="216" y1="66" x2="216" y2="150"/><line x1="230" y1="66" x2="230" y2="150"/>
+  </g>
+  <text x="252" y="112" font-size="8" fill="#b91c1c">8 条窄通道</text>
+  <circle r="3.5" fill="#dc2626"><animateMotion dur="3s" repeatCount="indefinite" path="M160,145 L160,72"/></circle>
+  <circle r="3.5" fill="#dc2626"><animateMotion dur="3s" begin="0.5s" repeatCount="indefinite" path="M202,145 L202,72"/></circle>
+  <rect x="110" y="150" width="140" height="26" rx="3" fill="#fecaca" stroke="#f87171"/>
+  <text x="180" y="167" text-anchor="middle" font-size="9" fill="#7f1d1d">DDR5 内存条（平铺）</text>
+  <rect x="106" y="192" width="148" height="34" rx="5" fill="#fef2f2" stroke="#dc2626"/>
+  <text x="180" y="207" text-anchor="middle" font-size="12" font-weight="800" fill="#b91c1c">约 307 GB/s</text>
+  <text x="180" y="220" text-anchor="middle" font-size="7.5" fill="#7f1d1d">理论带宽·单 CPU</text>
+
+  <!-- vs -->
+  <text x="380" y="120" text-anchor="middle" font-size="22" font-weight="800" fill="#94a3b8">≈17×</text>
+  <text x="380" y="142" text-anchor="middle" font-size="9" fill="#64748b">差一个数量级</text>
+
+  <!-- HBM side -->
+  <text x="580" y="22" text-anchor="middle" font-size="11" font-weight="800" fill="#047857">单 GPU + 8 颗 HBM3 堆栈</text>
+  <rect x="520" y="36" width="120" height="30" rx="4" fill="#334155"/>
+  <text x="580" y="56" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">GPU</text>
+  <!-- wide bus: many lines -->
+  <g stroke="#10b981" stroke-width="1.5" opacity="0.9">
+    <line x1="524" y1="66" x2="524" y2="150"/><line x1="530" y1="66" x2="530" y2="150"/>
+    <line x1="536" y1="66" x2="536" y2="150"/><line x1="542" y1="66" x2="542" y2="150"/>
+    <line x1="548" y1="66" x2="548" y2="150"/><line x1="554" y1="66" x2="554" y2="150"/>
+    <line x1="560" y1="66" x2="560" y2="150"/><line x1="566" y1="66" x2="566" y2="150"/>
+    <line x1="572" y1="66" x2="572" y2="150"/><line x1="578" y1="66" x2="578" y2="150"/>
+    <line x1="584" y1="66" x2="584" y2="150"/><line x1="590" y1="66" x2="590" y2="150"/>
+    <line x1="596" y1="66" x2="596" y2="150"/><line x1="602" y1="66" x2="602" y2="150"/>
+    <line x1="608" y1="66" x2="608" y2="150"/><line x1="614" y1="66" x2="614" y2="150"/>
+    <line x1="620" y1="66" x2="620" y2="150"/><line x1="626" y1="66" x2="626" y2="150"/>
+    <line x1="632" y1="66" x2="632" y2="150"/><line x1="638" y1="66" x2="638" y2="150"/>
+  </g>
+  <text x="652" y="112" font-size="8" fill="#047857">数千位并行</text>
+  <g fill="#059669">
+    <circle r="3.5"><animateMotion dur="1.4s" repeatCount="indefinite" path="M536,145 L536,72"/></circle>
+    <circle r="3.5"><animateMotion dur="1.4s" begin="0.2s" repeatCount="indefinite" path="M566,145 L566,72"/></circle>
+    <circle r="3.5"><animateMotion dur="1.4s" begin="0.4s" repeatCount="indefinite" path="M596,145 L596,72"/></circle>
+    <circle r="3.5"><animateMotion dur="1.4s" begin="0.6s" repeatCount="indefinite" path="M626,145 L626,72"/></circle>
+  </g>
+  <!-- stacked dies -->
+  <g stroke="#10b981" fill="#d1fae5">
+    <rect x="516" y="150" width="128" height="7"/><rect x="516" y="158" width="128" height="7"/>
+    <rect x="516" y="166" width="128" height="7"/><rect x="516" y="174" width="128" height="7"/>
+  </g>
+  <text x="580" y="188" text-anchor="middle" font-size="8" fill="#065f46">HBM 堆栈（TSV 竖直直连）</text>
+  <rect x="506" y="192" width="148" height="34" rx="5" fill="#f0fdf4" stroke="#059669"/>
+  <text x="580" y="207" text-anchor="middle" font-size="12" font-weight="800" fill="#047857">约 5.3 TB/s</text>
+  <text x="580" y="220" text-anchor="middle" font-size="7.5" fill="#065f46">整卡口径·8 颗堆栈合计</text>
+</svg>
+<div class="src">数据依据：美光 Hot Chips 2026 演讲（经中文转述）。⚠️ 口径提醒：307 GB/s 是<b>单 CPU 8 通道 DDR5 理论带宽</b>，5.3 TB/s 是<b>单 GPU 上 8 颗 HBM3 堆栈的整卡合计</b>——两者都是「整机/整卡」口径，可以对比；但都<b>不可与「单个 HBM 堆栈带宽」混用</b>。动画为编者按数据重绘。</div>
+</div>
+
+<div class="card" style="background:#eff6ff;border-left:4px solid #2563eb">
+<div class="ttl">🔍 我对本节关键数字做的独立自洽性核验</div>
+<div class="dsc">
+<p>因为本节来源是转述而非原始 slides，我用公开规格反推了一遍，四个数字都能对上：</p>
+<table class="node-table nopad"><thead><tr><th style="width:26%">文中数字</th><th style="width:38%">反推算式</th><th>结论</th></tr></thead>
+<tbody>
+<tr><td class="hl">DDR5 8 通道 ≈307 GB/s</td><td>DDR5-4800 × 8 通道 × 8 字节 = 307.2 GB/s</td><td>✅ 完全吻合（对应 DDR5-4800）</td></tr>
+<tr><td class="hl">HBM1 单堆栈 128 GB/s</td><td>1 Gbps/pin × 1024 bit ÷ 8 = 128 GB/s</td><td>✅ 完全吻合</td></tr>
+<tr><td class="hl">HBM4 单堆栈 2.8 TB/s</td><td>2048 bit × 11 Gbps/pin ÷ 8 ≈ 2.82 TB/s</td><td>✅ 合理（对应约 11 Gbps/pin）</td></tr>
+<tr><td class="hl">8 颗 HBM3 ≈5.3 TB/s</td><td>与 AMD MI300X 公开规格（8 堆栈 HBM3）一致</td><td>✅ 与业界已量产产品对得上</td></tr>
+</tbody></table>
+<p style="margin-top:8px;color:#64748b;font-size:12px">核验方法：用「每引脚速率 × 位宽 ÷ 8」这个基本关系反算。四项全部自洽，说明转述文章的数字没有明显失真。但<b>自洽 ≠ 等于原文</b>，正式引用仍建议回到 slides。</p>
+</div></div>
+
+<h2 id="sec-hbm-evo">📈 0.10.2 HBM1 → HBM4：十二年，带宽涨了二十多倍</h2>
+
+<div class="card">
+<div class="ttl">四个维度同步扩张（这是 HBM 提速的完整配方）</div>
+<div class="dsc">
+<p>演讲给出了 2014 年 HBM1 到 2026 年 HBM4 的规格跨越【原厂转述】：</p>
+<table class="node-table nopad"><thead><tr><th style="width:24%">维度</th><th style="width:20%">HBM1 (2014)</th><th style="width:20%">HBM4 (2026)</th><th>变化</th></tr></thead>
+<tbody>
+<tr><td class="hl">通道数</td><td>8 路</td><td><b>32 路</b></td><td>×4</td></tr>
+<tr><td class="hl">伪通道</td><td>—</td><td><b>64 组</b></td><td>把每条通道再切细，提升并发</td></tr>
+<tr><td class="hl">I/O 引脚</td><td>1024</td><td><b>2048</b></td><td>×2（位宽翻倍）</td></tr>
+<tr><td class="hl">单颗带宽</td><td>128 GB/s</td><td><b>2.8 TB/s</b></td><td><b>约 22×</b></td></tr>
+<tr><td class="hl">Bank 数</td><td>—</td><td>HBM3E 128 个 → <b>HBM4 256 个</b></td><td>×2（存储资源同步扩容）</td></tr>
+</tbody></table>
+<div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#065f46;margin-top:8px">
+<b>🔑 为什么要同时动这四个维度？给非专业读者的解释：</b><br>
+把内存想成一座仓库，带宽就是「每秒能搬出多少货」。要提升它有三招，HBM 是三招全用：<br>
+<b>① 加宽大门</b>（I/O 从 1024 到 2048 位）——一次能并排搬更多；<br>
+<b>② 多开几个门</b>（通道 8→32，伪通道 64）——不同货物可以同时搬、互不排队；<br>
+<b>③ 多修几条内部通道</b>（Bank 128→256）——仓库内部也要能同时取货，否则门再宽也是干等。<br>
+<b>→ 只加宽大门是没用的，必须内部并发能力同步跟上。这就是 Bank 数也要翻倍的原因。</b><span style="color:#64748b">【推断：演讲给了四个维度的数字，此处的仓库类比与「为何必须同步」为编者补充】</span>
+</div>
+<p style="margin-top:10px"><b>物理实现路径</b>【原厂转述】：芯片依托 <b>TSV 硅通孔与微凸点</b>完成 3D 堆叠，再通过 <b>2.5D 中介层</b>实现与 GPU 的高密度集成。<span style="color:#64748b">→ 这两步的工艺原理见 <a href="#sec-pkg-tsv" style="color:#6d28d9">0.9.3</a>；<b>「2.5D 中介层」这个环节正是那份 33 页封装讲义没讲的部分，由本演讲补上。</b></span></p>
+</div></div>
+
+<h2 id="sec-hbm-cost">💰 0.10.3 高带宽的代价：硅面积是 DDR5 的 3 倍</h2>
+
+<div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
+<div class="ttl">🔥 这条数字解开了一个一直没有物理解释的行业经验值</div>
+<div class="dsc">
+<p>演讲明确给出：<b>HBM3E 单位容量占用的硅面积，是 DDR5 的 3 倍</b>【原厂转述】。原因是更大的芯片面积、高密度 TSV 堆叠与 2.5D 先进封装架构，共同大幅提升了设计难度、工艺门槛与制造成本——演讲称这是<b>当前高端 AI 芯片整体成本居高的核心原因之一</b>。</p>
+<div style="background:#7f1d1d;color:#fff;border-radius:8px;padding:14px;font-size:13px;line-height:1.95;margin-top:8px">
+<b>为什么这条对本站特别重要：</b><br>
+第二篇里那个被反复引用的「<b>HBM 3:1 晶圆转换比</b>」（生产 1GB HBM 等价占用 3GB DDR5 的晶圆产能），此前<b>只有财报会口径与行业经验值，没有器件级解释</b>——我在核查时专门标注过这一点。<br>
+<span style="color:#fecaca">现在对上了：<b>单位容量硅面积 3 倍 → 晶圆产能占用 3 倍。</b>「3:1」不是财务估算，而是<b>物理事实的直接后果</b>。<br>
+→ 于是整条因果链闭合：<b>HBM 吃掉 3 倍晶圆面积 → 普通 DDR 可用产能被挤压 → 供给收紧 → 内存涨价 → 存储周期被 AI 需求人为拉动。</b></span>
+</div>
+<p style="margin-top:10px;color:#64748b;font-size:12px">⚠️ 严谨起见：「3 倍硅面积」与「3:1 晶圆转换比」<b>数值上吻合、方向上一致</b>，但严格说前者是器件指标、后者是产能换算，中间还涉及良率与堆叠层数。此处的因果连接为编者推断【推断】，不是演讲原文的论断。</p>
+</div></div>
+
+<h2 id="sec-hbm-ras">🛡️ 0.10.4 可靠性与散热：堆得越高越难伺候</h2>
+
+<div class="card">
+<div class="ttl">78% 的训练意外中断来自硬件故障</div>
+<div class="dsc">
+<p>演讲引用了千亿级大模型训练场景的数据（以 Llama 3 405B 为例）：<b>约 78% 的训练意外中断源自硬件故障，其中 GPU 与 HBM 内存异常为主要诱因</b>【原厂转述】。</p>
+<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#78350f">
+<b>🔑 为什么这个数字值得记住：</b>训练一个千亿级模型要几千张卡连续跑几十天。<b>任何一张卡的内存出错，整个训练任务就可能中断、要从检查点重跑</b>——损失的是几千张卡的机时。所以在 AI 场景里，<b>内存的可靠性不是「质量指标」，而是直接的经济指标</b>。<span style="color:#64748b">【推断：演讲给了 78% 这个数字，此处的经济含义为编者补充】</span>
+</div>
+<p style="margin-top:10px"><b>应对手段</b>【原厂转述】：HBM3 及以上规格引入<b>双层 ECC 纠错机制</b>——结合<b>系统级纠错</b>与<b>片上符号纠错</b>能力，全面提升内存的 <b>RAS</b>（可靠性 Reliability、可用性 Availability、可维护性 Serviceability）。</p>
+<p style="color:#64748b;font-size:12px">注：ECC 的基本概念本站 <a href="#sec-mem-atlas" style="color:#6d28d9">0.7</a> 与第四篇 MCU 功能安全章节均有涉及；<b>「双层 ECC」这个 HBM 特有的两级结构是本演讲新增的信息</b>。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl">散热：为什么 HBM 逼出了液冷</div>
+<div class="dsc">
+<p>演讲指出：高密度 3D 堆叠结构带来严峻热管理压力。<b>随着堆叠层数提升与 DRAM 并发访问率增加，芯片热密度持续攀升，传统风冷方案难以满足需求</b>——<b>液冷散热与混合键合工艺已成为 HBM 高工况稳定运行的必要支撑</b>【原厂转述】。</p>
+<div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#4c1d95;margin-top:6px">
+<b>🔗 这条正好补全了 <a href="#sec-pkg-tsv" style="color:#6d28d9">0.9.3</a> 留下的缺口。</b>在封装那一节，我基于原厂散热原理<b>推断</b>过「堆叠时中间层的热被上下夹住、出不来，是结构性难题」，并标注为编者推断。<br>
+<b>现在有了原厂口径的直接印证</b>，而且给出了两个具体解法：<b>① 液冷</b>（把热带走的能力上一个台阶）、<b>② 混合键合</b>（铜-铜直连，取消凸点，热阻更低、间距更小）。<br>
+<span style="color:#6d28d9">注意「混合键合」也是那份 33 页封装讲义<b>明确没讲</b>的内容——本演讲把它补上了，而且点明它<b>同时服务于散热与密度两个目标</b>。</span>
+</div>
+<p style="margin-top:10px"><b>另一个值得注意的机理：</b>演讲把热密度上升归因于两件事——<b>堆叠层数提升</b>（纵向更密）与 <b>DRAM 并发访问率增加</b>（同时干活的 Bank 更多）。后者容易被忽略：<b>0.10.2 里 Bank 数从 128 翻到 256、通道数翻到 32，在提升带宽的同时也意味着同一时刻有更多单元在耗电发热</b>。所以<b>带宽提升与散热压力是同一件事的两面</b>。<span style="color:#64748b">【推断：两个归因来自演讲，此处把它与 0.10.2 的规格扩张联系起来为编者补充】</span></p>
+</div></div>
+
+<h2 id="sec-hbm-future">🚀 0.10.5 未来路径：为什么说这已经不是单家公司的事</h2>
+
+<div class="card">
+<div class="ttl">下一程的核心依托是先进封装，而不是存储颗粒本身</div>
+<div class="dsc">
+<p>演讲对未来路径的判断很明确【原厂转述】：HBM 性能持续迭代的核心依托在于<b>先进封装技术</b>，包括 <b>D2D（裸片间互连）</b>、<b>混合键合</b>等高密度集成方案，这是突破<b>带宽、密度与能效</b>三重瓶颈的关键路径。</p>
+<div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#065f46;margin-top:6px">
+<b>🔑 这句话印证了本站 <a href="#sec-pkg-tsv" style="color:#6d28d9">0.9.3</a> 那个核心判断：</b>HBM 的护城河不在存储颗粒，<b>在封装</b>。<br>
+既然连原厂自己都说「下一程靠先进封装」，那么<b>存储厂之间的竞争，实质上已经变成封装工艺与良率的竞争</b>——这也解释了为什么 HBM 的供应格局和普通 DRAM 完全不同。
+</div>
+<p style="margin-top:10px"><b>产业协作的呼吁：</b>演讲以「ChatGPT 仅用两个月突破亿级用户」为例说明 AI 产业增速史无前例，并指出<b>仅靠单一企业的技术迭代难以匹配算力需求，必须通过全产业链协同创新</b>，共同推进 HBM 内存、先进封装与 AI 算力体系的升级。</p>
+<p style="color:#64748b;font-size:12px">⚠️ 这部分属于演讲的战略表态，本站按原意转述，不额外解读。需要注意这是<b>存储厂视角</b>的表述——对「协同」的定义，GPU 厂、代工厂、封测厂各自的立场并不完全相同。【推断】</p>
+</div></div>
+
+<div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
+<div class="ttl">🧩 本节如何与全站其他部分互相印证</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:24%">本节结论</th><th>与其他材料的关系</th></tr></thead>
+<tbody>
+<tr><td class="hl">AI 负载是内存带宽受限型</td><td><b>与 <a href="#sec-mem-official" style="color:#166534">0.8</a> 两份工程报告的实测结论一致</b>（decoding 阶段 memory-bound）。两份独立来源互相印证 → <b>这条可以放心用</b></td></tr>
+<tr><td class="hl">HBM3E 硅面积是 DDR5 的 3 倍</td><td><b>给第二篇「3:1 晶圆转换比」补上了器件级解释</b>，把原本只有财报口径的经验值落到了物理事实上</td></tr>
+<tr><td class="hl">中间层散热是结构性难题</td><td><b>印证了 <a href="#sec-pkg-tsv" style="color:#166534">0.9.3</a> 我此前标为「推断」的判断</b>，并给出液冷与混合键合两个解法</td></tr>
+<tr><td class="hl">下一程靠先进封装</td><td><b>印证 <a href="#sec-pkg-tsv" style="color:#166534">0.9.3</a>「护城河在封装良率而非颗粒」</b>这一核心判断</td></tr>
+<tr><td class="hl">2.5D 中介层 / 混合键合 / HBM4</td><td><b>补上了 33 页封装讲义明确未讲的三项</b>（见 0.9 篇头材料边界已同步更新）</td></tr>
+<tr><td class="hl">带宽提升与散热压力同源</td><td>Bank 与通道数翻倍既提升带宽、也提升热密度 → <b>与 0.10.2 的规格表是同一件事的两面</b></td></tr>
+</tbody></table>
+</div></div>
+
+<div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
+<div class="ttl">⚠️ 本节的材料边界与来源等级</div>
+<div class="dsc">
+<p><b>来源等级说明（与本站其他节的区别）：</b>本站 0.1–0.9 与 0.11 引用的都是<b>原厂 PDF 原文</b>（已下载、逐页提取、标注页码）。<b>本节 0.10 引用的是演讲的中文转述文章，我方未获取原始 slides</b>，因此：</p>
+<table class="node-table nopad"><thead><tr><th style="width:30%">项</th><th>状态</th></tr></thead>
+<tbody>
+<tr><td class="hl">关键数字</td><td>已做独立自洽性核验（四项全部对得上，见 0.10.1 核验框）</td></tr>
+<tr><td class="hl">页码标注</td><td><b>无法提供</b>——转述文章不含 slide 页码。这是本节与其他节最大的差别</td></tr>
+<tr><td class="hl">原文措辞</td><td><b>无法逐字核对</b>。本节所有「原厂转述」标注均指「经转述的原厂口径」</td></tr>
+<tr><td class="hl">建议</td><td>正式对外引用前，回到 Hot Chips 2026 原始 slides 确认</td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>演讲未涉及（或转述中未体现）：</b>HBM4E/HBM5 规划、各家 HBM 良率与产能的具体数字、HBM 定价与合约结构、CoWoS 具体工艺参数、Chiplet/UCIe 异构集成、国产 HBM 进展。</p>
+</div></div>
+
+<div class="src">本节来源：美光（Micron）Hot Chips 2026 HBM 专题演讲，经中文转述文章获取（<b>未获取原始 slides</b>）。关键数字已由编者做独立自洽性核验。标注「原厂转述」处为演讲口径的转述，「推断」处为编者补充。</div>
+
+</div>
+
+<hr style="margin:60px 0 40px;border:none;border-top:4px solid #7c3aed">
+
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-power-eng">0.11 功率器件工程层 —— 损耗与栅极驱动</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:24px">三块损耗与频率 · 三个寄生电容 · Kelvin source 实测 · 车规认证</p>
 
 <div class="content">
 
-<h2 id="sec-power-loss">📐 0.10 功率器件损耗模型与栅驱实测（原厂应用笔记版）</h2>
+<h2 id="sec-power-loss">📐 0.11 功率器件损耗模型与栅驱实测（原厂应用笔记版）</h2>
 <div style="max-width:1100px;margin:0 auto 16px;padding:10px 14px;background:#ecfdf5;border-left:3px solid #059669;border-radius:6px;font-size:12px;color:#065f46">
 本节依据 <b>罗姆(ROHM) 官方应用笔记</b> 62AN040E / 66AN032E 全文、<b>富士电机</b> IGBT 应用手册 RCH984、<b>三菱电机</b>技术资料，以及 <b>ECPE AQG324</b> 车规功率模块认证规范。这部分是功率半导体最"工程"的一层——<b>为什么同一颗芯片换个封装，损耗能差 38%</b>。
 </div>
@@ -3541,7 +3775,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <dt>DDR4退出路线（原计划→实际演变）</dt>
 <dd>美光 2025 Q4退出 / 三星 原定2025.12 → 推迟至2026.12（因DDR4价格反超DDR5"价格倒挂"）/ SK海力士 2026.4退出</dd>
 <dt>3:1晶圆转换比（Tom's Hardware引Micron Q1 2026财报会）</dt>
-<dd>每生产1GB HBM，等价占用3GB DDR5的wafer容量。HBM die是DDR5的~2× + TSV堆叠降良率。<br><span style="color:#64748b;font-size:12px">口径说明：此比例来自<b>财报会口径与行业经验值</b>，美光两份 HBM×LLM 工程报告（推理 2024-07 / 微调 2025-10）<b>本身并未提及 3:1 转换比</b>，引用时不宜归到那两份技术报告名下。</span></dd>
+<dd>每生产1GB HBM，等价占用3GB DDR5的wafer容量。HBM die是DDR5的~2× + TSV堆叠降良率。<br><span style="color:#64748b;font-size:12px">口径说明：此比例来自<b>财报会口径与行业经验值</b>，美光两份 HBM×LLM 工程报告（推理 2024-07 / 微调 2025-10）<b>本身并未提及 3:1 转换比</b>，引用时不宜归到那两份技术报告名下。<br><b style="color:#7c3aed">✅ 但它的物理基础已找到：</b>美光 Hot Chips 2026 演讲给出「<b>HBM3E 单位容量占用的硅面积是 DDR5 的 3 倍</b>」——这正是 3:1 的器件级来源。详见 <a href="#sec-hbm" style="color:#6d28d9">基础篇 0.10</a>。</span></dd>
 <dt>2023→2025全球DRAM代际迁移（长鑫招股书披露）</dt>
 <dd>DDR4市占率 64%→27%，DDR5 32%→71% / LPDDR4 47%→27%，LPDDR5 52%→72%</dd>
 <dt>HBM毛利率</dt>
@@ -4133,9 +4367,9 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 <div class="card" style="background:#f5f3ff;border-left:4px solid #7c3aed">
-<div class="ttl">📐 想看「损耗到底从哪来、栅极怎么驱动」？在 <a href="#sec-power-loss" style="color:#6d28d9">基础篇 0.10</a></div>
+<div class="ttl">📐 想看「损耗到底从哪来、栅极怎么驱动」？在 <a href="#sec-power-loss" style="color:#6d28d9">基础篇 0.11</a></div>
 <div class="dsc"><p>本篇（第三篇）只讲<b>宏观叙事</b>：器件代际演进、SiC/GaN 产能竞赛、车规与 AI 供电的市场格局。<br>
-而三块损耗如何随频率此消彼长、三个寄生电容各管哪一段、Kelvin source 凭什么把开通损耗降三成多，这类<b>工程层内容已收进基础篇</b>：<a href="#sec-power-loss" style="color:#6d28d9">0.10 功率器件损耗模型与栅驱实测</a>。</p></div></div>
+而三块损耗如何随频率此消彼长、三个寄生电容各管哪一段、Kelvin source 凭什么把开通损耗降三成多，这类<b>工程层内容已收进基础篇</b>：<a href="#sec-power-loss" style="color:#6d28d9">0.11 功率器件损耗模型与栅驱实测</a>。</p></div></div>
 
 <hr style="margin:60px 0 40px;border:none;border-top:4px solid #dc2626">
 
