@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v5.0 | 2026-09-18 | 原厂讲义扩充: 新增1.9晶圆制造全流程(十大功能区+光刻五步+Rayleigh+浸没式+CVD-PVD+硬掩模+CMP-damascene+CMOS 32步Traveler), 2.9 DRAM-NAND美光官方原理(破坏性读出+浮栅±20V+HBM×LLM量化), 3.8功率损耗模型与Kelvin source实测 -->
+<!-- version: v5.1 | 2026-09-19 | 新增「第零篇·器件物理地基」(0.1掺杂/0.2PN结与反偏耐压动画/0.3MOS电容三态动画/0.4MOSFET与亚阈值摆幅死结); 勿误: 亚阈值摆幅方向已据原厂原文更正(SS>60mV/dec, 60为理论下限, 越大越差); 口径澄清: SiC 1/300为ROHM TechWeb理论上限值非实测、H100改计6个堆栈位·启用80GB、KV cache 3TB与QLoRA 780→48GB标注为原厂引用第三方非实测、HBM 3:1转换比归财报会口径 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -188,7 +188,17 @@ table.node-table.nopad .hl{font-size:12px}
 <div class="content" style="padding-top:16px;padding-bottom:0">
 <div class="card" style="background:#f1f5f9;border:none">
 <div class="ttl" style="font-size:20px">📑 目录</div>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;font-size:13px;margin-top:12px">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:12px;font-size:13px;margin-top:12px">
+<div>
+<div style="font-weight:800;color:#7c3aed;font-size:15px;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #ddd6fe">第零篇 · 器件物理地基</div>
+<ol style="padding-left:20px;line-height:2.2">
+<li><a href="#sec-phys"><b>0. 为什么芯片能工作（新）</b></a></li>
+<li><a href="#sec-phys-dope">0.1 掺杂：人为造载流子</a></li>
+<li><a href="#sec-phys-pn">0.2 PN结与反偏耐压（动画）</a></li>
+<li><a href="#sec-phys-moscap">0.3 MOS电容三态（动画）</a></li>
+<li><a href="#sec-phys-mosfet">0.4 MOSFET与漏电死结</a></li>
+</ol>
+</div>
 <div>
 <div style="font-weight:800;color:#2563eb;font-size:15px;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #bfdbfe">第一篇 · 逻辑芯片</div>
 <ol style="padding-left:20px;line-height:2.2">
@@ -246,6 +256,251 @@ table.node-table.nopad .hl{font-size:12px}
 </div>
 </div>
 <div style="margin-top:12px;padding-top:8px;border-top:1px solid #e2e8f0;text-align:center;font-size:13px;font-weight:700"><a href="#sec-sources">📚 参考文献</a></div>
+</div>
+
+
+<hr style="margin:40px 0 40px;border:none;border-top:4px solid #7c3aed">
+
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-phys">第零篇：器件物理地基 —— 为什么芯片能工作</h1>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">掺杂 → PN结 → MOS电容 → MOSFET ·  一条因果链撑起后面全部四篇</p>
+<div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#f5f3ff;border-left:3px solid #7c3aed;border-radius:6px;font-size:12px;color:#4c1d95">
+本篇依据 <b>美光（Micron）官方器件物理课程讲义</b>三份：《Semiconductor Fundamentals &amp; PN Junction Device Physics》(50页)、《MOSFET Device Physics》(50页)、《MOS Capacitor Device Physics》(60页)，均为 Reviewed 2025 版。<b>刻意避开数学推导</b>——原厂给了完整公式的地方，本篇只讲物理图像与工程上谁可调。<br>
+<span style="color:#6d28d9">⚠️ 材料边界：这三份讲义讲的是<b>平面 MOSFET 时代</b>的物理。非理想效应只讲到 DIBL 与 GIDL，<b>完全没有涉及 FinFET / GAA / 纳米片</b>；缩放史图画到 3nm 但未解释 3nm 用什么结构。凡本篇标「推断」处为编者外推，非原厂原文。</span><br>
+<span style="color:#64748b">© 2022-2025 Micron Technology, Inc. 课程内容版权归美光所有，此处为教育性引用与转述。</span>
+</div>
+
+<div class="content">
+
+<div class="card" style="background:#faf5ff;border-left:4px solid #7c3aed">
+<div class="ttl">为什么要先读这一篇：后面四篇的「为什么」全在这里</div>
+<div class="dsc">
+<p>时间轴和产业格局回答的是「发生了什么」，但真正决定技术路线的是物理约束。这一篇讲清四件事，后面每一篇都会反复用到：</p>
+<table class="node-table nopad"><thead><tr><th style="width:26%">本篇讲的物理</th><th>它在后面解释了什么</th></tr></thead>
+<tbody>
+<tr><td class="hl">掺杂</td><td>制造篇的<b>离子注入/扩散</b>在干什么；掺杂浓度如何决定晶体管的阈值电压</td></tr>
+<tr><td class="hl">PN结反偏耐压</td><td>功率篇<b>SiC 为什么耐高压</b>、为什么耐压层能做薄、为什么因此导通电阻更小</td></tr>
+<tr><td class="hl">MOS电容三态</td><td>存储篇<b>DRAM 的 1T1C 与破坏性读出</b>；电容为何要做成深沟槽、为何换高κ材料</td></tr>
+<tr><td class="hl">MOSFET栅控与漏电</td><td>为什么<b>越先进越难控漏电</b>；Flash 浮栅凭什么断电不忘；功率篇为什么栅压不足电阻就暴涨</td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>一句话总纲：</b>底层物理决定器件能力，器件能力决定产品形态，产品形态决定产业格局。</p>
+</div></div>
+
+<h2 id="sec-phys-dope">🧪 0.1 起点：硅既不导电也不绝缘，靠掺杂「人为造载流子」</h2>
+
+<div class="card">
+<div class="ttl">纯硅其实是个「差劲的绝缘体」——有用的是被污染之后的硅</div>
+<div class="dsc">
+<p><b>原厂教学顺序很讲究</b>：先用「重力与势能」类比把能带图这套语言立起来，再讲硅原子的能级如何合并、劈裂成<b>带隙</b>，然后才讲掺杂。【原厂】(PN p10-24)</p>
+<p>关键物理图像：硅原子有 <b>4 个价电子</b>，彼此共享形成四面体键合的类金刚石晶格，原子密度约 <b>5×10²² 个/cm³</b>，晶格常数 5.43 Å。【原厂】(PN p22) 电子被牢牢束缚在键里，所以纯硅几乎不导电——要让它导电，必须<b>人为塞进可自由移动的载流子</b>。</p>
+<table class="node-table nopad"><thead><tr><th style="width:18%">掺什么</th><th style="width:22%">多/少一个电子</th><th>结果</th></tr></thead>
+<tbody>
+<tr><td class="hl">磷 / 砷（5 价）</td><td>多一个电子</td><td><b>N 型</b>：多出来的电子几乎不受束缚，成为自由载流子。导电靠<b>电子</b></td></tr>
+<tr><td class="hl">硼（3 价）</td><td>少一个电子</td><td><b>P 型</b>：键上留下一个「空位」，空位可以被邻近电子填补从而自己移动。导电靠<b>空穴</b></td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>这一步为什么重要：</b>「N 型」和「P 型」不是两种材料，而是<b>同一块硅的两种掺杂状态</b>。后面所有器件——PN 结、MOSFET、DRAM 的存储电容、SiC 功率管——本质都是把不同掺杂区域按特定几何排布起来。<b>制造篇的离子注入与扩散，干的就是这件事。</b>【推断，衔接制造篇】</p>
+<p><b>原厂还讲了「怎么数清载流子」：</b>用费米-狄拉克分布配合态密度，算出某个能量上「有多少座位」以及「座位被占的概率」。【原厂】(PN p29-32) 原厂明确说态密度来自薛定谔方程与不确定性原理，但<b>不展开推导</b>(PN p32)——这是一份「结论型」讲义，不是推导型教材。<b>本文遵循同样口径，不抄公式。</b></p>
+<p><b>载流子怎么动？</b>只有两种方式：<b>漂移</b>（被电场推着走）与<b>扩散</b>（从浓处往稀处自己散开）。【原厂】(PN p33-36) 记住这两个词，下一节的 PN 结完全靠它们解释。</p>
+</div></div>
+
+<h2 id="sec-phys-pn">⚡ 0.2 PN结：两块硅一接触，就自己长出一个电场（动画）</h2>
+
+<div class="anim-card">
+<div class="at">PN结的自平衡 · 没有外加电源，内建电场自己就建起来了</div>
+<div class="am">扩散把载流子送走 → 暴露出不能动的固定离子 → 固定离子的电场把载流子推回来 → 两股趋势打平</div>
+<svg viewBox="0 0 760 230">
+  <rect x="0" y="0" width="760" height="230" fill="#fcfdfe"/>
+  <text x="380" y="18" text-anchor="middle" font-size="11.5" font-weight="800" fill="#4c1d95">P 型（多空穴） ｜ N 型（多电子）</text>
+
+  <rect x="80" y="40" width="250" height="90" fill="#fecaca" stroke="#f87171"/>
+  <rect x="330" y="40" width="250" height="90" fill="#bfdbfe" stroke="#60a5fa"/>
+  <text x="150" y="60" font-size="10" font-weight="700" fill="#b91c1c">P 型</text>
+  <text x="510" y="60" font-size="10" font-weight="700" fill="#1d4ed8">N 型</text>
+
+  <!-- depletion region grows -->
+  <rect x="270" y="40" width="120" height="90" fill="#f5f3ff" stroke="#a78bfa" stroke-dasharray="4 3">
+    <animate attributeName="opacity" values="0;0.4;1;1" dur="6s" repeatCount="indefinite"/>
+  </rect>
+  <text x="330" y="86" text-anchor="middle" font-size="9" font-weight="800" fill="#6d28d9">
+    耗尽区
+    <animate attributeName="opacity" values="0;0;1;1" dur="6s" repeatCount="indefinite"/>
+  </text>
+  <text x="330" y="99" text-anchor="middle" font-size="7.5" fill="#7c3aed">
+    载流子都跑了·只剩固定离子
+    <animate attributeName="opacity" values="0;0;1;1" dur="6s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- diffusing carriers -->
+  <circle r="5" fill="#dc2626">
+    <animateMotion path="M 240,70 L 400,70" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;1;0;0" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="5" fill="#2563eb">
+    <animateMotion path="M 420,110 L 260,110" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;1;0;0" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  <text x="250" y="150" font-size="8.5" fill="#dc2626">空穴向右扩散 →</text>
+  <text x="400" y="150" font-size="8.5" fill="#2563eb">← 电子向左扩散</text>
+
+  <!-- fixed ions -->
+  <text x="285" y="122" font-size="11" font-weight="800" fill="#b91c1c">
+    －－
+    <animate attributeName="opacity" values="0;0;1;1" dur="6s" repeatCount="indefinite"/>
+  </text>
+  <text x="355" y="122" font-size="11" font-weight="800" fill="#1d4ed8">
+    ＋＋
+    <animate attributeName="opacity" values="0;0;1;1" dur="6s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- built-in field arrow -->
+  <line x1="390" y1="170" x2="270" y2="170" stroke="#7c3aed" stroke-width="3" marker-end="url(#pnarr)">
+    <animate attributeName="opacity" values="0;0;1;1" dur="6s" repeatCount="indefinite"/>
+  </line>
+  <defs><marker id="pnarr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#7c3aed"/></marker></defs>
+  <text x="330" y="188" text-anchor="middle" font-size="9" font-weight="800" fill="#6d28d9">
+    内建电场（把载流子往回推）
+    <animate attributeName="opacity" values="0;0;1;1" dur="6s" repeatCount="indefinite"/>
+  </text>
+  <text x="330" y="207" text-anchor="middle" font-size="8.5" fill="#475569">
+    扩散 ＝ 漂移 → 达成平衡·净电流为零
+    <animate attributeName="opacity" values="0;0;0;1" dur="6s" repeatCount="indefinite"/>
+  </text>
+</svg>
+<div class="src">机理依据：Micron《PN Junction Device Physics》p37-46。动画为编者按原厂描述重绘。</div>
+</div>
+
+<div class="card">
+<div class="ttl">三种状态：平衡、正偏、反偏 —— 以及为什么反偏能「挡住」高电压</div>
+<div class="dsc">
+<p><b>① 平衡（不加电）</b>【原厂】(PN p37-42)：如上图。扩散想把载流子送到对面，但载流子一走就<b>暴露出不能移动的掺杂离子</b>（P 侧留下负离子、N 侧留下正离子）。这些固定离子建立起<b>内建电场</b>，电场又把载流子往回推。两股趋势打平时，中间形成一段几乎没有自由载流子的<b>耗尽区</b>。<b>注意：这个电场是自己长出来的，不需要外接电源。</b></p>
+<p><b>② 正偏（P 接正极）</b>【原厂】(PN p43-45)：外加电压削弱内建电场、耗尽区变窄，载流子得以大量越过 → <b>电流畅通</b>。</p>
+<p><b>③ 反偏（P 接负极）</b>【原厂】(PN p43,46)：外加电压<b>加强</b>内建电场、耗尽区变宽，载流子更过不去 → <b>几乎不导电</b>。这就是二极管单向导电的由来。</p>
+<div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#4c1d95;margin-top:10px">
+<b>🔑 这条要记住，功率篇全靠它：</b>反偏时，外加的电压<b>几乎全部落在耗尽区上</b>。耗尽区里的电场随电压升高而增强，一旦超过材料的<b>临界击穿场强</b>，就发生雪崩击穿、器件失效。<br>
+所以「让器件耐更高压」这件事，本质是<b>要一个能承受更强电场而不击穿的材料</b>。<b>→ 这直接解释了第三篇 SiC 为什么耐高压</b>：SiC 带隙远大于硅，临界场强高出约一个数量级，因此挡同样的电压，耐压层可以做得<b>薄得多</b>、掺杂还能更浓；而耐压层越薄越浓，电流通过它的电阻就越小。<b>SiC 于是一举松开了「耐压 ↔ 导通电阻」这对天生矛盾。</b>【推断，基于原厂 PN p23-24 带隙 + p43,46 反偏耐压外推；原厂这三份讲义本身不涉及功率器件】
+</div>
+</div></div>
+
+<h2 id="sec-phys-moscap">🎛️ 0.3 MOS电容：用纯电场「遥控」硅表面（动画）</h2>
+
+<div class="card">
+<div class="ttl">结构极简：金属 + 绝缘层 + 硅。但它是整个数字世界的开关核心</div>
+<div class="dsc">
+<p>在硅表面盖一层薄绝缘介质（传统是二氧化硅），再在上面放一块金属或多晶硅电极，就得到 <b>MOS 电容</b>。原厂把这个「栅叠层」<b>单独拎出来</b>研究，因为它是理解 MOSFET 的关键。【原厂】(MOSCAP p8-12)</p>
+<p><b>最妙的一点：</b>绝缘层不导电，所以栅极和硅之间<b>没有电流</b>。栅极靠<b>纯电场</b>遥控硅表面的载流子分布——不接触、不导通，却能决定硅表面是导电还是不导电。</p>
+</div></div>
+
+<div class="anim-card">
+<div class="at">MOS电容三态：积累 → 耗尽 → 反型</div>
+<div class="am">以 P 型硅为例。栅压从负到正，硅表面依次经历三种完全不同的状态</div>
+<svg viewBox="0 0 760 250">
+  <rect x="0" y="0" width="760" height="250" fill="#fcfdfe"/>
+
+  <!-- state 1 accumulation -->
+  <text x="125" y="20" text-anchor="middle" font-size="10.5" font-weight="800" fill="#b91c1c">① 积累（栅加负压）</text>
+  <rect x="40" y="30" width="170" height="16" fill="#94a3b8"/><text x="125" y="42" text-anchor="middle" font-size="8" fill="#fff">栅极 ⊖</text>
+  <rect x="40" y="46" width="170" height="10" fill="#fde68a"/><text x="222" y="54" font-size="7.5" fill="#92400e">绝缘层</text>
+  <rect x="40" y="56" width="170" height="60" fill="#fecaca"/>
+  <text x="125" y="72" text-anchor="middle" font-size="11" font-weight="800" fill="#b91c1c">＋＋＋＋＋</text>
+  <text x="125" y="92" text-anchor="middle" font-size="7.5" fill="#7f1d1d">空穴被吸到表面·堆积</text>
+  <text x="125" y="106" text-anchor="middle" font-size="7.5" fill="#7f1d1d">P 型硅（本来就多空穴）</text>
+  <text x="125" y="132" text-anchor="middle" font-size="8" fill="#475569">表面更「P」了·不导电</text>
+
+  <!-- state 2 depletion -->
+  <text x="380" y="20" text-anchor="middle" font-size="10.5" font-weight="800" fill="#6d28d9">② 耗尽（栅加小正压）</text>
+  <rect x="295" y="30" width="170" height="16" fill="#64748b"/><text x="380" y="42" text-anchor="middle" font-size="8" fill="#fff">栅极 ⊕</text>
+  <rect x="295" y="46" width="170" height="10" fill="#fde68a"/>
+  <rect x="295" y="56" width="170" height="60" fill="#fecaca"/>
+  <rect x="295" y="56" width="170" height="26" fill="#f5f3ff" stroke="#a78bfa" stroke-dasharray="3 2"/>
+  <text x="380" y="72" text-anchor="middle" font-size="8.5" font-weight="700" fill="#6d28d9">空穴被推走·留固定负离子</text>
+  <text x="380" y="98" text-anchor="middle" font-size="7.5" fill="#7f1d1d">P 型硅</text>
+  <text x="380" y="132" text-anchor="middle" font-size="8" fill="#475569">表面没载流子了·仍不导电</text>
+
+  <!-- state 3 inversion -->
+  <text x="635" y="20" text-anchor="middle" font-size="10.5" font-weight="800" fill="#047857">③ 反型（栅压超过阈值）</text>
+  <rect x="550" y="30" width="170" height="16" fill="#334155"/><text x="635" y="42" text-anchor="middle" font-size="8" fill="#fff">栅极 ⊕⊕</text>
+  <rect x="550" y="46" width="170" height="10" fill="#fde68a"/>
+  <rect x="550" y="56" width="170" height="60" fill="#fecaca"/>
+  <rect x="550" y="56" width="170" height="12" fill="#a7f3d0" stroke="#10b981"/>
+  <text x="635" y="65" text-anchor="middle" font-size="9" font-weight="800" fill="#047857">
+    －－－－－
+    <animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite"/>
+  </text>
+  <text x="635" y="84" text-anchor="middle" font-size="7.5" font-weight="700" fill="#047857">电子被吸来·形成反型层</text>
+  <text x="635" y="100" text-anchor="middle" font-size="7.5" fill="#7f1d1d">P 型硅</text>
+  <text x="635" y="132" text-anchor="middle" font-size="8" font-weight="800" fill="#047857">表面变成 N 型 → 能导电！</text>
+
+  <rect x="40" y="152" width="680" height="82" rx="6" fill="#f0fdf4" stroke="#86efac"/>
+  <text x="56" y="172" font-size="10.5" font-weight="800" fill="#065f46">🔑 「反型」这个词的含义：P 型硅的表面被电场硬生生「反转」成了 N 型</text>
+  <text x="56" y="192" font-size="9.5" fill="#166534">一旦反型层出现，硅表面就有了一条可导电的通道。这条通道就是 MOSFET 的「沟道」。</text>
+  <text x="56" y="210" font-size="9.5" fill="#166534">让反型刚好发生的那个栅压，就叫「阈值电压」。栅压越高于阈值，反型层里载流子越多、通道电阻越小。</text>
+  <text x="56" y="228" font-size="9.5" font-weight="700" fill="#065f46">→ 这一句同时解释了：MOSFET 怎么开关、以及功率篇「栅压不足则导通电阻暴涨」。</text>
+</svg>
+<div class="src">机理依据：Micron《MOS Capacitor Device Physics》p13-20, p34。动画为编者按原厂描述重绘。</div>
+</div>
+
+<div class="card">
+<div class="ttl">电容越大越能存电荷 —— 这一条直接决定了 DRAM 的样子</div>
+<div class="dsc">
+<p>原厂给了平板电容最核心的关系（本文按要求不写公式，只讲物理）：<b>电容大小 ∝ 介电常数 ÷ 介质厚度 × 极板面积</b>。【原厂】(MOSCAP p21) 三个可调旋钮：把面积做大、把介质做薄、或换介电常数更高的材料。</p>
+<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#78350f;margin-top:6px">
+<b>🔑 存储篇的 DRAM 电容为什么长成「一根根深井」，答案就在这三个旋钮里：</b><br>
+DRAM 要在越来越小的单元面积里<b>存住足够多的电荷</b>（电荷太少就读不出、抗干扰差）。可是随制程推进，留给单元的<b>平面面积不断缩小</b>。于是只剩三条路：<br>
+<b>① 把有效面积撑大</b> → 把电容做成又深又窄的三维立体结构，用「侧壁面积」换容量。<b>这就是 DRAM 电容看起来像深井的原因</b>（美光口径：柱高约等于 footprint 直径的 <b>40 倍</b>，容器深约 1µm，而人的头发丝约 70µm）【原厂】(MEM p32, p54)<br>
+<b>② 把介质做薄</b> → 但太薄电子会直接隧穿漏过去，此路有物理上限。<br>
+<b>③ 换高介电常数（高κ）材料</b> → 原厂明确提到氧化层的趋势就是<b>高κ</b>【原厂】(MOSCAP p9)。即使物理厚度不能再薄，也能靠大介电常数把电容做大。
+</div>
+<p style="margin-top:10px"><b>原厂还讲了三种「不理想」</b>【原厂】(MOSCAP p44-52)：金属与硅的功函数失配、介质里的固定电荷、以及界面陷阱。它们会让器件的电学特性曲线<b>整体平移或被拉扯变形</b>。这一点很有用——<b>Flash 的浮栅正是故意利用了「介质里存电荷会平移阈值电压」这个效应</b>（见下节）。</p>
+</div></div>
+
+<h2 id="sec-phys-mosfet">🔀 0.4 MOSFET：给MOS电容装上两个「电子蓄水池」</h2>
+
+<div class="card">
+<div class="ttl">从电容到晶体管，只多了一步：在两侧各加一个掺杂区</div>
+<div class="dsc">
+<p>把 MOS 电容两侧各做一个重掺杂 N 区（源极与漏极），就成了 MOSFET。【原厂】(MOSFET p10-14) 工作逻辑一句话说完：</p>
+<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#1e3a5f">
+栅压不足 → 表面没有反型层 → 源漏之间被 P 型区隔断 → <b>不导通（逻辑 0）</b><br>
+栅压超过阈值 → 表面形成反型层（N 型沟道）→ 源漏被这条沟道连通 → <b>导通（逻辑 1）</b><br>
+<b>所以栅极就是开关的「按钮」，而按钮靠电场起作用、不需要电流。</b>这是 CMOS 低功耗的根本原因。
+</div>
+<p style="margin-top:10px"><b>原厂讲了电流为什么会「饱和」</b>【原厂】(MOSFET p15-29)：漏极电压升高到一定程度后，靠漏极那一端的沟道会被「夹断」，此后再升漏压电流也基本不再增加。这个饱和特性是模拟电路与放大器的基础。</p>
+</div></div>
+
+<div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
+<div class="ttl">🔥 全篇最重要的一条因果链：为什么越先进的制程越难控漏电</div>
+<div class="dsc">
+<p style="background:#fee2e2;padding:8px 12px;border-radius:6px;color:#7f1d1d"><b>⚠️ 本站 v5.0 及之前版本此处方向写反，2026-09-19 已据原厂原文更正。</b>原厂明确写的是：室温下亚阈值摆幅<b>大于</b> 60mV/dec，而 60mV/dec 是<b>理论下限</b>。所以摆幅<b>越大＝越差＝漏电越难控</b>。【原厂】(MOSFET p31, p37)</p>
+<p><b>第一步：「关」其实关不干净。</b>把漏电流画成对数纵轴，会发现阈值以下是一条<b>直线</b>——说明名义上「关断」时，漏电流随栅压呈<b>指数关系</b>变化。【原厂】(MOSFET p30)</p>
+<p><b>第二步：为什么关不干净？</b>即使栅压低于阈值，源端电子仍然有一条<b>指数拖尾的能量分布</b>——总有少数电子能量特别高，翻得过势垒。栅压稍微一升，就「暴露」出指数增多的高能电子。所以原厂直说：<b>OFF 并非完全 OFF</b>。【原厂】(MOSFET p32-34)<br>
+<span style="color:#7c3aed">这条拖尾正是 0.1 节讲的费米-狄拉克分布的高能尾巴——<b>地基在这里回收了</b>。</span></p>
+<p><b>第三步：亚阈值摆幅是什么。</b>让漏电流变化 <b>10 倍</b>所需的栅压变化量，单位 mV/dec。【原厂】(MOSFET p31) <b>越小越好</b>——小意味着栅压稍降漏电就掉一个数量级，即「关得又快又干净」。</p>
+<p><b>第四步：为什么 60mV/dec 是绕不过去的硬墙。</b>原厂给了完整推导（本文不抄公式）。物理根源是：<b>载流子的热运动分布本身就是指数型的</b>，这由玻尔兹曼统计决定。室温下这个常数恰好约 60mV。无论怎么优化栅极结构，都只能<b>趋近</b>而永远达不到更低。【原厂】(MOSFET p37)</p>
+<div style="background:#7f1d1d;color:#fff;border-radius:8px;padding:14px;font-size:13.5px;line-height:1.95;margin-top:10px">
+<b>第五步：死结就此形成 ——</b><br>
+想降低动态功耗 → 必须降低工作电压 → 就得跟着降低阈值电压<br>
+但摆幅有 60mV/dec 的物理下限、<b>不会随制程缩小</b><br>
+于是：<b>阈值电压每降约 60mV，关态漏电就增大约 10 倍</b>【原厂】(MOSFET p38)<br>
+<span style="color:#fecaca">→ 省下的动态功耗，被指数暴涨的静态漏电吃回去。这就是「为什么越先进越难控漏电」的完整物理答案。</span>
+</div>
+<p style="margin-top:10px"><b>雪上加霜的还有两个机制：</b><br>
+<b>DIBL（漏致势垒降低）</b>【原厂】(MOSFET p39-42)：沟道越短，漏极电场越能「侵入」到源端、把电子的注入势垒压低，相当于变相降低了阈值。本质是<b>栅极对沟道失去控制、被漏极抢走了控制权</b>。原厂给的改善手段停留在薄体、浅结、抬高源漏、Halo 注入。<br>
+<b>GIDL（栅致漏极漏电）</b>【原厂】(MOSFET p43)：栅漏交叠的那个角落出现极强电场，强到让价带电子直接隧穿到导带，凭空造出漏电。是「栅极想关断，却在角落里制造漏电」。</p>
+<p style="background:#f5f3ff;padding:8px 12px;border-radius:6px;color:#4c1d95;margin-top:8px"><b>产业含义：</b>这三重机制叠加，正是业界转向 <b>FinFET / GAA（环栅）</b>的动机——用几何结构把栅极做成包裹沟道的形状，增强栅控、让摆幅逼近 60mV 的理论极限。<b>不过要诚实说明：这三份原厂讲义完全没有讲 FinFET/GAA</b>，缩放史图画到 3nm 但未解释 3nm 用什么结构。这一层需另找材料。【推断 + 材料边界】</p>
+</div></div>
+
+<div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
+<div class="ttl">🧩 地基如何长出上层：三条一句话讲清的连接链</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:20%">上层现象</th><th>地基如何解释它</th></tr></thead>
+<tbody>
+<tr><td class="hl">DRAM 为什么<br>读一次就得写回</td><td>DRAM 一个单元 = 1 个晶体管 + 1 个电容，用电容里有没有电荷代表 0/1。而「读」的动作是把电容接到位线上、测那点微小的电压变化——<b>这个测量本身就把电荷重新分配掉了</b>。读完电容就空了，所以<b>必须立刻照抄一份灌回去</b>。另外电荷还会被热生成的载流子慢慢中和掉，所以即使不读也得<b>周期性刷新</b>。<span style="color:#64748b">【推断，基于 MOSCAP p23 小信号扰动电荷 + p26-29 热生成与深耗尽弛豫】→ 详见 2.9</span></td></tr>
+<tr><td class="hl">Flash 为什么<br>断电不忘</td><td>在控制栅和沟道之间，再嵌一层<b>四周被绝缘层完全包围的导电孤岛</b>，叫浮栅。孤岛里存了多少电子，就会<b>平移这个晶体管的阈值电压</b>——所以用一个固定栅压去测它导不导通，就能读出 0 还是 1。而四周绝缘意味着电子进出<b>必须靠隧穿</b>（所以写入和擦除都要高压），一旦进去就被<b>锁住</b>——这就是非易失的由来。<span style="color:#64748b">【推断，基于 MOSCAP p20/p34 电荷平移阈值 + p47 固定电荷效应 + MOSFET p43 强场隧穿】→ 详见 2.8 / 2.9</span></td></tr>
+<tr><td class="hl">SiC 为什么<br>耐高压又电阻小</td><td>反偏电压几乎全部落在耗尽区，电场超过材料<b>临界击穿场强</b>就雪崩击穿。SiC 带隙远大于硅、临界场强高约一个数量级，因此<b>挡同样的电压只需薄得多的耐压层、掺杂还能更浓</b>；而高压器件的电阻几乎全来自这一层、且与其厚度成正比——<b>层薄了电阻自然就小</b>。<span style="color:#64748b">【推断，基于 PN p23-24 带隙 + p43,46 反偏耐压外推】→ 详见 3.3 / 3.8</span></td></tr>
+</tbody></table>
+</div></div>
+
+<div class="src">本篇来源：Micron《Semiconductor Fundamentals &amp; PN Junction Device Physics》(50页, Reviewed 2025)、《MOSFET Device Physics》(50页, Reviewed 2025)、《MOS Capacitor Device Physics》(60页, Reviewed 2025)。原厂页面已改版失效，PDF 经 Wayback 存档获取并逐页提取。© 2022-2025 Micron Technology, Inc. All Rights Reserved. 本节为教育性转述，非原文照搬。</div>
+
 </div>
 
 <h2 style="max-width:1100px;margin:16px auto 8px;padding:0 24px;text-align:center;border:none;font-size:20px" id="sec-timeline">🔵 1.1 全景时间轴（← 横向滚动 →）</h2>
@@ -1305,7 +1560,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <div class="d3m">2013 HBM1(JEDEC)→2016 HBM2→2019 HBM2E→2022 HBM3→2024 HBM3E→2025 HBM4</div>
 <div class="d3-desc"><b>解决了什么问题？</b>传统DRAM通过PCB走线连接GPU/CPU，带宽受限于引脚数和PCB布线密度。HBM通过硅通孔(TSV)将多层DRAM芯片垂直堆叠，底部通过硅中介层(Interposer)与GPU/CPU超短距离连接→带宽从几十GB/s飙升至1TB/s+。AI大模型训练对显存带宽的需求(>2TB/s)只能靠HBM满足。</div>
 <svg viewBox="0 0 720 170">
-<text x="360" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a5f">3D：HBM 堆叠结构 (以NVIDIA H100为例：6颗HBM3堆栈·物理96GB/启用80GB)</text>
+<text x="360" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a5f">3D：HBM 堆叠结构 (以NVIDIA H100为例：6个HBM3堆栈位·启用容量80GB)</text>
 <!-- GPU + HBM stack -->
 <rect x="30" y="30" width="120" height="30" rx="4" fill="#3b82f6"/>
 <text x="90" y="49" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">GPU Die</text>
@@ -1719,7 +1974,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <dt>DDR4退出路线（原计划→实际演变）</dt>
 <dd>美光 2025 Q4退出 / 三星 原定2025.12 → 推迟至2026.12（因DDR4价格反超DDR5"价格倒挂"）/ SK海力士 2026.4退出</dd>
 <dt>3:1晶圆转换比（Tom's Hardware引Micron Q1 2026财报会）</dt>
-<dd>每生产1GB HBM，等价占用3GB DDR5的wafer容量。HBM die是DDR5的~2× + TSV堆叠降良率。</dd>
+<dd>每生产1GB HBM，等价占用3GB DDR5的wafer容量。HBM die是DDR5的~2× + TSV堆叠降良率。<br><span style="color:#64748b;font-size:12px">口径说明：此比例来自<b>财报会口径与行业经验值</b>，美光两份 HBM×LLM 工程报告（推理 2024-07 / 微调 2025-10）<b>本身并未提及 3:1 转换比</b>，引用时不宜归到那两份技术报告名下。</span></dd>
 <dt>2023→2025全球DRAM代际迁移（长鑫招股书披露）</dt>
 <dd>DDR4市占率 64%→27%，DDR5 32%→71% / LPDDR4 47%→27%，LPDDR5 52%→72%</dd>
 <dt>HBM毛利率</dt>
@@ -2786,11 +3041,14 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <tr><td class="hl">② 70B 模型装不进单卡</td><td>Llama 2 70B 以 FP16 精度需 <b>约 140GB</b> 显存 → 超出单张 80GB H100；H200 的 141GB 正好卡在这条线上（容量较 H100 <b>+80%</b>）。</td></tr>
 <tr><td class="hl">③ 带宽直接变成吞吐</td><td>HBM3E 使 H200 的带宽比 H100 高 <b>&gt;40%</b>；仅把 HBM 时钟从 1593MHz 提到 2619MHz，大 batch 吞吐就 <b>+21%</b>。</td></tr>
 <tr><td class="hl">④ 量化比"offload"划算得多</td><td>INT4 量化相对"FP16 + 显存不足时 offload 到 CPU 内存"的方案，吞吐约 <b>3×</b>。单卡 INT4 跑 70B 可支持 <b>48 路并发</b>（上下文 1024）或 24 路（上下文 2048）。</td></tr>
-<tr><td class="hl">⑤ 微调的显存优化幅度惊人</td><td><b>QLoRA 把 65B 模型微调所需 HBM 从 &gt;780GB 压到 &lt;48GB</b>；ZeRO 可把每卡占用从 120GB 降到 1.9GB。</td></tr>
+<tr><td class="hl">⑤ 微调的显存优化幅度惊人</td><td><b>QLoRA 把 65B 模型微调所需 HBM 从 &gt;780GB 压到 &lt;48GB</b>（此数字为美光报告<b>引用 QLoRA 原论文</b>，非美光实机实测）；<b>ZeRO 三级分片可把每卡占用从 120GB 逐级降到 31.4 / 16.6 / 1.9GB</b>（美光 HGX H100 实测）。</td></tr>
 <tr><td class="hl">⑥ offload 的代价与门槛</td><td>7B 微调提高 HBM 时钟带来 <b>+15%</b> 收益；而 65B 走 offload 路线仅 <b>+3.3%</b>，且要求<b>每 GPU 配 ≥256GB DDR</b>——换言之 offload 是"能跑但不划算"。</td></tr>
 <tr><td class="hl">⑦ HBM3E 官方规格</td><td>带宽 <b>&gt;1.2TB/s</b>、8-high <b>24GB</b>、容量较 HBM3 <b>+50%</b>、性能/瓦 <b>2.5×</b>、功耗较竞品低约 <b>30%</b>。</td></tr>
 </tbody></table>
-<p><b>关于 KV cache 那个骇人的数字：</b>确实有"KV cache 可达 3TB"的引用，但那是<b>特定极端配置</b>（500B+ 参数、batch 512、上下文 2048）下的值，<b>不是普遍数字</b>——引用时必须带上条件，否则就成了误导。</p>
+<p><b>关于 KV cache 那个骇人的数字：</b>确实有"KV cache 可达 3TB"的引用，但那是<b>特定极端配置</b>（500B+ 参数、batch 512、上下文 2048）下的值，<b>不是普遍数字</b>——引用时必须带上条件，否则就成了误导。另需注意：此数字是美光报告<b>引用第三方论文</b>（Pope et al.）的推算，<b>不是美光自己在 HGX H100 上跑出来的实测值</b>。</p>
+<div style="margin-top:10px;padding:10px 14px;background:#fef2f2;border-left:3px solid #dc2626;border-radius:6px;font-size:12.5px;color:#7f1d1d">
+<b>⚠️ 两类数字必须分开引用（2026-09-19 逐页核对后补充）：</b>美光这两份工程报告里的数字分两种性质——<b>①原厂实机实测</b>（平台为 NVIDIA HGX H100，如 HBM 时钟 1593→2619MHz 带来 +21% 吞吐、ZeRO 分片显存表、offload 仅 +3.3%）；<b>②原厂引用第三方论文的推算</b>（如 KV cache 3TB、QLoRA 780GB→48GB）。此外报告<b>明确未涉及</b>：从零预训练（只做微调）、非 NVIDIA 平台（H200 仅作对照、无实机数据）、HBM4、vLLM/TensorRT-LLM 等框架层对照、延迟与首 token 时间（报告明说只测吞吐）、量化对模型精度影响的评测数字、具体 TCO 成本模型。
+</div>
 <div class="src">来源：Micron《Analyzing LLM Performance: The Impact of HBM on Model Inference》(2024-07)、《A Memory Perspective: Fine-Tuning LLMs with HBM》(2025-10)、《Intro to Memory》(85页)、《Intro to Memory Packaging》(33页)、《Build an SSD》。© 2020-2025 Micron Technology, Inc.</div>
 </div></div>
 
@@ -2954,7 +3212,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="d3-grid"><div class="d3-card" style="border-left:4px solid #059669">
 <div class="d3t">突破 #5：SiC MOSFET (2011—)</div>
 <div class="d3m">Cree(Wolfspeed)首款商用→ST 2018为Tesla Model 3供货→全行业跟进</div>
-<div class="d3-desc"><b>解决了什么？</b>硅材料已逼近物理极限(临界击穿场强0.3MV/cm)。碳化硅(SiC)的临界击穿场强是硅的10倍(3MV/cm)，热导率是硅的3倍，禁带宽度是硅的3倍。相同耐压下SiC MOSFET的漂移区厚度可减少约90%→<b>漂移层电阻理论极限可降至约 1/300（罗姆官方口径）</b>，工程实测的比导通电阻改善通常在<b>约 100 倍（两个数量级）</b>量级——引用时须区分理论值与实测值。</div>
+<div class="d3-desc"><b>解决了什么？</b>硅材料已逼近物理极限(临界击穿场强0.3MV/cm)。碳化硅(SiC)的临界击穿场强是硅的10倍(3MV/cm)，热导率是硅的3倍，禁带宽度是硅的3倍。<br><b>为什么「耐压高」和「电阻小」能同时成立（这对本是矛盾）：</b>高压器件的电阻几乎全部来自漂移层，而漂移层电阻与其厚度成正比。SiC 临界场强高一个数量级，意味着挡住同样的电压只需<b>薄得多</b>的漂移层、掺杂还能更浓——相同耐压下厚度可减少约 90%，于是电阻大幅下降。<b>这就是 SiC 一举松开「耐压 ↔ 导通电阻」天生权衡的物理根源。</b><br><b>数字口径（务必区分）：</b>「漂移层每单位面积电阻理论上可降到 Si 的 <b>1/300</b>」出自 <b>ROHM TechWeb 教育栏目</b>，是<b>理论上限值</b>；而工程上实际器件的比导通电阻改善通常在<b>约 100 倍量级</b>，此为业界综合口径（ROHM 的两份栅驱应用笔记 62AN040E/66AN032E 中<b>并未给出</b>这两个倍数，其定量对比均为同为 SiC 的不同封装之间）。切勿把理论值当实测值引用。</div>
 <svg viewBox="0 0 720 130">
 <rect x="20" y="15" width="300" height="105" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
 <text x="170" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#dc2626">Si MOSFET 600V：厚漂移区</text>
