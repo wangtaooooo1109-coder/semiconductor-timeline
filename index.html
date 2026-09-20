@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v5.8 | 2026-09-21 | 新增第五篇 模拟与混合信号(含CIS): 5.1 Pelgrom失配定律面积换精度/噪声三件套(热噪声4kTR·1/f·kT-C)/电压裕度为何先进工艺帮倒忙 5.2 运放五大误差源/斩波消1-f噪声动画/带隙基准两条温度曲线相消 5.3 ADC四大架构生态位定位图+Delta-Sigma噪声整形动画/DAC单调性 5.4 LDO vs Buck能量去向动画+DDR5 on-DIMM PMIC呼应 5.5 BCD工艺与成熟节点长寿(TI毛利率带时间限定) 5.6 CIS: 4T像素PPD+CDS时序动画/FSI-BSI-堆栈三次革命/列并行ADC/车规LOFIC与LED闪烁抑制动画/与硅光边界 5.7 产业五大转折(车规CIS营收与出货两套口径分列) | 新增9个SVG动画 -->
+<!-- version: v5.9 | 2026-09-21 | 新增第六篇 硅光子与光互连: 6.1 铜的物理极限(趋肤效应+介质损耗, 眼图衰减动画)与带宽密度beachfront墙/电光每比特能耗交叉点随速率前移 6.2 器件家族逐个讲物理: SOI波导全反射束缚(n3.48 vs 1.44, 弯曲半径5um)/硅无Pockels效应只能用载流子等离子体色散(耗尽动画+MZI与微环取舍+TFLN替代)/硅在通信波段透明必须外延锗(4%晶格失配抬暗电流)/间接带隙能带图动画解释硅为何不发光与III-V四条集成路线/耦合对准与温漂隐形成本 6.3 可插拔-板载-CPO三级演进动画(1.6T端口30W降至9W)+三大工程障碍与NPO妥协+NVIDIA两套宣称口径分列 6.4 产业五大转折+中国下游领先上游受制 | 新增6个SVG动画 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -285,6 +285,15 @@ table.node-table.nopad .hl{font-size:12px}
 <li><a href="#sec-analog-proc">5.5 BCD 工艺与成熟节点</a></li>
 <li><a href="#sec-cis">5.6 CMOS 图像传感器 CIS 🎬</a></li>
 <li><a href="#sec-analog-pattern">5.7 产业格局五大转折</a></li>
+</ol>
+</div>
+<div>
+<div style="font-weight:800;color:#7c3aed;font-size:15px;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #ddd6fe">第六篇 · 硅光子与光互连</div>
+<ol style="padding-left:20px;line-height:2.2">
+<li><a href="#sec-siph-why">6.1 铜的极限与带宽密度墙 🎬</a></li>
+<li><a href="#sec-siph-device">6.2 器件家族·硅不擅长的妥协 🎬</a></li>
+<li><a href="#sec-cpo">6.3 从可插拔到 CPO 共封装 🎬</a></li>
+<li><a href="#sec-siph-pattern">6.4 产业格局·下游领先上游受制</a></li>
 </ol>
 </div>
 </div>
@@ -5859,6 +5868,472 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <tr><td class="hl">CIS 竞争在噪声底</td><td>亮部噪声由光子统计决定（不可改善），电路能争的只有暗部</td></tr>
 <tr><td class="hl">DDR5 的 on-DIMM PMIC</td><td>为第二篇 <a href="#sec-ddr-gen" style="color:#166534">2.7</a> 的结构改动补上电源工程解释</td></tr>
 <tr><td class="hl">堆栈式 CIS</td><td>是<b>混合键合在消费电子的最大规模应用</b>，与基础篇 <a href="#sec-pkg-tsv" style="color:#166534">0.9.3</a> 的先进封装同源</td></tr>
+</tbody></table>
+</div></div>
+
+</div>
+
+
+
+<hr style="margin:60px 0 40px;border:none;border-top:4px solid #7c3aed">
+
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-siph">第六篇：硅光子与光互连</h1>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">波导 · 调制器 · 锗探测器 · 光源原罪 · CPO 共封装光学 —— 当铜线走到尽头</p>
+<div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#f5f3ff;border-left:3px solid #7c3aed;border-radius:6px;font-size:12px;color:#4c1d95">
+<b>这一篇回答一个问题：为什么 AI 集群的真正瓶颈不是算力，而是「把数据搬进搬出芯片」。</b>前五篇讲的都是如何在硅片内部做得更好，这一篇讲的是<b>如何离开硅片</b>——芯片面积可以做大，但边缘周长有限，所有 I/O 必须从边缘「上岸」。<br>
+与 <a href="#sec-cis" style="color:#6d28d9">第五篇 CIS</a> 的分野：CIS 是光→电单向感知、难点在模拟读出链；硅光是<b>电→光→电双向通信</b>、难点在波导调制与光源集成。两者共享光电探测器的物理，工程约束完全不同。
+</div>
+
+<div class="content">
+
+<h2 id="sec-siph-why">🚧 6.1 灵魂问题：铜的物理极限与「带宽密度」这堵墙</h2>
+
+<div class="anim-card">
+<div class="at">📉 为什么铜线走不远：损耗随频率与距离双重恶化</div>
+<div class="am">趋肤效应让高频电流挤在导体表面，介质损耗随频率线性增长——速率越高，铜线越短命</div>
+<svg viewBox="0 0 760 240">
+<text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d">同一高速信号：沿铜线传播 vs 沿光波导传播</text>
+
+<!-- copper -->
+<text x="60" y="42" font-size="10" font-weight="700" fill="#b45309">铜线（电互连）</text>
+<line x1="60" y1="70" x2="700" y2="70" stroke="#d97706" stroke-width="10" opacity=".28"/>
+<!-- skin effect illustration -->
+<line x1="60" y1="66" x2="700" y2="66" stroke="#b45309" stroke-width="2"/>
+<line x1="60" y1="74" x2="700" y2="74" stroke="#b45309" stroke-width="2"/>
+<text x="120" y="60" font-size="8" fill="#92400e">趋肤效应：电流挤在表面薄层 → 有效截面变小 → 等效电阻 ∝ √频率</text>
+<!-- eye diagrams degrading -->
+<g>
+  <ellipse cx="140" cy="118" rx="26" ry="20" fill="none" stroke="#059669" stroke-width="2"/>
+  <text x="140" y="150" text-anchor="middle" font-size="8" fill="#065f46">眼图张开</text>
+  <text x="140" y="162" text-anchor="middle" font-size="8" fill="#64748b">近端</text>
+</g>
+<g>
+  <ellipse cx="320" cy="118" rx="20" ry="13" fill="none" stroke="#d97706" stroke-width="2"/>
+  <text x="320" y="150" text-anchor="middle" font-size="8" fill="#92400e">开始闭合</text>
+</g>
+<g>
+  <ellipse cx="500" cy="118" rx="13" ry="7" fill="none" stroke="#dc2626" stroke-width="2"/>
+  <text x="500" y="150" text-anchor="middle" font-size="8" fill="#991b1b">几乎闭合</text>
+</g>
+<g>
+  <line x1="640" y1="118" x2="672" y2="118" stroke="#7f1d1d" stroke-width="2.5"/>
+  <text x="656" y="150" text-anchor="middle" font-size="8" font-weight="700" fill="#7f1d1d">信号变成热</text>
+  <text x="656" y="162" text-anchor="middle" font-size="8" fill="#64748b">远端</text>
+</g>
+<!-- moving dot fading -->
+<circle cx="80" cy="70" r="5" fill="#dc2626">
+  <animate attributeName="cx" values="80;690" dur="3s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="1;0.15" dur="3s" repeatCount="indefinite"/>
+  <animate attributeName="r" values="5;1.8" dur="3s" repeatCount="indefinite"/>
+</circle>
+
+<!-- optical -->
+<text x="60" y="190" font-size="10" font-weight="700" fill="#5b21b6">光波导 / 光纤（光互连）</text>
+<rect x="60" y="200" width="640" height="10" rx="5" fill="#ddd6fe" stroke="#7c3aed"/>
+<circle cx="80" cy="205" r="5" fill="#7c3aed">
+  <animate attributeName="cx" values="80;690" dur="3s" repeatCount="indefinite"/>
+</circle>
+<ellipse cx="140" cy="205" rx="0" ry="0" fill="none"/>
+<text x="380" y="228" text-anchor="middle" font-size="9" font-weight="700" fill="#5b21b6">损耗几乎不随调制频率恶化 → 眼图基本不变 → 摆脱「距离—带宽」权衡【业界】</text>
+</svg>
+</div>
+
+<div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
+<div class="ttl">🔑 真正的墙叫「带宽密度」：芯片边缘每毫米能挤出多少 Tb/s</div>
+<div class="dsc">
+<p>这是全篇最关键的概念。<b>芯片面积可以继续做大，但边缘周长只能线性增长</b>，而所有输入输出都必须从边缘出去（业界称 beachfront 或 shoreline 带宽密度）。当算力按面积增长、I/O 却只能按周长增长时，两者必然脱节。</p>
+<p><b>这就是 AI 大集群 scale-up 的真实瓶颈——不是算不过来，是搬不进来。</b></p>
+<p style="background:#fef3c7;padding:8px 12px;border-radius:6px;color:#92400e"><b>⚠️ 口径提醒：</b>各家公布的带宽密度数字<b>测量基准并不统一</b>（有按封装边缘、有按小芯片边缘、有含收发双向），例如公开材料中出现过 4 Tbps 双向的光电小芯片、5.3 Tb/s/mm 的 3D 光子 I/O 演示、以及封装内 12.8 Tbps 级的路线图目标。<b>这些数字不可横向直接比较</b>，引用时必须注明来源与口径。【原厂/业界】</p>
+</div></div>
+
+<div class="card">
+<div class="ttl">每比特能耗：电与光的交叉点正在向更短距离移动</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:20%">距离尺度</th><th style="width:34%">电互连（pJ/bit）</th><th>光互连（pJ/bit）</th></tr></thead>
+<tbody>
+<tr><td class="hl">片内 / 封装内几毫米</td><td><b>极低</b>，可到亚 pJ 甚至 fJ 级</td><td>受电光/光电转换<b>固定开销</b>拖累，不划算</td></tr>
+<tr><td class="hl">板级 / 机架内</td><td>需更强驱动与复杂均衡，<b>能耗迅速上升</b></td><td>开始占优</td></tr>
+<tr><td class="hl">机架间 / 数百米</td><td>基本不可行</td><td><b>能耗对距离不敏感</b>，绝对优势</td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>关键动态：</b>随着单通道速率提升（信号频谱变宽、铜损恶化），<b>这个交叉距离不断向更短处移动</b>——光互连于是从「机房级」一路下沉到「机架级」「板级」，现在正逼近<b>封装内与芯片边缘</b>。这正是 CPO 出现的物理驱动力，而非厂商营销。<b>具体交叉距离没有统一官方口径，此处只给趋势。</b>【业界】</p>
+</div></div>
+
+
+<h2 id="sec-siph-device">🔬 6.2 器件家族：每一个都是「硅不擅长」的妥协产物</h2>
+
+<div class="anim-card">
+<div class="at">🪞 波导：靠巨大折射率差把光锁在 220 纳米的硅芯里</div>
+<div class="am">硅 n≈3.48 对二氧化硅 n≈1.44，折射率差约 2 —— 这是硅光能高密度集成的物理基础</div>
+<svg viewBox="0 0 740 200">
+<text x="370" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#4c1d95">SOI 结构：硅芯（高折射率）被二氧化硅包层（低折射率）夹住 → 全内反射</text>
+<!-- cladding top -->
+<rect x="50" y="34" width="500" height="26" fill="#e0e7ff" stroke="#a5b4fc"/>
+<text x="300" y="51" text-anchor="middle" font-size="9" fill="#4338ca">上包层 SiO₂  n ≈ 1.44</text>
+<!-- core -->
+<rect x="50" y="60" width="500" height="26" fill="#c7d2fe" stroke="#6366f1" stroke-width="2"/>
+<text x="300" y="77" text-anchor="middle" font-size="9.5" font-weight="700" fill="#312e81">硅芯 Si  n ≈ 3.48 ·  厚约 220 nm</text>
+<!-- BOX -->
+<rect x="50" y="86" width="500" height="26" fill="#e0e7ff" stroke="#a5b4fc"/>
+<text x="300" y="103" text-anchor="middle" font-size="9" fill="#4338ca">埋氧层 BOX（SiO₂）</text>
+<rect x="50" y="112" width="500" height="18" fill="#cbd5e1" stroke="#94a3b8"/>
+<text x="300" y="125" text-anchor="middle" font-size="8.5" fill="#475569">硅衬底</text>
+
+<!-- zigzag ray bouncing -->
+<path d="M56,80 L110,64 L164,82 L218,64 L272,82 L326,64 L380,82 L434,64 L488,82 L542,66" fill="none" stroke="#f59e0b" stroke-width="2.2" stroke-dasharray="620" stroke-dashoffset="620">
+  <animate attributeName="stroke-dashoffset" values="620;0" dur="2.6s" repeatCount="indefinite"/>
+</path>
+<text x="300" y="150" text-anchor="middle" font-size="9" fill="#92400e">光在上下界面反复全反射，能量被束缚在芯内传播</text>
+
+<!-- right panel -->
+<rect x="566" y="34" width="160" height="128" rx="6" fill="#faf5ff" stroke="#7c3aed"/>
+<text x="646" y="52" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5b21b6">折射率差决定一切</text>
+<text x="576" y="72" font-size="8.5" fill="#4c1d95">Δn 越大 → 束缚越强</text>
+<text x="576" y="88" font-size="8.5" fill="#4c1d95">→ 弯曲半径可以越小</text>
+<text x="576" y="108" font-size="8.5" font-weight="700" fill="#5b21b6">SOI：弯曲半径 ~5 µm</text>
+<text x="576" y="123" font-size="8.5" fill="#4c1d95">低折射率差平台：~5 mm</text>
+<text x="576" y="143" font-size="8.5" fill="#7f1d1d">⚠️ 代价：侧壁粗糙散射</text>
+<text x="576" y="156" font-size="8.5" fill="#7f1d1d">损耗约 0.5–2 dB/cm</text>
+</svg>
+<div class="dsc"><p><b>为什么这条很重要：</b>弯曲半径从毫米级降到微米级，意味着同样面积能塞进成千上万倍的光路——<b>这是「光子集成」这个词能成立的前提</b>。代价是高折射率差放大了侧壁粗糙度的散射损耗，因此片上长延迟线受限。【业界】</p></div>
+</div>
+
+<div class="anim-card">
+<div class="at">⚡ 调制器的困境：硅没有 Pockels 效应，只能用载流子「间接」改折射率</div>
+<div class="am">晶体硅是中心对称晶格 → 天生没有一阶线性电光效应，这是硅光最根本的妥协之一</div>
+<svg viewBox="0 0 760 250">
+<text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d">硅不能「加电压直接线性改变折射率」，只能靠抽走/注入自由载流子</text>
+
+<!-- PN junction depletion -->
+<text x="60" y="40" font-size="10" font-weight="700" fill="#334155">耗尽型调制（主流高速方案）</text>
+<rect x="60" y="50" width="130" height="50" fill="#fca5a5" stroke="#dc2626"/>
+<text x="125" y="79" text-anchor="middle" font-size="9" fill="#7f1d1d">P 区</text>
+<rect x="190" y="50" width="70" height="50" fill="#f1f5f9" stroke="#94a3b8" stroke-dasharray="3,2"/>
+<text x="225" y="73" text-anchor="middle" font-size="8" fill="#475569">耗尽区</text>
+<text x="225" y="88" text-anchor="middle" font-size="7.5" fill="#64748b">无自由载流子</text>
+<rect x="260" y="50" width="130" height="50" fill="#93c5fd" stroke="#2563eb"/>
+<text x="325" y="79" text-anchor="middle" font-size="9" fill="#1e3a8a">N 区</text>
+<!-- widening depletion animation -->
+<rect x="190" y="50" width="70" height="50" fill="#fff" opacity=".6">
+  <animate attributeName="width" values="70;110;70" dur="3s" repeatCount="indefinite"/>
+  <animate attributeName="x" values="190;170;190" dur="3s" repeatCount="indefinite"/>
+</rect>
+<text x="225" y="118" text-anchor="middle" font-size="8.5" font-weight="700" fill="#b91c1c">反偏 → 耗尽区变宽 → 载流子浓度变 → 折射率变</text>
+
+<!-- side effect -->
+<rect x="60" y="130" width="330" height="52" rx="5" fill="#fef2f2" stroke="#dc2626"/>
+<text x="72" y="148" font-size="9" font-weight="700" fill="#991b1b">⚠️ 副作用无法回避</text>
+<text x="72" y="163" font-size="8.5" fill="#7f1d1d">载流子变化同时改变<tspan font-weight="700">吸收</tspan> → 相位调制必然伴随幅度调制（chirp）</text>
+<text x="72" y="176" font-size="8.5" fill="#7f1d1d">自由载流子吸收还额外带来<tspan font-weight="700">插入损耗</tspan>；带宽受载流子迁移率上限约束</text>
+
+<!-- MZI vs microring -->
+<line x1="410" y1="30" x2="410" y2="196" stroke="#e2e8f0" stroke-width="2"/>
+<text x="500" y="40" font-size="10" font-weight="700" fill="#1e40af">MZI 马赫-曾德尔</text>
+<line x1="438" y1="62" x2="470" y2="62" stroke="#2563eb" stroke-width="2"/>
+<path d="M470,62 Q486,62 490,54 L556,54 Q566,54 572,62" fill="none" stroke="#2563eb" stroke-width="2"/>
+<path d="M470,62 Q486,62 490,72 L556,72 Q566,72 572,62" fill="none" stroke="#2563eb" stroke-width="2"/>
+<rect x="502" y="46" width="34" height="9" rx="2" fill="#fbbf24" stroke="#d97706"/>
+<text x="519" y="42" text-anchor="middle" font-size="7" fill="#78350f">相移臂</text>
+<line x1="572" y1="62" x2="608" y2="62" stroke="#2563eb" stroke-width="2"/>
+<circle cx="616" cy="62" r="7" fill="#22c55e"><animate attributeName="fill" values="#22c55e;#1f2937;#22c55e" dur="2.4s" repeatCount="indefinite"/></circle>
+<text x="640" y="65" font-size="8" fill="#1e3a8a">亮/暗</text>
+<text x="500" y="92" font-size="8" fill="#1e3a8a">✅ 宽带、对温度与波长不敏感、鲁棒</text>
+<text x="500" y="105" font-size="8" fill="#7f1d1d">⚠️ 相移臂毫米级 → 尺寸大、功耗高</text>
+
+<text x="500" y="132" font-size="10" font-weight="700" fill="#5b21b6">微环谐振器</text>
+<line x1="438" y1="156" x2="600" y2="156" stroke="#7c3aed" stroke-width="2"/>
+<circle cx="519" cy="140" r="14" fill="none" stroke="#7c3aed" stroke-width="2"/>
+<circle cx="519" cy="140" r="14" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0">
+  <animate attributeName="opacity" values="0;1;0" dur="2.4s" repeatCount="indefinite"/>
+</circle>
+<text x="560" y="144" font-size="8" fill="#5b21b6">仅谐振波长被耦合</text>
+<text x="500" y="176" font-size="8" fill="#065f46">✅ 极致紧凑、能效高、天然选波长（适合 WDM）</text>
+<text x="500" y="189" font-size="8" font-weight="700" fill="#7f1d1d">⚠️ 对温度极敏感——Q≈15000 时温度变约 1 K 即跑出谐振</text>
+
+<rect x="60" y="206" width="666" height="36" rx="6" fill="#f5f3ff" stroke="#7c3aed"/>
+<text x="72" y="222" font-size="9" fill="#4c1d95"><tspan font-weight="700">为何业界看薄膜铌酸锂 TFLN：</tspan>它有<tspan font-weight="700">真正的 Pockels 效应</tspan>（电光系数约 30 pm/V 量级），带宽已演示到 100 GHz 以上、消光比高、chirp 极小、</text>
+<text x="72" y="236" font-size="9" fill="#4c1d95">温度稳定性好。硅的「功耗—带宽—损耗」三难困境推动了这条材料替代路线。关键指标术语：调制效率 VπL、消光比 ER、插入损耗 IL、3dB 带宽。【业界】</text>
+</svg>
+</div>
+
+<div class="anim-card">
+<div class="at">🧲 探测器：硅在通信波段是透明的，必须外延锗</div>
+<div class="am">硅带隙约 1.12 eV，吸收截止约 1.1 µm —— 1310/1550 nm 的光子能量不够，直接穿过</div>
+<svg viewBox="0 0 740 200">
+<text x="370" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#065f46">同一个 1550 nm 光子：遇到硅穿过，遇到锗被吸收</text>
+<!-- silicon -->
+<rect x="70" y="42" width="180" height="62" rx="4" fill="#dbeafe" stroke="#2563eb"/>
+<text x="160" y="64" text-anchor="middle" font-size="10" font-weight="700" fill="#1e3a8a">硅 Si</text>
+<text x="160" y="80" text-anchor="middle" font-size="8.5" fill="#1e40af">带隙 1.12 eV</text>
+<text x="160" y="95" text-anchor="middle" font-size="8.5" fill="#1e40af">截止约 1.1 µm</text>
+<circle cx="50" cy="73" r="5" fill="#f59e0b">
+  <animate attributeName="cx" values="50;280" dur="2.2s" repeatCount="indefinite"/>
+</circle>
+<text x="160" y="122" text-anchor="middle" font-size="9" font-weight="700" fill="#991b1b">✗ 光子能量 &lt; 带隙 → 不吸收，透明穿过</text>
+
+<!-- germanium -->
+<rect x="380" y="42" width="180" height="62" rx="4" fill="#dcfce7" stroke="#059669"/>
+<text x="470" y="64" text-anchor="middle" font-size="10" font-weight="700" fill="#065f46">锗 Ge（外延在硅上）</text>
+<text x="470" y="80" text-anchor="middle" font-size="8.5" fill="#047857">直接带隙约 0.80 eV</text>
+<text x="470" y="95" text-anchor="middle" font-size="8.5" fill="#047857">1.3–1.55 µm 吸收强</text>
+<circle cx="360" cy="73" r="5" fill="#f59e0b">
+  <animate attributeName="cx" values="360;450;450" dur="2.2s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="1;1;0" dur="2.2s" repeatCount="indefinite"/>
+</circle>
+<circle cx="470" cy="73" r="3.5" fill="#2563eb" opacity="0">
+  <animate attributeName="opacity" values="0;0;1" dur="2.2s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="73;73;58" dur="2.2s" repeatCount="indefinite"/>
+</circle>
+<circle cx="470" cy="73" r="3.5" fill="#dc2626" opacity="0">
+  <animate attributeName="opacity" values="0;0;1" dur="2.2s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="73;73;90" dur="2.2s" repeatCount="indefinite"/>
+</circle>
+<text x="470" y="122" text-anchor="middle" font-size="9" font-weight="700" fill="#065f46">✓ 激发电子-空穴对 → PIN 结收集成光电流</text>
+
+<!-- lattice mismatch -->
+<rect x="596" y="42" width="130" height="118" rx="6" fill="#fef2f2" stroke="#dc2626"/>
+<text x="661" y="60" text-anchor="middle" font-size="9.5" font-weight="700" fill="#991b1b">4% 的代价</text>
+<text x="606" y="78" font-size="8" fill="#7f1d1d">Ge 与 Si 晶格常数</text>
+<text x="606" y="91" font-size="8" fill="#7f1d1d">相差约 <tspan font-weight="700">4%</tspan></text>
+<text x="606" y="109" font-size="8" fill="#7f1d1d">→ 失配与穿透位错</text>
+<text x="606" y="122" font-size="8" fill="#7f1d1d">→ 成为复合中心</text>
+<text x="606" y="135" font-size="8" font-weight="700" fill="#b91c1c">→ 抬高暗电流</text>
+<text x="606" y="152" font-size="7.5" fill="#7f1d1d">缓解：缓冲层/低温成核</text>
+
+<text x="70" y="146" font-size="9" fill="#475569"><tspan font-weight="700">实测量级参考：</tspan>波导型 Ge-on-Si PIN 响应度约 0.72–0.84 A/W @1550nm，暗电流从数十 nA 到个位数 nA，3dB 带宽约 19–32 GHz。</text>
+<text x="70" y="162" font-size="9" fill="#475569">局限：Ge 直接带隙约 0.80 eV，<tspan font-weight="700">超过 1550 nm 后效率骤降</tspan>。【业界】</text>
+<text x="70" y="182" font-size="9" font-weight="700" fill="#5b21b6">🔑 这解释了 CIS 与硅光的波段分野：硅能吸收可见光与近红外（所以 CIS 用硅），但吸收不了通信波段（所以硅光必须外延锗）。</text>
+</svg>
+</div>
+
+<div class="anim-card">
+<div class="at">💔 硅光的原罪：硅是间接带隙，它几乎不会发光</div>
+<div class="am">这是硅光集成度永远追不上电子集成度的根本原因 —— 唯一不能「用硅解决」的环节</div>
+<svg viewBox="0 0 760 260">
+<text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#4c1d95">能带图对比（E–k 图）：电子要下落发光，必须动量也对得上</text>
+
+<!-- indirect: silicon -->
+<text x="180" y="38" text-anchor="middle" font-size="10.5" font-weight="800" fill="#991b1b">硅：间接带隙</text>
+<line x1="60" y1="190" x2="310" y2="190" stroke="#94a3b8" stroke-width="1.5"/>
+<line x1="60" y1="50" x2="60" y2="190" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="185" y="206" text-anchor="middle" font-size="8.5" fill="#64748b">动量 k →</text>
+<text x="44" y="120" text-anchor="middle" font-size="8.5" fill="#64748b" transform="rotate(-90 44 120)">能量 E</text>
+<!-- valence band top at k=0 -->
+<path d="M80,160 Q130,140 180,160" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+<text x="130" y="176" font-size="8" fill="#1e40af">价带顶（k=0）</text>
+<!-- conduction band min offset -->
+<path d="M200,100 Q250,78 300,100" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+<text x="250" y="70" text-anchor="middle" font-size="8" fill="#991b1b">导带谷（k≠0）</text>
+<!-- electron must move in k -->
+<circle cx="250" cy="80" r="5" fill="#dc2626"/>
+<path d="M250,86 Q200,110 150,142" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4,3"/>
+<text x="196" y="112" font-size="7.5" font-weight="700" fill="#b45309">需借一个声子</text>
+<text x="196" y="124" font-size="7.5" fill="#b45309">来补动量差</text>
+<circle cx="150" cy="142" r="4.5" fill="#2563eb"/>
+<text x="180" y="230" text-anchor="middle" font-size="9" font-weight="700" fill="#991b1b">三体过程（电子+空穴+声子）概率极低</text>
+<text x="180" y="244" text-anchor="middle" font-size="9" fill="#7f1d1d">→ 辐射复合效率极低 → 几乎不发光</text>
+
+<!-- divider -->
+<line x1="380" y1="30" x2="380" y2="250" stroke="#e2e8f0" stroke-width="2"/>
+
+<!-- direct: III-V -->
+<text x="565" y="38" text-anchor="middle" font-size="10.5" font-weight="800" fill="#065f46">III-V（InP/GaAs）：直接带隙</text>
+<line x1="440" y1="190" x2="700" y2="190" stroke="#94a3b8" stroke-width="1.5"/>
+<line x1="440" y1="50" x2="440" y2="190" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="570" y="206" text-anchor="middle" font-size="8.5" fill="#64748b">动量 k →</text>
+<path d="M500,160 Q565,138 630,160" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+<text x="565" y="176" text-anchor="middle" font-size="8" fill="#1e40af">价带顶</text>
+<path d="M500,100 Q565,76 630,100" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+<text x="565" y="68" text-anchor="middle" font-size="8" fill="#991b1b">导带谷（同一 k）</text>
+<circle cx="565" cy="78" r="5" fill="#dc2626"/>
+<line x1="565" y1="84" x2="565" y2="134" stroke="#f59e0b" stroke-width="2.5"/>
+<circle cx="565" cy="138" r="4.5" fill="#2563eb"/>
+<!-- photon emitted -->
+<path d="M572,108 q8,-5 16,0 q8,5 16,0" fill="none" stroke="#f59e0b" stroke-width="2">
+  <animate attributeName="opacity" values="0;1;0" dur="1.6s" repeatCount="indefinite"/>
+</path>
+<text x="620" y="112" font-size="8" font-weight="700" fill="#b45309">发出光子</text>
+<text x="565" y="230" text-anchor="middle" font-size="9" font-weight="700" fill="#065f46">动量已对齐 → 电子垂直下落即可复合</text>
+<text x="565" y="244" text-anchor="middle" font-size="9" fill="#047857">→ 辐射复合效率高 → 能做高效激光器</text>
+</svg>
+<div class="dsc">
+<p><b>后果很严重：</b>波导、调制器、探测器都能在硅基平台上解决（探测器靠外延锗），<b>唯独光源不能</b>。必须把 III-V 材料以某种方式「搬」到硅上，或者干脆放在封装外。</p>
+<table class="node-table nopad"><thead><tr><th style="width:22%">III-V 集成路线</th><th style="width:30%">做法</th><th>取舍</th></tr></thead>
+<tbody>
+<tr><td class="hl">倒装贴装 flip-chip</td><td>把单独做好的激光器芯片倒装焊到硅光芯片上</td><td>器件性能可控、可选已知良品；但需<b>亚微米级对准</b>，逐颗贴装限制产能</td></tr>
+<tr><td class="hl">晶圆键合</td><td>把 III-V 薄膜整片键合到硅晶圆上再加工</td><td>可晶圆级批量处理；但键合界面质量与热管理是难点</td></tr>
+<tr><td class="hl">直接外延生长</td><td>直接在硅上长 III-V 材料</td><td>最理想的批量方案，<b>但晶格与热膨胀失配导致缺陷密度高</b>，长期可靠性仍是挑战</td></tr>
+<tr><td class="hl">外置激光源 ELS</td><td>激光器完全不进封装，光从外部送入</td><td><b>工程上的务实折中</b>——激光器最怕热，而封装内最热。也让激光器可独立更换</td></tr>
+</tbody></table>
+<p style="margin-top:8px;color:#64748b;font-size:12px">附注：III-V 衬底尺寸普遍小于硅（业界综述给出 InP 约 150mm、GaAs 约 200mm 量级，对比硅 300mm），这也限制了成本摊薄。具体尺寸建议以最新代工口径核实。【业界】</p>
+</div></div>
+
+<div class="card">
+<div class="ttl">另两项隐形成本：耦合对准与温度控制</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:18%">问题</th><th style="width:34%">物理根源</th><th>工程后果</th></tr></thead>
+<tbody>
+<tr><td class="hl">光纤—波导耦合</td><td>单模光纤模场直径约 10 µm，硅波导截面<b>亚微米级</b>——相差两个数量级</td><td><b>光栅耦合器</b>（垂直入射，可晶圆级测试，但损耗较大且偏振相关）vs <b>边耦合器</b>（水平，损耗低但需切边、测试不便）。对准精度要求到<b>亚微米</b>，这是封装成本的主要来源</td></tr>
+<tr><td class="hl">温度漂移</td><td>硅<b>热光系数大</b>（约 1.8×10⁻⁴/K 量级），折射率随温度明显变化</td><td>微环谐振波长随温度漂移（约 0.1 nm/K 量级）→ <b>必须集成加热器做闭环控温</b>。这是一笔持续消耗的功耗与可靠性成本，也是 MZI 在工程上仍有生命力的原因</td></tr>
+</tbody></table>
+<p style="margin-top:8px;background:#f5f3ff;padding:8px 12px;border-radius:6px;color:#4c1d95"><b>🔑 一条贯穿本篇的规律：</b>硅光的每一个器件都是<b>「硅不擅长某件事，于是引入外来材料或额外控制」</b>的产物——不吸收通信波段就外延锗，不发光就集成 III-V，折射率随温度漂就加热闭环。<b>这些妥协叠加起来，就是硅光虽与 CMOS 兼容、却始终无法像逻辑芯片那样简单缩微的根本原因。</b>【推断：由各器件物理约束归纳】</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #0891b2">
+<div class="ttl">复用与调制格式：容量是怎么一代代翻上去的</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:20%">手段</th><th>机理与作用</th></tr></thead>
+<tbody>
+<tr><td class="hl">WDM 波长复用</td><td>一根波导里同时跑多个波长，互不干扰。<b>CWDM</b> 波长间隔宽（约 20 nm 量级）、成本低、对温控要求松；<b>DWDM</b> 间隔密（约 0.8 nm / 100 GHz 量级）、容量大、但要求精密波长控制</td></tr>
+<tr><td class="hl">高阶调制 PAM4</td><td>用四个电平代替两个，<b>同样波特率下比特率翻倍</b>；代价是电平间距缩小、对信噪比与线性度要求大幅提高</td></tr>
+<tr><td class="hl">相干调制</td><td>同时利用<b>幅度与相位</b>（QPSK/16QAM），并靠 DSP 做色散与非线性补偿，是长距传输的主力。代价是 DSP 功耗与成本高</td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>代际演进的逻辑：</b>100G → 400G → 800G → 1.6T，每一代都是<b>「提高单通道速率 × 增加并行通道（波长或纤芯）」</b>的组合拳。与第二篇 DDR 的思路高度相似——<b>当单通道提频遇到物理墙，就转向并行度</b>。</p>
+</div></div>
+
+
+<h2 id="sec-cpo">📦 6.3 从可插拔光模块到 CPO 共封装光学</h2>
+
+<div class="anim-card">
+<div class="at">🔌 三级演进：把光引擎一步步搬近交换芯片</div>
+<div class="am">省功耗的本质是缩短高速电通道 —— 电走得越少，损耗与均衡开销越小</div>
+<svg viewBox="0 0 760 250">
+<text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a5f">电通道越长，越需要强驱动与复杂均衡；把光引擎搬近 ASIC 即可省掉这部分开销</text>
+
+<!-- pluggable -->
+<text x="122" y="40" text-anchor="middle" font-size="10" font-weight="800" fill="#991b1b">① 可插拔光模块</text>
+<rect x="46" y="52" width="60" height="44" rx="4" fill="#bfdbfe" stroke="#2563eb"/>
+<text x="76" y="78" text-anchor="middle" font-size="9" font-weight="700" fill="#1e3a8a">ASIC</text>
+<rect x="166" y="58" width="44" height="32" rx="3" fill="#ddd6fe" stroke="#7c3aed"/>
+<text x="188" y="78" text-anchor="middle" font-size="7.5" fill="#4c1d95">光模块</text>
+<line x1="106" y1="74" x2="166" y2="74" stroke="#dc2626" stroke-width="5"/>
+<text x="136" y="106" text-anchor="middle" font-size="8" font-weight="700" fill="#b91c1c">长电通道</text>
+<text x="122" y="122" text-anchor="middle" font-size="8" fill="#7f1d1d">✅ 可热插拔更换</text>
+<text x="122" y="135" text-anchor="middle" font-size="8" fill="#7f1d1d">⚠️ 功耗最高</text>
+
+<!-- on-board -->
+<text x="378" y="40" text-anchor="middle" font-size="10" font-weight="800" fill="#92400e">② 板载光学</text>
+<rect x="306" y="52" width="60" height="44" rx="4" fill="#bfdbfe" stroke="#2563eb"/>
+<text x="336" y="78" text-anchor="middle" font-size="9" font-weight="700" fill="#1e3a8a">ASIC</text>
+<rect x="396" y="58" width="44" height="32" rx="3" fill="#ddd6fe" stroke="#7c3aed"/>
+<text x="418" y="78" text-anchor="middle" font-size="7.5" fill="#4c1d95">光引擎</text>
+<line x1="366" y1="74" x2="396" y2="74" stroke="#f59e0b" stroke-width="5"/>
+<text x="381" y="106" text-anchor="middle" font-size="8" font-weight="700" fill="#b45309">电通道缩短</text>
+<text x="378" y="122" text-anchor="middle" font-size="8" fill="#78350f">折中方案</text>
+
+<!-- CPO -->
+<text x="626" y="40" text-anchor="middle" font-size="10" font-weight="800" fill="#065f46">③ CPO 共封装</text>
+<rect x="556" y="46" width="140" height="56" rx="5" fill="#dcfce7" stroke="#059669" stroke-width="2"/>
+<rect x="570" y="56" width="52" height="36" rx="3" fill="#bfdbfe" stroke="#2563eb"/>
+<text x="596" y="78" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1e3a8a">ASIC</text>
+<rect x="632" y="60" width="52" height="28" rx="3" fill="#ddd6fe" stroke="#7c3aed"/>
+<text x="658" y="78" text-anchor="middle" font-size="7" fill="#4c1d95">光引擎</text>
+<line x1="622" y1="74" x2="632" y2="74" stroke="#059669" stroke-width="5"/>
+<text x="626" y="114" text-anchor="middle" font-size="8" font-weight="700" fill="#047857">同一封装内，电通道极短</text>
+<text x="626" y="130" text-anchor="middle" font-size="8" fill="#065f46">✅ 功耗最低</text>
+<text x="626" y="143" text-anchor="middle" font-size="8" fill="#7f1d1d">⚠️ 坏了难单独更换</text>
+
+<!-- power comparison bar -->
+<text x="60" y="176" font-size="9.5" font-weight="700" fill="#334155">1.6T 端口功耗对比（GTC 2025 公开口径）</text>
+<rect x="60" y="186" width="300" height="20" rx="4" fill="#fecaca" stroke="#dc2626"/>
+<text x="210" y="200" text-anchor="middle" font-size="9" font-weight="700" fill="#7f1d1d">可插拔光模块  约 30 W</text>
+<rect x="60" y="212" width="90" height="20" rx="4" fill="#bbf7d0" stroke="#059669"/>
+<text x="105" y="226" text-anchor="middle" font-size="9" font-weight="700" fill="#065f46">CPO  约 9 W</text>
+<text x="166" y="226" font-size="9" font-weight="700" fill="#047857">↓ 约 70%</text>
+
+<rect x="396" y="176" width="330" height="60" rx="6" fill="#eff6ff" stroke="#2563eb"/>
+<text x="408" y="193" font-size="9" font-weight="700" fill="#1e40af">省功耗的三个来源</text>
+<text x="408" y="208" font-size="8.5" fill="#1e3a8a">① 电通道缩短 → 驱动与损耗大幅下降</text>
+<text x="408" y="221" font-size="8.5" fill="#1e3a8a">② 省去长距均衡与重定时开销</text>
+<text x="408" y="234" font-size="8.5" fill="#1e3a8a">③ 更少的电光转换级联</text>
+</svg>
+</div>
+
+<div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
+<div class="ttl">⚠️ CPO 的三大工程障碍——以及一个很说明问题的妥协</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:18%">障碍</th><th style="width:36%">问题所在</th><th>业界应对</th></tr></thead>
+<tbody>
+<tr><td class="hl">可维修性</td><td>可插拔光模块坏了拔下换新即可；<b>CPO 的光引擎与 ASIC 同封装，故障可能意味着更换整台设备</b></td><td>做成<b>可拆卸光学子组件</b>，牺牲一点集成度换回可维护性</td></tr>
+<tr><td class="hl">激光器可靠性与热</td><td><b>激光器最怕热，却要被搬进封装内最热的地方</b>——温度升高使波长漂移、寿命下降</td><td><b>外置激光源 ELS</b>：激光器不进封装，光从外部送入，可独立更换</td></tr>
+<tr><td class="hl">良率与成本</td><td>光电共封装的测试极难，且任何一个子件失效都可能废掉整个昂贵封装（已知良品问题）</td><td>晶圆级测试（光栅耦合器的一项价值）、模块化设计</td></tr>
+</tbody></table>
+<p style="margin-top:8px;background:#fef3c7;padding:8px 12px;border-radius:6px;color:#92400e"><b>🔑 一个印证障碍真实存在的细节：</b>NVIDIA 的 InfiniBand 旗舰 CPO 交换机采用<b>可拆卸光学子组件</b>设计——严格说这已更接近 <b>NPO（近封装光学）</b>而非纯粹的 CPO。<b>这不是技术不成熟，而是「可维修性」这道障碍真实到必须在架构上让步。</b>同理，外置激光源的普遍采用，本质也是对「激光器怕热」的妥协。【业界】</p>
+<p><b>这也是为什么业界普遍认为 CPO 短期内难以完全替代可插拔：</b>可插拔的<b>运维灵活性、多厂商互换性、故障隔离能力</b>都是数据中心实际运营中的硬需求。此外 <b>LPO（线性直驱可插拔）</b>作为一条竞争路线，用「去掉 DSP、保留可插拔形态」的方式同样能省功耗，成为 CPO 之外的务实选项。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl">NVIDIA CPO 的公开口径（两套宣称值，不可混用）</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:26%">来源</th><th>宣称收益</th></tr></thead>
+<tbody>
+<tr><td class="hl">GTC 2025 首发口径<br><span style="font-weight:400;font-size:11px">2025-03</span></td><td>相同端口数下信号完整性 <b>63 倍</b>、功耗降低 <b>3.5 倍</b>（或同功耗支持 <b>3 倍</b> GPU）；激光器数量减少 <b>4 倍</b>；大规模组网可靠性 <b>10 倍</b>；相比上代 NDR 带宽 2 倍、扩展性 5 倍</td></tr>
+<tr><td class="hl">官方产品页现行口径</td><td><b>5 倍</b>电力效率、AI 应用运行时间 <b>5 倍</b></td></tr>
+</tbody></table>
+<p style="margin-top:8px;color:#7f1d1d;font-size:12px"><b>⚠️ 两套数字的口径与发布时点不同（3.5× 与 5×），引用时须注明来源，不可取平均或混用。</b></p>
+<table class="node-table nopad" style="margin-top:8px"><thead><tr><th style="width:26%">产品</th><th>规格与时间</th></tr></thead>
+<tbody>
+<tr><td class="hl">Quantum-X Photonics<br><span style="font-weight:400;font-size:11px">InfiniBand</span></td><td>Quantum X800-Q3450：总交换带宽 <b>115.2 Tb/s</b>，<b>144 × 800 Gb/s</b> 端口，由 4 颗 28.8T ASIC 构成（亦有按 6 模块/单片的不同拆法）；<b>2026-06 首次交付</b></td></tr>
+<tr><td class="hl">Spectrum-X Photonics<br><span style="font-weight:400;font-size:11px">以太网</span></td><td>Spectrum 6810（102.4T）与 6800（409.6T）；<b>2026-08 全面量产</b></td></tr>
+<tr><td class="hl">工艺平台</td><td>光引擎基于<b>台积电 COUPE</b> 平台（含混合键合），调制采用<b>微环调制器 MRM</b>；配可更换外部激光源、液冷散热</td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>🔗 跨篇呼应：</b>CPO 本质上是一个<b>先进封装问题</b>——它要解决的是「如何把不同材料、不同工艺的裸片高密度集成在同一封装内」，与基础篇 <a href="#sec-pkg-tsv" style="color:#2563eb">0.9.3 三条堆叠路线</a> 和 <a href="#sec-hbm" style="color:#2563eb">0.10 HBM</a> 是同一类工程命题。<b>HBM 把存储搬近计算，CPO 把光搬近交换——都是「缩短距离」这一个思路。</b></p>
+</div></div>
+
+
+<h2 id="sec-siph-pattern">🌐 6.4 产业格局：中国少有的下游领先、上游受制</h2>
+
+<div class="card-row-3 dense">
+
+<div class="card"><span class="tag tu">美</span><span class="yr">1969—2003</span>
+<div class="ttl">概念奠基期：从集成光路设想到硅波导研究</div>
+<div class="by">贝尔实验室 Miller 提出集成光路概念(1969) | Soref 等奠定硅光波导研究</div>
+<div class="dsc"><p>集成光路的设想比硅光真正可用早了三十多年。这段时期确立了一个关键判断：<b>用硅做光子学的最大价值不是性能最优，而是可以借用成熟 CMOS 产线</b>。<b>格局：</b>纯学术与实验室阶段。</p></div></div>
+
+<div class="card"><span class="tag tu">美</span><span class="yr">2004—2016</span>
+<div class="ttl">Intel 时代：从 GHz 调制器到 100G 模块量产</div>
+<div class="by">Intel（2004 GHz 级硅调制器、2006 与 UCSB 混合硅激光器、2016 100G 硅光模块量产）</div>
+<div class="dsc"><p>Intel 用十余年把硅光从论文推到量产，并率先验证了<b>III-V 混合集成</b>这条解决光源问题的路线。<b>格局：</b>硅光从科研走向商业产品，但市场仍以传统分立光学器件为主。</p></div></div>
+
+<div class="card"><span class="tag tu">美</span><span class="yr">2019—2021</span>
+<div class="ttl">并购整合：光通信芯片向大厂集中</div>
+<div class="by">Cisco 收购 Acacia(2019) | Marvell 收购 Inphi(2021)</div>
+<div class="dsc"><p>相干 DSP 与光互连芯片被网络与半导体大厂收入囊中，<b>光模块的「大脑」（DSP）与「心脏」（激光器芯片）由此高度集中在少数美日厂商手中</b>。<b>格局：</b>下游模块组装分散、上游芯片集中的结构成型。</p></div></div>
+
+<div class="card"><span class="tag tc">中</span><span class="yr">2023—2026</span>
+<div class="ttl">AI 拉动：中国光模块厂占据 TOP10 多数席位</div>
+<div class="by">中际旭创 · 新易盛 · 光迅科技 · 华工正源 等</div>
+<div class="dsc"><p>LightCounting 基于 2025 年<b>光模块销售额</b>的 TOP10 榜（2026-05 发布）中，<b>中国厂商占 7 席</b>，中际旭创连年第一、新易盛反超 Coherent 升至第二。<b>这是中国在半导体相关领域少有的下游全球领先。</b></p><p style="color:#64748b;font-size:12px">⚠️ 旭创具体份额各源从约 21% 到 30% 不等（口径差异），此处只采用排名这一可靠结论。</p></div></div>
+
+<div class="card"><span class="tag tu">美</span><span class="tag tt">台</span><span class="yr">2025—2026</span>
+<div class="ttl">CPO 元年：光进入封装内</div>
+<div class="by">NVIDIA Quantum-X / Spectrum-X Photonics | 台积电 COUPE | Broadcom · Marvell</div>
+<div class="dsc"><p>光互连从「插在面板上的模块」变成「封装内的一部分」，标志着<b>光互连正式成为先进封装的一个分支</b>。<b>格局：</b>竞争从光模块厂扩展到代工厂与交换芯片厂，CPO 与 LPO 两条路线并行，可插拔短期内不会退场。</p></div></div>
+
+</div>
+
+<div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
+<div class="ttl">🔍 中国在硅光的真实位置：模块强、光芯片弱</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:20%">环节</th><th style="width:22%">中国地位</th><th>卡在哪</th></tr></thead>
+<tbody>
+<tr><td class="hl">光模块组装</td><td style="color:#047857"><b>全球领先</b></td><td>优势来自快速规模化交付与供应链整合能力，能迅速承接北美云厂商的海量订单</td></tr>
+<tr><td class="hl">高端激光器芯片<br><span style="font-weight:400;font-size:11px">EML / DFB</span></td><td style="color:#b91c1c"><b>明显受制</b></td><td>高端 EML 由美日少数厂商主导（公开口径合计超 <b>80%</b> 高端份额）；2026 年 200G EML 供需缺口达 <b>60–70%</b>，头部厂商高端产能已售罄至 2027 年底</td></tr>
+<tr><td class="hl">高速 DSP</td><td style="color:#b91c1c"><b>明显受制</b></td><td>PAM4 与相干 DSP 主要由 Broadcom、Marvell 等主导</td></tr>
+<tr><td class="hl">上游衬底材料</td><td style="color:#b91c1c"><b>高度受制</b></td><td>磷化铟（InP）衬底产能 <b>95% 以上</b>由日本住友电工、美国 AXT 等掌握</td></tr>
+</tbody></table>
+<p style="margin-top:8px;background:#fee2e2;padding:8px 12px;border-radius:6px;color:#7f1d1d"><b>结构性判断：</b>这是一个「<b>让出组装、退守上游</b>」的典型分工——海外厂商主动放弃标准化程度高、利润较薄的模块组装环节，退守技术密度更高的激光器芯片与 DSP。<b>中国厂商在模块环节的领先是真实的，但利润阀门与供应安全仍部分握在上游。</b>国产高端光芯片与 DSP 的自给率多数口径仍在个位数到十几个百分点区间。【业界】</p>
+</div></div>
+
+<div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
+<div class="ttl">🧩 本篇要点回收</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:26%">结论</th><th>与全站其他篇的关系</th></tr></thead>
+<tbody>
+<tr><td class="hl">瓶颈是带宽密度，不是算力</td><td>与基础篇 <a href="#sec-hbm-wall" style="color:#166534">0.10.1 内存墙</a> 同一性质：<b>AI 的瓶颈反复出现在「搬数据」而不是「算数据」</b></td></tr>
+<tr><td class="hl">硅光每个器件都是妥协</td><td>不吸收通信波段→外延锗；不发光→集成 III-V；温漂→加热闭环。<b>这是硅光无法简单缩微的根源</b></td></tr>
+<tr><td class="hl">CPO 是先进封装问题</td><td>与 <a href="#sec-pkg-tsv" style="color:#166534">0.9.3</a>、<a href="#sec-hbm" style="color:#166534">0.10</a> 同源——<b>HBM 把存储搬近计算，CPO 把光搬近交换</b></td></tr>
+<tr><td class="hl">提频遇墙就转并行</td><td>与第二篇 <a href="#sec-ddr-gen" style="color:#166534">2.7 DDR</a> 完全同构：DDR 用子通道与 Bank，光用 WDM 与多纤芯</td></tr>
+<tr><td class="hl">CIS 与硅光的分野</td><td>见 <a href="#sec-cis" style="color:#166534">第五篇 5.6</a>：单向感知 vs 双向通信，硅能吸收可见光但吸收不了通信波段</td></tr>
 </tbody></table>
 </div></div>
 
