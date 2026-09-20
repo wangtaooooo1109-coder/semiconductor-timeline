@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v5.7 | 2026-09-20 | 存储篇新增三节: 2.7 DDR世代全解(预取深度反推阵列频率/数据率涨16x而ns延迟为平线/SDRAM→DDR6逐代结构变化/DDR5强制片上ECC的四条被迫机理/DDR-LPDDR-GDDR-HBM四家族分化逻辑/LPDDR6 JESD209-6有效带宽90%口径) + 2.8 DRAM制造工艺A-Z(16步全链, 埋入式字线/40:1高深宽比电容孔刻蚀/深孔ALD共形成膜/冗余修复/速度分档/6F²→4F²/1x-1γ代际标签读法) + 2.9 存储为什么不追求先进制程(六条归因: 存电荷与缩微逆向/延迟不随缩微改善/大宗商品成本模型/掩模层少且版图规则/瓶颈在刻蚀成膜非光刻/已转向堆叠换维度); 原2.7深度研究顺延为2.10; 修正两处失效交叉引用 -->
+<!-- version: v5.8 | 2026-09-21 | 新增第五篇 模拟与混合信号(含CIS): 5.1 Pelgrom失配定律面积换精度/噪声三件套(热噪声4kTR·1/f·kT-C)/电压裕度为何先进工艺帮倒忙 5.2 运放五大误差源/斩波消1-f噪声动画/带隙基准两条温度曲线相消 5.3 ADC四大架构生态位定位图+Delta-Sigma噪声整形动画/DAC单调性 5.4 LDO vs Buck能量去向动画+DDR5 on-DIMM PMIC呼应 5.5 BCD工艺与成熟节点长寿(TI毛利率带时间限定) 5.6 CIS: 4T像素PPD+CDS时序动画/FSI-BSI-堆栈三次革命/列并行ADC/车规LOFIC与LED闪烁抑制动画/与硅光边界 5.7 产业五大转折(车规CIS营收与出货两套口径分列) | 新增9个SVG动画 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -188,7 +188,7 @@ table.node-table.nopad .hl{font-size:12px}
 <div class="content" style="padding-top:16px;padding-bottom:0">
 <div class="card" style="background:#f1f5f9;border:none">
 <div class="ttl" style="font-size:20px">📑 目录</div>
-<div style="font-size:12.5px;color:#475569;margin-top:4px;line-height:1.7"><b>阅读分层：</b><span style="color:#7c3aed"><b>第零篇（基础篇）讲最本质的内容</b></span>——器件物理、制造工艺、光刻、存储原理、功率工程，全部技术深水区统一收在这里。<b>第一至四篇只讲宏观叙事</b>：时间轴、格局变迁、厂商竞争、产业博弈。<span style="color:#64748b">🎬 = 含 SVG 动画</span></div>
+<div style="font-size:12.5px;color:#475569;margin-top:4px;line-height:1.7"><b>阅读分层：</b><span style="color:#7c3aed"><b>第零篇（基础篇）讲最本质的内容</b></span>——器件物理、制造工艺、光刻、存储原理、功率工程，全部技术深水区统一收在这里。<b>第一至四篇只讲宏观叙事</b>：时间轴、格局变迁、厂商竞争、产业博弈。<b>第五篇起是摩尔定律之外的世界</b>：模拟/CIS 讲精度与噪声，而非栅长。<span style="color:#64748b">🎬 = 含 SVG 动画</span></div>
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:12px;font-size:13px;margin-top:12px">
 <div>
 <div style="font-weight:800;color:#7c3aed;font-size:15px;margin-bottom:2px;padding-bottom:4px;border-bottom:2px solid #ddd6fe">第零篇 · 基础篇（本质层）</div>
@@ -273,6 +273,18 @@ table.node-table.nopad .hl{font-size:12px}
 <li><a href="#sec-mcu-events">4.5 MCU重大事件详表</a></li>
 <li><a href="#sec-mcu-nodes">4.6 MCU内核与制程演进总表</a></li>
 <li><a href="#sec-mcu-deep">4.7 深度研究 · 架构 · 安全 · 国产替代 · RISC-V</a></li>
+</ol>
+</div>
+<div>
+<div style="font-weight:800;color:#0891b2;font-size:15px;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #a5f3fc">第五篇 · 模拟与混合信号</div>
+<ol style="padding-left:20px;line-height:2.2">
+<li><a href="#sec-analog-why">5.1 为什么模拟难自动化·难缩微 🎬</a></li>
+<li><a href="#sec-analog-core">5.2 运放与电压基准 🎬</a></li>
+<li><a href="#sec-adc">5.3 ADC 四大架构 🎬</a></li>
+<li><a href="#sec-pmic">5.4 电源管理 LDO vs Buck 🎬</a></li>
+<li><a href="#sec-analog-proc">5.5 BCD 工艺与成熟节点</a></li>
+<li><a href="#sec-cis">5.6 CMOS 图像传感器 CIS 🎬</a></li>
+<li><a href="#sec-analog-pattern">5.7 产业格局五大转折</a></li>
 </ol>
 </div>
 </div>
@@ -5202,6 +5214,657 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 <!-- ====== SOURCES ====== -->
+
+<hr style="margin:60px 0 40px;border:none;border-top:4px solid #0891b2">
+
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px">第五篇：模拟与混合信号</h1>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">运放 · 基准 · ADC/DAC · 电源管理 · CMOS 图像传感器 —— 摩尔定律之外的那半个半导体世界</p>
+<div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#ecfeff;border-left:3px solid #0891b2;border-radius:6px;font-size:12px;color:#155e75">
+<b>为什么这一篇必须存在：</b>前四篇讲的都是「缩微换性能」的世界——逻辑、存储、功率、MCU 都在比谁的工艺节点更先进。模拟芯片给出的是完全相反的答案：<b>它的「先进」是精度、噪声底、功耗与可靠性，不是栅长</b>；工艺越老反而越值钱，一颗料号能卖十几到二十年。<br>
+<b>CIS 图像传感器也编入本篇</b>，判断依据是核心工程约束而非「是否与光有关」——CIS 的难点在<b>模拟读出链</b>（光电二极管 → 相关双采样 → 列并行 ADC），与 ADC 同源；至于电→光→电的双向通信，见 <a href="#sec-siph" style="color:#0e7490">第六篇 硅光子</a>。
+</div>
+
+<div class="content">
+
+<h2 id="sec-analog-why">🎯 5.1 灵魂问题：为什么模拟设计既难自动化、又不愿缩微</h2>
+
+<div class="card" style="background:#ecfeff;border-left:4px solid #0891b2">
+<div class="ttl">一句话：数字电路只要求「能分辨 0 和 1」，模拟电路要求「数值本身准」</div>
+<div class="dsc">
+<p>数字信号有巨大的容错区间——只要电压落在阈值正确的一侧，逻辑就正确，误差不累积。模拟信号是<b>连续量</b>，任何失配、噪声、温漂都<b>直接变成误差并沿信号链累积</b>。这一条差异，派生出下面三道物理墙。</p>
+<table class="node-table nopad"><thead><tr><th style="width:22%">物理墙</th><th style="width:34%">它要求什么</th><th>与逻辑芯片的关系</th></tr></thead>
+<tbody>
+<tr><td class="hl">器件失配<br><span style="font-weight:400;font-size:11px">Pelgrom 定律</span></td><td>把器件<b>做大</b>才能减小失配</td><td><b>完全相反</b>——逻辑靠做小提密度</td></tr>
+<tr><td class="hl">噪声底<br><span style="font-weight:400;font-size:11px">热噪声 / 1/f / kT/C</span></td><td>降噪要<b>更大电容、更大电流</b></td><td>逻辑基本不受连续噪声约束</td></tr>
+<tr><td class="hl">电压裕度</td><td>要<b>足够的信号摆幅</b>才有信噪比</td><td>先进工艺电源电压越降越低，<b>帮了逻辑、害了模拟</b></td></tr>
+</tbody></table>
+</div></div>
+
+<div class="anim-card">
+<div class="at">🔬 Pelgrom 定律：面积换精度，这是模拟设计的铁律</div>
+<div class="am">两个「理论上完全相同」的相邻 MOS 管，阈值电压总有随机差异；面积 ×4，失配才 ÷2</div>
+<svg viewBox="0 0 760 210">
+<text x="380" y="16" text-anchor="middle" font-size="12" font-weight="700" fill="#155e75">σ(ΔV_th) = A_VT / √(W·L) —— 失配标准差与栅面积平方根成反比</text>
+
+<!-- small area -->
+<text x="120" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="#991b1b">小面积器件</text>
+<rect x="70" y="48" width="30" height="20" rx="2" fill="#93c5fd" stroke="#2563eb"/>
+<rect x="140" y="48" width="30" height="20" rx="2" fill="#93c5fd" stroke="#2563eb"/>
+<text x="120" y="82" text-anchor="middle" font-size="9" fill="#475569">W·L = 1×</text>
+<!-- two separated gaussians -->
+<path d="M40,170 Q70,170 80,120 Q90,170 120,170" fill="#fca5a5" opacity=".55" stroke="#dc2626" stroke-width="1.5"/>
+<path d="M120,170 Q150,170 160,120 Q170,170 200,170" fill="#fca5a5" opacity=".55" stroke="#dc2626" stroke-width="1.5"/>
+<line x1="80" y1="120" x2="80" y2="176" stroke="#dc2626" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="160" y1="120" x2="160" y2="176" stroke="#dc2626" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="80" y1="182" x2="160" y2="182" stroke="#dc2626" stroke-width="1.5"/>
+<text x="120" y="196" text-anchor="middle" font-size="10" font-weight="700" fill="#dc2626">σ 大 → 两管明显不等</text>
+
+<!-- arrow -->
+<text x="300" y="115" text-anchor="middle" font-size="22" fill="#0891b2">→</text>
+<text x="300" y="134" text-anchor="middle" font-size="9" fill="#0891b2">面积 ×4</text>
+
+<!-- large area -->
+<text x="500" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="#065f46">大面积器件</text>
+<rect x="420" y="44" width="60" height="28" rx="2" fill="#6ee7b7" stroke="#059669"/>
+<rect x="520" y="44" width="60" height="28" rx="2" fill="#6ee7b7" stroke="#059669"/>
+<text x="500" y="86" text-anchor="middle" font-size="9" fill="#475569">W·L = 4×</text>
+<!-- two overlapping narrow gaussians -->
+<path d="M440,170 Q480,170 492,108 Q504,170 544,170" fill="#6ee7b7" opacity=".5" stroke="#059669" stroke-width="1.5"/>
+<path d="M456,170 Q496,170 508,108 Q520,170 560,170" fill="#6ee7b7" opacity=".5" stroke="#059669" stroke-width="1.5"/>
+<line x1="492" y1="108" x2="492" y2="176" stroke="#059669" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="508" y1="108" x2="508" y2="176" stroke="#059669" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="492" y1="182" x2="508" y2="182" stroke="#059669" stroke-width="1.5"/>
+<text x="500" y="196" text-anchor="middle" font-size="10" font-weight="700" fill="#059669">σ ÷2 → 两管趋于一致</text>
+
+<!-- right note -->
+<rect x="606" y="52" width="146" height="130" rx="6" fill="#fffbeb" stroke="#f59e0b"/>
+<text x="679" y="70" text-anchor="middle" font-size="10" font-weight="700" fill="#92400e">这就是分岔口</text>
+<text x="614" y="90" font-size="8.5" fill="#78350f">数字单元：越做越小</text>
+<text x="614" y="105" font-size="8.5" fill="#78350f">模拟器件：越做越大</text>
+<text x="614" y="125" font-size="8.5" fill="#78350f">A_VT ≈ 3–5 mV·µm 量级</text>
+<text x="614" y="140" font-size="8.5" fill="#78350f">（各代工艺机密参数）</text>
+<text x="614" y="160" font-size="8.5" font-weight="700" fill="#b45309">面积 ×4 → σ ÷2</text>
+<text x="614" y="175" font-size="8.5" fill="#78350f">同代工艺下模拟版图</text>
+</svg>
+<div class="dsc">
+<p><b>为什么缩微对模拟失效：</b>数字靠把单元做到极小来提密度；模拟为了压住失配却必须<b>反着把器件做大</b>。同一代工艺下，模拟版图往往比逻辑单元大几个数量级。</p>
+<p><b>为什么难以 EDA 全自动：</b>对抗失配的手段是<b>共质心/交叉耦合布局</b>（如 ABBA 排列抵消工艺梯度）、<b>加 dummy 器件</b>消除刻蚀边缘效应、对称走线。这些高度依赖经验，难以像数字那样由综合工具自动生成。【业界】Pelgrom 等，IEEE JSSC, 1989</p>
+</div></div>
+
+<div class="card">
+<div class="ttl">噪声三件套：为什么「降噪」永远要用功耗或面积去买</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:18%">噪声</th><th style="width:20%">物理来源</th><th>工程后果</th></tr></thead>
+<tbody>
+<tr><td class="hl">热噪声<br><span style="font-weight:400;font-size:11px">Johnson–Nyquist</span></td><td>载流子热运动，谱密度 <b>4kTR</b>，与是否加电压无关</td><td>要降噪只能<b>降电阻</b>（意味着更大电流、更大功耗）或降温</td></tr>
+<tr><td class="hl">1/f 闪烁噪声</td><td>与栅氧界面陷阱有关，频率越低噪声越高</td><td>决定<b>直流与低频精密测量</b>的下限（传感器、称重、生物电）。存在「1/f 转角频率」，低于它 1/f 主导 → 斩波与自动归零专治此项</td></tr>
+<tr><td class="hl">kT/C 采样噪声</td><td>开关导通电阻的热噪声在采样电容上的残留，均方值 <b>kT/C</b></td><td>结果里<b>没有 R</b>——电阻越大滤波越好但噪声也越大，恰好抵消。本质是热平衡下 ½C·V² = ½kT</td></tr>
+</tbody></table>
+<p style="margin-top:8px;background:#fef2f2;padding:8px 12px;border-radius:6px;color:#7f1d1d"><b>🔑 kT/C 是混合信号最硬的一道墙：</b>要把采样噪声降一半（信噪比 +6 dB，约等于多 1 位有效精度），电容必须变成 <b>4 倍</b>；而更大的电容又要求驱动它的运放出更大电流才能按时建立，采样能耗 ∝ C·V²·f 同步上升。<b>所以「高分辨率 ADC 天然功耗大、面积大」不是工艺不努力，而是物理定价。</b>【业界】</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #dc2626">
+<div class="ttl">电压裕度：先进工艺对模拟是「帮倒忙」</div>
+<div class="dsc">
+<p>逻辑芯片欢迎低电源电压——功耗 ∝ V²，降压直接省电。但模拟电路的信噪比取决于<b>信号摆幅与噪声底之比</b>：</p>
+<table class="node-table nopad"><thead><tr><th style="width:30%">先进工艺带来的变化</th><th>对模拟的实际后果</th></tr></thead>
+<tbody>
+<tr><td class="hl">电源电压降低</td><td>信号<b>摆幅变小</b>，而噪声底并不随之下降 → <b>SNR 恶化</b>。要补回来只能增大电容或电流</td></tr>
+<tr><td class="hl">栅氧变薄</td><td><b>栅漏电上升</b>、可靠性余量下降；对需要长期稳定的高阻抗节点尤其不利</td></tr>
+<tr><td class="hl">沟道变短</td><td>输出阻抗下降 → <b>本征增益变差</b>，放大器要靠更复杂的结构补偿</td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>结论：</b>模拟芯片停在 180nm / 130nm 这类成熟节点，不是技术落后，而是<b>在这些节点上电压裕度、器件匹配、成本、可靠性的综合最优</b>。这与第二篇 <a href="#sec-why-not-node" style="color:#dc2626">2.9 存储为什么不追先进制程</a> 是同一类判断，只是理由不同：存储受「存电荷」约束，模拟受「精度与摆幅」约束。</p>
+</div></div>
+
+
+<h2 id="sec-analog-core">🧩 5.2 两块基石：运算放大器与电压基准</h2>
+
+<div class="card">
+<div class="ttl">运放的五大直流误差源</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:24%">误差源</th><th>本质与影响</th></tr></thead>
+<tbody>
+<tr><td class="hl">失调电压 V_os</td><td>输入两端明明相等，输出却不为零——主要来自差分对的<b>器件失配</b>，直接追溯到 Pelgrom 定律</td></tr>
+<tr><td class="hl">失调温漂</td><td>V_os 随温度变化。对宽温区应用（车规 −40 ~ 125 °C），温漂常比初始失调更难处理</td></tr>
+<tr><td class="hl">输入偏置电流</td><td>输入端流进/流出的微小电流，在高阻抗源上转化为电压误差</td></tr>
+<tr><td class="hl">CMRR / PSRR</td><td>共模与电源抑制比——共模干扰和电源噪声<b>泄漏到输出</b>的程度</td></tr>
+<tr><td class="hl">增益带宽积</td><td>增益与带宽的乘积近似恒定，<b>高增益必然窄带宽</b>，这是单极点系统的固有取舍</td></tr>
+</tbody></table>
+</div></div>
+
+<div class="anim-card">
+<div class="at">🔄 斩波（Chopping）：把 1/f 噪声搬到高频再滤掉</div>
+<div class="am">1/f 噪声与失调赖在低频不走，那就把有用信号「搬」到高频去放大，回来时噪声被留在了高处</div>
+<svg viewBox="0 0 760 200">
+<text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#4c1d95">频域视角：信号与噪声的位置互换</text>
+<!-- axis 1 -->
+<line x1="40" y1="90" x2="240" y2="90" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="140" y="106" text-anchor="middle" font-size="9" fill="#64748b">频率 →</text>
+<text x="140" y="34" text-anchor="middle" font-size="10" font-weight="700" fill="#0f172a">① 原始</text>
+<path d="M44,88 Q54,50 64,78 Q74,88 90,88" fill="#fca5a5" opacity=".6" stroke="#dc2626" stroke-width="1.2"/>
+<text x="62" y="46" text-anchor="middle" font-size="8" fill="#dc2626">1/f 噪声</text>
+<rect x="46" y="70" width="10" height="18" fill="#2563eb"/>
+<text x="51" y="66" text-anchor="middle" font-size="8" font-weight="700" fill="#2563eb">信号</text>
+<text x="140" y="126" text-anchor="middle" font-size="8.5" fill="#7f1d1d">信号与噪声都挤在低频，无法分离</text>
+
+<!-- axis 2 -->
+<line x1="280" y1="90" x2="480" y2="90" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="380" y="34" text-anchor="middle" font-size="10" font-weight="700" fill="#0f172a">② 调制后放大</text>
+<path d="M284,88 Q294,50 304,78 Q314,88 330,88" fill="#fca5a5" opacity=".6" stroke="#dc2626" stroke-width="1.2"/>
+<text x="300" y="46" text-anchor="middle" font-size="8" fill="#dc2626">噪声不动</text>
+<rect x="410" y="58" width="12" height="30" fill="#2563eb">
+  <animate attributeName="x" values="46;410;410" dur="3s" repeatCount="indefinite"/>
+</rect>
+<text x="416" y="52" text-anchor="middle" font-size="8" font-weight="700" fill="#2563eb">信号→f_chop</text>
+<line x1="410" y1="92" x2="410" y2="100" stroke="#7c3aed" stroke-width="1"/>
+<text x="410" y="112" text-anchor="middle" font-size="8" fill="#7c3aed">f_chop</text>
+
+<!-- axis 3 -->
+<line x1="520" y1="90" x2="730" y2="90" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="625" y="34" text-anchor="middle" font-size="10" font-weight="700" fill="#0f172a">③ 解调 + 低通</text>
+<rect x="526" y="58" width="12" height="30" fill="#2563eb"/>
+<text x="534" y="52" text-anchor="middle" font-size="8" font-weight="700" fill="#2563eb">信号回低频</text>
+<path d="M650,88 Q660,62 670,80 Q680,88 694,88" fill="#cbd5e1" opacity=".7" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3,2"/>
+<text x="672" y="58" text-anchor="middle" font-size="8" fill="#64748b">噪声被搬到高频</text>
+<path d="M600,44 L600,96" stroke="#059669" stroke-width="1.5" stroke-dasharray="4,2"/>
+<text x="600" y="112" text-anchor="middle" font-size="8" font-weight="700" fill="#059669">低通截止</text>
+<text x="625" y="134" text-anchor="middle" font-size="8.5" font-weight="700" fill="#065f46">滤掉右侧 → 低频只剩干净信号</text>
+
+<rect x="40" y="150" width="690" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed"/>
+<text x="52" y="167" font-size="9.5" fill="#4c1d95"><tspan font-weight="700">本质：</tspan>失调与 1/f 噪声是「低频现象」，把信号调制到 f_chop 再放大，解调时信号回到低频而噪声被搬到 f_chop 附近。</text>
+<text x="52" y="182" font-size="9.5" fill="#4c1d95">代价是引入<tspan font-weight="700">斩波纹波</tspan>（位于 f_chop 及其倍频），需要额外的纹波抑制。自动归零（auto-zero）是同类思路的另一实现。【业界】</text>
+</svg>
+</div>
+
+<div class="anim-card">
+<div class="at">🌡️ 带隙基准（Bandgap Reference）：用两条相反的温度曲线互相抵消</div>
+<div class="am">没有天然不随温度变化的电压，于是造两个温度系数相反的量，按比例相加</div>
+<svg viewBox="0 0 740 210">
+<text x="370" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#065f46">CTAT（负温度系数）+ K × PTAT（正温度系数）= 近似零温漂</text>
+<!-- axes -->
+<line x1="70" y1="175" x2="520" y2="175" stroke="#94a3b8" stroke-width="1.5"/>
+<line x1="70" y1="40" x2="70" y2="175" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="295" y="193" text-anchor="middle" font-size="9.5" fill="#64748b">温度 T  （−40 °C → +125 °C）</text>
+<text x="40" y="108" text-anchor="middle" font-size="9.5" fill="#64748b" transform="rotate(-90 40 108)">电压</text>
+
+<!-- CTAT: V_BE 下降 -->
+<line x1="80" y1="60" x2="510" y2="140" stroke="#dc2626" stroke-width="2.5"/>
+<text x="150" y="54" font-size="9.5" font-weight="700" fill="#dc2626">V_BE（CTAT）约 −2 mV/°C 级</text>
+
+<!-- PTAT 上升 -->
+<line x1="80" y1="165" x2="510" y2="85" stroke="#2563eb" stroke-width="2.5"/>
+<text x="330" y="176" font-size="9.5" font-weight="700" fill="#2563eb">K·ΔV_BE（PTAT）正斜率</text>
+
+<!-- sum flat -->
+<line x1="80" y1="100" x2="510" y2="100" stroke="#059669" stroke-width="3.5" stroke-dasharray="500" stroke-dashoffset="500">
+  <animate attributeName="stroke-dashoffset" values="500;500;0;0" dur="4s" repeatCount="indefinite"/>
+</line>
+<text x="295" y="94" text-anchor="middle" font-size="10.5" font-weight="800" fill="#059669">两者相加 → 近水平线 ≈ 1.2 V</text>
+
+<!-- right explain -->
+<rect x="540" y="42" width="188" height="140" rx="6" fill="#ecfdf5" stroke="#059669"/>
+<text x="634" y="60" text-anchor="middle" font-size="10" font-weight="700" fill="#065f46">为什么是 1.2 V</text>
+<text x="550" y="80" font-size="8.5" fill="#065f46">PTAT 来自两个<tspan font-weight="700">不同电流</tspan></text>
+<text x="550" y="94" font-size="8.5" fill="#065f46"><tspan font-weight="700">密度</tspan>的 PN 结压差 ΔV_BE</text>
+<text x="550" y="112" font-size="8.5" fill="#065f46">外推到 0 K 时各电流密度</text>
+<text x="550" y="126" font-size="8.5" fill="#065f46">的 V_BE 线<tspan font-weight="700">汇聚于一点</tspan></text>
+<text x="550" y="144" font-size="8.5" font-weight="700" fill="#047857">≈ 硅的带隙电压 1.12–1.2 V</text>
+<text x="550" y="162" font-size="8.5" fill="#065f46">故名「带隙基准」——基准</text>
+<text x="550" y="175" font-size="8.5" fill="#065f46">电压锚定在<tspan font-weight="700">材料常数</tspan>上</text>
+</svg>
+<div class="dsc"><p><b>这是模拟设计思想的典型范例：</b>与其寻找一个天然稳定的量，不如<b>构造两个缺陷相反的量让它们互相抵消</b>，并把最终精度锚定到物理常数（硅带隙）而非工艺参数上。斩波消 1/f、共质心布局消工艺梯度、相关双采样消复位噪声，用的都是同一套「让误差自己对消」的思路。【业界】</p></div>
+</div>
+
+
+<h2 id="sec-adc">📊 5.3 ADC 四大架构：一张图看清各自的物理生态位</h2>
+
+<div class="anim-card">
+<div class="at">⚖️ 分辨率 × 采样率：为什么没有「全能 ADC」</div>
+<div class="am">四大架构各自占据一块区间，边界由物理约束划定，不是厂商不努力</div>
+<svg viewBox="0 0 740 260">
+<line x1="80" y1="220" x2="700" y2="220" stroke="#94a3b8" stroke-width="1.5"/>
+<line x1="80" y1="30" x2="80" y2="220" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="390" y="243" text-anchor="middle" font-size="10" fill="#64748b">采样率 →（kS/s → GS/s）</text>
+<text x="46" y="125" text-anchor="middle" font-size="10" fill="#64748b" transform="rotate(-90 46 125)">分辨率（bit）→</text>
+<text x="86" y="216" font-size="8" fill="#94a3b8">慢</text>
+<text x="676" y="216" font-size="8" fill="#94a3b8">快</text>
+<text x="88" y="40" font-size="8" fill="#94a3b8">24 bit</text>
+<text x="88" y="212" font-size="8" fill="#94a3b8">6 bit</text>
+
+<!-- Delta-Sigma 高分辨低速 -->
+<ellipse cx="170" cy="70" rx="72" ry="38" fill="#7c3aed" opacity=".22" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="170" y="66" text-anchor="middle" font-size="11" font-weight="800" fill="#5b21b6">Δ-Σ</text>
+<text x="170" y="82" text-anchor="middle" font-size="8" fill="#5b21b6">过采样+噪声整形</text>
+
+<!-- SAR 中速中高分辨 -->
+<ellipse cx="330" cy="125" rx="78" ry="42" fill="#059669" opacity=".22" stroke="#059669" stroke-width="1.5"/>
+<text x="330" y="121" text-anchor="middle" font-size="11" font-weight="800" fill="#065f46">SAR</text>
+<text x="330" y="137" text-anchor="middle" font-size="8" fill="#065f46">能效甜点</text>
+
+<!-- Pipeline -->
+<ellipse cx="500" cy="145" rx="74" ry="40" fill="#2563eb" opacity=".22" stroke="#2563eb" stroke-width="1.5"/>
+<text x="500" y="141" text-anchor="middle" font-size="11" font-weight="800" fill="#1e40af">Pipeline</text>
+<text x="500" y="157" text-anchor="middle" font-size="8" fill="#1e40af">面积换吞吐</text>
+
+<!-- Flash -->
+<ellipse cx="628" cy="198" rx="58" ry="28" fill="#dc2626" opacity=".22" stroke="#dc2626" stroke-width="1.5"/>
+<text x="628" y="196" text-anchor="middle" font-size="11" font-weight="800" fill="#991b1b">Flash</text>
+<text x="628" y="210" text-anchor="middle" font-size="8" fill="#991b1b">最快·位数低</text>
+
+<!-- arrow of tradeoff -->
+<line x1="150" y1="180" x2="660" y2="60" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6,3"/>
+<text x="400" y="104" font-size="9" font-weight="700" fill="#b45309" transform="rotate(-13 400 104)">能效前沿：越靠右上越难，需付出功耗与面积</text>
+</svg>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:13%">架构</th><th style="width:30%">机理</th><th>为什么卡在这个区间</th></tr></thead>
+<tbody>
+<tr><td class="hl">Flash</td><td>2ᴺ−1 个比较器<b>一次并行</b>判决，一个时钟出结果</td><td>比较器数量随位数<b>指数增长</b>——每加 1 位，比较器翻倍、面积功耗翻倍。所以最快但位数上不去</td></tr>
+<tr><td class="hl">SAR</td><td><b>二分逼近</b>，N 位用 N 个时钟逐位判决</td><td>只需一个比较器 + 一个 DAC，硬件极省 → <b>能效最优区</b>。但串行判决限制了速度上限</td></tr>
+<tr><td class="hl">Pipeline</td><td>拆成多级流水，每级解析几位并把余量传给下一级</td><td>用<b>面积和延迟换吞吐</b>：吞吐由单级速度决定而非总位数，代价是级间增益误差需要校准</td></tr>
+<tr><td class="hl">Δ-Σ</td><td><b>过采样 + 噪声整形 + 抽取滤波</b></td><td>用「时间上多次测」换「幅度上高精度」，天然适合低带宽高精度。带宽受过采样率约束</td></tr>
+</tbody></table>
+</div></div>
+
+<div class="anim-card">
+<div class="at">🎚️ Δ-Σ 的核心把戏：把量化噪声「推」出信号带</div>
+<div class="am">量化噪声总量不减，但可以把它从关心的频段挪到不关心的频段，再滤掉</div>
+<svg viewBox="0 0 740 200">
+<!-- axes -->
+<line x1="60" y1="160" x2="700" y2="160" stroke="#94a3b8" stroke-width="1.5"/>
+<line x1="60" y1="30" x2="60" y2="160" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="380" y="182" text-anchor="middle" font-size="9.5" fill="#64748b">频率 →</text>
+<text x="34" y="95" text-anchor="middle" font-size="9.5" fill="#64748b" transform="rotate(-90 34 95)">噪声功率</text>
+
+<!-- signal band -->
+<rect x="60" y="30" width="110" height="130" fill="#dbeafe" opacity=".55"/>
+<text x="115" y="44" text-anchor="middle" font-size="9" font-weight="700" fill="#1e40af">信号带 BW</text>
+
+<!-- step1 flat noise -->
+<line x1="60" y1="120" x2="700" y2="120" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,3"/>
+<text x="560" y="114" font-size="9" fill="#dc2626">① 未整形：量化噪声平铺全频（白噪声）</text>
+
+<!-- step2 shaped curve: low in band, high out -->
+<path d="M60,152 Q170,150 260,120 Q380,74 700,44" fill="none" stroke="#059669" stroke-width="2.8">
+  <animate attributeName="stroke-dasharray" values="0 900;900 0" dur="3s" repeatCount="indefinite"/>
+</path>
+<text x="300" y="146" font-size="9" font-weight="700" fill="#047857">② 噪声整形：带内压低</text>
+<text x="470" y="62" font-size="9" font-weight="700" fill="#047857">噪声被推到高频</text>
+
+<!-- decimation filter cut -->
+<line x1="170" y1="26" x2="170" y2="164" stroke="#7c3aed" stroke-width="2"/>
+<text x="178" y="36" font-size="9" font-weight="700" fill="#5b21b6">③ 数字抽取滤波在此切断</text>
+<path d="M176,168 L300,168" stroke="#7c3aed" stroke-width="1" marker-end="url(#dsArrow)"/>
+<defs><marker id="dsArrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#7c3aed"/></marker></defs>
+<text x="306" y="171" font-size="8.5" fill="#5b21b6">右侧噪声全部滤除</text>
+
+<text x="60" y="196" font-size="9" fill="#475569"><tspan font-weight="700">关键量：</tspan>过采样率 OSR = f_s / 2BW；每 4× 过采样约 +6 dB（≈ +1 bit）；再叠加整形阶数带来的额外斜率。【业界】</text>
+</svg>
+</div>
+
+<div class="card" style="border-left:4px solid #059669">
+<div class="ttl">DAC 侧的对称问题：单调性为什么比绝对精度更要命</div>
+<div class="dsc">
+<p>DAC 的三种主流架构——<b>电流舵（current-steering）</b>、<b>R-2R 电阻网络</b>、<b>电容阵列</b>——精度都回到同一个根源：<b>权重器件之间的匹配</b>，也就是 Pelgrom 定律。</p>
+<table class="node-table nopad"><thead><tr><th style="width:18%">指标</th><th>含义与本质</th></tr></thead>
+<tbody>
+<tr><td class="hl">INL 积分非线性</td><td>实际传输曲线与理想直线的最大偏差——决定绝对精度</td></tr>
+<tr><td class="hl">DNL 微分非线性</td><td>相邻两个码之间台阶高度的误差。<b>DNL 劣于 −1 LSB 就会出现非单调</b></td></tr>
+<tr><td class="hl">单调性</td><td>码增大输出必须不减。<b>在闭环控制里非单调等于反馈符号反转，系统可能直接振荡</b>——这比精度差一点严重得多</td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>工程解法体现了取舍：</b>二进制加权结构省面积，但高位权重一旦失配就可能非单调；<b>温度计码</b>（unary/thermometer）用 2ᴺ 个等值单元，天然单调，代价是面积与解码复杂度剧增。实际高性能 DAC 多采用<b>分段结构</b>——高位用温度计码保单调，低位用二进制码省面积。【业界】</p>
+</div></div>
+
+
+<h2 id="sec-pmic">🔌 5.4 电源管理：LDO 与开关电源的本质分工</h2>
+
+<div class="anim-card">
+<div class="at">⚡ LDO vs Buck：同样的输入输出，能量去了不同地方</div>
+<div class="am">LDO 把多余电压变成热，Buck 把能量成包搬运——这决定了它们各自的适用场景</div>
+<svg viewBox="0 0 740 230">
+<!-- LDO side -->
+<text x="180" y="18" text-anchor="middle" font-size="11.5" font-weight="800" fill="#991b1b">LDO 线性稳压器</text>
+<rect x="46" y="42" width="52" height="30" rx="4" fill="#cbd5e1" stroke="#64748b"/>
+<text x="72" y="62" text-anchor="middle" font-size="9.5" font-weight="700" fill="#334155">12 V</text>
+<rect x="140" y="36" width="80" height="42" rx="5" fill="#fca5a5" stroke="#dc2626" stroke-width="1.5"/>
+<text x="180" y="54" text-anchor="middle" font-size="9.5" font-weight="700" fill="#7f1d1d">可变电阻</text>
+<text x="180" y="68" text-anchor="middle" font-size="8.5" fill="#7f1d1d">（串联调节管）</text>
+<rect x="262" y="42" width="52" height="30" rx="4" fill="#bbf7d0" stroke="#059669"/>
+<text x="288" y="62" text-anchor="middle" font-size="9.5" font-weight="700" fill="#065f46">1 V</text>
+<line x1="98" y1="57" x2="140" y2="57" stroke="#334155" stroke-width="2"/>
+<line x1="220" y1="57" x2="262" y2="57" stroke="#334155" stroke-width="2"/>
+<!-- heat particles -->
+<circle cx="180" cy="30" r="4" fill="#ef4444" opacity=".85"><animate attributeName="cy" values="30;6" dur="1.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="1.5s" repeatCount="indefinite"/></circle>
+<circle cx="164" cy="30" r="3.4" fill="#f97316" opacity=".85"><animate attributeName="cy" values="30;8" dur="1.5s" begin="0.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="1.5s" begin="0.4s" repeatCount="indefinite"/></circle>
+<circle cx="196" cy="30" r="3.4" fill="#f97316" opacity=".85"><animate attributeName="cy" values="30;8" dur="1.5s" begin="0.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="1.5s" begin="0.8s" repeatCount="indefinite"/></circle>
+<text x="180" y="96" text-anchor="middle" font-size="9" font-weight="700" fill="#b91c1c">11 V × I 全部变成热</text>
+<rect x="60" y="106" width="240" height="20" rx="4" fill="#fee2e2" stroke="#dc2626"/>
+<rect x="60" y="106" width="20" height="20" rx="4" fill="#dc2626"/>
+<text x="180" y="120" text-anchor="middle" font-size="9" font-weight="700" fill="#7f1d1d">效率 ≈ V_out / V_in ≈ 8%</text>
+<text x="180" y="146" text-anchor="middle" font-size="9" fill="#065f46">✅ 换来的好处：输出<tspan font-weight="700">极干净</tspan>、无开关纹波</text>
+<text x="180" y="161" text-anchor="middle" font-size="9" fill="#065f46">✅ 高 PSRR，适合给 ADC/射频/时钟供电</text>
+
+<!-- divider -->
+<line x1="370" y1="20" x2="370" y2="200" stroke="#e2e8f0" stroke-width="2"/>
+
+<!-- Buck side -->
+<text x="556" y="18" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1e40af">Buck 开关降压</text>
+<rect x="410" y="42" width="52" height="30" rx="4" fill="#cbd5e1" stroke="#64748b"/>
+<text x="436" y="62" text-anchor="middle" font-size="9.5" font-weight="700" fill="#334155">12 V</text>
+<rect x="500" y="36" width="46" height="42" rx="5" fill="#bfdbfe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="523" y="54" text-anchor="middle" font-size="9" font-weight="700" fill="#1e3a8a">开关</text>
+<text x="523" y="68" text-anchor="middle" font-size="8" fill="#1e3a8a">高频通断</text>
+<rect x="566" y="36" width="46" height="42" rx="5" fill="#ddd6fe" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="589" y="54" text-anchor="middle" font-size="9" font-weight="700" fill="#4c1d95">电感</text>
+<text x="589" y="68" text-anchor="middle" font-size="8" fill="#4c1d95">储能搬运</text>
+<rect x="640" y="42" width="52" height="30" rx="4" fill="#bbf7d0" stroke="#059669"/>
+<text x="666" y="62" text-anchor="middle" font-size="9.5" font-weight="700" fill="#065f46">1 V</text>
+<line x1="462" y1="57" x2="500" y2="57" stroke="#334155" stroke-width="2"/>
+<line x1="546" y1="57" x2="566" y2="57" stroke="#334155" stroke-width="2"/>
+<line x1="612" y1="57" x2="640" y2="57" stroke="#334155" stroke-width="2"/>
+<!-- energy packets -->
+<circle cx="470" cy="57" r="4.5" fill="#2563eb"><animate attributeName="cx" values="470;660" dur="1.8s" repeatCount="indefinite"/></circle>
+<circle cx="470" cy="57" r="4.5" fill="#7c3aed"><animate attributeName="cx" values="470;660" dur="1.8s" begin="0.6s" repeatCount="indefinite"/></circle>
+<circle cx="470" cy="57" r="4.5" fill="#0891b2"><animate attributeName="cx" values="470;660" dur="1.8s" begin="1.2s" repeatCount="indefinite"/></circle>
+<text x="556" y="96" text-anchor="middle" font-size="9" font-weight="700" fill="#1e40af">能量成包搬运，几乎全部到达输出</text>
+<rect x="436" y="106" width="240" height="20" rx="4" fill="#dbeafe" stroke="#2563eb"/>
+<rect x="436" y="106" width="216" height="20" rx="4" fill="#2563eb"/>
+<text x="556" y="120" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">效率可达 90%+</text>
+<text x="556" y="146" text-anchor="middle" font-size="9" fill="#7f1d1d">⚠️ 代价：开关动作产生<tspan font-weight="700">纹波与 EMI</tspan></text>
+<text x="556" y="161" text-anchor="middle" font-size="9" fill="#7f1d1d">⚠️ 需要电感与电容，占板面积</text>
+
+<rect x="46" y="184" width="646" height="38" rx="6" fill="#f0f9ff" stroke="#0891b2"/>
+<text x="58" y="200" font-size="9.5" fill="#075985"><tspan font-weight="700">工程结论：</tspan>两者不是替代关系而是级联关系——先用 Buck 高效率把 12 V 降到接近目标，再用 LDO 做最后一级</text>
+<text x="58" y="215" font-size="9.5" fill="#075985">「提纯」，兼得效率与干净。<tspan font-weight="700">噪声敏感负载（ADC 基准、PLL、射频）几乎总要 LDO 收尾。</tspan>【业界】</text>
+</svg>
+</div>
+
+<div class="card" style="border-left:4px solid #7c3aed">
+<div class="ttl">一个跨篇呼应：DDR5 为什么把 PMIC 从主板搬到内存条上</div>
+<div class="dsc">
+<p>第二篇 <a href="#sec-ddr-gen" style="color:#7c3aed">2.7 DDR 世代全解</a> 提到 DDR5 的一项结构改动是<b>供电管理从主板移到内存条</b>。从模拟视角看，这是一个必然选择：</p>
+<table class="node-table nopad"><thead><tr><th style="width:26%">问题</th><th>为什么必须就地供电</th></tr></thead>
+<tbody>
+<tr><td class="hl">IR 压降</td><td>低电压大电流穿过主板长走线与连接器，路径电阻上的压降<b>直接吃掉电压容差</b>。数据率越高，容差越紧</td></tr>
+<tr><td class="hl">瞬态响应</td><td>供电点离负载越远，回路电感越大，<b>负载突变时来不及补电</b></td></tr>
+<tr><td class="hl">路径损耗</td><td>改为主板只送 12 V 高压小电流、条上再降压，<b>同样功率下电流小得多，I²R 损耗大幅下降</b></td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>这正是模拟工程的典型思维：</b>不是把稳压器做得更强，而是<b>改变拓扑、把电源搬到负载旁边</b>。同一逻辑也解释了为什么高算力 SoC 周围要密集布置去耦电容——见 <a href="#sec-passive" style="color:#7c3aed">第七篇 被动器件</a>。【业界】</p>
+</div></div>
+
+
+<h2 id="sec-analog-proc">🏭 5.5 工艺侧：BCD 与成熟节点为什么长寿</h2>
+
+<div class="card">
+<div class="ttl">BCD 工艺：把三种器件放在同一片硅上</div>
+<div class="dsc">
+<p><b>BCD = Bipolar + CMOS + DMOS</b>，三类器件各司其职，这是模拟与电源芯片的主力平台：</p>
+<table class="node-table nopad"><thead><tr><th style="width:16%">器件</th><th style="width:26%">擅长什么</th><th>在芯片里承担的角色</th></tr></thead>
+<tbody>
+<tr><td class="hl">Bipolar 双极型</td><td>匹配好、噪声低、跨导大</td><td>精密<b>模拟前端</b>：运放输入级、带隙基准</td></tr>
+<tr><td class="hl">CMOS</td><td>低静态功耗、集成度高</td><td><b>数字控制与逻辑</b>：状态机、寄存器、数字校准</td></tr>
+<tr><td class="hl">DMOS</td><td>耐高压、导通电阻低</td><td><b>功率输出级</b>：开关管、驱动器</td></tr>
+</tbody></table>
+<p style="margin-top:8px">三者集成在一起，一颗芯片就能同时做到「感知—判断—驱动」。<b>代价是工艺步骤多、掩模多，且难以随先进节点迁移</b>——因为高压 DMOS 需要足够的耐压间距，与缩微直接冲突。这也解释了为什么 BCD 长期停留在成熟节点。【业界】</p>
+</div></div>
+
+<div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
+<div class="ttl">成熟节点为什么在模拟里长寿且利润可观</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:24%">原因</th><th>机理</th></tr></thead>
+<tbody>
+<tr><td class="hl">缩微收益为负</td><td>电压裕度变小、失配需要更大面积补回、栅漏电上升——<b>先进节点对模拟性能是净损失</b></td></tr>
+<tr><td class="hl">设备已折旧</td><td>成熟产线设备早已摊销完毕，<b>单位晶圆成本极低</b></td></tr>
+<tr><td class="hl">产品生命周期极长</td><td>一颗料号可销售十几到二十年，<b>研发成本被超长周期摊薄</b></td></tr>
+<tr><td class="hl">替换成本高</td><td>客户一旦把某个料号设计进板子并完成验证，<b>更换意味着重新设计与重新认证</b>，因此极不情愿更换——这形成了很强的黏性</td></tr>
+</tbody></table>
+<p style="margin-top:8px;background:#fef3c7;padding:8px 12px;border-radius:6px;color:#92400e"><b>⚠️ 但「高毛利」需要加时间限定，不能当成恒定属性。</b>以 TI 为例：毛利率 2022 年高点约 <b>68.8%</b>，2024 年降至约 <b>58.1%</b>，2025 年（TTM，第三方测算）约 <b>57%</b>。<b>模拟是长周期毛利显著高于代工与存储的生意，但同样随周期波动。</b>【业界】</p>
+<p><b>TI 的 300mm 策略值得一提：</b>模拟芯片多数同行用 200mm 或外包，TI 坚持<b>自建 300mm 模拟产线</b>（2025 年底德州 Sherman 新厂投产）。逻辑是 300mm 单位面积成本显著低于 200mm，在产能利用率回升时直接转化为毛利优势。资本开支已过高峰——2025 年约 46 亿美元，2026 年指引降至 20–30 亿美元。【业界】</p>
+</div></div>
+
+
+<h2 id="sec-cis">📷 5.6 CMOS 图像传感器：一条被低估的模拟读出链</h2>
+
+<div class="card" style="background:#f0f9ff;border-left:4px solid #0284c7">
+<div class="ttl">为什么 CIS 属于模拟篇：它的胜负手在读出链，不在像素数</div>
+<div class="dsc">
+<p>像素数是市场传播语言。真正决定成像质量的是<b>信噪比曲线</b>：暗部看<b>读出噪声底</b>，亮部看<b>满井容量与光子散粒噪声</b>。</p>
+<p style="background:#e0f2fe;padding:8px 12px;border-radius:6px;color:#075985"><b>🔑 一条常被忽略的物理事实：</b>亮处的噪声<b>不由电路决定</b>。光子到达本身服从泊松统计，N 个光子的波动约为 √N——这叫<b>光子散粒噪声（shot noise）</b>，是自然界的下限，电路再好也消不掉。<b>所以电路设计能争的只有暗部</b>：把读出噪声压到几个电子甚至亚电子级。这正是 CIS 竞争的实质战场。【业界】</p>
+<p>盲目缩小像素去堆像素数，会同时<b>减小满井容量与进光量</b>，抬高相对噪声。这解释了为什么索尼历代技术发布强调的都是<b>饱和信号翻倍、噪声改善、动态范围扩大</b>，而非单纯像素数。【原厂/业界】</p>
+</div></div>
+
+<div class="anim-card">
+<div class="at">🎬 4T 像素与相关双采样（CDS）：噪声是如何被「减掉」的</div>
+<div class="am">钉扎光电二极管 PPD + 转移栅 TG + 浮置扩散 FD 三件套，让「两次读数相减」成为可能</div>
+<svg viewBox="0 0 760 250">
+<text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#0c4a6e">完整时序：复位 → 曝光积分 → 电荷转移 → 两次采样相减</text>
+
+<!-- stage 1: reset -->
+<rect x="30" y="34" width="160" height="96" rx="6" fill="#f8fafc" stroke="#cbd5e1"/>
+<text x="110" y="50" text-anchor="middle" font-size="9.5" font-weight="700" fill="#334155">① 复位 FD</text>
+<rect x="46" y="60" width="44" height="34" rx="3" fill="#bfdbfe" stroke="#2563eb"/>
+<text x="68" y="80" text-anchor="middle" font-size="8" fill="#1e3a8a">PPD</text>
+<rect x="104" y="60" width="16" height="34" rx="2" fill="#fde68a" stroke="#d97706"/>
+<text x="112" y="104" text-anchor="middle" font-size="7.5" fill="#92400e">TG关</text>
+<rect x="134" y="60" width="40" height="34" rx="3" fill="#fca5a5" stroke="#dc2626"/>
+<text x="154" y="80" text-anchor="middle" font-size="8" fill="#7f1d1d">FD</text>
+<text x="110" y="122" text-anchor="middle" font-size="8" fill="#991b1b">复位引入 kTC 噪声</text>
+
+<!-- stage 2: integrate -->
+<rect x="204" y="34" width="160" height="96" rx="6" fill="#f8fafc" stroke="#cbd5e1"/>
+<text x="284" y="50" text-anchor="middle" font-size="9.5" font-weight="700" fill="#334155">② 曝光积分</text>
+<rect x="220" y="60" width="44" height="34" rx="3" fill="#bfdbfe" stroke="#2563eb"/>
+<circle cx="230" cy="86" r="3" fill="#1d4ed8"><animate attributeName="cy" values="64;86" dur="1.4s" repeatCount="indefinite"/></circle>
+<circle cx="242" cy="86" r="3" fill="#1d4ed8"><animate attributeName="cy" values="64;86" dur="1.4s" begin="0.5s" repeatCount="indefinite"/></circle>
+<circle cx="254" cy="86" r="3" fill="#1d4ed8"><animate attributeName="cy" values="64;86" dur="1.4s" begin="0.9s" repeatCount="indefinite"/></circle>
+<text x="242" y="106" text-anchor="middle" font-size="7.5" fill="#1e3a8a">电荷积在 PPD</text>
+<rect x="278" y="60" width="16" height="34" rx="2" fill="#fde68a" stroke="#d97706"/>
+<rect x="308" y="60" width="40" height="34" rx="3" fill="#fecaca" stroke="#dc2626"/>
+<text x="284" y="122" text-anchor="middle" font-size="8" fill="#0c4a6e">读「复位电平」存入 C1</text>
+
+<!-- stage 3: transfer -->
+<rect x="378" y="34" width="160" height="96" rx="6" fill="#f8fafc" stroke="#cbd5e1"/>
+<text x="458" y="50" text-anchor="middle" font-size="9.5" font-weight="700" fill="#334155">③ TG 开·完全转移</text>
+<rect x="394" y="60" width="44" height="34" rx="3" fill="#e0f2fe" stroke="#2563eb"/>
+<text x="416" y="80" text-anchor="middle" font-size="7.5" fill="#0369a1">清空</text>
+<rect x="452" y="60" width="16" height="34" rx="2" fill="#86efac" stroke="#059669"/>
+<text x="460" y="104" text-anchor="middle" font-size="7.5" fill="#065f46">TG开</text>
+<rect x="482" y="60" width="40" height="34" rx="3" fill="#93c5fd" stroke="#2563eb"/>
+<circle cx="500" cy="80" r="3.5" fill="#1d4ed8"><animate attributeName="cx" values="416;500" dur="1.6s" repeatCount="indefinite"/></circle>
+<text x="458" y="122" text-anchor="middle" font-size="8" font-weight="700" fill="#065f46">PPD 残留 0 e⁻（完全清空）</text>
+
+<!-- stage 4: CDS -->
+<rect x="552" y="34" width="180" height="96" rx="6" fill="#ecfdf5" stroke="#059669"/>
+<text x="642" y="50" text-anchor="middle" font-size="9.5" font-weight="700" fill="#065f46">④ 读信号电平存 C2</text>
+<rect x="570" y="62" width="60" height="22" rx="3" fill="#fecaca" stroke="#dc2626"/>
+<text x="600" y="77" text-anchor="middle" font-size="8" fill="#7f1d1d">C1 复位电平</text>
+<rect x="570" y="92" width="60" height="22" rx="3" fill="#bfdbfe" stroke="#2563eb"/>
+<text x="600" y="107" text-anchor="middle" font-size="8" fill="#1e3a8a">C2 信号电平</text>
+<text x="650" y="82" font-size="14" font-weight="800" fill="#065f46">−</text>
+<rect x="664" y="74" width="58" height="28" rx="4" fill="#059669"/>
+<text x="693" y="92" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">纯信号</text>
+
+<!-- bottom explain -->
+<rect x="30" y="148" width="702" height="92" rx="6" fill="#f0f9ff" stroke="#0284c7"/>
+<text x="42" y="167" font-size="10" font-weight="700" fill="#075985">为什么叫「相关」双采样：两次读数里的误差来自同一物理来源、时间上相关，因此相减即抵消</text>
+<text x="42" y="186" font-size="9" fill="#0c4a6e">✅ 同时消除三项：① FD 的 <tspan font-weight="700">kTC 复位噪声</tspan>；② 源跟随器的<tspan font-weight="700">像素级失调</tspan>（固定图案噪声的一部分）；③ 低频 <tspan font-weight="700">1/f 噪声</tspan></text>
+<text x="42" y="205" font-size="9" fill="#0c4a6e">🔗 三者环环相扣：<tspan font-weight="700">PPD 使「完全电荷转移」成为可能 → 完全转移使「复位电平与信号电平共享同一次复位」成为可能 → 这才使 CDS 生效</tspan></text>
+<text x="42" y="226" font-size="9" fill="#7f1d1d">⚠️ 3T 像素做不到这一点：读出前电荷已在 FD 上，无法先取一个干净的复位参考 → 这就是 3T→4T 被称为分水岭的原因。【业界】</text>
+</svg>
+</div>
+
+<div class="anim-card">
+<div class="at">🔀 三次结构革命：FSI → BSI → 堆栈式</div>
+<div class="am">每一次都在解决「光路被挡」或「面积被抢」的问题</div>
+<svg viewBox="0 0 760 210">
+<!-- FSI -->
+<text x="118" y="16" text-anchor="middle" font-size="10.5" font-weight="800" fill="#991b1b">FSI 前照式</text>
+<rect x="40" y="26" width="156" height="14" rx="2" fill="#e2e8f0" stroke="#94a3b8"/>
+<text x="118" y="36" text-anchor="middle" font-size="7.5" fill="#475569">微透镜</text>
+<rect x="40" y="44" width="156" height="30" fill="#fed7aa" stroke="#ea580c"/>
+<rect x="54" y="48" width="24" height="9" fill="#78716c"/><rect x="100" y="48" width="24" height="9" fill="#78716c"/><rect x="146" y="48" width="24" height="9" fill="#78716c"/>
+<rect x="66" y="62" width="20" height="8" fill="#78716c"/><rect x="128" y="62" width="20" height="8" fill="#78716c"/>
+<text x="118" y="86" text-anchor="middle" font-size="7.5" fill="#9a3412">金属布线层挡光</text>
+<rect x="40" y="92" width="156" height="26" fill="#bfdbfe" stroke="#2563eb"/>
+<text x="118" y="109" text-anchor="middle" font-size="8" fill="#1e3a8a">光电二极管 PD</text>
+<!-- blocked rays -->
+<line x1="66" y1="22" x2="66" y2="48" stroke="#f59e0b" stroke-width="2"/>
+<line x1="112" y1="22" x2="112" y2="48" stroke="#f59e0b" stroke-width="2"/>
+<text x="118" y="134" text-anchor="middle" font-size="8" font-weight="700" fill="#b91c1c">✗ 部分光被布线反射/吸收</text>
+
+<!-- BSI -->
+<text x="380" y="16" text-anchor="middle" font-size="10.5" font-weight="800" fill="#065f46">BSI 背照式</text>
+<rect x="302" y="26" width="156" height="14" rx="2" fill="#e2e8f0" stroke="#94a3b8"/>
+<text x="380" y="36" text-anchor="middle" font-size="7.5" fill="#475569">微透镜</text>
+<rect x="302" y="44" width="156" height="34" fill="#bfdbfe" stroke="#2563eb"/>
+<text x="380" y="65" text-anchor="middle" font-size="8" fill="#1e3a8a">光电二极管 PD（直接受光）</text>
+<rect x="302" y="82" width="156" height="30" fill="#fed7aa" stroke="#ea580c"/>
+<rect x="316" y="88" width="24" height="9" fill="#78716c"/><rect x="362" y="88" width="24" height="9" fill="#78716c"/><rect x="408" y="88" width="24" height="9" fill="#78716c"/>
+<text x="380" y="108" text-anchor="middle" font-size="7.5" fill="#9a3412">布线层挪到背面</text>
+<line x1="328" y1="22" x2="328" y2="46" stroke="#f59e0b" stroke-width="2"/>
+<line x1="380" y1="22" x2="380" y2="46" stroke="#f59e0b" stroke-width="2"/>
+<line x1="432" y1="22" x2="432" y2="46" stroke="#f59e0b" stroke-width="2"/>
+<text x="380" y="134" text-anchor="middle" font-size="8" font-weight="700" fill="#047857">✓ 开口率大增，灵敏度显著提升</text>
+
+<!-- Stacked -->
+<text x="640" y="16" text-anchor="middle" font-size="10.5" font-weight="800" fill="#5b21b6">Stacked 堆栈式</text>
+<rect x="562" y="26" width="156" height="12" rx="2" fill="#e2e8f0" stroke="#94a3b8"/>
+<rect x="562" y="42" width="156" height="26" fill="#bfdbfe" stroke="#2563eb"/>
+<text x="640" y="59" text-anchor="middle" font-size="8" fill="#1e3a8a">像素晶圆</text>
+<rect x="562" y="70" width="156" height="8" fill="#fbbf24" stroke="#d97706"/>
+<text x="640" y="77" text-anchor="middle" font-size="6.5" font-weight="700" fill="#78350f">Cu-Cu 混合键合</text>
+<rect x="562" y="80" width="156" height="24" fill="#ddd6fe" stroke="#7c3aed"/>
+<text x="640" y="96" text-anchor="middle" font-size="8" fill="#4c1d95">逻辑/ADC 晶圆</text>
+<text x="640" y="120" text-anchor="middle" font-size="7.5" fill="#5b21b6">两片分开制造，各用最优工艺</text>
+<text x="640" y="134" text-anchor="middle" font-size="8" font-weight="700" fill="#5b21b6">✓ 面积不再互相争夺</text>
+
+<rect x="40" y="148" width="678" height="56" rx="6" fill="#faf5ff" stroke="#7c3aed"/>
+<text x="52" y="166" font-size="9.5" fill="#4c1d95"><tspan font-weight="700">堆栈式是混合键合在消费电子领域最大规模的应用</tspan>——像素层与逻辑层可分别采用不同工艺节点（如像素 90nm、逻辑 65nm），</text>
+<text x="52" y="182" font-size="9.5" fill="#4c1d95">整体尺寸约为传统单芯片的七成。后续演进包括<tspan font-weight="700">三层堆叠（加入 DRAM 缓存抑制运动模糊）</tspan>与<tspan font-weight="700">双层晶体管像素</tspan>——</text>
+<text x="52" y="198" font-size="9.5" fill="#4c1d95">把光电二极管与像素晶体管分到上下两层硅，<tspan font-weight="700">饱和信号约翻倍</tspan>。技术脉络：Exmor R(2008 BSI) → Exmor RS(2012 堆栈) → 双层像素(2021)。【原厂/业界】</text>
+</svg>
+</div>
+
+<div class="card">
+<div class="ttl">列并行 ADC：为什么用几千个慢 ADC 而不是一个快 ADC</div>
+<div class="dsc">
+<p>一颗 4000 万像素、30 帧的传感器每秒要转换十亿量级的采样。若用单个 ADC，速率要求高到功耗与精度都无法接受。<b>CIS 的做法是每一列配一个慢速 ADC，几千列同时工作。</b></p>
+<table class="node-table nopad"><thead><tr><th style="width:24%">优势</th><th>机理</th></tr></thead>
+<tbody>
+<tr><td class="hl">功耗低</td><td>ADC 功耗随速度急剧上升，<b>把速度分摊到几千路</b>后每路都很轻松</td></tr>
+<tr><td class="hl">面积可容纳</td><td>单斜坡 ADC 结构极简：一个比较器 + 一个计数器，能塞进一列的宽度里</td></tr>
+<tr><td class="hl">天然实现数字 CDS</td><td>对复位电平与信号电平各转换一次、数字域相减，把 CDS 做在数字侧</td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>单斜坡 ADC 的机理：</b>一个全局斜坡电压线性上升，所有列的比较器同时与各自像素电压比较；<b>斜坡越过某列电压时该列比较器翻转，锁存当前计数值即为数字码</b>。代价是 N 位需要约 2ᴺ 个时钟周期——这正是"慢 ADC"的来源，但并行度补偿了速度。【业界】</p>
+</div></div>
+
+<div class="anim-card">
+<div class="at">🚗 车规 CIS 的两道特殊考题：LED 闪烁与高动态范围</div>
+<div class="am">这两项是智能驾驶感知的硬指标，也是车规与消费级 CIS 的分野</div>
+<svg viewBox="0 0 760 240">
+<text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d">问题的根源：交通灯与 LED 车灯是 PWM 脉冲点亮的，不是常亮</text>
+
+<!-- PWM waveform -->
+<text x="60" y="40" font-size="9" font-weight="700" fill="#334155">LED 实际亮度（PWM）</text>
+<path d="M60,66 L90,66 L90,50 L130,50 L130,66 L170,66 L170,50 L210,50 L210,66 L250,66 L250,50 L290,50 L290,66 L330,66 L330,50 L370,50 L370,66 L410,66 L410,50 L450,50 L450,66 L490,66 L490,50 L530,50 L530,66 L570,66 L570,50 L610,50 L610,66 L700,66" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+<text x="712" y="60" font-size="8" fill="#b45309">亮</text>
+<text x="712" y="72" font-size="8" fill="#b45309">灭</text>
+
+<!-- short exposure windows: miss -->
+<text x="60" y="100" font-size="9" font-weight="700" fill="#991b1b">短曝光窗口（HDR 亮部用）</text>
+<rect x="136" y="108" width="24" height="22" fill="#fca5a5" stroke="#dc2626" stroke-width="1.5"/>
+<text x="148" y="123" text-anchor="middle" font-size="8" fill="#7f1d1d">✗</text>
+<rect x="216" y="108" width="24" height="22" fill="#fca5a5" stroke="#dc2626" stroke-width="1.5"/>
+<text x="228" y="123" text-anchor="middle" font-size="8" fill="#7f1d1d">✗</text>
+<rect x="296" y="108" width="24" height="22" fill="#86efac" stroke="#059669" stroke-width="1.5"/>
+<text x="308" y="123" text-anchor="middle" font-size="8" fill="#065f46">✓</text>
+<rect x="416" y="108" width="24" height="22" fill="#fca5a5" stroke="#dc2626" stroke-width="1.5"/>
+<text x="428" y="123" text-anchor="middle" font-size="8" fill="#7f1d1d">✗</text>
+<text x="500" y="123" font-size="9" font-weight="700" fill="#b91c1c">→ 曝光窗错过脉冲，这一帧灯是「灭」的</text>
+<text x="60" y="146" font-size="9" fill="#7f1d1d">连续多帧忽明忽暗 = <tspan font-weight="700">flicker 闪烁</tspan>；机器视觉可能<tspan font-weight="700">误判交通灯状态</tspan>——这是安全隐患，不只是观感问题</text>
+
+<!-- LOFIC long integration -->
+<text x="60" y="176" font-size="9" font-weight="700" fill="#065f46">LOFIC 长积分窗（横向溢出积分电容）</text>
+<rect x="136" y="184" width="474" height="22" fill="#86efac" opacity=".5" stroke="#059669" stroke-width="1.5"/>
+<text x="373" y="199" text-anchor="middle" font-size="8.5" font-weight="700" fill="#065f46">单次长曝光覆盖完整 PWM 周期 → 无论相位如何都「接住」脉冲</text>
+<text x="620" y="199" font-size="9" font-weight="700" fill="#047857">→ 灯始终为亮</text>
+
+<rect x="40" y="214" width="678" height="22" rx="4" fill="#ecfdf5" stroke="#059669"/>
+<text x="52" y="229" font-size="9" fill="#065f46"><tspan font-weight="700">一石二鸟：</tspan>LOFIC 把强光溢出的电荷导入旁边的大电容——既大幅扩展满井容量（高动态范围），又提供长积分窗（抑制 LED 闪烁）。【原厂/业界】</text>
+</svg>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:20%">HDR 手段</th><th style="width:34%">机理</th><th>代价</th></tr></thead>
+<tbody>
+<tr><td class="hl">多次曝光 DOL</td><td>长、中、短曝光各拍一次再合成</td><td><b>运动伪影</b>——三次曝光有时间差，运动物体会出现鬼影；且短曝光<b>更容易漏掉 LED 脉冲</b></td></tr>
+<tr><td class="hl">LOFIC 横向溢出<br>积分电容</td><td>强光电荷溢流进额外大电容，弱信号走高增益低噪路径、强信号走大容量路径，再合成</td><td>像素结构更复杂、面积更大；但<b>单次曝光即可，无运动伪影、天然抑制闪烁</b></td></tr>
+<tr><td class="hl">分裂像素 split-pixel</td><td>一个像素位置放大小两个子像素，分别负责暗部与亮部</td><td>有效分辨率与填充因子受影响</td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>其他车规硬要求：</b>近红外灵敏度（夜视，硅在长波段吸收弱，需增厚硅层与倒金字塔结构等手段）、<b>AEC-Q100 与 ISO 26262 功能安全</b>、−40 至 125 °C 宽温区。<b>车规 HDR 目标普遍在 120–150 dB 量级</b>，远高于消费级需求。【原厂/业界】</p>
+</div></div>
+
+<div class="card" style="background:#f8fafc;border-left:4px solid #64748b">
+<div class="ttl">🔗 与硅光的边界：为什么两者都「用光」却不是一回事</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:16%"></th><th style="width:40%">CIS 图像传感器</th><th>硅光子</th></tr></thead>
+<tbody>
+<tr><td class="hl">信号方向</td><td>光 → 电，<b>单向感知</b></td><td>电 → 光 → 电，<b>双向通信</b></td></tr>
+<tr><td class="hl">核心难点</td><td><b>模拟读出链</b>：噪声底、CDS、列并行 ADC</td><td><b>波导与调制器、光源集成</b></td></tr>
+<tr><td class="hl">波段</td><td>可见光与近红外（硅能吸收）</td><td>1310 / 1550 nm 通信波段（<b>硅不吸收，必须外延锗</b>）</td></tr>
+<tr><td class="hl">工艺归属</td><td>成熟 CMOS + 特殊像素工艺</td><td>SOI 硅光平台 + III-V 异质集成</td></tr>
+</tbody></table>
+<p style="margin-top:8px">两者共享「光电探测器」这一层物理，但工程约束完全不同，因此分列两篇。硅光部分见 <a href="#sec-siph" style="color:#475569"><b>第六篇</b></a>。</p>
+</div></div>
+
+
+<h2 id="sec-analog-pattern">🌐 5.7 产业格局：模拟与 CIS 的五大转折</h2>
+
+<div class="card-row-3 dense">
+
+<div class="card"><span class="tag tu">美</span><span class="yr">1963—1970</span>
+<div class="ttl">运放的诞生：Widlar 与模拟集成电路的开端</div>
+<div class="by">Fairchild / National Semiconductor</div>
+<div class="dsc"><p>Bob Widlar 在 Fairchild 设计出 μA702、μA709，把运算放大器从分立电路变成单片集成电路。1968 年的 <b>μA741</b> 成为史上最经典的运放，其内部补偿设计让使用者无需外接元件即可稳定工作。<b>格局：</b>模拟集成电路从此成为独立品类，美国企业奠定先发地位。</p><p style="color:#64748b;font-size:12px">注：μA741 发布年份各源有 1968 与 1969 两说。</p></div></div>
+
+<div class="card"><span class="tag tu">美</span><span class="yr">1965—2000</span>
+<div class="ttl">精密模拟的专业化：ADI 路线与「信号链」概念成型</div>
+<div class="by">Analog Devices（1965 创立）/ Burr-Brown / Linear Technology / Maxim</div>
+<div class="dsc"><p>一批专注精密模拟与数据转换的公司崛起，把「传感器 → 放大 → 转换 → 处理」的<b>信号链</b>做成完整产品体系。这一时期确立了模拟行业的核心特征：<b>产品型号极多、单颗价值不高、但生命周期极长且客户黏性极强</b>。</p></div></div>
+
+<div class="card"><span class="tag tu">美</span><span class="yr">2000—2021</span>
+<div class="ttl">大并购时代：模拟走向高度集中</div>
+<div class="by">TI 收购 Burr-Brown(2000)、National(2011) | ADI 收购 Linear(2017)、Maxim(2021) | Renesas 收购 Intersil / IDT / Dialog</div>
+<div class="dsc"><p>模拟行业的价值在于<b>料号广度与客户关系</b>，而非单点技术突破，因此并购成为最有效的扩张方式。<b>格局：</b>形成 TI 一超、ADI 紧随、Infineon / ST / onsemi / NXP / Microchip / Renesas 各据强项的结构。</p></div></div>
+
+<div class="card"><span class="tag tj">日</span><span class="yr">1993—2012</span>
+<div class="ttl">CIS 取代 CCD：从 CCD 发明到 CMOS 逆转</div>
+<div class="by">贝尔实验室 CCD(1969，2009 诺奖) → JPL CMOS 有源像素(1993) → 索尼 BSI(2008) / 堆栈(2012)</div>
+<div class="dsc"><p>CCD 画质长期领先，但 CMOS 能与逻辑同工艺集成、功耗低、成本低。手机摄像头的爆发把 CMOS 推上主流，索尼再以 <b>BSI 背照式</b>与<b>堆栈式</b>两次结构革命把画质劣势补平。<b>格局：</b>CCD 退居科学与专业领域，CIS 成为绝对主流。</p></div></div>
+
+<div class="card"><span class="tag tc">中</span><span class="yr">2020—2026</span>
+<div class="ttl">车规 CIS 格局重排 + 中国模拟的国产替代窗口</div>
+<div class="by">豪威 / onsemi / 索尼（车规） | 圣邦微·思瑞浦·纳芯微·南芯·杰华特（模拟）</div>
+<div class="dsc"><p><b>车规 CIS：</b>按<b>营收</b>口径，豪威 2024 年约 32.9% 首次超越 onsemi 约 30.4%，2025 年差距进一步拉大（豪威约 35.9%）；按<b>出货颗数</b>口径豪威 2024 年约 44%。<b>两个口径不可混用。</b>索尼在整体 CIS 仍以约 53.6%（2025）绝对领先，但车规仅约 19%。</p>
+<p><b>模拟：</b>中国高端模拟自给率仍偏低（多数口径不足 15%），突破集中在电源管理、信号链中低端与部分车规隔离/驱动。<b>卡点在经验型人才、可靠性数据积累与车规认证周期，而非单纯工艺。</b></p>
+<p style="color:#64748b;font-size:12px">份额来源为机构与研报口径，部分 2025 数字为推测值。</p></div></div>
+
+</div>
+
+<div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
+<div class="ttl">🧩 本篇要点回收</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:26%">结论</th><th>与全站其他篇的关系</th></tr></thead>
+<tbody>
+<tr><td class="hl">模拟的「先进」不是栅长</td><td>与第二篇 <a href="#sec-why-not-node" style="color:#166534">2.9</a> 同属一类判断：<b>不同品类的「先进」定义不同</b>，用纳米数字横向比较是类别错误</td></tr>
+<tr><td class="hl">面积换精度、电容换信噪比</td><td>与逻辑的缩微逻辑<b>方向相反</b>，解释了模拟版图为何远大于逻辑单元、为何难以 EDA 全自动</td></tr>
+<tr><td class="hl">让误差自己对消</td><td>带隙基准、斩波、共质心布局、CDS —— 同一套方法论的四种体现</td></tr>
+<tr><td class="hl">CIS 竞争在噪声底</td><td>亮部噪声由光子统计决定（不可改善），电路能争的只有暗部</td></tr>
+<tr><td class="hl">DDR5 的 on-DIMM PMIC</td><td>为第二篇 <a href="#sec-ddr-gen" style="color:#166534">2.7</a> 的结构改动补上电源工程解释</td></tr>
+<tr><td class="hl">堆栈式 CIS</td><td>是<b>混合键合在消费电子的最大规模应用</b>，与基础篇 <a href="#sec-pkg-tsv" style="color:#166534">0.9.3</a> 的先进封装同源</td></tr>
+</tbody></table>
+</div></div>
+
+</div>
+
+
 <h2 id="sec-sources" style="text-align:center;margin-top:60px">📚 参考文献</h2>
 <div class="content">
 <div class="card" style="background:#f8fafc">
