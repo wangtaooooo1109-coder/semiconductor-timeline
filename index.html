@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v6.0 | 2026-09-21 | 新增第七篇 被动器件(完成七篇全景): 7.1 MLCC叠层等效几百电容并联动画/介质薄层化物理下限(一层仅5-7个陶瓷晶粒)动画/Ni内电极还原气氛共烧矛盾动画(Ni不能氧化vs BaTiO3不能缺氧)/四项隐性劣化(DC Bias极化饱和·温度特性ClassI-II·老化畴松弛·压电啸叫)/车规AEC-Q200与软端头 7.2 供应链: 上游粉体比设备更卡脖子/缺货五大结构性成因/车规认证周期造成供应刚性/单车用量整车与动力系统两套口径分列/800V与智驾域控需求 7.3 分流电阻四端Kelvin动画/电阻四工艺/电感直流叠加饱和动画(铁氧体陡降vs金属磁粉软饱和)/其他电容寿命机理 7.4 钛酸钡材料史与五次转折 | 新增5个SVG动画 -->
+<!-- version: v6.0.1 | 2026-09-21 | 修复4个SVG的XML合法性历史遗留问题: 第二篇HBM增速图与第三篇IGBT结构图内的4处<br>标签(SVG不支持)改为tspan多行并顺带修正一处color→fill笔误; 第三篇SiC对比图与第四篇TriCore图内2处未转义的<号(频率<100kHz / 实时中断<1us)改为&lt; | 全站74个SVG现已全部通过严格XML校验 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -4080,7 +4080,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <text x="340" y="100" text-anchor="middle" font-size="8" fill="#475569">PC 18%</text>
 <text x="340" y="114" text-anchor="middle" font-size="8" fill="#059669" font-weight="700">★HBM 10%</text>
 
-<text x="500" y="80" text-anchor="middle" font-size="9" color="#64748b">HBM 4年24倍增长<br>是DRAM史上任何产品<br>都未实现过的增速</text>
+<text x="500" y="80" text-anchor="middle" font-size="9" fill="#64748b">HBM 4年24倍增长<tspan x="500" dy="12">是DRAM史上任何产品</tspan><tspan x="500" dy="12">都未实现过的增速</tspan></text>
 </svg>
 </div></div>
 
@@ -4345,8 +4345,8 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <rect x="180" y="70" width="160" height="14" rx="3" fill="#fcd34d" opacity=".4"/><text x="260" y="79" text-anchor="middle" font-size="6" fill="#92400e">P-Well</text>
 <rect x="100" y="88" width="300" height="14" rx="3" fill="#94a3b8"/><text x="250" y="97" text-anchor="middle" font-size="7" fill="#fff">N- Drift Region (耐压层·BJT基区)</text>
 <rect x="120" y="106" width="260" height="12" rx="3" fill="#d97706"/><text x="250" y="114" text-anchor="middle" font-size="7" fill="#fff">P+ COLLECTOR (BJT发射极)</text>
-<text x="500" y="80" text-anchor="middle" font-size="8" fill="#92400e">MOSFET栅极控制<br>→开通关断简便</text>
-<text x="600" y="107" text-anchor="middle" font-size="8" fill="#92400e">BJT导电调制<br>→低Vce(sat)</text>
+<text x="500" y="80" text-anchor="middle" font-size="8" fill="#92400e">MOSFET栅极控制<tspan x="500" dy="11">→开通关断简便</tspan></text>
+<text x="600" y="107" text-anchor="middle" font-size="8" fill="#92400e">BJT导电调制<tspan x="600" dy="11">→低Vce(sat)</tspan></text>
 </svg>
 <div class="d3-sol">✅ 兼具MOSFET易驱动和BJT低导通损耗。600V-6500V全覆盖→变频器、电机驱动、高铁牵引、新能源发电的标准器件。</div>
 <div class="d3-lim">⚠ 关断时存在拖尾电流(少子复合慢)→关断损耗高于MOSFET→频率上限~20-50kHz。</div>
@@ -4395,7 +4395,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <rect x="70" y="42" width="200" height="50" rx="3" fill="#fca5a5" opacity=".5"/>
 <text x="170" y="60" text-anchor="middle" font-size="7" fill="#991b1b">N- Drift 50μm厚</text>
 <text x="170" y="74" text-anchor="middle" font-size="7" fill="#991b1b">Rds(on)=100mΩ</text>
-<text x="170" y="96" text-anchor="middle" font-size="7" fill="#dc2626">开关损耗高·频率<100kHz</text>
+<text x="170" y="96" text-anchor="middle" font-size="7" fill="#dc2626">开关损耗高·频率&lt;100kHz</text>
 
 <text x="345" y="68" font-size="20">→</text>
 
@@ -4644,7 +4644,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="d3-card" style="border-left:4px solid var(--jp)">
 <div class="d3t">突破 #3：32位TriCore架构——动力/底盘ASIL-D的基石 (1997)</div>
 <div class="d3m">Infineon TriCore · RISC+DSP统一架构 · 硬件锁步核</div>
-<svg viewBox="0 0 560 130"><rect x="15" y="35" width="150" height="70" rx="8" fill="#eff6ff" stroke="#93c5fd"/><text x="90" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="#1e3a5f">TriCore Core</text><text x="90" y="70" text-anchor="middle" font-size="8" fill="#64748b">RISC指令集</text><text x="90" y="85" text-anchor="middle" font-size="8" fill="#64748b">DSP MAC单元</text><text x="90" y="100" text-anchor="middle" font-size="8" fill="#64748b">实时中断<1μs</text><rect x="195" y="35" width="140" height="70" rx="8" fill="#fef2f2" stroke="#fca5a5"/><text x="265" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="#991b1b">Lockstep Checker</text><text x="265" y="70" text-anchor="middle" font-size="8" fill="#64748b">双核同步执行</text><text x="265" y="85" text-anchor="middle" font-size="8" fill="#64748b">结果逐周期比对</text><text x="265" y="100" text-anchor="middle" font-size="8" fill="#64748b">ASIL-D实现</text><rect x="365" y="35" width="150" height="70" rx="8" fill="#f0fdf4" stroke="#86efac"/><text x="440" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="#166534">应用覆盖</text><text x="440" y="70" text-anchor="middle" font-size="8" fill="#64748b">发动机控制</text><text x="440" y="85" text-anchor="middle" font-size="8" fill="#64748b">变速箱TCU</text><text x="440" y="100" text-anchor="middle" font-size="8" fill="#64748b">EPS/ESP/ABS</text></svg>
+<svg viewBox="0 0 560 130"><rect x="15" y="35" width="150" height="70" rx="8" fill="#eff6ff" stroke="#93c5fd"/><text x="90" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="#1e3a5f">TriCore Core</text><text x="90" y="70" text-anchor="middle" font-size="8" fill="#64748b">RISC指令集</text><text x="90" y="85" text-anchor="middle" font-size="8" fill="#64748b">DSP MAC单元</text><text x="90" y="100" text-anchor="middle" font-size="8" fill="#64748b">实时中断&lt;1μs</text><rect x="195" y="35" width="140" height="70" rx="8" fill="#fef2f2" stroke="#fca5a5"/><text x="265" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="#991b1b">Lockstep Checker</text><text x="265" y="70" text-anchor="middle" font-size="8" fill="#64748b">双核同步执行</text><text x="265" y="85" text-anchor="middle" font-size="8" fill="#64748b">结果逐周期比对</text><text x="265" y="100" text-anchor="middle" font-size="8" fill="#64748b">ASIL-D实现</text><rect x="365" y="35" width="150" height="70" rx="8" fill="#f0fdf4" stroke="#86efac"/><text x="440" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="#166534">应用覆盖</text><text x="440" y="70" text-anchor="middle" font-size="8" fill="#64748b">发动机控制</text><text x="440" y="85" text-anchor="middle" font-size="8" fill="#64748b">变速箱TCU</text><text x="440" y="100" text-anchor="middle" font-size="8" fill="#64748b">EPS/ESP/ABS</text></svg>
 <div class="d3-desc"><b>解决了什么？</b>此前的汽车MCU要么是纯粹的RISC(性能好但实时性差)，要么是DSP(实时好但编程复杂)。TriCore将两者融合+硬件锁步核，开创了"一颗芯片搞定动力总成+安全等级ASIL-D"的时代。至今TriCore仍是全球市占率最高的车规MCU架构(Infineon Aurix TC2xx/3xx/4xx)。</div>
 </div>
 
