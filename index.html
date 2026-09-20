@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v5.6 | 2026-09-20 | 文体调整: 去除正文中全部一手材料页码引用(p23/p26-29/slides等12处)与博主口吻自述(本站/本文/编者/我…/想看 共20余处), 改为中性科普文献口吻; 可信度标记【原厂】【业界】【推断】保留, 出处统一见文末参考文献 -->
+<!-- version: v5.7 | 2026-09-20 | 存储篇新增三节: 2.7 DDR世代全解(预取深度反推阵列频率/数据率涨16x而ns延迟为平线/SDRAM→DDR6逐代结构变化/DDR5强制片上ECC的四条被迫机理/DDR-LPDDR-GDDR-HBM四家族分化逻辑/LPDDR6 JESD209-6有效带宽90%口径) + 2.8 DRAM制造工艺A-Z(16步全链, 埋入式字线/40:1高深宽比电容孔刻蚀/深孔ALD共形成膜/冗余修复/速度分档/6F²→4F²/1x-1γ代际标签读法) + 2.9 存储为什么不追求先进制程(六条归因: 存电荷与缩微逆向/延迟不随缩微改善/大宗商品成本模型/掩模层少且版图规则/瓶颈在刻蚀成膜非光刻/已转向堆叠换维度); 原2.7深度研究顺延为2.10; 修正两处失效交叉引用 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -237,7 +237,10 @@ table.node-table.nopad .hl{font-size:12px}
 <li><a href="#sec-storage-country">2.4 存储产业各国进展</a></li>
 <li><a href="#sec-storage-events">2.5 存储重大事件详表</a></li>
 <li><a href="#sec-storage-nodes">2.6 存储制程演进总表</a></li>
-<li><a href="#sec-storage-deep">2.7 深度研究 · 长鑫 · 长江 · AI范式</a></li>
+<li><a href="#sec-ddr-gen"><b>2.7 DDR 世代全解 · DDR1→DDR6 · LPDDR/GDDR/HBM 分家</b></a></li>
+<li><a href="#sec-dram-process"><b>2.8 DRAM 制造工艺 A–Z</b></a></li>
+<li><a href="#sec-why-not-node"><b>2.9 存储为什么不追求先进制程</b></a></li>
+<li><a href="#sec-storage-deep">2.10 深度研究 · 长鑫 · 长江 · AI范式</a></li>
 </ol>
 <div style="font-size:11px;color:#7c3aed;padding-left:4px;line-height:1.6">🧬 存储器件原理 → <a href="#sec-mem-atlas">基础篇 0.7</a> / <a href="#sec-mem-official">0.8</a></div>
 <ol style="display:none">
@@ -507,9 +510,9 @@ DRAM 要在越来越小的单元面积里<b>存住足够多的电荷</b>（电�
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:20%">上层现象</th><th>地基如何解释它</th></tr></thead>
 <tbody>
-<tr><td class="hl">DRAM 为什么<br>读一次就得写回</td><td>DRAM 一个单元 = 1 个晶体管 + 1 个电容，用电容里有没有电荷代表 0/1。而「读」的动作是把电容接到位线上、测那点微小的电压变化——<b>这个测量本身就把电荷重新分配掉了</b>。读完电容就空了，所以<b>必须立刻照抄一份灌回去</b>。另外电荷还会被热生成的载流子慢慢中和掉，所以即使不读也得<b>周期性刷新</b>。<span style="color:#64748b">【推断：由小信号扰动电荷、热生成与深耗尽弛豫外推】→ 详见 2.9</span></td></tr>
+<tr><td class="hl">DRAM 为什么<br>读一次就得写回</td><td>DRAM 一个单元 = 1 个晶体管 + 1 个电容，用电容里有没有电荷代表 0/1。而「读」的动作是把电容接到位线上、测那点微小的电压变化——<b>这个测量本身就把电荷重新分配掉了</b>。读完电容就空了，所以<b>必须立刻照抄一份灌回去</b>。另外电荷还会被热生成的载流子慢慢中和掉，所以即使不读也得<b>周期性刷新</b>。<span style="color:#64748b">【推断：由小信号扰动电荷、热生成与深耗尽弛豫外推】→ 详见 0.8</span></td></tr>
 <tr><td class="hl">Flash 为什么<br>断电不忘</td><td>在控制栅和沟道之间，再嵌一层<b>四周被绝缘层完全包围的导电孤岛</b>，叫浮栅。孤岛里存了多少电子，就会<b>平移这个晶体管的阈值电压</b>——所以用一个固定栅压去测它导不导通，就能读出 0 还是 1。而四周绝缘意味着电子进出<b>必须靠隧穿</b>（所以写入和擦除都要高压），一旦进去就被<b>锁住</b>——这就是非易失的由来。<span style="color:#64748b">【推断：由电荷平移阈值、固定电荷效应与强场隧穿外推】→ 详见 2.8 / 2.9</span></td></tr>
-<tr><td class="hl">SiC 为什么<br>耐高压又电阻小</td><td>反偏电压几乎全部落在耗尽区，电场超过材料<b>临界击穿场强</b>就雪崩击穿。SiC 带隙远大于硅、临界场强高约一个数量级，因此<b>挡同样的电压只需薄得多的耐压层、掺杂还能更浓</b>；而高压器件的电阻几乎全来自这一层、且与其厚度成正比——<b>层薄了电阻自然就小</b>。<span style="color:#64748b">【推断：由带隙与反偏耐压外推】→ 详见 3.3 / 3.8</span></td></tr>
+<tr><td class="hl">SiC 为什么<br>耐高压又电阻小</td><td>反偏电压几乎全部落在耗尽区，电场超过材料<b>临界击穿场强</b>就雪崩击穿。SiC 带隙远大于硅、临界场强高约一个数量级，因此<b>挡同样的电压只需薄得多的耐压层、掺杂还能更浓</b>；而高压器件的电阻几乎全来自这一层、且与其厚度成正比——<b>层薄了电阻自然就小</b>。<span style="color:#64748b">【推断：由带隙与反偏耐压外推】→ 详见 3.3 / 0.11</span></td></tr>
 </tbody></table>
 </div></div>
 
@@ -3647,13 +3650,208 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <div class="src">来源：Samsung/SK Hynix/Micron/Kioxia/WD/YMTC官方年报; TechInsights存储分析; IEEE ISSCC各年论文</div></div>
 
 
+<hr style="margin:60px 0 40px;border:none;border-top:3px dashed #f59e0b">
+
+<h2 id="sec-ddr-gen">🧮 2.7 DDR 世代全解 —— 从 DDR1 到 DDR6，以及 LPDDR / GDDR / HBM 的分家</h2>
+
+<div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
+<div class="ttl">先立一个容易被忽略的事实：DRAM 的「内核」二十年几乎没有变快</div>
+<div class="dsc">
+<p>DDR 每一代的宣传口径都是数据率翻倍，但真正提速的是<b>接口</b>，不是存储阵列本身。阵列内部的工作频率由「预取位宽」反推：<b>阵列频率 = 数据率 ÷ 预取深度</b>。</p>
+<table class="node-table nopad"><thead><tr><th style="width:22%">代际</th><th style="width:20%">典型数据率</th><th style="width:16%">预取</th><th>反推的阵列频率</th></tr></thead>
+<tbody>
+<tr><td class="hl">DDR-400</td><td>400 MT/s</td><td>2n</td><td><b>200 MHz</b></td></tr>
+<tr><td class="hl">DDR2-800</td><td>800 MT/s</td><td>4n</td><td><b>200 MHz</b></td></tr>
+<tr><td class="hl">DDR3-1600</td><td>1600 MT/s</td><td>8n</td><td><b>200 MHz</b></td></tr>
+<tr><td class="hl">DDR4-3200</td><td>3200 MT/s</td><td>8n + Bank Group</td><td><b>400 MHz</b></td></tr>
+<tr><td class="hl">DDR5-6400</td><td>6400 MT/s</td><td>16n</td><td><b>400 MHz</b></td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>二十余年里数据率涨了 16 倍，阵列频率只涨了 2 倍。</b>随之而来的是：以纳秒计的<b>绝对延迟几乎是一条平线</b>——CAS 延迟长期停在 13–15 ns 区间，DDR5 的 CL40 @6400 与 DDR3 的 CL9 @1600 换算成时间几乎一样。</p>
+<p style="background:#fef3c7;padding:8px 12px;border-radius:6px;color:#92400e"><b>🔑 这条是理解后面两节的钥匙：</b>DDR 的进化史是一部<b>「用并行度换带宽」</b>的历史——预取加深、Bank 增多、通道拆分、位宽加宽，全都是并行手段。<b>而并行度不依赖制程缩微</b>。这正是存储不追先进制程的第一层原因。【业界】</p>
+</div></div>
+
+<div class="card">
+<div class="ttl">DDR1 → DDR6：每一代到底改了什么</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th style="width:9%">代际</th><th style="width:10%">标准年</th><th style="width:13%">数据率</th><th style="width:8%">电压</th><th style="width:9%">预取</th><th>这一代真正的结构变化</th></tr></thead>
+<tbody>
+<tr><td class="hl">SDRAM</td><td>1993</td><td>66–133 MT/s</td><td>3.3V</td><td>1n</td><td>把异步 DRAM 改为<b>时钟同步</b>，可流水线化。此前内存与 CPU 各自为政</td></tr>
+<tr><td class="hl">DDR1</td><td>2000</td><td>200–400 MT/s</td><td>2.5V</td><td>2n</td><td><b>双沿传输</b>（时钟上下沿都送数据）→ 同频带宽翻倍。引入 DQS 数据选通信号</td></tr>
+<tr><td class="hl">DDR2</td><td>2003</td><td>400–1066 MT/s</td><td>1.8V</td><td>4n</td><td>预取翻到 4n；<b>ODT 片内终结电阻</b>（把信号终端从主板搬进芯片，是高速化的前提）；封装从 TSOP 改 <b>FBGA</b>，引脚电感大降</td></tr>
+<tr><td class="hl">DDR3</td><td>2007</td><td>800–2133 MT/s</td><td>1.5V</td><td>8n</td><td>预取 8n；地址/命令走线改<b>Fly-by 拓扑</b>（取代 T 型分支）并配套<b>写平衡</b>校准；<b>ZQ 校准</b>补偿温漂对阻抗的影响</td></tr>
+<tr><td class="hl">DDR4</td><td>2012–14</td><td>1600–3200 MT/s</td><td>1.2V</td><td>8n + BG</td><td>预取不再加深（8n 封顶），转而引入 <b>Bank Group</b>——组间可近乎无间隔连续存取，等效提升并发；I/O 改 <b>POD12</b> 伪开漏（只在传 0 时耗流，省功耗）；首次引入 <b>CRC 与命令/地址奇偶校验</b></td></tr>
+<tr><td class="hl">DDR5</td><td>2020</td><td>3200–8800 MT/s</td><td>1.1V</td><td>16n</td><td>一根 DIMM 拆成 <b>2 × 32-bit 独立子通道</b>（并行度翻倍，是这一代最本质的改动）；<b>片上 ECC（On-die ECC）成为强制</b>——因为单元太小，出错概率已高到不纠不行；供电管理 <b>PMIC 从主板移到内存条上</b>；<b>DFE 判决反馈均衡</b>对抗高速下的信号衰减；<b>同 Bank 刷新</b>降低刷新对性能的侵占</td></tr>
+<tr><td class="hl">DDR6</td><td>制定中<br>（预计 2026 底）</td><td>8800–17600 MT/s<br><span style="font-size:11px">超频模块或 &gt;21000</span></td><td>—</td><td>—</td><td>子通道从 DDR5 的 <b>2×32-bit 再细分为 4×24-bit</b>，单通道总位宽升至 96-bit；<b>并发粒度继续变细</b>以适配 AI 那种大量小而不规则的访问；物理形态预计转向 JEDEC 标准化的 <b>CAMM2</b>，绕开 288-pin DIMM 插槽的信号完整性天花板。<b>路线图：2026 平台验证 → 2027 服务器先行 → 2027-28 消费级</b>【业界，标准尚未定稿，数字以草案与厂商口径为准】</td></tr>
+</tbody></table>
+<p style="margin-top:8px;color:#475569;font-size:13px"><b>一条贯穿性的规律：</b>电压从 3.3V 一路降到 1.1V，<b>预取从 1n 加深到 16n 后停住</b>，此后的带宽全靠「把通道拆细、把 Bank 变多」。DDR4 是分水岭——<b>从「加深预取」转向「增加并发</b>」，因为预取再深会让最小突发长度超过缓存行大小，反而浪费带宽。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #0891b2">
+<div class="ttl">为什么 DDR5 之后必须强制片上 ECC：这是一条被迫的技术路线</div>
+<div class="dsc">
+<p>DDR4 以前，纠错是<b>服务器的选配</b>（ECC DIMM），消费级内存裸奔。DDR5 把 ECC 做进了 DRAM 芯片内部且不可关闭，原因不是厂商变慷慨，而是<b>单元缩小到一定程度后，出错从「偶发事故」变成了「统计常态」</b>：</p>
+<table class="node-table nopad"><thead><tr><th style="width:26%">机理</th><th>随密度上升如何恶化</th></tr></thead>
+<tbody>
+<tr><td class="hl">电容电荷变少</td><td>单元电容值长期被守在 <b>10–25 fF</b> 量级不敢再降，但面积在缩——为保住电容量只能把结构做得更高更细，代价是漏电路径更敏感、保持时间余量更薄</td></tr>
+<tr><td class="hl">Row Hammer</td><td>反复激活某一行，会通过耦合与漏电<b>翻转物理相邻行</b>的数据。间距越小，耦合越强——这已从学术问题变成安全漏洞（可被用于权限提升攻击）</td></tr>
+<tr><td class="hl">刷新开销</td><td>密度越高，需要刷新的行越多，刷新占用的时间比例上升，<b>吃掉本可用于读写的带宽</b>。DDR5 的同 Bank 刷新就是针对这一点</td></tr>
+<tr><td class="hl">可变保持时间</td><td>同一芯片里少数单元的保持时间明显短于平均值，且会随温度与使用历史漂移，<b>无法靠统一刷新周期覆盖尾部</b></td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>结论：</b>在 DRAM 上，「继续缩小」换来的不是更好的器件，而是<b>必须用系统手段（ECC、刷新策略、冗余修复）去兜住的可靠性赤字</b>。这与逻辑芯片「缩小即变快变省」的逻辑完全相反。<span style="color:#64748b">【推断：机理为业界共识，四条的因果串联为归纳整理】</span></p>
+</div></div>
+
+<div class="card">
+<div class="ttl">同一套 DRAM 内核，为什么分化出 DDR / LPDDR / GDDR / HBM 四个家族</div>
+<div class="dsc">
+<p>四者的<b>存储单元（1T1C）完全同源</b>，分家分的是<b>接口与封装</b>——各自被不同的约束逼向不同方向。</p>
+<table class="node-table">
+<thead><tr><th style="width:11%">家族</th><th style="width:15%">优化目标</th><th style="width:20%">接口特征</th><th style="width:20%">当代典型规格</th><th>代价</th></tr></thead>
+<tbody>
+<tr><td class="hl">DDR</td><td>容量、可插拔、成本</td><td>DIMM 插槽，64-bit（DDR5 拆 2×32）</td><td>DDR5-6400，单通道约 51 GB/s</td><td>插槽与长走线限制频率，带宽天花板最低</td></tr>
+<tr><td class="hl">LPDDR</td><td><b>每比特功耗</b></td><td>直接焊在板上或 PoP 叠在 SoC 上，走线极短；低压、深度休眠</td><td>LPDDR5X 10667 MT/s；<b>LPDDR6 10667–14400 MT/s</b></td><td><b>焊死不可升级</b>；容量受封装限制</td></tr>
+<tr><td class="hl">GDDR</td><td>单引脚速率</td><td>点对点短走线，颗粒环绕 GPU 布放，PAM3/PAM4 等高阶调制</td><td>GDDR7，单卡显存子系统可达 TB/s 级</td><td>功耗与信号完整性压力大；<b>容量扩展难</b></td></tr>
+<tr><td class="hl">HBM</td><td><b>总带宽 ÷ 面积</b></td><td>放弃高频，改用<b>极宽总线</b>：1024→2048-bit，靠 TSV 垂直堆叠 + 中介层贴近计算芯片</td><td>HBM3E 单堆栈 &gt;1.2 TB/s；HBM4 位宽 2048-bit</td><td>硅面积是 DDR5 的 <b>3 倍</b>、需先进封装、<b>贵且良率难</b></td></tr>
+</tbody></table>
+<p style="margin-top:8px;background:#f0f9ff;padding:8px 12px;border-radius:6px;color:#075985"><b>🔑 一句话概括分家逻辑：</b>DDR 走「插槽换容量」，LPDDR 走「焊死换功耗」，GDDR 走「提频换速率」，HBM 走「<b>加宽换带宽</b>」。HBM 之所以选择「宽而慢」而非「窄而快」，是因为<b>每比特搬运能耗随频率上升而恶化</b>——在 AI 这种搬运密集型负载里，能效比峰值频率更重要。这也解释了 LPDDR6 为何同时做两件看似矛盾的事：<b>把通道从 16-bit 加宽到 24-bit（拆成两个 12-bit 子通道），却把访问粒度从 64 字节缩到每子通道 32 字节</b>——加宽是为带宽，细分是为了让 AI 的碎片化小请求不浪费搬运能量。</p>
+<p style="color:#64748b;font-size:12px">⚠️ 口径提醒：HBM 的 TB/s 是<b>单堆栈</b>指标，GDDR 的 TB/s 通常是<b>整卡显存子系统</b>合计，DDR 的 GB/s 多为<b>单通道或整机</b>——三者不可直接对比，引用时必须带上口径。</p>
+</div></div>
+
+<div class="card" style="background:#f5f3ff;border-left:4px solid #7c3aed">
+<div class="ttl">LPDDR6 值得单独一提：有效带宽并不等于数据率乘位宽</div>
+<div class="dsc">
+<p>JESD209-6 于 2025 年 7 月发布，是第一份正式提及 DDR6 的规范。它定义每引脚峰值 <b>14,400 MT/s</b>、入门 <b>10,667 MT/s</b>，通道从 LPDDR5 的 16-bit 改为 <b>24-bit（两个 12-bit 子通道）</b>，突发长度由 BL16 增至 <b>BL24</b>。</p>
+<p>但按「数据率 × 位宽 ÷ 8」算出的 43.2 GB/s <b>并不是可用带宽</b>：由于<b>片上 ECC 强制启用</b>，每次传输的 288 bit 中只有 256 bit 是有效载荷，<b>约 90% 的效率</b>——因此实际峰值约 <b>38.4 GB/s / 颗</b>，入门约 28.5 GB/s。相对 LPDDR5X-10667 提升约 1.5–2 倍，相对 LPDDR5-6400 约 2.5–3.4 倍。</p>
+<p style="background:#ede9fe;padding:8px 12px;border-radius:6px;color:#4c1d95"><b>这是一个很好的「纠错不是免费的」实例：</b>ECC 不仅占硅面积，还<b>直接占用传输带宽</b>。存储越密、越需要纠错，纠错又反过来吃掉一部分性能收益——<b>密度、可靠性、带宽三者互相收税</b>，这是存储工程的基本张力。</p>
+<p style="color:#64748b;font-size:12px">另一个工程后果：LPDDR5 的 16-bit 与 LPDDR6 的 24-bit 通道宽度不同，<b>要做一个同时兼容两代的统一内存控制器相当困难</b>，这会影响 SoC 厂的代际过渡节奏。【业界】</p>
+</div></div>
+
+
+<h2 id="sec-dram-process">🏭 2.8 DRAM 制造工艺 A–Z —— 从一片裸硅到一根内存条</h2>
+
+<div class="card" style="background:#eff6ff;border-left:4px solid #2563eb">
+<div class="ttl">先看全局：DRAM 的工艺难点与逻辑芯片完全不在同一个地方</div>
+<div class="dsc">
+<p>逻辑芯片的工艺竞赛集中在<b>「把晶体管画得更小、栅控做得更强」</b>；DRAM 的工艺竞赛集中在<b>「在不断缩小的地面上，盖出足够高的电容塔，且一亿座塔不能倒」</b>。同样叫先进工艺，考的科目不一样。</p>
+<table class="node-table nopad"><thead><tr><th style="width:24%">维度</th><th style="width:38%">逻辑芯片</th><th>DRAM</th></tr></thead>
+<tbody>
+<tr><td class="hl">核心结构</td><td>平面 → FinFET → GAA 环栅</td><td>1 晶体管 + 1 电容（<b>二十年未变</b>），演进的是电容形状与字线埋法</td></tr>
+<tr><td class="hl">胜负手工序</td><td><b>光刻</b>分辨率</td><td><b>高深宽比刻蚀</b>与<b>薄膜共形沉积</b></td></tr>
+<tr><td class="hl">掩模层数</td><td>先进节点可达 80+ 层</td><td>约 30 层量级，<b>EUV 用量少得多</b></td></tr>
+<tr><td class="hl">版图性质</td><td>不规则、逻辑综合生成</td><td><b>极度规则的周期性阵列</b> + 边缘外围电路</td></tr>
+<tr><td class="hl">良率救援</td><td>基本无法修复，坏即废</td><td><b>有冗余行列，可事后修复</b>（这是 DRAM 独有的成本优势）</td></tr>
+<tr><td class="hl">代际命名</td><td>栅长/等效节点（7nm、3nm）</td><td><b>1x/1y/1z/1α/1β/1γ —— 不是栅长，只是代际标签</b></td></tr>
+</tbody></table>
+</div></div>
+
+<div class="card">
+<div class="ttl">A → P：一颗 DRAM 的完整制造链</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th style="width:5%">步</th><th style="width:20%">工序</th><th>做什么，以及难在哪</th></tr></thead>
+<tbody>
+<tr><td class="hl">A</td><td>单晶硅片</td><td>多晶硅提纯 → 直拉单晶 → 切片抛光，得到 300mm 抛光片。这一步<b>由上游硅片厂完成</b>，不在存储厂内</td></tr>
+<tr><td class="hl">B</td><td>浅沟槽隔离 STI</td><td>刻出沟槽填氧化物，把相邻单元电学隔开。<b>DRAM 要求的隔离漏电指标远严于逻辑</b>——漏一点电荷就是数据丢失</td></tr>
+<tr><td class="hl">C</td><td><b>埋入式字线 buried Word Line</b></td><td>把字线（栅极）<b>埋到硅表面以下</b>，而不是架在上面。目的有两个：缩小单元面积（推动 6F² → 4F²），以及<b>增加栅与沟道的有效长度以压住短沟道漏电</b>。这是现代 DRAM 最关键的结构选择之一</td></tr>
+<tr><td class="hl">D</td><td>存取晶体管</td><td>做出那个唯一的开关管。它的<b>关态漏电直接等于数据保持时间</b>——因此 DRAM 的晶体管刻意<b>不追求高速，而追求极低漏电</b>，与逻辑取向正好相反</td></tr>
+<tr><td class="hl">E</td><td>位线与感测放大器接入</td><td>位线负责把单元那点微弱电荷引出去。<b>位线电容必须远小于单元电容</b>，否则读出信号被稀释到无法判读——这条约束直接限制了一条位线上能挂多少单元</td></tr>
+<tr><td class="hl">F</td><td><b>电容孔高深宽比刻蚀（HAR Etch）</b></td><td><b>全流程最难的一步。</b>要在极小的开口上垂直刻出深宽比可达 <b>40:1 以上</b>的深孔，孔径纳米级、深度约 1 µm，且上亿个孔<b>不能歪、不能锥、不能断</b>。这是刻蚀设备（而非光刻机）的技术天花板所在</td></tr>
+<tr><td class="hl">G</td><td>电容介质与电极沉积</td><td>在深孔内壁沉积高κ介质与金属电极，<b>必须原子级共形</b>——深孔底部和顶部的膜厚要一致，否则薄处先击穿。所以只能用 ALD/CVD，PVD 根本进不去。介电常数 k：SiO₂ 3.9 → HfO₂/ZrO₂ 约 25 → TiO₂ 80</td></tr>
+<tr><td class="hl">H</td><td>单元阵列成形</td><td>至此「1T1C」完成。评价指标是<b>单元面积 = n × F²</b>（F 为最小特征尺寸）：6F² 是长期主流，<b>4F² 是下一个台阶</b>，需要垂直沟道晶体管配合</td></tr>
+<tr><td class="hl">I</td><td>外围 CMOS 电路</td><td>感测放大器、译码器、时序控制、I/O 与 ECC 逻辑。<b>矛盾点：外围电路希望用逻辑工艺做快做省，单元阵列却要求低漏电特殊工艺——两者必须在同一片硅上共存</b>，这是 DRAM 工艺整合的核心难题</td></tr>
+<tr><td class="hl">J</td><td>金属互连与钝化</td><td>DRAM 互连层数远少于逻辑（无需数十层布线），最后覆钝化层并开出焊盘窗口</td></tr>
+<tr><td class="hl">K</td><td>晶圆测试与<b>冗余修复</b></td><td>逐单元测试功能与保持时间，把坏行坏列<b>用预置的冗余行列顶替</b>（熔丝/反熔丝编程）。<b>这一步把「本该报废的芯片」救回成良品，是 DRAM 独有的成本杠杆</b></td></tr>
+<tr><td class="hl">L</td><td>老化与保持时间筛选</td><td>高温加压筛出早期失效与「弱保持单元」。DRAM 的特殊项是<b>逐颗确定可用的刷新周期</b>并据此分档</td></tr>
+<tr><td class="hl">M</td><td>切割与封装</td><td>减薄、切割、装片。主流仍是引线键合 FBGA；<b>HBM 在此处分道</b>——改走 TSV 打孔 + 堆叠 + 中介层（见 <a href="#sec-pkg-tsv" style="color:#2563eb">基础篇 0.9.3</a>）</td></tr>
+<tr><td class="hl">N</td><td>成品测试与速度分档</td><td>按实测能跑的数据率与时序分档（Binning）。<b>同一批晶圆会被分成 DDR5-4800 / 5600 / 6400 等不同售价的产品</b>——所谓"超频体质"差异就诞生在这一步</td></tr>
+<tr><td class="hl">O</td><td>模组组装</td><td>颗粒焊到 PCB 成 DIMM，配上 SPD（记录时序参数供 BIOS 读取）、<b>DDR5 起还要装 PMIC 供电管理</b>，服务器件另加寄存器/缓冲芯片（RDIMM/LRDIMM）</td></tr>
+<tr><td class="hl">P</td><td>模组级终测</td><td>整条内存条在标准平台上验证兼容性、稳定性与温度表现，贴标出货</td></tr>
+</tbody></table>
+<p style="margin-top:8px;background:#fef2f2;padding:8px 12px;border-radius:6px;color:#7f1d1d"><b>把 F、G、K 三步连起来看，就能看懂 DRAM 的工艺本质：</b>难点在<b>垂直方向的刻蚀与成膜极限</b>（F、G），而不是水平方向的光刻分辨率；成本控制的关键在<b>冗余修复能救回多少芯片</b>（K），而不是单位晶体管性能。<b>这三件事都与「上不上最先进制程」关系不大。</b></p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #059669">
+<div class="ttl">DRAM 的代际标签怎么读：1x / 1y / 1z / 1α / 1β / 1γ</div>
+<div class="dsc">
+<p>这套命名不是栅长，也没有统一的行业定义，<b>各厂口径并不可直接比较</b>。它表达的是「在 10nm 级别内的第 n 次半代推进」：</p>
+<table class="node-table nopad"><thead><tr><th style="width:16%">标签</th><th style="width:20%">大致年代</th><th>含义</th></tr></thead>
+<tbody>
+<tr><td class="hl">1x / 1y / 1z</td><td>2016–2020</td><td>10nm 级第 1/2/3 代，对应 DDR4 后期到 DDR5 起步</td></tr>
+<tr><td class="hl">1α (1a)</td><td>2021–2022</td><td>第 4 代。<b>EUV 开始进入 DRAM，但只用在少数关键层</b>，不是全流程替换</td></tr>
+<tr><td class="hl">1β (1b)</td><td>2023</td><td>第 5 代，HBM3E 的主力颗粒工艺</td></tr>
+<tr><td class="hl">1γ (1c)</td><td>2024–2026</td><td>第 6 代，LPDDR6 与新一代 HBM 的基础</td></tr>
+</tbody></table>
+<p style="margin-top:8px">为什么用希腊字母而不是继续报纳米数？因为<b>DRAM 缩微早已不是等比例缩小</b>——电容高度、字线埋深、单元面积系数（6F²/4F²）各自独立演进，<b>单一纳米数字已无法概括一代工艺</b>。继续报数字只会制造误导。</p>
+<p style="color:#64748b;font-size:12px">⚠️ 引用提醒：跨厂商对比 1β 与 1b 时务必谨慎，同名不等于同等密度或同等性能。【业界】</p>
+</div></div>
+
+
+<h2 id="sec-why-not-node">❓ 2.9 存储为什么不追求先进制程</h2>
+
+<div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
+<div class="ttl">先纠正一个前提：存储不是「不追求」，而是「先进」的定义不同</div>
+<div class="dsc">
+<p>逻辑芯片的「先进」= <b>更短的栅长、更强的栅控、更高的单位面积晶体管数</b>，因为它卖的是<b>算得多快</b>。<br>
+存储的「先进」= <b>更小的单元面积（6F² → 4F²）、更高的 bit 密度、更高的堆叠层数</b>，因为它卖的是<b>每 GB 多少钱、每次搬运多少能耗</b>。</p>
+<p><b>所以 DRAM 停在 10nm 级别不是技术落后，而是缩微的收益曲线早就拐了头。</b>下面六条解释为什么。</p>
+</div></div>
+
+<div class="card-row-3 dense">
+
+<div class="card" style="border-left:4px solid #dc2626">
+<div class="ttl">① 存储靠「存电荷」，缩小直接伤害本职功能</div>
+<div class="dsc"><p>逻辑晶体管是<b>开关</b>，做小了开关更快更省——缩微与性能同向。</p>
+<p>DRAM 单元是<b>电容</b>，本职是<b>把电荷存住</b>。电容值必须守在 <b>10–25 fF</b> 量级，否则读出信号淹没在噪声里。面积缩了、电容值不许降，只能<b>把塔盖得更高更细</b>，于是刻蚀与成膜难度指数上升，保持时间余量却越来越薄。</p>
+<p><b>缩微在逻辑上是顺风，在 DRAM 上是逆风。</b></p></div></div>
+
+<div class="card" style="border-left:4px solid #d97706">
+<div class="ttl">② 缩微不提速：延迟二十年是一条平线</div>
+<div class="dsc"><p>DRAM 的性能瓶颈不在晶体管开关速度，而在<b>阵列充放电、位线感测、行激活/预充</b>这些物理过程。</p>
+<p>所以 2.7 那张表才会出现那个结果：<b>数据率涨 16 倍、阵列频率只涨 2 倍、纳秒延迟基本没动</b>。带宽全靠预取与并行度换来的。</p>
+<p><b>既然缩微换不来延迟改善，为它付 EUV 的溢价就不划算。</b></p></div></div>
+
+<div class="card" style="border-left:4px solid #0891b2">
+<div class="ttl">③ 成本模型不同：卖的是面积，不是性能</div>
+<div class="dsc"><p>逻辑芯片可以用性能溢价消化先进制程的成本——旗舰 SoC 贵几十美元照样卖。</p>
+<p>DRAM 是<b>标准化大宗商品</b>，同规格颗粒之间几乎无差别定价权，竞争完全落在<b>每 GB 成本</b>。EUV 每层的曝光成本、机台折旧、产能损失都要摊进这个数字里。</p>
+<p><b>只有在「用 EUV 能省下更多多重曝光步骤」时才划算</b>——这正是为什么 1α 起 EUV 只用于少数关键层，而非全流程。</p></div></div>
+
+<div class="card" style="border-left:4px solid #7c3aed">
+<div class="ttl">④ 掩模层少、版图规则，EUV 杠杆天然更小</div>
+<div class="dsc"><p>先进逻辑可达 <b>80+ 掩模层</b>，其中大量精细层都能从 EUV 获益；DRAM 约 <b>30 层量级</b>，真正卡分辨率的关键层更少。</p>
+<p>而且 DRAM 版图是<b>高度周期性的规则阵列</b>，这类图形用<b>自对准多重成像（SADP/SAQP）</b>就能做得很好、很便宜——规则性正是多重曝光最擅长的场景。</p>
+<p><b>逻辑的不规则版图离不开 EUV，DRAM 的规则阵列有平价替代路线。</b></p></div></div>
+
+<div class="card" style="border-left:4px solid #16a34a">
+<div class="ttl">⑤ 瓶颈根本不在光刻，而在刻蚀与成膜</div>
+<div class="dsc"><p>DRAM 的胜负手是 <b>40:1 以上的高深宽比电容孔刻蚀</b>与<b>深孔内的原子级共形成膜</b>；NAND 的胜负手是<b>几百层的深孔垂直贯穿</b>与<b>层间应力控制</b>。</p>
+<p>这些能力来自<b>刻蚀机与沉积设备</b>，买最贵的光刻机也解决不了。</p>
+<p><b>把预算投到 EUV，未必比投到刻蚀与量测更有回报</b>——存储厂的资本开支结构因此与逻辑厂明显不同。</p></div></div>
+
+<div class="card" style="border-left:4px solid #db2777">
+<div class="ttl">⑥ 已经换了赛道：不缩微，改堆叠</div>
+<div class="dsc"><p>NAND 在 2D 时代撞到 <b>约 15nm</b> 的墙后<b>彻底放弃缩微</b>，转向垂直堆叠——从 24 层一路到 400+ 层，密度提升与光刻分辨率<b>几乎脱钩</b>。</p>
+<p>DRAM 正在走同一条路：<b>3D DRAM</b>（把电容与晶体管垂直堆起来）已是公认方向，逻辑与 NAND 当年一致。</p>
+<p><b>当「换维度」比「缩尺寸」更便宜时，理性选择就是换维度。</b></p></div></div>
+
+</div>
+
+<div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
+<div class="ttl">🧩 一句话总结，以及一个必要的澄清</div>
+<div class="dsc">
+<p><b>总结：</b>逻辑芯片靠缩微换性能，所以必须不断买最贵的光刻机；存储靠<b>结构创新（埋字线、高深宽比电容、垂直堆叠）+ 并行度（预取、Bank、子通道、宽总线）+ 冗余修复</b>换密度与成本，<b>缩微只是众多手段中回报率下降最快的那一个</b>。</p>
+<p style="background:#dcfce7;padding:8px 12px;border-radius:6px;color:#065f46"><b>⚠️ 必要澄清，避免读成「存储工艺简单」：</b>恰恰相反。<b>40:1 的深孔刻蚀、上亿个孔的一致性、深孔内原子级共形成膜、几百层堆叠的应力与翘曲控制、单元阵列与外围 CMOS 的工艺整合</b>——这些都是半导体制造里最硬的工程难题，只是它们<b>不体现在「几纳米」这个数字上</b>。<br>
+用栅长数字去比较逻辑与存储的工艺水平，本身就是一种类别错误。</p>
+</div></div>
+
+
 
 <hr style="margin:60px 0 40px;border:none;border-top:4px solid #eab308">
 
-<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-storage-deep">2.7 存储深度研究</h1>
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-storage-deep">2.10 存储深度研究</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:40px">AI时代的存储范式转移 · 长鑫科技 & 长江存储 · 从技术原理到产业格局</p>
 
-<h3>2.7.1 1. 行业范式转移：为什么这次存储周期不一样？</h3>
+<h3>2.10.1 1. 行业范式转移：为什么这次存储周期不一样？</h3>
 
 <div class="card" style="border-left:4px solid #eab308">
 <div class="ttl">旧范式：CPU算力时代 — DRAM是配角</div>
@@ -3673,7 +3871,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <!-- ====== SECTION 2: STORAGE PYRAMID ====== -->
-<h3>2.7.2 2. 三级存储金字塔：HBM为什么是AI核心增量？</h3>
+<h3>2.10.2 2. 三级存储金字塔：HBM为什么是AI核心增量？</h3>
 
 <div class="card">
 <div class="ttl">AI服务器 vs 传统服务器 — 存储结构根本不同</div>
@@ -3707,7 +3905,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <!-- ====== SECTION 3: THREE AI SCENARIOS ====== -->
-<h3>2.7.3 3. 三种AI场景的显存需求瓶颈</h3>
+<h3>2.10.3 3. 三种AI场景的显存需求瓶颈</h3>
 
 <div class="card">
 <div class="ttl">云端训练 vs 云端推理 vs 终端推理 — 瓶颈各不相同</div>
@@ -3736,7 +3934,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <!-- ====== SECTION 4: SUPPLY SIDE ====== -->
-<h3>2.7.4 4. 供给侧逻辑反转：HBM 3:1晶圆转换比</h3>
+<h3>2.10.4 4. 供给侧逻辑反转：HBM 3:1晶圆转换比</h3>
 
 <div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
 <div class="ttl">DDR4退出 × HBM转线 = 供给端历史性紧缩</div>
@@ -3755,7 +3953,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <!-- ====== SECTION 5: TAXONOMY & MATRIX ====== -->
-<h3>2.7.5 5. 存储完整分类树与厂商矩阵</h3>
+<h3>2.10.5 5. 存储完整分类树与厂商矩阵</h3>
 
 <div class="card">
 <div class="ttl">DRAM vs NAND产线：本质不同决定中国策略差异</div>
@@ -3789,7 +3987,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <!-- ====== SECTION 6: MARKET LANDSCAPE ====== -->
-<h3>2.7.6 6. 全球存储格局 2026</h3>
+<h3>2.10.6 6. 全球存储格局 2026</h3>
 
 <div class="card">
 <div class="ttl">DRAM Q4 2025全球市占率（TrendForce 2026.02.26）</div>
@@ -3856,7 +4054,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <!-- ====== SECTION 7: CXMT DEEP DIVE ====== -->
-<h3>2.7.7 7. 长鑫科技（CXMT）深度剖析</h3>
+<h3>2.10.7 7. 长鑫科技（CXMT）深度剖析</h3>
 
 <div class="card" style="border-left:4px solid #eab308">
 <div class="ttl">关键财务指标（招股书口径）</div>
@@ -3929,7 +4127,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <!-- ====== SECTION 8: YMTC DEEP DIVE ====== -->
-<h3>2.7.8 8. 长江存储（YMTC）深度剖析</h3>
+<h3>2.10.8 8. 长江存储（YMTC）深度剖析</h3>
 
 <div class="card" style="border-left:4px solid #0891b2">
 <div class="ttl">Xtacking混合键合架构：中国半导体的技术名片</div>
@@ -3961,7 +4159,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="src">来源：华尔街见闻 2026.02; 电子工程专辑 2026.02</div></div>
 
 <!-- ====== SECTION 9: THREE CONTRARIAN VIEWS ====== -->
-<h3>2.7.9 9. 三个非共识观点（Contrarian Views）</h3>
+<h3>2.10.9 9. 三个非共识观点（Contrarian Views）</h3>
 
 <div class="card" style="border-left:4px solid #dc2626;background:#fef2f2">
 <div class="ttl">非共识 #1：存储已不再是周期股 — 估值应从P/B转向P/E+P/S</div>
@@ -5015,8 +5213,8 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <p><b>HBM（0.10）口径声明：</b>内容来自美光 Hot Chips 2026 HBM 专题演讲的<b>中文转述文章</b>，<b>未获取原始 slides</b>，严格程度低于本站其他节引用的原厂 PDF；关键数字已由编者做独立自洽性核验，标注「原厂转述」处为演讲口径转述，「推断」处为编者补充。</p>
 <p><b>芯片手册与架构文档（第四篇）：</b>Infineon TriCore Architecture Manual (TC1.6/1.8)、Renesas RH850 G3/G4 User's Manual 与 SG-MONOS eFlash 技术资料、NXP e200z Core Reference Manual (VLE)、NXP S32Z2/S32E2 产品资料、ARM Cortex-R5 TRM / Cortex-R52 TRM / Armv8-R 架构手册、RISC-V ISA Spec、Infineon+TSMC RRAM 联合公告(2022-11)、各厂商 Datasheet。</p>
 <p><b>书籍：</b>《Chip War》(Chris Miller, Scribner 2022)、《Only the Paranoid Survive》(Andy Grove,1996)、《The IGBT Device》(B.J. Baliga, Elsevier 2015)、张忠谋自传、《The Intel Trinity》(Malone,2014)、《半导体简史》(王齐,2024)</p>
-<p><b>论文与标准：</b>Intel/TSMC/Samsung IEDM 论文(2011-2025)、IEEE ISSCC/IEDM 存储器论文、Moore "Cramming More Components…"(Electronics,1965)、Lin SPIE 2002、Nature "Advancements in inverse lithography"(2025)、Nobel Prize 1956/2000 官方档案、Bell Labs 档案、ISO 26262、ISO 11898 / Bosch CAN Spec 2.0、JEDEC JESD47/JESD22、AEC-Q100 Grade 0/1、Lam Research «All About ALE» 技术简报。</p>
-<p><b>行业报告：</b>Yole Group "Power Electronics 2025-2031" 与 "Power Electronics for AI Data Centers"(2025)、Yole "Emerging NVM"、Omdia 功率器件与车载MCU排名(2025)、TrendForce、Counterpoint、IC Insights、TechInsights 拆解分析、IHS Markit / AlixPartners 缺芯报告(2021)、CSIS 分析(2023.5)、中信证券深度报告(2026.05)、CFM闪存市场、Digitimes。</p>
+<p><b>论文与标准：</b>Intel/TSMC/Samsung IEDM 论文(2011-2025)、IEEE ISSCC/IEDM 存储器论文、Moore "Cramming More Components…"(Electronics,1965)、Lin SPIE 2002、Nature "Advancements in inverse lithography"(2025)、Nobel Prize 1956/2000 官方档案、Bell Labs 档案、ISO 26262、ISO 11898 / Bosch CAN Spec 2.0、JEDEC JESD79 系列（DDR1–DDR5）与 JESD209 系列（LPDDR，含 2025-07 发布的 <b>JESD209-6 / LPDDR6</b>；DDR6 主规范制定中，相关数字取自草案与厂商公开口径）、JEDEC JESD47/JESD22、AEC-Q100 Grade 0/1、Lam Research «All About ALE» 技术简报。</p>
+<p><b>行业报告：</b>Yole Group "Power Electronics 2025-2031" 与 "Power Electronics for AI Data Centers"(2025)、Yole "Emerging NVM"、Omdia 功率器件与车载MCU排名(2025)、TrendForce、Counterpoint、IC Insights、TechInsights 拆解分析、SK hynix ISSCC 2026 LPDDR6 披露、Synopsys/JEDEC LPDDR6 技术预览、IHS Markit / AlixPartners 缺芯报告(2021)、CSIS 分析(2023.5)、中信证券深度报告(2026.05)、CFM闪存市场、Digitimes。</p>
 <p><b>年报 / 招股书 / 投资者日：</b>TSMC、Samsung、SK Hynix、Micron、Kioxia/WD、YMTC、Intel、NVIDIA、AMD、ASML、Infineon、ST、安森美、Wolfspeed、Renesas、NXP、TI 2024-2026 年报及投资者日；长鑫科技招股说明书申报稿(2026.05.17 更新稿，上交所)；士兰微/华润微/比亚迪半导体/国芯科技等公告。</p>
 <p><b>官方与档案来源：</b>美国 BIS 联邦公报(2018-2025)、美日半导体协议(Federal Register)、日本通产省 VLSI 档案、工研院/ITRI 档案、GE 历史档案、GM Heritage Center、IEEE History Center、Intel/Fairchild/TI/Samsung/SK Hynix/ASML 官方历史、中国国务院/工信部公告、中国汽车工业协会、WikiChip、惠普 1980 年 DRAM 质量测试报告、Munro &amp; Associates Tesla Model 3 拆解(2018)。</p>
 </div></div></div>
