@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v5.5 | 2026-09-20 | 编辑整理: ①把所有引用材料/讲义出处说明从正文与图示下方移出, 统一并扩充到文末「📚 参考文献」(含原厂教材清单/功率应用笔记/HBM转述口径声明/芯片手册/书籍论文标准/行业报告/年报招股书/官方档案); 正文仅保留【原厂】【业界】【推断】可信度标记, 删除89处页码引用 ②修正 1.8 逻辑芯片深度研究 误置于第二篇存储章节内的结构错误, 移回第一篇末尾(2.6之前) ③1.2/2.2/3.2/4.2 四处「格局转折」改为 card-row-3 dense 卡片三列排布, 篇幅压缩约 1/3 -->
+<!-- version: v5.6 | 2026-09-20 | 文体调整: 去除正文中全部一手材料页码引用(p23/p26-29/slides等12处)与博主口吻自述(本站/本文/编者/我…/想看 共20余处), 改为中性科普文献口吻; 可信度标记【原厂】【业界】【推断】保留, 出处统一见文末参考文献 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -282,7 +282,7 @@ table.node-table.nopad .hl{font-size:12px}
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-phys">第零篇：器件物理地基 —— 为什么芯片能工作</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">掺杂 → PN结 → MOS电容 → MOSFET ·  一条因果链撑起后面全部四篇</p>
 <div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#f5f3ff;border-left:3px solid #7c3aed;border-radius:6px;font-size:12px;color:#4c1d95">
-本篇<b>刻意避开数学推导</b>，只讲物理图像与工程上谁可调。范围限于<b>平面 MOSFET 时代</b>的物理，非理想效应讲到 DIBL 与 GIDL；FinFET / GAA / 纳米片的结构问题在第一篇 1.3 展开。凡标「推断」处为编者外推。
+本篇<b>刻意避开数学推导</b>，只讲物理图像与工程上谁可调。范围限于<b>平面 MOSFET 时代</b>的物理，非理想效应讲到 DIBL 与 GIDL；FinFET / GAA / 纳米片的结构问题在第一篇 1.3 展开。凡标「推断」处为外推结论，非原厂原文。
 </div>
 
 <div class="content">
@@ -455,7 +455,7 @@ table.node-table.nopad .hl{font-size:12px}
 <div class="card">
 <div class="ttl">电容越大越能存电荷 —— 这一条直接决定了 DRAM 的样子</div>
 <div class="dsc">
-<p>原厂给了平板电容最核心的关系（本文按要求不写公式，只讲物理）：<b>电容大小 ∝ 介电常数 ÷ 介质厚度 × 极板面积</b>。【原厂】 三个可调旋钮：把面积做大、把介质做薄、或换介电常数更高的材料。</p>
+<p>平板电容最核心的关系（此处不列公式，只讲物理）：<b>电容大小 ∝ 介电常数 ÷ 介质厚度 × 极板面积</b>。【原厂】 三个可调旋钮：把面积做大、把介质做薄、或换介电常数更高的材料。</p>
 <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#78350f;margin-top:6px">
 <b>🔑 存储篇的 DRAM 电容为什么长成「一根根深井」，答案就在这三个旋钮里：</b><br>
 DRAM 要在越来越小的单元面积里<b>存住足够多的电荷</b>（电荷太少就读不出、抗干扰差）。可是随制程推进，留给单元的<b>平面面积不断缩小</b>。于是只剩三条路：<br>
@@ -483,12 +483,12 @@ DRAM 要在越来越小的单元面积里<b>存住足够多的电荷</b>（电�
 <div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
 <div class="ttl">🔥 全篇最重要的一条因果链：为什么越先进的制程越难控漏电</div>
 <div class="dsc">
-<p style="background:#fee2e2;padding:8px 12px;border-radius:6px;color:#7f1d1d"><b>⚠️ 本站 v5.0 及之前版本此处方向写反，2026-09-19 已据原厂原文更正。</b>原厂明确写的是：室温下亚阈值摆幅<b>大于</b> 60mV/dec，而 60mV/dec 是<b>理论下限</b>。所以摆幅<b>越大＝越差＝漏电越难控</b>。【原厂】</p>
+<p style="background:#fee2e2;padding:8px 12px;border-radius:6px;color:#7f1d1d"><b>⚠️ 一个常见的方向性误解：</b>原厂明确写的是：室温下亚阈值摆幅<b>大于</b> 60mV/dec，而 60mV/dec 是<b>理论下限</b>。所以摆幅<b>越大＝越差＝漏电越难控</b>。【原厂】</p>
 <p><b>第一步：「关」其实关不干净。</b>把漏电流画成对数纵轴，会发现阈值以下是一条<b>直线</b>——说明名义上「关断」时，漏电流随栅压呈<b>指数关系</b>变化。【原厂】</p>
 <p><b>第二步：为什么关不干净？</b>即使栅压低于阈值，源端电子仍然有一条<b>指数拖尾的能量分布</b>——总有少数电子能量特别高，翻得过势垒。栅压稍微一升，就「暴露」出指数增多的高能电子。所以原厂直说：<b>OFF 并非完全 OFF</b>。【原厂】<br>
 <span style="color:#7c3aed">这条拖尾正是 0.1 节讲的费米-狄拉克分布的高能尾巴——<b>地基在这里回收了</b>。</span></p>
 <p><b>第三步：亚阈值摆幅是什么。</b>让漏电流变化 <b>10 倍</b>所需的栅压变化量，单位 mV/dec。【原厂】 <b>越小越好</b>——小意味着栅压稍降漏电就掉一个数量级，即「关得又快又干净」。</p>
-<p><b>第四步：为什么 60mV/dec 是绕不过去的硬墙。</b>原厂给了完整推导（本文不抄公式）。物理根源是：<b>载流子的热运动分布本身就是指数型的</b>，这由玻尔兹曼统计决定。室温下这个常数恰好约 60mV。无论怎么优化栅极结构，都只能<b>趋近</b>而永远达不到更低。【原厂】</p>
+<p><b>第四步：为什么 60mV/dec 是绕不过去的硬墙。</b>完整推导此处从略。物理根源是：<b>载流子的热运动分布本身就是指数型的</b>，这由玻尔兹曼统计决定。室温下这个常数恰好约 60mV。无论怎么优化栅极结构，都只能<b>趋近</b>而永远达不到更低。【原厂】</p>
 <div style="background:#7f1d1d;color:#fff;border-radius:8px;padding:14px;font-size:13.5px;line-height:1.95;margin-top:10px">
 <b>第五步：死结就此形成 ——</b><br>
 想降低动态功耗 → 必须降低工作电压 → 就得跟着降低阈值电压<br>
@@ -507,9 +507,9 @@ DRAM 要在越来越小的单元面积里<b>存住足够多的电荷</b>（电�
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:20%">上层现象</th><th>地基如何解释它</th></tr></thead>
 <tbody>
-<tr><td class="hl">DRAM 为什么<br>读一次就得写回</td><td>DRAM 一个单元 = 1 个晶体管 + 1 个电容，用电容里有没有电荷代表 0/1。而「读」的动作是把电容接到位线上、测那点微小的电压变化——<b>这个测量本身就把电荷重新分配掉了</b>。读完电容就空了，所以<b>必须立刻照抄一份灌回去</b>。另外电荷还会被热生成的载流子慢慢中和掉，所以即使不读也得<b>周期性刷新</b>。<span style="color:#64748b">【推断，基于 MOSCAP p23 小信号扰动电荷 + p26-29 热生成与深耗尽弛豫】→ 详见 2.9</span></td></tr>
-<tr><td class="hl">Flash 为什么<br>断电不忘</td><td>在控制栅和沟道之间，再嵌一层<b>四周被绝缘层完全包围的导电孤岛</b>，叫浮栅。孤岛里存了多少电子，就会<b>平移这个晶体管的阈值电压</b>——所以用一个固定栅压去测它导不导通，就能读出 0 还是 1。而四周绝缘意味着电子进出<b>必须靠隧穿</b>（所以写入和擦除都要高压），一旦进去就被<b>锁住</b>——这就是非易失的由来。<span style="color:#64748b">【推断，基于 MOSCAP p20/p34 电荷平移阈值 + p47 固定电荷效应 + MOSFET p43 强场隧穿】→ 详见 2.8 / 2.9</span></td></tr>
-<tr><td class="hl">SiC 为什么<br>耐高压又电阻小</td><td>反偏电压几乎全部落在耗尽区，电场超过材料<b>临界击穿场强</b>就雪崩击穿。SiC 带隙远大于硅、临界场强高约一个数量级，因此<b>挡同样的电压只需薄得多的耐压层、掺杂还能更浓</b>；而高压器件的电阻几乎全来自这一层、且与其厚度成正比——<b>层薄了电阻自然就小</b>。<span style="color:#64748b">【推断，基于 PN p23-24 带隙 + p43,46 反偏耐压外推】→ 详见 3.3 / 3.8</span></td></tr>
+<tr><td class="hl">DRAM 为什么<br>读一次就得写回</td><td>DRAM 一个单元 = 1 个晶体管 + 1 个电容，用电容里有没有电荷代表 0/1。而「读」的动作是把电容接到位线上、测那点微小的电压变化——<b>这个测量本身就把电荷重新分配掉了</b>。读完电容就空了，所以<b>必须立刻照抄一份灌回去</b>。另外电荷还会被热生成的载流子慢慢中和掉，所以即使不读也得<b>周期性刷新</b>。<span style="color:#64748b">【推断：由小信号扰动电荷、热生成与深耗尽弛豫外推】→ 详见 2.9</span></td></tr>
+<tr><td class="hl">Flash 为什么<br>断电不忘</td><td>在控制栅和沟道之间，再嵌一层<b>四周被绝缘层完全包围的导电孤岛</b>，叫浮栅。孤岛里存了多少电子，就会<b>平移这个晶体管的阈值电压</b>——所以用一个固定栅压去测它导不导通，就能读出 0 还是 1。而四周绝缘意味着电子进出<b>必须靠隧穿</b>（所以写入和擦除都要高压），一旦进去就被<b>锁住</b>——这就是非易失的由来。<span style="color:#64748b">【推断：由电荷平移阈值、固定电荷效应与强场隧穿外推】→ 详见 2.8 / 2.9</span></td></tr>
+<tr><td class="hl">SiC 为什么<br>耐高压又电阻小</td><td>反偏电压几乎全部落在耗尽区，电场超过材料<b>临界击穿场强</b>就雪崩击穿。SiC 带隙远大于硅、临界场强高约一个数量级，因此<b>挡同样的电压只需薄得多的耐压层、掺杂还能更浓</b>；而高压器件的电阻几乎全来自这一层、且与其厚度成正比——<b>层薄了电阻自然就小</b>。<span style="color:#64748b">【推断：由带隙与反偏耐压外推】→ 详见 3.3 / 3.8</span></td></tr>
 </tbody></table>
 </div></div>
 
@@ -1117,7 +1117,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
   <text x="302" y="207" font-size="8" fill="#4c1d95">整片级→调上片对准与热补偿</text>
   <text x="302" y="224" font-size="8" font-weight="700" fill="#6d28d9">混在一起看就无法归因</text>
 </svg>
-<div class="src">六种套刻误差模式的校正手段对应关系为编者补充【推断】。</div>
+<div class="src">六种套刻误差模式与校正手段的对应关系为补充整理【推断】。</div>
 </div>
 
 <div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
@@ -1177,7 +1177,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <tr><td class="hl">ASML 为何是单点故障</td><td>光刻机是全 Fab 最贵设备，Scanner 是决定能印多小的唯一设备，而最先进的 EUV <b>事实上只有一家能造</b>。全世界先进芯片都要过这一个供应商的这一种机器。<span style="color:#64748b">→ 第一篇 1.8</span></td></tr>
 <tr><td class="hl">先进制程成本为何陡增</td><td>不是线性变贵，是<b>阶跃式</b>：同一层从曝一次变成曝多次，工序数、掩模数、设备时间成倍增加；再叠加 EUV 的设备单价。<span style="color:#64748b">→ 第一篇 1.8</span></td></tr>
 </tbody></table>
-<p style="margin-top:8px;color:#64748b;font-size:12px">⚠️ 上表三条的产业结论部分为编者综合【推断】；原厂口径只提供物理与设备成本事实，<b>不涉及厂商竞争格局与地缘分析</b>。</p>
+<p style="margin-top:8px;color:#64748b;font-size:12px">⚠️ 上表三条的产业结论部分为综合推论【推断】；原厂口径只提供物理与设备成本事实，<b>不涉及厂商竞争格局与地缘分析</b>。</p>
 </div></div>
 
 
@@ -2259,7 +2259,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <p>DRAM 颗粒各家都能做。真正难的是<b>把 8/12/16 层薄裸片无损地堆起来、打满 TSV、还要让中间层的热出得来、且每一层都得是好的</b>。约束根源有两个：</p>
 <table class="node-table nopad"><thead><tr><th style="width:18%">约束</th><th>为什么堆得越高越难</th></tr></thead>
 <tbody>
-<tr><td class="hl">散热</td><td>复杂 IC 发很多热，没有散热会烧掉裸片【原厂】。而堆叠时，<b>夹在中间的那些层，热量被上下层夹住、出不来</b>。堆得越高，中间层越「闷」。扩热板和 TIM 只能帮到最外层，<b>中间层的热是结构性难题</b>。<span style="color:#64748b">【推断，基于 PKG p16 散热原理 + p17 堆叠】</span></td></tr>
+<tr><td class="hl">散热</td><td>复杂 IC 发很多热，没有散热会烧掉裸片【原厂】。而堆叠时，<b>夹在中间的那些层，热量被上下层夹住、出不来</b>。堆得越高，中间层越「闷」。扩热板和 TIM 只能帮到最外层，<b>中间层的热是结构性难题</b>。<span style="color:#64748b">【推断：由散热原理与堆叠结构外推】</span></td></tr>
 <tr><td class="hl">良率</td><td>把多颗裸片装进一个封装的固有风险：<b>一摞芯片里只要任何一层坏了，整摞就报废</b>——已经焊在一起了，拆不开也挑不出来。层数越多，「全部都好」的联合概率越低。<span style="color:#64748b">【推断：原厂未逐字写「整摞报废」，但 Probe 阶段「先挑出坏 die」的逻辑支撑此风险】</span></td></tr>
 </tbody></table>
 <div style="background:#7f1d1d;color:#fff;border-radius:8px;padding:14px;font-size:13px;line-height:1.95;margin-top:10px">
@@ -2415,9 +2415,9 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div>
 
 <div class="card" style="background:#eff6ff;border-left:4px solid #2563eb">
-<div class="ttl">🔍 我对本节关键数字做的独立自洽性核验</div>
+<div class="ttl">🔍 关键数字的独立自洽性核验</div>
 <div class="dsc">
-<p>这几个数字我用公开规格反推了一遍，四个都能对上：</p>
+<p>用公开规格反推，四个数字均可对上：</p>
 <table class="node-table nopad"><thead><tr><th style="width:26%">文中数字</th><th style="width:38%">反推算式</th><th>结论</th></tr></thead>
 <tbody>
 <tr><td class="hl">DDR5 8 通道 ≈307 GB/s</td><td>DDR5-4800 × 8 通道 × 8 字节 = 307.2 GB/s</td><td>✅ 完全吻合（对应 DDR5-4800）</td></tr>
@@ -2425,7 +2425,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <tr><td class="hl">HBM4 单堆栈 2.8 TB/s</td><td>2048 bit × 11 Gbps/pin ÷ 8 ≈ 2.82 TB/s</td><td>✅ 合理（对应约 11 Gbps/pin）</td></tr>
 <tr><td class="hl">8 颗 HBM3 ≈5.3 TB/s</td><td>与 AMD MI300X 公开规格（8 堆栈 HBM3）一致</td><td>✅ 与业界已量产产品对得上</td></tr>
 </tbody></table>
-<p style="margin-top:8px;color:#64748b;font-size:12px">核验方法：用「每引脚速率 × 位宽 ÷ 8」这个基本关系反算。四项全部自洽，说明转述文章的数字没有明显失真。但<b>自洽 ≠ 等于原文</b>，正式引用仍建议回到 slides。</p>
+<p style="margin-top:8px;color:#64748b;font-size:12px">核验方法：用「每引脚速率 × 位宽 ÷ 8」这个基本关系反算。四项全部自洽，说明转述文章的数字没有明显失真。但<b>自洽 ≠ 等于原文</b>，正式引用仍应回到一手材料核对。</p>
 </div></div>
 
 <h2 id="sec-hbm-evo">📈 0.10.2 HBM1 → HBM4：十二年，带宽涨了二十多倍</h2>
@@ -2448,7 +2448,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <b>① 加宽大门</b>（I/O 从 1024 到 2048 位）——一次能并排搬更多；<br>
 <b>② 多开几个门</b>（通道 8→32，伪通道 64）——不同货物可以同时搬、互不排队；<br>
 <b>③ 多修几条内部通道</b>（Bank 128→256）——仓库内部也要能同时取货，否则门再宽也是干等。<br>
-<b>→ 只加宽大门是没用的，必须内部并发能力同步跟上。这就是 Bank 数也要翻倍的原因。</b><span style="color:#64748b">【推断：演讲给了四个维度的数字，此处的仓库类比与「为何必须同步」为编者补充】</span>
+<b>→ 只加宽大门是没用的，必须内部并发能力同步跟上。这就是 Bank 数也要翻倍的原因。</b><span style="color:#64748b">【推断：四个维度的数字为原厂口径，仓库类比与「为何必须同步」为补充说明】</span>
 </div>
 <p style="margin-top:10px"><b>物理实现路径</b>【原厂转述】：芯片依托 <b>TSV 硅通孔与微凸点</b>完成 3D 堆叠，再通过 <b>2.5D 中介层</b>实现与 GPU 的高密度集成。<span style="color:#64748b">→ 这两步的工艺原理见 <a href="#sec-pkg-tsv" style="color:#6d28d9">0.9.3</a>。</span></p>
 </div></div>
@@ -2460,12 +2460,12 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <div class="dsc">
 <p>演讲明确给出：<b>HBM3E 单位容量占用的硅面积，是 DDR5 的 3 倍</b>【原厂转述】。原因是更大的芯片面积、高密度 TSV 堆叠与 2.5D 先进封装架构，共同大幅提升了设计难度、工艺门槛与制造成本——演讲称这是<b>当前高端 AI 芯片整体成本居高的核心原因之一</b>。</p>
 <div style="background:#7f1d1d;color:#fff;border-radius:8px;padding:14px;font-size:13px;line-height:1.95;margin-top:8px">
-<b>为什么这条对本站特别重要：</b><br>
-第二篇里那个被反复引用的「<b>HBM 3:1 晶圆转换比</b>」（生产 1GB HBM 等价占用 3GB DDR5 的晶圆产能），此前<b>只有财报会口径与行业经验值，没有器件级解释</b>——我在核查时专门标注过这一点。<br>
+<b>这条为什么关键：</b><br>
+第二篇被反复引用的「<b>HBM 3:1 晶圆转换比</b>」（生产 1GB HBM 等价占用 3GB DDR5 的晶圆产能），长期<b>只有财报会口径与行业经验值，缺少器件级解释</b>。<br>
 <span style="color:#fecaca">现在对上了：<b>单位容量硅面积 3 倍 → 晶圆产能占用 3 倍。</b>「3:1」不是财务估算，而是<b>物理事实的直接后果</b>。<br>
 → 于是整条因果链闭合：<b>HBM 吃掉 3 倍晶圆面积 → 普通 DDR 可用产能被挤压 → 供给收紧 → 内存涨价 → 存储周期被 AI 需求人为拉动。</b></span>
 </div>
-<p style="margin-top:10px;color:#64748b;font-size:12px">⚠️ 严谨起见：「3 倍硅面积」与「3:1 晶圆转换比」<b>数值上吻合、方向上一致</b>，但严格说前者是器件指标、后者是产能换算，中间还涉及良率与堆叠层数。此处的因果连接为编者推断【推断】，不是演讲原文的论断。</p>
+<p style="margin-top:10px;color:#64748b;font-size:12px">⚠️ 严谨起见：「3 倍硅面积」与「3:1 晶圆转换比」<b>数值上吻合、方向上一致</b>，但严格说前者是器件指标、后者是产能换算，中间还涉及良率与堆叠层数。此处的因果连接属推断【推断】，不是原文论断。</p>
 </div></div>
 
 <h2 id="sec-hbm-ras">🛡️ 0.10.4 可靠性与散热：堆得越高越难伺候</h2>
@@ -2475,10 +2475,10 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <div class="dsc">
 <p>演讲引用了千亿级大模型训练场景的数据（以 Llama 3 405B 为例）：<b>约 78% 的训练意外中断源自硬件故障，其中 GPU 与 HBM 内存异常为主要诱因</b>【原厂转述】。</p>
 <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#78350f">
-<b>🔑 为什么这个数字值得记住：</b>训练一个千亿级模型要几千张卡连续跑几十天。<b>任何一张卡的内存出错，整个训练任务就可能中断、要从检查点重跑</b>——损失的是几千张卡的机时。所以在 AI 场景里，<b>内存的可靠性不是「质量指标」，而是直接的经济指标</b>。<span style="color:#64748b">【推断：演讲给了 78% 这个数字，此处的经济含义为编者补充】</span>
+<b>🔑 为什么这个数字值得记住：</b>训练一个千亿级模型要几千张卡连续跑几十天。<b>任何一张卡的内存出错，整个训练任务就可能中断、要从检查点重跑</b>——损失的是几千张卡的机时。所以在 AI 场景里，<b>内存的可靠性不是「质量指标」，而是直接的经济指标</b>。<span style="color:#64748b">【推断：78% 为原厂口径，经济含义为补充说明】</span>
 </div>
 <p style="margin-top:10px"><b>应对手段</b>【原厂转述】：HBM3 及以上规格引入<b>双层 ECC 纠错机制</b>——结合<b>系统级纠错</b>与<b>片上符号纠错</b>能力，全面提升内存的 <b>RAS</b>（可靠性 Reliability、可用性 Availability、可维护性 Serviceability）。</p>
-<p style="color:#64748b;font-size:12px">注：ECC 的基本概念本站 <a href="#sec-mem-atlas" style="color:#6d28d9">0.7</a> 与第四篇 MCU 功能安全章节均有涉及；<b>「双层 ECC」这个 HBM 特有的两级结构是本演讲新增的信息</b>。</p>
+<p style="color:#64748b;font-size:12px">注：ECC 的基本概念见 <a href="#sec-mem-atlas" style="color:#6d28d9">0.7</a> 与第四篇 MCU 功能安全章节；<b>「双层 ECC」是 HBM 特有的两级结构</b>。</p>
 </div></div>
 
 <div class="card">
@@ -2488,7 +2488,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#4c1d95;margin-top:6px">
 <b>🔗 这条正好补全了 <a href="#sec-pkg-tsv" style="color:#6d28d9">0.9.3</a> 留下的缺口。</b>在封装那一节，「堆叠时中间层的热被上下夹住、出不来」只是基于散热原理的<b>推断</b>；这里得到了直接印证，并给出两个具体解法：<b>① 液冷</b>（把热带走的能力上一个台阶）、<b>② 混合键合</b>（铜-铜直连，取消凸点，热阻更低、间距更小，<b>同时服务散热与密度两个目标</b>）。
 </div>
-<p style="margin-top:10px"><b>另一个值得注意的机理：</b>演讲把热密度上升归因于两件事——<b>堆叠层数提升</b>（纵向更密）与 <b>DRAM 并发访问率增加</b>（同时干活的 Bank 更多）。后者容易被忽略：<b>0.10.2 里 Bank 数从 128 翻到 256、通道数翻到 32，在提升带宽的同时也意味着同一时刻有更多单元在耗电发热</b>。所以<b>带宽提升与散热压力是同一件事的两面</b>。<span style="color:#64748b">【推断：两个归因来自演讲，此处把它与 0.10.2 的规格扩张联系起来为编者补充】</span></p>
+<p style="margin-top:10px"><b>另一个值得注意的机理：</b>演讲把热密度上升归因于两件事——<b>堆叠层数提升</b>（纵向更密）与 <b>DRAM 并发访问率增加</b>（同时干活的 Bank 更多）。后者容易被忽略：<b>0.10.2 里 Bank 数从 128 翻到 256、通道数翻到 32，在提升带宽的同时也意味着同一时刻有更多单元在耗电发热</b>。所以<b>带宽提升与散热压力是同一件事的两面</b>。<span style="color:#64748b">【推断：两个归因为原厂口径，与 0.10.2 规格扩张的关联为补充说明】</span></p>
 </div></div>
 
 <h2 id="sec-hbm-future">🚀 0.10.5 未来路径：为什么说这已经不是单家公司的事</h2>
@@ -2498,21 +2498,21 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <div class="dsc">
 <p>演讲对未来路径的判断很明确【原厂转述】：HBM 性能持续迭代的核心依托在于<b>先进封装技术</b>，包括 <b>D2D（裸片间互连）</b>、<b>混合键合</b>等高密度集成方案，这是突破<b>带宽、密度与能效</b>三重瓶颈的关键路径。</p>
 <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#065f46;margin-top:6px">
-<b>🔑 这句话印证了本站 <a href="#sec-pkg-tsv" style="color:#6d28d9">0.9.3</a> 那个核心判断：</b>HBM 的护城河不在存储颗粒，<b>在封装</b>。<br>
-既然连原厂自己都说「下一程靠先进封装」，那么<b>存储厂之间的竞争，实质上已经变成封装工艺与良率的竞争</b>——这也解释了为什么 HBM 的供应格局和普通 DRAM 完全不同。
+<b>🔑 这与 <a href="#sec-pkg-tsv" style="color:#6d28d9">0.9.3</a> 的核心判断一致：</b>HBM 的护城河不在存储颗粒，<b>在封装</b>。<br>
+既然原厂口径也指向「下一程靠先进封装」，那么<b>存储厂之间的竞争，实质上已经变成封装工艺与良率的竞争</b>——这也解释了为什么 HBM 的供应格局和普通 DRAM 完全不同。
 </div>
 <p style="margin-top:10px"><b>产业协作的呼吁：</b>演讲以「ChatGPT 仅用两个月突破亿级用户」为例说明 AI 产业增速史无前例，并指出<b>仅靠单一企业的技术迭代难以匹配算力需求，必须通过全产业链协同创新</b>，共同推进 HBM 内存、先进封装与 AI 算力体系的升级。</p>
-<p style="color:#64748b;font-size:12px">⚠️ 这部分属于演讲的战略表态，本站按原意转述，不额外解读。需要注意这是<b>存储厂视角</b>的表述——对「协同」的定义，GPU 厂、代工厂、封测厂各自的立场并不完全相同。【推断】</p>
+<p style="color:#64748b;font-size:12px">⚠️ 这部分属于战略表态，此处按原意转述，不额外解读。需注意这是<b>存储厂视角</b>的表述——对「协同」的定义，GPU 厂、代工厂、封测厂各自的立场并不完全相同。【推断】</p>
 </div></div>
 
 <div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
-<div class="ttl">🧩 本节如何与全站其他部分互相印证</div>
+<div class="ttl">🧩 本节与其他章节的相互印证</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:24%">本节结论</th><th>与其他材料的关系</th></tr></thead>
 <tbody>
-<tr><td class="hl">AI 负载是内存带宽受限型</td><td><b>与 <a href="#sec-mem-official" style="color:#166534">0.8</a> 两份工程报告的实测结论一致</b>（decoding 阶段 memory-bound）。两份独立来源互相印证 → <b>这条可以放心用</b></td></tr>
+<tr><td class="hl">AI 负载是内存带宽受限型</td><td><b>与 <a href="#sec-mem-official" style="color:#166534">0.8</a> 工程报告的实测结论一致</b>（decoding 阶段 memory-bound）。两条独立来源互相印证，可靠性较高</td></tr>
 <tr><td class="hl">HBM3E 硅面积是 DDR5 的 3 倍</td><td><b>给第二篇「3:1 晶圆转换比」补上了器件级解释</b>，把原本只有财报口径的经验值落到了物理事实上</td></tr>
-<tr><td class="hl">中间层散热是结构性难题</td><td><b>印证了 <a href="#sec-pkg-tsv" style="color:#166534">0.9.3</a> 我此前标为「推断」的判断</b>，并给出液冷与混合键合两个解法</td></tr>
+<tr><td class="hl">中间层散热是结构性难题</td><td><b>印证了 <a href="#sec-pkg-tsv" style="color:#166534">0.9.3</a> 中标为「推断」的判断</b>，并给出液冷与混合键合两个解法</td></tr>
 <tr><td class="hl">下一程靠先进封装</td><td><b>印证 <a href="#sec-pkg-tsv" style="color:#166534">0.9.3</a>「护城河在封装良率而非颗粒」</b>这一核心判断</td></tr>
 <tr><td class="hl">2.5D 中介层 / 混合键合 / HBM4</td><td><b>补上了 0.9 封装篇未展开的三项</b></td></tr>
 <tr><td class="hl">带宽提升与散热压力同源</td><td>Bank 与通道数翻倍既提升带宽、也提升热密度 → <b>与 0.10.2 的规格表是同一件事的两面</b></td></tr>
@@ -3143,7 +3143,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 
 
 <div class="card" style="background:#f5f3ff;border-left:4px solid #7c3aed;max-width:1100px;margin:0 auto 24px">
-<div class="ttl">🔬 想看「晶圆到底怎么造出来」？在 <a href="#sec-fab" style="color:#6d28d9">基础篇 0.5 晶圆制造工艺全流程</a></div>
+<div class="ttl">🔬 晶圆如何制造 → <a href="#sec-fab" style="color:#6d28d9">基础篇 0.5 晶圆制造工艺全流程</a></div>
 <div class="dsc"><p>本篇（第一篇）只讲<b>宏观叙事</b>：谁在什么时候做出了什么、格局如何变迁。而十大功能区、一千多步 Traveler、完整 CMOS 32 步建造顺序这类<b>工艺层细节，已统一收进基础篇</b>，与器件物理放在一起——因为那才是「为什么能这么造」的地方。<br>
 <b>光刻</b>作为全线唯一「画图」的工序，单独成节：<a href="#sec-fab-photo" style="color:#6d28d9">基础篇 0.6 光刻</a>。</p></div></div>
 
@@ -4003,7 +4003,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <p style="text-align:center;font-size:12px;color:#94a3b8;margin-top:32px">⚠ 部分 HBM 相关进度为媒体/行业推测，非官方确认。投资决策应以官方招股书和年报为准。</p>
 
 <div class="card" style="background:#f5f3ff;border-left:4px solid #7c3aed">
-<div class="ttl">🧬 想看「存储器凭什么记住一个 bit」？在 <a href="#sec-mem-atlas" style="color:#6d28d9">基础篇 0.7 / 0.8</a></div>
+<div class="ttl">🧬 存储器凭什么记住一个 bit → <a href="#sec-mem-atlas" style="color:#6d28d9">基础篇 0.7 / 0.8</a></div>
 <div class="dsc"><p>本篇（第二篇）只讲<b>宏观叙事</b>：存储周期、厂商格局、长鑫长存、AI 带来的范式转移。<br>
 而「SRAM 为什么一断电就忘」「DRAM 读一次为什么必须写回」「浮栅凭什么断电不忘」「3D NAND 为什么要堆叠」这类<b>器件原理层内容，已统一收进基础篇</b>：<a href="#sec-mem-atlas" style="color:#6d28d9">0.7 存储器全类型原理图解</a>、<a href="#sec-mem-official" style="color:#6d28d9">0.8 DRAM/NAND 美光官方原理</a>。</p></div></div>
 
@@ -4338,7 +4338,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 <div class="card" style="background:#f5f3ff;border-left:4px solid #7c3aed">
-<div class="ttl">📐 想看「损耗到底从哪来、栅极怎么驱动」？在 <a href="#sec-power-loss" style="color:#6d28d9">基础篇 0.11</a></div>
+<div class="ttl">📐 损耗从哪来、栅极如何驱动 → <a href="#sec-power-loss" style="color:#6d28d9">基础篇 0.11</a></div>
 <div class="dsc"><p>本篇（第三篇）只讲<b>宏观叙事</b>：器件代际演进、SiC/GaN 产能竞赛、车规与 AI 供电的市场格局。<br>
 而三块损耗如何随频率此消彼长、三个寄生电容各管哪一段、Kelvin source 凭什么把开通损耗降三成多，这类<b>工程层内容已收进基础篇</b>：<a href="#sec-power-loss" style="color:#6d28d9">0.11 功率器件损耗模型与栅驱实测</a>。</p></div></div>
 
