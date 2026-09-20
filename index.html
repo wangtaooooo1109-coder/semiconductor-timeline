@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v5.9 | 2026-09-21 | 新增第六篇 硅光子与光互连: 6.1 铜的物理极限(趋肤效应+介质损耗, 眼图衰减动画)与带宽密度beachfront墙/电光每比特能耗交叉点随速率前移 6.2 器件家族逐个讲物理: SOI波导全反射束缚(n3.48 vs 1.44, 弯曲半径5um)/硅无Pockels效应只能用载流子等离子体色散(耗尽动画+MZI与微环取舍+TFLN替代)/硅在通信波段透明必须外延锗(4%晶格失配抬暗电流)/间接带隙能带图动画解释硅为何不发光与III-V四条集成路线/耦合对准与温漂隐形成本 6.3 可插拔-板载-CPO三级演进动画(1.6T端口30W降至9W)+三大工程障碍与NPO妥协+NVIDIA两套宣称口径分列 6.4 产业五大转折+中国下游领先上游受制 | 新增6个SVG动画 -->
+<!-- version: v6.0 | 2026-09-21 | 新增第七篇 被动器件(完成七篇全景): 7.1 MLCC叠层等效几百电容并联动画/介质薄层化物理下限(一层仅5-7个陶瓷晶粒)动画/Ni内电极还原气氛共烧矛盾动画(Ni不能氧化vs BaTiO3不能缺氧)/四项隐性劣化(DC Bias极化饱和·温度特性ClassI-II·老化畴松弛·压电啸叫)/车规AEC-Q200与软端头 7.2 供应链: 上游粉体比设备更卡脖子/缺货五大结构性成因/车规认证周期造成供应刚性/单车用量整车与动力系统两套口径分列/800V与智驾域控需求 7.3 分流电阻四端Kelvin动画/电阻四工艺/电感直流叠加饱和动画(铁氧体陡降vs金属磁粉软饱和)/其他电容寿命机理 7.4 钛酸钡材料史与五次转折 | 新增5个SVG动画 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -295,6 +295,16 @@ table.node-table.nopad .hl{font-size:12px}
 <li><a href="#sec-cpo">6.3 从可插拔到 CPO 共封装 🎬</a></li>
 <li><a href="#sec-siph-pattern">6.4 产业格局·下游领先上游受制</a></li>
 </ol>
+</div>
+<div>
+<div style="font-weight:800;color:#ea580c;font-size:15px;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #fed7aa">第七篇 · 被动器件</div>
+<ol style="padding-left:20px;line-height:2.2">
+<li><a href="#sec-mlcc">7.1 MLCC 结构与工艺瓶颈 🎬</a></li>
+<li><a href="#sec-mlcc-supply">7.2 MLCC 供应链与缺货机制</a></li>
+<li><a href="#sec-rl">7.3 电阻与电感 🎬</a></li>
+<li><a href="#sec-passive-pattern">7.4 产业格局·材料史与五次转折</a></li>
+</ol>
+<div style="font-size:11px;color:#9a3412;padding-left:4px;line-height:1.6">⚠️ 严格讲不属半导体，但占 BOM 件数大头</div>
 </div>
 </div>
 <div style="margin-top:12px;padding-top:8px;border-top:1px solid #e2e8f0;text-align:center;font-size:13px;font-weight:700"><a href="#sec-sources">📚 参考文献</a></div>
@@ -6334,6 +6344,445 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <tr><td class="hl">CPO 是先进封装问题</td><td>与 <a href="#sec-pkg-tsv" style="color:#166534">0.9.3</a>、<a href="#sec-hbm" style="color:#166534">0.10</a> 同源——<b>HBM 把存储搬近计算，CPO 把光搬近交换</b></td></tr>
 <tr><td class="hl">提频遇墙就转并行</td><td>与第二篇 <a href="#sec-ddr-gen" style="color:#166534">2.7 DDR</a> 完全同构：DDR 用子通道与 Bank，光用 WDM 与多纤芯</td></tr>
 <tr><td class="hl">CIS 与硅光的分野</td><td>见 <a href="#sec-cis" style="color:#166534">第五篇 5.6</a>：单向感知 vs 双向通信，硅能吸收可见光但吸收不了通信波段</td></tr>
+</tbody></table>
+</div></div>
+
+</div>
+
+
+
+<hr style="margin:60px 0 40px;border:none;border-top:4px solid #ea580c">
+
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-passive">第七篇：被动器件</h1>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">MLCC · 电阻 · 电感 —— 摩尔定律完全管不到的那一半元器件</p>
+<div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#fff7ed;border-left:3px solid #ea580c;border-radius:6px;font-size:12px;color:#7c2d12">
+<b>⚠️ 先把边界说清楚：严格意义上，被动器件不是半导体。</b>它们没有 PN 结，不放大、不开关，只做储能、耗能、滤波与阻抗匹配。把它放进这份全景图，理由是另外两条：<b>① 它在 BOM 件数上占绝对多数，一辆电动车用到万颗量级的 MLCC；② 它是断供高发区——单价极低，但缺一颗就能让整条产线停线。</b><br>
+<b>它还提供了一个全站最彻底的对照：</b>前六篇讲的世界里，进步来自把结构做小、把工艺做精；被动器件的进步<b>几乎完全来自材料与叠层工艺</b>，与光刻分辨率、与栅长毫无关系。<b>这里没有摩尔定律。</b>
+</div>
+
+<div class="content">
+
+<h2 id="sec-mlcc">🧱 7.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</h2>
+
+<div class="anim-card">
+<div class="at">📚 结构本质：交替叠层 = 几百个小电容并联</div>
+<div class="am">容量公式 C = ε₀·εr·n·A/d 里，真正被工艺竞赛反复挤压的是 n（层数）与 d（介质厚度）</div>
+<svg viewBox="0 0 760 220">
+<text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#7c2d12">外观只是一粒陶瓷片，剖开后是上百层交替堆叠的电极与介质</text>
+
+<!-- outside view -->
+<rect x="50" y="46" width="90" height="52" rx="4" fill="#d6d3d1" stroke="#78716c" stroke-width="1.5"/>
+<rect x="50" y="46" width="16" height="52" fill="#a8a29e" stroke="#78716c"/>
+<rect x="124" y="46" width="16" height="52" fill="#a8a29e" stroke="#78716c"/>
+<text x="95" y="76" text-anchor="middle" font-size="8.5" fill="#44403c">陶瓷本体</text>
+<text x="95" y="114" text-anchor="middle" font-size="8.5" font-weight="700" fill="#57534e">外观</text>
+<text x="95" y="128" text-anchor="middle" font-size="8" fill="#78716c">端头电极在两侧</text>
+
+<text x="172" y="76" font-size="18" fill="#ea580c">→</text>
+
+<!-- cross section: layers -->
+<g>
+  <rect x="200" y="42" width="180" height="62" rx="2" fill="#fef3c7" stroke="#d97706"/>
+  <!-- electrodes alternating -->
+  <rect x="204" y="48" width="140" height="4" fill="#57534e"/>
+  <rect x="236" y="56" width="140" height="4" fill="#78716c"/>
+  <rect x="204" y="64" width="140" height="4" fill="#57534e"/>
+  <rect x="236" y="72" width="140" height="4" fill="#78716c"/>
+  <rect x="204" y="80" width="140" height="4" fill="#57534e"/>
+  <rect x="236" y="88" width="140" height="4" fill="#78716c"/>
+  <rect x="204" y="96" width="140" height="4" fill="#57534e"/>
+</g>
+<text x="290" y="118" text-anchor="middle" font-size="8.5" font-weight="700" fill="#92400e">剖面：内电极交替伸入</text>
+<text x="290" y="131" text-anchor="middle" font-size="8" fill="#a16207">两组电极分别连到左右端头</text>
+
+<text x="404" y="76" font-size="18" fill="#ea580c">→</text>
+
+<!-- equivalent parallel caps -->
+<text x="560" y="40" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e40af">等效电路：几百个小电容并联</text>
+<line x1="450" y1="56" x2="670" y2="56" stroke="#2563eb" stroke-width="2"/>
+<line x1="450" y1="104" x2="670" y2="104" stroke="#2563eb" stroke-width="2"/>
+<g stroke="#2563eb" stroke-width="2">
+  <line x1="480" y1="56" x2="480" y2="72"/><line x1="470" y1="72" x2="490" y2="72"/><line x1="470" y1="80" x2="490" y2="80"/><line x1="480" y1="80" x2="480" y2="104"/>
+  <line x1="530" y1="56" x2="530" y2="72"/><line x1="520" y1="72" x2="540" y2="72"/><line x1="520" y1="80" x2="540" y2="80"/><line x1="530" y1="80" x2="530" y2="104"/>
+  <line x1="580" y1="56" x2="580" y2="72"/><line x1="570" y1="72" x2="590" y2="72"/><line x1="570" y1="80" x2="590" y2="80"/><line x1="580" y1="80" x2="580" y2="104"/>
+  <line x1="640" y1="56" x2="640" y2="72"/><line x1="630" y1="72" x2="650" y2="72"/><line x1="630" y1="80" x2="650" y2="80"/><line x1="640" y1="80" x2="640" y2="104"/>
+</g>
+<text x="610" y="80" text-anchor="middle" font-size="12" fill="#1e40af">⋯</text>
+<text x="560" y="124" text-anchor="middle" font-size="8.5" fill="#1e3a8a">并联 → 容量按层数 n 线性相加</text>
+
+<rect x="50" y="152" width="676" height="58" rx="6" fill="#fff7ed" stroke="#ea580c"/>
+<text x="62" y="170" font-size="9.5" fill="#7c2d12"><tspan font-weight="700">C = ε₀ · εr · n · A / d</tspan>　—— 四个可动的旋钮里，介电常数 εr 由材料决定、面积 A 被小型化压缩，</text>
+<text x="62" y="186" font-size="9.5" fill="#7c2d12">于是工艺竞赛几乎全部集中在 <tspan font-weight="700">把层数 n 堆更多</tspan> 与 <tspan font-weight="700">把介质厚度 d 做更薄</tspan> 这两件事上。</text>
+<text x="62" y="202" font-size="9" fill="#9a3412">常规介质单层约 1–3 µm；高容品已降至亚微米级。<tspan font-weight="700">这条路很快撞上一个物理下限——见下一张图。</tspan>【业界】</text>
+</svg>
+</div>
+
+<div class="anim-card">
+<div class="at">🔬 介质薄层化的物理下限：一层里只剩几个陶瓷晶粒</div>
+<div class="am">不是设备精度不够，而是介质层内必须容纳足够多的晶粒，才能保证耐压与可靠性</div>
+<svg viewBox="0 0 740 200">
+<text x="370" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d">同样是"做薄"，薄到晶粒数量不够时，可靠性会直接崩塌</text>
+
+<!-- thick layer -->
+<text x="118" y="38" text-anchor="middle" font-size="9.5" font-weight="700" fill="#065f46">厚介质层</text>
+<rect x="44" y="46" width="148" height="10" fill="#57534e"/>
+<rect x="44" y="56" width="148" height="52" fill="#fef3c7" stroke="#d97706"/>
+<g fill="#fbbf24" stroke="#b45309" stroke-width="0.6">
+  <circle cx="60" cy="68" r="6"/><circle cx="76" cy="78" r="6.5"/><circle cx="94" cy="66" r="5.5"/><circle cx="112" cy="80" r="6"/>
+  <circle cx="130" cy="68" r="6.5"/><circle cx="148" cy="80" r="6"/><circle cx="166" cy="68" r="5.5"/><circle cx="180" cy="80" r="5"/>
+  <circle cx="66" cy="94" r="5.5"/><circle cx="102" cy="96" r="6"/><circle cx="140" cy="96" r="5.5"/><circle cx="172" cy="94" r="5"/>
+</g>
+<rect x="44" y="108" width="148" height="10" fill="#57534e"/>
+<text x="118" y="134" text-anchor="middle" font-size="8.5" fill="#065f46">晶粒层数充足 → 耐压余量足</text>
+<text x="118" y="147" text-anchor="middle" font-size="8.5" font-weight="700" fill="#047857">✓ 可靠</text>
+
+<!-- thin ok -->
+<text x="370" y="38" text-anchor="middle" font-size="9.5" font-weight="700" fill="#b45309">薄介质层（当代高容品）</text>
+<rect x="296" y="60" width="148" height="10" fill="#57534e"/>
+<rect x="296" y="70" width="148" height="24" fill="#fef3c7" stroke="#d97706"/>
+<g fill="#fbbf24" stroke="#b45309" stroke-width="0.6">
+  <circle cx="312" cy="82" r="5.5"/><circle cx="332" cy="80" r="5.5"/><circle cx="352" cy="83" r="5.5"/><circle cx="372" cy="80" r="5.5"/><circle cx="392" cy="83" r="5.5"/><circle cx="412" cy="80" r="5.5"/><circle cx="430" cy="83" r="5"/>
+</g>
+<rect x="296" y="94" width="148" height="10" fill="#57534e"/>
+<text x="370" y="124" text-anchor="middle" font-size="8.5" fill="#92400e">跨越一层约需 <tspan font-weight="700">5–7 个晶粒</tspan></text>
+<text x="370" y="137" text-anchor="middle" font-size="8.5" fill="#92400e">晶粒尺寸约 100 nm 量级</text>
+<text x="370" y="150" text-anchor="middle" font-size="8.5" font-weight="700" fill="#b45309">⚠️ 已接近工艺极限</text>
+
+<!-- too thin -->
+<text x="622" y="38" text-anchor="middle" font-size="9.5" font-weight="700" fill="#991b1b">过薄</text>
+<rect x="548" y="66" width="148" height="10" fill="#57534e"/>
+<rect x="548" y="76" width="148" height="12" fill="#fee2e2" stroke="#dc2626"/>
+<g fill="#fca5a5" stroke="#dc2626" stroke-width="0.6">
+  <circle cx="570" cy="82" r="5"/><circle cx="600" cy="82" r="5"/><circle cx="632" cy="82" r="5"/><circle cx="664" cy="82" r="5"/>
+</g>
+<rect x="548" y="88" width="148" height="10" fill="#57534e"/>
+<!-- breakdown flash -->
+<path d="M600,76 L604,82 L598,82 L602,88" stroke="#dc2626" stroke-width="2" fill="none">
+  <animate attributeName="opacity" values="0;1;0" dur="1.2s" repeatCount="indefinite"/>
+</path>
+<text x="622" y="118" text-anchor="middle" font-size="8.5" fill="#7f1d1d">晶粒数不足 → 晶界路径贯通</text>
+<text x="622" y="131" text-anchor="middle" font-size="8.5" fill="#7f1d1d">耐压与绝缘寿命骤降</text>
+<text x="622" y="144" text-anchor="middle" font-size="8.5" font-weight="700" fill="#b91c1c">✗ 可靠性崩塌</text>
+
+<rect x="44" y="164" width="652" height="30" rx="5" fill="#fff7ed" stroke="#ea580c"/>
+<text x="56" y="182" font-size="9" fill="#7c2d12"><tspan font-weight="700">这就是为什么粉体是真正的卡口：</tspan>要把介质做更薄，就必须先有更细、更均匀、球形度更好的 BaTiO₃ 纳米粉体（粒径已进入 100 nm 以下量级）。<tspan font-weight="700">买设备解决不了这件事。</tspan>【业界】</text>
+</svg>
+</div>
+
+<div class="anim-card">
+<div class="at">⚗️ 最精妙的工艺矛盾：Ni 内电极不能氧化，BaTiO₃ 不能缺氧</div>
+<div class="am">为了把贵金属换成便宜的镍，整个烧结工艺必须在一个极窄的气氛窗口里走钢丝</div>
+<svg viewBox="0 0 760 240">
+<text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#7c2d12">从 Pd/Ag 贵金属内电极改用 Ni 镍（BME），成本大降——但代价是一对互相冲突的约束</text>
+
+<!-- furnace with atmosphere slider -->
+<rect x="200" y="36" width="360" height="20" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="216" y="51" font-size="9" font-weight="700" fill="#dc2626">← 偏氧化</text>
+<text x="480" y="51" font-size="9" font-weight="700" fill="#2563eb">偏还原 →</text>
+<circle cx="380" cy="46" r="9" fill="#059669" stroke="#047857" stroke-width="2">
+  <animate attributeName="cx" values="380;250;380;510;380" dur="6s" repeatCount="indefinite"/>
+</circle>
+<text x="380" y="72" text-anchor="middle" font-size="8.5" font-weight="700" fill="#065f46">烧结气氛（可调）</text>
+
+<!-- left: oxidizing fails Ni -->
+<rect x="44" y="92" width="200" height="104" rx="6" fill="#fef2f2" stroke="#dc2626"/>
+<text x="144" y="112" text-anchor="middle" font-size="10" font-weight="700" fill="#991b1b">若气氛偏氧化</text>
+<rect x="64" y="124" width="160" height="14" fill="#57534e"/>
+<rect x="64" y="124" width="160" height="14" fill="#a16207" opacity="0">
+  <animate attributeName="opacity" values="0;0.9" dur="2s" repeatCount="indefinite"/>
+</rect>
+<text x="144" y="134" text-anchor="middle" font-size="7.5" fill="#fff">Ni 内电极</text>
+<text x="144" y="155" text-anchor="middle" font-size="8.5" font-weight="700" fill="#b91c1c">✗ Ni 被氧化成 NiO</text>
+<text x="144" y="169" text-anchor="middle" font-size="8" fill="#7f1d1d">电极失去导电性</text>
+<text x="144" y="183" text-anchor="middle" font-size="8" fill="#7f1d1d">→ 电容直接失效</text>
+
+<!-- right: reducing damages BaTiO3 -->
+<rect x="516" y="92" width="200" height="104" rx="6" fill="#eff6ff" stroke="#2563eb"/>
+<text x="616" y="112" text-anchor="middle" font-size="10" font-weight="700" fill="#1e40af">若气氛偏还原</text>
+<rect x="536" y="124" width="160" height="26" fill="#fef3c7" stroke="#d97706"/>
+<circle cx="566" cy="137" r="3.5" fill="#fff" stroke="#dc2626" stroke-width="1.2" opacity="0">
+  <animate attributeName="opacity" values="0;1" dur="2s" repeatCount="indefinite"/>
+</circle>
+<circle cx="616" cy="137" r="3.5" fill="#fff" stroke="#dc2626" stroke-width="1.2" opacity="0">
+  <animate attributeName="opacity" values="0;1" dur="2s" begin="0.4s" repeatCount="indefinite"/>
+</circle>
+<circle cx="666" cy="137" r="3.5" fill="#fff" stroke="#dc2626" stroke-width="1.2" opacity="0">
+  <animate attributeName="opacity" values="0;1" dur="2s" begin="0.8s" repeatCount="indefinite"/>
+</circle>
+<text x="616" y="164" text-anchor="middle" font-size="8.5" font-weight="700" fill="#b91c1c">✗ BaTiO₃ 产生氧空位</text>
+<text x="616" y="178" text-anchor="middle" font-size="8" fill="#7f1d1d">绝缘电阻下降、寿命劣化</text>
+<text x="616" y="191" text-anchor="middle" font-size="8" fill="#7f1d1d">（缺氧使陶瓷半导体化）</text>
+
+<!-- middle: the window -->
+<rect x="266" y="96" width="228" height="100" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+<text x="380" y="116" text-anchor="middle" font-size="10" font-weight="700" fill="#065f46">工艺窗口：必须两者兼顾</text>
+<text x="278" y="136" font-size="8.5" fill="#065f46">① 用<tspan font-weight="700">弱还原气氛</tspan>（H₂/N₂ 混合，</text>
+<text x="278" y="149" font-size="8.5" fill="#065f46">　氢含量在百分之几量级）</text>
+<text x="278" y="167" font-size="8.5" fill="#065f46">② 配方上加<tspan font-weight="700">抗还原掺杂</tspan>——</text>
+<text x="278" y="180" font-size="8.5" fill="#065f46">　A 位施主 + B 位受主共掺，</text>
+<text x="278" y="191" font-size="8.5" fill="#065f46">　抑制氧空位生成与迁移</text>
+
+<rect x="44" y="206" width="672" height="30" rx="5" fill="#fff7ed" stroke="#ea580c"/>
+<text x="56" y="224" font-size="9" fill="#7c2d12"><tspan font-weight="700">为什么这件事值得单独讲：</tspan>BME 让 MLCC 摆脱了钯、银的价格绑定，是这个行业最重要的一次成本重构；而它能成立，靠的是<tspan font-weight="700">在一对相互冲突的化学约束之间找到窗口</tspan>——这是典型的材料工程胜利，与光刻分辨率毫无关系。【业界】</text>
+</svg>
+</div>
+
+<div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
+<div class="ttl">⚠️ 四项「隐性劣化」：数据手册上的容量，未必是你实际拿到的容量</div>
+<div class="dsc">
+<p>MLCC 有四个原厂文档都会写、但工程上极易被忽略的特性。它们的共同根源是 <b>BaTiO₃ 的铁电性</b>——高介电常数正是来自自发极化与畴壁运动，而<b>高介电常数必然伴随非线性</b>。</p>
+<table class="node-table nopad"><thead><tr><th style="width:20%">现象</th><th style="width:34%">机理</th><th>工程后果</th></tr></thead>
+<tbody>
+<tr><td class="hl">DC Bias<br>直流偏压特性</td><td>施加直流电压后，畴被逐渐<b>对齐锁死</b>，可参与响应的畴减少 → <b>极化饱和</b></td><td><b>有效容量大幅下降</b>，小尺寸高容品在额定电压下可掉 50–80%。<b>按标称值设计电源滤波会严重不足</b></td></tr>
+<tr><td class="hl">温度特性</td><td>铁电相的介电常数随温度剧烈变化（居里温度约 120–130 °C 量级）</td><td>需按介质代号选型：<b>C0G/NP0</b> 属 Class I 顺电材料，极稳定（约 ±30 ppm/°C）但容量低；<b>X7R/X5R</b> 属 Class II，容量高但约 ±15%；<b>Y5V</b> 变化更剧烈</td></tr>
+<tr><td class="hl">老化 Aging</td><td>Class II 材料的畴结构随时间<b>自发松弛</b>，容量按时间对数缓慢衰减</td><td>出厂后容量会持续下降。<b>精确测量前需做去老化处理</b>，否则测值不可比</td></tr>
+<tr><td class="hl">压电啸叫<br>Acoustic Noise</td><td>BaTiO₃ 有<b>逆压电效应</b>——交流电压使陶瓷体周期性微形变（亚纳米级）</td><td>形变经焊点传给 PCB，<b>PCB 成了扬声器</b>。当频率落在 20 Hz–20 kHz 可闻带内即产生啸叫。对策：加厚保护层、金属支架、改用 Class I 介质</td></tr>
+</tbody></table>
+<p style="margin-top:8px;background:#fef3c7;padding:8px 12px;border-radius:6px;color:#92400e"><b>🔑 一条统一的理解：</b>这四项全部源于<b>「用铁电性换高介电常数」这笔交易</b>。Class I 材料没有这些毛病，代价是容量低几个数量级。<b>所以 MLCC 选型的本质，是在容量密度与线性度之间选边站。</b>【业界】</p>
+</div></div>
+
+<div class="card">
+<div class="ttl">车规 MLCC 的额外考题</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:22%">要求</th><th>为什么</th></tr></thead>
+<tbody>
+<tr><td class="hl">AEC-Q200 认证</td><td>被动器件的车规标准（对应有源器件的 AEC-Q100），覆盖温度循环、湿热、机械应力等系列应力测试</td></tr>
+<tr><td class="hl">宽温区</td><td>需耐 150 °C 甚至 175 °C 级别，远超消费级</td></tr>
+<tr><td class="hl">抗弯曲（软端头）</td><td>PCB 受弯时硬端头会把应力<b>直接传给陶瓷本体导致开裂</b>。<b>软端头</b>在端电极中加入导电树脂层吸收形变，显著提升抗挠曲能力</td></tr>
+<tr><td class="hl">抗硫化</td><td>汽车环境中的硫化物会腐蚀端电极中的银，导致开路</td></tr>
+<tr><td class="hl">裂纹风险管控</td><td><b>这是车规最关注的失效模式</b>：陶瓷开裂可能演变为绝缘劣化甚至短路，在高压母线场景下后果严重。因此车规品对贴装应力、焊接热冲击、板弯都有严格规范</td></tr>
+</tbody></table>
+<p style="margin-top:8px;color:#64748b;font-size:12px">注：抗挠曲能力的具体毫米数各厂口径不同，部分中文推广材料给出的提升百分比未见原厂定量确认，此处只作定性描述。</p>
+</div></div>
+
+
+<h2 id="sec-mlcc-supply">🚚 7.2 MLCC 供应链：为什么它反复成为断供震中</h2>
+
+<div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
+<div class="ttl">核心判断：上游材料比制造设备更卡脖子</div>
+<div class="dsc">
+<p>这是本节最重要的一条，也是与逻辑芯片「卡在光刻机」截然不同的地方。</p>
+<table class="node-table nopad"><thead><tr><th style="width:22%">环节</th><th style="width:30%">卡口所在</th><th>为什么难突破</th></tr></thead>
+<tbody>
+<tr><td class="hl">BaTiO₃ 纳米粉体</td><td>日本厂商长期主导高端粉体</td><td><b>粒径、球形度、分散性、批次一致性</b>是长期工艺积累的结果。介质要做到亚微米，粉体粒径须进入 100 nm 以下并保持极窄分布——<b>这不是买一台设备就能获得的能力</b></td></tr>
+<tr><td class="hl">镍粉与镍浆</td><td>日系主导，国内厂商在追赶</td><td>超细球形镍粉的粒度与抗氧化处理直接决定内电极能否做薄而连续</td></tr>
+<tr><td class="hl">端头银浆、流延树脂与溶剂</td><td>高端配方集中度较高</td><td>属配方型材料，验证周期长</td></tr>
+<tr><td class="hl">设备</td><td>流延机、叠层机、精密切割、共烧炉——日本设备厂地位突出</td><td>设备可以买，<b>但工艺配方与良率经验买不到</b></td></tr>
+</tbody></table>
+<p style="margin-top:8px;color:#64748b;font-size:12px">⚠️ 上游各家精确市场份额缺统一可靠口径（同一厂商在不同来源有 16% 到 30% 的差异，涉及产值/外售/含自用等不同统计基准），此处只作结构性描述，不引用单一数字。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #ea580c">
+<div class="ttl">缺货的结构性成因：五个因素叠加</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:24%">成因</th><th>机理</th></tr></thead>
+<tbody>
+<tr><td class="hl">需求跳变而非渐进</td><td>电动化与 AI 服务器让单机/单车用量<b>成倍跃升</b>，需求曲线是台阶式的</td></tr>
+<tr><td class="hl">日厂主动退出通用品</td><td>高端产能向车规与高容集中，<b>通用品供给被动收缩</b>——这是供给端的结构性变化，不是产能不足</td></tr>
+<tr><td class="hl">扩产周期长</td><td>建厂加验证需要相当长的周期，<b>产能无法对短期需求做出响应</b></td></tr>
+<tr><td class="hl">上游集中、下游极度分散</td><td>几家上游对应成千上万家下游，<b>议价权与信息优势完全不对称</b></td></tr>
+<tr><td class="hl">「低价值高杀伤」</td><td>单颗单价极低，但<b>一块板缺一颗就无法完成贴装、整线停产</b>。停线损失远超货值，于是客户宁愿高价囤货保供——<b>恐慌性下单进一步放大波动</b></td></tr>
+</tbody></table>
+<p style="margin-top:8px;background:#fff7ed;padding:8px 12px;border-radius:6px;color:#7c2d12"><b>🔑 供应链管理最该记住的一条——车规认证周期：</b>车规 MLCC 从送样到量产装车通常需要<b>数年量级</b>；而一旦通过认证进入某车型的物料清单，<b>车企在该车型生命周期内极不愿更换供应商</b>。这造成了极强的<b>供应刚性</b>：缺货时无法快速切换替代料，因为替代料本身需要重新走认证。<b>这也解释了为什么车规品的缺货比消费品更难缓解。</b>【业界】</p>
+</div></div>
+
+<div class="card">
+<div class="ttl">单车用量：两套口径，差一个量级，都不算错</div>
+<div class="dsc">
+<p><b>这是引用时最容易出错的地方</b>——有的口径统计<b>整车</b>，有的只统计<b>动力系统</b>，两者不可混用。</p>
+<table class="node-table nopad"><thead><tr><th style="width:26%">车型</th><th style="width:24%">用量（颗）</th><th>口径与来源性质</th></tr></thead>
+<tbody>
+<tr><td class="hl">燃油车（仅动力系统）</td><td>约 450–600</td><td>原厂数据（经中文转述），<b>仅动力系统</b>，且为常规型号</td></tr>
+<tr><td class="hl">电动车（仅动力系统）</td><td>约 2,700–3,100</td><td>同上口径，且<b>以高端产品为主</b></td></tr>
+<tr><td class="hl">混合动力（整车）</td><td>约 12,000</td><td>行业协会口径，<b>整车</b></td></tr>
+<tr><td class="hl">纯电动车（整车）</td><td>约 18,000</td><td>行业协会口径，<b>约为燃油车的数倍</b></td></tr>
+<tr><td class="hl">高阶智驾纯电（整车）</td><td>约 10,000–18,000，部分高端车型更高</td><td>多来源汇总，区间较宽</td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>两个与智能电动车直接相关的结构性变化：</b></p>
+<table class="node-table nopad"><thead><tr><th style="width:26%">变化</th><th>对被动器件的要求</th></tr></thead>
+<tbody>
+<tr><td class="hl">800V 高压平台</td><td>需要<b>更高耐压等级</b>的 MLCC 与薄膜电容；高压下的绝缘余量、局部放电与串联降额设计成为关键</td></tr>
+<tr><td class="hl">智驾域控大算力 SoC</td><td>大电流瞬变要求<b>高容量、小尺寸、低 ESL</b> 的去耦电容密集布置在芯片周围——这与 <a href="#sec-pmic" style="color:#ea580c">第五篇 5.4</a> 讲的「把电源搬到负载旁边」是同一个工程逻辑</td></tr>
+</tbody></table>
+<p style="color:#64748b;font-size:12px;margin-top:6px">⚠️ 上述颗数为机构与转述口径，不同来源差异较大；引用时务必带上「整车/动力系统」这一限定。</p>
+</div></div>
+
+
+<h2 id="sec-rl">🔧 7.3 电阻与电感：两个被忽略但同样有门槛的品类</h2>
+
+<div class="anim-card">
+<div class="at">📐 分流电阻的四端 Kelvin 连接：为什么两端测量必然错</div>
+<div class="am">当被测电阻只有毫欧级时，引线与焊点电阻已经与它同量级——这在 BMS 与电驱电流检测里是致命的</div>
+<svg viewBox="0 0 740 210">
+<text x="370" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d">同一个 mΩ 级分流电阻，接法不同，测出的值差很多</text>
+
+<!-- 2-wire -->
+<text x="170" y="40" text-anchor="middle" font-size="10" font-weight="800" fill="#991b1b">两端接法（错）</text>
+<line x1="50" y1="80" x2="120" y2="80" stroke="#dc2626" stroke-width="6"/>
+<rect x="120" y="68" width="100" height="24" rx="3" fill="#fde68a" stroke="#b45309" stroke-width="1.5"/>
+<text x="170" y="84" text-anchor="middle" font-size="9" font-weight="700" fill="#78350f">R_shunt</text>
+<line x1="220" y1="80" x2="290" y2="80" stroke="#dc2626" stroke-width="6"/>
+<text x="85" y="70" text-anchor="middle" font-size="7.5" fill="#991b1b">引线电阻</text>
+<text x="255" y="70" text-anchor="middle" font-size="7.5" fill="#991b1b">引线电阻</text>
+<!-- sense taps on outside -->
+<line x1="70" y1="80" x2="70" y2="118" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="270" y1="80" x2="270" y2="118" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="70" y1="118" x2="270" y2="118" stroke="#2563eb" stroke-width="1.5"/>
+<text x="170" y="132" text-anchor="middle" font-size="8.5" fill="#1e3a8a">采样点在引线之外</text>
+<text x="170" y="152" text-anchor="middle" font-size="9" font-weight="700" fill="#b91c1c">✗ 测到的是 R_shunt + 两段引线电阻</text>
+<text x="170" y="167" text-anchor="middle" font-size="8.5" fill="#7f1d1d">毫欧级被测值下，误差可达数十个百分点</text>
+
+<line x1="370" y1="30" x2="370" y2="190" stroke="#e2e8f0" stroke-width="2"/>
+
+<!-- 4-wire -->
+<text x="560" y="40" text-anchor="middle" font-size="10" font-weight="800" fill="#065f46">四端 Kelvin 接法（对）</text>
+<line x1="440" y1="80" x2="500" y2="80" stroke="#dc2626" stroke-width="6"/>
+<rect x="500" y="68" width="120" height="24" rx="3" fill="#fde68a" stroke="#b45309" stroke-width="1.5"/>
+<text x="560" y="84" text-anchor="middle" font-size="9" font-weight="700" fill="#78350f">R_shunt</text>
+<line x1="620" y1="80" x2="680" y2="80" stroke="#dc2626" stroke-width="6"/>
+<text x="470" y="68" text-anchor="middle" font-size="7.5" fill="#991b1b">大电流路径</text>
+<text x="650" y="68" text-anchor="middle" font-size="7.5" fill="#991b1b">force</text>
+<!-- sense taps INSIDE the resistor body -->
+<line x1="516" y1="92" x2="516" y2="124" stroke="#059669" stroke-width="1.8"/>
+<line x1="604" y1="92" x2="604" y2="124" stroke="#059669" stroke-width="1.8"/>
+<line x1="516" y1="124" x2="604" y2="124" stroke="#059669" stroke-width="1.8"/>
+<circle cx="516" cy="92" r="3" fill="#059669"/>
+<circle cx="604" cy="92" r="3" fill="#059669"/>
+<text x="560" y="140" text-anchor="middle" font-size="8.5" font-weight="700" fill="#065f46">采样点直接落在电阻体上（sense）</text>
+<text x="560" y="158" text-anchor="middle" font-size="9" font-weight="700" fill="#047857">✓ 采样回路几乎不流电流 → 引线压降不进入测量</text>
+<text x="560" y="173" text-anchor="middle" font-size="8.5" fill="#065f46">force 与 sense 分离，这是精密电流检测的前提</text>
+
+<rect x="50" y="186" width="640" height="20" rx="4" fill="#ecfdf5" stroke="#059669"/>
+<text x="62" y="200" font-size="9" fill="#065f46"><tspan font-weight="700">工程含义：</tspan>BMS 电流检测、电驱相电流采样都依赖 mΩ 级分流电阻，选型要同时看<tspan font-weight="700">阻值精度、温度系数 TCR、长期漂移与功率降额</tspan>——单看阻值是不够的。【业界】</text>
+</svg>
+</div>
+
+<div class="card">
+<div class="ttl">电阻：四种工艺，四个精度档位</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:16%">类型</th><th style="width:20%">精度与温度系数</th><th>本质差异与适用场景</th></tr></thead>
+<tbody>
+<tr><td class="hl">厚膜</td><td>精度较低、TCR 较大</td><td>丝印烧结制成，成本极低，是片式电阻的绝对主流（消费电子通用）</td></tr>
+<tr><td class="hl">薄膜</td><td>精度高、TCR 小</td><td>溅射薄膜精密刻蚀，噪声与长期漂移优于厚膜，用于精密测量与信号链</td></tr>
+<tr><td class="hl">金属箔</td><td><b>精度与稳定性最高</b></td><td>用金属箔应力补偿抵消温度膨胀效应，长期漂移极低。<b>长期由少数厂商主导</b>——壁垒在材料与工艺 know-how，不在设备</td></tr>
+<tr><td class="hl">绕线</td><td>精度高、但有电感</td><td>功率与精密低频场合；高频下寄生电感是问题</td></tr>
+</tbody></table>
+</div></div>
+
+<div class="anim-card">
+<div class="at">🧲 电感的选型陷阱：直流叠加会让电感量「凭空消失」</div>
+<div class="am">数据手册标的电感量是小信号值；一旦直流电流上来，磁芯饱和，L 就跌了</div>
+<svg viewBox="0 0 740 220">
+<text x="370" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#4c1d95">左：磁畴随电流逐步对齐 → 右：电感量随电流下降（L–I 曲线）</text>
+
+<!-- magnetic domains -->
+<text x="130" y="38" text-anchor="middle" font-size="9.5" font-weight="700" fill="#334155">磁芯内部磁畴</text>
+<rect x="46" y="46" width="168" height="54" rx="4" fill="#ede9fe" stroke="#7c3aed"/>
+<g stroke="#5b21b6" stroke-width="2">
+  <line x1="62" y1="60" x2="62" y2="76"><animate attributeName="x2" values="62;74" dur="3s" repeatCount="indefinite"/><animate attributeName="y2" values="76;68" dur="3s" repeatCount="indefinite"/></line>
+  <line x1="92" y1="76" x2="92" y2="60"><animate attributeName="x2" values="92;104" dur="3s" repeatCount="indefinite"/><animate attributeName="y2" values="60;68" dur="3s" repeatCount="indefinite"/></line>
+  <line x1="122" y1="60" x2="122" y2="76"><animate attributeName="x2" values="122;134" dur="3s" repeatCount="indefinite"/><animate attributeName="y2" values="76;68" dur="3s" repeatCount="indefinite"/></line>
+  <line x1="152" y1="76" x2="152" y2="60"><animate attributeName="x2" values="152;164" dur="3s" repeatCount="indefinite"/><animate attributeName="y2" values="60;68" dur="3s" repeatCount="indefinite"/></line>
+  <line x1="182" y1="60" x2="182" y2="76"><animate attributeName="x2" values="182;194" dur="3s" repeatCount="indefinite"/><animate attributeName="y2" values="76;68" dur="3s" repeatCount="indefinite"/></line>
+</g>
+<text x="130" y="116" text-anchor="middle" font-size="8.5" fill="#5b21b6">电流小：磁畴方向杂乱 → 可磁化余量大</text>
+<text x="130" y="130" text-anchor="middle" font-size="8.5" font-weight="700" fill="#7c3aed">电流大：全部对齐 → 接近 Bsat，无余量</text>
+
+<!-- L-I curve -->
+<line x1="290" y1="160" x2="690" y2="160" stroke="#94a3b8" stroke-width="1.5"/>
+<line x1="290" y1="40" x2="290" y2="160" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="490" y="178" text-anchor="middle" font-size="9" fill="#64748b">直流电流 I →</text>
+<text x="272" y="100" text-anchor="middle" font-size="9" fill="#64748b" transform="rotate(-90 272 100)">电感量 L</text>
+
+<!-- ferrite: sharp drop -->
+<path d="M296,56 L440,58 L470,66 L490,96 L510,134 L540,152 L680,157" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+<text x="560" y="120" font-size="9" font-weight="700" fill="#991b1b">铁氧体：陡降</text>
+<text x="560" y="133" font-size="8" fill="#7f1d1d">饱和点后急剧跌落</text>
+
+<!-- metal composite: soft -->
+<path d="M296,74 L420,80 L500,92 L580,108 L680,126" fill="none" stroke="#059669" stroke-width="2.5"/>
+<text x="352" y="112" font-size="9" font-weight="700" fill="#065f46">金属磁粉芯：软饱和</text>
+<text x="352" y="125" font-size="8" fill="#047857">下降平缓、可预测</text>
+
+<line x1="490" y1="44" x2="490" y2="160" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="494" y="52" font-size="8" font-weight="700" fill="#b45309">饱和拐点</text>
+
+<rect x="46" y="186" width="644" height="28" rx="5" fill="#f5f3ff" stroke="#7c3aed"/>
+<text x="58" y="204" font-size="9" fill="#4c1d95"><tspan font-weight="700">这就是车载 DC-DC 与 OBC 普遍转向金属磁粉芯的原因：</tspan>它的饱和磁通密度更高、且饱和特性「软」——过载时电感量平缓下降而非突然崩塌，<tspan font-weight="700">系统行为可预测、更安全</tspan>。代价是磁芯损耗通常高于铁氧体。图为机理示意，非具体牌号数据。【业界】</text>
+</svg>
+</div>
+
+<div class="card">
+<div class="ttl">其他电容家族：寿命机理决定了它们各自的归属</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:17%">类型</th><th style="width:24%">特点</th><th>寿命与失效机理</th></tr></thead>
+<tbody>
+<tr><td class="hl">铝电解</td><td>容量大、单位成本低、ESR 较高</td><td><b>电解液随时间蒸发干涸</b> → 容量下降、ESR 上升。遵循约「温度每降 10 °C 寿命翻倍」的经验规则（阿伦尼乌斯近似）</td></tr>
+<tr><td class="hl">固态/导电聚合物</td><td>ESR 低、高频性能好</td><td>用固态导电聚合物替代液态电解液，寿命受温度影响小得多</td></tr>
+<tr><td class="hl">钽电容</td><td>体积效率高、稳定</td><td><b>失效模式需重视</b>——特定条件下可能剧烈失效（燃烧风险），因此常需降额与限流设计</td></tr>
+<tr><td class="hl">薄膜电容<br><span style="font-weight:400;font-size:11px">PP/PET</span></td><td>耐高压、损耗低、<b>具自愈性</b></td><td>局部击穿时金属镀层蒸发形成隔离，<b>自动恢复绝缘</b>——这是它在高压场合的关键优势</td></tr>
+<tr><td class="hl">超级电容</td><td>容量极大、功率密度高</td><td>介于电容与电池之间，用于短时大功率缓冲</td></tr>
+</tbody></table>
+<p style="margin-top:8px;background:#f0f9ff;padding:8px 12px;border-radius:6px;color:#075985"><b>🔑 为什么车载直流母线多用薄膜电容而非铝电解：</b>母线要承受高压与大纹波电流，而薄膜电容<b>耐压高、损耗低、寿命不依赖电解液、且具备自愈性</b>；铝电解的电解液干涸机理在车用长寿命与高温要求下风险较高。<b>这是一个由「寿命机理」而非「容量密度」决定的选型。</b>【业界】</p>
+</div></div>
+
+
+<h2 id="sec-passive-pattern">🌐 7.4 产业格局：一段材料史与五次转折</h2>
+
+<div class="card-row-3 dense">
+
+<div class="card"><span class="tag tu">美</span><span class="tag te">欧</span><span class="yr">1900s—1940s</span>
+<div class="ttl">起源：云母电容与碳膜电阻</div>
+<div class="by">早期无线电与电话工业</div>
+<div class="dsc"><p>最早的电容用<b>云母</b>作介质——天然矿物，性能稳定但依赖天然矿产。电阻则以碳膜为主。<b>格局：</b>器件依附于整机厂，尚未形成独立的元器件产业。</p></div></div>
+
+<div class="card"><span class="tag tj">日</span><span class="tag tu">美</span><span class="yr">1940s—1950s</span>
+<div class="ttl">关键材料转折：钛酸钡的发现</div>
+<div class="by">二战期间的云母替代研究</div>
+<div class="dsc"><p>战时<b>云母供应短缺</b>，多国同时开展替代介质研究，<b>BaTiO₃ 钛酸钡</b>铁电陶瓷由此进入视野——它的介电常数比云母高出几个数量级。<b>这是整个陶瓷电容产业的材料起点，也是一次「被供应危机逼出来的技术突破」。</b></p></div></div>
+
+<div class="card"><span class="tag tj">日</span><span class="yr">1960s—1990s</span>
+<div class="ttl">叠层化与小型化：MLCC 成型 + SMT 革命</div>
+<div class="by">日本厂商切入并逐步主导</div>
+<div class="dsc"><p>叠层技术把电容做成「多层并联」，容量密度大幅提升。<b>SMT 表面贴装革命</b>随后引爆小型化竞赛，尺寸从 1206 一路缩到 0603、0402、0201 乃至更小。<b>格局：</b>日本厂商凭材料与精密工艺积累确立领先。</p></div></div>
+
+<div class="card"><span class="tag tj">日</span><span class="yr">1990s—2000s</span>
+<div class="ttl">成本重构：贱金属内电极 BME 产业化</div>
+<div class="by">内电极从 Pd/Ag 贵金属改为 Ni 镍</div>
+<div class="dsc"><p>贵金属内电极让 MLCC 成本长期受钯、银价格绑架。<b>BME 的产业化彻底改写成本结构</b>，代价是必须驾驭「Ni 不能氧化 / BaTiO₃ 不能缺氧」这对矛盾（见 7.1）。<b>格局：</b>掌握 BME 配方与烧结窗口的厂商拉开身位。</p></div></div>
+
+<div class="card"><span class="tag tj">日</span><span class="tag tc">中</span><span class="yr">2016—2026</span>
+<div class="ttl">缺货周期 → 高端转向车规 → AI 与电动车再拉动</div>
+<div class="by">2016-18 超级缺货 | 2018-20 日厂转向车规 | 2020-22 疫情与汽车缺料 | 2023-24 去库存 | 2025-26 回升</div>
+<div class="dsc"><p>2016–2018 的超级缺货周期让 MLCC 第一次成为全行业焦点，价格出现数倍级波动（<b>具体倍数各源差异大</b>）。此后日厂把高端产能<b>转向车规与高容、主动退出部分通用品</b>，供给结构从此改变。2023–24 消费电子去库存下行，2025–26 由 AI 服务器与电动车重新拉动。</p><p><b>格局：</b>日本厂商守住小尺寸高容与车规高可靠的高地，中国台湾与大陆厂商在通用品形成规模。</p></div></div>
+
+</div>
+
+<div class="card">
+<div class="ttl">2026 格局与中国的位置</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:14%">品类</th><th style="width:36%">主要厂商</th><th>中国位置与卡点</th></tr></thead>
+<tbody>
+<tr><td class="hl">MLCC</td><td>村田（长期居首）、三星电机、太阳诱电、TDK、国巨、华新科；大陆：风华高科、三环、宇阳、微容</td><td>通用消费品已有规模，<b>车规与小尺寸高容差距明显</b>。卡点在粉体、设备、可靠性数据积累与车规认证周期</td></tr>
+<tr><td class="hl">片式电阻</td><td>国巨在片阻规模上地位突出；Vishay、罗姆、松下在高精度与分流电阻领域领先</td><td>通用品国产化程度较高，<b>高精度与金属箔类仍受制</b></td></tr>
+<tr><td class="hl">电感</td><td>村田、TDK、太阳诱电、奇力新；大陆：顺络、麦捷</td><td>一体成型电感受电源与车载拉动增长较快，是相对容易切入的方向</td></tr>
+<tr><td class="hl">其他电容</td><td>铝电解（日系为主，大陆有艾华、江海）、钽电容（Kyocera-AVX、Vishay）、薄膜电容（松下、法拉电子）</td><td><b>薄膜电容在车载母线场景是国产相对有优势的品类</b></td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>并购整合脉络：</b>国巨收购 KEMET（2020）与 Pulse、京瓷收购 AVX、Vishay 长期通过并购整合产品线——<b>与模拟芯片行业一样，被动器件的价值也在于料号广度与客户关系，因此并购是最有效的扩张方式</b>。</p>
+<p style="color:#64748b;font-size:12px">⚠️ 本表各厂商精确份额缺统一年份与口径（产值份额与出货颗数份额差异显著，部分品类来源互相矛盾），故只给相对地位而不列具体百分比。</p>
+</div></div>
+
+<div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
+<div class="ttl">🧩 本篇要点回收：一个没有摩尔定律的世界</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:26%">结论</th><th>与全站其他篇的关系</th></tr></thead>
+<tbody>
+<tr><td class="hl">进步来自材料与叠层，不来自缩微</td><td><b>这是全站最彻底的对照</b>：第二篇 <a href="#sec-why-not-node" style="color:#166534">2.9</a> 说存储不追先进制程、第五篇说模拟的先进不是栅长，而被动器件<b>连「制程节点」这个概念都不适用</b></td></tr>
+<tr><td class="hl">物理下限是晶粒，不是光刻</td><td>介质薄到只剩 5–7 个晶粒即触顶——<b>瓶颈在粉体，而粉体能力买不来</b></td></tr>
+<tr><td class="hl">高介电常数必然伴随非线性</td><td>DC Bias、老化、啸叫全部源于铁电性这笔交易，与第一篇讲的「性能总要付代价」同一逻辑</td></tr>
+<tr><td class="hl">低价值高杀伤</td><td>单价最低的元件却能让整线停产——<b>供应链风险与货值无关，与可替代性有关</b></td></tr>
+<tr><td class="hl">车规认证造成供应刚性</td><td>认证周期数年、认证后不愿更换 → 缺货时无法快速切换，<b>这是车规缺货比消费品更难缓解的根本原因</b></td></tr>
+<tr><td class="hl">去耦电容与电源就近供电</td><td>与第五篇 <a href="#sec-pmic" style="color:#166534">5.4</a> 的 DDR5 on-DIMM PMIC 是同一工程思路：<b>把能量储备搬到负载旁边</b></td></tr>
 </tbody></table>
 </div></div>
 
