@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v6.0.1 | 2026-09-21 | 修复4个SVG的XML合法性历史遗留问题: 第二篇HBM增速图与第三篇IGBT结构图内的4处<br>标签(SVG不支持)改为tspan多行并顺带修正一处color→fill笔误; 第三篇SiC对比图与第四篇TriCore图内2处未转义的<号(频率<100kHz / 实时中断<1us)改为&lt; | 全站74个SVG现已全部通过严格XML校验 -->
+<!-- version: v7.0 | 2026-09-21 | 结构化改造: 侧边三级目录+全文搜索(Ctrl K)+长节折叠+阅读进度; 新增光电链路总纲(sec-opto-map)与光电探测层PD/APD/SPAD/SiPM(sec-opto-detect)+4条链路导航条; 新增术语四层释义表(0条); 正文原有内容未作改动 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -161,6 +161,195 @@ table.node-table.nopad .hl{font-size:12px}
 .anim-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
 @media(max-width:900px){.anim-row{grid-template-columns:1fr}.anim-card svg{max-height:200px}}
 @media(prefers-reduced-motion:reduce){.anim-card svg *{animation:none!important}}
+
+/* ===== KB NAV LAYER injected ===== */
+/* ================= KB NAV LAYER v7.0 =================
+   侧边目录 / 全文搜索 / 章节折叠 / 阅读进度
+   本层不改动任何正文内容，纯附加。
+   ==================================================== */
+:root{--kbw:296px}
+
+/* ---------- 顶部阅读进度 ---------- */
+#kb-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:9999;
+  background:linear-gradient(90deg,#2563eb,#7c3aed,#059669);transition:width .08s linear}
+
+/* ---------- 侧边目录 ---------- */
+#kb-side{position:fixed;top:0;left:0;bottom:0;width:var(--kbw);z-index:900;
+  background:#fff;border-right:1px solid #e2e8f0;display:flex;flex-direction:column;
+  box-shadow:0 0 24px rgba(15,23,42,.05);transition:transform .22s ease}
+#kb-side .kb-hd{flex:none;padding:13px 14px 10px;border-bottom:1px solid #eef2f7;background:#fbfcfe}
+#kb-side .kb-ttl{font-size:13px;font-weight:800;color:#0f172a;letter-spacing:.2px;display:flex;align-items:center;gap:6px}
+#kb-side .kb-ttl span.dot{width:7px;height:7px;border-radius:50%;background:#2563eb;flex:none}
+#kb-side .kb-sub{font-size:10.5px;color:#94a3b8;margin-top:3px;line-height:1.5}
+
+#kb-searchbtn{margin-top:9px;width:100%;display:flex;align-items:center;gap:7px;
+  padding:7px 10px;border:1px solid #e2e8f0;background:#fff;border-radius:8px;cursor:pointer;
+  font-size:12px;color:#94a3b8;font-family:inherit;transition:.15s;text-align:left}
+#kb-searchbtn:hover{border-color:#bfdbfe;background:#f8fbff;color:#2563eb}
+#kb-searchbtn .kbd{margin-left:auto;font-size:9.5px;color:#cbd5e1;border:1px solid #e2e8f0;
+  border-radius:4px;padding:1px 5px;font-weight:700;background:#f8fafc;flex:none}
+
+#kb-side .kb-acts{display:flex;gap:6px;margin-top:8px}
+#kb-side .kb-acts button{flex:1;font-family:inherit;font-size:10.5px;font-weight:700;color:#64748b;
+  background:#f1f5f9;border:none;border-radius:6px;padding:5px 4px;cursor:pointer;transition:.15s}
+#kb-side .kb-acts button:hover{background:#e2e8f0;color:#1e3a5f}
+
+#kb-tree{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:8px 6px 40px}
+#kb-tree::-webkit-scrollbar{width:6px}
+#kb-tree::-webkit-scrollbar-thumb{background:#dbe2ea;border-radius:3px}
+#kb-tree::-webkit-scrollbar-thumb:hover{background:#c3ccd7}
+
+#kb-tree .kb-g{margin-bottom:3px}
+#kb-tree .kb-gh{display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none;
+  padding:6px 8px;border-radius:7px;font-size:11.5px;font-weight:800;color:#334155;transition:.14s}
+#kb-tree .kb-gh:hover{background:#f6f8fb}
+#kb-tree .kb-gh .bar{width:3px;height:13px;border-radius:2px;flex:none;background:#cbd5e1}
+#kb-tree .kb-gh .cnt{margin-left:auto;font-size:9.5px;font-weight:700;color:#cbd5e1}
+#kb-tree .kb-gh .arw{font-size:8px;color:#94a3b8;transition:transform .16s;flex:none}
+#kb-tree .kb-g.cl .kb-gh .arw{transform:rotate(-90deg)}
+#kb-tree .kb-g.cl .kb-gb{display:none}
+#kb-tree .kb-gb{padding:1px 0 5px 6px}
+
+#kb-tree a{display:block;text-decoration:none;color:#64748b;font-size:11.5px;line-height:1.45;
+  padding:4.5px 8px 4.5px 12px;border-left:2px solid transparent;border-radius:0 6px 6px 0;transition:.13s}
+#kb-tree a:hover{background:#f6f8fb;color:#1e3a5f}
+#kb-tree a.l3{font-size:10.5px;padding-left:24px;color:#94a3b8}
+#kb-tree a.on{background:#eff6ff;color:#1d4ed8;font-weight:700;border-left-color:#2563eb}
+#kb-tree a.l3.on{color:#2563eb}
+
+/* 侧栏开合按钮 */
+#kb-toggle{position:fixed;z-index:901;left:calc(var(--kbw) - 13px);top:50%;transform:translateY(-50%);
+  width:26px;height:46px;border-radius:0 9px 9px 0;border:1px solid #e2e8f0;border-left:none;
+  background:#fff;cursor:pointer;color:#94a3b8;font-size:11px;display:flex;align-items:center;
+  justify-content:center;box-shadow:2px 0 8px rgba(15,23,42,.06);transition:.2s;font-family:inherit}
+#kb-toggle:hover{color:#2563eb;background:#f8fbff}
+
+body.kb-on{padding-left:var(--kbw)}
+body.kb-off #kb-side{transform:translateX(calc(-1 * var(--kbw)))}
+body.kb-off #kb-toggle{left:0;border-radius:0 9px 9px 0}
+body.kb-off{padding-left:0}
+
+/* ---------- 回到顶部 ---------- */
+#kb-top{position:fixed;right:18px;bottom:18px;z-index:880;width:38px;height:38px;border-radius:50%;
+  border:1px solid #e2e8f0;background:#fff;color:#64748b;cursor:pointer;font-size:14px;
+  box-shadow:0 3px 12px rgba(15,23,42,.1);display:none;align-items:center;justify-content:center;font-family:inherit}
+#kb-top.show{display:flex}
+#kb-top:hover{color:#2563eb;border-color:#bfdbfe}
+
+/* ---------- 章节折叠 ---------- */
+.kb-tgwrap{margin:6px 0 20px}
+button.kb-tg{font-family:inherit;display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+  background:#f1f5f9;border:1px solid #e6ebf1;border-radius:8px;padding:7px 14px;
+  font-size:12px;font-weight:700;color:#475569;transition:.15s}
+button.kb-tg:hover{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
+button.kb-tg .n{font-weight:600;color:#94a3b8;font-size:10.5px}
+button.kb-tg .ic{font-size:9px;transition:transform .16s}
+button.kb-tg.open .ic{transform:rotate(180deg)}
+.kb-lead-tip{font-size:11px;color:#b6c0cc;margin:2px 0 6px;font-weight:600}
+
+/* ---------- 搜索面板 ---------- */
+#kb-search{position:fixed;inset:0;z-index:1000;display:none;background:rgba(15,23,42,.42);
+  backdrop-filter:blur(2px);padding:9vh 16px 16px;justify-content:center;align-items:flex-start}
+#kb-search.show{display:flex}
+#kb-search .box{width:100%;max-width:760px;background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 24px 64px rgba(15,23,42,.3);display:flex;flex-direction:column;max-height:78vh}
+#kb-search .sh{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid #eef2f7;flex:none}
+#kb-search .sh .ic{font-size:15px;color:#94a3b8;flex:none}
+#kb-q{flex:1;border:none;outline:none;font-size:16px;font-family:inherit;color:#0f172a;background:transparent}
+#kb-q::placeholder{color:#cbd5e1}
+#kb-search .sh .esc{font-size:9.5px;color:#cbd5e1;border:1px solid #e2e8f0;border-radius:4px;
+  padding:2px 6px;font-weight:700;background:#f8fafc;flex:none;cursor:pointer}
+#kb-stat{padding:7px 18px;font-size:11px;color:#94a3b8;background:#fbfcfe;border-bottom:1px solid #f1f5f9;flex:none}
+#kb-res{overflow-y:auto;padding:6px}
+#kb-res::-webkit-scrollbar{width:7px}
+#kb-res::-webkit-scrollbar-thumb{background:#dbe2ea;border-radius:4px}
+#kb-res .r{padding:9px 12px;border-radius:9px;cursor:pointer;transition:.1s;border:1px solid transparent}
+#kb-res .r:hover,#kb-res .r.sel{background:#f4f8ff;border-color:#dbeafe}
+#kb-res .r .bc{font-size:10px;font-weight:700;color:#7c3aed;margin-bottom:2px;display:flex;align-items:center;gap:5px}
+#kb-res .r .bc .bk{background:#f3f0ff;border-radius:3px;padding:1px 5px}
+#kb-res .r .tt{font-size:13px;font-weight:700;color:#0f172a;line-height:1.4}
+#kb-res .r .sn{font-size:11.5px;color:#64748b;line-height:1.6;margin-top:3px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#kb-res mark{background:#fef08a;color:#78350f;border-radius:2px;padding:0 1px;font-weight:700}
+#kb-res .empty{padding:34px 18px;text-align:center;color:#94a3b8;font-size:12.5px;line-height:1.9}
+#kb-res .empty b{color:#64748b}
+
+/* 命中闪烁 */
+@keyframes kbFlash{0%,100%{background:transparent}18%,62%{background:#fef9c3}}
+.kb-flash{animation:kbFlash 1.5s ease}
+
+/* ---------- 光电链路导航条（第五/六篇用） ---------- */
+.opto-nav{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:8px 0 14px;padding:8px 13px;
+  background:linear-gradient(90deg,#f5f3ff,#f0f9ff);border:1px solid #e9e3ff;border-radius:9px;
+  font-size:11.5px;color:#64748b;line-height:1.7}
+.opto-nav b{color:#6d28d9;font-weight:800}
+.opto-nav .cur{background:#7c3aed;color:#fff;border-radius:5px;padding:2px 9px;font-weight:800}
+.opto-nav .stp{background:#fff;border:1px solid #e2e8f0;border-radius:5px;padding:2px 8px;font-weight:600}
+.opto-nav a{color:#2563eb;text-decoration:none;font-weight:700}
+.opto-nav a:hover{text-decoration:underline}
+.opto-nav .ar{color:#c4b5fd;font-weight:800}
+
+/* ---------- 术语四层释义卡 ---------- */
+.term{border:1px solid #e6ebf1;border-radius:10px;background:#fff;padding:13px 16px;margin-bottom:10px}
+.term-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:7px;margin-bottom:7px;
+  padding-bottom:6px;border-bottom:1px dashed #eef2f7}
+.term-h b{font-size:15px;color:#0f172a;font-weight:800}
+.term-en{font-size:11.5px;color:#94a3b8;font-weight:600}
+.term-cat{margin-left:auto;font-size:9.5px;font-weight:700;color:#7c3aed;background:#f5f3ff;
+  border-radius:4px;padding:2px 7px;flex:none}
+.term>div[class^="term-l"]{font-size:12.5px;line-height:1.85;color:#475569;margin:5px 0;
+  padding-left:11px;border-left:2px solid #eef2f7}
+.term-l1{border-left-color:#93c5fd!important}
+.term-l2{border-left-color:#c4b5fd!important}
+.term-l3{border-left-color:#fcd34d!important}
+.term-l4{border-left-color:#6ee7b7!important;background:#f7fefb;border-radius:0 6px 6px 0;padding:6px 11px!important}
+.term>div[class^="term-l"] b{color:#1e3a5f;font-weight:800;margin-right:4px}
+.term-l4 b{color:#047857!important}
+.term-ref{font-size:11px;color:#94a3b8;margin-top:7px;padding-left:11px}
+.term-ref a{color:#2563eb;text-decoration:none;font-weight:700}
+.term-ref a:hover{text-decoration:underline}
+.term-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:980px){.term-grid{grid-template-columns:1fr}}
+
+
+/* ---------- 修复：原静态目录五列网格在窄屏硬挤/被裁切 ---------- */
+@media(max-width:1180px){
+  [style*="grid-template-columns:1fr 1fr 1fr 1fr 1fr"]{grid-template-columns:1fr 1fr 1fr!important}
+}
+@media(max-width:820px){
+  [style*="grid-template-columns:1fr 1fr 1fr 1fr 1fr"]{grid-template-columns:1fr 1fr!important}
+}
+@media(max-width:560px){
+  [style*="grid-template-columns:1fr 1fr 1fr 1fr 1fr"]{grid-template-columns:1fr!important;gap:18px!important}
+}
+/* 窄屏防横向溢出（表格/图例/标题被裁） */
+@media(max-width:768px){
+  html,body{overflow-x:hidden}
+  .legend{overflow-x:auto;flex-wrap:nowrap;white-space:nowrap;-webkit-overflow-scrolling:touch}
+  .legend::-webkit-scrollbar{height:0}
+  .content table.node-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .header h1,.header p{word-break:break-word}
+}
+
+/* ---------- 响应式 ---------- */
+@media(max-width:1279px){
+  body.kb-on{padding-left:0}
+  #kb-side{transform:translateX(calc(-1 * var(--kbw)));box-shadow:none}
+  body.kb-open #kb-side{transform:translateX(0);box-shadow:0 0 40px rgba(15,23,42,.22)}
+  #kb-toggle{left:0;border-radius:0 9px 9px 0}
+  body.kb-open #kb-toggle{left:calc(var(--kbw) - 13px)}
+}
+@media(max-width:520px){
+  :root{--kbw:84vw}
+  #kb-search{padding:5vh 10px 10px}
+  #kb-search .box{max-height:86vh}
+}
+@media print{
+  #kb-side,#kb-toggle,#kb-progress,#kb-top,#kb-search,.kb-tgwrap{display:none!important}
+  body.kb-on{padding-left:0}
+  .kb-body{display:block!important}
+}
+
 </style>
 </head>
 <body>
@@ -5245,6 +5434,91 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <div class="content">
 
+<!-- ===== 光电链路总纲（v7.0 新增） ===== -->
+<div class="content">
+
+<div class="card" id="sec-opto-map" style="background:#f5f3ff;border-left:4px solid #7c3aed">
+<div class="ttl">🧭 光电链路总纲：同一个 PN 结，被用在三件完全不同的事上</div>
+<div class="dsc">
+<p>光电世界看似庞杂——图像传感器、单光子探测、激光雷达、硅光互连、CPO……但它们的物理起点<b>只有一个</b>：<a href="#sec-phys-pn" style="color:#6d28d9"><b>第零篇 0.2 的 PN 结</b></a>。真正把它们区分开的，不是器件长什么样，而是<b>「让 PN 结干什么活」</b>。</p>
+<p style="background:#ede9fe;padding:8px 12px;border-radius:6px;color:#4c1d95"><b>🔑 一句话主线：</b>同一个反偏 PN 结，<b>一个把它当「光探测器」（漏电流即信号）、一个把它当「成像阵列」（空间上排成千万个探测器）、一个根本不用它探光、而是拿光当「通信载体」去绕开铜线</b>。三者根同而用不同，衡量指标与工程难点因此完全分道扬镳。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl">四层递进：从「有没有光」到「用光搬数据」</div>
+<div class="dsc">
+
+<p style="margin:2px 0 6px"><b>第一层 · 光 → 电（探测）</b></p>
+<div class="kv">
+<span><b>物理效应：</b>PN 结反偏 → 光子激发电子-空穴对 → 光生载流子被电场扫出，形成光电流</span>
+<span><b>器件谱系：</b>光电二极管 PD（无增益）→ 雪崩光电二极管 APD（低于击穿、线性增益）→ 单光子雪崩二极管 SPAD（高于击穿、盖革模式）→ 硅光电倍增器 SiPM（一堆 SPAD 并联）</span>
+<span><b>诉求：</b>"有没有光、有多少光子、光什么时候到"</span>
+<span><b>衡量指标：</b>响应度、增益、光子探测效率 PDE、暗计数率 DCR、时间抖动（timing jitter）</span>
+<span class="warn"><b>与下一层的分界线：</b>探测层只关心"光强/光子数/到达时间"这个<b>标量或时间戳</b>，不关心光从空间哪个方向来。一旦要求"空间分布"，就进入成像层。</span>
+</div>
+
+<p style="margin:12px 0 6px"><b>第二层 · 光 → 电 → 数字（成像）</b></p>
+<div class="kv">
+<span><b>物理效应：</b>仍是 PD 的光电转换，但排成二维阵列，每个像素后面挂一整条<b>模拟读出链</b>（像素放大 → CDS → 列并行 ADC）</span>
+<span><b>器件：</b>CMOS 图像传感器 CIS（见 <a href="#sec-cis">5.6</a>）</span>
+<span><b>诉求：</b>"光在空间上怎么分布 + 保真度"——所以本质是<b>模拟设计问题</b>，胜负手在噪声底而非像素数</span>
+<span><b>衡量指标：</b>读出噪声、满井容量、动态范围、信噪比曲线、量子效率</span>
+<span class="warn"><b>与探测层的分界线：</b>探测层要"单光子灵敏 + 时间戳"，成像层要"千万像素 + 灰度保真"。前者牺牲空间换灵敏度与时间精度，后者牺牲单光子能力换空间与线性度。</span>
+</div>
+
+<p style="margin:12px 0 6px"><b>第三层 · 电 → 光 → 电（通信 / 互连）</b></p>
+<div class="kv">
+<span><b>物理效应：</b>不再"探测环境光"，而是自己<b>产生光、调制光、传输光、再接收光</b>——光只是数据的载体</span>
+<span><b>器件：</b>调制器 + 波导 + 锗探测器 + 外挂 III-V 光源 = 硅光子（见 <a href="#sec-siph-device">6.2</a>）</span>
+<span><b>诉求：</b>"带宽密度与能效"——目的是绕开铜互连的物理极限（见 <a href="#sec-siph-why">6.1</a>）</span>
+<span><b>衡量指标：</b>带宽密度（Tb/s/mm）、每比特能耗（pJ/bit）、调制带宽、插入损耗、误码率</span>
+<span class="good"><b>与探测层的根本区别：</b>探测层用 PN 结的<b>反偏漏电流当信号</b>；通信层里探测器只是链路末端一环，核心矛盾在<b>发光</b>——而硅是间接带隙，几乎不发光，所以必须外挂 III-V 激光器。</span>
+</div>
+
+<p style="margin:12px 0 6px"><b>第四层 · 系统集成</b></p>
+<div class="kv">
+<span><b>做法：</b>把光引擎从可插拔模块一路搬进封装，紧挨交换/计算芯片</span>
+<span><b>器件：</b>CPO 共封装光学（见 <a href="#sec-cpo">6.3</a>）</span>
+<span><b>诉求：</b>缩短高速电通道、榨干带宽密度——逻辑与 <a href="#sec-pkg-purpose">0.9 先进封装</a>、<a href="#sec-hbm-wall">0.10 HBM</a> 的"离电更近、离热更近"合流</span>
+<span class="warn"><b>分界线：</b>前三层是"器件级物理"，第四层是"封装与系统级工程"——决定光电技术能不能真正落到 AI 集群里。</span>
+</div>
+
+</div></div>
+
+<div class="card" style="background:#eff6ff;border-left:4px solid #2563eb">
+<div class="ttl">🌱 根同而用不同：三条路都从 PN 结长出来</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:16%">用途</th><th style="width:28%">怎么用这个 PN 结</th><th style="width:28%">硅够不够用</th><th>本质诉求</th></tr></thead>
+<tbody>
+<tr><td class="hl">探测（PD/SPAD/SiPM）</td><td>反偏，<b>把光生漏电流当信号</b>；SPAD 更进一步偏到击穿电压之上</td><td>可见光~近红外<b>够用</b>（硅能吸收）</td><td>有没有光 / 单光子 / 时间戳</td></tr>
+<tr><td class="hl">成像（CIS）</td><td>反偏 + <b>排成二维阵列</b> + 挂模拟读出链</td><td>可见光~近红外<b>够用</b></td><td>空间分布 + 保真度（模拟问题）</td></tr>
+<tr><td class="hl">通信（硅光）</td><td><b>不靠它探环境光</b>，探测器只收自家调制光；难点在发光端</td><td><b>不够</b>：通信波段硅透明（外延锗），且硅<b>不发光</b>（外挂 III-V）</td><td>带宽密度 + 能效（光当载体）</td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>🔑 一根线串起全部：</b>都是 <a href="#sec-phys-pn">PN 结</a> 的孩子，但"探测"用它的反偏光电流、"成像"给它加了阵列与读出链、"通信"里它退居末端而把主角让给发光——<b>而发光恰恰是硅唯一无法胜任的环节</b>。这条分界，就是第五篇（模拟：CIS）与第六篇（硅光）分列两篇的根本原因。</p>
+</div></div>
+
+<div class="card" style="background:#f8fafc;border-left:4px solid #64748b">
+<div class="ttl">🗺️ 推荐阅读路线（循序渐进）</div>
+<div class="dsc">
+<p style="font-size:14px;line-height:2.1">
+<a href="#sec-phys-pn"><b>① PN 结基础</b></a>（0.2 · 一切的物理地基）
+<span style="color:#94a3b8">　→　</span>
+<a href="#sec-opto-detect"><b>② 探测层 PD/APD/SPAD/SiPM</b></a>（本篇新增 · 光→电）
+<span style="color:#94a3b8">　→　</span>
+<a href="#sec-cis"><b>③ CIS 成像</b></a>（5.6 · 光→电→数字）
+<span style="color:#94a3b8">　→　</span>
+<a href="#sec-siph-why"><b>④ 为什么要用光</b></a>（6.1 · 铜的物理墙）
+<span style="color:#94a3b8">　→　</span>
+<a href="#sec-siph-device"><b>⑤ 硅光器件家族</b></a>（6.2 · 电→光→电）
+<span style="color:#94a3b8">　→　</span>
+<a href="#sec-cpo"><b>⑥ CPO 共封装</b></a>（6.3 · 系统集成）
+</p>
+<p style="margin-top:6px;color:#64748b;font-size:12px">读法建议：前两步建立"探测"的直觉（标量 / 时间戳），第三步理解"成像为何是模拟问题"，后三步切换到"光作为载体"的全新范式。三段之间的跳变点，正是理解光电世界的关键。</p>
+</div></div>
+
+</div>
+<!-- ===== /光电链路总纲 ===== -->
+
 <h2 id="sec-analog-why">🎯 5.1 灵魂问题：为什么模拟设计既难自动化、又不愿缩微</h2>
 
 <div class="card" style="background:#ecfeff;border-left:4px solid #0891b2">
@@ -5642,6 +5916,12 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 <h2 id="sec-cis">📷 5.6 CMOS 图像传感器：一条被低估的模拟读出链</h2>
+<div class="opto-nav">
+🔗 光电链路位置：
+<a href="#sec-opto-detect">⬅ 上一环 · 探测层 PD/SPAD/SiPM</a>
+<span>｜ 📍 本节 · 成像层 CIS（光→电→数字）｜</span>
+<a href="#sec-siph-why">下一环 · 为什么要用光 ➡</a>
+</div>
 
 <div class="card" style="background:#f0f9ff;border-left:4px solid #0284c7">
 <div class="ttl">为什么 CIS 属于模拟篇：它的胜负手在读出链，不在像素数</div>
@@ -5834,6 +6114,191 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 
+<!-- ===== 5.7 光电探测层 PD/APD/SPAD/SiPM（v7.0 新增） ===== -->
+<div class="content">
+
+<h2 id="sec-opto-detect">🔦 5.6+ 光电探测层：PD → APD → SPAD → SiPM，从「测光强」到「数光子」</h2>
+
+<div class="card" style="background:#f0f9ff;border-left:4px solid #0284c7">
+<div class="ttl">这一节补齐的是「探测层」——它和 CIS 共享 PD，却走向完全相反的方向</div>
+<div class="dsc">
+<p>5.6 的 CIS 关心"光在空间上怎么分布"；这一节关心的是另一个问题：<b>"到底有没有光、有几个光子、什么时候到的"</b>。同样是 PN 结反偏收集光生载流子，当把它推到极致——<b>灵敏到能数出单个光子</b>——就诞生了 SPAD 与 SiPM 这条谱系。它们是车载激光雷达、医学 PET、量子光学、荧光寿命成像的底层器件。</p>
+</div></div>
+
+<!-- 第一层：基础原理 -->
+<h3>①【基础原理】光子打进硅里，发生了什么</h3>
+
+<div class="card">
+<div class="ttl">从"一个光子"到"一股电流"：三步</div>
+<div class="dsc">
+<div class="kv">
+<span><b>第一步 · 吸收：</b>一个光子钻进硅里，若它的能量大于硅的带隙（约 1.12 eV，对应波长短于约 1.1 µm），就能把一个电子从价带"踢"到导带，留下一个空穴——这就是一对<b>光生载流子</b>。</span>
+<span><b>第二步 · 为什么要反偏：</b>给 PN 结加<b>反向电压</b>，会在结区拉出一片没有自由载流子、却有强电场的<b>耗尽区</b>。平时它几乎不导电（漏电流极小）；一旦光子在这里造出一对载流子，强电场立刻把电子和空穴向两极扫走，形成可测的<b>光电流</b>。<b>反偏的意义</b>：让"无光"时几乎不导电、"有光"时才有电流——信噪比天然更好。</span>
+<span><b>第三步 · 什么是雪崩倍增：</b>把反向电压继续加大，耗尽区电场强到一个程度，被扫过的载流子会被加速到很高能量，撞击晶格再<b>撞出新的电子-空穴对</b>，新载流子又被加速、再撞……像雪崩一样一个变一串。这就是<b>雪崩倍增（avalanche multiplication）</b>——一个光子产生的信号被放大成千上万倍。</span>
+</div>
+<p style="margin-top:8px;background:#e0f2fe;padding:8px 12px;border-radius:6px;color:#075985"><b>🔑 关键分水岭是"击穿电压 V_BR"：</b>反偏电压<b>低于</b> V_BR 时，雪崩是"可控的、有限倍数"的（增益是个稳定数字，如 10~100 倍）——这是 APD。反偏电压<b>高于</b> V_BR 时，雪崩会<b>自我维持、瞬间冲到饱和</b>——这是盖革模式（SPAD）。<b>一个光子就能触发一次满幅雪崩</b>，输出不再是"多少倍"，而是"响了还是没响"。</p>
+</div></div>
+
+<!-- SVG 1: SPAD 雪崩触发与淬灭 -->
+<div class="anim-card">
+<div class="at">🎬 SPAD 的一次"心跳"：触发 → 雪崩 → 淬灭 → 复位</div>
+<div class="am">盖革模式偏压高于击穿电压，单光子触发自持雪崩；淬灭电阻把电压拉下来"掐灭"它，再自动充回</div>
+<svg viewBox="0 0 760 300">
+<text x="380" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#5b21b6">偏压 V_bias = V_BR + V_ov（过压偏置），单光子即可点燃自持雪崩</text>
+
+<!-- 四阶段横排 -->
+<!-- stage 1 armed -->
+<rect x="24" y="34" width="168" height="150" rx="6" fill="#f8fafc" stroke="#cbd5e1"/>
+<text x="108" y="52" text-anchor="middle" font-size="9.5" font-weight="700" fill="#334155">① 待命（armed）</text>
+<rect x="60" y="62" width="96" height="60" rx="4" fill="#ede9fe" stroke="#7c3aed"/>
+<text x="108" y="88" text-anchor="middle" font-size="8" fill="#4c1d95">耗尽区</text>
+<text x="108" y="102" text-anchor="middle" font-size="8" fill="#4c1d95">强电场蓄势</text>
+<text x="108" y="140" text-anchor="middle" font-size="8" fill="#64748b">电压 = V_BR + V_ov</text>
+<text x="108" y="154" text-anchor="middle" font-size="8" fill="#64748b">无电流流动</text>
+<text x="108" y="172" text-anchor="middle" font-size="8" font-weight="700" fill="#5b21b6">像上膛的枪</text>
+
+<!-- stage 2 trigger -->
+<rect x="204" y="34" width="168" height="150" rx="6" fill="#fff7ed" stroke="#f59e0b"/>
+<text x="288" y="52" text-anchor="middle" font-size="9.5" font-weight="700" fill="#b45309">② 光子触发·自持雪崩</text>
+<circle cx="248" cy="70" r="5" fill="#f59e0b">
+  <animate attributeName="cy" values="40;92" dur="1.8s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="1;1;0" dur="1.8s" repeatCount="indefinite"/>
+</circle>
+<text x="262" y="66" font-size="7.5" fill="#b45309">1 光子</text>
+<rect x="240" y="92" width="96" height="52" rx="4" fill="#fed7aa" stroke="#ea580c"/>
+<!-- avalanche multiplying dots -->
+<circle cx="270" cy="118" r="3" fill="#dc2626"><animate attributeName="r" values="1;4;1" dur="0.6s" repeatCount="indefinite"/></circle>
+<circle cx="288" cy="110" r="3" fill="#dc2626"><animate attributeName="r" values="1;4;1" dur="0.6s" begin="0.15s" repeatCount="indefinite"/></circle>
+<circle cx="306" cy="122" r="3" fill="#dc2626"><animate attributeName="r" values="1;4;1" dur="0.6s" begin="0.3s" repeatCount="indefinite"/></circle>
+<circle cx="288" cy="128" r="3" fill="#dc2626"><animate attributeName="r" values="1;4;1" dur="0.6s" begin="0.45s" repeatCount="indefinite"/></circle>
+<text x="288" y="162" text-anchor="middle" font-size="8" font-weight="700" fill="#b91c1c">电流瞬间冲到饱和</text>
+<text x="288" y="176" text-anchor="middle" font-size="8" fill="#9a3412">增益 ~10⁵–10⁶</text>
+
+<!-- stage 3 quench -->
+<rect x="384" y="34" width="168" height="150" rx="6" fill="#eff6ff" stroke="#2563eb"/>
+<text x="468" y="52" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e40af">③ 淬灭（quench）</text>
+<rect x="424" y="64" width="16" height="44" rx="2" fill="#fca5a5" stroke="#dc2626"/>
+<text x="432" y="120" text-anchor="middle" font-size="7" fill="#991b1b">R_q</text>
+<text x="500" y="80" font-size="8" fill="#1e3a8a">大电流流过</text>
+<text x="500" y="93" font-size="8" fill="#1e3a8a">淬灭电阻 R_q</text>
+<text x="500" y="106" font-size="8" fill="#1e3a8a">→ 结上电压被拉低</text>
+<path d="M432,128 L432,150" stroke="#2563eb" stroke-width="2" marker-end="url(#arr)"/>
+<text x="468" y="166" text-anchor="middle" font-size="8" font-weight="700" fill="#1e40af">电压跌破 V_BR</text>
+<text x="468" y="178" text-anchor="middle" font-size="8" fill="#1e3a8a">→ 雪崩自动熄灭</text>
+
+<!-- stage 4 recharge -->
+<rect x="564" y="34" width="172" height="150" rx="6" fill="#ecfdf5" stroke="#059669"/>
+<text x="650" y="52" text-anchor="middle" font-size="9.5" font-weight="700" fill="#065f46">④ 复位（recharge）</text>
+<rect x="606" y="64" width="88" height="52" rx="4" fill="#d1fae5" stroke="#059669"/>
+<text x="650" y="86" text-anchor="middle" font-size="8" fill="#065f46">通过 R_q 充电</text>
+<text x="650" y="100" text-anchor="middle" font-size="8" fill="#065f46">电压回升到 V_bias</text>
+<text x="650" y="134" text-anchor="middle" font-size="8" font-weight="700" fill="#b91c1c">这段时间 = 死时间</text>
+<text x="650" y="148" text-anchor="middle" font-size="8" fill="#7f1d1d">dead time ~ 数十 ns</text>
+<text x="650" y="166" text-anchor="middle" font-size="8" fill="#065f46">期间来光子也测不到</text>
+<text x="650" y="178" text-anchor="middle" font-size="8" font-weight="700" fill="#065f46">→ 回到 ① 待命</text>
+
+<!-- 循环箭头 -->
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/></marker></defs>
+<path d="M700,190 Q380,214 108,190" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr)"/>
+<text x="380" y="212" text-anchor="middle" font-size="8.5" fill="#64748b">循环往复：每一次「响」= 一次光子事件（或一次暗计数误触发）</text>
+
+<!-- 输出波形 -->
+<rect x="24" y="224" width="712" height="66" rx="6" fill="#faf5ff" stroke="#7c3aed"/>
+<text x="36" y="242" font-size="9" font-weight="700" fill="#4c1d95">输出：一串等高数字脉冲——SPAD 不告诉你"多亮"，只告诉你"什么时候响了一下"</text>
+<path d="M40,278 L120,278 L120,258 L128,258 L128,278 L300,278 L300,258 L308,258 L308,278 L470,278 L470,258 L478,258 L478,278 L720,278" fill="none" stroke="#7c3aed" stroke-width="2"/>
+<text x="124" y="254" font-size="7" fill="#7c3aed">光子1</text>
+<text x="304" y="254" font-size="7" fill="#7c3aed">光子2</text>
+<text x="474" y="254" font-size="7" fill="#7c3aed">光子3</text>
+</svg>
+</div>
+
+<!-- 第二层：概念解释 -->
+<h3>②【概念解释】PD / APD / SPAD / SiPM 的四条分界线</h3>
+
+<div class="card">
+<div class="ttl">两个维度就能把四个概念分清：偏压区间 × 是不是阵列</div>
+<div class="dsc">
+<div class="kv">
+<span><b>PD（光电二极管）：</b>反偏，<b>无雪崩增益</b>。光电流正比于光强——是最朴素的"光→电"线性转换器。CIS 里的像素就是 PD。</span>
+<span><b>APD（雪崩光电二极管）：</b>反偏<b>但仍低于击穿电压</b>，处于<b>线性倍增区</b>。增益有限（约 10~100 倍）且随偏压平滑变化，输出仍正比于光强——它是"带内部放大的 PD"，适合弱光但仍需线性的场景。</span>
+<span><b>SPAD（单光子雪崩二极管）：</b>反偏<b>高于击穿电压</b>（盖革模式）。单个光子就能触发一次自持的满幅雪崩，输出是<b>一个数字脉冲</b>——它不测"多亮"，只报"响了/没响"，是"数字化的单光子探测器"。</span>
+<span><b>SiPM（硅光电倍增器）：</b>把<b>成百上千个 SPAD（每个串一个淬灭电阻）并联</b>在一起、输出端并到一根线上。</span>
+</div>
+<p style="margin-top:8px;background:#fef3c7;padding:8px 12px;border-radius:6px;color:#92400e"><b>⚠️ 最反直觉的一点——"一堆数字器件并联，输出的却是模拟量"：</b>单个 SPAD 是二值的（响/不响）。但把 N 个 SPAD 并联后，同一时刻若有 k 个 SPAD 被点亮，它们的电流脉冲<b>叠加</b>，总输出幅度 ≈ k 个单元电流之和。于是 SiPM 的输出幅度<b>正比于"同时被击中的单元数"</b>——也就近似正比于瞬时光子数。<b>所以 SiPM 用一堆离散的"数字"单元，拼出了一个准模拟的光子数读出</b>。这是它区别于单管 SPAD 的关键：SPAD 数一个光子，SiPM 能"称"一小撮光子有多少。</p>
+</div></div>
+
+<!-- 第三层：专业解释 -->
+<h3>③【专业解释】决定 SPAD/SiPM 好坏的那些参数</h3>
+
+<div class="card">
+<div class="ttl">先看信号侧：偏压与探测效率</div>
+<div class="dsc">
+<div class="kv">
+<span><b>击穿电压 V_BR 与过压偏置 V_ov（over-voltage）：</b>SPAD 实际工作电压 = V_BR + V_ov。<b>V_ov 是"超出击穿多少"</b>，通常几伏（如 2~7 V）。V_ov 越大 → 触发概率越高、增益越大、时间抖动越小，<b>但暗计数、后脉冲、串扰也同步恶化</b>——V_ov 是所有性能的总旋钮。</span>
+<span><b>PDE 光子探测效率：</b>一个打进来的光子被真正记录下来的概率。<b>PDE = 量子效率 QE × 填充因子 FF × 触发概率 P_trig</b>。QE 是光子被吸收造出载流子的概率；FF 是敏感面积占比（SPAD 之间要留淬灭电阻和隔离，占掉面积）；P_trig 是载流子真正引发雪崩的概率（随 V_ov 上升）。典型峰值 PDE 量级在 <b>40%~50%</b>（可见光波段、较高 V_ov 下）。【业界】</span>
+</div>
+</div></div>
+
+<div class="card">
+<div class="ttl">再看噪声与非理想效应：SPAD 的"暗面"</div>
+<div class="dsc">
+<div class="kv">
+<span class="warn"><b>暗计数率 DCR（dark count rate）：</b>没有光时，热激发或隧穿也会偶尔触发一次雪崩——这就是"暗计数"，是 SPAD/SiPM 的<b>本底噪声</b>。室温典型量级约 <b>每平方毫米数十至数百 kHz</b>（如 50~226 kHz/mm² 量级），且<b>随温度近似指数上升</b>（降温可大幅压低）。【业界】</span>
+<span class="warn"><b>后脉冲 afterpulsing：</b>一次雪崩时有载流子被晶格缺陷"俘获"，过一会儿又被释放，触发一次<b>假的二次雪崩</b>。V_ov 越高、死时间越短越严重。</span>
+<span class="warn"><b>串扰 crosstalk：</b>雪崩时热载流子会<b>发出少量次级光子</b>，跑到邻近单元把它们也点亮，造成"一个真事件引发多个响应"。是 SiPM 阵列的特有噪声，靠沟槽隔离缓解。</span>
+<span class="warn"><b>死时间 dead time：</b>从雪崩被淬灭到电压充回可用之间的一段"失明期"，典型<b>数十纳秒（~50 ns 量级）</b>。这段时间内来的光子测不到——<b>这就是 SPAD 动态范围与最大计数率的上限来源</b>。</span>
+<span><b>淬灭电阻 quenching resistor R_q：</b>与每个 SPAD 串联，雪崩电流流过它时压降增大、把结电压拉到击穿以下从而"掐灭"雪崩（被动淬灭）。也有用晶体管做<b>主动淬灭</b>的方案，可缩短死时间。</span>
+<span><b>温度系数与偏压补偿：</b>V_BR 随温度上升而升高（正温度系数，硅约 +数十 mV/°C 量级）。若偏压不变，温度升高会使实际 V_ov 减小 → 增益/PDE 漂移。所以系统里要<b>随温度动态补偿偏压</b>，把 V_ov 稳住。</span>
+</div>
+</div></div>
+
+<div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
+<div class="ttl">⚙️ CMOS 兼容性：SPAD 工艺的一道分歧</div>
+<div class="dsc">
+<p>SPAD 本身可以用标准 CMOS 工艺做，这带来一个巨大诱惑：<b>把 SPAD 阵列和读出电路（TDC 时间数字转换器、计数器、SoC）做在同一片硅上</b>，甚至用堆栈键合把 SPAD 层与逻辑层分开优化（与 5.6 CIS 的堆栈式思路同源）。</p>
+<p>但工艺上存在分歧：<b>追求极致性能（低 DCR、高 PDE）的定制工艺</b>（如深沟槽隔离、专门的结构优化）与<b>追求集成度、成本、良率的标准 CMOS 工艺</b>难以两全。前者性能好但贵、集成度低（多见于科研与高端探测）；后者能大规模集成进 SoC（车载 LiDAR、消费级 ToF 传感器走这条路），但单元性能通常要做妥协。<b>这条工艺分歧，正是 SPAD 产业路线分化的技术根源。</b>【推断：由器件工艺约束归纳】</p>
+</div></div>
+
+<!-- 必含对比表 -->
+<div class="card">
+<div class="ttl">📊 横向对比：PD / APD / SPAD / SiPM</div>
+<div class="dsc">
+<table class="node-table"><thead><tr>
+<th style="width:11%"></th><th>PD 光电二极管</th><th>APD 雪崩光电二极管</th><th>SPAD 单光子雪崩二极管</th><th>SiPM 硅光电倍增器</th>
+</tr></thead>
+<tbody>
+<tr><td class="hl">偏压区间</td><td>反偏，远低于 V_BR</td><td>反偏，<b>低于</b> V_BR（线性区）</td><td>反偏，<b>高于</b> V_BR（盖革模式）</td><td>高于 V_BR（一堆 SPAD 同偏）</td></tr>
+<tr><td class="hl">内部增益</td><td>无（≈1）</td><td>有限线性，约 10~100×</td><td>自持满幅，约 10⁵~10⁶×</td><td>单元同 SPAD，整体输出为多单元叠加</td></tr>
+<tr><td class="hl">输出性质</td><td>模拟电流 ∝ 光强</td><td>模拟电流 ∝ 光强（已放大）</td><td><b>数字脉冲</b>（响/不响）</td><td><b>准模拟</b>：幅度 ∝ 同时触发的单元数</td></tr>
+<tr><td class="hl">单光子能力</td><td>无</td><td>弱（需极低噪声）</td><td><b>有</b>（本行当）</td><td><b>有</b>，且能分辨少数光子数</td></tr>
+<tr><td class="hl">主要噪声</td><td>散粒 / 热噪声</td><td>散粒 + 过剩噪声因子 F</td><td>DCR、后脉冲</td><td>DCR、后脉冲、<b>单元间串扰</b></td></tr>
+<tr><td class="hl">动态范围</td><td>大、线性好</td><td>较大</td><td><b>小</b>（受死时间限制，会饱和）</td><td>中（受单元总数限制）</td></tr>
+<tr><td class="hl">典型应用</td><td>光通信收端、CIS 像素、光功率计</td><td>光纤通信、测距、弱光探测</td><td>LiDAR dToF、量子光学、FLIM、单光子计数</td><td>PET 医学成像、闪烁体读出、LiDAR、生物荧光</td></tr>
+</tbody></table>
+<p style="margin-top:8px;color:#64748b;font-size:12px">注：增益、PDE、DCR 的具体数值随工艺、波长、V_ov、温度差异很大，上表为量级示意。关键参数请以厂商 datasheet 为准。【业界】</p>
+</div></div>
+
+<!-- 第四层：本质总结 -->
+<h3>④【本质总结】SPAD 把"探测"从模拟问题变成了数字计数问题</h3>
+
+<div class="card" style="background:#f5f3ff;border-left:4px solid #7c3aed">
+<div class="ttl">🔑 一句话点透</div>
+<div class="dsc">
+<p style="font-size:15px;line-height:1.8"><b>SPAD 的革命，是把"测光"从"测一个连续的电流大小（模拟量）"，变成了"数光子到达次数与时间（数字计数）"。</b>代价是牺牲了动态范围与线性度——一旦光稍强、死时间内挤进多个光子，它就饱和、数不准了。它擅长的恰恰是相反的极端：<b>极弱光下的单光子灵敏，以及极高的时间戳精度（皮秒~纳秒级）</b>。</p>
+<p style="margin-top:8px"><b>为什么它成了车载激光雷达 LiDAR 的主流路线：</b>主流车载 LiDAR 用 <b>dToF（直接飞行时间）</b>测距——发一个激光脉冲，测它打到物体再返回的<b>时间差</b>，乘光速除以二就是距离。<b>dToF 要的是"光子什么时候回来"的时间戳精度，而不是"回来的光多亮"的灰度</b>——这正好命中 SPAD 的长板（时间精度）、避开它的短板（动态范围/线性度）。加上 SPAD 可用 CMOS 工艺、能与 TDC/SoC 集成成阵列，<b>"SPAD 阵列 + 集成 SoC"</b>就成了车载 dToF LiDAR 与手机 ToF 传感器的收敛方向。</p>
+<p style="margin-top:8px;color:#4c1d95"><b>与前后两层的呼应：</b>CIS（5.6）为"空间保真"把模拟读出链做到极致；探测层（本节）为"单光子+时间戳"把探测数字化；到了硅光（第六篇）则彻底改变问题——不再探测环境光，而是<b>用光当载体</b>去搬数据。同一个 PN 结，三种活法。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl">🏭 产业侧速写（详见产业格局篇，此处从略）</div>
+<div class="dsc">
+<p>SiPM/SPAD 的主要玩家：<b>滨松 Hamamatsu</b>（PMT 时代龙头，SiPM/MPPC 强）、<b>onsemi（收购 SensL）</b>、<b>索尼 Sony</b>（车载 SPAD dToF 与堆栈集成）、<b>意法半导体 ST</b>（消费级 ToF、FlightSense 系列）、<b>Broadcom</b>、以及科研/PET 领域的 Ketek、FBK 等。</p>
+<p style="margin-top:6px">趋势：车载 LiDAR 正从分立探测器走向 <b>「SPAD 阵列 + 读出 SoC 单芯/堆栈集成」</b>，把探测、TDC、直方图统计做在一起——这与 CIS 的堆栈式演进（5.6）在封装逻辑上同源。产业格局的完整讨论见 <a href="#sec-analog-pattern">5.7</a> 与 <a href="#sec-siph-pattern">6.4</a>，本节不展开。</p>
+</div></div>
+
+</div>
+<!-- ===== /光电探测层 ===== -->
+
 <h2 id="sec-analog-pattern">🌐 5.7 产业格局：模拟与 CIS 的五大转折</h2>
 
 <div class="card-row-3 dense">
@@ -5897,6 +6362,12 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="content">
 
 <h2 id="sec-siph-why">🚧 6.1 灵魂问题：铜的物理极限与「带宽密度」这堵墙</h2>
+<div class="opto-nav">
+🔗 光电链路位置：
+<a href="#sec-cis">⬅ 上一环 · 成像层 CIS</a>
+<span>｜ 📍 本节 · 通信层动机（铜的物理墙）｜</span>
+<a href="#sec-siph-device">下一环 · 硅光器件家族 ➡</a>
+</div>
 
 <div class="anim-card">
 <div class="at">📉 为什么铜线走不远：损耗随频率与距离双重恶化</div>
@@ -5970,6 +6441,12 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 <h2 id="sec-siph-device">🔬 6.2 器件家族：每一个都是「硅不擅长」的妥协产物</h2>
+<div class="opto-nav">
+🔗 光电链路位置：
+<a href="#sec-siph-why">⬅ 上一环 · 为什么要用光</a>
+<span>｜ 📍 本节 · 通信层器件（电→光→电）｜</span>
+<a href="#sec-cpo">下一环 · CPO 系统集成 ➡</a>
+</div>
 
 <div class="anim-card">
 <div class="at">🪞 波导：靠巨大折射率差把光锁在 220 纳米的硅芯里</div>
@@ -6202,6 +6679,12 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 <h2 id="sec-cpo">📦 6.3 从可插拔光模块到 CPO 共封装光学</h2>
+<div class="opto-nav">
+🔗 光电链路位置：
+<a href="#sec-siph-device">⬅ 上一环 · 硅光器件家族</a>
+<span>｜ 📍 本节 · 系统集成 CPO（第四层）｜</span>
+<a href="#sec-hbm-wall">终点 · 与先进封装/HBM 合流 🏁</a>
+</div>
 
 <div class="anim-card">
 <div class="at">🔌 三级演进：把光引擎一步步搬近交换芯片</div>
@@ -7006,6 +7489,394 @@ if(mtl){mtl.style.minWidth='4200px';
   mtl.innerHTML+=plane('🟣 欧洲','eue',mEU_mcu,3);
   mtl.innerHTML+=plane('💗 中国','cn',mCN_mcu,3);
 }
+})();
+
+</script>
+
+<script>
+/* ===== KB NAV LAYER ===== */
+/* ================= KB NAV LAYER v7.0 =================
+   侧边三级目录 + 全文搜索 + 章节折叠 + 阅读进度
+   设计原则：不改动任何正文内容，纯运行时增强。
+   ==================================================== */
+(function(){
+'use strict';
+
+var BOOKS={
+  '0':{n:'第零篇 · 基础篇（本质层）',c:'#7c3aed',t:'器件物理 / 制造 / 光刻 / 存储 / 封装 / 功率'},
+  '1':{n:'第一篇 · 逻辑芯片',c:'#2563eb',t:'制程竞赛 · ASML · 中美博弈'},
+  '2':{n:'第二篇 · 存储芯片',c:'#f59e0b',t:'DRAM · NAND · DDR 世代'},
+  '3':{n:'第三篇 · 功率半导体',c:'#059669',t:'IGBT · SiC · GaN · AI 供电'},
+  '4':{n:'第四篇 · 车载 MCU',c:'#dc2626',t:'架构之争 · 功能安全 · 国产替代'},
+  '5':{n:'第五篇 · 模拟与混合信号',c:'#0891b2',t:'运放 · ADC · 电源 · CIS'},
+  '6':{n:'第六篇 · 硅光子与光互连',c:'#8b5cf6',t:'带宽密度 · 调制器 · CPO'},
+  '7':{n:'第七篇 · 被动器件',c:'#ea580c',t:'MLCC · 电阻电感'},
+  'A':{n:'附录',c:'#64748b',t:'术语表 · 参考文献'}
+};
+var CN={'零':'0','一':'1','二':'2','三':'3','四':'4','五':'5','六':'6','七':'7'};
+var COLLAPSE_MIN=3600;   // 超过此字数的小节默认折叠
+var LEAD_MAX=1300;       // 首块小于此字数则保留为常显摘要
+
+var heads=[],groups=[],idx=[],terms=[],sel=-1,curId='';
+
+/* ---------- 工具 ---------- */
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function clean(s){return String(s||'').replace(/\s+/g,' ').trim()}
+function pureTitle(s){return clean(s).replace(/^[^\w\u4e00-\u9fa5]+/,'')}
+
+/* ---------- 1. 采集标题 ---------- */
+function collect(){
+  var all=document.querySelectorAll('h1,h2,h3');
+  var curMajor=null,lastL2=null,n=0;
+  for(var i=0;i<all.length;i++){
+    var h=all[i],tag=h.tagName,raw=clean(h.textContent);
+    if(!raw)continue;
+    if(h.closest('.header'))continue;            // 页头主标题跳过
+    if(h.closest('#kb-side')||h.closest('#kb-search'))continue;
+    if(!h.id){h.id='kb-s'+(++n)}
+
+    var t=pureTitle(raw);
+    var mBook=t.match(/^第([零一二三四五六七八九])篇/);
+    var mNum=t.match(/^(\d+)\.(\d+)/);
+    var major=null,isBookHead=false;
+
+    if(mBook&&tag==='H1'){major=CN[mBook[1]];isBookHead=true}
+    else if(mNum){major=mNum[1]}
+    if(h.id==='sec-sources'||h.id==='sec-glossary')major='A';
+
+    if(major!==null&&major!==curMajor){
+      curMajor=major;
+      groups.push({k:major,b:BOOKS[major]||{n:t,c:'#64748b',t:''},items:[]});
+      lastL2=null;
+      if(isBookHead){                            // 「第X篇」本身作为组头，同时挂一个入口
+        groups[groups.length-1].anchor=h.id;
+        heads.push({id:h.id,el:h,lv:0,t:t,g:groups.length-1});
+        continue;
+      }
+    }
+    if(!groups.length){groups.push({k:'0',b:BOOKS['0'],items:[]});curMajor='0'}
+    var g=groups[groups.length-1];
+
+    if(tag==='H3'){
+      var o={id:h.id,el:h,lv:3,t:t.replace(/^\d+\.\d+\.\d+\s*/,'').replace(/^\d+\.\s*/,''),g:groups.length-1};
+      heads.push(o);
+      if(lastL2){(lastL2.kids=lastL2.kids||[]).push(o)}else{g.items.push(o)}
+    }else{
+      var o2={id:h.id,el:h,lv:2,t:t,g:groups.length-1,strong:(tag==='H1')};
+      heads.push(o2);g.items.push(o2);lastL2=o2;
+    }
+  }
+}
+
+/* ---------- 2. 章节折叠（分层阅读） ---------- */
+function foldable(){
+  heads.forEach(function(h){
+    if(h.lv!==2)return;
+    var el=h.el,nodes=[],p=el.nextElementSibling;
+    while(p){
+      var tg=p.tagName;
+      if(tg==='H1'||tg==='H2'||tg==='HR')break;
+      nodes.push(p);p=p.nextElementSibling;
+    }
+    if(!nodes.length)return;
+    var len=nodes.reduce(function(a,b){return a+clean(b.textContent).length},0);
+    h.len=len;
+    if(len<COLLAPSE_MIN)return;
+
+    var lead=null,rest=nodes;
+    var l0=clean(nodes[0].textContent).length;
+    if(nodes.length>1&&l0<LEAD_MAX&&!nodes[0].querySelector('table,svg')){lead=nodes[0];rest=nodes.slice(1)}
+    if(!rest.length)return;
+    var rlen=rest.reduce(function(a,b){return a+clean(b.textContent).length},0);
+
+    var body=document.createElement('div');
+    body.className='kb-body';body.style.display='none';
+    rest[0].parentNode.insertBefore(body,rest[0]);
+    rest.forEach(function(x){body.appendChild(x)});
+
+    var wrap=document.createElement('div');wrap.className='kb-tgwrap';
+    var kids=(h.kids||[]).length;
+    wrap.innerHTML='<button class="kb-tg" type="button"><span class="ic">▼</span>'+
+      '<span class="lb">展开细节</span>'+
+      '<span class="n">约 '+(rlen>9999?(rlen/10000).toFixed(1)+' 万字':rlen+' 字')+
+      (kids?' · '+kids+' 小节':'')+'</span></button>';
+    body.parentNode.insertBefore(wrap,body);
+    if(lead){
+      var tip=document.createElement('div');tip.className='kb-lead-tip';
+      tip.textContent='▲ 以上为本节要点，展开可读完整论述';
+      wrap.parentNode.insertBefore(tip,wrap);
+    }
+    var btn=wrap.querySelector('button');
+    btn.addEventListener('click',function(){setFold(btn,body,body.style.display==='none')});
+    h.body=body;h.btn=btn;
+  });
+}
+function setFold(btn,body,open){
+  body.style.display=open?'':'none';
+  btn.classList.toggle('open',open);
+  btn.querySelector('.lb').textContent=open?'收起细节':'展开细节';
+}
+function foldAll(open){
+  heads.forEach(function(h){if(h.body)setFold(h.btn,h.body,open)});
+}
+function reveal(el){
+  var p=el;
+  while(p&&p!==document.body){
+    if(p.classList&&p.classList.contains('kb-body')&&p.style.display==='none'){
+      var w=p.previousElementSibling;
+      while(w&&!w.classList.contains('kb-tgwrap'))w=w.previousElementSibling;
+      if(w)setFold(w.querySelector('button'),p,true);else p.style.display='';
+    }
+    p=p.parentElement;
+  }
+}
+
+/* ---------- 3. 侧边目录 ---------- */
+function sidebar(){
+  var side=document.createElement('nav');side.id='kb-side';
+  var h='<div class="kb-hd">'+
+    '<div class="kb-ttl"><span class="dot"></span>半导体工业全景知识库</div>'+
+    '<div class="kb-sub">'+groups.length+' 篇 · '+heads.filter(function(x){return x.lv===2}).length+' 节 · 持续增补</div>'+
+    '<button id="kb-searchbtn" type="button">🔍 搜索全文与术语…<span class="kbd">Ctrl K</span></button>'+
+    '<div class="kb-acts"><button id="kb-ex" type="button">展开全部</button>'+
+    '<button id="kb-co" type="button">折叠全部</button>'+
+    '<button id="kb-fold" type="button">收拢目录</button></div></div><div id="kb-tree">';
+
+  groups.forEach(function(g,gi){
+    h+='<div class="kb-g'+(gi>1?' cl':'')+'" data-g="'+gi+'">'+
+       '<div class="kb-gh"><span class="bar" style="background:'+g.b.c+'"></span>'+
+       '<span>'+esc(g.b.n)+'</span><span class="cnt">'+g.items.length+'</span><span class="arw">▼</span></div>'+
+       '<div class="kb-gb">';
+    g.items.forEach(function(it){
+      h+='<a href="#'+it.id+'" data-id="'+it.id+'"'+(it.strong?' style="font-weight:700;color:#475569"':'')+'>'+esc(it.t)+'</a>';
+      (it.kids||[]).forEach(function(k){
+        h+='<a class="l3" href="#'+k.id+'" data-id="'+k.id+'">'+esc(k.t)+'</a>';
+      });
+    });
+    h+='</div></div>';
+  });
+  h+='</div>';
+  side.innerHTML=h;document.body.appendChild(side);
+
+  var tg=document.createElement('button');tg.id='kb-toggle';tg.type='button';tg.textContent='◀';
+  document.body.appendChild(tg);
+  var top=document.createElement('button');top.id='kb-top';top.type='button';top.textContent='↑';
+  top.title='回到顶部';document.body.appendChild(top);
+  var pr=document.createElement('div');pr.id='kb-progress';document.body.appendChild(pr);
+
+  document.body.classList.add('kb-on');
+  if(window.innerWidth>=1280)document.body.classList.add('kb-open');
+
+  side.querySelectorAll('.kb-gh').forEach(function(gh){
+    gh.addEventListener('click',function(){gh.parentNode.classList.toggle('cl')});
+  });
+  side.querySelectorAll('#kb-tree a').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();jump(a.getAttribute('data-id'));
+      if(window.innerWidth<1280)document.body.classList.remove('kb-open');
+    });
+  });
+  tg.addEventListener('click',function(){
+    if(window.innerWidth<1280){document.body.classList.toggle('kb-open')}
+    else{document.body.classList.toggle('kb-off');tg.textContent=document.body.classList.contains('kb-off')?'▶':'◀'}
+  });
+  document.getElementById('kb-fold').addEventListener('click',function(){
+    if(window.innerWidth<1280)document.body.classList.remove('kb-open');
+    else{document.body.classList.add('kb-off');tg.textContent='▶'}
+  });
+  document.getElementById('kb-ex').addEventListener('click',function(){foldAll(true)});
+  document.getElementById('kb-co').addEventListener('click',function(){foldAll(false)});
+  document.getElementById('kb-searchbtn').addEventListener('click',openS);
+  top.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+}
+
+function jump(id){
+  var el=document.getElementById(id);if(!el)return;
+  var sp=document.getElementById('kb-search');
+  if(sp&&sp.classList.contains('show'))sp.classList.remove('show');
+  reveal(el);
+  var y=el.getBoundingClientRect().top+window.pageYOffset-14;
+  window.scrollTo({top:y,behavior:'smooth'});
+  el.classList.remove('kb-flash');void el.offsetWidth;el.classList.add('kb-flash');
+  if(history.replaceState)history.replaceState(null,'','#'+id);
+}
+
+/* ---------- 4. 滚动联动 ---------- */
+function spy(){
+  var y=window.pageYOffset+90,best=null;
+  for(var i=0;i<heads.length;i++){
+    if(heads[i].el.offsetParent===null)continue;
+    if(heads[i].el.getBoundingClientRect().top+window.pageYOffset<=y)best=heads[i];else break;
+  }
+  var doc=document.documentElement;
+  var pct=doc.scrollHeight>doc.clientHeight?window.pageYOffset/(doc.scrollHeight-doc.clientHeight)*100:0;
+  var pe=document.getElementById('kb-progress');if(pe)pe.style.width=Math.min(100,Math.max(0,pct))+'%';
+  var te=document.getElementById('kb-top');if(te)te.classList.toggle('show',window.pageYOffset>700);
+  if(!best||best.id===curId)return;
+  curId=best.id;
+  var tree=document.getElementById('kb-tree');if(!tree)return;
+  tree.querySelectorAll('a.on').forEach(function(a){a.classList.remove('on')});
+  var a2=tree.querySelector('a[data-id="'+best.id+'"]');
+  if(a2){
+    a2.classList.add('on');
+    var g=a2.closest('.kb-g');if(g)g.classList.remove('cl');
+    var r=a2.getBoundingClientRect(),tr=tree.getBoundingClientRect();
+    if(r.top<tr.top+30||r.bottom>tr.bottom-30)tree.scrollTop+=r.top-tr.top-tr.height/2.4;
+  }
+}
+
+/* ---------- 5. 搜索索引 ---------- */
+function build(){
+  // 5a. 术语卡单独索引（命中优先）
+  document.querySelectorAll('.term').forEach(function(t){
+    var hd=t.querySelector('.term-h'),nm=hd?clean(hd.textContent):clean(t.textContent).slice(0,40);
+    terms.push({id:t.id||'',el:t,nm:nm,k:clean(t.getAttribute('data-term')||'')+' '+nm,
+      tx:clean(t.textContent),bk:'术语'});
+  });
+  // 5b. 正文按小节索引
+  heads.forEach(function(h){
+    if(h.lv===0)return;
+    var nodes=[],p=h.el.nextElementSibling;
+    while(p){
+      var tg=p.tagName;
+      if(tg==='H1'||tg==='H2'||tg==='HR')break;
+      if(tg==='H3')break;
+      nodes.push(p);p=p.nextElementSibling;
+    }
+    var tx=nodes.map(function(x){return clean(x.textContent)}).join(' ');
+    if(h.body&&!nodes.length)tx=clean(h.body.textContent);
+    idx.push({id:h.id,t:h.t,bk:(groups[h.g]&&groups[h.g].b.n||'').replace(/ ·.*/,''),
+      lv:h.lv,tx:tx.slice(0,6000)});
+  });
+}
+function score(q,e){
+  var s=0,t=e.t.toLowerCase(),x=(e.tx||'').toLowerCase(),k=(e.k||'').toLowerCase();
+  q.forEach(function(w){
+    if(k&&k.indexOf(w)>=0)s+=70;
+    if(t===w)s+=90;
+    if(t.indexOf(w)>=0)s+=42;
+    var c=0,i=x.indexOf(w);
+    while(i>=0&&c<6){c++;i=x.indexOf(w,i+1)}
+    s+=Math.min(c,6)*5;
+  });
+  var hit=q.every(function(w){return t.toLowerCase().indexOf(w)>=0||x.indexOf(w)>=0||k.indexOf(w)>=0});
+  return hit?s+q.length*4:(s>0?s*0.25:0);
+}
+function snip(q,tx){
+  if(!tx)return'';
+  var lo=tx.toLowerCase(),pos=-1;
+  for(var i=0;i<q.length;i++){var p=lo.indexOf(q[i]);if(p>=0&&(pos<0||p<pos))pos=p}
+  if(pos<0)pos=0;
+  var st=Math.max(0,pos-42),s=(st>0?'…':'')+tx.slice(st,st+190)+(tx.length>st+190?'…':'');
+  s=esc(s);
+  q.forEach(function(w){
+    if(!w)return;
+    s=s.replace(new RegExp('('+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');
+  });
+  return s;
+}
+function run(raw){
+  var box=document.getElementById('kb-res'),st=document.getElementById('kb-stat');
+  var v=clean(raw).toLowerCase();sel=-1;
+  if(!v){
+    box.innerHTML='<div class="empty"><b>输入关键词检索全文</b><br>'+
+      '支持中文 / 英文 / 缩写，如 <b>EUV</b>、<b>套刻</b>、<b>SPAD</b>、<b>内存墙</b>、<b>ASIL</b><br>'+
+      '<span style="font-size:11px">↑↓ 选择 · Enter 跳转 · Esc 关闭</span></div>';
+    st.textContent='全文 '+idx.length+' 节 · 术语 '+terms.length+' 条';return;
+  }
+  var q=v.split(/\s+/).filter(Boolean),out=[];
+  terms.forEach(function(e){var s=score(q,e);if(s>0)out.push({s:s+34,e:e,ty:'t'})});
+  idx.forEach(function(e){var s=score(q,e);if(s>0)out.push({s:s,e:e,ty:'s'})});
+  out.sort(function(a,b){return b.s-a.s});out=out.slice(0,40);
+  st.textContent=out.length?('命中 '+out.length+' 条'+(out.length===40?'（仅显示前 40）':'')):'无结果';
+  if(!out.length){
+    box.innerHTML='<div class="empty"><b>没有匹配结果</b><br>试试更短的关键词，或用英文缩写</div>';return;
+  }
+  box.innerHTML=out.map(function(o,i){
+    var e=o.e;
+    if(o.ty==='t')return'<div class="r" data-jid="'+(e.id||'')+'" data-i="'+i+'">'+
+      '<div class="bc"><span class="bk" style="background:#ecfdf5;color:#047857">📕 术语</span></div>'+
+      '<div class="tt">'+snip(q,e.nm)+'</div><div class="sn">'+snip(q,e.tx)+'</div></div>';
+    return'<div class="r" data-jid="'+e.id+'" data-i="'+i+'">'+
+      '<div class="bc"><span class="bk">'+esc(e.bk)+'</span>'+(e.lv===3?'<span style="color:#cbd5e1">子节</span>':'')+'</div>'+
+      '<div class="tt">'+snip(q,e.t)+'</div><div class="sn">'+snip(q,e.tx)+'</div></div>';
+  }).join('');
+  box.querySelectorAll('.r').forEach(function(r){
+    r.addEventListener('click',function(){pick(r)});
+  });
+}
+function pick(r){
+  var id=r.getAttribute('data-jid');closeS();
+  if(id)setTimeout(function(){jump(id)},60);
+}
+function move(d){
+  var rs=document.querySelectorAll('#kb-res .r');if(!rs.length)return;
+  if(sel>=0&&rs[sel])rs[sel].classList.remove('sel');
+  sel=(sel+d+rs.length)%rs.length;
+  rs[sel].classList.add('sel');rs[sel].scrollIntoView({block:'nearest'});
+}
+
+/* ---------- 6. 搜索面板 ---------- */
+function panel(){
+  var d=document.createElement('div');d.id='kb-search';
+  d.innerHTML='<div class="box"><div class="sh"><span class="ic">🔍</span>'+
+    '<input id="kb-q" type="text" placeholder="搜索全文与术语…" autocomplete="off" spellcheck="false">'+
+    '<span class="esc">Esc</span></div>'+
+    '<div id="kb-stat"></div><div id="kb-res"></div></div>';
+  document.body.appendChild(d);
+  d.addEventListener('click',function(e){if(e.target===d)closeS()});
+  d.querySelector('.esc').addEventListener('click',closeS);
+  var q=document.getElementById('kb-q'),tm=null;
+  q.addEventListener('input',function(){clearTimeout(tm);tm=setTimeout(function(){run(q.value)},110)});
+  q.addEventListener('keydown',function(e){
+    if(e.key==='ArrowDown'){e.preventDefault();move(1)}
+    else if(e.key==='ArrowUp'){e.preventDefault();move(-1)}
+    else if(e.key==='Enter'){
+      e.preventDefault();
+      var rs=document.querySelectorAll('#kb-res .r');
+      if(rs.length)pick(rs[sel>=0?sel:0]);
+    }
+  });
+}
+function openS(){
+  var d=document.getElementById('kb-search');d.classList.add('show');
+  var q=document.getElementById('kb-q');q.value='';run('');
+  setTimeout(function(){q.focus()},40);
+}
+function closeS(){document.getElementById('kb-search').classList.remove('show')}
+
+/* ---------- 启动 ---------- */
+function init(){
+  collect();
+  if(!heads.length)return;
+  foldable();
+  sidebar();
+  panel();
+  build();
+  var tk=false;
+  window.addEventListener('scroll',function(){
+    if(tk)return;tk=true;requestAnimationFrame(function(){spy();tk=false})
+  },{passive:true});
+  window.addEventListener('resize',function(){
+    if(window.innerWidth>=1280)document.body.classList.add('kb-open')
+  });
+  document.addEventListener('keydown',function(e){
+    var open=document.getElementById('kb-search').classList.contains('show');
+    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open?closeS():openS();return}
+    if(e.key==='Escape'&&open){closeS();return}
+    var tn=(e.target.tagName||'').toLowerCase();
+    if(e.key==='/'&&!open&&tn!=='input'&&tn!=='textarea'){e.preventDefault();openS()}
+  });
+  spy();
+  if(location.hash){
+    var id=location.hash.slice(1);
+    setTimeout(function(){if(document.getElementById(id))jump(id)},260);
+  }
+  window.KB={jump:jump,foldAll:foldAll,open:openS,stats:function(){
+    return{groups:groups.length,heads:heads.length,idx:idx.length,terms:terms.length,
+      folded:heads.filter(function(h){return h.body}).length}}};
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 
 </script>
