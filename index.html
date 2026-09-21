@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v8.0 | 2026-09-21 | 射频篇补齐收发端原理详解: ①8.3接收端(sec-rf-rx): 三指标互斥、灵敏度公式S=-174dBm/Hz+10log(BW)+NF+SNRmin与室温热噪声地板、带宽双刃剑、镜频干扰(镜像距信号2倍中频)与三条应对路线、阻塞减敏/邻道选择性/互调、增益分配(噪声看前级线性看后级)与AGC、ADC位置决定架构; ②8.4发射端(sec-rf-tx): 功率/线性度/效率三角、P1dB与失真两后果(ACLR频谱扩散+EVM星座变形)、PA类别A/AB/B/C/E/F对比、PAPR回退(OFDM 8-12dB导致平均效率崩至10-20%量级)、Doherty/ET/DPD三路破局、负载牵引与匹配网络; ③收发对称: 接收端与噪声搏斗、发射端与失真搏斗; 原8.3-8.5顺延为8.5-8.7 -->
+<!-- version: v8.1 | 2026-09-21 | 教材级勘误校对(四批并行审计: 器件物理/制造光刻/存储封装/模拟光电射频, 基准 Sze·Streetman·Pierret·Plummer·Levinson·Jacob·Keeth·Cappelletti·Tummala·Razavi·Gray&Meyer·Saleh&Teich·Pozar·Cripps): 修正6类硬错 — ①浸没式光刻水折射率 193nm 处应为 n≈1.44 而非 1.33(4处, 原值与自身 NA=1.35 及等效134nm 矛盾, NA=n·sinθ 不可能超过介质折射率); ②MOSFET 夹断机理补全(沟道并未真断、电流照流、有效驱动电压被钳位在 V_GS-V_th, 避开最常见误解); ③亚阈值摆幅补定量来源 (kT/q)·ln10≈59.6mV/dec@300K 并修正单位 mV→mV/dec; ④DRAM 读流程第五步「必须刷新」改为「写回 restore」并显式区分 restore(读操作收尾)与 refresh(对抗漏电、不读也要做); ⑤Ge 补间接带隙 0.66eV(原仅写直接带隙 0.80eV 易误导为直接带隙材料); ⑥补 MOS 沟道热噪声 4kTγg_m(γ 长沟道约2/3)与电阻热噪声 4kTR 的适用区分 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -816,7 +816,7 @@ DRAM 要在越来越小的单元面积里<b>存住足够多的电荷</b>（电�
 栅压超过阈值 → 表面形成反型层（N 型沟道）→ 源漏被这条沟道连通 → <b>导通（逻辑 1）</b><br>
 <b>所以栅极就是开关的「按钮」，而按钮靠电场起作用、不需要电流。</b>这是 CMOS 低功耗的根本原因。
 </div>
-<p style="margin-top:10px"><b>原厂讲了电流为什么会「饱和」</b>【原厂】：漏极电压升高到一定程度后，靠漏极那一端的沟道会被「夹断」，此后再升漏压电流也基本不再增加。这个饱和特性是模拟电路与放大器的基础。</p>
+<p style="margin-top:10px"><b>原厂讲了电流为什么会「饱和」</b>【原厂】：漏极电压升到 V_DS ≈ V_GS−V_th 时，靠漏极那一端的反型层被「<b>夹断</b>」——注意这里<b>沟道并没有真的断开</b>，只是该处反型电荷趋近于零。此后再升漏压，多出来的电压几乎全部落在夹断点与漏极之间的耗尽区上，沟道上的<b>有效驱动电压被钳位在 V_GS−V_th 附近</b>，电流因此基本不再增加。<b>电流并没有停</b>，载流子仍以饱和速度被漏端强电场扫过夹断区。这个饱和特性是模拟电路与放大器的基础。</p>
 </div></div>
 
 <div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
@@ -828,7 +828,7 @@ DRAM 要在越来越小的单元面积里<b>存住足够多的电荷</b>（电�
 <p><b>第二步：为什么关不干净？</b>即使栅压低于阈值，源端电子仍然有一条<b>指数拖尾的能量分布</b>——总有少数电子能量特别高，翻得过势垒。栅压稍微一升，就「暴露」出指数增多的高能电子。所以原厂直说：<b>OFF 并非完全 OFF</b>。【原厂】<br>
 <span style="color:#7c3aed">这条拖尾正是 0.1 节讲的费米-狄拉克分布的高能尾巴——<b>地基在这里回收了</b>。</span></p>
 <p><b>第三步：亚阈值摆幅是什么。</b>让漏电流变化 <b>10 倍</b>所需的栅压变化量，单位 mV/dec。【原厂】 <b>越小越好</b>——小意味着栅压稍降漏电就掉一个数量级，即「关得又快又干净」。</p>
-<p><b>第四步：为什么 60mV/dec 是绕不过去的硬墙。</b>完整推导此处从略。物理根源是：<b>载流子的热运动分布本身就是指数型的</b>，这由玻尔兹曼统计决定。室温下这个常数恰好约 60mV。无论怎么优化栅极结构，都只能<b>趋近</b>而永远达不到更低。【原厂】</p>
+<p><b>第四步：为什么 60mV/dec 是绕不过去的硬墙。</b>完整推导此处从略。物理根源是：<b>载流子的热运动分布本身就是指数型的</b>，这由玻尔兹曼统计决定——栅压每压低 <b>(kT/q)·ln10</b>，电流就掉一个数量级。室温（300K）下这个下限恰好是 <b>(kT/q)·ln10 ≈ 59.6 mV/dec</b>（约 60 mV/dec）。传统 MOSFET 无论怎么优化栅极结构，都只能<b>趋近</b>而永远达不到更低。【原厂】</p>
 <div style="background:#7f1d1d;color:#fff;border-radius:8px;padding:14px;font-size:13.5px;line-height:1.95;margin-top:10px">
 <b>第五步：死结就此形成 ——</b><br>
 想降低动态功耗 → 必须降低工作电压 → 就得跟着降低阈值电压<br>
@@ -839,7 +839,7 @@ DRAM 要在越来越小的单元面积里<b>存住足够多的电荷</b>（电�
 <p style="margin-top:10px"><b>雪上加霜的还有两个机制：</b><br>
 <b>DIBL（漏致势垒降低）</b>【原厂】：沟道越短，漏极电场越能「侵入」到源端、把电子的注入势垒压低，相当于变相降低了阈值。本质是<b>栅极对沟道失去控制、被漏极抢走了控制权</b>。原厂给的改善手段停留在薄体、浅结、抬高源漏、Halo 注入。<br>
 <b>GIDL（栅致漏极漏电）</b>【原厂】：栅漏交叠的那个角落出现极强电场，强到让价带电子直接隧穿到导带，凭空造出漏电。是「栅极想关断，却在角落里制造漏电」。</p>
-<p style="background:#f5f3ff;padding:8px 12px;border-radius:6px;color:#4c1d95;margin-top:8px"><b>产业含义：</b>这三重机制叠加，正是业界转向 <b>FinFET / GAA（环栅）</b>的动机——用几何结构把栅极做成包裹沟道的形状，增强栅控、让摆幅逼近 60mV 的理论极限。<b>注意本篇的范围边界：FinFET/GAA 的结构不在此展开</b>，缩放史讲到 3nm 但未解释 3nm 用什么结构，这一层见第一篇 1.3。【推断 + 范围边界】</p>
+<p style="background:#f5f3ff;padding:8px 12px;border-radius:6px;color:#4c1d95;margin-top:8px"><b>产业含义：</b>这三重机制叠加，正是业界转向 <b>FinFET / GAA（环栅）</b>的动机——用几何结构把栅极做成包裹沟道的形状，增强栅控、让摆幅逼近 60 mV/dec 的理论极限。<b>注意本篇的范围边界：FinFET/GAA 的结构不在此展开</b>，缩放史讲到 3nm 但未解释 3nm 用什么结构，这一层见第一篇 1.3。【推断 + 范围边界】</p>
 </div></div>
 
 <div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
@@ -1258,7 +1258,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 
 <div class="anim-card">
 <div class="at"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>浸没式光刻 · 往镜头和晶圆之间注水</div>
-<div class="am">NA = n·sinθ —— 把介质从空气(n≈1)换成水(n=1.33)</div>
+<div class="am">NA = n·sinθ —— 把介质从空气(n≈1)换成水(193nm 处 n≈1.44)</div>
 <svg viewBox="0 0 520 200">
   <rect x="0" y="0" width="520" height="200" fill="#fcfdfe"/>
   <!-- lens -->
@@ -1269,7 +1269,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
     <animate attributeName="opacity" values="0;0;0.85;0.85;0" dur="6s" repeatCount="indefinite"/>
   </rect>
   <text x="392" y="101" font-size="9.5" font-weight="700" fill="#0e7490" opacity="0">
-    DI 水 n=1.33
+    DI 水 n≈1.44
     <animate attributeName="opacity" values="0;0;1;1;0" dur="6s" repeatCount="indefinite"/>
   </text>
   <text x="392" y="101" font-size="9.5" fill="#94a3b8">
@@ -1294,7 +1294,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
     <line x1="260" y1="62" x2="324" y2="108" stroke="#0891b2" stroke-width="2.5"/>
     <text x="260" y="156" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0e7490">收光角变宽 → 有效 NA 达 1.35 → 可印 38nm</text>
   </g>
-  <text x="260" y="176" text-anchor="middle" font-size="9.5" fill="#475569">折射率参考：真空/空气 1 · <b>水 1.33</b> · 油 ~1.7 · 玻璃 1.4-1.6</text>
+  <text x="260" y="176" text-anchor="middle" font-size="9.5" fill="#475569">折射率参考：真空/空气 1 · <b>水 1.44</b> · 油 ~1.7 · 玻璃 1.4-1.6</text>
   <text x="260" y="192" text-anchor="middle" font-size="9.5" fill="#059669" font-weight="700">不换光源、不做更大透镜，仅靠注水就等效放大 NA</text>
 </svg>
 <div class="anim-note">
@@ -1528,7 +1528,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <tr><td class="hl">数值孔径 NA</td><td>0.45–0.65 → 0.8 → 0.93·0.92 → <b>1.35（浸没）</b> → 0.33（EUV）【原厂】</td></tr>
 <tr><td class="hl">最小半节距</td><td>280–350 → 80–110 → 57·65 → <b>38</b> → 13 nm【原厂】</td></tr>
 <tr><td class="hl">k₁ 系数</td><td>理论下限 <b>0.25</b>，量产最低 &lt;0.3【原厂】</td></tr>
-<tr><td class="hl">折射率</td><td>真空 1 ／ 空气 ~1 ／ <b>水 1.33</b> ／ 油 ~1.7 ／ 玻璃 1.4–1.6【原厂】</td></tr>
+<tr><td class="hl">折射率</td><td>真空 1 ／ 空气 ~1 ／ <b>水 1.44</b> ／ 油 ~1.7 ／ 玻璃 1.4–1.6【原厂】</td></tr>
 <tr><td class="hl">掩模缩放</td><td><b>4X</b>【原厂】</td></tr>
 <tr><td class="hl">软烘温度</td><td>100–200 °C【原厂】</td></tr>
 <tr><td class="hl">边缘胶珠</td><td>去除 <b>0.5 mm</b>，边缘胶厚可达正常 <b>3–5 倍</b>【原厂】</td></tr>
@@ -2207,7 +2207,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 
 <div class="anim-card">
 <div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>DRAM 破坏性读出全过程 · 为什么"读一次就得写回一次"</div>
-<div class="am">原厂五步：开字线 → 电荷泄到位线 → 电荷"暂时丢失" → Sense Amp 放大判读 → 必须刷新</div>
+<div class="am">原厂五步：开字线 → 电荷分享到位线 → 位线产生微小电压摆动 → Sense Amp 放大判读 → <b>锁存后立即写回本行（restore）</b></div>
 <svg viewBox="0 0 760 240">
   <rect x="0" y="0" width="760" height="240" fill="#fcfdfe"/>
   <!-- word line -->
@@ -2259,11 +2259,11 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
   </path>
   <defs><marker id="mrg" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#059669"/></marker></defs>
   <text x="600" y="112" font-size="10" font-weight="700" fill="#047857" opacity="0">
-    必须刷新（等同一次写）
+    写回 restore（等同一次写）
     <animate attributeName="opacity" values="0;0;0;0;1;1" dur="6s" repeatCount="indefinite"/>
   </text>
   <!-- key numbers -->
-  <text x="380" y="210" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">原厂原话：「电容上的电荷被暂时丢失」→「丢失的电荷必须被刷新，等同一次写操作」</text>
+  <text x="380" y="210" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">原厂原话：「电容上的电荷被暂时丢失」→「丢失的电荷必须被补回，等同一次写操作」。<b>⚠️ 注意用词：这里的补回是读操作自身的收尾（restore / 写回），与因电容漏电而周期性进行的刷新（refresh）是两回事</b>——刷新即使从不读也必须做，本质上是对每一行做一次 activate+restore。</text>
   <text x="380" y="230" text-anchor="middle" font-size="10.5" fill="#475569">刷新频率（原厂口径）：<b>每个 bank 每 64 毫秒</b>刷新一次 · 电容深度 ~1µm（头发丝约 70µm）</text>
 </svg>
 <div class="anim-note">
@@ -6125,6 +6125,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <p><b>🏠 生活类比：</b>安静的房间里其实并不"静"——空气分子在不停地随机乱撞，只是你听不见。温度越高，撞得越凶。导体里的电子也一样：哪怕不通电，它们也在做无规则热运动，这份"底噪"你永远关不掉。</p>
 <p style="margin-top:6px"><b>📖 是什么：</b>热噪声（又叫 Johnson-Nyquist 噪声）是导体中<b>载流子（电子）因热运动而产生的随机电压/电流起伏</b>。它是最基础、最普遍的噪声，任何有电阻的东西都有。</p>
 <p style="margin-top:6px"><b>🔬 为什么与加不加电压无关：</b>热噪声源于电子的<b>热运动</b>，而热运动只取决于<b>温度</b>——只要温度在绝对零度以上，电子就在乱动，与你是否给电路加电压、通电流<b>毫无关系</b>。它的电压噪声谱密度是 <b>4kTR</b>（k 是玻尔兹曼常数，T 是绝对温度，R 是电阻，单位 V²/Hz）。读这个式子：噪声<b>与温度 T 成正比</b>（越热越吵）、<b>与电阻 R 成正比</b>（电阻越大越吵），但式子里<b>没有电流也没有电压</b>——这就是"与偏置无关"的数学证据。</p>
+<p style="margin-top:6px;background:#fffbeb;padding:8px 12px;border-radius:6px;color:#92400e"><b>⚠️ 一个必须补的口径：</b>上面 4kTR 是<b>电阻</b>的热噪声。而在运放与 ADC 里真正主导的是 <b>MOS 沟道热噪声</b>——沟道本身就是一段受栅压调制的电阻，其电流噪声谱密度为 <b>4kTγg_m</b>（g_m 是跨导，γ 是过剩噪声因子，长沟道器件约 2/3，短沟道会更大）。两者别混用：<b>算采样网络看 4kTR，算放大器输入参考噪声看 4kTγg_m</b>。</p>
 <p style="margin-top:6px"><b>⚙️ 为什么要紧：</b>热噪声给出了电路的<b>本底噪声</b>，是"最小能测多少"的物理下限之一。想降它，只能降电阻（代价是更大电流、更大功耗）或降温——没有免费的午餐。</p>
 <p style="margin-top:8px;background:#f1f5f9;padding:8px 12px;border-radius:6px;color:#334155"><b>🔑 一句话：</b>热噪声是温度直接带来的电子躁动，只要不到绝对零度就关不掉，且与是否通电无关。</p>
 </div></div>
@@ -7812,7 +7813,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <!-- germanium -->
 <rect x="380" y="42" width="180" height="62" rx="4" fill="#dcfce7" stroke="#059669"/>
 <text x="470" y="64" text-anchor="middle" font-size="10" font-weight="700" fill="#065f46">锗 Ge（外延在硅上）</text>
-<text x="470" y="80" text-anchor="middle" font-size="8.5" fill="#047857">直接带隙约 0.80 eV</text>
+<text x="470" y="80" text-anchor="middle" font-size="8.5" fill="#047857">间接带隙 0.66 eV，直接带隙约 0.80 eV</text>
 <text x="470" y="95" text-anchor="middle" font-size="8.5" fill="#047857">1.3–1.55 µm 吸收强</text>
 <circle cx="360" cy="73" r="5" fill="#f59e0b">
   <animate attributeName="cx" values="360;450;450" dur="2.2s" repeatCount="indefinite"/>
@@ -7839,7 +7840,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <text x="606" y="152" font-size="7.5" fill="#7f1d1d">缓解：缓冲层/低温成核</text>
 
 <text x="70" y="146" font-size="9" fill="#475569"><tspan font-weight="700">实测量级参考：</tspan>波导型 Ge-on-Si PIN 响应度约 0.72–0.84 A/W @1550nm，暗电流从数十 nA 到个位数 nA，3dB 带宽约 19–32 GHz。</text>
-<text x="70" y="162" font-size="9" fill="#475569">局限：Ge 直接带隙约 0.80 eV，<tspan font-weight="700">超过 1550 nm 后效率骤降</tspan>。【业界】</text>
+<text x="70" y="162" font-size="9" fill="#475569">局限：Ge 间接带隙 0.66 eV，直接带隙约 0.80 eV，<tspan font-weight="700">超过 1550 nm 后效率骤降</tspan>。【业界】</text>
 <text x="70" y="182" font-size="9" font-weight="700" fill="#5b21b6">🔑 这解释了 CIS 与硅光的波段分野：硅能吸收可见光与近红外（所以 CIS 用硅），但吸收不了通信波段（所以硅光必须外延锗）。</text>
 </svg>
 </div>
