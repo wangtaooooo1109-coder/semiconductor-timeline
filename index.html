@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v7.5 | 2026-09-21 | 结构重构+概念细化: ①CIS与光电探测独立为第六篇「光电感知」(sec-sensing, 依据WSTS口径:图像传感器/光探测器属光电子器件而非模拟IC), 硅光子顺延第七篇、被动器件第八篇; ②第五篇改名「模拟与电源管理 IC」并新增5.1基础概念详解(sec-analog-basics, 18个概念零门槛四步讲法:生活类比→是什么→物理来源→工程后果, 失配从掺杂原子泊松波动等四来源讲透); ③5.0谱系定义保留; 锚点id全部不变故链接零断裂; 目录扩为6列并加4档响应式降级 -->
+<!-- version: v7.7 | 2026-09-21 | 三项扩充: ①新增第八篇射频芯片(sec-rf: 8.0定义与模拟IC关系/8.1按波来想-波长天线50欧S参数dBm链路预算NF-Friis线性度IIP3/8.2收发链路与超外差vs零中频/8.3器件材料-GaAs HBT·GaN·RF SOI·SAW vs BAW声学滤波器/8.4 WiFi7 蓝牙GNSS弱信号5G UWB NFC 77GHz雷达/8.5格局-滤波器卡脖子), 被动器件顺延第九篇; ②第六篇新增6.3发光原理(sec-opto-emit: 正偏注入vs反偏探测的对称/辐射复合/直接vs间接带隙E-k图/硅借声子补动量差故被判死刑/LED无阈值vs LD有阈值/EEL vs VCSEL/照明-通信-LiDAR三条分野), 补齐只讲接收不讲发射的缺口, 光电链路串成6.1→6.2→6.3→7.1闭环; ③第零篇末新增0.12全品类汇总矩阵(sec-matrix: 14品类×诉求/依赖/瓶颈归属/技术杠杆, 四驱动维度+封装横跨维度, 反向按卡在材料-工艺-结构-物理定律分组, 制程缩微有效性判别轴), 与各节③瓶颈槽位标记同源可核验 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -319,16 +319,16 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 
 /* ---------- 修复：原静态目录五列网格在窄屏硬挤/被裁切 ---------- */
 @media(max-width:1400px){
-  [style*="grid-template-columns:1fr 1fr 1fr 1fr 1fr"]{grid-template-columns:1fr 1fr 1fr 1fr!important}
+  [style*="grid-template-columns:1fr 1fr 1fr 1fr 1fr"],[style*="repeat(5,minmax(0,1fr))"]{grid-template-columns:1fr 1fr 1fr 1fr!important}
 }
 @media(max-width:1180px){
-  [style*="grid-template-columns:1fr 1fr 1fr 1fr 1fr"]{grid-template-columns:1fr 1fr 1fr!important}
+  [style*="grid-template-columns:1fr 1fr 1fr 1fr 1fr"],[style*="repeat(5,minmax(0,1fr))"]{grid-template-columns:1fr 1fr 1fr!important}
 }
 @media(max-width:820px){
-  [style*="grid-template-columns:1fr 1fr 1fr 1fr 1fr"]{grid-template-columns:1fr 1fr!important}
+  [style*="grid-template-columns:1fr 1fr 1fr 1fr 1fr"],[style*="repeat(5,minmax(0,1fr))"]{grid-template-columns:1fr 1fr!important}
 }
 @media(max-width:560px){
-  [style*="grid-template-columns:1fr 1fr 1fr 1fr 1fr"]{grid-template-columns:1fr!important;gap:18px!important}
+  [style*="grid-template-columns:1fr 1fr 1fr 1fr 1fr"],[style*="repeat(5,minmax(0,1fr))"]{grid-template-columns:1fr!important;gap:18px!important}
 }
 /* 窄屏防横向溢出（表格/图例/标题被裁） */
 @media(max-width:768px){
@@ -408,7 +408,7 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 <div class="card" style="background:#f1f5f9;border:none">
 <div class="ttl" style="font-size:20px">📑 目录</div>
 <div style="font-size:12.5px;color:#475569;margin-top:4px;line-height:1.7"><b>阅读分层：</b><span style="color:#7c3aed"><b>第零篇（基础篇）讲最本质的内容</b></span>——器件物理、制造工艺、光刻、存储原理、功率工程，全部技术深水区统一收在这里。<b>第一至四篇只讲宏观叙事</b>：时间轴、格局变迁、厂商竞争、产业博弈。<b>第五篇起是摩尔定律之外的世界</b>：模拟/CIS 讲精度与噪声，而非栅长。<span style="color:#64748b">🎬 = 含 SVG 动画</span></div>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;gap:12px;font-size:13px;margin-top:12px">
+<div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;font-size:13px;margin-top:12px">
 <div>
 <div style="font-weight:800;color:#7c3aed;font-size:15px;margin-bottom:2px;padding-bottom:4px;border-bottom:2px solid #ddd6fe">第零篇 · 基础篇（本质层）</div>
 <div style="font-size:11px;color:#8b5cf6;margin-bottom:6px">技术深水区统一收在此篇</div>
@@ -429,6 +429,7 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 <li><a href="#sec-pkg">0.9 封装与3D堆叠 🎬</a></li>
 <li><a href="#sec-hbm">0.10 HBM与内存墙 🎬</a></li>
 <li><a href="#sec-power-loss">0.11 功率损耗与栅驱 🎬</a></li>
+<li><a href="#sec-matrix"><b>0.12 全品类汇总矩阵 📊</b></a></li>
 </ol>
 </div>
 <div>
@@ -513,6 +514,7 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 <li><a href="#sec-opto-map"><b>6.0 光电链路总纲 · CIS/SPAD/硅光本质差异</b></a></li>
 <li><a href="#sec-opto-detect">6.1 光电探测 PD→APD→SPAD→SiPM 🎬</a></li>
 <li><a href="#sec-cis">6.2 CMOS 图像传感器 CIS 🎬</a></li>
+<li><a href="#sec-opto-emit"><b>6.3 发光原理 · 电→光 · LED/VCSEL 🎬</b></a></li>
 </ol>
 <div style="font-size:11px;color:#7c3aed;padding-left:4px;line-height:1.6">⚛️ PN 结原理 → <a href="#sec-phys-pn">基础篇 0.2</a></div>
 </div>
@@ -527,12 +529,25 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 </ol>
 </div>
 <div>
-<div style="font-weight:800;color:#ea580c;font-size:15px;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #fed7aa">第八篇 · 被动器件</div>
+<div style="font-weight:800;color:#db2777;font-size:15px;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #fbcfe8">第八篇 · 射频芯片</div>
 <ol style="padding-left:20px;line-height:2.2">
-<li><a href="#sec-mlcc">8.1 MLCC 结构与工艺瓶颈 🎬</a></li>
-<li><a href="#sec-mlcc-supply">8.2 MLCC 供应链与缺货机制</a></li>
-<li><a href="#sec-rl">8.3 电阻与电感 🎬</a></li>
-<li><a href="#sec-passive-pattern">8.4 产业格局·材料史与五次转折</a></li>
+<li><a href="#sec-rf-what"><b>8.0 什么是射频芯片·与模拟的关系</b></a></li>
+<li><a href="#sec-rf-basics"><b>8.1 基础原理·按「波」来想 🎬</b></a></li>
+<li><a href="#sec-rf-chain">8.2 收发链路·从天线到基带 🎬</a></li>
+<li><a href="#sec-rf-devices">8.3 关键器件与材料·PA/滤波器 🎬</a></li>
+<li><a href="#sec-rf-standards">8.4 各制式 WiFi/BT/GNSS/5G/UWB</a></li>
+<li><a href="#sec-rf-pattern">8.5 产业格局·滤波器卡脖子</a></li>
+</ol>
+<div style="font-size:11px;color:#0891b2;padding-left:4px;line-height:1.6">📐 模拟基础概念 → <a href="#sec-analog-basics">5.1</a></div>
+</div>
+
+<div>
+<div style="font-weight:800;color:#ea580c;font-size:15px;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #fed7aa">第九篇 · 被动器件</div>
+<ol style="padding-left:20px;line-height:2.2">
+<li><a href="#sec-mlcc">9.1 MLCC 结构与工艺瓶颈 🎬</a></li>
+<li><a href="#sec-mlcc-supply">9.2 MLCC 供应链与缺货机制</a></li>
+<li><a href="#sec-rl">9.3 电阻与电感 🎬</a></li>
+<li><a href="#sec-passive-pattern">9.4 产业格局·材料史与五次转折</a></li>
 </ol>
 <div style="font-size:11px;color:#9a3412;padding-left:4px;line-height:1.6">⚠️ 严格讲不属半导体，但占 BOM 件数大头</div>
 </div>
@@ -557,7 +572,7 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 </div>
 <p style="margin-top:10px;background:#f1f5f9;padding:8px 12px;border-radius:6px;color:#334155">
 <b>🔑 为什么要标明「卡在哪一层」：</b>瓶颈归属本身就是最有价值的信息——<b>MLCC 卡材料</b>（BaTiO₃ 晶粒尺寸）、<b>硅光发光卡材料</b>（硅是间接带隙）、<b>MOSFET 缩微卡物理结构</b>（短沟道效应）、<b>车规模块卡工艺</b>（认证与可靠性）。看清卡在哪一层，才知道它能不能被绕过、以及要绕多久。</p>
-<p style="margin-top:8px;color:#64748b;font-size:12px">说明：三类瓶颈是<b>可选槽位</b>——多数小节只卡在其中一两层，不强行凑齐。时间轴、产业格局、各国节点、事件详表、深度研究等<b>叙事类小节不套用此框架</b>。全站范式样本：<a href="#sec-mlcc">8.1 MLCC</a>（结构原理 → 材料下限 → 工艺矛盾 → 隐性劣化 → 品类对比）。</p>
+<p style="margin-top:8px;color:#64748b;font-size:12px">说明：三类瓶颈是<b>可选槽位</b>——多数小节只卡在其中一两层，不强行凑齐。时间轴、产业格局、各国节点、事件详表、深度研究等<b>叙事类小节不套用此框架</b>。全站范式样本：<a href="#sec-mlcc">9.1 MLCC</a>（结构原理 → 材料下限 → 工艺矛盾 → 隐性劣化 → 品类对比）。</p>
 </div></div></div>
 
 <hr style="margin:40px 0 40px;border:none;border-top:4px solid #7c3aed">
@@ -3040,6 +3055,222 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 
 </div>
 
+
+
+<hr style="margin:60px 0 40px;border:none;border-top:4px solid #7c3aed">
+
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-matrix">0.12 全品类汇总矩阵 —— 每一类芯片到底靠什么进步</h1>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">读完基础篇，先用这张表把后面八篇装进一个框架：各自解决什么问题、依赖什么、卡在哪一层</p>
+
+<div class="content">
+
+<div class="card" style="background:#f5f3ff;border-left:4px solid #7c3aed">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33">① 概念</span>🧭 四个驱动维度：先把「靠什么进步」这件事拆开</div>
+<div class="dsc">
+<p>半导体常被简化成「比谁制程更先进」。但读完后面八篇会发现，<b>只有逻辑芯片真正以制程缩微为主线</b>，其余品类各有自己的进步引擎。把驱动力拆成四个维度，全书的结构就清楚了：</p>
+<div class="kv" style="margin-top:8px">
+<span style="background:#eff6ff;color:#1d4ed8"><b>🏗️ 器件结构</b> 改变器件的几何与拓扑（FinFET / 超结 / 沟槽栅 / 1T1C / 盖革模式）</span>
+<span style="background:#fef2f2;color:#b91c1c"><b>🧪 材料体系</b> 换一种材料才能突破（SiC/GaN / III-V / BaTiO₃ / GaAs / 高κ介质）</span>
+<span style="background:#fffbeb;color:#92400e"><b>⚙️ 工艺集成</b> 能不能在同一片硅上稳定做出来（EUV / 深孔刻蚀 / eFlash / BCD / 共烧）</span>
+<span style="background:#ecfdf5;color:#047857"><b>📐 设计方法论</b> 靠版图与电路技巧换性能（共质心布局 / 斩波 / CDS / 噪声整形）</span>
+</div>
+<p style="margin-top:10px;background:#ede9fe;padding:8px 12px;border-radius:6px;color:#4c1d95"><b>🔑 再叠加第五个维度——封装与堆叠：</b>它不属于上面任何一类，因为它<b>不改器件本身，而是改「器件之间怎么连」</b>。HBM、Chiplet、3D NAND、BSI/堆栈式 CIS、CPO 全靠它。<b>这是后摩尔时代最大的增量变量。</b></p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233">⑤ 对比</span>📊 主表：九篇全品类 × 解决什么问题 × 依赖什么 × 卡在哪</div>
+<div class="dsc">
+<p style="margin-bottom:8px;color:#64748b;font-size:12px">「瓶颈归属」一列与各节正文里的 <span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633">③ 瓶颈</span> 槽位标记一致，可逐节对照核验。</p>
+<table class="node-table nopad"><thead><tr>
+<th style="width:13%">品类</th><th style="width:19%">核心诉求（解决什么问题）</th><th style="width:20%">发展主要依赖</th><th style="width:15%">瓶颈归属</th><th style="width:20%">关键技术杠杆</th><th style="width:13%">章节</th>
+</tr></thead><tbody>
+
+<tr><td class="hl">逻辑芯片</td>
+<td>单位面积、单位功耗能做多少运算</td>
+<td><b>🏗️ 器件结构 + ⚙️ 工艺</b><br><span style="font-size:11px;color:#64748b">制程缩微是主线</span></td>
+<td>物理结构（短沟道漏电）+ 工艺（光刻极限）</td>
+<td>HKMG → FinFET → GAA → CFET；EUV / High-NA；Chiplet</td>
+<td><a href="#sec-breakthrough">1.3</a> <a href="#sec-logic-deep">1.8</a></td></tr>
+
+<tr><td class="hl">DRAM</td>
+<td>单位成本存更多 bit，且要够快</td>
+<td><b>🏗️ 器件结构 + ⚙️ 工艺</b><br><span style="font-size:11px;color:#64748b">缩微收益有限</span></td>
+<td>物理结构（靠电容存电荷）+ 工艺（高深宽比刻蚀/成膜）</td>
+<td>1T1C 单元；电容深宽比；1α/1β/1γ；EUV 有限引入</td>
+<td><a href="#sec-mem-atlas">0.7</a> <a href="#sec-dram-process">2.8</a> <a href="#sec-why-not-node">2.9</a></td></tr>
+
+<tr><td class="hl">NAND Flash</td>
+<td>bit 成本最低的非易失存储</td>
+<td><b>📦 堆叠 + ⚙️ 工艺</b><br><span style="font-size:11px;color:#64748b">已放弃缩线宽，改堆层数</span></td>
+<td>工艺（深孔刻蚀、层间均匀性）</td>
+<td>3D NAND 层数；Xtacking 混合键合；SLC→QLC</td>
+<td><a href="#sec-mem-atlas">0.7</a> <a href="#sec-storage-breakthrough">2.3</a></td></tr>
+
+<tr><td class="hl">HBM / 先进封装</td>
+<td>把数据「搬」得够快（内存墙）</td>
+<td><b>📦 封装与堆叠</b><br><span style="font-size:11px;color:#64748b">与器件缩微无关</span></td>
+<td>物理结构（带宽密度）+ 工艺（堆叠良率、散热）</td>
+<td>TSV 硅通孔；微凸点 → 混合键合；2.5D 中介层；CoWoS</td>
+<td><a href="#sec-pkg-tsv">0.9.3</a> <a href="#sec-hbm-wall">0.10</a></td></tr>
+
+<tr><td class="hl">功率半导体</td>
+<td>高压大电流下少发热、开关快</td>
+<td><b>🧪 材料 + 🏗️ 器件结构</b><br><span style="font-size:11px;color:#64748b">无制程节点概念</span></td>
+<td>材料（临界电场上限）+ 物理结构（耐压↔导通矛盾）</td>
+<td>超结、沟槽栅；宽禁带 SiC / GaN；双面冷却模块</td>
+<td><a href="#sec-power-breakthrough">3.3</a> <a href="#sec-power-loss">0.11</a></td></tr>
+
+<tr><td class="hl">车载 MCU</td>
+<td>功能安全 + 实时确定性，不是算力</td>
+<td><b>⚙️ 工艺集成 + 🏗️ 架构</b><br><span style="font-size:11px;color:#64748b">缩微受 eFlash 拖累</span></td>
+<td>工艺（eFlash 与先进逻辑难共存）</td>
+<td>eFlash / SG-MONOS / 车规 RRAM；锁步核、ECC、BIST</td>
+<td><a href="#sec-mcu-breakthrough">4.3</a> <a href="#sec-mcu-deep">4.7</a></td></tr>
+
+<tr><td class="hl">模拟信号链</td>
+<td>数值本身要准（精度与噪声底）</td>
+<td><b>📐 设计方法论</b><br><span style="font-size:11px;color:#b91c1c">缩微反而有害</span></td>
+<td>物理结构（失配、噪声、电压裕度）+ 设计</td>
+<td>面积换精度（Pelgrom）；共质心布局；斩波；ΣΔ 噪声整形</td>
+<td><a href="#sec-analog-basics">5.1</a> <a href="#sec-analog-why">5.2</a> <a href="#sec-adc">5.4</a></td></tr>
+
+<tr><td class="hl">电源管理 PMIC</td>
+<td>能量转换效率，不是信号精度</td>
+<td><b>⚙️ 工艺集成 + 拓扑</b><br><span style="font-size:11px;color:#64748b">成熟节点长寿</span></td>
+<td>工艺（高低压器件共片 = BCD）</td>
+<td>BCD 工艺；开关拓扑；把电源搬到负载旁边</td>
+<td><a href="#sec-pmic">5.5</a> <a href="#sec-analog-proc">5.6</a></td></tr>
+
+<tr><td class="hl">光电探测<br>SPAD / SiPM</td>
+<td>有没有光子、<b>什么时候</b>到（时间精度）</td>
+<td><b>🏗️ 器件结构 + ⚙️ 工艺</b></td>
+<td>工艺（CMOS 兼容性分歧）+ 物理结构（填充因子、死时间）</td>
+<td>盖革模式偏压；淬灭电阻；SPAD + TDC 堆栈集成</td>
+<td><a href="#sec-opto-detect">6.1</a></td></tr>
+
+<tr><td class="hl">CIS 图像传感器</td>
+<td>光的空间分布 + 灰度保真</td>
+<td><b>📦 封装 + 📐 设计</b><br><span style="font-size:11px;color:#64748b">胜负手不在像素数</span></td>
+<td>物理结构（读出噪声底、满井容量）</td>
+<td>4T 像素 + CDS；FSI → BSI → 堆栈式；列并行 ADC</td>
+<td><a href="#sec-cis">6.2</a></td></tr>
+
+<tr><td class="hl">发光器件<br>LED / 激光器</td>
+<td>把电变成光（且要够亮、够窄、够快）</td>
+<td><b>🧪 材料体系</b><br><span style="font-size:11px;color:#b91c1c">与制程完全无关</span></td>
+<td>材料（能带结构：硅是间接带隙，判死刑）</td>
+<td>直接带隙 III-V；量子井；EEL/DFB vs VCSEL</td>
+<td><a href="#sec-opto-emit">6.3</a></td></tr>
+
+<tr><td class="hl">硅光子</td>
+<td>带宽密度与每比特能耗（绕开铜线）</td>
+<td><b>🧪 材料集成 + 📦 封装</b></td>
+<td>材料（硅不发光、通信波段透明）+ 工艺（耦合对准、温控）</td>
+<td>外挂 III-V 激光器；外延锗探测器；MZM/微环；CPO</td>
+<td><a href="#sec-siph-device">7.2</a> <a href="#sec-cpo">7.3</a></td></tr>
+
+<tr><td class="hl">射频芯片</td>
+<td>把信息塞进电磁波，再从噪声里捞回来</td>
+<td><b>🧪 材料 + 📦 模组封装</b><br><span style="font-size:11px;color:#b91c1c">PA 不用先进 CMOS</span></td>
+<td>材料（硅衬底损耗、电压裕度不够）+ 工艺（声学器件）</td>
+<td>GaAs HBT（PA）、GaN（基站/雷达）、RF SOI（开关）；SAW/BAW 滤波器；FEM 模组</td>
+<td><a href="#sec-rf-devices">8.3</a> <a href="#sec-rf-standards">8.4</a></td></tr>
+
+<tr><td class="hl">被动器件</td>
+<td>容值/阻值密度、精度、寿命</td>
+<td><b>🧪 材料 + ⚙️ 工艺</b><br><span style="font-size:11px;color:#b91c1c">没有「制程节点」这回事</span></td>
+<td>材料（BaTiO₃ 晶粒尺寸下限）+ 工艺（Ni 电极与陶瓷共烧矛盾）</td>
+<td>介质薄层化；BME 贱金属电极；叠层数</td>
+<td><a href="#sec-mlcc">9.1</a> <a href="#sec-rl">9.3</a></td></tr>
+
+</tbody></table>
+</div></div>
+
+<div class="card" style="background:#eff6ff;border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233">⑤ 对比</span>🔁 反向看：按「卡在哪一层」重新分组</div>
+<div class="dsc">
+<p>同一份数据换个方向看，会得到一个更有用的判断——<b>卡在哪一层，决定了这个瓶颈能不能被绕过、以及要绕多久</b>。</p>
+<div class="card-row" style="margin-top:10px">
+
+<div class="card" style="background:#fff">
+<div class="ttl" style="font-size:14px">🧪 卡在材料（最难绕，往往要换体系）</div>
+<div class="dsc" style="font-size:12.5px">
+<div class="kv">
+<span class="warn"><b>发光器件</b>：硅是间接带隙，<b>工艺无法优化</b>，只能外挂 III-V</span>
+<span class="warn"><b>被动器件</b>：BaTiO₃ 晶粒尺寸的物理下限</span>
+<span class="warn"><b>射频 PA</b>：硅衬底损耗 + 电压裕度不足 → GaAs/GaN</span>
+<span><b>功率器件</b>：硅临界电场到顶 → SiC/GaN</span>
+</div>
+<p style="margin-top:7px;color:#b91c1c"><b>共同特征：</b>瓶颈写在元素周期表里，不是努力能解决的。突破往往以<b>十年</b>计。</p>
+</div></div>
+
+<div class="card" style="background:#fff">
+<div class="ttl" style="font-size:14px">⚙️ 卡在工艺（可解，但要巨额资本与时间）</div>
+<div class="dsc" style="font-size:12.5px">
+<div class="kv">
+<span><b>逻辑先进制程</b>：光刻分辨率与套刻精度</span>
+<span><b>NAND</b>：高深宽比深孔刻蚀</span>
+<span><b>DRAM</b>：电容深宽比、成膜均匀性</span>
+<span><b>车载 MCU</b>：eFlash 与先进逻辑的集成矛盾</span>
+<span><b>PMIC</b>：高低压器件共片（BCD）</span>
+<span><b>HBM</b>：堆叠良率与散热</span>
+</div>
+<p style="margin-top:7px;color:#92400e"><b>共同特征：</b>路径明确但门槛在设备与产线，<b>钱和时间能买到进步</b>——这也是产业集中度高的根因。</p>
+</div></div>
+</div>
+
+<div class="card-row" style="margin-top:12px">
+<div class="card" style="background:#fff">
+<div class="ttl" style="font-size:14px">🏗️ 卡在器件结构（靠重新设计拓扑破局）</div>
+<div class="dsc" style="font-size:12.5px">
+<div class="kv">
+<span><b>MOSFET 缩微</b>：短沟道漏电 → FinFET/GAA 换几何</span>
+<span><b>功率耐压</b>：耐压↔导通矛盾 → 超结、沟槽栅</span>
+<span><b>内存墙</b>：横向没地方 → 往上堆（TSV）</span>
+<span><b>SPAD</b>：填充因子与死时间</span>
+</div>
+<p style="margin-top:7px;color:#1e40af"><b>共同特征：</b>一次结构创新可以<b>续命一到两个代际</b>，是最常见的破局方式。</p>
+</div></div>
+
+<div class="card" style="background:#fff">
+<div class="ttl" style="font-size:14px">📐 卡在设计与物理定律（只能买，不能绕）</div>
+<div class="dsc" style="font-size:12.5px">
+<div class="kv">
+<span><b>模拟精度</b>：失配 σ ∝ 1/√面积（Pelgrom）——只能用面积买</span>
+<span><b>采样噪声</b>：kT/C——精度 +1 位要电容 ×4</span>
+<span><b>CIS 暗部</b>：读出噪声底</span>
+<span><b>射频</b>：增益 × 线性度 × 效率 三者互斥</span>
+</div>
+<p style="margin-top:7px;color:#047857"><b>共同特征：</b>这些是<b>物理定价，不是工艺欠债</b>。所以「高精度 ADC 天然大而耗电」不是谁不努力。</p>
+</div></div>
+</div>
+</div></div>
+
+<div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933">⑥ 本质</span>🎯 一条最有用的判别轴：制程缩微对这个品类有效吗</div>
+<div class="dsc">
+<p>这条轴把全书的判断浓缩成一句话——<b>「先进制程」不是普适答案，它只对一类芯片是主线</b>。</p>
+<table class="node-table nopad" style="margin-top:10px"><thead><tr>
+<th style="width:22%">缩微的有效性</th><th style="width:30%">品类</th><th>为什么</th>
+</tr></thead><tbody>
+<tr><td class="hl" style="color:#047857"><b>✅ 有效，且是主线</b></td>
+<td>逻辑芯片（CPU/GPU/AI）</td>
+<td>密度直接换算力与能效，缩微收益最直接</td></tr>
+<tr><td class="hl" style="color:#0891b2"><b>◐ 部分有效</b></td>
+<td>DRAM、硅光、SoC 内的数字部分</td>
+<td>DRAM 受「存电荷」约束，收益递减已换赛道；硅光受益于 CMOS 兼容而非线宽</td></tr>
+<tr><td class="hl" style="color:#b45309"><b>↔️ 已换赛道</b></td>
+<td>NAND、HBM、Chiplet</td>
+<td><b>不缩线宽，改堆叠</b>——从「二维变小」转为「三维变高」</td></tr>
+<tr><td class="hl" style="color:#b91c1c"><b>❌ 基本无效或反而有害</b></td>
+<td>模拟信号链、PMIC、功率器件、车载 MCU、被动器件、发光器件、射频 PA</td>
+<td>模拟：电压裕度变小、失配变差；功率/被动：无节点概念；MCU：受 eFlash 拖累；发光：材料决定；PA：低压出不了功率</td></tr>
+</tbody></table>
+<p style="margin-top:12px;background:#fef3c7;padding:8px 12px;border-radius:6px;color:#92400e"><b>🔑 全书一句话总纲：</b>半导体的进步不是一条线，而是<b>四条并行的引擎</b>——<b>逻辑靠缩微、存储靠堆叠、功率与射频靠材料、模拟靠设计方法论</b>。而<b>封装是唯一横跨所有品类的公共变量</b>：它不改器件本身，却在后摩尔时代成为最大增量。<b>看懂一颗芯片，先问它的进步引擎是哪一个。</b></p>
+<p style="margin-top:8px;color:#64748b;font-size:12px">📌 用法：本表是后八篇的索引与校验表。读某一篇时可回来核对「它的瓶颈归属是否与我读到的一致」；各节正文里的 <span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633">③ 瓶颈</span> 标记与本表同源，若发现不一致即为文档缺陷，欢迎指出。</p>
+</div></div>
+
+</div>
 
 <h2 style="max-width:1100px;margin:16px auto 8px;padding:0 24px;text-align:center;border:none;font-size:20px" id="sec-timeline">🔵 1.1 全景时间轴（← 横向滚动 →）</h2>
 <div class="tl-wrap"><div class="tl-inner" id="tl" style="min-width:4200px"></div></div>
@@ -6745,9 +6976,9 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="skel"><b>🧭 本节讲法</b><span class="path">概念（胜负手在读出链）→ 原理（4T+CDS）→ 方案（BSI/堆栈、列并行）→ 车规瓶颈 → 与硅光边界</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 <div class="opto-nav">
 🔗 光电链路位置：
-<a href="#sec-opto-detect">⬅ 上一环 · 探测层 PD/SPAD/SiPM</a>
-<span>｜ 📍 本节 · 成像层 CIS（光→电→数字）｜</span>
-<a href="#sec-siph-why">下一环 · 为什么要用光 ➡</a>
+<a href="#sec-opto-detect">⬅ 上一环 · 6.1 探测层 PD/SPAD/SiPM</a>
+<span>｜ 📍 本节 6.2 · 成像层 CIS（光→电→数字）｜</span>
+<a href="#sec-opto-emit">下一环 · 6.3 发射端（电→光）➡</a>
 </div>
 
 <div class="card" style="background:#f0f9ff;border-left:4px solid #0284c7">
@@ -6942,6 +7173,256 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 
+
+<h2 id="sec-opto-emit">💡 6.3 发光原理：电 → 光，为什么硅被判了死刑</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（正偏注入 vs 反偏探测）→ 原理（辐射复合与直接带隙）→ 材料瓶颈（硅不行·效率链）→ 品类对比（LED/EEL/VCSEL）→ 本质与硅光接口</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+
+<div class="content">
+
+<div class="opto-nav">
+🔗 光电链路位置：
+<a href="#sec-cis">⬅ 上一环 · 6.2 CIS 接收成像</a>
+<span>｜ 📍 本节 6.3 · 发射端（电 → 光）｜</span>
+<a href="#sec-siph-device">下一环 · 7.2 硅光器件（发光交给 III-V）➡</a>
+</div>
+
+<!-- ① 概念 -->
+<div class="card" style="background:#faf5ff;border-left:4px solid #7c3aed">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>同一个 PN 结，反着用就成了光源</div>
+<div class="dsc">
+<p>前面 6.1、6.2 讲的全是<b>接收</b>——光进来，PN 结把它变成电（<a href="#sec-opto-detect">探测</a>与<a href="#sec-cis">成像</a>）。但整条光电链路少了上游一半：<b>光是从哪来的？</b>本节补的就是这一半——<b>电 → 光</b>。</p>
+
+<p>最漂亮的对称就在这里：<b>发光和探测用的是同一个 PN 结，只是偏压方向相反。</b></p>
+<table class="node-table nopad" style="margin-top:8px"><thead><tr>
+<th style="width:14%">用法</th><th style="width:16%">偏压</th><th style="width:38%">载流子怎么走</th><th>角色</th>
+</tr></thead><tbody>
+<tr><td class="hl">探测（6.1/6.2）</td><td><b>反偏</b></td><td>光子在耗尽区造出电子-空穴对，强电场把它们<b>扫出来</b>当信号</td><td>👁️ 眼睛</td></tr>
+<tr><td class="hl">发光（本节）</td><td><b>正偏</b></td><td>外加电压把大量电子和空穴<b>注进</b>结区，让它们相遇、复合、发光</td><td>💡 灯泡</td></tr>
+</tbody></table>
+<p style="margin-top:10px;background:#ede9fe;padding:8px 12px;border-radius:6px;color:#4c1d95"><b>🔑 一句话记住：</b>一个 PN 结，<b>反偏是眼睛（把光变成电），正偏是灯泡（把电变成光）</b>。探测靠电场「扫出」载流子，发光靠电流「注入」载流子——方向恰好互为镜像。</p>
+
+<p style="margin-top:10px"><b>它在 <a href="#sec-opto-map">6.0 四层递进</a> 里的位置：</b>「电→光」不是某一层专属，而是<b>通信层与感知层的共同上游</b>。LiDAR 要先<b>发</b>一束光出去、光才可能被 SPAD 探到；光通信要先<b>发</b>一路光载波、信息才可能被调制上去。所以本节讲的发射端，是接收端（6.1）和硅光互连（7.x）共同的起点。</p>
+</div></div>
+
+<!-- ② 原理 -->
+<h3><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>辐射复合：电能怎样才变成光，而不是变成热</h3>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>第一步：复合时，多余的能量必须找个出口</div>
+<div class="dsc">
+<p>正偏把电子注到导带、空穴注到价带，它们在结区相遇。一个导带里的电子<b>掉回</b>价带填掉一个空穴，这叫<b>复合（recombination）</b>。掉下来跨过的这段能量差，正好约等于材料的<b>带隙 Eg</b>，这份能量<b>不能凭空消失，必须释放出去</b>——而释放的方式有两条完全不同的路，它们在互相竞争：</p>
+<div class="kv">
+<span class="good"><b>① 辐射复合（有用）：</b>能量打包成一个<b>光子</b>发出去 → 这就是发光</span>
+<span class="warn"><b>② 非辐射复合（浪费）：</b>能量变成<b>晶格振动（声子）= 热</b> → 白白发烫，不发光</span>
+</div>
+<p style="margin-top:6px"><b>谁快谁赢。</b>两条路是并行的竞速：辐射复合越快、非辐射越慢，光就越多。一个材料能不能当光源，本质就是问：<b>在它里面，辐射这条路能不能压过发热那条路？</b></p>
+</div></div>
+
+<div class="anim-card">
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>🎯 核心：直接带隙 vs 间接带隙——硅被判死刑的那张图</div>
+<div class="am">同样是电子从导带掉回价带，能不能发光，取决于导带谷和价带顶在「动量轴」上对不对得齐</div>
+<svg viewBox="0 0 760 300">
+<text x="380" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">E–k 能带图：横轴是动量 k，纵轴是能量 E</text>
+
+<!-- LEFT: direct bandgap -->
+<text x="190" y="42" text-anchor="middle" font-size="11.5" font-weight="800" fill="#047857">直接带隙（GaAs / GaN / InP）</text>
+<!-- axes -->
+<line x1="60" y1="70" x2="60" y2="262" stroke="#94a3b8" stroke-width="1.5"/>
+<line x1="60" y1="262" x2="330" y2="262" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="48" y="76" font-size="9" fill="#64748b">E</text>
+<text x="326" y="278" font-size="9" fill="#64748b">k</text>
+<!-- conduction band parabola, min at k=195 -->
+<path d="M90,110 Q195,86 300,110" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+<text x="300" y="106" font-size="8.5" fill="#1e40af">导带</text>
+<!-- valence band parabola, max at k=195 -->
+<path d="M90,238 Q195,214 300,238" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+<text x="300" y="252" font-size="8.5" fill="#991b1b">价带</text>
+<!-- vertical transition -->
+<line x1="195" y1="88" x2="195" y2="212" stroke="#0f172a" stroke-dasharray="4,3" stroke-width="1"/>
+<circle cx="195" cy="90" r="5" fill="#2563eb"/>
+<circle cx="195" cy="212" r="5" fill="#fff" stroke="#dc2626" stroke-width="2"/>
+<!-- photon wave arrow -->
+<path d="M203,150 q8,-8 16,0 q8,8 16,0 q8,-8 16,0" fill="none" stroke="#f59e0b" stroke-width="2.2">
+  <animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite"/>
+</path>
+<text x="252" y="146" font-size="9" font-weight="700" fill="#b45309">→ 光子 hν</text>
+<text x="140" y="188" font-size="9" font-weight="700" fill="#065f46">电子垂直掉下</text>
+<text x="140" y="200" font-size="8.5" fill="#047857">动量不变，直接发光</text>
+<text x="130" y="288" text-anchor="middle" font-size="9" fill="#334155">谷与顶在同一 k → 高概率发光</text>
+
+<!-- divider -->
+<line x1="385" y1="60" x2="385" y2="270" stroke="#e2e8f0" stroke-width="2"/>
+
+<!-- RIGHT: indirect bandgap -->
+<text x="575" y="42" text-anchor="middle" font-size="11.5" font-weight="800" fill="#b91c1c">间接带隙（Si / Ge）</text>
+<line x1="440" y1="70" x2="440" y2="262" stroke="#94a3b8" stroke-width="1.5"/>
+<line x1="440" y1="262" x2="720" y2="262" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="428" y="76" font-size="9" fill="#64748b">E</text>
+<text x="716" y="278" font-size="9" fill="#64748b">k</text>
+<!-- valence band max at k≈525 -->
+<path d="M470,238 Q525,214 580,238" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+<text x="470" y="252" font-size="8.5" fill="#991b1b">价带</text>
+<!-- conduction band min shifted right at k≈650 -->
+<path d="M560,120 Q650,92 710,120" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+<text x="682" y="112" font-size="8.5" fill="#1e40af">导带</text>
+<!-- electron at conduction min -->
+<circle cx="650" cy="96" r="5" fill="#2563eb"/>
+<!-- hole at valence max -->
+<circle cx="525" cy="212" r="5" fill="#fff" stroke="#dc2626" stroke-width="2"/>
+<!-- diagonal transition needing phonon -->
+<line x1="650" y1="98" x2="525" y2="210" stroke="#7c3aed" stroke-dasharray="4,3" stroke-width="1.5"/>
+<!-- phonon squiggle along the horizontal momentum gap -->
+<path d="M560,150 q7,-7 14,0 q7,7 14,0 q7,-7 14,0 q7,7 14,0" fill="none" stroke="#0891b2" stroke-width="2">
+  <animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite"/>
+</path>
+<text x="600" y="176" font-size="8.5" font-weight="700" fill="#0e7490">还得借一个声子补动量差</text>
+<text x="500" y="288" text-anchor="middle" font-size="9" fill="#334155">谷与顶 k 不同 → 三体过程，概率低几个数量级</text>
+</svg>
+<div class="anim-note">
+<p><b>为什么这张图是本节的钥匙。</b>电子要发光，得从导带谷「掉」到价带顶。光子几乎不携带动量，所以：</p>
+<p><b>直接带隙（左·GaAs/GaN/InP）：</b>导带谷和价带顶在<b>同一个动量 k</b> 上，电子<b>垂直</b>掉下即可，动量天然守恒——一步到位，发光概率高。</p>
+<p><b>间接带隙（右·Si/Ge）：</b>导带谷偏到了<b>另一个动量位置</b>，电子掉下来必须<b>同时借一个声子（晶格振动）</b>来补上这段动量差。这是要电子、光子、声子<b>三者同时凑齐</b>的「三体过程」，发生概率比直接带隙<b>低好几个数量级</b>。于是能量几乎全走了非辐射那条路——<b>变成热，而不是光</b>。</p>
+<p style="background:#fef2f2;padding:7px 11px;border-radius:6px;color:#991b1b;margin-top:8px"><b>🔑 硅被判死刑的根因就在这里：</b>硅是<b>间接带隙</b>（Eg ≈ 1.12 eV），发光效率极低。这是<b>能带结构决定的物理事实，不是工艺能优化掉的</b>——换再先进的产线、再干净的材料，硅还是不发光。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>波长由带隙决定：λ ≈ 1240 / Eg</div>
+<div class="dsc">
+<p>既然复合放出的光子能量约等于带隙，那么<b>发什么颜色的光，直接由材料的带隙定死</b>。换算关系很简单：<b>λ(nm) ≈ 1240 / Eg(eV)</b>。选材料、调合金组分，本质就是在调带隙、也就是在调波长：</p>
+<table class="node-table nopad" style="margin-top:8px"><thead><tr>
+<th style="width:22%">材料</th><th style="width:16%">带隙 Eg</th><th style="width:22%">波长 λ</th><th>典型用途</th>
+</tr></thead><tbody>
+<tr><td class="hl">GaN</td><td>≈ 3.4 eV</td><td>≈ 365 nm 紫外</td><td>紫外光源、蓝光基底</td></tr>
+<tr><td class="hl">InGaN（调 In 组分）</td><td>可调</td><td>≈ 450 nm 蓝光</td><td>蓝光 LED（白光的芯）、蓝光 LD</td></tr>
+<tr><td class="hl">GaAs</td><td>≈ 1.42 eV</td><td>≈ 870 nm 近红外</td><td>850/940 nm VCSEL、短距互连</td></tr>
+<tr><td class="hl">InGaAsP（调组分）</td><td>可调</td><td>1310 / 1550 nm</td><td>光通信波段激光器（InP 基）</td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>量子井：把载流子关进很薄的一层里。</b>光靠一个普通 PN 结，注进去的电子空穴分布很散，相遇复合的概率不高。现代发光器件在结区夹进一层<b>几纳米厚</b>的窄带隙材料（<b>量子井</b>），像一口深井把电子和空穴<b>同时囚在同一薄层</b>里，强迫它们高密度地待在一起——复合概率与发光效率因此大幅提升，波长也可以靠井宽微调。这是所有高效 LED 和激光器的共同底层结构。</p>
+</div></div>
+
+<!-- ③ 材料瓶颈 + 效率链 -->
+<h3><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 材料瓶颈</span>效率是层层漏出来的，还有两个公认难题</h3>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 材料瓶颈">③ 材料瓶颈</span>效率三层漏斗：IQE → EQE → WPE</div>
+<div class="dsc">
+<p>「一个电子进去能不能出来一个光子、这个光子能不能真的照到外面、这一切又费了多少电」——发光效率不是一个数，而是<b>三层依次打折</b>：</p>
+<div class="kv">
+<span><b>① 内量子效率 IQE：</b>结区里的复合中，<b>有多少比例走了辐射（发光）</b>那条路——这一层由<b>能带结构与材料质量</b>决定</span>
+<span><b>② 外量子效率 EQE：</b>产生的光子里，<b>有多少真的跑出了芯片</b>——半导体折射率高，光在界面被<b>全反射</b>弹回、被材料<b>自吸收</b>，大量光子出不来</span>
+<span><b>③ 功率效率 WPE（墙插效率）：</b>输入的<b>电功率</b>里，最终<b>有多少变成了光功率</b>——把前两层加上串联电阻、驱动损耗全算进去的总账</span>
+</div>
+<p style="margin-top:6px;color:#475569">这三层是逐级嵌套的：EQE = IQE × 光提取效率，WPE 再把电学损耗折进去。<b>硅的问题出在第一层就近乎归零</b>（IQE 极低），后面两层再优化也无力回天——这再次说明它是<b>材料/能带层面</b>的死结，不是封装或电路能救的。</p>
+</div></div>
+
+<div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 材料瓶颈">③ 材料瓶颈</span>两个至今没被彻底解决的行业难题</div>
+<div class="dsc">
+<div class="card-row">
+<div class="card" style="background:#fff">
+<div class="ttl" style="font-size:14px">🟢 绿光空缺（green gap）</div>
+<div class="dsc" style="font-size:12.5px">
+<p>蓝光靠 InGaN、红光靠 AlInGaP，两套材料体系各擅一端。可当 <b>InGaN 往长波（绿）调</b>、或 <b>AlInGaP 往短波（绿）调</b> 时，两边的效率<b>都在绿光波段掉下去</b>，形成一段谁都做不好的「空缺」。</p>
+<p style="margin-top:5px;color:#991b1b">机理仍有争议（普遍归因于 InGaN 高 In 组分的缺陷与极化电场等）【业界】——这是<b>材料/能带层面</b>的难题，不是电路设计问题。</p>
+</div></div>
+<div class="card" style="background:#fff">
+<div class="ttl" style="font-size:14px">📉 效率下垂（efficiency droop）</div>
+<div class="dsc" style="font-size:12.5px">
+<p>LED 在<b>低电流</b>下效率很高，但<b>电流密度一升高，效率反而下降</b>——想靠加大电流换更多亮度，边际收益越来越差。</p>
+<p style="margin-top:5px;color:#991b1b">主流解释指向<b>俄歇复合（Auger）</b>等高载流子密度下的非辐射过程，但确切权重业界仍有争论【业界】。它直接限制了大功率照明与显示的能效上限。</p>
+</div></div>
+</div>
+</div></div>
+
+<!-- ④⑤ 器件谱系与对比 -->
+<h3><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>器件谱系：LED、激光器，以及 EEL 与 VCSEL</h3>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>LED vs 激光器 LD：同样发光，为什么一个散、一个尖</div>
+<div class="dsc">
+<p>能发光的器件分两大类，差别不在材料而在<b>「光是怎么放出来的」</b>：</p>
+<div class="card-row" style="margin-top:8px">
+<div class="card" style="background:#fff">
+<div class="ttl" style="font-size:14px">💡 LED = 自发辐射</div>
+<div class="dsc" style="font-size:12.5px">
+<p>载流子各自随机地复合发光，<b>互不相干</b>。</p>
+<div class="kv">
+<span>光谱<b>宽</b>（几十 nm）</span>
+<span>方向<b>散</b>（近似朝各方向）</span>
+<span class="good"><b>无阈值</b>：一通电就发光</span>
+<span>结构简单、<b>便宜</b></span>
+</div>
+</div></div>
+<div class="card" style="background:#fff">
+<div class="ttl" style="font-size:14px">🔦 激光器 LD = 受激辐射</div>
+<div class="dsc" style="font-size:12.5px">
+<p>加<b>光学谐振腔</b>把光来回反射，让一个光子<b>诱发</b>更多同相同向的光子（受激辐射），前提是先做到<b>粒子数反转</b>。</p>
+<div class="kv">
+<span>光谱<b>窄</b>（可达亚 nm）</span>
+<span>方向性<b>好</b></span>
+<span class="warn"><b>有阈值电流</b></span>
+<span>可<b>高速调制</b></span>
+</div>
+</div></div>
+</div>
+<p style="margin-top:10px;background:#ecfeff;padding:8px 12px;border-radius:6px;color:#155e75"><b>🔑「阈值电流」是什么：</b>激光要靠光子诱发光子来「起振」，得先让增益压过腔内损耗，这要求注入达到一定强度。<b>低于阈值电流</b>时，受激辐射建立不起来，它只是个<b>发着微弱杂散光的差 LED</b>；<b>越过阈值</b>，光子雪崩般自我放大，才真正<b>起振出激光</b>——光谱骤然变窄、亮度陡增。这条「阈值」就是 LD 和 LED 最硬的分界线。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>激光器的两大结构：边发射 EEL vs 面发射 VCSEL</div>
+<div class="dsc">
+<p>同样是半导体激光器，出光方向不同，带出一整套工程差异：</p>
+<table class="node-table"><thead><tr>
+<th style="width:14%">维度</th><th style="width:30%">EEL 边发射（含 DFB/DBR）</th><th style="width:30%">VCSEL 面发射</th><th>说明</th>
+</tr></thead><tbody>
+<tr><td class="hl">出光方向</td><td>从芯片<b>侧面</b>出光</td><td>从芯片<b>表面垂直</b>出光</td><td>决定了封装与测试方式</td></tr>
+<tr><td class="hl">光斑/光谱</td><td>椭圆光斑；可做<b>单纵模</b>、窄线宽</td><td><b>圆形</b>光斑；单器件线宽稍宽</td><td>通信要窄线宽 → EEL 占优</td></tr>
+<tr><td class="hl">功率</td><td><b>高</b>（单管功率强）</td><td>单管较低，<b>靠阵列堆</b></td><td>长距/大功率 → EEL</td></tr>
+<tr><td class="hl">阵列能力</td><td>难做大二维阵列</td><td><b>天然二维阵列</b></td><td>3D 感知要面阵 → VCSEL</td></tr>
+<tr><td class="hl">测试成本</td><td>须切割解理后才能测，<b>贵</b></td><td><b>晶圆级在片测试</b>，成本低</td><td>VCSEL 量产成本优势的关键</td></tr>
+<tr><td class="hl">典型材料/波长</td><td><b>InP 基</b> 1310/1550 nm</td><td><b>GaAs 基</b> 850/940 nm</td><td>波长由带隙/材料体系定</td></tr>
+<tr><td class="hl">主战场</td><td>光通信主力（DFB/EML）</td><td>3D 感知、短距光互连</td><td>见下方应用分野</td></tr>
+</tbody></table>
+</div></div>
+
+<div class="card" style="background:#ecfeff;border-left:4px solid #0891b2">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>应用分野：同一套发光原理，四种不同诉求</div>
+<div class="dsc">
+<div class="kv">
+<span><b>💡 照明 / 显示：</b><b>GaN 蓝光 + 荧光粉</b>（主流是蓝光芯片激发 <b>YAG:Ce</b> 黄色荧光粉，蓝+黄混成白光）。前沿的 <b>MicroLED</b> 面临<b>巨量转移</b>（把百万级微米芯片挪到基板）与<b>尺寸效应</b>（芯片越小侧壁复合越严重、效率越低）两大挑战。</span>
+<span><b>📡 光通信：</b>要窄线宽、高速调制，用 <b>1310/1550 nm</b>（<b>InP 基 DFB/EML</b>）——这一支交接给 <a href="#sec-siph-device">7.2</a>／7.3 的硅光互连场景。</span>
+<span><b>🎯 3D 感知与 LiDAR：</b><b>905/940 nm</b>（VCSEL 阵列或 EEL），要短脉冲、高峰值功率。它与 <a href="#sec-opto-detect">6.1 的 SPAD</a> <b>配对使用</b>——发一束、探回波——这是「发射 + 接收」闭环最典型的例子。</span>
+<span><b>🕹️ 红外遥控 / 光耦：</b>低速、低成本，普通红外 LED 即可，不需要激光。</span>
+</div>
+<p style="margin-top:8px;background:#cffafe;padding:7px 11px;border-radius:6px;color:#155e75"><b>看点：</b>这四类用的都是「正偏注入 → 辐射复合」这一条原理，分化只因<b>诉求不同</b>——照明要亮要白、通信要窄要快、感知要短脉冲高峰值、遥控要便宜。<b>原理一条，诉求四样。</b></p>
+</div></div>
+
+<!-- ⑥ 本质 + 硅光接口 -->
+<div class="card" style="background:#fffbeb;border-left:4px solid #b45309">
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>发光是材料问题，不是电路问题——以及与硅光的接口</div>
+<div class="dsc">
+<p><b>一句话点透：</b>发光的胜负手在<b>能带结构（直接 vs 间接带隙）</b>，不在电路设计。硅在这条链路上的成绩单很分裂——<b>探测端够用</b>（能吸可见光到近红外）、<b>传导端很强</b>（波导锁光，见 7.2），唯独<b>发光端被能带结构判了死刑</b>。这正是<a href="#sec-siph-device">硅光（7.2）</a>必须<b>外挂 III-V 族光源</b>的根因：不是不想在硅上集成激光器，是硅根本不发光。</p>
+
+<p style="margin-top:8px"><b>怎么把 III-V 光源塞进硅工艺？</b>三条主流集成路线，各有难点：</p>
+<div class="kv">
+<span><b>倒装键合 flip-chip：</b>把单独做好的 III-V 激光器芯片<b>翻贴</b>到硅光芯片上——成熟可靠，但<b>对准精度</b>要求高、是逐颗贴装</span>
+<span><b>晶圆键合 wafer bonding：</b>把 III-V 晶圆整片<b>键合</b>到硅上再加工——集成度高，难在<b>两种晶格/热膨胀</b>的匹配与键合良率</span>
+<span class="warn"><b>异质外延 heteroepitaxy：</b>直接在硅上<b>生长</b> III-V 材料——终极方案、成本最低，但晶格失配带来<b>大量位错缺陷</b>，寿命与良率仍是硬骨头【业界】</span>
+</div>
+
+<p style="margin-top:10px"><b>把「发射 + 接收」串成闭环收尾：</b></p>
+<table class="node-table nopad" style="margin-top:6px"><thead><tr>
+<th style="width:20%">系统</th><th style="width:38%">发射端（本节 6.3）</th><th>接收端</th>
+</tr></thead><tbody>
+<tr><td class="hl">车载 LiDAR</td><td>VCSEL / EEL 阵列（905/940 nm）</td><td><b>SPAD</b> 计时探测（<a href="#sec-opto-detect">6.1</a>）</td></tr>
+<tr><td class="hl">光通信</td><td>InP 基 <b>DFB</b> 激光器（1310/1550 nm）</td><td><b>锗</b>探测器（<a href="#sec-siph-device">7.2</a>）</td></tr>
+<tr><td class="hl">相机成像</td><td>不自己发光，靠<b>环境光</b></td><td><b>CIS</b> 积分读出（<a href="#sec-cis">6.2</a>）</td></tr>
+</tbody></table>
+<p style="margin-top:10px;background:#fef3c7;padding:8px 12px;border-radius:6px;color:#92400e"><b>🎯 本质一句话：</b>接收端（6.1/6.2）硅能扛，发射端硅扛不住——<b>因为发光是能带结构说了算，而硅是间接带隙</b>。整条光电链路里，凡是要「造光」的地方，硅都得把活让给 III-V。这就是发射与接收的分水岭，也是硅光产业最大的成本与良率来源。</p>
+</div></div>
+
+</div>
+
 <hr style="margin:60px 0 40px;border:none;border-top:4px solid #7c3aed">
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-siph">第七篇：硅光子与光互连</h1>
@@ -6957,8 +7438,8 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="skel"><b>🧭 本节讲法</b><span class="path">物理结构瓶颈（铜的损耗与带宽密度墙）→ 本质</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 <div class="opto-nav">
 🔗 光电链路位置：
-<a href="#sec-cis">⬅ 上一环 · 成像层 CIS</a>
-<span>｜ 📍 本节 · 通信层动机（铜的物理墙）｜</span>
+<a href="#sec-opto-emit">⬅ 上一环 · 6.3 发射端（电→光）</a>
+<span>｜ 📍 本节 7.1 · 通信层动机（铜的物理墙）｜</span>
 <a href="#sec-siph-device">下一环 · 硅光器件家族 ➡</a>
 </div>
 
@@ -7449,9 +7930,605 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 
+<hr style="margin:60px 0 40px;border:none;border-top:4px solid #db2777">
+
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-rf">第八篇：射频芯片</h1>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">WiFi · 蓝牙 · GNSS · 5G · UWB · 毫米波雷达 —— 把信息塞进电磁波，再从噪声里捞回来</p>
+
+<div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#fdf2f8;border-left:3px solid #db2777;border-radius:6px;font-size:12px;color:#9d174d">
+<b>本篇与第五篇的关系：</b>按 <a href="#sec-analog-taxonomy" style="color:#be185d">WSTS 口径</a>，射频/微波是<b>模拟 IC 的一个子类</b>。独立成篇有三个理由：① 频率高到必须按「<b>波</b>」而非「电路」思考（导线变成传输线、要算反射与阻抗匹配）；② 材料体系完全不同（<b>GaAs / GaN / RF SOI</b>，不是纯硅 CMOS）；③ 滤波器是<b>独立的声学器件产业</b>（SAW/BAW），不在 IC 范畴内。<br>
+<b>本篇与第六/七篇的关系：</b>第六篇是<b>光的感知</b>（含 6.3 发射端）、第七篇是<b>光的有线通信</b>、本篇是<b>电磁波的无线通信</b>——同为「把信息搬走」，载体与工程约束完全不同。
+</div>
+
+<h2 id="sec-rf-what">📡 8.0 先定义：什么是射频芯片</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念 → 原理 → 瓶颈 → 对比</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+
+<div class="content">
+
+<div class="card" style="background:#f5f3ff;border-left:4px solid #7c3aed">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33">① 概念</span>射频 = 能有效把电磁波"甩出去、收回来"的那段频率</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>你在游泳池里拍水，拍得慢，水面只是晃两下就平了；拍得足够快，波纹才能一圈圈荡到对岸。电磁波也一样——只有频率高到某个程度，电流的起伏才能<b>有效地脱离导线、以电磁波的形式辐射出去</b>，也才能被远处的天线接住。这段"甩得出去、收得回来"的频率，就叫<b>射频（Radio Frequency, RF）</b>。</p>
+<p style="margin-top:6px"><b>📖 是什么：</b>射频泛指 <b>3 kHz–300 GHz</b> 这一大段频率，但实用重点集中在 <b>700 MHz–100 GHz</b>——手机、WiFi、雷达、卫星都落在这里。射频芯片就是专门产生、放大、搬移、接收这段频率信号的集成电路：功率放大器 PA、低噪声放大器 LNA、混频器、滤波器、开关、本振/锁相环等。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33">① 概念</span>与模拟 IC 的关系：它是模拟的子类，为什么还要独立成篇</div>
+<div class="dsc">
+<p>按 <a href="#sec-analog-taxonomy">5.0 的 WSTS 口径</a>，<b>射频/微波器件属于模拟 IC 的一个子类</b>——它处理的仍是连续量，遵守 5.1 里讲过的失配、噪声、增益、效率那套通用语。既然是子类，为什么本站把它单拎出来讲？三个理由：</p>
+<div class="kv" style="margin-top:6px">
+<span><b>① 思维方式变了：</b>频率一高，就<b>必须按"波"而不是"电路"来想</b>。低频时"电压加在两端、电流立刻全线相等"这套集总电路直觉直接失效（下面②会讲透）。</span>
+<span><b>② 材料体系不同：</b>普通模拟以硅 CMOS 为主，射频却大量用 <b>GaAs（砷化镓）、GaN（氮化镓）、RF SOI</b> 等特种衬底——高频下硅的损耗、寄生太大，得换材料。</span>
+<span><b>③ 滤波器自成产业：</b>射频滤波器主流是 <b>SAW/BAW 声学器件</b>，把电信号转成声波再滤，是一门独立于半导体逻辑的声学器件产业，不在普通模拟范畴内。</span>
+</div>
+</div></div>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>关键分水岭：导线什么时候"变成"传输线</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>拿一根长绳，你抖一下手——如果抖得慢，整根绳几乎同时上下动（一根就是一根）；如果抖得极快，绳上会同时存在好几个波峰波谷，绳子的"这一头"和"那一头"处于完全不同的状态。导线在高频下就是这后一种情形。</p>
+<p style="margin-top:6px"><b>📖 是什么：</b>低频下，导线就是导线——电流进去多少、出来多少，全线电压视为处处相等（集总模型）。但当信号<b>波长缩短到与导线长度可比</b>时，导线上不同位置的电压/电流不再相同，信号在导线上像波一样<b>传播、还会在阻抗突变处反射</b>。这时导线不能再当"一根线"，而要当成有<b>分布参数（分布电感、分布电容）</b>的<b>传输线</b>来算。</p>
+<p style="margin-top:6px;background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e40af"><b>🔑 这就是射频与普通模拟的本质分界：</b>低频下导线就是导线；<b>高频下导线变成传输线</b>，有分布参数、要算反射与匹配。一旦跨过这条线，阻抗匹配、S 参数、驻波这些普通模拟里几乎用不到的概念就全冒出来了——这正是 8.1 要从头讲的。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33">① 概念</span>🌈 频段谱系：从 Sub-1GHz 到毫米波，各干各的活</div>
+<div class="dsc">
+<p>频率越低，波长越长，绕射穿透强、传得远，但带宽窄（能塞的信息少）；频率越高反之——这是贯穿全篇的一条主线。常见频段：</p>
+<table class="node-table nopad" style="margin-top:10px"><thead><tr>
+<th style="width:16%">频段</th><th style="width:12%">波长量级</th><th style="width:34%">典型用途</th><th>穿透 / 带宽特点</th>
+</tr></thead><tbody>
+<tr><td class="hl"><b>Sub-1GHz</b><br><span style="font-size:11px;color:#64748b">~700–900MHz</span></td><td>约 33–43 cm</td><td>LoRa、NB-IoT、广域物联网、部分 4G</td><td>穿墙绕射最强、覆盖最远；带宽窄，速率低</td></tr>
+<tr><td class="hl"><b>2.4 GHz</b></td><td>约 12.5 cm</td><td>WiFi（2.4）、蓝牙、Zigbee</td><td>穿透尚可、全球免许可；拥挤、干扰多</td></tr>
+<tr><td class="hl"><b>5 GHz</b></td><td>约 6 cm</td><td>WiFi 5/6</td><td>带宽宽速率高；穿墙比 2.4 差</td></tr>
+<tr><td class="hl"><b>6 GHz</b></td><td>约 5 cm</td><td>WiFi 6E / WiFi 7 新频段</td><td>信道多、干净；覆盖更短</td></tr>
+<tr><td class="hl"><b>Sub-6 GHz 5G</b><br><span style="font-size:11px;color:#64748b">n78 等</span></td><td>约 8–9 cm</td><td>5G 主力覆盖频段</td><td>覆盖与容量平衡，5G 首选</td></tr>
+<tr><td class="hl"><b>mmWave 毫米波</b><br><span style="font-size:11px;color:#64748b">24–40 GHz</span></td><td>约 7.5–12 mm</td><td>5G 高速热点、固定无线接入</td><td>带宽极宽、速率极高；穿透差、易被遮挡，靠相控阵定向</td></tr>
+<tr><td class="hl"><b>77 GHz</b></td><td>约 3.9 mm</td><td>车载毫米波雷达（测距测速）</td><td>波长小、天线小、分辨率高；短距</td></tr>
+</tbody></table>
+<p style="margin-top:8px;font-size:12px;color:#64748b">注：波长按 λ=c/f 估算，取该频段中心近似值。频率越高，天线尺寸越小（8.1 详解），这正是毫米波能把几十根天线集成成相控阵的前提。</p>
+</div></div>
+
+<div class="card" style="background:#fffbeb;border-left:4px solid #b45309">
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933">⑥ 本质</span>射频到底在解决什么问题</div>
+<div class="dsc">
+<p>剥掉所有术语，射频芯片这门手艺解决的只有一件事：<b>怎么把信息塞进电磁波、发出去，再从一片噪声里把它捞回来</b>。发得远还是发得快、天线做多大、用什么材料、前端怎么排——全都是围绕这一句在做取舍。后面 8.1 讲的是"为什么高频这件事本身就难"，8.2 讲的是"一条信号从天线到基带具体要过哪几关"。</p>
+</div></div>
+
+</div>
+
+<h2 id="sec-rf-basics">🔰 8.1 基础原理：为什么高频要按"波"来想（零门槛）</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念 → 原理 → 瓶颈 → 对比</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+
+<div class="content">
+
+<p style="background:#eff6ff;padding:10px 14px;border-radius:6px;color:#1e40af;border-left:4px solid #2563eb">本节是给<b>零基础读者</b>准备的射频词典。射频圈里张口就来的"50 欧姆""S11""dBm""噪声系数",在别处很少从头讲清。这里每个概念都按四步走：<b>先打个生活比方 → 再一句话说清是什么 → 再挖它的物理根子 → 最后说不懂它会怎样</b>。信号与噪声、噪声底、增益、效率这些通用量 <a href="#sec-analog-basics">5.1 已经讲过</a>，这里只讲射频<b>特有</b>的那几样,不重复。</p>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>1️⃣ 波长与天线尺寸 —— WiFi 天线为什么是那个大小</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>荡秋千要在合适的节奏推才省力——推的节奏要和秋千自身的摆动周期对上。天线也一样：它有个"顺手辐射"的最佳尺寸，取决于信号的波长。尺寸和波长对上了，能量才辐射得出去。</p>
+<p style="margin-top:6px"><b>📖 是什么：</b>波长 <b>λ = c / f</b>（c 是光速约 3×10⁸ m/s，f 是频率）。天线要高效工作，其尺寸通常取波长的某个分数，最常见是 <b>λ/4</b>（四分之一波长单极子）。</p>
+<p style="margin-top:6px"><b>🔬 为什么会有：</b>算一下 2.4 GHz：λ = 3×10⁸ / 2.4×10⁹ ≈ <b>0.125 m = 12.5 cm</b>，于是 λ/4 ≈ <b>3 cm</b>——这正是路由器里那根天线、手机里那截金属条的尺寸由来。频率越高，λ 越短，天线越小。</p>
+<p style="margin-top:6px"><b>⚙️ 为什么要紧：</b>这条直接决定了硬件形态。毫米波 28 GHz 的 λ/4 只有约 2.7 mm,小到可以在一小块芯片/基板上塞下<b>几十根天线</b>,这正是<b>相控阵</b>能在毫米波实现的前提——低频波长太大,根本排不下那么多阵元。频率越高天线越小,是毫米波相控阵的物理基础。</p>
+<p style="margin-top:8px;background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e40af"><b>🔑 一句话：</b>λ=c/f,2.4GHz→12.5cm→λ/4≈3cm;频率越高天线越小,才谈得上把几十根天线做成相控阵。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>2️⃣ 阻抗匹配与 50Ω —— 为什么全世界都用 50 欧姆</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>粗水管突然接一根细水管,水到接口处会被"顶回来"一部分,形成回流、发出咕噜声。高频信号在导线里也是这样:走到阻抗突变的地方(比如放大器接天线),一部分能量会<b>反射回去</b>,不但白白损失,严重时反射能量还能<b>把功放烧掉</b>。</p>
+<p style="margin-top:6px"><b>📖 是什么：</b>阻抗匹配就是让信号源、传输线、负载三者的<b>特征阻抗相等</b>,使能量顺畅前行、不反射。射频里这个统一值几乎总是 <b>50Ω</b>。</p>
+<p style="margin-top:6px"><b>🔬 为什么是 50Ω：</b>这是个<b>工程惯例,不是物理必然</b>。同轴电缆里,最大功率容量出现在约 30Ω,最低损耗出现在约 77Ω,<b>50Ω 是这两个目标的折中</b>(空气介质下的经典结论)。业界一旦统一到 50Ω,所有仪器、连接器、器件就能互联互通,于是它固化成了标准。<b>并非物理定律规定必须 50Ω</b>——视频领域就用 75Ω(更低损耗)。</p>
+<p style="margin-top:6px"><b>⚙️ 怎么读匹配好坏：</b>常用两个量。<b>VSWR(电压驻波比)</b>:1.0 表示完美匹配、无反射,数值越大反射越多(2.0 已算偏差)。<b>回波损耗(Return Loss)</b>:反射功率比入射功率小多少 dB,数值越大越好(如 −20 dB 表示只反射了 1%)。两者一体两面。</p>
+<p style="margin-top:8px;background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e40af"><b>🔑 一句话：</b>不匹配就反射,反射既损功率又可能烧器件;50Ω 是功率容量与低损耗的折中惯例,不是物理必然。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>3️⃣ S 参数 —— 高频不测电压电流,改测"进/反/透"</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>你朝一堵墙扔球,与其去量墙内部每一点的受力(高频下根本量不准),不如只记录:<b>扔进去多少、弹回来多少、穿过去多少</b>。三个比例就把这堵墙的行为说清了。</p>
+<p style="margin-top:6px"><b>📖 是什么：</b>S 参数(散射参数)用<b>入射波与反射/传输波的比值</b>来描述一个射频器件。为什么不用电压电流?因为高频下"某一点的电压"既难测量又没有唯一值(是波,处处不同),而"进去多少能量、反射多少、透过多少"是可以在端口稳定测量的。</p>
+<p style="margin-top:6px"><b>🔬 两个最常用的：</b></p>
+<div class="kv" style="margin-top:6px">
+<span><b>S11 = 输入反射系数：</b>从输入端口打进去,有多少被弹回来。它直接反映<b>匹配好不好</b>——S11 越小(越负 dB),匹配越好、反射越少。等价于上一条的回波损耗。</span>
+<span><b>S21 = 正向传输系数：</b>从输入进、从输出出,透过去多少。对放大器它就是<b>增益</b>(S21 &gt; 0 dB,放大了);对滤波器/无源件它就是<b>插入损耗</b>(S21 &lt; 0 dB,衰减了)。</span>
+</div>
+<p style="margin-top:8px;background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e40af"><b>🔑 一句话：</b>高频用"进去多少/反射多少/透过多少"描述器件;S11 看匹配,S21 看增益或插损。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>4️⃣ dBm 与链路预算 —— 为什么射频人张口就是"减多少 dB"</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>算工资涨幅,说"翻了一倍"比说"从 8321 涨到 16642"好记。功率也一样:射频里的功率动辄相差上万亿倍,写成普通数字没法算,于是全改用<b>对数刻度</b>,让"乘除"变成"加减"。</p>
+<p style="margin-top:6px"><b>📖 是什么：</b><b>dBm 是绝对功率</b>(相对 1 mW 的对数),<b>dB 是相对比值</b>(两个量之比)。核心锚点:<b>0 dBm = 1 mW</b>;每 +10 dBm 是 ×10 倍功率,所以 20 dBm = 100 mW,30 dBm = 1 W。而 dB 只表示倍率:+3 dB≈×2,−3 dB≈÷2,增益 +20 dB=放大 100 倍。</p>
+<p style="margin-top:6px"><b>🔬 为什么用对数：</b>信号从发射机出来经过空间会衰减成万亿分之一。若用线性数,一条链路要连乘一串极大极小的数;换成 dB 后,<b>所有增益/损耗都变成简单加减法</b>,心算就能估。</p>
+<p style="margin-top:6px"><b>⚙️ 链路预算举例(加减法直觉)：</b></p>
+<div class="kv" style="margin-top:6px">
+<span>发射功率 <b>+20 dBm</b> &nbsp;−&nbsp; 空间路径损耗 <b>100 dB</b> &nbsp;=&nbsp; 到达接收端 <b>−80 dBm</b></span>
+<span class="good">接收机灵敏度是 <b>−90 dBm</b>(能听清的最弱信号),而我们收到 −80 dBm &rarr; 还高出 <b>10 dB 余量(链路裕量)</b>,通信可靠。</span>
+<span class="warn">若路径损耗再增 10 dB(如走远、遮挡),收到 −90 dBm 就贴着灵敏度线,余量归零,开始丢包。</span>
+</div>
+<p style="margin-top:8px;background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e40af"><b>🔑 一句话：</b>0 dBm=1mW;dBm 是绝对功率、dB 是比值;用对数是为了把乘除变加减,链路预算一路减下来看还剩多少余量。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>5️⃣ 噪声系数 NF —— 为什么第一级放大器最金贵</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>一句悄悄话在传话游戏里一个人一个人往下传。第一个人听错了,后面全错——因为后面所有人都在错的基础上放大。接收机的第一级放大器就是这"第一个传话人",它引入的噪声决定了整条链的下限。</p>
+<p style="margin-top:6px"><b>📖 是什么：</b>噪声系数 NF(Noise Figure)衡量<b>一个器件自己往信号里掺了多少噪声</b>,让信噪比恶化了几 dB。理想无噪器件 NF=0 dB;典型 <b>LNA(低噪声放大器)的 NF 约 0.5–2 dB</b>。它和 <a href="#sec-analog-basics">5.1 讲过的"噪声底"</a>呼应——NF 描述的正是器件在噪声底之上又额外抬高了多少。</p>
+<p style="margin-top:6px"><b>🔬 Friis 直觉:第一级几乎决定全局：</b>Friis 公式说,整条链路的总噪声系数里,<b>第一级的 NF 全额计入,而后面每一级的噪声都要"除以前面各级的总增益"再计入</b>。直觉上:第一级 LNA 先把微弱信号放大几十倍,后级即使很吵,它引入的噪声相对已被放大的信号来说是"小的",被前级增益<b>压小</b>了。所以——<b>第一级 LNA 的噪声系数几乎决定整条接收链的噪声表现</b>,这也是它必须用最好的低噪材料(如 GaAs)、放在最靠近天线处的原因。</p>
+<p style="margin-top:8px;background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e40af"><b>🔑 一句话：</b>NF 是器件自己掺进的噪声;Friis 告诉我们第一级 LNA 几乎决定全链噪声,因为后级噪声被前级增益压小了。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>6️⃣ 线性度 IIP3 / ACLR / EVM —— 放大器不能只看增益</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>把音响音量开到最大,声音会"破音"——喇叭已经推不动了,输出不再忠实于输入,还冒出刺耳的杂音。放大器过载时也一样:输出不再是输入的等比例放大,而是<b>非线性失真</b>,并凭空生出原本没有的频率成分。</p>
+<p style="margin-top:6px"><b>📖 是什么：</b>线性度衡量放大器"忠实放大"的能力。非线性最要命的后果是<b>互调(intermodulation)</b>:当两个不同频率的干扰信号一起进来,非线性会让它们<b>相乘</b>,生出新的频率,其中一些恰好<b>落在有用信号的频段里,成了拔不掉的假信号</b>。三个常用指标:</p>
+<div class="kv" style="margin-top:6px">
+<span><b>IIP3(三阶交调截点):</b>衡量抗互调能力的"虚拟功率点",IIP3 越高,同样输入下产生的三阶互调越小,线性度越好。</span>
+<span><b>ACLR(邻道泄漏比):</b>你的信号<b>泄漏到相邻频道</b>的功率有多少——泄漏大就会干扰邻居,是发射端(尤其 PA)的核心指标。</span>
+<span><b>EVM(误差矢量幅度):</b>实际调制出的星座点离理想位置偏了多远。EVM 越大,接收端越容易把符号judge错,高阶调制(如 256QAM)对 EVM 极敏感。</span>
+</div>
+</div></div>
+
+<div class="card" style="border-left:4px solid #dc2626">
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633">③ 物理结构瓶颈</span>增益 × 线性度 × 效率,三者互斥</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>就像 <a href="#sec-power-timeline">0.11 功率器件那个"通态电阻—耐压—开关速度"三角</a>一样,射频功放也逃不出一个不可能三角:<b>增益、线性度、效率,三个想同时拉满,物理上做不到</b>。</p>
+<p style="margin-top:6px"><b>📖 为什么互斥：</b>功放要<b>高效率</b>,就得让晶体管尽量工作在接近饱和(削顶)的状态,把直流功率尽量榨成射频功率——但越靠近饱和,输出就越<b>非线性</b>(破音)。反过来,要<b>高线性度</b>,通常得让晶体管<b>回退(back-off)</b>工作点、远离饱和区留出余量——代价是<b>效率大跌</b>(大量功率白白发热)。</p>
+<p style="margin-top:6px"><b>⚙️ 为什么要紧：</b>手机要长续航(要效率),又要传高阶调制的 5G 信号(要线性度),这对矛盾正是射频功放设计最核心的战场——后续 8.x 会讲 Doherty、包络跟踪、DPD 数字预失真等,全都是在这个三角里"既要又要"的折中方案。</p>
+<p style="margin-top:8px;background:#fef2f2;padding:8px 12px;border-radius:6px;color:#991b1b"><b>🔑 一句话：</b>要线性通常得牺牲效率(回退工作点),要效率就损线性——增益、线性度、效率是一个不可能三角。</p>
+</div></div>
+
+</div>
+
+<h2 id="sec-rf-chain">🔗 8.2 收发链路：一条信号从天线到基带要过几关</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念 → 原理 → 瓶颈 → 对比</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+
+<div class="content">
+
+<div class="card" style="background:#f5f3ff;border-left:4px solid #7c3aed">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33">① 概念</span>收发链:信号进出的两条流水线</div>
+<div class="dsc">
+<p>射频前端本质是两条流水线,一条把天上的信号往下收,一条把基带的信号往外发。每一级各司其职:</p>
+<div class="kv" style="margin-top:6px">
+<span><b>接收链(RX,由弱到强):</b>天线 &rarr; <b>滤波器</b>(先滤掉带外干扰) &rarr; <b>LNA</b>(低噪声放大,决定全链噪声,见 8.1⑤) &rarr; <b>混频器</b>(把高频搬到低频) &rarr; 基带滤波 &rarr; <b>ADC</b>(转成数字,见 <a href="#sec-adc">5.4 ADC 架构</a>)</span>
+<span><b>发射链(TX,由数字到辐射):</b><b>DAC</b> &rarr; <b>上变频</b>(搬到高频) &rarr; 驱动级 &rarr; <b>PA</b>(功率放大,冲出天线) &rarr; <b>双工器/滤波</b> &rarr; 天线</span>
+</div>
+</div></div>
+
+<div class="anim-card">
+<div class="at">📡 收发链路框图:一条信号进出前端的完整路径</div>
+<svg viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg" width="100%" role="img" aria-label="射频收发链路框图">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#475569"/>
+    </marker>
+  </defs>
+  <text x="380" y="24" font-size="14" font-weight="bold" fill="#334155" text-anchor="middle">射频前端收发链路</text>
+
+  <!-- Antenna -->
+  <line x1="60" y1="70" x2="60" y2="150" stroke="#334155" stroke-width="2"/>
+  <line x1="45" y1="70" x2="60" y2="90" stroke="#334155" stroke-width="2"/>
+  <line x1="75" y1="70" x2="60" y2="90" stroke="#334155" stroke-width="2"/>
+  <text x="60" y="168" font-size="11" fill="#334155" text-anchor="middle">天线</text>
+
+  <!-- RX row (top) -->
+  <rect x="120" y="52" width="72" height="40" rx="6" fill="#eff6ff" stroke="#2563eb"/>
+  <text x="156" y="70" font-size="11" fill="#1e40af" text-anchor="middle">滤波器</text>
+  <text x="156" y="84" font-size="10" fill="#64748b" text-anchor="middle">带外抑制</text>
+
+  <rect x="228" y="52" width="72" height="40" rx="6" fill="#ecfdf5" stroke="#059669"/>
+  <text x="264" y="70" font-size="11" fill="#065f46" text-anchor="middle">LNA</text>
+  <text x="264" y="84" font-size="10" fill="#64748b" text-anchor="middle">低噪放大</text>
+
+  <rect x="336" y="52" width="80" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed"/>
+  <text x="376" y="70" font-size="11" fill="#6d28d9" text-anchor="middle">混频器</text>
+  <text x="376" y="84" font-size="10" fill="#64748b" text-anchor="middle">下变频</text>
+
+  <rect x="452" y="52" width="72" height="40" rx="6" fill="#eff6ff" stroke="#2563eb"/>
+  <text x="488" y="70" font-size="11" fill="#1e40af" text-anchor="middle">基带滤波</text>
+
+  <rect x="560" y="52" width="72" height="40" rx="6" fill="#fffbeb" stroke="#b45309"/>
+  <text x="596" y="70" font-size="11" fill="#92400e" text-anchor="middle">ADC</text>
+  <text x="596" y="84" font-size="10" fill="#64748b" text-anchor="middle">转数字</text>
+
+  <text x="700" y="76" font-size="12" font-weight="bold" fill="#334155" text-anchor="middle">基带</text>
+
+  <!-- RX arrows -->
+  <line x1="60" y1="72" x2="118" y2="72" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="192" y1="72" x2="226" y2="72" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="300" y1="72" x2="334" y2="72" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="416" y1="72" x2="450" y2="72" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="524" y1="72" x2="558" y2="72" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="632" y1="72" x2="678" y2="72" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="250" y="42" font-size="11" font-weight="bold" fill="#059669" text-anchor="middle">▲ 接收链 RX(由弱到强)</text>
+
+  <!-- Local Oscillator shared -->
+  <rect x="340" y="150" width="120" height="34" rx="6" fill="#fef2f2" stroke="#dc2626"/>
+  <text x="400" y="164" font-size="11" fill="#991b1b" text-anchor="middle">本振 LO</text>
+  <text x="400" y="178" font-size="10" fill="#64748b" text-anchor="middle">PLL / VCO 产生</text>
+  <line x1="376" y1="150" x2="376" y2="94" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+  <line x1="424" y1="150" x2="424" y2="240" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+
+  <!-- TX row (bottom) -->
+  <rect x="560" y="222" width="72" height="40" rx="6" fill="#fffbeb" stroke="#b45309"/>
+  <text x="596" y="240" font-size="11" fill="#92400e" text-anchor="middle">DAC</text>
+  <text x="596" y="254" font-size="10" fill="#64748b" text-anchor="middle">出模拟</text>
+
+  <rect x="392" y="222" width="80" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed"/>
+  <text x="432" y="240" font-size="11" fill="#6d28d9" text-anchor="middle">上变频</text>
+  <text x="432" y="254" font-size="10" fill="#64748b" text-anchor="middle">混频器</text>
+
+  <rect x="284" y="222" width="72" height="40" rx="6" fill="#ecfdf5" stroke="#059669"/>
+  <text x="320" y="240" font-size="11" fill="#065f46" text-anchor="middle">驱动+PA</text>
+  <text x="320" y="254" font-size="10" fill="#64748b" text-anchor="middle">功率放大</text>
+
+  <rect x="150" y="222" width="90" height="40" rx="6" fill="#ecfeff" stroke="#0891b2"/>
+  <text x="195" y="240" font-size="11" fill="#0e7490" text-anchor="middle">双工器/滤波</text>
+
+  <!-- TX arrows (right to left) -->
+  <line x1="678" y1="242" x2="634" y2="242" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="558" y1="242" x2="474" y2="242" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="390" y1="242" x2="358" y2="242" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="282" y1="242" x2="242" y2="242" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="150" y1="242" x2="60" y2="242" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="60" y1="242" x2="60" y2="152" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="700" y="214" font-size="12" font-weight="bold" fill="#334155" text-anchor="middle">基带</text>
+  <text x="470" y="300" font-size="11" font-weight="bold" fill="#7c3aed" text-anchor="middle">▼ 发射链 TX(由数字到辐射)</text>
+</svg>
+<div class="anim-note">收发共用一个本振 LO(红色虚线):接收时给混频器下变频,发射时给上变频。ADC/DAC 之外即数字基带。</div>
+</div>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>为什么非要"混频变频",不直接处理高频</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>要精修一段音乐里的某个高音,你会先把它降调到好操作的音区,处理完再升回去——直接在极高音区精修又费劲又容易出错。射频也一样:直接在几 GHz 上做精细滤波、解调太难,先<b>搬到低频</b>再干。</p>
+<p style="margin-top:6px"><b>📖 是什么：</b>混频器把输入信号与<b>本振(LO)</b>相乘,产生频率之差(和之和),从而把高频信号<b>搬到较低的中频或基带</b>(接收)、或把基带搬上高频(发射)。这个"搬频率"就叫变频。</p>
+<p style="margin-top:6px"><b>🔬 为什么要搬：</b>①高频信号直接做高精度处理(高阶解调、高 Q 窄带滤波)非常难;②<b>高 Q 值的窄带滤波器在高频极难做</b>,而搬到固定的中频后,可以用一个做好的固定滤波器反复用。本振由 <b>PLL(锁相环)/VCO(压控振荡器)</b>产生一个干净稳定的频率。</p>
+<p style="margin-top:6px"><b>⚠️ 相位噪声的代价：</b>本振不可能绝对纯净,它的频率会有微小抖动,叫<b>相位噪声</b>。相位噪声会<b>糊掉高阶调制的星座图</b>——星座点本该是清晰的点,相噪让它们发散成模糊的云,接收端就分不清符号了。所以本振的相位噪声是高阶调制系统的关键指标。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>I/Q 正交调制 —— 为什么要两路差 90° 的信号</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>描述地图上一个点,只说"东西方向多远"不够,还要说"南北方向多远"——两个互相垂直的坐标才能定位平面上任意一点。射频里用两路相位差 90° 的信号(I 同相、Q 正交),就像这两个垂直坐标,能表示信号的"平面位置"。</p>
+<p style="margin-top:6px"><b>📖 是什么：</b>I/Q 调制用两路载波(一路 cos、一路 sin,相差 90°)分别承载两路数据,合成后能在<b>同样的带宽里传两倍的信息</b>,并且能<b>区分正负频率</b>(单靠一路做不到)。现代通信的星座图(QPSK、QAM)本质就是在 I-Q 平面上布点。</p>
+<p style="margin-top:6px"><b>⚠️ I/Q 不平衡的代价：</b>如果两路的幅度不相等、相位不是精确 90°(I/Q 失衡),就会产生<b>镜像干扰</b>——一个本该被抵消的镜像频率信号泄漏出来,落在有用频段里成为干扰。零中频架构对 I/Q 平衡尤其敏感。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #0891b2">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233">⑤ 对比</span>三种接收机架构:超外差 vs 零中频 vs 数字中频</div>
+<div class="dsc">
+<p>接收机怎么把高频搬下来,历史上有三条路线,手机主流选了零中频,理由在表里:</p>
+<table class="node-table nopad" style="margin-top:10px"><thead><tr>
+<th style="width:16%">维度</th><th>超外差(Superhet)</th><th>零中频(Zero-IF)</th><th>数字中频(Digital-IF)</th>
+</tr></thead><tbody>
+<tr><td class="hl"><b>思路</b></td><td>先搬到固定中频,再解调</td><td>直接搬到 0 Hz 基带</td><td>搬到较低中频后立即数字化</td></tr>
+<tr><td class="hl"><b>镜像抑制</b></td><td class="good">好(靠中频滤波)</td><td>无镜像问题(中频=0)</td><td>可用数字处理抑制</td></tr>
+<tr><td class="hl"><b>滤波器需求</b></td><td class="warn">需昂贵高 Q 中频滤波器(难集成)</td><td class="good">只需低通,易片上集成</td><td>介于两者之间</td></tr>
+<tr><td class="hl"><b>直流偏移/1/f</b></td><td class="good">不受影响</td><td class="warn">受直流偏移与 1/f 噪声困扰</td><td>较轻</td></tr>
+<tr><td class="hl"><b>集成度/功耗</b></td><td class="warn">元件多、体积大</td><td class="good">高度集成、省元件</td><td>ADC 要求高、功耗大</td></tr>
+</tbody></table>
+<p style="margin-top:8px;background:#ecfeff;padding:8px 12px;border-radius:6px;color:#155e75"><b>为什么手机主流是零中频:</b>手机最看重<b>体积、集成度、成本</b>。零中频把中频那一级连同<b>昂贵的高 Q 中频滤波器一起省掉</b>,几乎全部集成进单芯片,虽然要靠电路技巧对付直流偏移和 I/Q 失衡,但综合下来最划算——这就是它成为手机主流的原因。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #0891b2">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233">⑤ 对比</span>FDD vs TDD —— 收发怎么分开,决定前端用双工器还是开关</div>
+<div class="dsc">
+<div class="kv" style="margin-top:2px">
+<span><b>FDD(频分双工):</b>收和发用<b>不同频率</b>同时进行——像双向车道各走各的。因为收发频率不同,需要一个<b>双工器(duplexer)</b>把两个频率隔开,让 PA 的大功率发射不灌进灵敏的接收链。</span>
+<span><b>TDD(时分双工):</b>收和发用<b>同一频率、但错开时间</b>——像单车道靠红绿灯轮流放行。只需一个<b>射频开关</b>在收/发之间快速切换,不需要昂贵的双工器。</span>
+</div>
+<p style="margin-top:6px"><b>⚙️ 为什么要紧:</b>这条直接决定射频前端的器件形态——FDD 频段要配<b>双工器</b>(贵、损耗),TDD 频段只要<b>开关</b>(便宜)。5G 中频段大量采用 TDD,正是看中它前端更简单、频谱使用更灵活。</p>
+</div></div>
+
+<div class="card" style="background:#fffbeb;border-left:4px solid #b45309">
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933">⑥ 本质</span>射频前端到底在忙什么</div>
+<div class="dsc">
+<p>把整条收发链看透,射频前端的活其实是一场<b>四维妥协</b>:在<b>功率(发得够远)、噪声(收得够弱)、线性度(不失真、不互调)、隔离度(收发/邻道互不串扰)</b>这四个互相拉扯的目标之间,找一个当下场景最划算的平衡点。手机、基站、雷达、卫星各自的取舍不同,但玩的都是同一个四维平衡游戏。这正是 8.1 那个"增益×线性度×效率不可能三角"在整条链路尺度上的放大版。</p>
+</div></div>
+
+</div>
+
+<h2 id="sec-rf-devices">📡 8.3 关键器件与材料：为什么射频前端不是一块硅能搞定</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（前端分工）→ 材料瓶颈（硅做不了 PA）→ 方案（GaAs/GaN/SOI）→ 滤波器原理 → 材料对比 → 模组化</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+
+<div class="content">
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>射频前端为什么是「多种材料拼出来的」</div>
+<div class="dsc">
+<p>数字芯片可以整片硅一路缩微，射频前端却是全站少见的<b>「一颗芯片解决不了」</b>的领域。原因是它的几个核心功能对材料的要求彼此冲突：功率放大要高电压、高击穿场强；开关要低损耗、高线性；滤波要压电材料；低噪放要极低噪声系数。<b>没有任何单一材料能同时把这几件事做到最好</b>，于是前端天然是 GaAs、GaN、RF SOI、SiGe、压电陶瓷/薄膜等多种材料的拼装。这一节按「功率 → 开关 → 滤波 → 低噪放」四个环节讲清楚每一处用什么材料、为什么。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 材料瓶颈</span>PA 功率放大器：为什么主流是 GaAs HBT 而不是先进 CMOS</div>
+<div class="dsc">
+<p>手机 PA 的主力至今是 <b>GaAs HBT（砷化镓异质结双极晶体管）</b>，而不是最先进的 CMOS。这不是设计能力问题，而是<b>材料的物理限制</b>——和 <a href="#sec-analog-proc" style="color:#7c3aed">5.6 成熟节点为何长寿</a> 是同一类逻辑：先进节点擅长的事，恰恰不是这里需要的事。</p>
+<table class="node-table nopad"><thead><tr><th style="width:24%">约束</th><th>为什么先进 CMOS 吃亏</th></tr></thead>
+<tbody>
+<tr><td class="hl">输出功率上不去</td><td>先进 CMOS 电源电压极低（常 &lt;1V），而输出功率大致 ∝ V²/R——<b>电压被砍到 1V 以下，功率天然做不大</b>。PA 要几瓦级输出，需要更高的耐压</td></tr>
+<tr><td class="hl">硅衬底高频损耗</td><td>普通硅衬底导电性偏强，高频下寄生损耗大、效率低</td></tr>
+<tr><td class="hl">GaAs 的天然优势</td><td><b>半绝缘衬底</b>（高频损耗小）+ <b>高电子迁移率</b>（高频增益、效率、线性度都更好）</td></tr>
+</tbody></table>
+<p style="margin-top:8px" class="kv"><span class="good">✓ 结论：GaAs HBT 主导手机 PA 是材料决定的，先进制程在这里不但没优势，反而吃亏。</span></p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>GaN 与 SOI CMOS：功率两端的分工</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:20%">材料</th><th style="width:30%">核心优势</th><th>主战场</th></tr></thead>
+<tbody>
+<tr><td class="hl">GaN 氮化镓</td><td><b>高击穿场强 + 高功率密度</b></td><td>基站、雷达等大功率发射；单位面积能扛的功率远超 GaAs</td></tr>
+<tr><td class="hl">GaAs HBT</td><td>高频效率、线性度好</td><td>手机等便携设备 PA 的主力</td></tr>
+<tr><td class="hl">SOI CMOS</td><td>低功率、易集成</td><td>低功率、高集成场景的收发与前端逻辑</td></tr>
+</tbody></table>
+<p style="margin-top:8px">一句话记忆：<b>手机 PA 看 GaAs，基站/雷达看 GaN，低功率集成看 SOI</b>。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>开关与天线调谐：RF SOI 为什么成了主力</div>
+<div class="dsc">
+<p>频段越多，射频通路里就需要越多的<b>开关</b>把不同频段切来切去，还要做<b>天线调谐</b>。这一环的主力是 <b>RF SOI（绝缘体上硅）</b>：</p>
+<div class="kv"><span>🔹 <b>高阻衬底</b>抑制高频损耗与通道间串扰</span><span>🔹 <b>低导通电阻</b>（插入损耗小，信号少衰减）</span><span>🔹 <b>易集成多路开关</b>（多频段一颗芯片切换）</span></div>
+<p style="margin-top:6px">这也是为什么 RF SOI 主导开关与天线调谐——它把「低损耗」和「高集成」两件难兼得的事，在硅工艺上做到了平衡。</p>
+</div></div>
+
+<div class="anim-card">
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>🔊 滤波器：用「声波」而不是电磁波，是它能做小的全部秘密</div>
+<div class="am">压电材料把电磁波转成声波再转回来——声速比电磁波慢约 5 个数量级，同频率下波长小 10 万倍，器件才能做到毫米级</div>
+<svg viewBox="0 0 760 250">
+<text x="380" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a8a">滤波器的本质：电 → 声 → 电 的两次转换，靠压电效应完成</text>
+
+<!-- electrical in -->
+<text x="70" y="46" text-anchor="middle" font-size="9.5" font-weight="700" fill="#7c3aed">电信号输入</text>
+<path d="M28,80 q11,-22 22,0 t22,0 t22,0" stroke="#7c3aed" stroke-width="2" fill="none"/>
+<text x="70" y="104" text-anchor="middle" font-size="8" fill="#6d28d9">电磁波：波长很长</text>
+
+<text x="150" y="80" font-size="18" fill="#0891b2">→</text>
+
+<!-- piezo block converts -->
+<rect x="180" y="52" width="120" height="60" rx="5" fill="#ecfeff" stroke="#0891b2" stroke-width="1.5"/>
+<text x="240" y="72" text-anchor="middle" font-size="9" font-weight="700" fill="#155e75">压电材料</text>
+<text x="240" y="86" text-anchor="middle" font-size="7.5" fill="#0e7490">电场→机械形变</text>
+<text x="240" y="99" text-anchor="middle" font-size="7.5" fill="#0e7490">激发声波</text>
+
+<text x="308" y="80" font-size="18" fill="#0891b2">→</text>
+
+<!-- acoustic wave short -->
+<text x="440" y="46" text-anchor="middle" font-size="9.5" font-weight="700" fill="#059669">声波：波长小 10 万倍</text>
+<path d="M338,80 q3,-14 6,0 t6,0 t6,0 t6,0 t6,0 t6,0 t6,0 t6,0 t6,0 t6,0 t6,0 t6,0 t6,0 t6,0 t6,0 t6,0" stroke="#059669" stroke-width="2" fill="none">
+  <animate attributeName="opacity" values="0.4;1;0.4" dur="1.6s" repeatCount="indefinite"/>
+</path>
+<text x="440" y="104" text-anchor="middle" font-size="8" fill="#047857">声速约 3000–10000 m/s</text>
+
+<text x="548" y="80" font-size="18" fill="#0891b2">→</text>
+
+<!-- back to electrical -->
+<rect x="576" y="52" width="120" height="60" rx="5" fill="#ecfeff" stroke="#0891b2" stroke-width="1.5"/>
+<text x="636" y="72" text-anchor="middle" font-size="9" font-weight="700" fill="#155e75">压电材料</text>
+<text x="636" y="86" text-anchor="middle" font-size="7.5" fill="#0e7490">声波→电场</text>
+<text x="636" y="99" text-anchor="middle" font-size="7.5" fill="#0e7490">转回电信号</text>
+
+<!-- SAW vs BAW -->
+<rect x="44" y="132" width="330" height="96" rx="6" fill="#f0fdfa" stroke="#0d9488"/>
+<text x="209" y="150" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0f766e">SAW 声表面波：波沿表面传播</text>
+<rect x="64" y="160" width="290" height="26" fill="#ccfbf1" stroke="#0d9488"/>
+<path d="M64,160 q10,-9 20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0" stroke="#0f766e" stroke-width="1.6" fill="none"/>
+<text x="209" y="202" text-anchor="middle" font-size="8" fill="#115e59">适用约 2–2.5GHz 以下，成本低，工艺相对成熟</text>
+<text x="209" y="217" text-anchor="middle" font-size="8" fill="#115e59">波能量集中在压电基片表面</text>
+
+<rect x="386" y="132" width="330" height="96" rx="6" fill="#eff6ff" stroke="#2563eb"/>
+<text x="551" y="150" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e40af">BAW/FBAR 体声波：波在体内垂直传播</text>
+<rect x="491" y="158" width="120" height="30" fill="#dbeafe" stroke="#2563eb"/>
+<g stroke="#1e40af" stroke-width="1.4" fill="none">
+<line x1="511" y1="158" x2="511" y2="188"/><line x1="531" y1="158" x2="531" y2="188"/><line x1="551" y1="158" x2="551" y2="188"/><line x1="571" y1="158" x2="571" y2="188"/><line x1="591" y1="158" x2="591" y2="188"/>
+</g>
+<text x="551" y="204" text-anchor="middle" font-size="8" fill="#1e3a8a">适用 6GHz 以上，滚降更陡、温漂更小、功率容量更好</text>
+<text x="551" y="219" text-anchor="middle" font-size="8" fill="#1e3a8a">但工艺难：薄膜厚度精度直接决定频率</text>
+
+<rect x="44" y="234" width="672" height="0" fill="none"/>
+</svg>
+<div class="anim-note">📌 记忆锚点：<b>声速比电磁波慢约 5 个数量级 → 同频率下声波波长小约 10 万倍 → 器件尺寸能压到毫米级</b>。这正是滤波器能被塞进手机、又极难被数字化替代的根本原因。</div>
+</div>
+
+<div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 卡脖子环节</span>SAW vs BAW：为什么 BAW 是国产最难啃的骨头</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:14%">类型</th><th style="width:16%">传播方式</th><th style="width:16%">适用频段</th><th>特性与难点</th></tr></thead>
+<tbody>
+<tr><td class="hl">SAW</td><td>声波沿<b>表面</b>传播</td><td>约 2–2.5GHz 以下</td><td>成本低、工艺成熟；主流玩家 Murata 等</td></tr>
+<tr><td class="hl">BAW / FBAR</td><td>声波在<b>体内垂直</b>传播</td><td>6GHz 以上高频</td><td>滚降更陡、温漂更小、功率容量更好；但<b>压电薄膜厚度精度直接决定谐振频率</b>，工艺极难</td></tr>
+</tbody></table>
+<p style="margin-top:8px">格局：<b>Broadcom / Qorvo 主导 BAW，Murata 主导 SAW</b>。<span style="color:#b91c1c;font-weight:700">国产在 BAW 环节最薄弱</span>——高频段（5G n77/n79、WiFi）越来越依赖 BAW，而它恰是专利与工艺壁垒最高的地方。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>LNA 低噪放：噪声系数优先，两条材料路线分工</div>
+<div class="dsc">
+<p>LNA 位于接收链路最前端，它的<b>噪声系数（NF）几乎决定整机灵敏度下限</b>——前级噪声会被后面所有增益放大。因此选材以「谁 NF 更低、性价比更合适」来分工：</p>
+<div class="kv"><span>🔹 <b>SiGe BiCMOS</b>：集成度与成本好，NF 够用，适合大多数消费场景</span><span>🔹 <b>GaAs pHEMT</b>：追求<b>极致噪声系数</b>的场合（如 GNSS、卫星接收）</span></div>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 材料对比</span>五种射频材料，各自的物理边界</div>
+<div class="dsc">
+<table class="node-table"><thead><tr><th>材料</th><th>频率上限</th><th>功率能力</th><th>线性度</th><th>成本</th><th>典型用途</th></tr></thead>
+<tbody>
+<tr><td class="hl">GaAs</td><td>高</td><td>中（瓦级）</td><td>好</td><td>较高</td><td>手机 PA、极致 LNA(pHEMT)</td></tr>
+<tr><td class="hl">GaN</td><td>高</td><td><b>很高</b>（功率密度大）</td><td>好</td><td>高</td><td>基站、雷达大功率发射</td></tr>
+<tr><td class="hl">RF SOI</td><td>中高</td><td>低</td><td>好（开关线性）</td><td>中</td><td>开关、天线调谐</td></tr>
+<tr><td class="hl">SiGe BiCMOS</td><td>中高</td><td>低</td><td>中</td><td>低</td><td>LNA、收发集成</td></tr>
+<tr><td class="hl">块体 CMOS</td><td>中（受电压限制）</td><td>低</td><td>中</td><td><b>最低</b></td><td>收发机、数字控制、低功率集成</td></tr>
+</tbody></table>
+<p style="margin-top:6px" class="src">口径：定性对比，用于说明分工逻辑，非绝对指标。【业界】</p>
+</div></div>
+
+<div class="card" style="background:#fffbeb;border-left:4px solid #b45309">
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 模组化</span>为什么从分立走向 FEM / FEMiD 模组</div>
+<div class="dsc">
+<p>既然一颗芯片解决不了，那就<b>把多种材料的芯片封装成一个模组</b>。这是射频前端最重要的演进方向：</p>
+<div class="kv"><span>📐 <b>面积</b>：手机内部空间寸土寸金，模组比分立堆叠省板面</span><span>🔧 <b>匹配调试成本</b>：分立器件之间的阻抗匹配极耗工时，模组化把调试固化在厂内</span><span>🧩 <b>组合爆炸</b>：全球频段几十个，分立方案的排列组合无法维护，客户要「一块搞定」</span></div>
+<p style="margin-top:6px">于是 PA + 开关 + 滤波器 + LNA 被集成为 <b>FEM（前端模组）</b>，进一步集成双工器/滤波器的叫 <b>FEMiD</b>。<b>模组化把「材料拼装」的复杂度从客户端转移到了前端厂商内部</b>——这也决定了后面 8.5 的产业格局。</p>
+</div></div>
+
+</div>
+
+<h2 id="sec-rf-standards">📡 8.4 各制式的技术要点与差异</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（别背参数，看约束）→ 各制式的核心工程约束 → 对比</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+
+<div class="content">
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>不要背参数表，要看「每个制式被什么约束卡住」</div>
+<div class="dsc">
+<p>无线制式一多，很容易变成一张背不完的参数表。更有用的看法是：<b>每个制式的核心工程约束不同</b>——有的拼速率、有的拼功耗、有的拼灵敏度、有的拼测距精度。抓住「它最难的那一件事」，制式之间的差异就清楚了。下面逐个讲它们各自的「主要矛盾」。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② WiFi</span>核心矛盾：四条腿同时加，逼近发射机线性极限</div>
+<div class="dsc">
+<p>WiFi 代际（802.11 b/g/n/ac/ax/be）的主线，是<b>四条腿同时加速</b>：调制阶数 ↑ + MIMO 流数 ↑ + 带宽 ↑ + 频段 ↑。</p>
+<div class="kv"><span>🔹 <b>WiFi 7 = 802.11be</b>：320MHz 带宽、4096-QAM、MLO 多链路（可同时用多个频段）</span><span class="warn">⚠️ 高阶 QAM（如 4096-QAM）对 <b>EVM 与相位噪声</b>要求陡增——星座点挤得越密，一点点相位抖动就误判</span></div>
+<p style="margin-top:6px">所以 WiFi 越往上走，越是拼<b>发射机的线性度与本振相位噪声</b>，射频前端的压力随之上升。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 蓝牙 / BLE</span>核心矛盾：不是速率，是极致低功耗</div>
+<div class="dsc">
+<p>蓝牙尤其是 BLE 的核心指标是<b>低功耗</b>，不是速率。手段是<b>跳频 + 短包 + 低占空比</b>（大部分时间在睡眠，偶尔醒来发一小段）。</p>
+<p class="kv"><span class="warn">⚠️ 与 WiFi 同处 2.4GHz，存在<b>共存</b>问题——需要时分/自适应跳频来互相避让。</span></p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② GNSS 卫星定位</span>核心矛盾：从低于噪声底的信号里「解」出定位</div>
+<div class="dsc">
+<p>GNSS（GPS / 北斗 / 伽利略 / GLONASS）是<b>极端弱信号接收</b>的典型：卫星信号到地面约 <b>−130 dBm 量级，低于热噪声底</b>——也就是说，信号「淹没」在噪声里，直接看是看不到的。</p>
+<div class="kv"><span>🔹 靠<b>扩频 + 相关增益</b>：用已知伪随机码做相关，把有用信号从噪声里累加"解"出来</span><span>🔹 <b>多频点</b>（L1/L5 等）抵抗电离层延迟误差</span><span>🔹 <b>RTK</b> 载波相位差分可做到厘米级</span></div>
+<p style="margin-top:6px">这就是为什么 GNSS 的 LNA 追求极致噪声系数（常用 GaAs pHEMT）——前端多一点噪声，就可能把本就在噪声底下的信号彻底埋掉。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 5G</span>核心矛盾：Sub-6 与 mmWave 是「覆盖 vs 带宽」的取舍</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:20%">路线</th><th style="width:26%">本质取向</th><th>代价 / 手段</th></tr></thead>
+<tbody>
+<tr><td class="hl">Sub-6GHz</td><td>覆盖优先</td><td>绕射好、覆盖广，但可用带宽有限</td></tr>
+<tr><td class="hl">mmWave 毫米波</td><td>带宽优先</td><td>路径损耗大、易被遮挡 → <b>必须波束成形 + 相控阵</b>把能量"聚"成一束打向用户</td></tr>
+</tbody></table>
+<p style="margin-top:8px" class="kv"><span class="warn">⚠️ 5G 高阶调制对 <b>PA 线性度与散热</b>压力大——相控阵里几十个通道同时工作，热与功耗都是硬约束。</span></p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② UWB / NFC</span>两种「非主流但原理独特」的近距技术</div>
+<div class="dsc">
+<div class="kv"><span>🔹 <b>UWB 超宽带</b>：靠<b>极宽带宽（&gt;500MHz）</b>做飞行时间（ToF）测距，厘米级精度。与蓝牙靠 RSSI 信号强度测距（米级、易受环境影响）<b>原理完全不同</b>——UWB 量的是"时间"，蓝牙量的是"强弱"</span><span>🔹 <b>NFC 近场通信</b>：13.56MHz，靠<b>线圈互感的近场磁耦合，不是辐射</b>——所以必须贴得极近，也天然更安全</span></div>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 车载 V2X / 毫米波雷达</span>77GHz 雷达与 LiDAR 的分工</div>
+<div class="dsc">
+<p>车载侧包含 TBOX / V2X 通信，以及关键的 <b>77GHz 毫米波雷达（76–81GHz）</b>。它与<a href="#sec-opto-detect" style="color:#2563eb">第五篇 6.1 光电探测</a>里讲的 LiDAR 是<b>互补分工</b>，不是替代：</p>
+<table class="node-table nopad"><thead><tr><th style="width:24%">传感器</th><th style="width:34%">强项</th><th>弱项</th></tr></thead>
+<tbody>
+<tr><td class="hl">77GHz 毫米波雷达</td><td><b>穿透雨雾好、直接测速</b>（多普勒）、全天候</td><td>角分辨率较低</td></tr>
+<tr><td class="hl">LiDAR</td><td><b>角分辨率高</b>、点云精细</td><td>受雨雾/污染影响、成本高</td></tr>
+</tbody></table>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>各制式：频段 · 带宽 · 功率 · 距离 · 功耗 · 核心矛盾</div>
+<div class="dsc">
+<table class="node-table"><thead><tr><th>制式</th><th>频段</th><th>带宽</th><th>发射功率</th><th>距离</th><th>功耗</th><th>核心矛盾</th></tr></thead>
+<tbody>
+<tr><td class="hl">WiFi 7</td><td>2.4/5/6GHz</td><td>宽（至 320MHz）</td><td>中</td><td>室内</td><td>中高</td><td>高阶 QAM 的线性度/相噪</td></tr>
+<tr><td class="hl">蓝牙/BLE</td><td>2.4GHz</td><td>窄</td><td>低</td><td>近</td><td><b>极低</b></td><td>低功耗与共存</td></tr>
+<tr><td class="hl">GNSS</td><td>L1/L5 等</td><td>中</td><td>接收为主</td><td>星地</td><td>低</td><td>弱信号（低于噪声底）</td></tr>
+<tr><td class="hl">5G Sub-6</td><td>&lt;6GHz</td><td>较宽</td><td>中高</td><td>广</td><td>中高</td><td>覆盖与容量平衡</td></tr>
+<tr><td class="hl">5G mmWave</td><td>24GHz+</td><td>很宽</td><td>高(阵列)</td><td>短</td><td>高</td><td>路损/遮挡→波束成形</td></tr>
+<tr><td class="hl">UWB</td><td>3.1–10.6GHz</td><td><b>&gt;500MHz</b></td><td>极低</td><td>近</td><td>低</td><td>ToF 测距精度</td></tr>
+<tr><td class="hl">NFC</td><td>13.56MHz</td><td>窄</td><td>极低</td><td>厘米级</td><td>极低</td><td>近场磁耦合(非辐射)</td></tr>
+<tr><td class="hl">车载雷达</td><td>76–81GHz</td><td>宽</td><td>中</td><td>百米级</td><td>中</td><td>测速/抗雨雾</td></tr>
+</tbody></table>
+<p style="margin-top:6px" class="src">口径：定性归纳，帮助建立"每个制式最难的是什么"的直觉，非严格指标。【业界】</p>
+</div></div>
+
+</div>
+
+<h2 id="sec-rf-pattern">📡 8.5 产业格局：材料受限 + 高度模组化</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">五大转折 → 玩家 → 国产位置 → 本质</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+
+<div class="content">
+
+<div class="card-row-3 dense">
+
+<div class="card"><span class="yr">阶段一</span>
+<div class="ttl">分立器件时代</div>
+<div class="dsc"><p>PA、开关、滤波器、LNA 各是一颗独立器件，各家做单管。<b>系统厂自己拿分立件搭前端、做匹配调试</b>——灵活但极耗工时，且板面占用大。</p></div></div>
+
+<div class="card"><span class="yr">阶段二</span>
+<div class="ttl">CMOS 集成收发机</div>
+<div class="dsc"><p>把 LNA / 混频器 / PLL 等集成进 CMOS 收发机（transceiver），<b>收发机迅速"白菜化"</b>。数字与中频部分被高度集成，剩下的难点集中到了「前端那几颗材料特殊的器件」。</p></div></div>
+
+<div class="card"><span class="yr">阶段三</span>
+<div class="ttl">前端模组化 FEM / FEMiD</div>
+<div class="dsc"><p>全球频段爆炸式增长，分立方案的<b>组合无法维护</b>。客户要"一块搞定"，于是 PA+开关+滤波+LNA 被封成 FEM，含双工/滤波的叫 FEMiD。<b>材料拼装的复杂度转移到前端厂内部。</b></p></div></div>
+
+<div class="card"><span class="yr">阶段四</span>
+<div class="ttl">滤波器成为真瓶颈</div>
+<div class="dsc"><p>频段越多、频段间隔越窄，对滤波器的<b>陡峭度（滚降）</b>要求越高。高频段越来越依赖 BAW，而 BAW 工艺与专利壁垒最高——<b>滤波器从配角变成决定成败的核心。</b></p></div></div>
+
+<div class="card"><span class="yr">阶段五</span>
+<div class="ttl">5G / WiFi7 抬升单机含量</div>
+<div class="dsc"><p>频段数持续增加，每增加一个频段就多一套 PA/滤波/开关通路。<b>射频前端的价值量随频段数上升</b>，单机射频含量显著提高，前端厂的量价齐升。</p></div></div>
+
+</div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 玩家</span>全球格局：声学器件与打包能力是护城河</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:22%">厂商</th><th>核心优势</th></tr></thead>
+<tbody>
+<tr><td class="hl">Broadcom</td><td><b>BAW 滤波器</b> + WiFi 前端，专利密集</td></tr>
+<tr><td class="hl">Qorvo / Skyworks</td><td><b>PA + FEM 模组</b>，手机前端主力供应商</td></tr>
+<tr><td class="hl">Murata（村田）</td><td><b>SAW + 模组</b>，日本厂商在声学器件的长期优势</td></tr>
+<tr><td class="hl">Qualcomm</td><td><b>基带 + 前端一体化打包</b>（RFFE），用平台捆绑能力争份额</td></tr>
+</tbody></table>
+<p style="margin-top:8px">一个结构性事实：<b>日本厂商在声学器件（SAW/BAW 相关材料与工艺）上有长期沉淀</b>，这类"材料+工艺"的护城河，比数字芯片的制程壁垒更难靠资本快速追平。</p>
+</div></div>
+
+<div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 国产位置</span>为什么 BAW 滤波器是最薄弱环节</div>
+<div class="dsc">
+<p>国产射频前端走的是「<b>由易到难、逐环节向上攻</b>」的路径：</p>
+<div class="kv"><span>🔹 <b>卓胜微</b>：开关 / LNA 起家 → 向 PA 攻坚</span><span>🔹 <b>唯捷创芯</b>：PA 方向</span><span>🔹 <b>慧智微</b>：可重构射频前端</span></div>
+<p style="margin-top:8px"><span style="color:#b91c1c;font-weight:700">最薄弱、也最难突破的是 BAW 滤波器</span>，原因是三重叠加的壁垒：</p>
+<table class="node-table nopad"><thead><tr><th style="width:26%">壁垒</th><th>为什么难</th></tr></thead>
+<tbody>
+<tr><td class="hl">压电薄膜材料与厚度控制</td><td>薄膜厚度直接决定谐振频率，纳米级精度与均匀性要求极高，是纯"材料+工艺"功夫</td></tr>
+<tr><td class="hl">温度补偿</td><td>频率随温度漂移，需要复杂的温补结构与工艺才能满足严苛的频段间隔</td></tr>
+<tr><td class="hl">专利壁垒</td><td>Broadcom / Qorvo 在 BAW/FBAR 上专利密集，绕开难度大</td></tr>
+</tbody></table>
+<p style="margin-top:8px" class="src">国产 BAW 自给率多数口径仍处早期，高端份额高度集中在海外头部。【业界·2025 口径】</p>
+</div></div>
+
+<div class="card" style="background:#fffbeb;border-left:4px solid #b45309">
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>射频前端的三句话</div>
+<div class="dsc">
+<p style="font-size:15px;line-height:1.9"><b>材料决定上限</b>——PA 用 GaAs、大功率用 GaN、开关用 RF SOI，不是设计选择，是物理边界（同 <a href="#sec-analog-proc" style="color:#b45309">5.6</a> 成熟节点长寿的逻辑）。<br>
+<b>模组决定份额</b>——频段爆炸让"一块搞定"成为刚需，FEM/FEMiD 的打包能力决定谁拿下客户。<br>
+<b>滤波器决定谁能上牌桌</b>——BAW 是材料+工艺+专利三重壁垒叠加，也是国产最后、最难攻下的一环。</p>
+<p style="margin-top:6px;color:#78350f">一句话：<b>射频是一个"摩尔定律管不到、材料与声学器件说了算"的领域</b>——这与被动器件篇（第九篇）的结论遥相呼应。</p>
+</div></div>
+
+</div>
+
 <hr style="margin:60px 0 40px;border:none;border-top:4px solid #ea580c">
 
-<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-passive">第八篇：被动器件</h1>
+<h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-passive">第九篇：被动器件</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">MLCC · 电阻 · 电感 —— 摩尔定律完全管不到的那一半元器件</p>
 <div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#fff7ed;border-left:3px solid #ea580c;border-radius:6px;font-size:12px;color:#7c2d12">
 <b>⚠️ 先把边界说清楚：严格意义上，被动器件不是半导体。</b>它们没有 PN 结，不放大、不开关，只做储能、耗能、滤波与阻抗匹配。把它放进这份全景图，理由是另外两条：<b>① 它在 BOM 件数上占绝对多数，一辆电动车用到万颗量级的 MLCC；② 它是断供高发区——单价极低，但缺一颗就能让整条产线停线。</b><br>
@@ -7460,7 +8537,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <div class="content">
 
-<h2 id="sec-mlcc">🧱 8.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</h2>
+<h2 id="sec-mlcc">🧱 9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</h2>
 <div class="skel"><b>🧭 本节讲法</b><span class="path">原理（叠层结构）→ 材料瓶颈（晶粒下限）→ 工艺瓶颈（Ni/BaTiO₃ 矛盾）→ 隐性劣化 → 品类对比</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="anim-card">
@@ -7669,7 +8746,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <p style="margin-top:8px;background:#f0f9ff;padding:8px 12px;border-radius:6px;color:#075985"><b>🔑 为什么车载直流母线多用薄膜电容而非铝电解：</b>母线要承受高压与大纹波电流，而薄膜电容<b>耐压高、损耗低、寿命不依赖电解液、且具备自愈性</b>；铝电解的电解液干涸机理在车用长寿命与高温要求下风险较高。<b>这是一个由「寿命机理」而非「容量密度」决定的选型。</b>【业界】</p>
 </div></div>
 
-<h2 id="sec-mlcc-supply">🚚 8.2 MLCC 供应链：为什么它反复成为断供震中</h2>
+<h2 id="sec-mlcc-supply">🚚 9.2 MLCC 供应链：为什么它反复成为断供震中</h2>
 <div class="skel"><b>🧭 本节讲法</b><span class="path">本质判断（材料比设备更卡）→ 材料瓶颈成因 → 口径对比</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
@@ -7722,7 +8799,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 
-<h2 id="sec-rl">🔧 8.3 电阻与电感：两个被忽略但同样有门槛的品类</h2>
+<h2 id="sec-rl">🔧 9.3 电阻与电感：两个被忽略但同样有门槛的品类</h2>
 <div class="skel"><b>🧭 本节讲法</b><span class="path">概念+原理（阻值 ρL/A、自感来自反电动势）→ 物理结构瓶颈（四端测量）→ 工艺对比（四个精度档）→ 材料瓶颈（磁芯饱和）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 <div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
 <div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先弄清：电阻的阻值、电感的自感，到底从哪来</div>
@@ -7850,7 +8927,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </svg>
 </div>
 
-<h2 id="sec-passive-pattern">🌐 8.4 产业格局：一段材料史与五次转折</h2>
+<h2 id="sec-passive-pattern">🌐 9.4 产业格局：一段材料史与五次转折</h2>
 
 <div class="card-row-3 dense">
 
@@ -7872,7 +8949,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="card"><span class="tag tj">日</span><span class="yr">1990s—2000s</span>
 <div class="ttl">成本重构：贱金属内电极 BME 产业化</div>
 <div class="by">内电极从 Pd/Ag 贵金属改为 Ni 镍</div>
-<div class="dsc"><p>贵金属内电极让 MLCC 成本长期受钯、银价格绑架。<b>BME 的产业化彻底改写成本结构</b>，代价是必须驾驭「Ni 不能氧化 / BaTiO₃ 不能缺氧」这对矛盾（见 8.1）。<b>格局：</b>掌握 BME 配方与烧结窗口的厂商拉开身位。</p></div></div>
+<div class="dsc"><p>贵金属内电极让 MLCC 成本长期受钯、银价格绑架。<b>BME 的产业化彻底改写成本结构</b>，代价是必须驾驭「Ni 不能氧化 / BaTiO₃ 不能缺氧」这对矛盾（见 9.1）。<b>格局：</b>掌握 BME 配方与烧结窗口的厂商拉开身位。</p></div></div>
 
 <div class="card"><span class="tag tj">日</span><span class="tag tc">中</span><span class="yr">2016—2026</span>
 <div class="ttl">缺货周期 → 高端转向车规 → AI 与电动车再拉动</div>
@@ -8206,27 +9283,27 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 <h3 id="gl-9" style="border-left:4px solid #ea580c;padding-left:10px;margin-top:34px">🧱 被动器件 <span style="font-size:12px;color:#94a3b8;font-weight:600">21 条 · MLCC · 电阻电感</span></h3>
 <div class="term-grid">
-<div class="term" id="t-x7r-x5r-c0g" data-term="X7R/X5R/C0G|X7R / X5R / C0G"><div class="term-h"><b>X7R/X5R/C0G</b><span class="term-en">X7R / X5R / C0G</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>陶瓷电容的&quot;性格标签&quot;:C0G 最稳定但容值小,适合精密电路;X7R/X5R 容值大但会随温度变化,适合一般滤波去耦。选电容先看这几个字母。</div><div class="term-l2"><b>📖 是什么</b>陶瓷电容的温度特性分类代码。它们不是容值——这些代码描述容值随温度的变化行为:C0G(Ⅰ类,极稳)、X7R/X5R(Ⅱ类,容值大但温漂大)。</div><div class="term-l3"><b>🔬 专业</b>C0G(NP0):±30ppm/℃,极稳、低介、容值小。X7R:-55~125℃ 内±15%;X5R:-55~85℃ 内±15%,容值大但随温度/电压变化。字母含义:温度范围+容值变化率编码(EIA 标准)。</div><div class="term-l4"><b>💡 本质</b>它们是&quot;稳定 vs 容值&quot;取舍的标准化命名——把介质材料的物理妥协编成几个字母,让工程师一眼选型,背后是Ⅰ类顺电与Ⅱ类铁电的本质分野。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">8.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-permittivity" data-term="介电常数|Permittivity / Dielectric Constant"><div class="term-h"><b>介电常数</b><span class="term-en">Permittivity / Dielectric Constant</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>衡量一种绝缘材料&quot;储存电场能力&quot;的强弱。同样大小的电容,用介电常数高的材料做夹心,就能存更多电荷、做出更大容值。它是电容选材的核心参数。</div><div class="term-l2"><b>📖 是什么</b>材料储存电场能量能力的量度。它不是电阻率——介电常数衡量绝缘材料储电场的本领(决定容值),电阻率衡量导电难易,二者是绝缘体的不同属性。</div><div class="term-l3"><b>🔬 专业</b>相对介电常数εr(无量纲),容值正比于它。C0G 类材料εr 低但极稳定,X7R/高介材料εr 高(容值大)但随温度/电压变化大。是容值密度与稳定性权衡的物质根源。</div><div class="term-l4"><b>💡 本质</b>它是电容&quot;容值&quot;与&quot;稳定性&quot;矛盾的物质源头——介电常数越高越能小体积做大容值,但高介材料天生不稳定,这个取舍贯穿所有陶瓷电容的分类。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">8.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-power-inductor" data-term="功率电感|Power Inductor"><div class="term-h"><b>功率电感</b><span class="term-en">Power Inductor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>专门用在电源电路里、能扛大电流的电感。开关电源靠它反复储存和释放能量来变电压。它要在大电流下不&quot;饱和失效&quot;、还要少发热,是电源模块里的关键大件。</div><div class="term-l2"><b>📖 是什么</b>面向大电流电源应用的电感。它不是信号电感——功率电感强调大饱和电流、低损耗、耐发热,信号电感强调高 Q、精确感值,用于滤波/匹配。</div><div class="term-l3"><b>🔬 专业</b>关注饱和电流、DCR、磁芯损耗、温升、体积。用于 DC-DC 储能滤波。磁芯需在大电流下不饱和,合金粉末芯、一体成型是主流。是电源效率与体积的关键约束。</div><div class="term-l4"><b>💡 本质</b>它是开关电源的&quot;储能心脏&quot;——效率、体积、发热很大程度由它决定,饱和电流和损耗的权衡,直接框定了电源模块能做多小多高效。</div><div class="term-ref">→ 详见 <a href="#sec-rl">8.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-thick-film-resistor" data-term="厚膜电阻|Thick Film Resistor"><div class="term-h"><b>厚膜电阻</b><span class="term-en">Thick Film Resistor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>用印刷的方式把较厚的电阻浆料烧结在基板上做成的电阻。工艺简单、便宜、能扛较大功率,是消费电子里用量最大的电阻,但精度和稳定性不如薄膜。</div><div class="term-l2"><b>📖 是什么</b>用印刷烧结厚膜浆料制成的电阻。它不是薄膜电阻——厚膜成本低、耐功率、量大,但精度/温漂/噪声差;薄膜精密但贵、功率小。</div><div class="term-l3"><b>🔬 专业</b>膜厚微米级,精度通常±1~5%、TCR 较大(±100~250ppm/℃)、噪声较高。工艺简单、成本低、可承受较大功率与浪涌。是片式电阻(如 0402/0603)的主流,消费电子海量使用。</div><div class="term-l4"><b>💡 本质</b>它是电阻界的&quot;平价主力&quot;——牺牲精度换成本和产量,与薄膜恰好互补,证明被动器件的选型永远是&quot;够用即最优&quot;的经济学。</div><div class="term-ref">→ 详见 <a href="#sec-rl">8.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-q-factor" data-term="品质因数|Quality Factor|Q"><div class="term-h"><b>品质因数</b><span class="term-en">Quality Factor (Q)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>衡量一个电感或电容&quot;有多接近理想、损耗有多小&quot;的指标。Q 越高,储存的能量相对损耗的能量越多,做谐振、滤波、射频匹配时性能越好、越&quot;尖锐&quot;。</div><div class="term-l2"><b>📖 是什么</b>储能与耗能之比,衡量元件损耗高低。它不是感值/容值——Q 衡量元件的&quot;纯净度&quot;(损耗小则 Q 高),感值容值是储能大小,是不同维度。</div><div class="term-l3"><b>🔬 专业</b>Q=储能/每周期耗能=ωL/R(电感)。Q 越高,谐振越尖锐、插损越小、滤波选择性越好。受寄生电阻、磁芯损耗、频率影响。射频匹配、谐振电路对高 Q 要求高。</div><div class="term-l4"><b>💡 本质</b>它是被动元件的&quot;纯度评分&quot;——理想元件只储能不耗能(Q 无穷),现实总有损耗,Q 值把这份&quot;不完美&quot;量化,是射频与谐振世界最看重的品质指标。</div><div class="term-ref">→ 详见 <a href="#sec-rl">8.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-mlcc" data-term="多层陶瓷电容|Multilayer Ceramic Capacitor|MLCC"><div class="term-h"><b>多层陶瓷电容</b><span class="term-en">Multilayer Ceramic Capacitor (MLCC)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>把很多层薄陶瓷和金属电极交替叠起来做成的小电容,像千层饼。这样在极小体积里塞进很大容值,又便宜又耐用,是电子产品里用量最大的元件,一部手机上千颗。</div><div class="term-l2"><b>📖 是什么</b>多层陶瓷介质与电极叠层的片式电容。它不是电解电容——MLCC 体积小、寿命长、无极性、高频好,电解电容容值大但有寿命、有极性、高频差。</div><div class="term-l3"><b>🔬 专业</b>数百层陶瓷+内电极并联,单颗容值 pF~百μF。关注容值、温度特性(X7R/C0G)、直流偏压效应、可靠性。工艺壁垒在超薄介质层(亚微米)、电极材料(BME)、共烧一致性。日系厂商领先。</div><div class="term-l4"><b>💡 本质</b>它是被动器件里&quot;体积-容值-成本&quot;优化的巅峰——用叠层把三者逼到极致,看似平价,超薄介质与共烧工艺却是难以复制的深壁垒,战略地位常被低估。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">8.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-cap-temp-char" data-term="容值温度特性|Capacitance Temperature Characteristic"><div class="term-h"><b>容值温度特性</b><span class="term-en">Capacitance Temperature Characteristic</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电容的容值不是一成不变,会随温度升降而变化。有的电容很稳、几乎不变(适合精密),有的温度一变容值就飘(只能做粗活)。选型必须看它在工作温度范围内稳不稳。</div><div class="term-l2"><b>📖 是什么</b>容值随温度变化的行为。它不是直流偏压特性——温度特性是容值随温度变化,直流偏压特性是容值随施加电压变化,二者是不同的容值衰减来源。</div><div class="term-l3"><b>🔬 专业</b>由介质材料决定:C0G 近乎零温漂,X7R 全温区±15%,Y5V 可达+22%/-82%。铁电Ⅱ类材料因居里点、畴变导致强温度依赖。精密应用选Ⅰ类,容值优先选Ⅱ类。</div><div class="term-l4"><b>💡 本质</b>它揭示了陶瓷电容&quot;标称容值只是名义值&quot;——真实容值随环境浮动,尤其Ⅱ类介质,不看温度特性直接用标称值,精密电路会栽跟头。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">8.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-tcr" data-term="温度系数（电阻温漂）|Temperature Coefficient of Resistance|TCR"><div class="term-h"><b>温度系数（电阻温漂）</b><span class="term-en">Temperature Coefficient of Resistance (TCR)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电阻的阻值会随温度变化而漂移。TCR 就是衡量&quot;温度每变一度,阻值漂多少&quot;的指标。做精密电路时希望它越小越好,否则一发热测量就不准了。</div><div class="term-l2"><b>📖 是什么</b>电阻值随温度变化的比率。它不是精度——精度是常温下阻值的准确度,TCR 是阻值随温度漂移的速率,精密电阻要求两者都好。</div><div class="term-l3"><b>🔬 专业</b>单位 ppm/℃。薄膜可低至几 ppm/℃,厚膜常±100~250ppm/℃。源于导电材料本征温度依赖。精密基准、分压网络对 TCR 极敏感,匹配 TCR(相对温漂)有时比绝对 TCR 更重要。</div><div class="term-l4"><b>💡 本质</b>它是电阻&quot;稳不稳&quot;的核心指标——常温再准,一发热就漂也没用,TCR 决定了电阻在真实工作温度下能否守住精度,是精密与普通电阻的分水岭。</div><div class="term-ref">→ 详见 <a href="#sec-rl">8.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-capacitor" data-term="电容|Capacitor"><div class="term-h"><b>电容</b><span class="term-en">Capacitor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>一个能&quot;暂存电荷&quot;的小水库:充电时存进电荷、放电时放出。电路里用它稳定电压、滤掉波动、隔断直流。就像给电路装了个缓冲蓄水池。</div><div class="term-l2"><b>📖 是什么</b>以电场储存电荷的被动元件。它不是电池——电容储电量小但充放极快、可反复无限次,电池储能大但充放慢、有寿命,二者储能机理不同。</div><div class="term-l3"><b>🔬 专业</b>容值 C=εA/d(介电常数×面积÷极板间距)。用于滤波、去耦、储能、隔直。关注容值、耐压、ESR、ESL、温度/直流偏压特性。MLCC 是用量最大的类型。</div><div class="term-l4"><b>💡 本质</b>它的本质是&quot;用电场存电荷&quot;的时间缓冲——电路里凡是需要&quot;稳一稳、缓一缓、隔一隔&quot;的地方都用它,是模拟与电源世界最基础的调节手段。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">8.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-inductor" data-term="电感|Inductor"><div class="term-h"><b>电感</b><span class="term-en">Inductor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>一段绕成线圈的导线,通电时会储存磁场能量。它&quot;抗拒电流突变&quot;,电流想变它就顶一下,所以用来平滑电流、滤波、在开关电源里储能搬运。</div><div class="term-l2"><b>📖 是什么</b>以磁场储存能量、阻碍电流变化的元件。它不是电容——电感储磁场、抗电流突变、通直流阻交流;电容储电场、抗电压突变、隔直流通交流,二者行为互补对偶。</div><div class="term-l3"><b>🔬 专业</b>感值 L,储能 ½LI²,阻抗随频率上升。关注感值、饱和电流、直流电阻(DCR)、Q 值、磁芯损耗。用于滤波、储能(DC-DC)、EMI 抑制。磁芯材料与结构决定性能上限。</div><div class="term-l4"><b>💡 本质</b>它是电容的&quot;对偶伴侣&quot;——一个管电场一个管磁场,一个抗电压突变一个抗电流突变,开关电源正是靠电感储能搬运才实现高效变压。</div><div class="term-ref">→ 详见 <a href="#sec-rl">8.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-resistor" data-term="电阻|Resistor"><div class="term-h"><b>电阻</b><span class="term-en">Resistor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>最基础的元件,作用是&quot;阻挡&quot;电流、按比例分配电压,通过时把一部分电能变成热。电路里用它限流、分压、设定工作点,无处不在。</div><div class="term-l2"><b>📖 是什么</b>按欧姆定律限制电流、耗散能量的元件。它不是电容/电感——电阻耗能(把电变热、不储能),电容电感储能(储电场/磁场、不耗能),是被动器件里唯一&quot;纯耗能&quot;的。</div><div class="term-l3"><b>🔬 专业</b>阻值 R,遵循 V=IR,功耗 I²R。关注阻值精度、功率、温漂(TCR)、噪声。分薄膜(精密)、厚膜(耐功率成本低)、绕线等。看似简单,精密电阻的稳定性与匹配是技术活。</div><div class="term-l4"><b>💡 本质</b>它是电路的&quot;节流阀&quot;——用可控的耗能来限流分压,是最朴素也最不可替代的元件,&quot;简单&quot;的表象下,精密与稳定同样是硬功夫。</div><div class="term-ref">→ 详见 <a href="#sec-rl">8.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-dc-bias" data-term="直流偏压特性|DC Bias Characteristic|DC Bias"><div class="term-h"><b>直流偏压特性</b><span class="term-en">DC Bias Characteristic (DC Bias)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>一个容易被忽略的坑:高介陶瓷电容在加上直流工作电压后,实际容值会大幅缩水,有时只剩标称的一半甚至更少。设计电源时如果按标称值算,可能严重不够用。</div><div class="term-l2"><b>📖 是什么</b>容值随施加直流电压下降的现象。它不是温度特性——直流偏压效应是电压导致容值衰减,温度特性是温度导致变化,高介Ⅱ类电容两者都严重。</div><div class="term-l3"><b>🔬 专业</b>铁电介质在直流电场下极化受抑,介电常数下降,容值可衰减 50%以上(小尺寸大容值件尤甚)。C0G 几乎无此效应。选型需查偏压曲线、留足裕量,是电源去耦设计常见陷阱。</div><div class="term-l4"><b>💡 本质</b>它是 MLCC 最隐蔽的&quot;缩水陷阱&quot;——数据手册标称容值是零偏压值,一上工作电压就打折,不懂这点的设计会莫名其妙容量不足,是经验与教训的分水岭。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">8.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-magnetic-core" data-term="磁芯|Magnetic Core"><div class="term-h"><b>磁芯</b><span class="term-en">Magnetic Core</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电感线圈中间那块磁性材料。它能&quot;聚拢&quot;磁场,让同样的线圈储存更多磁能、做出更大感值。选什么磁芯材料,直接决定电感能扛多大电流、损耗多少。</div><div class="term-l2"><b>📖 是什么</b>增强电感磁场的磁性材料芯体。它不是线圈——磁芯是聚磁的材料(决定感值密度和饱和),线圈是导电的绕线(产生磁场),二者共同构成电感。</div><div class="term-l3"><b>🔬 专业</b>材料有铁氧体、铁粉、合金粉末、非晶等,各有磁导率、饱和磁通密度、损耗特性。磁芯决定感值密度、饱和电流、频率适用范围与损耗。是电感性能的物质基础。</div><div class="term-l4"><b>💡 本质</b>它是电感的&quot;性能地基&quot;——同样线圈换不同磁芯,能扛的电流和损耗天差地别,磁芯材料的选择本质是在磁导率、饱和、损耗三者间找平衡。</div><div class="term-ref">→ 详见 <a href="#sec-rl">8.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-core-saturation" data-term="磁芯饱和|Core Saturation"><div class="term-h"><b>磁芯饱和</b><span class="term-en">Core Saturation</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>磁芯储磁能力有上限。电流大到一定程度,磁芯&quot;存满了&quot;再也存不下,此时电感值急剧下降、几乎失效,电流会失控飙升,可能烧毁电路。这是功率电感必须避开的红线。</div><div class="term-l2"><b>📖 是什么</b>磁芯磁通达到极限后磁导率骤降的现象。它不是过流——饱和是磁芯材料层面的物理极限(感值崩塌),过流是电流超额定,饱和往往由过大电流触发。</div><div class="term-l3"><b>🔬 专业</b>磁通密度达饱和值 Bsat 后,磁导率骤降、电感值大幅下跌、电流失控上升。饱和电流是功率电感关键额定值。设计需留裕量,合金粉末芯饱和特性较软(渐变)、更安全。</div><div class="term-l4"><b>💡 本质</b>它是电感的&quot;物理极限红线&quot;——磁芯能存的磁能有顶,越线电感就&quot;消失&quot;,电流失控,这条硬边界是功率电感选型时最不能忽视的安全约束。</div><div class="term-ref">→ 详见 <a href="#sec-rl">8.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-esl" data-term="等效串联电感|Equivalent Series Inductance|ESL"><div class="term-h"><b>等效串联电感</b><span class="term-en">Equivalent Series Inductance (ESL)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电容内部还藏着一点&quot;寄生电感&quot;,在高频下它会&quot;作对&quot;,让电容在超过某个频率后反而不像电容了。ESL 越低,电容能在越高的频率下正常工作。</div><div class="term-l2"><b>📖 是什么</b>电容内部等效的串联电感分量。它不是 ESR——ESL 是寄生电感(限制高频有效性),ESR 是寄生电阻(造成损耗),二者共同决定电容的真实高频行为。</div><div class="term-l3"><b>🔬 专业</b>由电极结构、引线、封装几何决定。使电容存在自谐振频率(SRF),超过后呈感性、去耦失效。低 ESL 封装(如反转端子、小尺寸)可推高 SRF。是高速去耦设计的关键。</div><div class="term-l4"><b>💡 本质</b>它划定了电容的&quot;高频天花板&quot;——超过自谐振点电容就&quot;变身&quot;电感,ESL 决定这个拐点在哪,芯片时钟越快,压低 ESL 就越关键。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">8.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-esr" data-term="等效串联电阻|Equivalent Series Resistance|ESR"><div class="term-h"><b>等效串联电阻</b><span class="term-en">Equivalent Series Resistance (ESR)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>真实电容不是完美的,内部藏着一点&quot;寄生电阻&quot;。电流反复充放时,这点电阻会发热、拖累性能。ESR 越低,电容在滤波、去耦时反应越干脆、发热越少。</div><div class="term-l2"><b>📖 是什么</b>电容内部等效的串联电阻分量。它不是绝缘电阻——ESR 是充放电路径上的损耗电阻(越低越好),绝缘电阻是介质漏电(越高越好),二者是不同寄生。</div><div class="term-l3"><b>🔬 专业</b>来源:电极、引线、介质损耗。影响纹波电流发热、去耦瞬态响应、开关电源效率。MLCC 的 ESR 远低于电解电容,故高频去耦优选 MLCC。是电源设计关键寄生参数。</div><div class="term-l4"><b>💡 本质</b>它是&quot;理想电容&quot;与现实的差距之一——纯电容不耗能,ESR 却让它发热损耗,在大电流纹波和高频场景,这点寄生电阻直接决定电容好不好用。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">8.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-thin-film-resistor" data-term="薄膜电阻|Thin Film Resistor"><div class="term-h"><b>薄膜电阻</b><span class="term-en">Thin Film Resistor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>在基板上溅射一层极薄的金属膜做成的电阻。膜薄而均匀,所以阻值精准、随温度变化极小、噪声低,适合精密测量电路。缺点是贵、能承受的功率小。</div><div class="term-l2"><b>📖 是什么</b>用薄金属膜(纳米级)制成的高精密电阻。它不是厚膜电阻——薄膜精度高、温漂小、噪声低但成本高、功率小;厚膜(印刷较厚)成本低、耐功率但精度温漂差。</div><div class="term-l3"><b>🔬 专业</b>膜厚约纳米级,阻值精度可达±0.01%、TCR 低至几 ppm/℃、低噪声。用激光修调精确定值。用于精密仪表、基准、传感器接口。成本高、功率承受有限。</div><div class="term-l4"><b>💡 本质</b>它是精密世界的&quot;标尺电阻&quot;——薄而均匀的膜换来极致的稳定和低噪声,与厚膜构成&quot;精密 vs 廉价耐用&quot;的分工,精度就是它的全部价值。</div><div class="term-ref">→ 详见 <a href="#sec-rl">8.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-passive-component" data-term="被动器件|Passive Component"><div class="term-h"><b>被动器件</b><span class="term-en">Passive Component</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电路里那些自己不放大、不产生能量,只做&quot;存、挡、通、滤&quot;的基础元件,比如电阻、电容、电感。它们不起眼,但一块电路板上有成百上千个,少了谁都不行。</div><div class="term-l2"><b>📖 是什么</b>不提供增益、只被动响应电信号的元件。它不是有源器件——有源器件(晶体管)能放大/开关、需供电,被动器件(电阻/电容/电感)只储能或耗能、不放大。</div><div class="term-l3"><b>🔬 专业</b>三大类:电阻(耗能)、电容(储电场)、电感(储磁场)。关注精度、温漂、寄生参数、可靠性、体积。一块手机主板有上千颗,MLCC 尤其海量。看似简单,材料与制造壁垒不低。</div><div class="term-l4"><b>💡 本质</b>它是电路的&quot;沉默基建&quot;——不参与运算却无处不在,数量与可靠性直接决定整机成本和良率,&quot;简单&quot;的表象下藏着材料与工艺的深水区。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">8.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-bme" data-term="贱金属电极|Base Metal Electrode|BME"><div class="term-h"><b>贱金属电极</b><span class="term-en">Base Metal Electrode (BME)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>MLCC 内部电极过去用昂贵的钯银,现在改用便宜的镍来做,这就是贱金属电极。它大幅降低了成本,让 MLCC 能做到极致便宜和海量供应,但工艺更难。</div><div class="term-l2"><b>📖 是什么</b>用镍等贱金属做内电极的 MLCC 工艺。它不是 PME——BME 用便宜的镍/铜、成本低但需还原气氛共烧、抗还原介质,PME 用贵的钯/银、工艺简单但贵。</div><div class="term-l3"><b>🔬 专业</b>镍电极需在还原气氛下共烧(防氧化),介质须抗还原、防氧空位。成本远低于钯银,是现代高容 MLCC 主流。工艺难点在抗还原介质配方与共烧一致性。</div><div class="term-l4"><b>💡 本质</b>它是 MLCC 成本革命的关键一步——用镍替钯把材料成本砍到极低,代价是全套抗还原介质与共烧工艺,&quot;便宜&quot;的背后是一次不小的工艺跨越。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">8.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-pme" data-term="贵金属电极|Precious Metal Electrode|PME"><div class="term-h"><b>贵金属电极</b><span class="term-en">Precious Metal Electrode (PME)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>MLCC 内电极用钯、银等贵金属制造的传统做法。工艺相对简单、可靠,但金属太贵,成本高。如今高容量产品多已转向便宜的贱金属电极。</div><div class="term-l2"><b>📖 是什么</b>用钯/银等贵金属做内电极的 MLCC 工艺。它不是 BME——PME 工艺简单、可在空气中共烧,但贵金属成本高;BME 用镍/铜便宜但工艺复杂。</div><div class="term-l3"><b>🔬 专业</b>钯银电极可在氧化气氛共烧、对介质要求宽松,可靠性好。但贵金属价格波动大、成本高。多用于高可靠、军工、高频或小批量产品,大批量已让位 BME。</div><div class="term-l4"><b>💡 本质</b>它代表 MLCC 的&quot;传统高成本路线&quot;——用贵金属换工艺简单和可靠,在成本敏感的消费市场被 BME 取代,却在高可靠场景保留价值,是成本与可靠的分野。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">8.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-ceramic-dielectric" data-term="陶瓷介质材料|Ceramic Dielectric Material"><div class="term-h"><b>陶瓷介质材料</b><span class="term-en">Ceramic Dielectric Material</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>MLCC 里那层&quot;千层饼馅&quot;用的陶瓷,决定了电容的容值大小和稳定性。不同配方的陶瓷,有的稳定但容值小,有的容值大但脾气差(随温度电压变化),各有用途。</div><div class="term-l2"><b>📖 是什么</b>陶瓷电容中储存电场的介质材料。它不是电极——介质是储电场的绝缘陶瓷(决定容值/稳定性),电极是导电金属层(收集电荷),二者交替叠成 MLCC。</div><div class="term-l3"><b>🔬 专业</b>以钛酸钡(BaTiO₃)等为基,通过配方调控介电常数与温度特性。分Ⅰ类(C0G,顺电、稳定、低介)、Ⅱ类(X7R/X5R,铁电、高介、易变)。晶粒尺寸、掺杂、烧结决定性能。是 MLCC 核心 know-how。</div><div class="term-l4"><b>💡 本质</b>它是 MLCC 的&quot;灵魂配方&quot;——同样的叠层结构,介质材料的配方差异直接决定电容脾气,这层陶瓷的材料科学正是日系厂商的护城河所在。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">8.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-x7r-x5r-c0g" data-term="X7R/X5R/C0G|X7R / X5R / C0G"><div class="term-h"><b>X7R/X5R/C0G</b><span class="term-en">X7R / X5R / C0G</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>陶瓷电容的&quot;性格标签&quot;:C0G 最稳定但容值小,适合精密电路;X7R/X5R 容值大但会随温度变化,适合一般滤波去耦。选电容先看这几个字母。</div><div class="term-l2"><b>📖 是什么</b>陶瓷电容的温度特性分类代码。它们不是容值——这些代码描述容值随温度的变化行为:C0G(Ⅰ类,极稳)、X7R/X5R(Ⅱ类,容值大但温漂大)。</div><div class="term-l3"><b>🔬 专业</b>C0G(NP0):±30ppm/℃,极稳、低介、容值小。X7R:-55~125℃ 内±15%;X5R:-55~85℃ 内±15%,容值大但随温度/电压变化。字母含义:温度范围+容值变化率编码(EIA 标准)。</div><div class="term-l4"><b>💡 本质</b>它们是&quot;稳定 vs 容值&quot;取舍的标准化命名——把介质材料的物理妥协编成几个字母,让工程师一眼选型,背后是Ⅰ类顺电与Ⅱ类铁电的本质分野。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-permittivity" data-term="介电常数|Permittivity / Dielectric Constant"><div class="term-h"><b>介电常数</b><span class="term-en">Permittivity / Dielectric Constant</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>衡量一种绝缘材料&quot;储存电场能力&quot;的强弱。同样大小的电容,用介电常数高的材料做夹心,就能存更多电荷、做出更大容值。它是电容选材的核心参数。</div><div class="term-l2"><b>📖 是什么</b>材料储存电场能量能力的量度。它不是电阻率——介电常数衡量绝缘材料储电场的本领(决定容值),电阻率衡量导电难易,二者是绝缘体的不同属性。</div><div class="term-l3"><b>🔬 专业</b>相对介电常数εr(无量纲),容值正比于它。C0G 类材料εr 低但极稳定,X7R/高介材料εr 高(容值大)但随温度/电压变化大。是容值密度与稳定性权衡的物质根源。</div><div class="term-l4"><b>💡 本质</b>它是电容&quot;容值&quot;与&quot;稳定性&quot;矛盾的物质源头——介电常数越高越能小体积做大容值,但高介材料天生不稳定,这个取舍贯穿所有陶瓷电容的分类。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-power-inductor" data-term="功率电感|Power Inductor"><div class="term-h"><b>功率电感</b><span class="term-en">Power Inductor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>专门用在电源电路里、能扛大电流的电感。开关电源靠它反复储存和释放能量来变电压。它要在大电流下不&quot;饱和失效&quot;、还要少发热,是电源模块里的关键大件。</div><div class="term-l2"><b>📖 是什么</b>面向大电流电源应用的电感。它不是信号电感——功率电感强调大饱和电流、低损耗、耐发热,信号电感强调高 Q、精确感值,用于滤波/匹配。</div><div class="term-l3"><b>🔬 专业</b>关注饱和电流、DCR、磁芯损耗、温升、体积。用于 DC-DC 储能滤波。磁芯需在大电流下不饱和,合金粉末芯、一体成型是主流。是电源效率与体积的关键约束。</div><div class="term-l4"><b>💡 本质</b>它是开关电源的&quot;储能心脏&quot;——效率、体积、发热很大程度由它决定,饱和电流和损耗的权衡,直接框定了电源模块能做多小多高效。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-thick-film-resistor" data-term="厚膜电阻|Thick Film Resistor"><div class="term-h"><b>厚膜电阻</b><span class="term-en">Thick Film Resistor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>用印刷的方式把较厚的电阻浆料烧结在基板上做成的电阻。工艺简单、便宜、能扛较大功率,是消费电子里用量最大的电阻,但精度和稳定性不如薄膜。</div><div class="term-l2"><b>📖 是什么</b>用印刷烧结厚膜浆料制成的电阻。它不是薄膜电阻——厚膜成本低、耐功率、量大,但精度/温漂/噪声差;薄膜精密但贵、功率小。</div><div class="term-l3"><b>🔬 专业</b>膜厚微米级,精度通常±1~5%、TCR 较大(±100~250ppm/℃)、噪声较高。工艺简单、成本低、可承受较大功率与浪涌。是片式电阻(如 0402/0603)的主流,消费电子海量使用。</div><div class="term-l4"><b>💡 本质</b>它是电阻界的&quot;平价主力&quot;——牺牲精度换成本和产量,与薄膜恰好互补,证明被动器件的选型永远是&quot;够用即最优&quot;的经济学。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-q-factor" data-term="品质因数|Quality Factor|Q"><div class="term-h"><b>品质因数</b><span class="term-en">Quality Factor (Q)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>衡量一个电感或电容&quot;有多接近理想、损耗有多小&quot;的指标。Q 越高,储存的能量相对损耗的能量越多,做谐振、滤波、射频匹配时性能越好、越&quot;尖锐&quot;。</div><div class="term-l2"><b>📖 是什么</b>储能与耗能之比,衡量元件损耗高低。它不是感值/容值——Q 衡量元件的&quot;纯净度&quot;(损耗小则 Q 高),感值容值是储能大小,是不同维度。</div><div class="term-l3"><b>🔬 专业</b>Q=储能/每周期耗能=ωL/R(电感)。Q 越高,谐振越尖锐、插损越小、滤波选择性越好。受寄生电阻、磁芯损耗、频率影响。射频匹配、谐振电路对高 Q 要求高。</div><div class="term-l4"><b>💡 本质</b>它是被动元件的&quot;纯度评分&quot;——理想元件只储能不耗能(Q 无穷),现实总有损耗,Q 值把这份&quot;不完美&quot;量化,是射频与谐振世界最看重的品质指标。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-mlcc" data-term="多层陶瓷电容|Multilayer Ceramic Capacitor|MLCC"><div class="term-h"><b>多层陶瓷电容</b><span class="term-en">Multilayer Ceramic Capacitor (MLCC)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>把很多层薄陶瓷和金属电极交替叠起来做成的小电容,像千层饼。这样在极小体积里塞进很大容值,又便宜又耐用,是电子产品里用量最大的元件,一部手机上千颗。</div><div class="term-l2"><b>📖 是什么</b>多层陶瓷介质与电极叠层的片式电容。它不是电解电容——MLCC 体积小、寿命长、无极性、高频好,电解电容容值大但有寿命、有极性、高频差。</div><div class="term-l3"><b>🔬 专业</b>数百层陶瓷+内电极并联,单颗容值 pF~百μF。关注容值、温度特性(X7R/C0G)、直流偏压效应、可靠性。工艺壁垒在超薄介质层(亚微米)、电极材料(BME)、共烧一致性。日系厂商领先。</div><div class="term-l4"><b>💡 本质</b>它是被动器件里&quot;体积-容值-成本&quot;优化的巅峰——用叠层把三者逼到极致,看似平价,超薄介质与共烧工艺却是难以复制的深壁垒,战略地位常被低估。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-cap-temp-char" data-term="容值温度特性|Capacitance Temperature Characteristic"><div class="term-h"><b>容值温度特性</b><span class="term-en">Capacitance Temperature Characteristic</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电容的容值不是一成不变,会随温度升降而变化。有的电容很稳、几乎不变(适合精密),有的温度一变容值就飘(只能做粗活)。选型必须看它在工作温度范围内稳不稳。</div><div class="term-l2"><b>📖 是什么</b>容值随温度变化的行为。它不是直流偏压特性——温度特性是容值随温度变化,直流偏压特性是容值随施加电压变化,二者是不同的容值衰减来源。</div><div class="term-l3"><b>🔬 专业</b>由介质材料决定:C0G 近乎零温漂,X7R 全温区±15%,Y5V 可达+22%/-82%。铁电Ⅱ类材料因居里点、畴变导致强温度依赖。精密应用选Ⅰ类,容值优先选Ⅱ类。</div><div class="term-l4"><b>💡 本质</b>它揭示了陶瓷电容&quot;标称容值只是名义值&quot;——真实容值随环境浮动,尤其Ⅱ类介质,不看温度特性直接用标称值,精密电路会栽跟头。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-tcr" data-term="温度系数（电阻温漂）|Temperature Coefficient of Resistance|TCR"><div class="term-h"><b>温度系数（电阻温漂）</b><span class="term-en">Temperature Coefficient of Resistance (TCR)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电阻的阻值会随温度变化而漂移。TCR 就是衡量&quot;温度每变一度,阻值漂多少&quot;的指标。做精密电路时希望它越小越好,否则一发热测量就不准了。</div><div class="term-l2"><b>📖 是什么</b>电阻值随温度变化的比率。它不是精度——精度是常温下阻值的准确度,TCR 是阻值随温度漂移的速率,精密电阻要求两者都好。</div><div class="term-l3"><b>🔬 专业</b>单位 ppm/℃。薄膜可低至几 ppm/℃,厚膜常±100~250ppm/℃。源于导电材料本征温度依赖。精密基准、分压网络对 TCR 极敏感,匹配 TCR(相对温漂)有时比绝对 TCR 更重要。</div><div class="term-l4"><b>💡 本质</b>它是电阻&quot;稳不稳&quot;的核心指标——常温再准,一发热就漂也没用,TCR 决定了电阻在真实工作温度下能否守住精度,是精密与普通电阻的分水岭。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-capacitor" data-term="电容|Capacitor"><div class="term-h"><b>电容</b><span class="term-en">Capacitor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>一个能&quot;暂存电荷&quot;的小水库:充电时存进电荷、放电时放出。电路里用它稳定电压、滤掉波动、隔断直流。就像给电路装了个缓冲蓄水池。</div><div class="term-l2"><b>📖 是什么</b>以电场储存电荷的被动元件。它不是电池——电容储电量小但充放极快、可反复无限次,电池储能大但充放慢、有寿命,二者储能机理不同。</div><div class="term-l3"><b>🔬 专业</b>容值 C=εA/d(介电常数×面积÷极板间距)。用于滤波、去耦、储能、隔直。关注容值、耐压、ESR、ESL、温度/直流偏压特性。MLCC 是用量最大的类型。</div><div class="term-l4"><b>💡 本质</b>它的本质是&quot;用电场存电荷&quot;的时间缓冲——电路里凡是需要&quot;稳一稳、缓一缓、隔一隔&quot;的地方都用它,是模拟与电源世界最基础的调节手段。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-inductor" data-term="电感|Inductor"><div class="term-h"><b>电感</b><span class="term-en">Inductor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>一段绕成线圈的导线,通电时会储存磁场能量。它&quot;抗拒电流突变&quot;,电流想变它就顶一下,所以用来平滑电流、滤波、在开关电源里储能搬运。</div><div class="term-l2"><b>📖 是什么</b>以磁场储存能量、阻碍电流变化的元件。它不是电容——电感储磁场、抗电流突变、通直流阻交流;电容储电场、抗电压突变、隔直流通交流,二者行为互补对偶。</div><div class="term-l3"><b>🔬 专业</b>感值 L,储能 ½LI²,阻抗随频率上升。关注感值、饱和电流、直流电阻(DCR)、Q 值、磁芯损耗。用于滤波、储能(DC-DC)、EMI 抑制。磁芯材料与结构决定性能上限。</div><div class="term-l4"><b>💡 本质</b>它是电容的&quot;对偶伴侣&quot;——一个管电场一个管磁场,一个抗电压突变一个抗电流突变,开关电源正是靠电感储能搬运才实现高效变压。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-resistor" data-term="电阻|Resistor"><div class="term-h"><b>电阻</b><span class="term-en">Resistor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>最基础的元件,作用是&quot;阻挡&quot;电流、按比例分配电压,通过时把一部分电能变成热。电路里用它限流、分压、设定工作点,无处不在。</div><div class="term-l2"><b>📖 是什么</b>按欧姆定律限制电流、耗散能量的元件。它不是电容/电感——电阻耗能(把电变热、不储能),电容电感储能(储电场/磁场、不耗能),是被动器件里唯一&quot;纯耗能&quot;的。</div><div class="term-l3"><b>🔬 专业</b>阻值 R,遵循 V=IR,功耗 I²R。关注阻值精度、功率、温漂(TCR)、噪声。分薄膜(精密)、厚膜(耐功率成本低)、绕线等。看似简单,精密电阻的稳定性与匹配是技术活。</div><div class="term-l4"><b>💡 本质</b>它是电路的&quot;节流阀&quot;——用可控的耗能来限流分压,是最朴素也最不可替代的元件,&quot;简单&quot;的表象下,精密与稳定同样是硬功夫。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-dc-bias" data-term="直流偏压特性|DC Bias Characteristic|DC Bias"><div class="term-h"><b>直流偏压特性</b><span class="term-en">DC Bias Characteristic (DC Bias)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>一个容易被忽略的坑:高介陶瓷电容在加上直流工作电压后,实际容值会大幅缩水,有时只剩标称的一半甚至更少。设计电源时如果按标称值算,可能严重不够用。</div><div class="term-l2"><b>📖 是什么</b>容值随施加直流电压下降的现象。它不是温度特性——直流偏压效应是电压导致容值衰减,温度特性是温度导致变化,高介Ⅱ类电容两者都严重。</div><div class="term-l3"><b>🔬 专业</b>铁电介质在直流电场下极化受抑,介电常数下降,容值可衰减 50%以上(小尺寸大容值件尤甚)。C0G 几乎无此效应。选型需查偏压曲线、留足裕量,是电源去耦设计常见陷阱。</div><div class="term-l4"><b>💡 本质</b>它是 MLCC 最隐蔽的&quot;缩水陷阱&quot;——数据手册标称容值是零偏压值,一上工作电压就打折,不懂这点的设计会莫名其妙容量不足,是经验与教训的分水岭。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-magnetic-core" data-term="磁芯|Magnetic Core"><div class="term-h"><b>磁芯</b><span class="term-en">Magnetic Core</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电感线圈中间那块磁性材料。它能&quot;聚拢&quot;磁场,让同样的线圈储存更多磁能、做出更大感值。选什么磁芯材料,直接决定电感能扛多大电流、损耗多少。</div><div class="term-l2"><b>📖 是什么</b>增强电感磁场的磁性材料芯体。它不是线圈——磁芯是聚磁的材料(决定感值密度和饱和),线圈是导电的绕线(产生磁场),二者共同构成电感。</div><div class="term-l3"><b>🔬 专业</b>材料有铁氧体、铁粉、合金粉末、非晶等,各有磁导率、饱和磁通密度、损耗特性。磁芯决定感值密度、饱和电流、频率适用范围与损耗。是电感性能的物质基础。</div><div class="term-l4"><b>💡 本质</b>它是电感的&quot;性能地基&quot;——同样线圈换不同磁芯,能扛的电流和损耗天差地别,磁芯材料的选择本质是在磁导率、饱和、损耗三者间找平衡。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-core-saturation" data-term="磁芯饱和|Core Saturation"><div class="term-h"><b>磁芯饱和</b><span class="term-en">Core Saturation</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>磁芯储磁能力有上限。电流大到一定程度,磁芯&quot;存满了&quot;再也存不下,此时电感值急剧下降、几乎失效,电流会失控飙升,可能烧毁电路。这是功率电感必须避开的红线。</div><div class="term-l2"><b>📖 是什么</b>磁芯磁通达到极限后磁导率骤降的现象。它不是过流——饱和是磁芯材料层面的物理极限(感值崩塌),过流是电流超额定,饱和往往由过大电流触发。</div><div class="term-l3"><b>🔬 专业</b>磁通密度达饱和值 Bsat 后,磁导率骤降、电感值大幅下跌、电流失控上升。饱和电流是功率电感关键额定值。设计需留裕量,合金粉末芯饱和特性较软(渐变)、更安全。</div><div class="term-l4"><b>💡 本质</b>它是电感的&quot;物理极限红线&quot;——磁芯能存的磁能有顶,越线电感就&quot;消失&quot;,电流失控,这条硬边界是功率电感选型时最不能忽视的安全约束。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-esl" data-term="等效串联电感|Equivalent Series Inductance|ESL"><div class="term-h"><b>等效串联电感</b><span class="term-en">Equivalent Series Inductance (ESL)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电容内部还藏着一点&quot;寄生电感&quot;,在高频下它会&quot;作对&quot;,让电容在超过某个频率后反而不像电容了。ESL 越低,电容能在越高的频率下正常工作。</div><div class="term-l2"><b>📖 是什么</b>电容内部等效的串联电感分量。它不是 ESR——ESL 是寄生电感(限制高频有效性),ESR 是寄生电阻(造成损耗),二者共同决定电容的真实高频行为。</div><div class="term-l3"><b>🔬 专业</b>由电极结构、引线、封装几何决定。使电容存在自谐振频率(SRF),超过后呈感性、去耦失效。低 ESL 封装(如反转端子、小尺寸)可推高 SRF。是高速去耦设计的关键。</div><div class="term-l4"><b>💡 本质</b>它划定了电容的&quot;高频天花板&quot;——超过自谐振点电容就&quot;变身&quot;电感,ESL 决定这个拐点在哪,芯片时钟越快,压低 ESL 就越关键。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-esr" data-term="等效串联电阻|Equivalent Series Resistance|ESR"><div class="term-h"><b>等效串联电阻</b><span class="term-en">Equivalent Series Resistance (ESR)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>真实电容不是完美的,内部藏着一点&quot;寄生电阻&quot;。电流反复充放时,这点电阻会发热、拖累性能。ESR 越低,电容在滤波、去耦时反应越干脆、发热越少。</div><div class="term-l2"><b>📖 是什么</b>电容内部等效的串联电阻分量。它不是绝缘电阻——ESR 是充放电路径上的损耗电阻(越低越好),绝缘电阻是介质漏电(越高越好),二者是不同寄生。</div><div class="term-l3"><b>🔬 专业</b>来源:电极、引线、介质损耗。影响纹波电流发热、去耦瞬态响应、开关电源效率。MLCC 的 ESR 远低于电解电容,故高频去耦优选 MLCC。是电源设计关键寄生参数。</div><div class="term-l4"><b>💡 本质</b>它是&quot;理想电容&quot;与现实的差距之一——纯电容不耗能,ESR 却让它发热损耗,在大电流纹波和高频场景,这点寄生电阻直接决定电容好不好用。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-thin-film-resistor" data-term="薄膜电阻|Thin Film Resistor"><div class="term-h"><b>薄膜电阻</b><span class="term-en">Thin Film Resistor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>在基板上溅射一层极薄的金属膜做成的电阻。膜薄而均匀,所以阻值精准、随温度变化极小、噪声低,适合精密测量电路。缺点是贵、能承受的功率小。</div><div class="term-l2"><b>📖 是什么</b>用薄金属膜(纳米级)制成的高精密电阻。它不是厚膜电阻——薄膜精度高、温漂小、噪声低但成本高、功率小;厚膜(印刷较厚)成本低、耐功率但精度温漂差。</div><div class="term-l3"><b>🔬 专业</b>膜厚约纳米级,阻值精度可达±0.01%、TCR 低至几 ppm/℃、低噪声。用激光修调精确定值。用于精密仪表、基准、传感器接口。成本高、功率承受有限。</div><div class="term-l4"><b>💡 本质</b>它是精密世界的&quot;标尺电阻&quot;——薄而均匀的膜换来极致的稳定和低噪声,与厚膜构成&quot;精密 vs 廉价耐用&quot;的分工,精度就是它的全部价值。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-passive-component" data-term="被动器件|Passive Component"><div class="term-h"><b>被动器件</b><span class="term-en">Passive Component</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电路里那些自己不放大、不产生能量,只做&quot;存、挡、通、滤&quot;的基础元件,比如电阻、电容、电感。它们不起眼,但一块电路板上有成百上千个,少了谁都不行。</div><div class="term-l2"><b>📖 是什么</b>不提供增益、只被动响应电信号的元件。它不是有源器件——有源器件(晶体管)能放大/开关、需供电,被动器件(电阻/电容/电感)只储能或耗能、不放大。</div><div class="term-l3"><b>🔬 专业</b>三大类:电阻(耗能)、电容(储电场)、电感(储磁场)。关注精度、温漂、寄生参数、可靠性、体积。一块手机主板有上千颗,MLCC 尤其海量。看似简单,材料与制造壁垒不低。</div><div class="term-l4"><b>💡 本质</b>它是电路的&quot;沉默基建&quot;——不参与运算却无处不在,数量与可靠性直接决定整机成本和良率,&quot;简单&quot;的表象下藏着材料与工艺的深水区。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-bme" data-term="贱金属电极|Base Metal Electrode|BME"><div class="term-h"><b>贱金属电极</b><span class="term-en">Base Metal Electrode (BME)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>MLCC 内部电极过去用昂贵的钯银,现在改用便宜的镍来做,这就是贱金属电极。它大幅降低了成本,让 MLCC 能做到极致便宜和海量供应,但工艺更难。</div><div class="term-l2"><b>📖 是什么</b>用镍等贱金属做内电极的 MLCC 工艺。它不是 PME——BME 用便宜的镍/铜、成本低但需还原气氛共烧、抗还原介质,PME 用贵的钯/银、工艺简单但贵。</div><div class="term-l3"><b>🔬 专业</b>镍电极需在还原气氛下共烧(防氧化),介质须抗还原、防氧空位。成本远低于钯银,是现代高容 MLCC 主流。工艺难点在抗还原介质配方与共烧一致性。</div><div class="term-l4"><b>💡 本质</b>它是 MLCC 成本革命的关键一步——用镍替钯把材料成本砍到极低,代价是全套抗还原介质与共烧工艺,&quot;便宜&quot;的背后是一次不小的工艺跨越。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-pme" data-term="贵金属电极|Precious Metal Electrode|PME"><div class="term-h"><b>贵金属电极</b><span class="term-en">Precious Metal Electrode (PME)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>MLCC 内电极用钯、银等贵金属制造的传统做法。工艺相对简单、可靠,但金属太贵,成本高。如今高容量产品多已转向便宜的贱金属电极。</div><div class="term-l2"><b>📖 是什么</b>用钯/银等贵金属做内电极的 MLCC 工艺。它不是 BME——PME 工艺简单、可在空气中共烧,但贵金属成本高;BME 用镍/铜便宜但工艺复杂。</div><div class="term-l3"><b>🔬 专业</b>钯银电极可在氧化气氛共烧、对介质要求宽松,可靠性好。但贵金属价格波动大、成本高。多用于高可靠、军工、高频或小批量产品,大批量已让位 BME。</div><div class="term-l4"><b>💡 本质</b>它代表 MLCC 的&quot;传统高成本路线&quot;——用贵金属换工艺简单和可靠,在成本敏感的消费市场被 BME 取代,却在高可靠场景保留价值,是成本与可靠的分野。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-ceramic-dielectric" data-term="陶瓷介质材料|Ceramic Dielectric Material"><div class="term-h"><b>陶瓷介质材料</b><span class="term-en">Ceramic Dielectric Material</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>MLCC 里那层&quot;千层饼馅&quot;用的陶瓷,决定了电容的容值大小和稳定性。不同配方的陶瓷,有的稳定但容值小,有的容值大但脾气差(随温度电压变化),各有用途。</div><div class="term-l2"><b>📖 是什么</b>陶瓷电容中储存电场的介质材料。它不是电极——介质是储电场的绝缘陶瓷(决定容值/稳定性),电极是导电金属层(收集电荷),二者交替叠成 MLCC。</div><div class="term-l3"><b>🔬 专业</b>以钛酸钡(BaTiO₃)等为基,通过配方调控介电常数与温度特性。分Ⅰ类(C0G,顺电、稳定、低介)、Ⅱ类(X7R/X5R,铁电、高介、易变)。晶粒尺寸、掺杂、烧结决定性能。是 MLCC 核心 know-how。</div><div class="term-l4"><b>💡 本质</b>它是 MLCC 的&quot;灵魂配方&quot;——同样的叠层结构,介质材料的配方差异直接决定电容脾气,这层陶瓷的材料科学正是日系厂商的护城河所在。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
 </div>
 </div>
 <!-- ===== /术语表 ===== -->
@@ -8470,10 +9547,11 @@ var BOOKS={
   '5':{n:'第五篇 · 模拟与电源管理 IC',c:'#0891b2',t:'谱系定义 · 运放 · ADC · 电源'},
   '6':{n:'第六篇 · 光电感知',c:'#0284c7',t:'光电探测 SPAD/SiPM · 图像传感 CIS'},
   '7':{n:'第七篇 · 硅光子与光互连',c:'#8b5cf6',t:'带宽密度 · 调制器 · CPO'},
-  '8':{n:'第八篇 · 被动器件',c:'#ea580c',t:'MLCC · 电阻电感'},
+  '8':{n:'第八篇 · 射频芯片',c:'#db2777',t:'WiFi · 蓝牙 · GNSS · 5G · 毫米波'},
+  '9':{n:'第九篇 · 被动器件',c:'#ea580c',t:'MLCC · 电阻电感'},
   'A':{n:'附录',c:'#64748b',t:'术语表 · 参考文献'}
 };
-var CN={'零':'0','一':'1','二':'2','三':'3','四':'4','五':'5','六':'6','七':'7','八':'8'};
+var CN={'零':'0','一':'1','二':'2','三':'3','四':'4','五':'5','六':'6','七':'7','八':'8','九':'9'};
 var NO_FOLD={'sec-glossary':1,'sec-sources':1};  // 查阅型：术语表/参考文献
 var COLLAPSE_MIN=3600;   // 超过此字数的小节默认折叠
 var LEAD_MAX=1300;       // 首块小于此字数则保留为常显摘要
