@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v7.1 | 2026-09-21 | 侧边三级目录+全文搜索(Ctrl K)+长节折叠+阅读进度; 光电链路总纲(sec-opto-map)与光电探测层PD/APD/SPAD/SiPM(sec-opto-detect)+4条链路导航条; 术语四层释义表268条(sec-glossary, 打底/是什么/专业/本质四层递进); 正文原有内容未作改动 -->
+<!-- version: v7.2 | 2026-09-21 | 统一叙述框架: 42个原理节打槽位标记(①概念②原理③瓶颈-物理结构/材料/工艺④方案⑤对比⑥本质)共154标签+每节"本节讲法"骨架导航; 补写7节缺失的概念+原理开场(5.2/5.3/5.4/7.3/0.6.7/0.11/6.2); 「其他电容家族」从7.3移至7.1品类对比槽位; 前序: 侧边目录+全文搜索+长节折叠+光电链路总纲+术语四层释义表268条 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -336,6 +336,19 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
   .header h1,.header p{word-break:break-word}
 }
 
+
+/* ---------- 统一叙述框架：槽位标记 + 骨架导航 ---------- */
+.slot-tag{display:inline-block;font-size:10px;font-weight:800;padding:1.5px 7px;border-radius:4px;
+  border:1px solid;margin-right:7px;vertical-align:middle;letter-spacing:.3px;white-space:nowrap;
+  position:relative;top:-1px}
+.skel{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin:8px 0 16px;padding:9px 14px;
+  background:linear-gradient(90deg,#f8fafc,#fdfdff);border:1px solid #e8edf3;
+  border-left:3px solid #94a3b8;border-radius:8px;font-size:11.5px;color:#64748b;line-height:1.75}
+.skel b{color:#475569;font-weight:800;flex:none}
+.skel .path{color:#334155;font-weight:600}
+.skel .legend{margin-left:auto;font-size:10px;color:#cbd5e1;flex:none}
+@media(max-width:700px){.skel .legend{display:none}}
+
 /* ---------- 响应式 ---------- */
 @media(max-width:1279px){
   body.kb-on{padding-left:0}
@@ -505,6 +518,25 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 </div>
 
 
+
+<div class="content" style="padding-top:0;padding-bottom:0">
+<div class="card" id="sec-framework" style="background:#fbfcfe;border-left:4px solid #94a3b8">
+<div class="ttl">🧭 统一叙述框架：原理类小节的六个槽位</div>
+<div class="dsc">
+<p>为降低长文的阅读成本，<b>全站原理类小节统一按六个槽位组织</b>，每个内容块标注它属于哪一槽位，小节开头给出「本节讲法」路径。读者可据此判断该从哪读、跳过哪段。</p>
+<div class="kv" style="margin-top:8px">
+<span style="background:#f5f3ff;color:#6d28d9"><b>① 概念</b> 它干什么活、在系统里的位置、与邻近概念的边界</span>
+<span style="background:#eff6ff;color:#1d4ed8"><b>② 原理</b> 凭什么能 work 的物理机制</span>
+<span style="background:#fef2f2;color:#b91c1c"><b>③ 瓶颈</b> 卡在哪一层：物理结构 / 材料 / 工艺（标明类别）</span>
+<span style="background:#ecfdf5;color:#047857"><b>④ 方案</b> 怎么绕过瓶颈</span>
+<span style="background:#ecfeff;color:#0e7490"><b>⑤ 对比</b> 不同路线各自的生态位</span>
+<span style="background:#fffbeb;color:#b45309"><b>⑥ 本质</b> 这里的权衡到底是什么</span>
+</div>
+<p style="margin-top:10px;background:#f1f5f9;padding:8px 12px;border-radius:6px;color:#334155">
+<b>🔑 为什么要标明「卡在哪一层」：</b>瓶颈归属本身就是最有价值的信息——<b>MLCC 卡材料</b>（BaTiO₃ 晶粒尺寸）、<b>硅光发光卡材料</b>（硅是间接带隙）、<b>MOSFET 缩微卡物理结构</b>（短沟道效应）、<b>车规模块卡工艺</b>（认证与可靠性）。看清卡在哪一层，才知道它能不能被绕过、以及要绕多久。</p>
+<p style="margin-top:8px;color:#64748b;font-size:12px">说明：三类瓶颈是<b>可选槽位</b>——多数小节只卡在其中一两层，不强行凑齐。时间轴、产业格局、各国节点、事件详表、深度研究等<b>叙事类小节不套用此框架</b>。全站范式样本：<a href="#sec-mlcc">7.1 MLCC</a>（结构原理 → 材料下限 → 工艺矛盾 → 隐性劣化 → 品类对比）。</p>
+</div></div></div>
+
 <hr style="margin:40px 0 40px;border:none;border-top:4px solid #7c3aed">
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-phys">第零篇：器件物理地基 —— 为什么芯片能工作</h1>
@@ -530,9 +562,10 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 </div></div>
 
 <h2 id="sec-phys-dope">🧪 0.1 起点：硅既不导电也不绝缘，靠掺杂「人为造载流子」</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念：硅为什么必须掺杂</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">纯硅其实是个「差劲的绝缘体」——有用的是被污染之后的硅</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>纯硅其实是个「差劲的绝缘体」——有用的是被污染之后的硅</div>
 <div class="dsc">
 <p><b>原厂教学顺序很讲究</b>：先用「重力与势能」类比把能带图这套语言立起来，再讲硅原子的能级如何合并、劈裂成<b>带隙</b>，然后才讲掺杂。【原厂】</p>
 <p>关键物理图像：硅原子有 <b>4 个价电子</b>，彼此共享形成四面体键合的类金刚石晶格，原子密度约 <b>5×10²² 个/cm³</b>，晶格常数 5.43 Å。【原厂】 电子被牢牢束缚在键里，所以纯硅几乎不导电——要让它导电，必须<b>人为塞进可自由移动的载流子</b>。</p>
@@ -547,9 +580,10 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 </div></div>
 
 <h2 id="sec-phys-pn">⚡ 0.2 PN结：两块硅一接触，就自己长出一个电场（动画）</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">原理：内建电场如何自己建起来 → 三种偏置状态</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="anim-card">
-<div class="at">PN结的自平衡 · 没有外加电源，内建电场自己就建起来了</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>PN结的自平衡 · 没有外加电源，内建电场自己就建起来了</div>
 <div class="am">扩散把载流子送走 → 暴露出不能动的固定离子 → 固定离子的电场把载流子推回来 → 两股趋势打平</div>
 <svg viewBox="0 0 760 230">
   <rect x="0" y="0" width="760" height="230" fill="#fcfdfe"/>
@@ -612,7 +646,7 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 </div>
 
 <div class="card">
-<div class="ttl">三种状态：平衡、正偏、反偏 —— 以及为什么反偏能「挡住」高电压</div>
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>三种状态：平衡、正偏、反偏 —— 以及为什么反偏能「挡住」高电压</div>
 <div class="dsc">
 <p><b>① 平衡（不加电）</b>【原厂】：如上图。扩散想把载流子送到对面，但载流子一走就<b>暴露出不能移动的掺杂离子</b>（P 侧留下负离子、N 侧留下正离子）。这些固定离子建立起<b>内建电场</b>，电场又把载流子往回推。两股趋势打平时，中间形成一段几乎没有自由载流子的<b>耗尽区</b>。<b>注意：这个电场是自己长出来的，不需要外接电源。</b></p>
 <p><b>② 正偏（P 接正极）</b>【原厂】：外加电压削弱内建电场、耗尽区变窄，载流子得以大量越过 → <b>电流畅通</b>。</p>
@@ -624,16 +658,17 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 </div></div>
 
 <h2 id="sec-phys-moscap">🎛️ 0.3 MOS电容：用纯电场「遥控」硅表面（动画）</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念 → 原理（三态）→ 本质（决定 DRAM 形态）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">结构极简：金属 + 绝缘层 + 硅。但它是整个数字世界的开关核心</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>结构极简：金属 + 绝缘层 + 硅。但它是整个数字世界的开关核心</div>
 <div class="dsc">
 <p>在硅表面盖一层薄绝缘介质（传统是二氧化硅），再在上面放一块金属或多晶硅电极，就得到 <b>MOS 电容</b>。原厂把这个「栅叠层」<b>单独拎出来</b>研究，因为它是理解 MOSFET 的关键。【原厂】</p>
 <p><b>最妙的一点：</b>绝缘层不导电，所以栅极和硅之间<b>没有电流</b>。栅极靠<b>纯电场</b>遥控硅表面的载流子分布——不接触、不导通，却能决定硅表面是导电还是不导电。</p>
 </div></div>
 
 <div class="anim-card">
-<div class="at">MOS电容三态：积累 → 耗尽 → 反型</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>MOS电容三态：积累 → 耗尽 → 反型</div>
 <div class="am">以 P 型硅为例。栅压从负到正，硅表面依次经历三种完全不同的状态</div>
 <svg viewBox="0 0 760 250">
   <rect x="0" y="0" width="760" height="250" fill="#fcfdfe"/>
@@ -681,7 +716,7 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 </div>
 
 <div class="card">
-<div class="ttl">电容越大越能存电荷 —— 这一条直接决定了 DRAM 的样子</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>电容越大越能存电荷 —— 这一条直接决定了 DRAM 的样子</div>
 <div class="dsc">
 <p>平板电容最核心的关系（此处不列公式，只讲物理）：<b>电容大小 ∝ 介电常数 ÷ 介质厚度 × 极板面积</b>。【原厂】 三个可调旋钮：把面积做大、把介质做薄、或换介电常数更高的材料。</p>
 <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#78350f;margin-top:6px">
@@ -695,9 +730,10 @@ DRAM 要在越来越小的单元面积里<b>存住足够多的电荷</b>（电�
 </div></div>
 
 <h2 id="sec-phys-mosfet">🔀 0.4 MOSFET：给MOS电容装上两个「电子蓄水池」</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">原理（加两个掺杂区）→ 物理结构瓶颈（漏电死结）→ 本质</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">从电容到晶体管，只多了一步：在两侧各加一个掺杂区</div>
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>从电容到晶体管，只多了一步：在两侧各加一个掺杂区</div>
 <div class="dsc">
 <p>把 MOS 电容两侧各做一个重掺杂 N 区（源极与漏极），就成了 MOSFET。【原厂】 工作逻辑一句话说完：</p>
 <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#1e3a5f">
@@ -709,7 +745,7 @@ DRAM 要在越来越小的单元面积里<b>存住足够多的电荷</b>（电�
 </div></div>
 
 <div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
-<div class="ttl">🔥 全篇最重要的一条因果链：为什么越先进的制程越难控漏电</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>🔥 全篇最重要的一条因果链：为什么越先进的制程越难控漏电</div>
 <div class="dsc">
 <p style="background:#fee2e2;padding:8px 12px;border-radius:6px;color:#7f1d1d"><b>⚠️ 一个常见的方向性误解：</b>原厂明确写的是：室温下亚阈值摆幅<b>大于</b> 60mV/dec，而 60mV/dec 是<b>理论下限</b>。所以摆幅<b>越大＝越差＝漏电越难控</b>。【原厂】</p>
 <p><b>第一步：「关」其实关不干净。</b>把漏电流画成对数纵轴，会发现阈值以下是一条<b>直线</b>——说明名义上「关断」时，漏电流随栅压呈<b>指数关系</b>变化。【原厂】</p>
@@ -731,7 +767,7 @@ DRAM 要在越来越小的单元面积里<b>存住足够多的电荷</b>（电�
 </div></div>
 
 <div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
-<div class="ttl">🧩 地基如何长出上层：三条一句话讲清的连接链</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>🧩 地基如何长出上层：三条一句话讲清的连接链</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:20%">上层现象</th><th>地基如何解释它</th></tr></thead>
 <tbody>
@@ -753,8 +789,9 @@ DRAM 要在越来越小的单元面积里<b>存住足够多的电荷</b>（电�
 </div>
 
 <h2 id="sec-fab-zones">🏭 0.5.1 十大功能区与五类基本动作</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念：十大功能区与工艺路线单</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 <div class="card">
-<div class="ttl">一座 Fab 分成十个功能区——注意是十个，不是常说的九个</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>一座 Fab 分成十个功能区——注意是十个，不是常说的九个</div>
 <div class="dsc">
 <p>常见科普把工艺分成"九大模块"，通常是把量测与检测合并了。<b>原厂口径明确分十个功能区</b>，量测（Metrology）与实时缺陷分析（RDA）是<b>分列的两个区</b>——因为前者测"结构做对了没有"，后者查"有没有引入缺陷"，职责不同。</p>
 <table class="node-table nopad"><thead><tr><th style="width:15%">五类基本动作</th><th style="width:24%">对应功能区</th><th>本质</th></tr></thead>
@@ -773,7 +810,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <div class="card">
-<div class="ttl">Traveler：一颗芯片的"工艺路线单"，超过一千步</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>Traveler：一颗芯片的"工艺路线单"，超过一千步</div>
 <div class="dsc">
 <p><b>原厂定义：</b>Traveler（又叫 routing sheet / lot traveler）是制造一颗存储芯片所需<b>全部步骤的顺序清单，可超过一千步</b>。每一步都归属十个功能区之一，并各自绑定一个 <b>Recipe</b>——含温度、压力、气体与化学品种类、稀释比、时间等详细指令。早年这份单子印在纸上，随晶圆盒在洁净室里"旅行"，如今全程数字化跟踪。</p>
 <table class="node-table nopad"><thead><tr><th>规模数字</th><th>值</th></tr></thead>
@@ -790,10 +827,11 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <h2 id="sec-fab-modules">⚙️ 0.5.2 加材料与去材料：CVD/PVD/刻蚀/CMP（动画）</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">品类对比（CVD/PVD）→ 方案（硬掩模、CMP+大马士革）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="anim-row">
 <div class="anim-card">
-<div class="at">CVD vs PVD · 共形性决定了谁能填深孔</div>
+<div class="at"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>CVD vs PVD · 共形性决定了谁能填深孔</div>
 <div class="am">结论：深孔与沟槽必须用 CVD，PVD 填不进去</div>
 <svg viewBox="0 0 520 210">
   <rect x="0" y="0" width="520" height="210" fill="#fcfdfe"/>
@@ -848,7 +886,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 <div class="anim-card">
-<div class="at">硬掩模 · 为什么薄胶还要加一层"替身"</div>
+<div class="at"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>硬掩模 · 为什么薄胶还要加一层"替身"</div>
 <div class="am">薄胶利于分辨率，却扛不住刻蚀——于是先把图形转给硬掩模</div>
 <svg viewBox="0 0 520 210">
   <rect x="0" y="0" width="520" height="210" fill="#fcfdfe"/>
@@ -900,7 +938,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 <div class="anim-card">
-<div class="at">CMP 平坦化 + 大马士革铜互连</div>
+<div class="at"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>CMP 平坦化 + 大马士革铜互连</div>
 <div class="am">先磨平，再在沟槽里镶嵌铜——现代多层金属互连的基本套路</div>
 <svg viewBox="0 0 760 190">
   <rect x="0" y="0" width="760" height="190" fill="#fcfdfe"/>
@@ -951,8 +989,9 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 <h2 id="sec-fab-cmos">🧱 0.5.3 完整 CMOS 建造顺序（按 Traveler）</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">原理（完整建造顺序）→ 方案（ALE）→ 概念定位</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 <div class="card">
-<div class="ttl">从裸硅到钝化：一层金属的完整旅程</div>
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>从裸硅到钝化：一层金属的完整旅程</div>
 <div class="dsc">
 <p><b>掩模层代码（原厂）：</b>NW(N阱) · PW(P阱) · AA(有源区) · TG(晶体管栅) · NA(NMOS源漏) · PA(PMOS源漏) · CN(接触) · M1(一层金属) · BP(钝化+焊盘)。<b>真实 DRAM/NAND 有数十张掩模</b>，此处只演示到一层金属。</p>
 <table class="node-table nopad"><thead><tr><th style="width:17%">阶段</th><th style="width:44%">关键步骤</th><th>典型参数</th></tr></thead>
@@ -969,7 +1008,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <div class="card" style="border-left:4px solid #0891b2">
-<div class="ttl">补充：原子层刻蚀 ALE 与"扩散"这个译名的陷阱</div>
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>补充：原子层刻蚀 ALE 与"扩散"这个译名的陷阱</div>
 <div class="dsc">
 <p><b>ALE（原子层刻蚀，Lam Research 口径）：</b>把刻蚀拆成「A 改性 + B 去除」两个<b>自限性</b>步骤，每循环只去掉一个原子层。以硅为例：Cl₂ 吸附形成氯化层（改性，各向同性）→ Ar 离子轰击去除（各向异性）。最大价值是<b>与深宽比无关</b>——消除 ARDE 效应，不同深宽比的结构能等量刻蚀。它<b>不替代</b>传统等离子刻蚀，而是在自对准接触等精密结构上作补充。参照尺度：先进特征的 CD 已经小到约 50 个原子宽。</p>
 <p><b>「扩散」这个中文译名容易误导：</b>看到 Diffusion 很容易以为是"掺杂扩散"，但<b>原厂的 Diffusion 区主要做三件事：氧化（长 SiO₂）、成膜沉积、热处理/退火</b>，用的是立式炉管批处理（一次最多 125 片、温度可达 1000°C）。<b>掺杂是 Implant 离子注入区的职责，不是 Diffusion 区。</b></p>
@@ -987,7 +1026,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <div class="content">
 
 <div class="card" style="background:#faf5ff;border-left:4px solid #7c3aed">
-<div class="ttl">先立定位：为什么说只有光刻在「画图」</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先立定位：为什么说只有光刻在「画图」</div>
 <div class="dsc">
 <p>一座 Fab 的十个功能区里，其余九个做的都是「<b>加材料 / 去材料 / 改性质 / 测量</b>」——它们作用在<b>整片晶圆</b>上，本身不区分位置。只有光刻决定<b>「哪里要、哪里不要」</b>，把设计图的形状与位置定义到硅片上。【原厂】</p>
 <p>所以一条完整的图形化流程是：<b>光刻先画出「蒙版」，再由刻蚀或注入照着这层蒙版去动手</b>。光刻胶本身不留在最终芯片里，它是<b>用完就扔的牺牲层</b>。</p>
@@ -1001,9 +1040,10 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <h2 id="sec-fab-photo">🔬 0.6.1 分辨率的物理：波长、数值孔径与浸没式（动画）</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">原理（五步循环、瑞利判据）→ 方案（浸没式）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="anim-card">
-<div class="at">光刻五步循环 · 胶是用完就扔的"牺牲层"</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>光刻五步循环 · 胶是用完就扔的"牺牲层"</div>
 <div class="am">五步教学口径：涂胶 → 曝光 → 显影 → 刻蚀/注入 → 剥胶</div>
 <svg viewBox="0 0 760 210">
   <rect x="0" y="0" width="760" height="210" fill="#fcfdfe"/>
@@ -1096,7 +1136,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 
 <div class="anim-row">
 <div class="anim-card">
-<div class="at">Rayleigh 判据 · 为什么要缩波长、增 NA</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>Rayleigh 判据 · 为什么要缩波长、增 NA</div>
 <div class="am">R = k₁ × λ / NA —— 分辨率与聚焦深度的永恒拉锯</div>
 <svg viewBox="0 0 520 200">
   <rect x="0" y="0" width="520" height="200" fill="#fcfdfe"/>
@@ -1141,7 +1181,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 <div class="anim-card">
-<div class="at">浸没式光刻 · 往镜头和晶圆之间注水</div>
+<div class="at"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>浸没式光刻 · 往镜头和晶圆之间注水</div>
 <div class="am">NA = n·sinθ —— 把介质从空气(n≈1)换成水(n=1.33)</div>
 <svg viewBox="0 0 520 200">
   <rect x="0" y="0" width="520" height="200" fill="#fcfdfe"/>
@@ -1190,9 +1230,10 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 
 
 <h2 id="sec-litho-flow">🔁 0.6.2 八步量产工序：Track 与 Scanner 的分工</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念：量产八步与 Track/Scanner 分工</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">入门口径的「五步」，在量产里其实是八步</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>入门口径的「五步」，在量产里其实是八步</div>
 <div class="dsc">
 <p>原厂给了两种颗粒度。<b>五步是教学口径</b>【原厂】：涂胶 → 曝光（紫外光穿过掩模）→ 显影 → 刻蚀或注入 → 剥胶。注意<b>前三步在光刻区内完成，第 4 步交给刻蚀/注入区，第 5 步再回来去胶</b>——所以「光刻」和「图形化」不是一回事。</p>
 <p>而量产实际跑的是<b>八步</b>【原厂】：</p>
@@ -1211,9 +1252,10 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <h2 id="sec-litho-resist">🧴 0.6.3 光刻胶：正性负性之分，以及「胶厚是被下游倒逼的」</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">品类对比（正性/负性）→ 材料瓶颈（胶厚与倒胶）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">正性胶 vs 负性胶：被光照到的部分是留还是走</div>
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>正性胶 vs 负性胶：被光照到的部分是留还是走</div>
 <div class="dsc">
 <p><b>正性胶</b>：被光照到的区域<b>被去掉</b>，遮住的区域留下。<b>负性胶</b>：反过来，没照到的被去掉。【原厂】</p>
 <p>但真实工艺还要叠加「显影方式」，原厂给了三种组合【原厂】：</p>
@@ -1227,7 +1269,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <div class="card">
-<div class="ttl">胶要涂多厚？不是光刻自己说了算</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 材料瓶颈</span>胶要涂多厚？不是光刻自己说了算</div>
 <div class="dsc">
 <p>胶是<b>旋涂</b>上去的：晶圆真空吸住，滴几毫升胶，<b>转速拉到几千转</b>靠离心力甩成均匀薄膜。<b>转速越高，胶越薄</b>【原厂】。</p>
 <p>但厚度由<b>下游工序倒逼</b>，这点很反直觉——不是越薄越好，是<b>刚好够用</b>：</p>
@@ -1240,9 +1282,10 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <h2 id="sec-litho-mask">🎭 0.6.4 掩模版与 4X 缩放：为什么掩模比芯片大四倍</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">原理：掩模构造与 4X 缩放</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">二元掩模的物理构造：石英 + 铬</div>
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>二元掩模的物理构造：石英 + 铬</div>
 <div class="dsc">
 <p>最基本的<b>二元掩模</b>（binary mask）结构极简：一块<b>石英</b>基板（透紫外光），上面按图形镀<b>铬</b>（挡光）。光穿过没镀铬的地方，把图形投到胶上。【原厂】 其他掩模类型此处不展开——<b>相移掩模等增强技术不讲原理</b>。</p>
 <p><b>4X 缩放是关键设计：</b>掩模上的图形是最终芯片尺寸的 <b>4 倍</b>，经投影镜头缩小 4 倍后印到晶圆上。【原厂】</p>
@@ -1253,9 +1296,10 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <h2 id="sec-litho-window">🎯 0.6.5 焦深与剂量：分辨率之外的两个工艺窗口</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">工艺瓶颈：焦深与剂量这两个窗口</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">光刻不只要「印得细」，还要「印得稳」</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 工艺瓶颈</span>光刻不只要「印得细」，还要「印得稳」</div>
 <div class="dsc">
 <p>把线做细是分辨率问题，但量产还要回答另一个问题：<b>工艺条件轻微漂移时，图形还能不能合格？</b>这就是工艺窗口。</p>
 <table class="node-table nopad"><thead><tr><th style="width:16%">参数</th><th style="width:30%">是什么</th><th>为什么要命</th></tr></thead>
@@ -1271,16 +1315,17 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <h2 id="sec-litho-overlay">📐 0.6.6 套刻精度：比分辨率更容易卡量产的那个指标（动画）</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">原理（逐层对准）→ 工艺瓶颈（六种误差模式）→ 本质</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">芯片是几十层叠出来的，每层都要对准前一层</div>
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>芯片是几十层叠出来的，每层都要对准前一层</div>
 <div class="dsc">
 <p><b>套刻（Overlay）</b>指一层相对另一层的<b>放置精度</b>；<b>配准（Registration）</b>指新胶图形与先前关键结构之间的偏移量。【原厂】</p>
 <p>关键在于：<b>误差会逐层累积</b>。分辨率决定「能印多细」，套刻决定「能不能对得上」——而后者在量产中往往更早成为瓶颈，因为它<b>不是单一的「偏了多少」，而是平移、旋转、缩放的叠加，且分「单场级」与「整片级」两个尺度</b>。</p>
 </div></div>
 
 <div class="anim-card">
-<div class="at">套刻误差的六种模式 · 原厂用整整六页逐一图解</div>
+<div class="at"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 工艺瓶颈</span>套刻误差的六种模式 · 原厂用整整六页逐一图解</div>
 <div class="am">虚线＝前层目标位置，实线＝本层实际位置。工程师必须把六种模式拆开、分别校正</div>
 <svg viewBox="0 0 760 250">
   <rect x="0" y="0" width="760" height="250" fill="#fcfdfe"/>
@@ -1349,7 +1394,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 <div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
-<div class="ttl">🧩 套刻如何给「能叠多高、连多密」设上限</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>🧩 套刻如何给「能叠多高、连多密」设上限</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:24%">被约束的对象</th><th>逻辑链</th></tr></thead>
 <tbody>
@@ -1360,9 +1405,28 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <h2 id="sec-litho-metro">🔍 0.6.7 量测与闭环：怎么知道图案印对了</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（为什么必须闭环量测）→ 对比（四类量测、量测≠检测）→ 数字总表 → 本质（决定产业格局）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+<div class="card" style="background:#f8fafc;border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先说清楚：光刻为什么必须"边印边量"</div>
+<div class="dsc">
+<p><b>①它在系统里干什么活。</b>量测（metrology）不是光刻的一道附加检查，而是光刻能够量产的前提。前面 0.6.1–0.6.6 讲的是"怎么把图案印小、印准"（分辨率、焦深剂量、套刻），本节讲的是另一件事——<b>印完之后，你凭什么知道这一片印对了</b>。它输出的不是良率报告，而是<b>下一片曝光的修正量</b>。</p>
+
+<p><b>②凭什么必须闭环。</b>光刻是一个开环做不了的工序。一次曝光的结果同时受<b>剂量、焦面、套刻、胶厚、前层形貌</b>多重因素影响，而这些量在晶圆之间、批次之间是持续<b>漂移</b>的：光源老化、抗蚀剂批次差异、前道膜厚起伏、载台热变形……没有一个是恒定的。所以工程上唯一可行的办法是<b>"印一片→量一片→反馈修正下一片"</b>——用实测结果反推配方偏差，把剂量、焦距、载台坐标微调后再曝下一片。这就是先进过程控制（APC, Advanced Process Control）的核心思想：<b>不追求单次印得完美，而是让偏差被持续测量、持续拉回。</b></p>
+
+<p><b>量测天生两难。</b>量得越准，往往越慢、越贵（CD-SEM 要进真空腔、逐点扫描）。但完全不量，漂移就无法被发现，等到成品测出问题已是几十道工序之后、代价高到不可接受。工程上的解法因此是<b>组合拳</b>：高精度量测<b>抽样</b>做（每批抽几片、每片测几点），配合快速的<b>在线量测</b>覆盖趋势，用统计过程控制（SPC）判断"是否漂出控制线"。</p>
+
+<div class="kv">
+<span>量测 metrology</span><span>测尺寸、测厚度、测位置——回答"印得对不对"</span>
+<span>检测 inspection</span><span>找颗粒、找缺陷、找异物——回答"有没有坏点"</span>
+</div>
+<p style="font-size:12px;color:#64748b;margin-top:4px">两者常被混为一谈，但目的不同：量测量的是"量值偏差"，检测找的是"离散缺陷"。下表四类核心量测里，胶厚与 CD 属量测、颗粒/缺陷属检测。</p>
+
+<p style="background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e3a8a;margin-top:8px"><b>本质一句话：</b>光刻不是"印一次的活儿"，而是一个<b>被量测钉住的负反馈回路</b>——量测的意义不在存档，而在于把每一片的漂移变成下一片的修正量。下面先看原厂列出的四类核心量测各自量什么、怎么量。</p>
+</div></div>
+
 
 <div class="card">
-<div class="ttl">原厂列出的四类核心量测</div>
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>原厂列出的四类核心量测</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:18%">量什么</th><th style="width:22%">用什么工具</th><th>原理与要点</th></tr></thead>
 <tbody>
@@ -1377,7 +1441,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <div class="card">
-<div class="ttl">📋 关键数字总表（便于核对引用）</div>
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>📋 关键数字总表（便于核对引用）</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:22%">项</th><th>数值（原厂口径）</th></tr></thead>
 <tbody>
@@ -1397,7 +1461,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <div class="card" style="background:#eff6ff;border-left:4px solid #2563eb">
-<div class="ttl">🌐 为什么光刻能决定产业格局（宏观含义，详见各篇）</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>🌐 为什么光刻能决定产业格局（宏观含义，详见各篇）</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:26%">产业现象</th><th>物理与成本根源</th></tr></thead>
 <tbody>
@@ -1419,6 +1483,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <div class="content">
 
 <h2 id="sec-mem-atlas">🧬 0.7 存储器全类型原理图解（图例 + 动画）</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">全家谱对比 → 分类逐一讲原理（易失/ROM/Flash/新型）→ 横向对比与趋势</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 <p style="font-size:13.5px;color:#64748b;margin-bottom:10px">把 RAM / ROM 家族的每一种存储机理拆开看：<b>靠什么记住一个 bit、工艺上怎么做出来、以及各自的演进方向</b>。下面所有图示均为动画，展示的是电子/磁矩/离子/晶相在写入与读取时的真实运动方式。</p>
 
 <div class="mem-legend">
@@ -1433,7 +1498,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 <div class="card">
-<div class="ttl">全家谱：一张表先分清 12 种存储器</div>
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>全家谱：一张表先分清 12 种存储器</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th>大类</th><th>类型</th><th>存 bit 靠什么</th><th>单元结构</th><th>读/写延迟</th><th>耐久</th><th>断电</th><th>现状</th></tr></thead>
 <tbody>
@@ -1454,11 +1519,11 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <p><b>看这张表最关键的一条线索：</b>从上往下，存储机理从"<em>存电荷</em>"逐渐转向"<em>改变材料本身的物理状态</em>"。这不是审美偏好——<b>电荷存储在缩微中必然失效</b>（电子数量随体积线性减少，28nm 的 eFlash 单元只剩约 100 个电子），而磁矩、晶相、离子位置这些"状态量"不随尺寸缩小而变少。这正是 2020 年代后所有新型存储器的共同设计思路。</p>
 </div></div>
 
-<h3>0.7.1 易失存储：SRAM 与 DRAM 为什么一断电就忘</h3>
+<h3><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>0.7.1 易失存储：SRAM 与 DRAM 为什么一断电就忘</h3>
 <div class="anim-row">
 
 <div class="anim-card">
-<div class="at">SRAM · 6T 双稳态锁存</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>SRAM · 6T 双稳态锁存</div>
 <div class="am">两个反相器首尾互锁，互相"顶住"对方的状态</div>
 <svg viewBox="0 0 520 210">
   <rect x="0" y="0" width="520" height="210" fill="#fcfdfe"/>
@@ -1507,7 +1572,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 <div class="anim-card">
-<div class="at">DRAM · 1T1C 电容漏电与刷新</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>DRAM · 1T1C 电容漏电与刷新</div>
 <div class="am">一个电容存电荷，一个管子控制通断；电荷会漏，所以必须周期性刷新</div>
 <svg viewBox="0 0 520 210">
   <rect x="0" y="0" width="520" height="210" fill="#fcfdfe"/>
@@ -1560,9 +1625,9 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 
 </div>
 
-<h3>0.7.2 ROM 家族的演化：从"光罩写死"到"电可擦写"</h3>
+<h3><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>0.7.2 ROM 家族的演化：从"光罩写死"到"电可擦写"</h3>
 <div class="card">
-<div class="ttl">四代 ROM 的本质是同一个问题：如何让"改一次"变成"随便改"</div>
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>四代 ROM 的本质是同一个问题：如何让"改一次"变成"随便改"</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:14%">类型</th><th style="width:26%">写入方式</th><th>物理机理与工艺</th><th style="width:20%">为什么被淘汰/保留</th></tr></thead>
 <tbody>
@@ -1574,11 +1639,11 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <p><b>一条关键的技术分野：</b>EEPROM 和 Flash <b>同属浮栅电荷存储、擦除都靠 F-N 隧穿</b>（写入侧则有差异：NAND 写/擦均用 F-N 隧穿，NOR 编程多用热电子注入 CHE），主要区别在<em>擦除粒度</em>——EEPROM 每个单元都配独立选择管，所以能按字节擦，代价是面积翻倍；Flash 砍掉了这个管子改为按扇区/块整体擦，面积减半、密度飙升。Flash 名字的来源就是"像闪光灯一样一次擦一大片"。这是一次典型的<b>用灵活性换密度</b>的取舍。</p>
 </div></div>
 
-<h3>0.7.3 Flash：浮栅、NOR/NAND 分野、以及 3D 堆叠</h3>
+<h3><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>0.7.3 Flash：浮栅、NOR/NAND 分野、以及 3D 堆叠</h3>
 <div class="anim-row">
 
 <div class="anim-card">
-<div class="at">浮栅写入 · 电子隧穿进"绝缘孤岛"</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>浮栅写入 · 电子隧穿进"绝缘孤岛"</div>
 <div class="am">Flash / EPROM / EEPROM 共同的物理内核</div>
 <svg viewBox="0 0 520 220">
   <rect x="0" y="0" width="520" height="220" fill="#fcfdfe"/>
@@ -1631,7 +1696,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 <div class="anim-card">
-<div class="at">NOR vs NAND · 同样的单元，接线方式不同</div>
+<div class="at"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>NOR vs NAND · 同样的单元，接线方式不同</div>
 <div class="am">一个并联、一个串联，决定了两者截然不同的命运</div>
 <svg viewBox="0 0 520 220">
   <rect x="0" y="0" width="520" height="220" fill="#fcfdfe"/>
@@ -1695,7 +1760,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 <div class="anim-card">
-<div class="at">3D NAND · 不再缩线宽，改为垂直堆叠</div>
+<div class="at"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>3D NAND · 不再缩线宽，改为垂直堆叠</div>
 <div class="am">2013 年起的范式转移：从"平面缩微"换到"垂直层数 + 晶圆键合"</div>
 <svg viewBox="0 0 520 210">
   <rect x="0" y="0" width="520" height="210" fill="#fcfdfe"/>
@@ -1742,11 +1807,11 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 </div>
 
-<h3>0.7.4 新型非易失存储器：不再靠"存电荷"，改为改变材料状态</h3>
+<h3><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>0.7.4 新型非易失存储器：不再靠"存电荷"，改为改变材料状态</h3>
 <div class="anim-row">
 
 <div class="anim-card">
-<div class="at">MRAM · 磁矩方向存 bit（STT-MRAM）</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>MRAM · 磁矩方向存 bit（STT-MRAM）</div>
 <div class="am">两层磁性薄膜：平行 = 低阻 = "1"，反平行 = 高阻 = "0"</div>
 <svg viewBox="0 0 520 210">
   <rect x="0" y="0" width="520" height="210" fill="#fcfdfe"/>
@@ -1796,7 +1861,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 <div class="anim-card">
-<div class="at">RRAM · 氧空位导电细丝的生成与断开</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>RRAM · 氧空位导电细丝的生成与断开</div>
 <div class="am">英飞凌 AURIX TC4x 已把它用到车规 MCU（台积电 28nm；2022 公告 20MB RRAM，系列口径为多达 25MB 片上 NVM）</div>
 <svg viewBox="0 0 520 210">
   <rect x="0" y="0" width="520" height="210" fill="#fcfdfe"/>
@@ -1851,7 +1916,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <div class="anim-row">
 
 <div class="anim-card">
-<div class="at">PCM · 晶态 ↔ 非晶态的相变</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>PCM · 晶态 ↔ 非晶态的相变</div>
 <div class="am">3D XPoint（Optane）的底层机理；ST 用于车规 Stellar</div>
 <svg viewBox="0 0 520 200">
   <rect x="0" y="0" width="520" height="200" fill="#fcfdfe"/>
@@ -1908,7 +1973,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 <div class="anim-card">
-<div class="at">FeRAM / FeFET · 铁电极化翻转</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>FeRAM / FeFET · 铁电极化翻转</div>
 <div class="am">HfO₂ 铁电性（2011 年发现）让这条路重新复活</div>
 <svg viewBox="0 0 520 200">
   <rect x="0" y="0" width="520" height="200" fill="#fcfdfe"/>
@@ -1962,10 +2027,10 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 </div>
 
-<h3>0.7.5 全类型横向对比与发展趋势</h3>
+<h3><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>0.7.5 全类型横向对比与发展趋势</h3>
 
 <div class="card">
-<div class="ttl">存储金字塔：为什么必须分层，以及新型存储想插进哪一层</div>
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>存储金字塔：为什么必须分层，以及新型存储想插进哪一层</div>
 <div class="dsc">
 <svg viewBox="0 0 700 300" style="width:100%;max-height:300px;background:#fcfdfe;border-radius:8px;margin:6px 0">
   <!-- pyramid layers -->
@@ -2006,7 +2071,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <div class="card">
-<div class="ttl">12 种存储器一图定位（机理 · 工艺难点 · 演进方向）</div>
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>12 种存储器一图定位（机理 · 工艺难点 · 演进方向）</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:11%">类型</th><th style="width:16%">核心工艺难点</th><th style="width:20%">当前状态</th><th>演进方向与判断</th></tr></thead>
 <tbody>
@@ -2027,7 +2092,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <div class="card" style="border-left:4px solid #7c3aed">
-<div class="ttl">五条贯穿全局的趋势判断</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>五条贯穿全局的趋势判断</div>
 <div class="dsc">
 <p><b>① "存电荷"这条路线正在系统性退场。</b>电荷存储的致命缺陷是电子数量随体积线性减少——eFlash 在 28nm 只剩约 100 个电子。而磁矩方向、晶相有序度、离子位置这些状态量不随尺寸缩小而"变少"。所有新型存储器的共同点就是<b>把信息从"有多少电荷"换成"材料处于哪种状态"</b>。</p>
 <p><b>② 缩微不再是唯一提密度手段，"换维度"成为主流解法。</b>NAND 在 2013 年主动放弃平面缩微改堆层数，DRAM 正在走同一条路（3D DRAM），HBM 则是把 die 垂直堆起来。半导体行业已经形成一个共识：<b>当平面走不动时，向上走。</b></p>
@@ -2042,12 +2107,13 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 
 
 <h2 id="sec-mem-official">🏭 0.8 DRAM / NAND 工作原理（原厂讲法·动画）</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">分类表 → 原理（DRAM 读破坏、NAND 编程擦除）→ 应用要点</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 <div style="max-width:1100px;margin:0 auto 16px;padding:10px 14px;background:#fffbeb;border-left:3px solid #f59e0b;border-radius:6px;font-size:12px;color:#92400e">
 上一节 0.7 讲的是"各类存储器的物理机理横向对比"，本节补的是 <b>DRAM 与 NAND 读写时序的逐步讲法</b>——两者互补。
 </div>
 
 <div class="card">
-<div class="ttl">先看一张分类表：五种硅基存储技术</div>
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>先看一张分类表：五种硅基存储技术</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:9%">简称</th><th style="width:11%">全称</th><th style="width:30%">存储原理（原厂口径）</th><th>速度/密度</th><th>主要应用</th></tr></thead>
 <tbody>
@@ -2061,7 +2127,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <div class="anim-card">
-<div class="at">DRAM 破坏性读出全过程 · 为什么"读一次就得写回一次"</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>DRAM 破坏性读出全过程 · 为什么"读一次就得写回一次"</div>
 <div class="am">原厂五步：开字线 → 电荷泄到位线 → 电荷"暂时丢失" → Sense Amp 放大判读 → 必须刷新</div>
 <svg viewBox="0 0 760 240">
   <rect x="0" y="0" width="760" height="240" fill="#fcfdfe"/>
@@ -2131,7 +2197,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 <div class="anim-card">
-<div class="at">NAND 浮栅的编程 / 擦除 / 读 · ±20V 与 VREAD=3.0V</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>NAND 浮栅的编程 / 擦除 / 读 · ±20V 与 VREAD=3.0V</div>
 <div class="am">原厂电压与逻辑极性：已编程读作 0，已擦除读作 1</div>
 <svg viewBox="0 0 760 230">
   <rect x="0" y="0" width="760" height="230" fill="#fcfdfe"/>
@@ -2219,7 +2285,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 <div class="card">
-<div class="ttl">HBM × 大模型推理：可引用的量化结论</div>
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>HBM × 大模型推理：可引用的量化结论</div>
 <div class="dsc">
 <p>这部分基于<b>带实测数字的原厂工程报告</b>，比市面泛泛而谈的"内存墙"叙事要硬。</p>
 <table class="node-table nopad"><thead><tr><th style="width:26%">结论</th><th>数据</th></tr></thead>
@@ -2239,7 +2305,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <div class="card" style="border-left:4px solid #0891b2">
-<div class="ttl">封装与 SSD：要点速览</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>封装与 SSD：要点速览</div>
 <div class="dsc">
 <p><b>键合方式：</b>原厂口径 <b>&gt;80% 的集成电路仍使用引线键合（wire bond）</b>；另一条路线是 flip chip / bump（倒装焊）。<b>3D 堆叠靠 TSV 硅通孔</b>，HBM 即为此类（典型示例：8 颗 1β 制程 die 堆叠）；移动端另有 PoP（Package on Package）。</p>
 <p><b>封装的五个目的：</b>供电与信号互连、散热、机械保护、防潮防污染、以及提供便于装配测试的标准外形。</p>
@@ -2261,7 +2327,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <div class="content">
 
 <div class="card" style="background:#faf5ff;border-left:4px solid #7c3aed">
-<div class="ttl">先建立画面：裸片有几个「没法直接用」的硬伤</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先建立画面：裸片有几个「没法直接用」的硬伤</div>
 <div class="dsc">
 <p>芯片在晶圆厂做完后，本质是一小片<b>硅</b>，上面刻着几十亿个晶体管。原厂的定义很直白：<b>封装就是「环绕存储裸芯片、使其能够在电路中被使用」的那些组件</b>。【原厂】</p>
 <p>层次是三段：<b>硅裸片 → 封装 → 电路板</b>。裸片在最里面，封装包着它，整体再焊到主板上。【原厂】</p>
@@ -2271,9 +2337,10 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <h2 id="sec-pkg-purpose">📦 0.9.1 封装五大目的</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念：封装五大目的与两级互连</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">每一条都对应裸片的一个硬伤</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>每一条都对应裸片的一个硬伤</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:6%">#</th><th style="width:22%">目的</th><th>解决什么 / 怎么做</th></tr></thead>
 <tbody>
@@ -2287,7 +2354,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <div class="card">
-<div class="ttl">封装内部有什么：一级互连 vs 二级互连（这个分层很重要）</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>封装内部有什么：一级互连 vs 二级互连（这个分层很重要）</div>
 <div class="dsc">
 <p>标准结构件清单（对应剖面图标注 A–F）【原厂】：</p>
 <table class="node-table nopad"><thead><tr><th style="width:8%">标注</th><th style="width:26%">名称</th><th>作用</th></tr></thead>
@@ -2308,16 +2375,17 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <h2 id="sec-pkg-bond">🔗 0.9.2 金线 vs 倒装：路径长短决定带宽天花板（动画）</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（问题起点）→ 原理（路径长短）→ 品类对比</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">问题的起点：连接点长在芯片的正面</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>问题的起点：连接点长在芯片的正面</div>
 <div class="dsc">
 <p>先记住一个物理事实：芯片制造时，电连接点被<b>暴露在裸片的顶面</b>。要把电引出来只有两条路——要么在顶面焊线绕出去，要么<b>把芯片翻过来</b>、让顶面朝下直接压到基板上。【原厂】</p>
 <p><b>这个「翻不翻」的选择，决定了电路径的长短，而路径长短决定了能做多快。</b></p>
 </div></div>
 
 <div class="anim-card">
-<div class="at">两种键合方式 · 信号要走的路差多远</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>两种键合方式 · 信号要走的路差多远</div>
 <div class="am">上：金线绕到边缘再往下 ｜ 下：凸点直接压在基板上。看小球跑完全程的距离差</div>
 <svg viewBox="0 0 760 260">
   <rect x="0" y="0" width="760" height="260" fill="#fcfdfe"/>
@@ -2367,7 +2435,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 <div class="card">
-<div class="ttl">两种方式的完整取舍</div>
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>两种方式的完整取舍</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:20%">维度</th><th style="width:38%">Wire Bond 金线</th><th>Flip Chip 倒装 / 凸点</th></tr></thead>
 <tbody>
@@ -2388,16 +2456,17 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <h2 id="sec-pkg-tsv">🏗️ 0.9.3 三条堆叠路线：从「绕边」到「打竖井」（动画）</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">物理结构瓶颈（横向没地方）→ 三路线对比 → 原理 → 本质</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">为什么要往上堆：横向没地方了</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>为什么要往上堆：横向没地方了</div>
 <div class="dsc">
 <p>封装五大目的第 4 条就是「堆叠裸片以成倍增加内存」。平面上芯片面积有限，<b>把芯片竖着摞起来，是在同样占板面积里塞进更多容量的唯一办法</b>。【原厂】</p>
 <p>但「怎么摞、怎么把上下层电连起来」有三条完全不同的路线，<b>性能天差地别</b>。</p>
 </div></div>
 
 <div class="anim-card">
-<div class="at">三条堆叠路线对比 · 为什么只有第三条能做 HBM</div>
+<div class="at"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>三条堆叠路线对比 · 为什么只有第三条能做 HBM</div>
 <div class="am">信号从最上层裸片走到基板，要绕多远？</div>
 <svg viewBox="0 0 760 270">
   <rect x="0" y="0" width="760" height="270" fill="#fcfdfe"/>
@@ -2465,7 +2534,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 <div class="card">
-<div class="ttl">TSV 与 HBM：TSV 被直接写进了 HBM 的定义里</div>
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>TSV 与 HBM：TSV 被直接写进了 HBM 的定义里</div>
 <div class="dsc">
 <p><b>TSV 官方定义：</b>贯穿硅裸片<b>厚度</b>的金属柱或「通孔」，用来电气连接裸片、并键合到中介层。【原厂】</p>
 <p><b>HBM 官方定义：</b>使用 <b>3D 堆叠</b>（利用 <b>TSV 和 3D 互连</b>垂直堆叠 DRAM 裸片）的多 DRAM 存储封装。【原厂】</p>
@@ -2482,7 +2551,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
-<div class="ttl">🔥 为什么 HBM 的护城河不在存储颗粒，而在封装良率</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>🔥 为什么 HBM 的护城河不在存储颗粒，而在封装良率</div>
 <div class="dsc">
 <p>DRAM 颗粒各家都能做。真正难的是<b>把 8/12/16 层薄裸片无损地堆起来、打满 TSV、还要让中间层的热出得来、且每一层都得是好的</b>。约束根源有两个：</p>
 <table class="node-table nopad"><thead><tr><th style="width:18%">约束</th><th>为什么堆得越高越难</th></tr></thead>
@@ -2497,9 +2566,10 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <h2 id="sec-pkg-flow">🔄 0.9.4 从制造到封装的完整流程：为什么 Probe 必须在封装之前</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（端到端流程）→ 本质（承上启下）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">端到端流程还原（封装是承上启下那一环）</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>端到端流程还原（封装是承上启下那一环）</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:6%">#</th><th style="width:26%">环节</th><th>做什么</th></tr></thead>
 <tbody>
@@ -2519,7 +2589,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div></div>
 
 <div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
-<div class="ttl">🧩 封装这一层如何连起全篇</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>🧩 封装这一层如何连起全篇</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:22%">连到哪</th><th>逻辑链</th></tr></thead>
 <tbody>
@@ -2546,7 +2616,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <div class="content">
 
 <div class="card" style="background:#faf5ff;border-left:4px solid #7c3aed">
-<div class="ttl">先接上前面：HBM 不是一种新存储，是一种新封装</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先接上前面：HBM 不是一种新存储，是一种新封装</div>
 <div class="dsc">
 <p>这句话在 <a href="#sec-pkg-tsv" style="color:#6d28d9">0.9.3</a> 已经说过，这里再强化一次，因为它是理解全篇的钥匙：<b>HBM 里的 DRAM 颗粒，和内存条里的 DRAM 颗粒是同一类东西</b>。区别在于——</p>
 <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#4c1d95">
@@ -2557,9 +2627,10 @@ HBM：颗粒<b>竖着摞起来</b>、用 <b>TSV 在硅内打竖井</b>直连，�
 </div></div>
 
 <h2 id="sec-hbm-wall">🧱 0.10.1 内存墙：为什么 AI 的瓶颈是「搬」不是「算」</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">物理结构瓶颈（算力跑赢带宽）→ 对比 → 本质</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">算力涨得比带宽快，于是算力开始「饿着」</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>算力涨得比带宽快，于是算力开始「饿着」</div>
 <div class="dsc">
 <p>演讲从 AI 系统的性能瓶颈切入。逻辑链是这样的【原厂转述】：</p>
 <p>① 按 OpenAI 的算力缩放规律，大模型能力提升要求<b>参数量、训练数据集、计算算力同步扩张</b>；<br>
@@ -2576,7 +2647,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div></div>
 
 <div class="anim-card">
-<div class="at">整机带宽差一个数量级 · 这就是为什么 AI 非要用 HBM</div>
+<div class="at"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>整机带宽差一个数量级 · 这就是为什么 AI 非要用 HBM</div>
 <div class="am">同样是「把数据搬给处理器」，两种架构的通道宽度差距</div>
 <svg viewBox="0 0 760 240">
   <rect x="0" y="0" width="760" height="240" fill="#fcfdfe"/>
@@ -2643,7 +2714,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div>
 
 <div class="card" style="background:#eff6ff;border-left:4px solid #2563eb">
-<div class="ttl">🔍 关键数字的独立自洽性核验</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>🔍 关键数字的独立自洽性核验</div>
 <div class="dsc">
 <p>用公开规格反推，四个数字均可对上：</p>
 <table class="node-table nopad"><thead><tr><th style="width:26%">文中数字</th><th style="width:38%">反推算式</th><th>结论</th></tr></thead>
@@ -2657,9 +2728,10 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div></div>
 
 <h2 id="sec-hbm-evo">📈 0.10.2 HBM1 → HBM4：十二年，带宽涨了二十多倍</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">方案：四个维度同步扩张</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">四个维度同步扩张（这是 HBM 提速的完整配方）</div>
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>四个维度同步扩张（这是 HBM 提速的完整配方）</div>
 <div class="dsc">
 <p>演讲给出了 2014 年 HBM1 到 2026 年 HBM4 的规格跨越【原厂转述】：</p>
 <table class="node-table nopad"><thead><tr><th style="width:24%">维度</th><th style="width:20%">HBM1 (2014)</th><th style="width:20%">HBM4 (2026)</th><th>变化</th></tr></thead>
@@ -2682,9 +2754,10 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div></div>
 
 <h2 id="sec-hbm-cost">💰 0.10.3 高带宽的代价：硅面积是 DDR5 的 3 倍</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">本质：硅面积 3 倍这条数字的物理解释</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
-<div class="ttl">🔥 这条数字解开了一个一直没有物理解释的行业经验值</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>🔥 这条数字解开了一个一直没有物理解释的行业经验值</div>
 <div class="dsc">
 <p>演讲明确给出：<b>HBM3E 单位容量占用的硅面积，是 DDR5 的 3 倍</b>【原厂转述】。原因是更大的芯片面积、高密度 TSV 堆叠与 2.5D 先进封装架构，共同大幅提升了设计难度、工艺门槛与制造成本——演讲称这是<b>当前高端 AI 芯片整体成本居高的核心原因之一</b>。</p>
 <div style="background:#7f1d1d;color:#fff;border-radius:8px;padding:14px;font-size:13px;line-height:1.95;margin-top:8px">
@@ -2697,9 +2770,10 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div></div>
 
 <h2 id="sec-hbm-ras">🛡️ 0.10.4 可靠性与散热：堆得越高越难伺候</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">物理结构瓶颈（堆叠可靠性）→ 工艺瓶颈（散热逼出液冷）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">78% 的训练意外中断来自硬件故障</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>78% 的训练意外中断来自硬件故障</div>
 <div class="dsc">
 <p>演讲引用了千亿级大模型训练场景的数据（以 Llama 3 405B 为例）：<b>约 78% 的训练意外中断源自硬件故障，其中 GPU 与 HBM 内存异常为主要诱因</b>【原厂转述】。</p>
 <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#78350f">
@@ -2710,7 +2784,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div></div>
 
 <div class="card">
-<div class="ttl">散热：为什么 HBM 逼出了液冷</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 工艺瓶颈</span>散热：为什么 HBM 逼出了液冷</div>
 <div class="dsc">
 <p>演讲指出：高密度 3D 堆叠结构带来严峻热管理压力。<b>随着堆叠层数提升与 DRAM 并发访问率增加，芯片热密度持续攀升，传统风冷方案难以满足需求</b>——<b>液冷散热与混合键合工艺已成为 HBM 高工况稳定运行的必要支撑</b>【原厂转述】。</p>
 <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#4c1d95;margin-top:6px">
@@ -2720,9 +2794,10 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div></div>
 
 <h2 id="sec-hbm-future">🚀 0.10.5 未来路径：为什么说这已经不是单家公司的事</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">方案（依托先进封装）→ 本质与边界声明</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">下一程的核心依托是先进封装，而不是存储颗粒本身</div>
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>下一程的核心依托是先进封装，而不是存储颗粒本身</div>
 <div class="dsc">
 <p>演讲对未来路径的判断很明确【原厂转述】：HBM 性能持续迭代的核心依托在于<b>先进封装技术</b>，包括 <b>D2D（裸片间互连）</b>、<b>混合键合</b>等高密度集成方案，这是突破<b>带宽、密度与能效</b>三重瓶颈的关键路径。</p>
 <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#065f46;margin-top:6px">
@@ -2734,7 +2809,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div></div>
 
 <div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
-<div class="ttl">🧩 本节与其他章节的相互印证</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>🧩 本节与其他章节的相互印证</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:24%">本节结论</th><th>与其他材料的关系</th></tr></thead>
 <tbody>
@@ -2748,7 +2823,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div></div>
 
 <div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
-<div class="ttl">⚠️ 本节未涉及的内容</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>⚠️ 本节未涉及的内容</div>
 <div class="dsc">
 <p>HBM4E/HBM5 规划、各家 HBM 良率与产能的具体数字、HBM 定价与合约结构、CoWoS 具体工艺参数、Chiplet/UCIe 异构集成、国产 HBM 进展。</p>
 </div></div>
@@ -2764,12 +2839,33 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <div class="content">
 
 <h2 id="sec-power-loss">📐 0.11 功率器件损耗模型与栅驱实测</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（耐压×导通×开关三角）→ 原理（损耗三件套）→ 方案（Kelvin Source）→ 原理（IGBT）→ 工艺瓶颈（车规认证）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+<div class="card" style="background:#f0fdf4;border-left:4px solid #059669">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先建地基：功率器件的好坏，不按逻辑芯片的尺子量</div>
+<div class="dsc">
+<p><b>①它干什么活 / 与逻辑芯片的边界。</b>逻辑芯片是"算力器件"，追求的是单位面积能塞多少晶体管、单位功耗能做多少运算。功率器件是"开关器件"，它在系统里只干一件事：<b>把电流按指令接通或切断</b>——做电机驱动、电源变换、逆变。因此它的评价体系和逻辑芯片<b>几乎不共享任何指标</b>：这里没人关心制程多少纳米，只关心一件事——<b>在能承受的电压下，导通时尽量不发热、开关时尽量快。</b></p>
+
+<p><b>②凭什么能 work，以及为什么这三件事互相打架。</b>功率器件的物理核心是一个绕不开的<b>三角约束</b>：</p>
+<div class="kv">
+<span>耐压 (Blocking Voltage)</span><span>靠一层低掺杂的<b>漂移区</b>承受高压。要耐更高压 → 漂移区要更厚、掺杂更低</span>
+<span class="warn">↳ 代价</span><span>漂移区越厚越低掺杂 → 电流通过时电阻越大 → <b>导通电阻 R<sub>on</sub> ↑</b></span>
+<span>导通 (Conduction)</span><span>导通压降越低越省电。但它被上面的耐压需求直接顶住</span>
+<span>开关速度 (Switching)</span><span>切换越快 → 每次开关的能量损耗越小、可用更高频</span>
+<span class="warn">↳ 代价</span><span>切换越快 → di/dt、dv/dt 越大 → 引发<b>振荡、电压过冲与 EMI</b>，快不是免费的</span>
+</div>
+<p>三者两两冲突：为耐压加厚漂移区会推高导通电阻；为降损耗把开关加快，又会撞上寄生电感电容引起的振荡与电磁干扰。<b>功率器件设计，本质就是在这个三角里选一个折中点。</b></p>
+
+<p><b>为什么 SiC 能同时改善耐压与导通</b>（这是全节最容易讲错的一点）：不是因为它导热好，而是因为它是<b>宽禁带</b>材料，<b>临界击穿电场</b>比硅高约一个量级（Si ≈ 0.3 MV/cm，4H-SiC ≈ 3.2 MV/cm）。同样的耐压下，SiC 可以用<b>更薄、掺杂更高</b>的漂移区就顶住电压 → 漂移区电阻大幅下降 → <b>比导通电阻可低到硅的几百分之一</b>。它是把三角的一条边直接往外撑，而非靠散热取巧。【业界，Ec 数据见公开文献】</p>
+
+<p style="background:#ecfdf5;padding:8px 12px;border-radius:6px;color:#065f46;margin-top:8px"><b>本质一句话：</b>导通损耗、开关损耗最终都变成<b>热</b>，而热又反过来限制器件能通过的电流——<b>耐压 × 导通 × 开关 三角，被一个"发热天花板"锁死。</b>理解了这个地基，下面"总损耗三件套"就不再是三个孤立公式，而是这个三角的量化展开。</p>
+</div></div>
+
 <div style="max-width:1100px;margin:0 auto 16px;padding:10px 14px;background:#ecfdf5;border-left:3px solid #059669;border-radius:6px;font-size:12px;color:#065f46">
 这是功率半导体最"工程"的一层——<b>为什么同一颗芯片换个封装，损耗能差 38%</b>。
 </div>
 
 <div class="anim-card">
-<div class="at">总损耗三件套 · 以及为什么高频不是免费的</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>总损耗三件套 · 以及为什么高频不是免费的</div>
 <div class="am">总损耗公式：P_LOSS = (E_on + E_off + E_COND) × f_SW</div>
 <svg viewBox="0 0 760 200">
   <rect x="0" y="0" width="760" height="200" fill="#fcfdfe"/>
@@ -2832,7 +2928,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div>
 
 <div class="anim-card">
-<div class="at">Kelvin Source：加两根引脚，开关损耗降 24-38%</div>
+<div class="at"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>Kelvin Source：加两根引脚，开关损耗降 24-38%</div>
 <div class="am">罗姆 SCT3040 系列双脉冲实测（1200V/40mΩ，V_DC=800V，I_D=50A，R_G=10Ω）</div>
 <svg viewBox="0 0 760 215">
   <rect x="0" y="0" width="760" height="215" fill="#fcfdfe"/>
@@ -2896,7 +2992,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div>
 
 <div class="card">
-<div class="ttl">IGBT 为什么能又耐压又低导通压降</div>
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>IGBT 为什么能又耐压又低导通压降</div>
 <div class="dsc">
 <p><b>结构本质：</b>IGBT = <b>MOSFET 栅控 + 集电极侧增加一层 p 层</b>，构成 Bi-MOS（达林顿式）复合结构。它同时拿到了两边的好处：<b>输入端是 MOS 栅——电压驱动、几乎不耗驱动功率；输出端是双极导通——靠电导率调制降低通态压降</b>。</p>
 <p><b>核心机理是电导率调制（conductivity modulation）：</b>集电极侧的 p 层向高阻的 n 型漂移区<b>注入空穴</b>，与电子形成过剩载流子等离子体，使漂移区电阻大幅下降。这正是 IGBT 能在 1200V 以上电压段做到远低于同耐压 MOSFET 通态压降的原因——<b>而纯 MOSFET 的漂移区电阻随耐压升高急剧恶化</b>。</p>
@@ -2905,7 +3001,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div></div>
 
 <div class="card" style="border-left:4px solid #dc2626">
-<div class="ttl">AQG324：车规功率模块凭什么比工业级贵得多</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 工艺瓶颈</span>AQG324：车规功率模块凭什么比工业级贵得多</div>
 <div class="dsc">
 <p><b>ECPE AQG324</b> 是车用功率模块认证规范，已成为车规功率模块的事实标准。它把测试分成<b>四大类</b>：</p>
 <table class="node-table nopad"><thead><tr><th style="width:12%">类别</th><th style="width:26%">含义</th><th>关注什么</th></tr></thead>
@@ -3878,9 +3974,10 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <hr style="margin:60px 0 40px;border:none;border-top:3px dashed #f59e0b">
 
 <h2 id="sec-ddr-gen">🧮 2.7 DDR 世代全解 —— 从 DDR1 到 DDR6，以及 LPDDR / GDDR / HBM 的分家</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">物理结构瓶颈（内核没变快）→ 方案（逐代改了什么、片上 ECC）→ 四家族对比</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
-<div class="ttl">先立一个容易被忽略的事实：DRAM 的「内核」二十年几乎没有变快</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>先立一个容易被忽略的事实：DRAM 的「内核」二十年几乎没有变快</div>
 <div class="dsc">
 <p>DDR 每一代的宣传口径都是数据率翻倍，但真正提速的是<b>接口</b>，不是存储阵列本身。阵列内部的工作频率由「预取位宽」反推：<b>阵列频率 = 数据率 ÷ 预取深度</b>。</p>
 <table class="node-table nopad"><thead><tr><th style="width:22%">代际</th><th style="width:20%">典型数据率</th><th style="width:16%">预取</th><th>反推的阵列频率</th></tr></thead>
@@ -3896,7 +3993,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div></div>
 
 <div class="card">
-<div class="ttl">DDR1 → DDR6：每一代到底改了什么</div>
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>DDR1 → DDR6：每一代到底改了什么</div>
 <div class="dsc">
 <table class="node-table">
 <thead><tr><th style="width:9%">代际</th><th style="width:10%">标准年</th><th style="width:13%">数据率</th><th style="width:8%">电压</th><th style="width:9%">预取</th><th>这一代真正的结构变化</th></tr></thead>
@@ -3913,7 +4010,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div></div>
 
 <div class="card" style="border-left:4px solid #0891b2">
-<div class="ttl">为什么 DDR5 之后必须强制片上 ECC：这是一条被迫的技术路线</div>
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>为什么 DDR5 之后必须强制片上 ECC：这是一条被迫的技术路线</div>
 <div class="dsc">
 <p>DDR4 以前，纠错是<b>服务器的选配</b>（ECC DIMM），消费级内存裸奔。DDR5 把 ECC 做进了 DRAM 芯片内部且不可关闭，原因不是厂商变慷慨，而是<b>单元缩小到一定程度后，出错从「偶发事故」变成了「统计常态」</b>：</p>
 <table class="node-table nopad"><thead><tr><th style="width:26%">机理</th><th>随密度上升如何恶化</th></tr></thead>
@@ -3927,7 +4024,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div></div>
 
 <div class="card">
-<div class="ttl">同一套 DRAM 内核，为什么分化出 DDR / LPDDR / GDDR / HBM 四个家族</div>
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>同一套 DRAM 内核，为什么分化出 DDR / LPDDR / GDDR / HBM 四个家族</div>
 <div class="dsc">
 <p>四者的<b>存储单元（1T1C）完全同源</b>，分家分的是<b>接口与封装</b>——各自被不同的约束逼向不同方向。</p>
 <table class="node-table">
@@ -3943,7 +4040,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div></div>
 
 <div class="card" style="background:#f5f3ff;border-left:4px solid #7c3aed">
-<div class="ttl">LPDDR6 值得单独一提：有效带宽并不等于数据率乘位宽</div>
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>LPDDR6 值得单独一提：有效带宽并不等于数据率乘位宽</div>
 <div class="dsc">
 <p>JESD209-6 于 2025 年 7 月发布，是第一份正式提及 DDR6 的规范。它定义每引脚峰值 <b>14,400 MT/s</b>、入门 <b>10,667 MT/s</b>，通道从 LPDDR5 的 16-bit 改为 <b>24-bit（两个 12-bit 子通道）</b>，突发长度由 BL16 增至 <b>BL24</b>。</p>
 <p>但按「数据率 × 位宽 ÷ 8」算出的 43.2 GB/s <b>并不是可用带宽</b>：由于<b>片上 ECC 强制启用</b>，每次传输的 288 bit 中只有 256 bit 是有效载荷，<b>约 90% 的效率</b>——因此实际峰值约 <b>38.4 GB/s / 颗</b>，入门约 28.5 GB/s。相对 LPDDR5X-10667 提升约 1.5–2 倍，相对 LPDDR5-6400 约 2.5–3.4 倍。</p>
@@ -3953,9 +4050,10 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 
 
 <h2 id="sec-dram-process">🏭 2.8 DRAM 制造工艺 A–Z —— 从一片裸硅到一根内存条</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">工艺瓶颈（难点与逻辑芯片不同）→ 原理（A→P 制造链）→ 代际标签对比</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card" style="background:#eff6ff;border-left:4px solid #2563eb">
-<div class="ttl">先看全局：DRAM 的工艺难点与逻辑芯片完全不在同一个地方</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 工艺瓶颈</span>先看全局：DRAM 的工艺难点与逻辑芯片完全不在同一个地方</div>
 <div class="dsc">
 <p>逻辑芯片的工艺竞赛集中在<b>「把晶体管画得更小、栅控做得更强」</b>；DRAM 的工艺竞赛集中在<b>「在不断缩小的地面上，盖出足够高的电容塔，且一亿座塔不能倒」</b>。同样叫先进工艺，考的科目不一样。</p>
 <table class="node-table nopad"><thead><tr><th style="width:24%">维度</th><th style="width:38%">逻辑芯片</th><th>DRAM</th></tr></thead>
@@ -3970,7 +4068,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div></div>
 
 <div class="card">
-<div class="ttl">A → P：一颗 DRAM 的完整制造链</div>
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>A → P：一颗 DRAM 的完整制造链</div>
 <div class="dsc">
 <table class="node-table">
 <thead><tr><th style="width:5%">步</th><th style="width:20%">工序</th><th>做什么，以及难在哪</th></tr></thead>
@@ -3996,7 +4094,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div></div>
 
 <div class="card" style="border-left:4px solid #059669">
-<div class="ttl">DRAM 的代际标签怎么读：1x / 1y / 1z / 1α / 1β / 1γ</div>
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>DRAM 的代际标签怎么读：1x / 1y / 1z / 1α / 1β / 1γ</div>
 <div class="dsc">
 <p>这套命名不是栅长，也没有统一的行业定义，<b>各厂口径并不可直接比较</b>。它表达的是「在 10nm 级别内的第 n 次半代推进」：</p>
 <table class="node-table nopad"><thead><tr><th style="width:16%">标签</th><th style="width:20%">大致年代</th><th>含义</th></tr></thead>
@@ -4012,9 +4110,10 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 
 
 <h2 id="sec-why-not-node">❓ 2.9 存储为什么不追求先进制程</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（先纠正前提）→ 六条瓶颈与成因 → 方案（改堆叠）→ 本质</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
-<div class="ttl">先纠正一个前提：存储不是「不追求」，而是「先进」的定义不同</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先纠正一个前提：存储不是「不追求」，而是「先进」的定义不同</div>
 <div class="dsc">
 <p>逻辑芯片的「先进」= <b>更短的栅长、更强的栅控、更高的单位面积晶体管数</b>，因为它卖的是<b>算得多快</b>。<br>
 存储的「先进」= <b>更小的单元面积（6F² → 4F²）、更高的 bit 密度、更高的堆叠层数</b>，因为它卖的是<b>每 GB 多少钱、每次搬运多少能耗</b>。</p>
@@ -4024,37 +4123,37 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <div class="card-row-3 dense">
 
 <div class="card" style="border-left:4px solid #dc2626">
-<div class="ttl">① 存储靠「存电荷」，缩小直接伤害本职功能</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>① 存储靠「存电荷」，缩小直接伤害本职功能</div>
 <div class="dsc"><p>逻辑晶体管是<b>开关</b>，做小了开关更快更省——缩微与性能同向。</p>
 <p>DRAM 单元是<b>电容</b>，本职是<b>把电荷存住</b>。电容值必须守在 <b>10–25 fF</b> 量级，否则读出信号淹没在噪声里。面积缩了、电容值不许降，只能<b>把塔盖得更高更细</b>，于是刻蚀与成膜难度指数上升，保持时间余量却越来越薄。</p>
 <p><b>缩微在逻辑上是顺风，在 DRAM 上是逆风。</b></p></div></div>
 
 <div class="card" style="border-left:4px solid #d97706">
-<div class="ttl">② 缩微不提速：延迟二十年是一条平线</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>② 缩微不提速：延迟二十年是一条平线</div>
 <div class="dsc"><p>DRAM 的性能瓶颈不在晶体管开关速度，而在<b>阵列充放电、位线感测、行激活/预充</b>这些物理过程。</p>
 <p>所以 2.7 那张表才会出现那个结果：<b>数据率涨 16 倍、阵列频率只涨 2 倍、纳秒延迟基本没动</b>。带宽全靠预取与并行度换来的。</p>
 <p><b>既然缩微换不来延迟改善，为它付 EUV 的溢价就不划算。</b></p></div></div>
 
 <div class="card" style="border-left:4px solid #0891b2">
-<div class="ttl">③ 成本模型不同：卖的是面积，不是性能</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>③ 成本模型不同：卖的是面积，不是性能</div>
 <div class="dsc"><p>逻辑芯片可以用性能溢价消化先进制程的成本——旗舰 SoC 贵几十美元照样卖。</p>
 <p>DRAM 是<b>标准化大宗商品</b>，同规格颗粒之间几乎无差别定价权，竞争完全落在<b>每 GB 成本</b>。EUV 每层的曝光成本、机台折旧、产能损失都要摊进这个数字里。</p>
 <p><b>只有在「用 EUV 能省下更多多重曝光步骤」时才划算</b>——这正是为什么 1α 起 EUV 只用于少数关键层，而非全流程。</p></div></div>
 
 <div class="card" style="border-left:4px solid #7c3aed">
-<div class="ttl">④ 掩模层少、版图规则，EUV 杠杆天然更小</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>④ 掩模层少、版图规则，EUV 杠杆天然更小</div>
 <div class="dsc"><p>先进逻辑可达 <b>80+ 掩模层</b>，其中大量精细层都能从 EUV 获益；DRAM 约 <b>30 层量级</b>，真正卡分辨率的关键层更少。</p>
 <p>而且 DRAM 版图是<b>高度周期性的规则阵列</b>，这类图形用<b>自对准多重成像（SADP/SAQP）</b>就能做得很好、很便宜——规则性正是多重曝光最擅长的场景。</p>
 <p><b>逻辑的不规则版图离不开 EUV，DRAM 的规则阵列有平价替代路线。</b></p></div></div>
 
 <div class="card" style="border-left:4px solid #16a34a">
-<div class="ttl">⑤ 瓶颈根本不在光刻，而在刻蚀与成膜</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 工艺瓶颈</span>⑤ 瓶颈根本不在光刻，而在刻蚀与成膜</div>
 <div class="dsc"><p>DRAM 的胜负手是 <b>40:1 以上的高深宽比电容孔刻蚀</b>与<b>深孔内的原子级共形成膜</b>；NAND 的胜负手是<b>几百层的深孔垂直贯穿</b>与<b>层间应力控制</b>。</p>
 <p>这些能力来自<b>刻蚀机与沉积设备</b>，买最贵的光刻机也解决不了。</p>
 <p><b>把预算投到 EUV，未必比投到刻蚀与量测更有回报</b>——存储厂的资本开支结构因此与逻辑厂明显不同。</p></div></div>
 
 <div class="card" style="border-left:4px solid #db2777">
-<div class="ttl">⑥ 已经换了赛道：不缩微，改堆叠</div>
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>⑥ 已经换了赛道：不缩微，改堆叠</div>
 <div class="dsc"><p>NAND 在 2D 时代撞到 <b>约 15nm</b> 的墙后<b>彻底放弃缩微</b>，转向垂直堆叠——从 24 层一路到 400+ 层，密度提升与光刻分辨率<b>几乎脱钩</b>。</p>
 <p>DRAM 正在走同一条路：<b>3D DRAM</b>（把电容与晶体管垂直堆起来）已是公认方向，逻辑与 NAND 当年一致。</p>
 <p><b>当「换维度」比「缩尺寸」更便宜时，理性选择就是换维度。</b></p></div></div>
@@ -4062,7 +4161,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 </div>
 
 <div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
-<div class="ttl">🧩 一句话总结，以及一个必要的澄清</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>🧩 一句话总结，以及一个必要的澄清</div>
 <div class="dsc">
 <p><b>总结：</b>逻辑芯片靠缩微换性能，所以必须不断买最贵的光刻机；存储靠<b>结构创新（埋字线、高深宽比电容、垂直堆叠）+ 并行度（预取、Bank、子通道、宽总线）+ 冗余修复</b>换密度与成本，<b>缩微只是众多手段中回报率下降最快的那一个</b>。</p>
 <p style="background:#dcfce7;padding:8px 12px;border-radius:6px;color:#065f46"><b>⚠️ 必要澄清，避免读成「存储工艺简单」：</b>恰恰相反。<b>40:1 的深孔刻蚀、上亿个孔的一致性、深孔内原子级共形成膜、几百层堆叠的应力与翘曲控制、单元阵列与外围 CMOS 的工艺整合</b>——这些都是半导体制造里最硬的工程难题，只是它们<b>不体现在「几纳米」这个数字上</b>。<br>
@@ -5525,9 +5624,10 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <!-- ===== /光电链路总纲 ===== -->
 
 <h2 id="sec-analog-why">🎯 5.1 灵魂问题：为什么模拟设计既难自动化、又不愿缩微</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（准 vs 分得清）→ 三重物理瓶颈（Pelgrom/噪声/电压裕度）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card" style="background:#ecfeff;border-left:4px solid #0891b2">
-<div class="ttl">一句话：数字电路只要求「能分辨 0 和 1」，模拟电路要求「数值本身准」</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>一句话：数字电路只要求「能分辨 0 和 1」，模拟电路要求「数值本身准」</div>
 <div class="dsc">
 <p>数字信号有巨大的容错区间——只要电压落在阈值正确的一侧，逻辑就正确，误差不累积。模拟信号是<b>连续量</b>，任何失配、噪声、温漂都<b>直接变成误差并沿信号链累积</b>。这一条差异，派生出下面三道物理墙。</p>
 <table class="node-table nopad"><thead><tr><th style="width:22%">物理墙</th><th style="width:34%">它要求什么</th><th>与逻辑芯片的关系</th></tr></thead>
@@ -5539,7 +5639,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="anim-card">
-<div class="at">🔬 Pelgrom 定律：面积换精度，这是模拟设计的铁律</div>
+<div class="at"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>🔬 Pelgrom 定律：面积换精度，这是模拟设计的铁律</div>
 <div class="am">两个「理论上完全相同」的相邻 MOS 管，阈值电压总有随机差异；面积 ×4，失配才 ÷2</div>
 <svg viewBox="0 0 760 210">
 <text x="380" y="16" text-anchor="middle" font-size="12" font-weight="700" fill="#155e75">σ(ΔV_th) = A_VT / √(W·L) —— 失配标准差与栅面积平方根成反比</text>
@@ -5590,7 +5690,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="card">
-<div class="ttl">噪声三件套：为什么「降噪」永远要用功耗或面积去买</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>噪声三件套：为什么「降噪」永远要用功耗或面积去买</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:18%">噪声</th><th style="width:20%">物理来源</th><th>工程后果</th></tr></thead>
 <tbody>
@@ -5602,7 +5702,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="card" style="border-left:4px solid #dc2626">
-<div class="ttl">电压裕度：先进工艺对模拟是「帮倒忙」</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 工艺瓶颈</span>电压裕度：先进工艺对模拟是「帮倒忙」</div>
 <div class="dsc">
 <p>逻辑芯片欢迎低电源电压——功耗 ∝ V²，降压直接省电。但模拟电路的信噪比取决于<b>信号摆幅与噪声底之比</b>：</p>
 <table class="node-table nopad"><thead><tr><th style="width:30%">先进工艺带来的变化</th><th>对模拟的实际后果</th></tr></thead>
@@ -5616,9 +5716,33 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 <h2 id="sec-analog-core">🧩 5.2 两块基石：运算放大器与电压基准</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（运放与基准各干什么）→ 原理（负反馈、温漂相消）→ 物理结构瓶颈（五大误差源）→ 方案（斩波、带隙基准）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+<div class="card" style="background:#f5f3ff;border-left:4px solid #7c3aed">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先弄清：运放和电压基准各自在系统里干什么活</div>
+<div class="dsc">
+<p>模拟信号链的输入端往往只有微弱、带噪、幅度不确定的电压。要把它变成后级 ADC 能可靠采样的信号，需要两件几乎所有模拟电路都离不开的基础器件：<b>运算放大器（Operational Amplifier，运放）</b>负责放大与运算，<b>电压基准（Voltage Reference）</b>负责提供一个绝对准的电压尺子。它们是模拟篇后面所有内容的地基。</p>
+
+<h3>① 运放：一个增益极大的差分放大器</h3>
+<p>运放本身只做一件事——把两个输入端的电压差放大很多倍（开环增益动辄十万倍以上）。但"放大很多倍"本身没有实用价值：增益由内部器件参数决定，而器件参数随温度、批次、老化漂移，直接用等于把误差也放大了。</p>
+<p><b>负反馈才是运放全部实用性的根基。</b>把输出按一定比例（由外部电阻网络决定）送回反相输入端，让它去对抗输入变化，系统就稳定在一个平衡点上。此时只要<b>开环增益足够大</b>，闭环增益就<b>≈ 由反馈网络的电阻比值决定，而与运放本身的器件参数几乎无关</b>。这正是模拟设计反复用到的思路：用一个不精确但很大的量（开环增益），换来一个精确且可控的量（电阻比值）。</p>
+<div class="kv">
+<span>开环增益 A → 越大越好，但不精确</span>
+<span class="good">闭环增益 → 由 R 比值决定，精确、可复制</span>
+</div>
+<p><b>"虚短、虚断"是负反馈的结果，不是运放的固有性质。</b>当开环增益极大且负反馈成立时，为了让输出有限，两输入端的电压差必须趋近于零（虚短）；又因输入阻抗极高，输入端几乎不取电流（虚断）。这两条是分析闭环电路的便捷工具，但一旦脱离负反馈（如做比较器开环使用），它们立即失效。</p>
+
+<h3>② 电压基准：系统里那把"绝对准的尺子"</h3>
+<p>放大解决了"相对关系"，但系统迟早要回答绝对问题：这个电压到底是几伏？ADC 把输入和谁比较才知道是多少码？DAC 输出的满量程以谁为准？电源要稳压到多少？<b>这些都需要一个不随温度、电源、负载变化的固定电压作参照</b>——这就是电压基准的职责。整条信号链的绝对精度，最终都锚定在基准的稳定性上；基准漂 0.1%，后面再精密的 ADC 也跟着漂 0.1%。</p>
+<p>难点在于：自然界没有天然恒定的电压，任何 PN 结、任何电阻都随温度变。所以基准电路必须<b>人为构造出稳定</b>——这正是下面带隙基准要解决的问题。</p>
+
+<p style="background:#ede9fe;padding:8px 12px;border-radius:6px;color:#4c1d95"><b>本质一句话：</b>运放用"极大但不准的增益 + 负反馈"换来"由电阻比值决定的精确增益"；电压基准用"两个温漂相反的量对消"换来一把锚定在物理常数上的电压尺子。两者都不是靠器件天生精确，而是靠结构把误差压下去。</p>
+
+<p style="margin-top:8px;color:#475569">下面先看运放在实际中绕不开的五大直流误差源（负反馈能压增益误差，却压不住失调与噪声），再看斩波和带隙基准分别是怎么对付噪声与温漂的。</p>
+</div></div>
+
 
 <div class="card">
-<div class="ttl">运放的五大直流误差源</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>运放的五大直流误差源</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:24%">误差源</th><th>本质与影响</th></tr></thead>
 <tbody>
@@ -5631,7 +5755,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="anim-card">
-<div class="at">🔄 斩波（Chopping）：把 1/f 噪声搬到高频再滤掉</div>
+<div class="at"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>🔄 斩波（Chopping）：把 1/f 噪声搬到高频再滤掉</div>
 <div class="am">1/f 噪声与失调赖在低频不走，那就把有用信号「搬」到高频去放大，回来时噪声被留在了高处</div>
 <svg viewBox="0 0 760 200">
 <text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#4c1d95">频域视角：信号与噪声的位置互换</text>
@@ -5675,7 +5799,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="anim-card">
-<div class="at">🌡️ 带隙基准（Bandgap Reference）：用两条相反的温度曲线互相抵消</div>
+<div class="at"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>🌡️ 带隙基准（Bandgap Reference）：用两条相反的温度曲线互相抵消</div>
 <div class="am">没有天然不随温度变化的电压，于是造两个温度系数相反的量，按比例相加</div>
 <svg viewBox="0 0 740 210">
 <text x="370" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#065f46">CTAT（负温度系数）+ K × PTAT（正温度系数）= 近似零温漂</text>
@@ -5715,9 +5839,31 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 <h2 id="sec-adc">📊 5.3 ADC 四大架构：一张图看清各自的物理生态位</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（采样与量化是两件事）→ 原理（奈奎斯特、量化噪声）→ 品类对比（四架构生态位）→ 方案（Δ-Σ 噪声整形）→ DAC 侧瓶颈</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+<div class="card" style="background:#eff6ff;border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先弄清：模数转换到底在做哪两件独立的事</div>
+<div class="dsc">
+<p><b>ADC（Analog-to-Digital Converter，模数转换器）</b>的活是把连续变化的模拟电压变成一串数字码。这件事拆开是<b>两个彼此独立、各有各误差来源的操作</b>——把它们分清楚，四大架构的取舍才看得懂。</p>
+
+<h3>① 采样：把时间切成离散点</h3>
+<p>连续信号在时间上是无限稠密的，ADC 只能每隔一段固定时间"看一眼"，这叫采样（sampling）。看得够不够密，由<b>奈奎斯特判据</b>决定：采样率必须<b>严格大于信号最高频率的 2 倍</b>（f_s &gt; 2·f_max），否则高频成分会伪装成低频"混叠"进来，事后无法分离。为什么是 2 倍？因为一个正弦周期至少要取到两个点，才能同时还原它的频率和相位；不到 2 倍就会有多条正弦曲线穿过同样的采样点，无法区分。实际工程一定<b>留余量</b>（如 2.2~2.5 倍以上）并在前端加抗混叠滤波。</p>
+
+<h3>② 量化：把幅度切成离散台阶</h3>
+<p>采到的每个瞬时电压仍是连续值，ADC 要把它归到最接近的一个整数码上，这叫量化（quantization）。N 位 ADC 把满量程分成 2ᴺ 个台阶，一个台阶就是<b>1 LSB（Least Significant Bit，最低有效位）</b>——它是这颗 ADC 能分辨的最小电压单位。归整必然带来偏差：真实值和台阶中心最多差 ±½ LSB，这个抹不掉的误差就是<b>量化噪声</b>，它是量化操作自带的、与电路好坏无关的物理下限。</p>
+<div class="kv">
+<span>采样 = 时间离散化 → 误差是混叠</span>
+<span>量化 = 幅度离散化 → 误差是量化噪声</span>
+</div>
+<p><b>每多一位，台阶细一倍，量化噪声降一半</b>，反映到理想满幅正弦的信噪比上就是那条著名公式：<b>SNR ≈ 6.02N + 1.76 dB</b>。这也是"每 bit 约 6 dB"这个业界口头禅的由来——它是量化位数换取信噪比的兑换率，而不是随便凑的数字。</p>
+
+<p style="background:#dbeafe;padding:8px 12px;border-radius:6px;color:#1e40af"><b>本质一句话：</b>ADC 是在时间和幅度两个维度同时"取整"——采样管时间、量化管幅度，一个的极限由奈奎斯特划定，另一个的极限由位数（6.02N+1.76 dB）划定。所有架构都在这两条线围出的空间里做取舍。</p>
+
+<p style="margin-top:8px;color:#475569">正因为分辨率（量化）和采样率（采样）各有物理约束，才没有"全能 ADC"——下面这张生态位图和四大架构对比，讲的就是各家如何在这两条轴上分工。</p>
+</div></div>
+
 
 <div class="anim-card">
-<div class="at">⚖️ 分辨率 × 采样率：为什么没有「全能 ADC」</div>
+<div class="at"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>⚖️ 分辨率 × 采样率：为什么没有「全能 ADC」</div>
 <div class="am">四大架构各自占据一块区间，边界由物理约束划定，不是厂商不努力</div>
 <svg viewBox="0 0 740 260">
 <line x1="80" y1="220" x2="700" y2="220" stroke="#94a3b8" stroke-width="1.5"/>
@@ -5764,7 +5910,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="anim-card">
-<div class="at">🎚️ Δ-Σ 的核心把戏：把量化噪声「推」出信号带</div>
+<div class="at"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>🎚️ Δ-Σ 的核心把戏：把量化噪声「推」出信号带</div>
 <div class="am">量化噪声总量不减，但可以把它从关心的频段挪到不关心的频段，再滤掉</div>
 <svg viewBox="0 0 740 200">
 <!-- axes -->
@@ -5800,7 +5946,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="card" style="border-left:4px solid #059669">
-<div class="ttl">DAC 侧的对称问题：单调性为什么比绝对精度更要命</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>DAC 侧的对称问题：单调性为什么比绝对精度更要命</div>
 <div class="dsc">
 <p>DAC 的三种主流架构——<b>电流舵（current-steering）</b>、<b>R-2R 电阻网络</b>、<b>电容阵列</b>——精度都回到同一个根源：<b>权重器件之间的匹配</b>，也就是 Pelgrom 定律。</p>
 <table class="node-table nopad"><thead><tr><th style="width:18%">指标</th><th>含义与本质</th></tr></thead>
@@ -5814,9 +5960,33 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 <h2 id="sec-pmic">🔌 5.4 电源管理：LDO 与开关电源的本质分工</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（降压只有两条物理路径）→ 原理（线性耗散 vs 开关储能）→ 品类对比（LDO vs Buck）→ 方案（PMIC 下移到内存条）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+<div class="card" style="background:#fff7ed;border-left:4px solid #ea580c">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先弄清：降压在物理上只有两条路</div>
+<div class="dsc">
+<p>现代芯片里，一块电池或一路 12 V 输入要伺候一大堆需要不同电压的模块。<b>PMIC（Power Management IC，电源管理芯片）</b>干的活，就是把一路输入变成多路稳定、干净、按时序上电的输出。而"把高电压变成低电压"这件事，物理上<b>只有两条路可走</b>——这个二分是整节的地基。</p>
+
+<h3>① 线性：把多余的电压当热耗掉</h3>
+<p>让电流流过一个串联的可调电阻（调节管），多出来的电压全落在它两端变成热。输出电流和输入电流几乎相等，多余的 (V_in − V_out) 全被这个管子"吃掉"。代表是 <b>LDO（Low-Dropout Regulator，低压差线性稳压器）</b>。它的效率约等于 <b>Vout / Vin</b>——不是因为"线性所以低效"这种循环说法，而是<b>输入端搬进的电荷量和输出端一样多，但每个电荷只用掉了 Vout 的电压、白搬了 (Vin−Vout)</b>，这部分能量必然变热。所以压差越大越浪费。</p>
+
+<h3>② 开关：把电压切成脉冲再抹平</h3>
+<p>让开关管高速通断，把输入电压切成一串方波脉冲，再用<b>电感、电容这类储能元件</b>把脉冲的能量"接住"并平滑成稳定的直流。开关全开时几乎不耗电、全关时不导通，理想情况下管子本身几乎不耗能，能量是被"成包搬运"而不是被烧掉。代表是 <b>Buck（降压开关变换器）</b>，效率可达 90% 以上，代价是引入开关纹波与 EMI，且需要外置电感电容。</p>
+<div class="kv">
+<span class="warn">线性 / LDO → 简单干净，效率≈Vout/Vin</span>
+<span class="good">开关 / Buck → 高效，但有纹波、需储能元件</span>
+</div>
+
+<h3>为什么芯片需要"专门"的电源管理</h3>
+<p>不是有个稳压器就够了。一颗 SoC 内部有<b>多个电压域</b>（内核、IO、模拟、存储各要不同电压）、上电有<b>严格时序</b>（谁先谁后错了会闩锁或损坏）、还要能<b>动态调压</b>（DVFS：负载轻时降压省电）。把这些管理逻辑、多路稳压、时序控制、保护电路集成到一颗芯片，才有了 PMIC 这个品类。</p>
+
+<p style="background:#ffedd5;padding:8px 12px;border-radius:6px;color:#7c2d12"><b>本质一句话：</b>降压只有"耗成热"（线性）和"切成脉冲再平滑"（开关）两条路，前者要干净选 LDO、后者要高效选 Buck；PMIC 则是把多路电压、上电时序、动态调压这些系统级需求整合成一颗芯片。</p>
+
+<p style="margin-top:8px;color:#475569">下面第一张图就把 LDO 和 Buck 放在同样的输入输出条件下，看能量到底去了哪；随后一张卡片讲 DDR5 为什么把 PMIC 从主板搬到内存条上。</p>
+</div></div>
+
 
 <div class="anim-card">
-<div class="at">⚡ LDO vs Buck：同样的输入输出，能量去了不同地方</div>
+<div class="at"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>⚡ LDO vs Buck：同样的输入输出，能量去了不同地方</div>
 <div class="am">LDO 把多余电压变成热，Buck 把能量成包搬运——这决定了它们各自的适用场景</div>
 <svg viewBox="0 0 740 230">
 <!-- LDO side -->
@@ -5877,7 +6047,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="card" style="border-left:4px solid #7c3aed">
-<div class="ttl">一个跨篇呼应：DDR5 为什么把 PMIC 从主板搬到内存条上</div>
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>一个跨篇呼应：DDR5 为什么把 PMIC 从主板搬到内存条上</div>
 <div class="dsc">
 <p>第二篇 <a href="#sec-ddr-gen" style="color:#7c3aed">2.7 DDR 世代全解</a> 提到 DDR5 的一项结构改动是<b>供电管理从主板移到内存条</b>。从模拟视角看，这是一个必然选择：</p>
 <table class="node-table nopad"><thead><tr><th style="width:26%">问题</th><th>为什么必须就地供电</th></tr></thead>
@@ -5891,9 +6061,10 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 <h2 id="sec-analog-proc">🏭 5.5 工艺侧：BCD 与成熟节点为什么长寿</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">工艺瓶颈/方案（BCD）→ 概念（成熟节点为何长寿）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
-<div class="ttl">BCD 工艺：把三种器件放在同一片硅上</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 工艺瓶颈</span>BCD 工艺：把三种器件放在同一片硅上</div>
 <div class="dsc">
 <p><b>BCD = Bipolar + CMOS + DMOS</b>，三类器件各司其职，这是模拟与电源芯片的主力平台：</p>
 <table class="node-table nopad"><thead><tr><th style="width:16%">器件</th><th style="width:26%">擅长什么</th><th>在芯片里承担的角色</th></tr></thead>
@@ -5906,7 +6077,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
-<div class="ttl">成熟节点为什么在模拟里长寿且利润可观</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>成熟节点为什么在模拟里长寿且利润可观</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:24%">原因</th><th>机理</th></tr></thead>
 <tbody>
@@ -5921,6 +6092,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 <h2 id="sec-cis">📷 5.6 CMOS 图像传感器：一条被低估的模拟读出链</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（胜负手在读出链）→ 原理（4T+CDS）→ 方案（BSI/堆栈、列并行）→ 车规瓶颈 → 与硅光边界</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 <div class="opto-nav">
 🔗 光电链路位置：
 <a href="#sec-opto-detect">⬅ 上一环 · 探测层 PD/SPAD/SiPM</a>
@@ -5929,7 +6101,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="card" style="background:#f0f9ff;border-left:4px solid #0284c7">
-<div class="ttl">为什么 CIS 属于模拟篇：它的胜负手在读出链，不在像素数</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>为什么 CIS 属于模拟篇：它的胜负手在读出链，不在像素数</div>
 <div class="dsc">
 <p>像素数是市场传播语言。真正决定成像质量的是<b>信噪比曲线</b>：暗部看<b>读出噪声底</b>，亮部看<b>满井容量与光子散粒噪声</b>。</p>
 <p style="background:#e0f2fe;padding:8px 12px;border-radius:6px;color:#075985"><b>🔑 一条常被忽略的物理事实：</b>亮处的噪声<b>不由电路决定</b>。光子到达本身服从泊松统计，N 个光子的波动约为 √N——这叫<b>光子散粒噪声（shot noise）</b>，是自然界的下限，电路再好也消不掉。<b>所以电路设计能争的只有暗部</b>：把读出噪声压到几个电子甚至亚电子级。这正是 CIS 竞争的实质战场。【业界】</p>
@@ -5937,7 +6109,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="anim-card">
-<div class="at">🎬 4T 像素与相关双采样（CDS）：噪声是如何被「减掉」的</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>🎬 4T 像素与相关双采样（CDS）：噪声是如何被「减掉」的</div>
 <div class="am">钉扎光电二极管 PPD + 转移栅 TG + 浮置扩散 FD 三件套，让「两次读数相减」成为可能</div>
 <svg viewBox="0 0 760 250">
 <text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#0c4a6e">完整时序：复位 → 曝光积分 → 电荷转移 → 两次采样相减</text>
@@ -5997,7 +6169,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="anim-card">
-<div class="at">🔀 三次结构革命：FSI → BSI → 堆栈式</div>
+<div class="at"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>🔀 三次结构革命：FSI → BSI → 堆栈式</div>
 <div class="am">每一次都在解决「光路被挡」或「面积被抢」的问题</div>
 <svg viewBox="0 0 760 210">
 <!-- FSI -->
@@ -6049,7 +6221,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="card">
-<div class="ttl">列并行 ADC：为什么用几千个慢 ADC 而不是一个快 ADC</div>
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>列并行 ADC：为什么用几千个慢 ADC 而不是一个快 ADC</div>
 <div class="dsc">
 <p>一颗 4000 万像素、30 帧的传感器每秒要转换十亿量级的采样。若用单个 ADC，速率要求高到功耗与精度都无法接受。<b>CIS 的做法是每一列配一个慢速 ADC，几千列同时工作。</b></p>
 <table class="node-table nopad"><thead><tr><th style="width:24%">优势</th><th>机理</th></tr></thead>
@@ -6062,7 +6234,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="anim-card">
-<div class="at">🚗 车规 CIS 的两道特殊考题：LED 闪烁与高动态范围</div>
+<div class="at"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>🚗 车规 CIS 的两道特殊考题：LED 闪烁与高动态范围</div>
 <div class="am">这两项是智能驾驶感知的硬指标，也是车规与消费级 CIS 的分野</div>
 <svg viewBox="0 0 760 240">
 <text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d">问题的根源：交通灯与 LED 车灯是 PWM 脉冲点亮的，不是常亮</text>
@@ -6106,7 +6278,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="card" style="background:#f8fafc;border-left:4px solid #64748b">
-<div class="ttl">🔗 与硅光的边界：为什么两者都「用光」却不是一回事</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>🔗 与硅光的边界：为什么两者都「用光」却不是一回事</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:16%"></th><th style="width:40%">CIS 图像传感器</th><th>硅光子</th></tr></thead>
 <tbody>
@@ -6123,18 +6295,19 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="content">
 
 <h2 id="sec-opto-detect">🔦 5.6+ 光电探测层：PD → APD → SPAD → SiPM，从「测光强」到「数光子」</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">① 基础原理 → ② 概念分界 → ③ 专业参数与瓶颈 → ④ 本质总结</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card" style="background:#f0f9ff;border-left:4px solid #0284c7">
-<div class="ttl">这一节补齐的是「探测层」——它和 CIS 共享 PD，却走向完全相反的方向</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>这一节补齐的是「探测层」——它和 CIS 共享 PD，却走向完全相反的方向</div>
 <div class="dsc">
 <p>5.6 的 CIS 关心"光在空间上怎么分布"；这一节关心的是另一个问题：<b>"到底有没有光、有几个光子、什么时候到的"</b>。同样是 PN 结反偏收集光生载流子，当把它推到极致——<b>灵敏到能数出单个光子</b>——就诞生了 SPAD 与 SiPM 这条谱系。它们是车载激光雷达、医学 PET、量子光学、荧光寿命成像的底层器件。</p>
 </div></div>
 
 <!-- 第一层：基础原理 -->
-<h3>①【基础原理】光子打进硅里，发生了什么</h3>
+<h3><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>①【基础原理】光子打进硅里，发生了什么</h3>
 
 <div class="card">
-<div class="ttl">从"一个光子"到"一股电流"：三步</div>
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>从"一个光子"到"一股电流"：三步</div>
 <div class="dsc">
 <div class="kv">
 <span><b>第一步 · 吸收：</b>一个光子钻进硅里，若它的能量大于硅的带隙（约 1.12 eV，对应波长短于约 1.1 µm），就能把一个电子从价带"踢"到导带，留下一个空穴——这就是一对<b>光生载流子</b>。</span>
@@ -6146,7 +6319,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <!-- SVG 1: SPAD 雪崩触发与淬灭 -->
 <div class="anim-card">
-<div class="at">🎬 SPAD 的一次"心跳"：触发 → 雪崩 → 淬灭 → 复位</div>
+<div class="at"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>🎬 SPAD 的一次"心跳"：触发 → 雪崩 → 淬灭 → 复位</div>
 <div class="am">盖革模式偏压高于击穿电压，单光子触发自持雪崩；淬灭电阻把电压拉下来"掐灭"它，再自动充回</div>
 <svg viewBox="0 0 760 300">
 <text x="380" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#5b21b6">偏压 V_bias = V_BR + V_ov（过压偏置），单光子即可点燃自持雪崩</text>
@@ -6218,10 +6391,10 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <!-- 第二层：概念解释 -->
-<h3>②【概念解释】PD / APD / SPAD / SiPM 的四条分界线</h3>
+<h3><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>②【概念解释】PD / APD / SPAD / SiPM 的四条分界线</h3>
 
 <div class="card">
-<div class="ttl">两个维度就能把四个概念分清：偏压区间 × 是不是阵列</div>
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>两个维度就能把四个概念分清：偏压区间 × 是不是阵列</div>
 <div class="dsc">
 <div class="kv">
 <span><b>PD（光电二极管）：</b>反偏，<b>无雪崩增益</b>。光电流正比于光强——是最朴素的"光→电"线性转换器。CIS 里的像素就是 PD。</span>
@@ -6233,10 +6406,10 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <!-- 第三层：专业解释 -->
-<h3>③【专业解释】决定 SPAD/SiPM 好坏的那些参数</h3>
+<h3><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>③【专业解释】决定 SPAD/SiPM 好坏的那些参数</h3>
 
 <div class="card">
-<div class="ttl">先看信号侧：偏压与探测效率</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 工艺瓶颈</span>先看信号侧：偏压与探测效率</div>
 <div class="dsc">
 <div class="kv">
 <span><b>击穿电压 V_BR 与过压偏置 V_ov（over-voltage）：</b>SPAD 实际工作电压 = V_BR + V_ov。<b>V_ov 是"超出击穿多少"</b>，通常几伏（如 2~7 V）。V_ov 越大 → 触发概率越高、增益越大、时间抖动越小，<b>但暗计数、后脉冲、串扰也同步恶化</b>——V_ov 是所有性能的总旋钮。</span>
@@ -6245,7 +6418,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="card">
-<div class="ttl">再看噪声与非理想效应：SPAD 的"暗面"</div>
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>再看噪声与非理想效应：SPAD 的"暗面"</div>
 <div class="dsc">
 <div class="kv">
 <span class="warn"><b>暗计数率 DCR（dark count rate）：</b>没有光时，热激发或隧穿也会偶尔触发一次雪崩——这就是"暗计数"，是 SPAD/SiPM 的<b>本底噪声</b>。室温典型量级约 <b>每平方毫米数十至数百 kHz</b>（如 50~226 kHz/mm² 量级），且<b>随温度近似指数上升</b>（降温可大幅压低）。【业界】</span>
@@ -6258,7 +6431,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
-<div class="ttl">⚙️ CMOS 兼容性：SPAD 工艺的一道分歧</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>⚙️ CMOS 兼容性：SPAD 工艺的一道分歧</div>
 <div class="dsc">
 <p>SPAD 本身可以用标准 CMOS 工艺做，这带来一个巨大诱惑：<b>把 SPAD 阵列和读出电路（TDC 时间数字转换器、计数器、SoC）做在同一片硅上</b>，甚至用堆栈键合把 SPAD 层与逻辑层分开优化（与 5.6 CIS 的堆栈式思路同源）。</p>
 <p>但工艺上存在分歧：<b>追求极致性能（低 DCR、高 PDE）的定制工艺</b>（如深沟槽隔离、专门的结构优化）与<b>追求集成度、成本、良率的标准 CMOS 工艺</b>难以两全。前者性能好但贵、集成度低（多见于科研与高端探测）；后者能大规模集成进 SoC（车载 LiDAR、消费级 ToF 传感器走这条路），但单元性能通常要做妥协。<b>这条工艺分歧，正是 SPAD 产业路线分化的技术根源。</b>【推断：由器件工艺约束归纳】</p>
@@ -6266,7 +6439,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <!-- 必含对比表 -->
 <div class="card">
-<div class="ttl">📊 横向对比：PD / APD / SPAD / SiPM</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>📊 横向对比：PD / APD / SPAD / SiPM</div>
 <div class="dsc">
 <table class="node-table"><thead><tr>
 <th style="width:11%"></th><th>PD 光电二极管</th><th>APD 雪崩光电二极管</th><th>SPAD 单光子雪崩二极管</th><th>SiPM 硅光电倍增器</th>
@@ -6284,7 +6457,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <!-- 第四层：本质总结 -->
-<h3>④【本质总结】SPAD 把"探测"从模拟问题变成了数字计数问题</h3>
+<h3><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>④【本质总结】SPAD 把"探测"从模拟问题变成了数字计数问题</h3>
 
 <div class="card" style="background:#f5f3ff;border-left:4px solid #7c3aed">
 <div class="ttl">🔑 一句话点透</div>
@@ -6367,6 +6540,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="content">
 
 <h2 id="sec-siph-why">🚧 6.1 灵魂问题：铜的物理极限与「带宽密度」这堵墙</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">物理结构瓶颈（铜的损耗与带宽密度墙）→ 本质</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 <div class="opto-nav">
 🔗 光电链路位置：
 <a href="#sec-cis">⬅ 上一环 · 成像层 CIS</a>
@@ -6375,7 +6549,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="anim-card">
-<div class="at">📉 为什么铜线走不远：损耗随频率与距离双重恶化</div>
+<div class="at"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>📉 为什么铜线走不远：损耗随频率与距离双重恶化</div>
 <div class="am">趋肤效应让高频电流挤在导体表面，介质损耗随频率线性增长——速率越高，铜线越短命</div>
 <svg viewBox="0 0 760 240">
 <text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d">同一高速信号：沿铜线传播 vs 沿光波导传播</text>
@@ -6425,7 +6599,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
-<div class="ttl">🔑 真正的墙叫「带宽密度」：芯片边缘每毫米能挤出多少 Tb/s</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>🔑 真正的墙叫「带宽密度」：芯片边缘每毫米能挤出多少 Tb/s</div>
 <div class="dsc">
 <p>这是全篇最关键的概念。<b>芯片面积可以继续做大，但边缘周长只能线性增长</b>，而所有输入输出都必须从边缘出去（业界称 beachfront 或 shoreline 带宽密度）。当算力按面积增长、I/O 却只能按周长增长时，两者必然脱节。</p>
 <p><b>这就是 AI 大集群 scale-up 的真实瓶颈——不是算不过来，是搬不进来。</b></p>
@@ -6433,7 +6607,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="card">
-<div class="ttl">每比特能耗：电与光的交叉点正在向更短距离移动</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>每比特能耗：电与光的交叉点正在向更短距离移动</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:20%">距离尺度</th><th style="width:34%">电互连（pJ/bit）</th><th>光互连（pJ/bit）</th></tr></thead>
 <tbody>
@@ -6446,6 +6620,27 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 <h2 id="sec-siph-device">🔬 6.2 器件家族：每一个都是「硅不擅长」的妥协产物</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（光链路五棒功能分解）→ 原理（波导）→ 三重材料瓶颈（调制/探测/发光）→ 工艺瓶颈（耦合与温控）→ 方案（复用）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+<div class="card" style="background:#faf5ff;border-left:4px solid #7c3aed">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先做功能分解：一条片上光链路要干五件事</div>
+<div class="dsc">
+<p><b>①这一节在讲什么。</b>上一环 6.1 已经回答了"为什么要用光"（铜互连撞上带宽密度墙），这里不重复动机。本节回答的是<b>组成</b>：要把电信号变成光、送出去、再变回电，光路上到底需要哪几个器件，它们各自是第几棒。把这条链路拆开，就能看懂为什么本节标题叫"每一个都是硅不擅长的妥协产物"。</p>
+
+<p><b>②一条链路的五道工序。</b>信号从电域进、经光域传、再回到电域，中间必须依次完成五件事——注意<b>硅只在其中一件上是真正的强项</b>：</p>
+<table class="node-table"><thead><tr><th style="width:8%">第几棒</th><th style="width:22%">功能</th><th style="width:30%">干什么活</th><th>硅行不行</th></tr></thead>
+<tbody>
+<tr><td class="hl">① 产生光</td><td>光源 / 激光器</td><td>提供稳定的连续光作为载波</td><td><b style="color:#b91c1c">完全不行</b>——硅是<b>间接带隙</b>，电子跃迁需声子参与，几乎不发光。必须外挂 III-V 族激光器</td></tr>
+<tr><td class="hl">② 调制</td><td>调制器</td><td>把电信号"写"进光的强度/相位</td><td><b style="color:#b45309">勉强</b>——硅无 Pockels 效应，只能靠载流子改折射率，间接、非线性、带损耗</td></tr>
+<tr><td class="hl">③ 传导</td><td>波导</td><td>把光低损耗地引到片上各处</td><td><b style="color:#047857">很强</b>——硅对 SiO₂ 折射率差大，能把光锁进 220 nm 芯里，这正是硅光的立身之本</td></tr>
+<tr><td class="hl">④ 复用/路由</td><td>复用器 / 滤波器</td><td>多波长合流分流，提升单纤容量</td><td><b style="color:#047857">可做</b>——用波导结构实现，但对温度、尺寸极敏感</td></tr>
+<tr><td class="hl">⑤ 探测</td><td>光电探测器</td><td>把光重新读回成电流</td><td><b style="color:#b91c1c">要外援</b>——硅在 1310/1550 nm 通信波段<b>透明</b>（带隙 1.12 eV 对应约 1.1 µm 截止），必须外延<b>锗</b>才能吸光</td></tr>
+</tbody></table>
+
+<p><b>读法。</b>下面四个动画就是按"硅从最强到最弱"排列的：先看硅的强项<b>波导</b>（③），再看它<b>勉强能做</b>的调制（②），接着是<b>必须外挂锗</b>的探测（⑤），最后是硅的<b>原罪</b>——不能发光（①）。理解了这张表，就知道每个器件的存在都不是设计选择，而是<b>硅在某道工序上顶不住、被迫打的补丁</b>。</p>
+
+<p style="background:#f5f3ff;padding:8px 12px;border-radius:6px;color:#5b21b6;margin-top:8px"><b>本质一句话：</b>硅光不是"硅做的光学"，而是<b>"在一块只擅长传光的材料上，硬凑出发光、调制、探测三种它本不擅长的能力"</b>——本节的每个器件，都是为填补硅的某一项短板而生。下面从硅唯一的强项、也是整条链路的骨架——波导讲起。</p>
+</div></div>
+
 <div class="opto-nav">
 🔗 光电链路位置：
 <a href="#sec-siph-why">⬅ 上一环 · 为什么要用光</a>
@@ -6454,7 +6649,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="anim-card">
-<div class="at">🪞 波导：靠巨大折射率差把光锁在 220 纳米的硅芯里</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>🪞 波导：靠巨大折射率差把光锁在 220 纳米的硅芯里</div>
 <div class="am">硅 n≈3.48 对二氧化硅 n≈1.44，折射率差约 2 —— 这是硅光能高密度集成的物理基础</div>
 <svg viewBox="0 0 740 200">
 <text x="370" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#4c1d95">SOI 结构：硅芯（高折射率）被二氧化硅包层（低折射率）夹住 → 全内反射</text>
@@ -6490,7 +6685,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="anim-card">
-<div class="at">⚡ 调制器的困境：硅没有 Pockels 效应，只能用载流子「间接」改折射率</div>
+<div class="at"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 材料瓶颈</span>⚡ 调制器的困境：硅没有 Pockels 效应，只能用载流子「间接」改折射率</div>
 <div class="am">晶体硅是中心对称晶格 → 天生没有一阶线性电光效应，这是硅光最根本的妥协之一</div>
 <svg viewBox="0 0 760 250">
 <text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d">硅不能「加电压直接线性改变折射率」，只能靠抽走/注入自由载流子</text>
@@ -6548,7 +6743,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="anim-card">
-<div class="at">🧲 探测器：硅在通信波段是透明的，必须外延锗</div>
+<div class="at"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 材料瓶颈</span>🧲 探测器：硅在通信波段是透明的，必须外延锗</div>
 <div class="am">硅带隙约 1.12 eV，吸收截止约 1.1 µm —— 1310/1550 nm 的光子能量不够，直接穿过</div>
 <svg viewBox="0 0 740 200">
 <text x="370" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#065f46">同一个 1550 nm 光子：遇到硅穿过，遇到锗被吸收</text>
@@ -6598,7 +6793,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="anim-card">
-<div class="at">💔 硅光的原罪：硅是间接带隙，它几乎不会发光</div>
+<div class="at"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 材料瓶颈</span>💔 硅光的原罪：硅是间接带隙，它几乎不会发光</div>
 <div class="am">这是硅光集成度永远追不上电子集成度的根本原因 —— 唯一不能「用硅解决」的环节</div>
 <svg viewBox="0 0 760 260">
 <text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#4c1d95">能带图对比（E–k 图）：电子要下落发光，必须动量也对得上</text>
@@ -6660,7 +6855,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="card">
-<div class="ttl">另两项隐形成本：耦合对准与温度控制</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 工艺瓶颈</span>另两项隐形成本：耦合对准与温度控制</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:18%">问题</th><th style="width:34%">物理根源</th><th>工程后果</th></tr></thead>
 <tbody>
@@ -6671,7 +6866,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="card" style="border-left:4px solid #0891b2">
-<div class="ttl">复用与调制格式：容量是怎么一代代翻上去的</div>
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>复用与调制格式：容量是怎么一代代翻上去的</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:20%">手段</th><th>机理与作用</th></tr></thead>
 <tbody>
@@ -6684,6 +6879,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 <h2 id="sec-cpo">📦 6.3 从可插拔光模块到 CPO 共封装光学</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">方案（三级演进）→ 工艺瓶颈（三大障碍）→ 口径对比</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 <div class="opto-nav">
 🔗 光电链路位置：
 <a href="#sec-siph-device">⬅ 上一环 · 硅光器件家族</a>
@@ -6692,7 +6888,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="anim-card">
-<div class="at">🔌 三级演进：把光引擎一步步搬近交换芯片</div>
+<div class="at"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>🔌 三级演进：把光引擎一步步搬近交换芯片</div>
 <div class="am">省功耗的本质是缩短高速电通道 —— 电走得越少，损耗与均衡开销越小</div>
 <svg viewBox="0 0 760 250">
 <text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a5f">电通道越长，越需要强驱动与复杂均衡；把光引擎搬近 ASIC 即可省掉这部分开销</text>
@@ -6747,7 +6943,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
-<div class="ttl">⚠️ CPO 的三大工程障碍——以及一个很说明问题的妥协</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 工艺瓶颈</span>⚠️ CPO 的三大工程障碍——以及一个很说明问题的妥协</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:18%">障碍</th><th style="width:36%">问题所在</th><th>业界应对</th></tr></thead>
 <tbody>
@@ -6760,7 +6956,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="card">
-<div class="ttl">NVIDIA CPO 的公开口径（两套宣称值，不可混用）</div>
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>NVIDIA CPO 的公开口径（两套宣称值，不可混用）</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:26%">来源</th><th>宣称收益</th></tr></thead>
 <tbody>
@@ -6851,9 +7047,10 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="content">
 
 <h2 id="sec-mlcc">🧱 7.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">原理（叠层结构）→ 材料瓶颈（晶粒下限）→ 工艺瓶颈（Ni/BaTiO₃ 矛盾）→ 隐性劣化 → 品类对比</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="anim-card">
-<div class="at">📚 结构本质：交替叠层 = 几百个小电容并联</div>
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>📚 结构本质：交替叠层 = 几百个小电容并联</div>
 <div class="am">容量公式 C = ε₀·εr·n·A/d 里，真正被工艺竞赛反复挤压的是 n（层数）与 d（介质厚度）</div>
 <svg viewBox="0 0 760 220">
 <text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#7c2d12">外观只是一粒陶瓷片，剖开后是上百层交替堆叠的电极与介质</text>
@@ -6906,7 +7103,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="anim-card">
-<div class="at">🔬 介质薄层化的物理下限：一层里只剩几个陶瓷晶粒</div>
+<div class="at"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 材料瓶颈</span>🔬 介质薄层化的物理下限：一层里只剩几个陶瓷晶粒</div>
 <div class="am">不是设备精度不够，而是介质层内必须容纳足够多的晶粒，才能保证耐压与可靠性</div>
 <svg viewBox="0 0 740 200">
 <text x="370" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d">同样是"做薄"，薄到晶粒数量不够时，可靠性会直接崩塌</text>
@@ -6958,7 +7155,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="anim-card">
-<div class="at">⚗️ 最精妙的工艺矛盾：Ni 内电极不能氧化，BaTiO₃ 不能缺氧</div>
+<div class="at"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 工艺瓶颈</span>⚗️ 最精妙的工艺矛盾：Ni 内电极不能氧化，BaTiO₃ 不能缺氧</div>
 <div class="am">为了把贵金属换成便宜的镍，整个烧结工艺必须在一个极窄的气氛窗口里走钢丝</div>
 <svg viewBox="0 0 760 240">
 <text x="380" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#7c2d12">从 Pd/Ag 贵金属内电极改用 Ni 镍（BME），成本大降——但代价是一对互相冲突的约束</text>
@@ -7016,7 +7213,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
-<div class="ttl">⚠️ 四项「隐性劣化」：数据手册上的容量，未必是你实际拿到的容量</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>⚠️ 四项「隐性劣化」：数据手册上的容量，未必是你实际拿到的容量</div>
 <div class="dsc">
 <p>MLCC 有四个原厂文档都会写、但工程上极易被忽略的特性。它们的共同根源是 <b>BaTiO₃ 的铁电性</b>——高介电常数正是来自自发极化与畴壁运动，而<b>高介电常数必然伴随非线性</b>。</p>
 <table class="node-table nopad"><thead><tr><th style="width:20%">现象</th><th style="width:34%">机理</th><th>工程后果</th></tr></thead>
@@ -7030,7 +7227,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="card">
-<div class="ttl">车规 MLCC 的额外考题</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 工艺瓶颈</span>车规 MLCC 的额外考题</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:22%">要求</th><th>为什么</th></tr></thead>
 <tbody>
@@ -7044,10 +7241,25 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>其他电容家族：寿命机理决定了它们各自的归属</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:17%">类型</th><th style="width:24%">特点</th><th>寿命与失效机理</th></tr></thead>
+<tbody>
+<tr><td class="hl">铝电解</td><td>容量大、单位成本低、ESR 较高</td><td><b>电解液随时间蒸发干涸</b> → 容量下降、ESR 上升。遵循约「温度每降 10 °C 寿命翻倍」的经验规则（阿伦尼乌斯近似）</td></tr>
+<tr><td class="hl">固态/导电聚合物</td><td>ESR 低、高频性能好</td><td>用固态导电聚合物替代液态电解液，寿命受温度影响小得多</td></tr>
+<tr><td class="hl">钽电容</td><td>体积效率高、稳定</td><td><b>失效模式需重视</b>——特定条件下可能剧烈失效（燃烧风险），因此常需降额与限流设计</td></tr>
+<tr><td class="hl">薄膜电容<br><span style="font-weight:400;font-size:11px">PP/PET</span></td><td>耐高压、损耗低、<b>具自愈性</b></td><td>局部击穿时金属镀层蒸发形成隔离，<b>自动恢复绝缘</b>——这是它在高压场合的关键优势</td></tr>
+<tr><td class="hl">超级电容</td><td>容量极大、功率密度高</td><td>介于电容与电池之间，用于短时大功率缓冲</td></tr>
+</tbody></table>
+<p style="margin-top:8px;background:#f0f9ff;padding:8px 12px;border-radius:6px;color:#075985"><b>🔑 为什么车载直流母线多用薄膜电容而非铝电解：</b>母线要承受高压与大纹波电流，而薄膜电容<b>耐压高、损耗低、寿命不依赖电解液、且具备自愈性</b>；铝电解的电解液干涸机理在车用长寿命与高温要求下风险较高。<b>这是一个由「寿命机理」而非「容量密度」决定的选型。</b>【业界】</p>
+</div></div>
+
 <h2 id="sec-mlcc-supply">🚚 7.2 MLCC 供应链：为什么它反复成为断供震中</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">本质判断（材料比设备更卡）→ 材料瓶颈成因 → 口径对比</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
-<div class="ttl">核心判断：上游材料比制造设备更卡脖子</div>
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>核心判断：上游材料比制造设备更卡脖子</div>
 <div class="dsc">
 <p>这是本节最重要的一条，也是与逻辑芯片「卡在光刻机」截然不同的地方。</p>
 <table class="node-table nopad"><thead><tr><th style="width:22%">环节</th><th style="width:30%">卡口所在</th><th>为什么难突破</th></tr></thead>
@@ -7061,7 +7273,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="card" style="border-left:4px solid #ea580c">
-<div class="ttl">缺货的结构性成因：五个因素叠加</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 材料瓶颈</span>缺货的结构性成因：五个因素叠加</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:24%">成因</th><th>机理</th></tr></thead>
 <tbody>
@@ -7075,7 +7287,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="card">
-<div class="ttl">单车用量：两套口径，差一个量级，都不算错</div>
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>单车用量：两套口径，差一个量级，都不算错</div>
 <div class="dsc">
 <p><b>这是引用时最容易出错的地方</b>——有的口径统计<b>整车</b>，有的只统计<b>动力系统</b>，两者不可混用。</p>
 <table class="node-table nopad"><thead><tr><th style="width:26%">车型</th><th style="width:24%">用量（颗）</th><th>口径与来源性质</th></tr></thead>
@@ -7097,9 +7309,33 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 <h2 id="sec-rl">🔧 7.3 电阻与电感：两个被忽略但同样有门槛的品类</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念+原理（阻值 ρL/A、自感来自反电动势）→ 物理结构瓶颈（四端测量）→ 工艺对比（四个精度档）→ 材料瓶颈（磁芯饱和）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+<div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先弄清：电阻的阻值、电感的自感，到底从哪来</div>
+<div class="dsc">
+<p>电阻和电感常被当成"没什么技术含量"的元件，但要看懂后面的四线测量陷阱和直流叠加陷阱，得先回到最基本的问题：<b>它们的核心参数是怎么由物理决定的，以及为什么理想的它们并不存在。</b></p>
+
+<h3>① 电阻：阻值来自载流子被晶格散射</h3>
+<p><b>电阻（Resistor）</b>的活是限制电流、分压、做电流采样。它的阻值不是凭空规定的，而是材料物理的直接结果：<b>R = ρ · L / A</b>。载流子（电子）在导体里被电场推着走，却不断撞上振动的晶格原子和杂质，每次碰撞损失动量——这种<b>散射</b>就是电阻的微观来源。式中 ρ 是材料的电阻率（由散射强度决定），L 是长度，A 是横截面积：路越长、越细，电子越难通过，阻值越大。</p>
+<p><b>"理想电阻"不存在</b>：晶格振动随温度加剧，散射变强，所以阻值随温度漂（温度系数 TCR）；电阻体和引线还带有寄生电感、极间寄生电容，频率一高就不再是纯电阻。选电阻从来不是只看标称阻值，而是看阻值精度、TCR、长期漂移和高频行为——这正是下面"四种工艺四个精度档位"要展开的。</p>
+
+<h3>② 电感：自感来自变化电流激起的反电动势</h3>
+<p><b>电感（Inductor）</b>的活是储存磁场能量、滤波、抗电流突变。它的核心参数<b>自感 L</b> 的物理来源是电磁感应：电流流过线圈产生磁通，<b>电流一变化，磁通就跟着变，变化的磁通又感应出一个反向电动势去反抗这个变化</b>（楞次定律）。自感的定义就是 <b>L = N·Φ / I</b>（N 为匝数、Φ 为每匝磁通），单位是<b>亨利（Henry, H）</b>。绕的匝数越多、磁芯导磁能力（磁导率 μ）越强，同样电流激起的磁通越多，L 越大。</p>
+<p>这里有一个漂亮的<b>对偶关系</b>值得记住：</p>
+<div class="kv">
+<span class="good">电感 → 抗拒"电流"的变化（电流不能突变）</span>
+<span class="good">电容 → 抗拒"电压"的变化（电压不能突变）</span>
+</div>
+<p>两者互为镜像：电感把能量存在磁场里、靠反电动势顶住电流突变；电容把能量存在电场里、靠积累电荷顶住电压突变。这也解释了为什么开关电源里电感和电容总是成对出现——一个稳电流、一个稳电压，合起来才能把脉冲抹成平滑直流。</p>
+
+<p style="background:#dcfce7;padding:8px 12px;border-radius:6px;color:#14532d"><b>本质一句话：</b>电阻的阻值是载流子被晶格散射的宏观结果（ρ·L/A），电感的自感是变化电流激起反电动势的度量（L=NΦ/I）；前者抗拒电流通过、后者抗拒电流变化，而且都没有"理想版本"——寄生参数与磁芯饱和随时会让它们偏离标称。</p>
+
+<p style="margin-top:8px;color:#475569">正因为阻值和自感都是物理量而非固定数字，工程上才有那么多坑：下面先看毫欧级电阻为什么必须用四端 Kelvin 接法测量、电阻的四种工艺档位，再看电感在直流叠加下自感量"凭空消失"（磁芯饱和使 μ 下降）的选型陷阱。</p>
+</div></div>
+
 
 <div class="anim-card">
-<div class="at">📐 分流电阻的四端 Kelvin 连接：为什么两端测量必然错</div>
+<div class="at"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>📐 分流电阻的四端 Kelvin 连接：为什么两端测量必然错</div>
 <div class="am">当被测电阻只有毫欧级时，引线与焊点电阻已经与它同量级——这在 BMS 与电驱电流检测里是致命的</div>
 <svg viewBox="0 0 740 210">
 <text x="370" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#7f1d1d">同一个 mΩ 级分流电阻，接法不同，测出的值差很多</text>
@@ -7146,7 +7382,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <div class="card">
-<div class="ttl">电阻：四种工艺，四个精度档位</div>
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>电阻：四种工艺，四个精度档位</div>
 <div class="dsc">
 <table class="node-table nopad"><thead><tr><th style="width:16%">类型</th><th style="width:20%">精度与温度系数</th><th>本质差异与适用场景</th></tr></thead>
 <tbody>
@@ -7158,7 +7394,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="anim-card">
-<div class="at">🧲 电感的选型陷阱：直流叠加会让电感量「凭空消失」</div>
+<div class="at"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 材料瓶颈</span>🧲 电感的选型陷阱：直流叠加会让电感量「凭空消失」</div>
 <div class="am">数据手册标的电感量是小信号值；一旦直流电流上来，磁芯饱和，L 就跌了</div>
 <svg viewBox="0 0 740 220">
 <text x="370" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#4c1d95">左：磁畴随电流逐步对齐 → 右：电感量随电流下降（L–I 曲线）</text>
@@ -7199,21 +7435,6 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <text x="58" y="204" font-size="9" fill="#4c1d95"><tspan font-weight="700">这就是车载 DC-DC 与 OBC 普遍转向金属磁粉芯的原因：</tspan>它的饱和磁通密度更高、且饱和特性「软」——过载时电感量平缓下降而非突然崩塌，<tspan font-weight="700">系统行为可预测、更安全</tspan>。代价是磁芯损耗通常高于铁氧体。图为机理示意，非具体牌号数据。【业界】</text>
 </svg>
 </div>
-
-<div class="card">
-<div class="ttl">其他电容家族：寿命机理决定了它们各自的归属</div>
-<div class="dsc">
-<table class="node-table nopad"><thead><tr><th style="width:17%">类型</th><th style="width:24%">特点</th><th>寿命与失效机理</th></tr></thead>
-<tbody>
-<tr><td class="hl">铝电解</td><td>容量大、单位成本低、ESR 较高</td><td><b>电解液随时间蒸发干涸</b> → 容量下降、ESR 上升。遵循约「温度每降 10 °C 寿命翻倍」的经验规则（阿伦尼乌斯近似）</td></tr>
-<tr><td class="hl">固态/导电聚合物</td><td>ESR 低、高频性能好</td><td>用固态导电聚合物替代液态电解液，寿命受温度影响小得多</td></tr>
-<tr><td class="hl">钽电容</td><td>体积效率高、稳定</td><td><b>失效模式需重视</b>——特定条件下可能剧烈失效（燃烧风险），因此常需降额与限流设计</td></tr>
-<tr><td class="hl">薄膜电容<br><span style="font-weight:400;font-size:11px">PP/PET</span></td><td>耐高压、损耗低、<b>具自愈性</b></td><td>局部击穿时金属镀层蒸发形成隔离，<b>自动恢复绝缘</b>——这是它在高压场合的关键优势</td></tr>
-<tr><td class="hl">超级电容</td><td>容量极大、功率密度高</td><td>介于电容与电池之间，用于短时大功率缓冲</td></tr>
-</tbody></table>
-<p style="margin-top:8px;background:#f0f9ff;padding:8px 12px;border-radius:6px;color:#075985"><b>🔑 为什么车载直流母线多用薄膜电容而非铝电解：</b>母线要承受高压与大纹波电流，而薄膜电容<b>耐压高、损耗低、寿命不依赖电解液、且具备自愈性</b>；铝电解的电解液干涸机理在车用长寿命与高温要求下风险较高。<b>这是一个由「寿命机理」而非「容量密度」决定的选型。</b>【业界】</p>
-</div></div>
-
 
 <h2 id="sec-passive-pattern">🌐 7.4 产业格局：一段材料史与五次转折</h2>
 
