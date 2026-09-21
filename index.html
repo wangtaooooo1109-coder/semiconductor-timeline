@@ -561,10 +561,12 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 <div>
 <div style="font-weight:800;color:#ea580c;font-size:15px;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #fed7aa">第九篇 · 被动器件</div>
 <ol style="padding-left:20px;line-height:2.2">
-<li><a href="#sec-mlcc">9.1 MLCC 结构与工艺瓶颈 🎬</a></li>
-<li><a href="#sec-mlcc-supply">9.2 MLCC 供应链与缺货机制</a></li>
-<li><a href="#sec-rl">9.3 电阻与电感 🎬</a></li>
-<li><a href="#sec-passive-pattern">9.4 产业格局·材料史与五次转折</a></li>
+<li><a href="#sec-capacitor"><b>9.1 电容：原理与品类谱系</b></a></li>
+<li><a href="#sec-mlcc">9.2 MLCC 结构与工艺瓶颈 🎬</a></li>
+<li><a href="#sec-mlcc-supply">9.3 MLCC 供应链与缺货机制</a></li>
+<li><a href="#sec-resistor">9.4 电阻·四个精度档位 🎬</a></li>
+<li><a href="#sec-inductor">9.5 电感·磁芯与饱和 🎬</a></li>
+<li><a href="#sec-passive-pattern">9.6 产业格局·材料史与五次转折</a></li>
 </ol>
 <div style="font-size:11px;color:#9a3412;padding-left:4px;line-height:1.6">⚠️ 严格讲不属半导体，但占 BOM 件数大头</div>
 </div>
@@ -589,7 +591,7 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 </div>
 <p style="margin-top:10px;background:#f1f5f9;padding:8px 12px;border-radius:6px;color:#334155">
 <b>🔑 为什么要标明「卡在哪一层」：</b>瓶颈归属本身就是最有价值的信息——<b>MLCC 卡材料</b>（BaTiO₃ 晶粒尺寸）、<b>硅光发光卡材料</b>（硅是间接带隙）、<b>MOSFET 缩微卡物理结构</b>（短沟道效应）、<b>车规模块卡工艺</b>（认证与可靠性）。看清卡在哪一层，才知道它能不能被绕过、以及要绕多久。</p>
-<p style="margin-top:8px;color:#64748b;font-size:12px">说明：三类瓶颈是<b>可选槽位</b>——多数小节只卡在其中一两层，不强行凑齐。时间轴、产业格局、各国节点、事件详表、深度研究等<b>叙事类小节不套用此框架</b>。全站范式样本：<a href="#sec-mlcc">9.1 MLCC</a>（结构原理 → 材料下限 → 工艺矛盾 → 隐性劣化 → 品类对比）。</p>
+<p style="margin-top:8px;color:#64748b;font-size:12px">说明：三类瓶颈是<b>可选槽位</b>——多数小节只卡在其中一两层，不强行凑齐。时间轴、产业格局、各国节点、事件详表、深度研究等<b>叙事类小节不套用此框架</b>。全站范式样本：<a href="#sec-mlcc">9.2 MLCC</a>（结构原理 → 材料下限 → 工艺矛盾 → 隐性劣化 → 品类对比）。</p>
 </div></div></div>
 
 <hr style="margin:40px 0 40px;border:none;border-top:4px solid #7c3aed">
@@ -3225,7 +3227,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <td><b>🧪 材料 + ⚙️ 工艺</b><br><span style="font-size:11px;color:#b91c1c">没有「制程节点」这回事</span></td>
 <td>材料（BaTiO₃ 晶粒尺寸下限）+ 工艺（Ni 电极与陶瓷共烧矛盾）</td>
 <td>介质薄层化；BME 贱金属电极；叠层数</td>
-<td><a href="#sec-mlcc">9.1</a> <a href="#sec-rl">9.3</a></td></tr>
+<td><a href="#sec-mlcc">9.2</a> <a href="#sec-resistor">9.3</a></td></tr>
 
 </tbody></table>
 </div></div>
@@ -8727,7 +8729,104 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <div class="content">
 
-<h2 id="sec-mlcc">🧱 9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</h2>
+<h2 id="sec-capacitor">🔋 9.1 电容：原理与品类谱系</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（电容干什么活）→ 原理（C=εA/d 与三条增容路径）→ 品类对比（陶瓷/铝电解/钽/薄膜）→ 本质（没有全能电容）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+
+<div class="content">
+
+<div class="card" style="background:#fff7ed;border-left:4px solid #ea580c">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33">① 概念</span>电容在系统里干三件活，而不是一件</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>电容是个<b>水塔</b>。水泵（电源）出水时快时慢，水塔先存一部分，再平稳地供给用户（芯片）。水塔越大，越能抗住水泵的抖动；但水塔本身也占地方、也要钱。</p>
+<p style="margin-top:6px"><b>📖 是什么：</b>两块导体夹一层绝缘介质，加电压时两极板分别聚集等量异号电荷。它<b>不导通直流</b>（介质隔断），但<b>能传递交流</b>（电荷来回充放看起来像电流通过）。这一条特性派生出它的三种用法：</p>
+<div class="kv" style="margin-top:8px">
+<span><b>① 储能与稳压（去耦）：</b>芯片瞬间取大电流时，电源来不及响应，先由旁边的电容顶上——这是数字芯片周围密布小电容的原因</span>
+<span><b>② 滤波：</b>把直流上叠的交流纹波"抹平"（与电感配合构成 LC 滤波，见 <a href="#sec-inductor">9.5</a>）</span>
+<span><b>③ 隔直通交（耦合）：</b>只让信号的交流成分通过，挡住直流偏置</span>
+</div>
+<p style="margin-top:8px;color:#9a3412"><b>⚙️ 为什么要紧：</b>一块手机主板上电容数量常达<b>数百到上千颗</b>，一台电动车用量可达<b>约一万到两万颗</b>量级【业界】。单颗价格极低，但<b>数量、占板面积与失效率</b>直接决定整机成本与可靠性。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>📐 C = ε·A/d —— 一个公式决定了所有电容的工程路线</div>
+<div class="dsc">
+<p>平行板电容的容值由三个量决定：<b>介电常数 ε</b>（介质材料的"存电荷能力"）、<b>极板面积 A</b>、<b>极板间距 d</b>（即介质厚度）。</p>
+<p style="margin-top:8px;background:#eff6ff;padding:9px 13px;border-radius:7px;color:#1e40af;font-size:13.5px;text-align:center"><b>C = ε · A / d</b>　　容值 ∝ 介电常数 × 面积 ÷ 介质厚度</p>
+<p style="margin-top:8px"><b>要把容值做大，物理上只有三条路</b>——而这三条路各自撞上不同的墙，<b>正是四大品类分家的根源</b>：</p>
+<div class="kv" style="margin-top:8px">
+<span><b>路线 A · 加大面积：</b>叠层（MLCC 叠几百层）或把箔卷起来（薄膜、铝电解）或做成多孔海绵（钽、铝电解的蚀刻箔）</span>
+<span><b>路线 B · 减薄介质：</b>介质越薄容值越大，但<b>耐压同步下降</b>，且薄到一定程度会撞上材料的晶粒尺寸下限 → 见 <a href="#sec-mlcc">9.2</a></span>
+<span><b>路线 C · 提高介电常数：</b>换高 ε 材料。空气 ε≈1、聚合物薄膜 ε≈2–3、<b>BaTiO₃ 铁电陶瓷 ε 可达数千</b>——这就是陶瓷电容能小体积大容值的根本原因</span>
+</div>
+<p style="margin-top:10px;background:#fff7ed;padding:8px 12px;border-radius:6px;color:#9a3412"><b>⚠️ 但高 ε 是有代价的：</b>BaTiO₃ 的高介电常数来自<b>铁电性</b>，而铁电材料的 ε <b>本身随温度和电压变化</b>。所以陶瓷电容天生有<b>温漂与直流偏压衰减</b>——这不是做工问题，是选了高 ε 路线的必然代价（明细见 <a href="#sec-mlcc">9.2</a> 的四项隐性劣化）。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233">⑤ 对比</span>🌳 四大品类谱系：为什么没有一种电容能通吃</div>
+<div class="dsc">
+<p>电容按<b>介质材料</b>分成四大族。每一族选了不同的增容路线，于是各自占住一个生态位——<b>关键差异往往不在容值，而在「怎么失效」</b>。</p>
+
+<table class="node-table nopad" style="margin-top:10px"><thead><tr>
+<th style="width:13%">品类</th><th style="width:13%">介质与增容路线</th><th style="width:12%">容值区间</th><th style="width:13%">优势</th><th style="width:17%">软肋 / 失效机理</th><th>典型用途</th>
+</tr></thead><tbody>
+<tr><td class="hl">陶瓷电容<br>（含 <b>MLCC</b>）</td>
+<td>BaTiO₃ 等高 ε 陶瓷<br>叠层增面积</td>
+<td>pF ~ 数百 µF</td>
+<td><b>体积最小、ESR/ESL 最低、无液态成分故寿命长</b></td>
+<td>温漂、直流偏压衰减、<b>机械应力易开裂</b>、容值随老化下降</td>
+<td>高频去耦、旁路、绝大多数板载场景</td></tr>
+<tr><td class="hl">铝电解电容</td>
+<td>氧化铝薄膜<br>蚀刻箔增面积 + 卷绕</td>
+<td>µF ~ 数万 µF</td>
+<td><b>单位成本最低、大容值最便宜</b></td>
+<td><b>电解液会干涸</b> → 寿命有明确上限（温度每升 10℃ 寿命约减半）、ESR 偏高</td>
+<td>电源输入输出大容量滤波</td></tr>
+<tr><td class="hl">钽电解电容</td>
+<td>五氧化二钽<br>多孔钽粉增面积</td>
+<td>µF ~ 数百 µF</td>
+<td>体积小于铝电解、容值稳定、<b>无干涸问题</b></td>
+<td><b>失效模式可能是短路并燃烧</b>（需限流设计）、钽资源与价格风险</td>
+<td>对体积敏感又要中大容值的场合</td></tr>
+<tr><td class="hl">薄膜电容</td>
+<td>聚丙烯 / 聚酯薄膜<br>卷绕或叠层</td>
+<td>nF ~ 百 µF</td>
+<td><b>耐压高、损耗极低、有自愈性、寿命不依赖电解液</b></td>
+<td>体积大、单位容值成本高</td>
+<td>高压高可靠：车载 DC-Link、逆变器、OBC</td></tr>
+</tbody></table>
+
+<p style="margin-top:10px"><b>🔑 为什么 MLCC 成了绝对主力：</b>它在<b>体积、高频特性、寿命机理</b>三项上同时占优——没有电解液所以不存在干涸寿命上限，ESR/ESL 最低所以能贴在芯片旁边做高频去耦，叠层工艺成熟所以单价极低。代价就是那些<b>隐性劣化</b>（数据手册上的容值未必是你实际拿到的）。<b>所以 9.2 单独拆出来讲 MLCC，讲的不是"电容"，而是"为什么这一类能做到这么小、以及它为此付出了什么"。</b></p>
+</div></div>
+
+<div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933">⑥ 本质</span>🎯 选电容的本质：不是挑容值，是挑失效方式</div>
+<div class="dsc">
+<p>初学者选电容看容值和耐压，工程上真正决定成败的是另外两件事：<b>在你的工作条件下实际还剩多少容值</b>，以及<b>它以什么方式失效</b>。</p>
+<div class="kv" style="margin-top:8px">
+<span class="warn"><b>容值是"条件值"不是"标称值"：</b>陶瓷电容在直流偏压与高温下容值会显著下降，标称 10µF 实测可能只剩一半量级【业界】 → 明细见 <a href="#sec-mlcc">9.2</a></span>
+<span class="warn"><b>失效方式决定能不能用：</b>铝电解<b>干涸</b>（可预测的寿命上限）、钽<b>可能短路燃烧</b>（需限流）、陶瓷<b>机械开裂</b>（板弯应力）、薄膜<b>自愈</b>（最温和）</span>
+<span class="good"><b>所以车载高压场景偏好薄膜：</b>不是因为它容值密度高（恰恰相反），而是因为它<b>寿命不依赖电解液、具备自愈性、失效温和</b>——这是「按失效方式选型」最典型的例子</span>
+</div>
+<p style="margin-top:10px;background:#fef3c7;padding:8px 12px;border-radius:6px;color:#92400e"><b>🔑 一句话：</b>电容这个品类里<b>不存在全能选手</b>——C=εA/d 的三条增容路径各自撞上不同的墙（耐压、寿命、体积、成本），于是分化出四大族。<b>选型的本质是在「体积 × 寿命 × 成本 × 失效温和度」四个维度上做取舍，容值只是入场券。</b></p>
+</div></div>
+
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>其他电容家族：寿命机理决定了它们各自的归属</div>
+<div class="dsc">
+<table class="node-table nopad"><thead><tr><th style="width:17%">类型</th><th style="width:24%">特点</th><th>寿命与失效机理</th></tr></thead>
+<tbody>
+<tr><td class="hl">铝电解</td><td>容量大、单位成本低、ESR 较高</td><td><b>电解液随时间蒸发干涸</b> → 容量下降、ESR 上升。遵循约「温度每降 10 °C 寿命翻倍」的经验规则（阿伦尼乌斯近似）</td></tr>
+<tr><td class="hl">固态/导电聚合物</td><td>ESR 低、高频性能好</td><td>用固态导电聚合物替代液态电解液，寿命受温度影响小得多</td></tr>
+<tr><td class="hl">钽电容</td><td>体积效率高、稳定</td><td><b>失效模式需重视</b>——特定条件下可能剧烈失效（燃烧风险），因此常需降额与限流设计</td></tr>
+<tr><td class="hl">薄膜电容<br><span style="font-weight:400;font-size:11px">PP/PET</span></td><td>耐高压、损耗低、<b>具自愈性</b></td><td>局部击穿时金属镀层蒸发形成隔离，<b>自动恢复绝缘</b>——这是它在高压场合的关键优势</td></tr>
+<tr><td class="hl">超级电容</td><td>容量极大、功率密度高</td><td>介于电容与电池之间，用于短时大功率缓冲</td></tr>
+</tbody></table>
+<p style="margin-top:8px;background:#f0f9ff;padding:8px 12px;border-radius:6px;color:#075985"><b>🔑 为什么车载直流母线多用薄膜电容而非铝电解：</b>母线要承受高压与大纹波电流，而薄膜电容<b>耐压高、损耗低、寿命不依赖电解液、且具备自愈性</b>；铝电解的电解液干涸机理在车用长寿命与高温要求下风险较高。<b>这是一个由「寿命机理」而非「容量密度」决定的选型。</b>【业界】</p>
+</div></div>
+</div>
+
+<h2 id="sec-mlcc">🧱 9.2 MLCC：把几百个电容叠进一粒米大小的陶瓷里</h2>
 <div class="skel"><b>🧭 本节讲法</b><span class="path">原理（叠层结构）→ 材料瓶颈（晶粒下限）→ 工艺瓶颈（Ni/BaTiO₃ 矛盾）→ 隐性劣化 → 品类对比</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="anim-card">
@@ -8929,21 +9028,9 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 
-<div class="card">
-<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>其他电容家族：寿命机理决定了它们各自的归属</div>
-<div class="dsc">
-<table class="node-table nopad"><thead><tr><th style="width:17%">类型</th><th style="width:24%">特点</th><th>寿命与失效机理</th></tr></thead>
-<tbody>
-<tr><td class="hl">铝电解</td><td>容量大、单位成本低、ESR 较高</td><td><b>电解液随时间蒸发干涸</b> → 容量下降、ESR 上升。遵循约「温度每降 10 °C 寿命翻倍」的经验规则（阿伦尼乌斯近似）</td></tr>
-<tr><td class="hl">固态/导电聚合物</td><td>ESR 低、高频性能好</td><td>用固态导电聚合物替代液态电解液，寿命受温度影响小得多</td></tr>
-<tr><td class="hl">钽电容</td><td>体积效率高、稳定</td><td><b>失效模式需重视</b>——特定条件下可能剧烈失效（燃烧风险），因此常需降额与限流设计</td></tr>
-<tr><td class="hl">薄膜电容<br><span style="font-weight:400;font-size:11px">PP/PET</span></td><td>耐高压、损耗低、<b>具自愈性</b></td><td>局部击穿时金属镀层蒸发形成隔离，<b>自动恢复绝缘</b>——这是它在高压场合的关键优势</td></tr>
-<tr><td class="hl">超级电容</td><td>容量极大、功率密度高</td><td>介于电容与电池之间，用于短时大功率缓冲</td></tr>
-</tbody></table>
-<p style="margin-top:8px;background:#f0f9ff;padding:8px 12px;border-radius:6px;color:#075985"><b>🔑 为什么车载直流母线多用薄膜电容而非铝电解：</b>母线要承受高压与大纹波电流，而薄膜电容<b>耐压高、损耗低、寿命不依赖电解液、且具备自愈性</b>；铝电解的电解液干涸机理在车用长寿命与高温要求下风险较高。<b>这是一个由「寿命机理」而非「容量密度」决定的选型。</b>【业界】</p>
-</div></div>
 
-<h2 id="sec-mlcc-supply">🚚 9.2 MLCC 供应链：为什么它反复成为断供震中</h2>
+
+<h2 id="sec-mlcc-supply">🚚 9.3 MLCC 供应链：为什么它反复成为断供震中</h2>
 <div class="skel"><b>🧭 本节讲法</b><span class="path">本质判断（材料比设备更卡）→ 材料瓶颈成因 → 口径对比</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card" style="background:#fef2f2;border-left:4px solid #dc2626">
@@ -8997,31 +9084,22 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 
-<h2 id="sec-rl">🔧 9.3 电阻与电感：两个被忽略但同样有门槛的品类</h2>
-<div class="skel"><b>🧭 本节讲法</b><span class="path">概念+原理（阻值 ρL/A、自感来自反电动势）→ 物理结构瓶颈（四端测量）→ 工艺对比（四个精度档）→ 材料瓶颈（磁芯饱和）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
-<div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
-<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先弄清：电阻的阻值、电感的自感，到底从哪来</div>
-<div class="dsc">
-<p>电阻和电感常被当成"没什么技术含量"的元件，但要看懂后面的四线测量陷阱和直流叠加陷阱，得先回到最基本的问题：<b>它们的核心参数是怎么由物理决定的，以及为什么理想的它们并不存在。</b></p>
+<h2 id="sec-resistor">🔧 9.4 电阻：四种工艺，四个精度档位</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念+原理（阻值 ρL/A 来自晶格散射）→ 物理结构瓶颈（四端测量）→ 工艺对比（四个精度档）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
-<h3>① 电阻：阻值来自载流子被晶格散射</h3>
+<div class="content">
+<div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先弄清：电阻的阻值到底从哪来</div>
+<div class="dsc">
+<p>电阻常被当成"没什么技术含量"的元件，但要看懂后面的四线测量陷阱，得先回到最基本的问题：<b>它的核心参数是怎么由物理决定的，以及为什么理想的它并不存在。</b></p>
+
+<h3>电阻：阻值来自载流子被晶格散射</h3>
 <p><b>电阻（Resistor）</b>的活是限制电流、分压、做电流采样。它的阻值不是凭空规定的，而是材料物理的直接结果：<b>R = ρ · L / A</b>。载流子（电子）在导体里被电场推着走，却不断撞上振动的晶格原子和杂质，每次碰撞损失动量——这种<b>散射</b>就是电阻的微观来源。式中 ρ 是材料的电阻率（由散射强度决定），L 是长度，A 是横截面积：路越长、越细，电子越难通过，阻值越大。</p>
 <p><b>"理想电阻"不存在</b>：晶格振动随温度加剧，散射变强，所以阻值随温度漂（温度系数 TCR）；电阻体和引线还带有寄生电感、极间寄生电容，频率一高就不再是纯电阻。选电阻从来不是只看标称阻值，而是看阻值精度、TCR、长期漂移和高频行为——这正是下面"四种工艺四个精度档位"要展开的。</p>
 
-<h3>② 电感：自感来自变化电流激起的反电动势</h3>
-<p><b>电感（Inductor）</b>的活是储存磁场能量、滤波、抗电流突变。它的核心参数<b>自感 L</b> 的物理来源是电磁感应：电流流过线圈产生磁通，<b>电流一变化，磁通就跟着变，变化的磁通又感应出一个反向电动势去反抗这个变化</b>（楞次定律）。自感的定义就是 <b>L = N·Φ / I</b>（N 为匝数、Φ 为每匝磁通），单位是<b>亨利（Henry, H）</b>。绕的匝数越多、磁芯导磁能力（磁导率 μ）越强，同样电流激起的磁通越多，L 越大。</p>
-<p>这里有一个漂亮的<b>对偶关系</b>值得记住：</p>
-<div class="kv">
-<span class="good">电感 → 抗拒"电流"的变化（电流不能突变）</span>
-<span class="good">电容 → 抗拒"电压"的变化（电压不能突变）</span>
-</div>
-<p>两者互为镜像：电感把能量存在磁场里、靠反电动势顶住电流突变；电容把能量存在电场里、靠积累电荷顶住电压突变。这也解释了为什么开关电源里电感和电容总是成对出现——一个稳电流、一个稳电压，合起来才能把脉冲抹成平滑直流。</p>
-
-<p style="background:#dcfce7;padding:8px 12px;border-radius:6px;color:#14532d"><b>本质一句话：</b>电阻的阻值是载流子被晶格散射的宏观结果（ρ·L/A），电感的自感是变化电流激起反电动势的度量（L=NΦ/I）；前者抗拒电流通过、后者抗拒电流变化，而且都没有"理想版本"——寄生参数与磁芯饱和随时会让它们偏离标称。</p>
-
-<p style="margin-top:8px;color:#475569">正因为阻值和自感都是物理量而非固定数字，工程上才有那么多坑：下面先看毫欧级电阻为什么必须用四端 Kelvin 接法测量、电阻的四种工艺档位，再看电感在直流叠加下自感量"凭空消失"（磁芯饱和使 μ 下降）的选型陷阱。</p>
+<p style="background:#dcfce7;padding:8px 12px;border-radius:6px;color:#14532d"><b>本质一句话：</b>电阻的阻值是载流子被晶格散射的宏观结果（ρ·L/A），它抗拒电流通过，而且没有"理想版本"——寄生参数与温漂随时会让它偏离标称。</p>
+<p style="margin-top:8px;color:#475569">正因为阻值是物理量而非固定数字，工程上才有那么多坑：下面先看毫欧级电阻为什么必须用四端 Kelvin 接法测量，再看电阻的四种工艺档位。</p>
 </div></div>
-
 
 <div class="anim-card">
 <div class="at"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 物理结构瓶颈</span>📐 分流电阻的四端 Kelvin 连接：为什么两端测量必然错</div>
@@ -9082,6 +9160,27 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <tr><td class="hl">绕线</td><td>精度高、但有电感</td><td>功率与精密低频场合；高频下寄生电感是问题</td></tr>
 </tbody></table>
 </div></div>
+</div>
+
+<h2 id="sec-inductor">🧲 9.5 电感：自感、磁芯与饱和</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念+原理（自感来自反电动势、与电容对偶）→ 材料瓶颈（磁芯饱和使 L 下降）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+
+<div class="content">
+<div class="card" style="background:#f0fdf4;border-left:4px solid #16a34a">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先弄清：电感的自感到底从哪来</div>
+<div class="dsc">
+<h3>电感：自感来自变化电流激起的反电动势</h3>
+<p><b>电感（Inductor）</b>的活是储存磁场能量、滤波、抗电流突变。它的核心参数<b>自感 L</b> 的物理来源是电磁感应：电流流过线圈产生磁通，<b>电流一变化，磁通就跟着变，变化的磁通又感应出一个反向电动势去反抗这个变化</b>（楞次定律）。自感的定义就是 <b>L = N·Φ / I</b>（N 为匝数、Φ 为每匝磁通），单位是<b>亨利（Henry, H）</b>。绕的匝数越多、磁芯导磁能力（磁导率 μ）越强，同样电流激起的磁通越多，L 越大。</p>
+<p>这里有一个漂亮的<b>对偶关系</b>值得记住：</p>
+<div class="kv">
+<span class="good">电感 → 抗拒"电流"的变化（电流不能突变）</span>
+<span class="good">电容 → 抗拒"电压"的变化（电压不能突变）</span>
+</div>
+<p>两者互为镜像：电感把能量存在磁场里、靠反电动势顶住电流突变；电容把能量存在电场里、靠积累电荷顶住电压突变（电容一侧见 <a href="#sec-capacitor">9.1</a>）。这也解释了为什么开关电源里电感和电容总是成对出现——一个稳电流、一个稳电压，合起来才能把脉冲抹成平滑直流。</p>
+
+<p style="background:#dcfce7;padding:8px 12px;border-radius:6px;color:#14532d"><b>本质一句话：</b>电感的自感是变化电流激起反电动势的度量（L=NΦ/I），它抗拒电流<b>变化</b>；同样没有"理想版本"——磁芯饱和随时会让自感量偏离标称。</p>
+<p style="margin-top:8px;color:#475569">下面看电感在直流叠加下自感量"凭空消失"（磁芯饱和使 μ 下降）的选型陷阱。</p>
+</div></div>
 
 <div class="anim-card">
 <div class="at"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 材料瓶颈</span>🧲 电感的选型陷阱：直流叠加会让电感量「凭空消失」</div>
@@ -9128,8 +9227,9 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <text x="58" y="224" font-size="9" fill="#4c1d95">代价是磁芯损耗通常高于铁氧体。图为机理示意，非具体牌号数据。【业界】</text>
 </svg>
 </div>
+</div>
 
-<h2 id="sec-passive-pattern">🌐 9.4 产业格局：一段材料史与五次转折</h2>
+<h2 id="sec-passive-pattern">🌐 9.6 产业格局：一段材料史与五次转折</h2>
 
 <div class="card-row-3 dense">
 
@@ -9151,7 +9251,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="card"><span class="tag tj">日</span><span class="yr">1990s—2000s</span>
 <div class="ttl">成本重构：贱金属内电极 BME 产业化</div>
 <div class="by">内电极从 Pd/Ag 贵金属改为 Ni 镍</div>
-<div class="dsc"><p>贵金属内电极让 MLCC 成本长期受钯、银价格绑架。<b>BME 的产业化彻底改写成本结构</b>，代价是必须驾驭「Ni 不能氧化 / BaTiO₃ 不能缺氧」这对矛盾（见 9.1）。<b>格局：</b>掌握 BME 配方与烧结窗口的厂商拉开身位。</p></div></div>
+<div class="dsc"><p>贵金属内电极让 MLCC 成本长期受钯、银价格绑架。<b>BME 的产业化彻底改写成本结构</b>，代价是必须驾驭「Ni 不能氧化 / BaTiO₃ 不能缺氧」这对矛盾（见 9.2）。<b>格局：</b>掌握 BME 配方与烧结窗口的厂商拉开身位。</p></div></div>
 
 <div class="card"><span class="tag tj">日</span><span class="tag tc">中</span><span class="yr">2016—2026</span>
 <div class="ttl">缺货周期 → 高端转向车规 → AI 与电动车再拉动</div>
@@ -9500,27 +9600,27 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 <h3 id="gl-9" style="border-left:4px solid #ea580c;padding-left:10px;margin-top:34px">🧱 被动器件 <span style="font-size:12px;color:#94a3b8;font-weight:600">21 条 · MLCC · 电阻电感</span></h3>
 <div class="term-grid">
-<div class="term" id="t-x7r-x5r-c0g" data-term="X7R/X5R/C0G|X7R / X5R / C0G"><div class="term-h"><b>X7R/X5R/C0G</b><span class="term-en">X7R / X5R / C0G</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>陶瓷电容的&quot;性格标签&quot;:C0G 最稳定但容值小,适合精密电路;X7R/X5R 容值大但会随温度变化,适合一般滤波去耦。选电容先看这几个字母。</div><div class="term-l2"><b>📖 是什么</b>陶瓷电容的温度特性分类代码。它们不是容值——这些代码描述容值随温度的变化行为:C0G(Ⅰ类,极稳)、X7R/X5R(Ⅱ类,容值大但温漂大)。</div><div class="term-l3"><b>🔬 专业</b>C0G(NP0):±30ppm/℃,极稳、低介、容值小。X7R:-55~125℃ 内±15%;X5R:-55~85℃ 内±15%,容值大但随温度/电压变化。字母含义:温度范围+容值变化率编码(EIA 标准)。</div><div class="term-l4"><b>💡 本质</b>它们是&quot;稳定 vs 容值&quot;取舍的标准化命名——把介质材料的物理妥协编成几个字母,让工程师一眼选型,背后是Ⅰ类顺电与Ⅱ类铁电的本质分野。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-permittivity" data-term="介电常数|Permittivity / Dielectric Constant"><div class="term-h"><b>介电常数</b><span class="term-en">Permittivity / Dielectric Constant</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>衡量一种绝缘材料&quot;储存电场能力&quot;的强弱。同样大小的电容,用介电常数高的材料做夹心,就能存更多电荷、做出更大容值。它是电容选材的核心参数。</div><div class="term-l2"><b>📖 是什么</b>材料储存电场能量能力的量度。它不是电阻率——介电常数衡量绝缘材料储电场的本领(决定容值),电阻率衡量导电难易,二者是绝缘体的不同属性。</div><div class="term-l3"><b>🔬 专业</b>相对介电常数εr(无量纲),容值正比于它。C0G 类材料εr 低但极稳定,X7R/高介材料εr 高(容值大)但随温度/电压变化大。是容值密度与稳定性权衡的物质根源。</div><div class="term-l4"><b>💡 本质</b>它是电容&quot;容值&quot;与&quot;稳定性&quot;矛盾的物质源头——介电常数越高越能小体积做大容值,但高介材料天生不稳定,这个取舍贯穿所有陶瓷电容的分类。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-power-inductor" data-term="功率电感|Power Inductor"><div class="term-h"><b>功率电感</b><span class="term-en">Power Inductor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>专门用在电源电路里、能扛大电流的电感。开关电源靠它反复储存和释放能量来变电压。它要在大电流下不&quot;饱和失效&quot;、还要少发热,是电源模块里的关键大件。</div><div class="term-l2"><b>📖 是什么</b>面向大电流电源应用的电感。它不是信号电感——功率电感强调大饱和电流、低损耗、耐发热,信号电感强调高 Q、精确感值,用于滤波/匹配。</div><div class="term-l3"><b>🔬 专业</b>关注饱和电流、DCR、磁芯损耗、温升、体积。用于 DC-DC 储能滤波。磁芯需在大电流下不饱和,合金粉末芯、一体成型是主流。是电源效率与体积的关键约束。</div><div class="term-l4"><b>💡 本质</b>它是开关电源的&quot;储能心脏&quot;——效率、体积、发热很大程度由它决定,饱和电流和损耗的权衡,直接框定了电源模块能做多小多高效。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-thick-film-resistor" data-term="厚膜电阻|Thick Film Resistor"><div class="term-h"><b>厚膜电阻</b><span class="term-en">Thick Film Resistor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>用印刷的方式把较厚的电阻浆料烧结在基板上做成的电阻。工艺简单、便宜、能扛较大功率,是消费电子里用量最大的电阻,但精度和稳定性不如薄膜。</div><div class="term-l2"><b>📖 是什么</b>用印刷烧结厚膜浆料制成的电阻。它不是薄膜电阻——厚膜成本低、耐功率、量大,但精度/温漂/噪声差;薄膜精密但贵、功率小。</div><div class="term-l3"><b>🔬 专业</b>膜厚微米级,精度通常±1~5%、TCR 较大(±100~250ppm/℃)、噪声较高。工艺简单、成本低、可承受较大功率与浪涌。是片式电阻(如 0402/0603)的主流,消费电子海量使用。</div><div class="term-l4"><b>💡 本质</b>它是电阻界的&quot;平价主力&quot;——牺牲精度换成本和产量,与薄膜恰好互补,证明被动器件的选型永远是&quot;够用即最优&quot;的经济学。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-q-factor" data-term="品质因数|Quality Factor|Q"><div class="term-h"><b>品质因数</b><span class="term-en">Quality Factor (Q)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>衡量一个电感或电容&quot;有多接近理想、损耗有多小&quot;的指标。Q 越高,储存的能量相对损耗的能量越多,做谐振、滤波、射频匹配时性能越好、越&quot;尖锐&quot;。</div><div class="term-l2"><b>📖 是什么</b>储能与耗能之比,衡量元件损耗高低。它不是感值/容值——Q 衡量元件的&quot;纯净度&quot;(损耗小则 Q 高),感值容值是储能大小,是不同维度。</div><div class="term-l3"><b>🔬 专业</b>Q=储能/每周期耗能=ωL/R(电感)。Q 越高,谐振越尖锐、插损越小、滤波选择性越好。受寄生电阻、磁芯损耗、频率影响。射频匹配、谐振电路对高 Q 要求高。</div><div class="term-l4"><b>💡 本质</b>它是被动元件的&quot;纯度评分&quot;——理想元件只储能不耗能(Q 无穷),现实总有损耗,Q 值把这份&quot;不完美&quot;量化,是射频与谐振世界最看重的品质指标。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-mlcc" data-term="多层陶瓷电容|Multilayer Ceramic Capacitor|MLCC"><div class="term-h"><b>多层陶瓷电容</b><span class="term-en">Multilayer Ceramic Capacitor (MLCC)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>把很多层薄陶瓷和金属电极交替叠起来做成的小电容,像千层饼。这样在极小体积里塞进很大容值,又便宜又耐用,是电子产品里用量最大的元件,一部手机上千颗。</div><div class="term-l2"><b>📖 是什么</b>多层陶瓷介质与电极叠层的片式电容。它不是电解电容——MLCC 体积小、寿命长、无极性、高频好,电解电容容值大但有寿命、有极性、高频差。</div><div class="term-l3"><b>🔬 专业</b>数百层陶瓷+内电极并联,单颗容值 pF~百μF。关注容值、温度特性(X7R/C0G)、直流偏压效应、可靠性。工艺壁垒在超薄介质层(亚微米)、电极材料(BME)、共烧一致性。日系厂商领先。</div><div class="term-l4"><b>💡 本质</b>它是被动器件里&quot;体积-容值-成本&quot;优化的巅峰——用叠层把三者逼到极致,看似平价,超薄介质与共烧工艺却是难以复制的深壁垒,战略地位常被低估。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-cap-temp-char" data-term="容值温度特性|Capacitance Temperature Characteristic"><div class="term-h"><b>容值温度特性</b><span class="term-en">Capacitance Temperature Characteristic</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电容的容值不是一成不变,会随温度升降而变化。有的电容很稳、几乎不变(适合精密),有的温度一变容值就飘(只能做粗活)。选型必须看它在工作温度范围内稳不稳。</div><div class="term-l2"><b>📖 是什么</b>容值随温度变化的行为。它不是直流偏压特性——温度特性是容值随温度变化,直流偏压特性是容值随施加电压变化,二者是不同的容值衰减来源。</div><div class="term-l3"><b>🔬 专业</b>由介质材料决定:C0G 近乎零温漂,X7R 全温区±15%,Y5V 可达+22%/-82%。铁电Ⅱ类材料因居里点、畴变导致强温度依赖。精密应用选Ⅰ类,容值优先选Ⅱ类。</div><div class="term-l4"><b>💡 本质</b>它揭示了陶瓷电容&quot;标称容值只是名义值&quot;——真实容值随环境浮动,尤其Ⅱ类介质,不看温度特性直接用标称值,精密电路会栽跟头。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-tcr" data-term="温度系数（电阻温漂）|Temperature Coefficient of Resistance|TCR"><div class="term-h"><b>温度系数（电阻温漂）</b><span class="term-en">Temperature Coefficient of Resistance (TCR)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电阻的阻值会随温度变化而漂移。TCR 就是衡量&quot;温度每变一度,阻值漂多少&quot;的指标。做精密电路时希望它越小越好,否则一发热测量就不准了。</div><div class="term-l2"><b>📖 是什么</b>电阻值随温度变化的比率。它不是精度——精度是常温下阻值的准确度,TCR 是阻值随温度漂移的速率,精密电阻要求两者都好。</div><div class="term-l3"><b>🔬 专业</b>单位 ppm/℃。薄膜可低至几 ppm/℃,厚膜常±100~250ppm/℃。源于导电材料本征温度依赖。精密基准、分压网络对 TCR 极敏感,匹配 TCR(相对温漂)有时比绝对 TCR 更重要。</div><div class="term-l4"><b>💡 本质</b>它是电阻&quot;稳不稳&quot;的核心指标——常温再准,一发热就漂也没用,TCR 决定了电阻在真实工作温度下能否守住精度,是精密与普通电阻的分水岭。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-capacitor" data-term="电容|Capacitor"><div class="term-h"><b>电容</b><span class="term-en">Capacitor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>一个能&quot;暂存电荷&quot;的小水库:充电时存进电荷、放电时放出。电路里用它稳定电压、滤掉波动、隔断直流。就像给电路装了个缓冲蓄水池。</div><div class="term-l2"><b>📖 是什么</b>以电场储存电荷的被动元件。它不是电池——电容储电量小但充放极快、可反复无限次,电池储能大但充放慢、有寿命,二者储能机理不同。</div><div class="term-l3"><b>🔬 专业</b>容值 C=εA/d(介电常数×面积÷极板间距)。用于滤波、去耦、储能、隔直。关注容值、耐压、ESR、ESL、温度/直流偏压特性。MLCC 是用量最大的类型。</div><div class="term-l4"><b>💡 本质</b>它的本质是&quot;用电场存电荷&quot;的时间缓冲——电路里凡是需要&quot;稳一稳、缓一缓、隔一隔&quot;的地方都用它,是模拟与电源世界最基础的调节手段。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-inductor" data-term="电感|Inductor"><div class="term-h"><b>电感</b><span class="term-en">Inductor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>一段绕成线圈的导线,通电时会储存磁场能量。它&quot;抗拒电流突变&quot;,电流想变它就顶一下,所以用来平滑电流、滤波、在开关电源里储能搬运。</div><div class="term-l2"><b>📖 是什么</b>以磁场储存能量、阻碍电流变化的元件。它不是电容——电感储磁场、抗电流突变、通直流阻交流;电容储电场、抗电压突变、隔直流通交流,二者行为互补对偶。</div><div class="term-l3"><b>🔬 专业</b>感值 L,储能 ½LI²,阻抗随频率上升。关注感值、饱和电流、直流电阻(DCR)、Q 值、磁芯损耗。用于滤波、储能(DC-DC)、EMI 抑制。磁芯材料与结构决定性能上限。</div><div class="term-l4"><b>💡 本质</b>它是电容的&quot;对偶伴侣&quot;——一个管电场一个管磁场,一个抗电压突变一个抗电流突变,开关电源正是靠电感储能搬运才实现高效变压。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-resistor" data-term="电阻|Resistor"><div class="term-h"><b>电阻</b><span class="term-en">Resistor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>最基础的元件,作用是&quot;阻挡&quot;电流、按比例分配电压,通过时把一部分电能变成热。电路里用它限流、分压、设定工作点,无处不在。</div><div class="term-l2"><b>📖 是什么</b>按欧姆定律限制电流、耗散能量的元件。它不是电容/电感——电阻耗能(把电变热、不储能),电容电感储能(储电场/磁场、不耗能),是被动器件里唯一&quot;纯耗能&quot;的。</div><div class="term-l3"><b>🔬 专业</b>阻值 R,遵循 V=IR,功耗 I²R。关注阻值精度、功率、温漂(TCR)、噪声。分薄膜(精密)、厚膜(耐功率成本低)、绕线等。看似简单,精密电阻的稳定性与匹配是技术活。</div><div class="term-l4"><b>💡 本质</b>它是电路的&quot;节流阀&quot;——用可控的耗能来限流分压,是最朴素也最不可替代的元件,&quot;简单&quot;的表象下,精密与稳定同样是硬功夫。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-dc-bias" data-term="直流偏压特性|DC Bias Characteristic|DC Bias"><div class="term-h"><b>直流偏压特性</b><span class="term-en">DC Bias Characteristic (DC Bias)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>一个容易被忽略的坑:高介陶瓷电容在加上直流工作电压后,实际容值会大幅缩水,有时只剩标称的一半甚至更少。设计电源时如果按标称值算,可能严重不够用。</div><div class="term-l2"><b>📖 是什么</b>容值随施加直流电压下降的现象。它不是温度特性——直流偏压效应是电压导致容值衰减,温度特性是温度导致变化,高介Ⅱ类电容两者都严重。</div><div class="term-l3"><b>🔬 专业</b>铁电介质在直流电场下极化受抑,介电常数下降,容值可衰减 50%以上(小尺寸大容值件尤甚)。C0G 几乎无此效应。选型需查偏压曲线、留足裕量,是电源去耦设计常见陷阱。</div><div class="term-l4"><b>💡 本质</b>它是 MLCC 最隐蔽的&quot;缩水陷阱&quot;——数据手册标称容值是零偏压值,一上工作电压就打折,不懂这点的设计会莫名其妙容量不足,是经验与教训的分水岭。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-magnetic-core" data-term="磁芯|Magnetic Core"><div class="term-h"><b>磁芯</b><span class="term-en">Magnetic Core</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电感线圈中间那块磁性材料。它能&quot;聚拢&quot;磁场,让同样的线圈储存更多磁能、做出更大感值。选什么磁芯材料,直接决定电感能扛多大电流、损耗多少。</div><div class="term-l2"><b>📖 是什么</b>增强电感磁场的磁性材料芯体。它不是线圈——磁芯是聚磁的材料(决定感值密度和饱和),线圈是导电的绕线(产生磁场),二者共同构成电感。</div><div class="term-l3"><b>🔬 专业</b>材料有铁氧体、铁粉、合金粉末、非晶等,各有磁导率、饱和磁通密度、损耗特性。磁芯决定感值密度、饱和电流、频率适用范围与损耗。是电感性能的物质基础。</div><div class="term-l4"><b>💡 本质</b>它是电感的&quot;性能地基&quot;——同样线圈换不同磁芯,能扛的电流和损耗天差地别,磁芯材料的选择本质是在磁导率、饱和、损耗三者间找平衡。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-core-saturation" data-term="磁芯饱和|Core Saturation"><div class="term-h"><b>磁芯饱和</b><span class="term-en">Core Saturation</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>磁芯储磁能力有上限。电流大到一定程度,磁芯&quot;存满了&quot;再也存不下,此时电感值急剧下降、几乎失效,电流会失控飙升,可能烧毁电路。这是功率电感必须避开的红线。</div><div class="term-l2"><b>📖 是什么</b>磁芯磁通达到极限后磁导率骤降的现象。它不是过流——饱和是磁芯材料层面的物理极限(感值崩塌),过流是电流超额定,饱和往往由过大电流触发。</div><div class="term-l3"><b>🔬 专业</b>磁通密度达饱和值 Bsat 后,磁导率骤降、电感值大幅下跌、电流失控上升。饱和电流是功率电感关键额定值。设计需留裕量,合金粉末芯饱和特性较软(渐变)、更安全。</div><div class="term-l4"><b>💡 本质</b>它是电感的&quot;物理极限红线&quot;——磁芯能存的磁能有顶,越线电感就&quot;消失&quot;,电流失控,这条硬边界是功率电感选型时最不能忽视的安全约束。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-esl" data-term="等效串联电感|Equivalent Series Inductance|ESL"><div class="term-h"><b>等效串联电感</b><span class="term-en">Equivalent Series Inductance (ESL)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电容内部还藏着一点&quot;寄生电感&quot;,在高频下它会&quot;作对&quot;,让电容在超过某个频率后反而不像电容了。ESL 越低,电容能在越高的频率下正常工作。</div><div class="term-l2"><b>📖 是什么</b>电容内部等效的串联电感分量。它不是 ESR——ESL 是寄生电感(限制高频有效性),ESR 是寄生电阻(造成损耗),二者共同决定电容的真实高频行为。</div><div class="term-l3"><b>🔬 专业</b>由电极结构、引线、封装几何决定。使电容存在自谐振频率(SRF),超过后呈感性、去耦失效。低 ESL 封装(如反转端子、小尺寸)可推高 SRF。是高速去耦设计的关键。</div><div class="term-l4"><b>💡 本质</b>它划定了电容的&quot;高频天花板&quot;——超过自谐振点电容就&quot;变身&quot;电感,ESL 决定这个拐点在哪,芯片时钟越快,压低 ESL 就越关键。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-esr" data-term="等效串联电阻|Equivalent Series Resistance|ESR"><div class="term-h"><b>等效串联电阻</b><span class="term-en">Equivalent Series Resistance (ESR)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>真实电容不是完美的,内部藏着一点&quot;寄生电阻&quot;。电流反复充放时,这点电阻会发热、拖累性能。ESR 越低,电容在滤波、去耦时反应越干脆、发热越少。</div><div class="term-l2"><b>📖 是什么</b>电容内部等效的串联电阻分量。它不是绝缘电阻——ESR 是充放电路径上的损耗电阻(越低越好),绝缘电阻是介质漏电(越高越好),二者是不同寄生。</div><div class="term-l3"><b>🔬 专业</b>来源:电极、引线、介质损耗。影响纹波电流发热、去耦瞬态响应、开关电源效率。MLCC 的 ESR 远低于电解电容,故高频去耦优选 MLCC。是电源设计关键寄生参数。</div><div class="term-l4"><b>💡 本质</b>它是&quot;理想电容&quot;与现实的差距之一——纯电容不耗能,ESR 却让它发热损耗,在大电流纹波和高频场景,这点寄生电阻直接决定电容好不好用。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-thin-film-resistor" data-term="薄膜电阻|Thin Film Resistor"><div class="term-h"><b>薄膜电阻</b><span class="term-en">Thin Film Resistor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>在基板上溅射一层极薄的金属膜做成的电阻。膜薄而均匀,所以阻值精准、随温度变化极小、噪声低,适合精密测量电路。缺点是贵、能承受的功率小。</div><div class="term-l2"><b>📖 是什么</b>用薄金属膜(纳米级)制成的高精密电阻。它不是厚膜电阻——薄膜精度高、温漂小、噪声低但成本高、功率小;厚膜(印刷较厚)成本低、耐功率但精度温漂差。</div><div class="term-l3"><b>🔬 专业</b>膜厚约纳米级,阻值精度可达±0.01%、TCR 低至几 ppm/℃、低噪声。用激光修调精确定值。用于精密仪表、基准、传感器接口。成本高、功率承受有限。</div><div class="term-l4"><b>💡 本质</b>它是精密世界的&quot;标尺电阻&quot;——薄而均匀的膜换来极致的稳定和低噪声,与厚膜构成&quot;精密 vs 廉价耐用&quot;的分工,精度就是它的全部价值。</div><div class="term-ref">→ 详见 <a href="#sec-rl">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
-<div class="term" id="t-passive-component" data-term="被动器件|Passive Component"><div class="term-h"><b>被动器件</b><span class="term-en">Passive Component</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电路里那些自己不放大、不产生能量,只做&quot;存、挡、通、滤&quot;的基础元件,比如电阻、电容、电感。它们不起眼,但一块电路板上有成百上千个,少了谁都不行。</div><div class="term-l2"><b>📖 是什么</b>不提供增益、只被动响应电信号的元件。它不是有源器件——有源器件(晶体管)能放大/开关、需供电,被动器件(电阻/电容/电感)只储能或耗能、不放大。</div><div class="term-l3"><b>🔬 专业</b>三大类:电阻(耗能)、电容(储电场)、电感(储磁场)。关注精度、温漂、寄生参数、可靠性、体积。一块手机主板有上千颗,MLCC 尤其海量。看似简单,材料与制造壁垒不低。</div><div class="term-l4"><b>💡 本质</b>它是电路的&quot;沉默基建&quot;——不参与运算却无处不在,数量与可靠性直接决定整机成本和良率,&quot;简单&quot;的表象下藏着材料与工艺的深水区。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-bme" data-term="贱金属电极|Base Metal Electrode|BME"><div class="term-h"><b>贱金属电极</b><span class="term-en">Base Metal Electrode (BME)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>MLCC 内部电极过去用昂贵的钯银,现在改用便宜的镍来做,这就是贱金属电极。它大幅降低了成本,让 MLCC 能做到极致便宜和海量供应,但工艺更难。</div><div class="term-l2"><b>📖 是什么</b>用镍等贱金属做内电极的 MLCC 工艺。它不是 PME——BME 用便宜的镍/铜、成本低但需还原气氛共烧、抗还原介质,PME 用贵的钯/银、工艺简单但贵。</div><div class="term-l3"><b>🔬 专业</b>镍电极需在还原气氛下共烧(防氧化),介质须抗还原、防氧空位。成本远低于钯银,是现代高容 MLCC 主流。工艺难点在抗还原介质配方与共烧一致性。</div><div class="term-l4"><b>💡 本质</b>它是 MLCC 成本革命的关键一步——用镍替钯把材料成本砍到极低,代价是全套抗还原介质与共烧工艺,&quot;便宜&quot;的背后是一次不小的工艺跨越。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-pme" data-term="贵金属电极|Precious Metal Electrode|PME"><div class="term-h"><b>贵金属电极</b><span class="term-en">Precious Metal Electrode (PME)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>MLCC 内电极用钯、银等贵金属制造的传统做法。工艺相对简单、可靠,但金属太贵,成本高。如今高容量产品多已转向便宜的贱金属电极。</div><div class="term-l2"><b>📖 是什么</b>用钯/银等贵金属做内电极的 MLCC 工艺。它不是 BME——PME 工艺简单、可在空气中共烧,但贵金属成本高;BME 用镍/铜便宜但工艺复杂。</div><div class="term-l3"><b>🔬 专业</b>钯银电极可在氧化气氛共烧、对介质要求宽松,可靠性好。但贵金属价格波动大、成本高。多用于高可靠、军工、高频或小批量产品,大批量已让位 BME。</div><div class="term-l4"><b>💡 本质</b>它代表 MLCC 的&quot;传统高成本路线&quot;——用贵金属换工艺简单和可靠,在成本敏感的消费市场被 BME 取代,却在高可靠场景保留价值,是成本与可靠的分野。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
-<div class="term" id="t-ceramic-dielectric" data-term="陶瓷介质材料|Ceramic Dielectric Material"><div class="term-h"><b>陶瓷介质材料</b><span class="term-en">Ceramic Dielectric Material</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>MLCC 里那层&quot;千层饼馅&quot;用的陶瓷,决定了电容的容值大小和稳定性。不同配方的陶瓷,有的稳定但容值小,有的容值大但脾气差(随温度电压变化),各有用途。</div><div class="term-l2"><b>📖 是什么</b>陶瓷电容中储存电场的介质材料。它不是电极——介质是储电场的绝缘陶瓷(决定容值/稳定性),电极是导电金属层(收集电荷),二者交替叠成 MLCC。</div><div class="term-l3"><b>🔬 专业</b>以钛酸钡(BaTiO₃)等为基,通过配方调控介电常数与温度特性。分Ⅰ类(C0G,顺电、稳定、低介)、Ⅱ类(X7R/X5R,铁电、高介、易变)。晶粒尺寸、掺杂、烧结决定性能。是 MLCC 核心 know-how。</div><div class="term-l4"><b>💡 本质</b>它是 MLCC 的&quot;灵魂配方&quot;——同样的叠层结构,介质材料的配方差异直接决定电容脾气,这层陶瓷的材料科学正是日系厂商的护城河所在。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.1 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-x7r-x5r-c0g" data-term="X7R/X5R/C0G|X7R / X5R / C0G"><div class="term-h"><b>X7R/X5R/C0G</b><span class="term-en">X7R / X5R / C0G</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>陶瓷电容的&quot;性格标签&quot;:C0G 最稳定但容值小,适合精密电路;X7R/X5R 容值大但会随温度变化,适合一般滤波去耦。选电容先看这几个字母。</div><div class="term-l2"><b>📖 是什么</b>陶瓷电容的温度特性分类代码。它们不是容值——这些代码描述容值随温度的变化行为:C0G(Ⅰ类,极稳)、X7R/X5R(Ⅱ类,容值大但温漂大)。</div><div class="term-l3"><b>🔬 专业</b>C0G(NP0):±30ppm/℃,极稳、低介、容值小。X7R:-55~125℃ 内±15%;X5R:-55~85℃ 内±15%,容值大但随温度/电压变化。字母含义:温度范围+容值变化率编码(EIA 标准)。</div><div class="term-l4"><b>💡 本质</b>它们是&quot;稳定 vs 容值&quot;取舍的标准化命名——把介质材料的物理妥协编成几个字母,让工程师一眼选型,背后是Ⅰ类顺电与Ⅱ类铁电的本质分野。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.2 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-permittivity" data-term="介电常数|Permittivity / Dielectric Constant"><div class="term-h"><b>介电常数</b><span class="term-en">Permittivity / Dielectric Constant</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>衡量一种绝缘材料&quot;储存电场能力&quot;的强弱。同样大小的电容,用介电常数高的材料做夹心,就能存更多电荷、做出更大容值。它是电容选材的核心参数。</div><div class="term-l2"><b>📖 是什么</b>材料储存电场能量能力的量度。它不是电阻率——介电常数衡量绝缘材料储电场的本领(决定容值),电阻率衡量导电难易,二者是绝缘体的不同属性。</div><div class="term-l3"><b>🔬 专业</b>相对介电常数εr(无量纲),容值正比于它。C0G 类材料εr 低但极稳定,X7R/高介材料εr 高(容值大)但随温度/电压变化大。是容值密度与稳定性权衡的物质根源。</div><div class="term-l4"><b>💡 本质</b>它是电容&quot;容值&quot;与&quot;稳定性&quot;矛盾的物质源头——介电常数越高越能小体积做大容值,但高介材料天生不稳定,这个取舍贯穿所有陶瓷电容的分类。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.2 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-power-inductor" data-term="功率电感|Power Inductor"><div class="term-h"><b>功率电感</b><span class="term-en">Power Inductor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>专门用在电源电路里、能扛大电流的电感。开关电源靠它反复储存和释放能量来变电压。它要在大电流下不&quot;饱和失效&quot;、还要少发热,是电源模块里的关键大件。</div><div class="term-l2"><b>📖 是什么</b>面向大电流电源应用的电感。它不是信号电感——功率电感强调大饱和电流、低损耗、耐发热,信号电感强调高 Q、精确感值,用于滤波/匹配。</div><div class="term-l3"><b>🔬 专业</b>关注饱和电流、DCR、磁芯损耗、温升、体积。用于 DC-DC 储能滤波。磁芯需在大电流下不饱和,合金粉末芯、一体成型是主流。是电源效率与体积的关键约束。</div><div class="term-l4"><b>💡 本质</b>它是开关电源的&quot;储能心脏&quot;——效率、体积、发热很大程度由它决定,饱和电流和损耗的权衡,直接框定了电源模块能做多小多高效。</div><div class="term-ref">→ 详见 <a href="#sec-resistor">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-thick-film-resistor" data-term="厚膜电阻|Thick Film Resistor"><div class="term-h"><b>厚膜电阻</b><span class="term-en">Thick Film Resistor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>用印刷的方式把较厚的电阻浆料烧结在基板上做成的电阻。工艺简单、便宜、能扛较大功率,是消费电子里用量最大的电阻,但精度和稳定性不如薄膜。</div><div class="term-l2"><b>📖 是什么</b>用印刷烧结厚膜浆料制成的电阻。它不是薄膜电阻——厚膜成本低、耐功率、量大,但精度/温漂/噪声差;薄膜精密但贵、功率小。</div><div class="term-l3"><b>🔬 专业</b>膜厚微米级,精度通常±1~5%、TCR 较大(±100~250ppm/℃)、噪声较高。工艺简单、成本低、可承受较大功率与浪涌。是片式电阻(如 0402/0603)的主流,消费电子海量使用。</div><div class="term-l4"><b>💡 本质</b>它是电阻界的&quot;平价主力&quot;——牺牲精度换成本和产量,与薄膜恰好互补,证明被动器件的选型永远是&quot;够用即最优&quot;的经济学。</div><div class="term-ref">→ 详见 <a href="#sec-resistor">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-q-factor" data-term="品质因数|Quality Factor|Q"><div class="term-h"><b>品质因数</b><span class="term-en">Quality Factor (Q)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>衡量一个电感或电容&quot;有多接近理想、损耗有多小&quot;的指标。Q 越高,储存的能量相对损耗的能量越多,做谐振、滤波、射频匹配时性能越好、越&quot;尖锐&quot;。</div><div class="term-l2"><b>📖 是什么</b>储能与耗能之比,衡量元件损耗高低。它不是感值/容值——Q 衡量元件的&quot;纯净度&quot;(损耗小则 Q 高),感值容值是储能大小,是不同维度。</div><div class="term-l3"><b>🔬 专业</b>Q=储能/每周期耗能=ωL/R(电感)。Q 越高,谐振越尖锐、插损越小、滤波选择性越好。受寄生电阻、磁芯损耗、频率影响。射频匹配、谐振电路对高 Q 要求高。</div><div class="term-l4"><b>💡 本质</b>它是被动元件的&quot;纯度评分&quot;——理想元件只储能不耗能(Q 无穷),现实总有损耗,Q 值把这份&quot;不完美&quot;量化,是射频与谐振世界最看重的品质指标。</div><div class="term-ref">→ 详见 <a href="#sec-resistor">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-mlcc" data-term="多层陶瓷电容|Multilayer Ceramic Capacitor|MLCC"><div class="term-h"><b>多层陶瓷电容</b><span class="term-en">Multilayer Ceramic Capacitor (MLCC)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>把很多层薄陶瓷和金属电极交替叠起来做成的小电容,像千层饼。这样在极小体积里塞进很大容值,又便宜又耐用,是电子产品里用量最大的元件,一部手机上千颗。</div><div class="term-l2"><b>📖 是什么</b>多层陶瓷介质与电极叠层的片式电容。它不是电解电容——MLCC 体积小、寿命长、无极性、高频好,电解电容容值大但有寿命、有极性、高频差。</div><div class="term-l3"><b>🔬 专业</b>数百层陶瓷+内电极并联,单颗容值 pF~百μF。关注容值、温度特性(X7R/C0G)、直流偏压效应、可靠性。工艺壁垒在超薄介质层(亚微米)、电极材料(BME)、共烧一致性。日系厂商领先。</div><div class="term-l4"><b>💡 本质</b>它是被动器件里&quot;体积-容值-成本&quot;优化的巅峰——用叠层把三者逼到极致,看似平价,超薄介质与共烧工艺却是难以复制的深壁垒,战略地位常被低估。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.2 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-cap-temp-char" data-term="容值温度特性|Capacitance Temperature Characteristic"><div class="term-h"><b>容值温度特性</b><span class="term-en">Capacitance Temperature Characteristic</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电容的容值不是一成不变,会随温度升降而变化。有的电容很稳、几乎不变(适合精密),有的温度一变容值就飘(只能做粗活)。选型必须看它在工作温度范围内稳不稳。</div><div class="term-l2"><b>📖 是什么</b>容值随温度变化的行为。它不是直流偏压特性——温度特性是容值随温度变化,直流偏压特性是容值随施加电压变化,二者是不同的容值衰减来源。</div><div class="term-l3"><b>🔬 专业</b>由介质材料决定:C0G 近乎零温漂,X7R 全温区±15%,Y5V 可达+22%/-82%。铁电Ⅱ类材料因居里点、畴变导致强温度依赖。精密应用选Ⅰ类,容值优先选Ⅱ类。</div><div class="term-l4"><b>💡 本质</b>它揭示了陶瓷电容&quot;标称容值只是名义值&quot;——真实容值随环境浮动,尤其Ⅱ类介质,不看温度特性直接用标称值,精密电路会栽跟头。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.2 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-tcr" data-term="温度系数（电阻温漂）|Temperature Coefficient of Resistance|TCR"><div class="term-h"><b>温度系数（电阻温漂）</b><span class="term-en">Temperature Coefficient of Resistance (TCR)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电阻的阻值会随温度变化而漂移。TCR 就是衡量&quot;温度每变一度,阻值漂多少&quot;的指标。做精密电路时希望它越小越好,否则一发热测量就不准了。</div><div class="term-l2"><b>📖 是什么</b>电阻值随温度变化的比率。它不是精度——精度是常温下阻值的准确度,TCR 是阻值随温度漂移的速率,精密电阻要求两者都好。</div><div class="term-l3"><b>🔬 专业</b>单位 ppm/℃。薄膜可低至几 ppm/℃,厚膜常±100~250ppm/℃。源于导电材料本征温度依赖。精密基准、分压网络对 TCR 极敏感,匹配 TCR(相对温漂)有时比绝对 TCR 更重要。</div><div class="term-l4"><b>💡 本质</b>它是电阻&quot;稳不稳&quot;的核心指标——常温再准,一发热就漂也没用,TCR 决定了电阻在真实工作温度下能否守住精度,是精密与普通电阻的分水岭。</div><div class="term-ref">→ 详见 <a href="#sec-resistor">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-capacitor" data-term="电容|Capacitor"><div class="term-h"><b>电容</b><span class="term-en">Capacitor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>一个能&quot;暂存电荷&quot;的小水库:充电时存进电荷、放电时放出。电路里用它稳定电压、滤掉波动、隔断直流。就像给电路装了个缓冲蓄水池。</div><div class="term-l2"><b>📖 是什么</b>以电场储存电荷的被动元件。它不是电池——电容储电量小但充放极快、可反复无限次,电池储能大但充放慢、有寿命,二者储能机理不同。</div><div class="term-l3"><b>🔬 专业</b>容值 C=εA/d(介电常数×面积÷极板间距)。用于滤波、去耦、储能、隔直。关注容值、耐压、ESR、ESL、温度/直流偏压特性。MLCC 是用量最大的类型。</div><div class="term-l4"><b>💡 本质</b>它的本质是&quot;用电场存电荷&quot;的时间缓冲——电路里凡是需要&quot;稳一稳、缓一缓、隔一隔&quot;的地方都用它,是模拟与电源世界最基础的调节手段。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.2 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-inductor" data-term="电感|Inductor"><div class="term-h"><b>电感</b><span class="term-en">Inductor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>一段绕成线圈的导线,通电时会储存磁场能量。它&quot;抗拒电流突变&quot;,电流想变它就顶一下,所以用来平滑电流、滤波、在开关电源里储能搬运。</div><div class="term-l2"><b>📖 是什么</b>以磁场储存能量、阻碍电流变化的元件。它不是电容——电感储磁场、抗电流突变、通直流阻交流;电容储电场、抗电压突变、隔直流通交流,二者行为互补对偶。</div><div class="term-l3"><b>🔬 专业</b>感值 L,储能 ½LI²,阻抗随频率上升。关注感值、饱和电流、直流电阻(DCR)、Q 值、磁芯损耗。用于滤波、储能(DC-DC)、EMI 抑制。磁芯材料与结构决定性能上限。</div><div class="term-l4"><b>💡 本质</b>它是电容的&quot;对偶伴侣&quot;——一个管电场一个管磁场,一个抗电压突变一个抗电流突变,开关电源正是靠电感储能搬运才实现高效变压。</div><div class="term-ref">→ 详见 <a href="#sec-resistor">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-resistor" data-term="电阻|Resistor"><div class="term-h"><b>电阻</b><span class="term-en">Resistor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>最基础的元件,作用是&quot;阻挡&quot;电流、按比例分配电压,通过时把一部分电能变成热。电路里用它限流、分压、设定工作点,无处不在。</div><div class="term-l2"><b>📖 是什么</b>按欧姆定律限制电流、耗散能量的元件。它不是电容/电感——电阻耗能(把电变热、不储能),电容电感储能(储电场/磁场、不耗能),是被动器件里唯一&quot;纯耗能&quot;的。</div><div class="term-l3"><b>🔬 专业</b>阻值 R,遵循 V=IR,功耗 I²R。关注阻值精度、功率、温漂(TCR)、噪声。分薄膜(精密)、厚膜(耐功率成本低)、绕线等。看似简单,精密电阻的稳定性与匹配是技术活。</div><div class="term-l4"><b>💡 本质</b>它是电路的&quot;节流阀&quot;——用可控的耗能来限流分压,是最朴素也最不可替代的元件,&quot;简单&quot;的表象下,精密与稳定同样是硬功夫。</div><div class="term-ref">→ 详见 <a href="#sec-resistor">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-dc-bias" data-term="直流偏压特性|DC Bias Characteristic|DC Bias"><div class="term-h"><b>直流偏压特性</b><span class="term-en">DC Bias Characteristic (DC Bias)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>一个容易被忽略的坑:高介陶瓷电容在加上直流工作电压后,实际容值会大幅缩水,有时只剩标称的一半甚至更少。设计电源时如果按标称值算,可能严重不够用。</div><div class="term-l2"><b>📖 是什么</b>容值随施加直流电压下降的现象。它不是温度特性——直流偏压效应是电压导致容值衰减,温度特性是温度导致变化,高介Ⅱ类电容两者都严重。</div><div class="term-l3"><b>🔬 专业</b>铁电介质在直流电场下极化受抑,介电常数下降,容值可衰减 50%以上(小尺寸大容值件尤甚)。C0G 几乎无此效应。选型需查偏压曲线、留足裕量,是电源去耦设计常见陷阱。</div><div class="term-l4"><b>💡 本质</b>它是 MLCC 最隐蔽的&quot;缩水陷阱&quot;——数据手册标称容值是零偏压值,一上工作电压就打折,不懂这点的设计会莫名其妙容量不足,是经验与教训的分水岭。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.2 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-magnetic-core" data-term="磁芯|Magnetic Core"><div class="term-h"><b>磁芯</b><span class="term-en">Magnetic Core</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电感线圈中间那块磁性材料。它能&quot;聚拢&quot;磁场,让同样的线圈储存更多磁能、做出更大感值。选什么磁芯材料,直接决定电感能扛多大电流、损耗多少。</div><div class="term-l2"><b>📖 是什么</b>增强电感磁场的磁性材料芯体。它不是线圈——磁芯是聚磁的材料(决定感值密度和饱和),线圈是导电的绕线(产生磁场),二者共同构成电感。</div><div class="term-l3"><b>🔬 专业</b>材料有铁氧体、铁粉、合金粉末、非晶等,各有磁导率、饱和磁通密度、损耗特性。磁芯决定感值密度、饱和电流、频率适用范围与损耗。是电感性能的物质基础。</div><div class="term-l4"><b>💡 本质</b>它是电感的&quot;性能地基&quot;——同样线圈换不同磁芯,能扛的电流和损耗天差地别,磁芯材料的选择本质是在磁导率、饱和、损耗三者间找平衡。</div><div class="term-ref">→ 详见 <a href="#sec-resistor">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-core-saturation" data-term="磁芯饱和|Core Saturation"><div class="term-h"><b>磁芯饱和</b><span class="term-en">Core Saturation</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>磁芯储磁能力有上限。电流大到一定程度,磁芯&quot;存满了&quot;再也存不下,此时电感值急剧下降、几乎失效,电流会失控飙升,可能烧毁电路。这是功率电感必须避开的红线。</div><div class="term-l2"><b>📖 是什么</b>磁芯磁通达到极限后磁导率骤降的现象。它不是过流——饱和是磁芯材料层面的物理极限(感值崩塌),过流是电流超额定,饱和往往由过大电流触发。</div><div class="term-l3"><b>🔬 专业</b>磁通密度达饱和值 Bsat 后,磁导率骤降、电感值大幅下跌、电流失控上升。饱和电流是功率电感关键额定值。设计需留裕量,合金粉末芯饱和特性较软(渐变)、更安全。</div><div class="term-l4"><b>💡 本质</b>它是电感的&quot;物理极限红线&quot;——磁芯能存的磁能有顶,越线电感就&quot;消失&quot;,电流失控,这条硬边界是功率电感选型时最不能忽视的安全约束。</div><div class="term-ref">→ 详见 <a href="#sec-resistor">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-esl" data-term="等效串联电感|Equivalent Series Inductance|ESL"><div class="term-h"><b>等效串联电感</b><span class="term-en">Equivalent Series Inductance (ESL)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电容内部还藏着一点&quot;寄生电感&quot;,在高频下它会&quot;作对&quot;,让电容在超过某个频率后反而不像电容了。ESL 越低,电容能在越高的频率下正常工作。</div><div class="term-l2"><b>📖 是什么</b>电容内部等效的串联电感分量。它不是 ESR——ESL 是寄生电感(限制高频有效性),ESR 是寄生电阻(造成损耗),二者共同决定电容的真实高频行为。</div><div class="term-l3"><b>🔬 专业</b>由电极结构、引线、封装几何决定。使电容存在自谐振频率(SRF),超过后呈感性、去耦失效。低 ESL 封装(如反转端子、小尺寸)可推高 SRF。是高速去耦设计的关键。</div><div class="term-l4"><b>💡 本质</b>它划定了电容的&quot;高频天花板&quot;——超过自谐振点电容就&quot;变身&quot;电感,ESL 决定这个拐点在哪,芯片时钟越快,压低 ESL 就越关键。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.2 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-esr" data-term="等效串联电阻|Equivalent Series Resistance|ESR"><div class="term-h"><b>等效串联电阻</b><span class="term-en">Equivalent Series Resistance (ESR)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>真实电容不是完美的,内部藏着一点&quot;寄生电阻&quot;。电流反复充放时,这点电阻会发热、拖累性能。ESR 越低,电容在滤波、去耦时反应越干脆、发热越少。</div><div class="term-l2"><b>📖 是什么</b>电容内部等效的串联电阻分量。它不是绝缘电阻——ESR 是充放电路径上的损耗电阻(越低越好),绝缘电阻是介质漏电(越高越好),二者是不同寄生。</div><div class="term-l3"><b>🔬 专业</b>来源:电极、引线、介质损耗。影响纹波电流发热、去耦瞬态响应、开关电源效率。MLCC 的 ESR 远低于电解电容,故高频去耦优选 MLCC。是电源设计关键寄生参数。</div><div class="term-l4"><b>💡 本质</b>它是&quot;理想电容&quot;与现实的差距之一——纯电容不耗能,ESR 却让它发热损耗,在大电流纹波和高频场景,这点寄生电阻直接决定电容好不好用。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.2 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-thin-film-resistor" data-term="薄膜电阻|Thin Film Resistor"><div class="term-h"><b>薄膜电阻</b><span class="term-en">Thin Film Resistor</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>在基板上溅射一层极薄的金属膜做成的电阻。膜薄而均匀,所以阻值精准、随温度变化极小、噪声低,适合精密测量电路。缺点是贵、能承受的功率小。</div><div class="term-l2"><b>📖 是什么</b>用薄金属膜(纳米级)制成的高精密电阻。它不是厚膜电阻——薄膜精度高、温漂小、噪声低但成本高、功率小;厚膜(印刷较厚)成本低、耐功率但精度温漂差。</div><div class="term-l3"><b>🔬 专业</b>膜厚约纳米级,阻值精度可达±0.01%、TCR 低至几 ppm/℃、低噪声。用激光修调精确定值。用于精密仪表、基准、传感器接口。成本高、功率承受有限。</div><div class="term-l4"><b>💡 本质</b>它是精密世界的&quot;标尺电阻&quot;——薄而均匀的膜换来极致的稳定和低噪声,与厚膜构成&quot;精密 vs 廉价耐用&quot;的分工,精度就是它的全部价值。</div><div class="term-ref">→ 详见 <a href="#sec-resistor">9.3 电阻与电感：两个被忽略但同样有门槛的品类</a></div></div>
+<div class="term" id="t-passive-component" data-term="被动器件|Passive Component"><div class="term-h"><b>被动器件</b><span class="term-en">Passive Component</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>电路里那些自己不放大、不产生能量,只做&quot;存、挡、通、滤&quot;的基础元件,比如电阻、电容、电感。它们不起眼,但一块电路板上有成百上千个,少了谁都不行。</div><div class="term-l2"><b>📖 是什么</b>不提供增益、只被动响应电信号的元件。它不是有源器件——有源器件(晶体管)能放大/开关、需供电,被动器件(电阻/电容/电感)只储能或耗能、不放大。</div><div class="term-l3"><b>🔬 专业</b>三大类:电阻(耗能)、电容(储电场)、电感(储磁场)。关注精度、温漂、寄生参数、可靠性、体积。一块手机主板有上千颗,MLCC 尤其海量。看似简单,材料与制造壁垒不低。</div><div class="term-l4"><b>💡 本质</b>它是电路的&quot;沉默基建&quot;——不参与运算却无处不在,数量与可靠性直接决定整机成本和良率,&quot;简单&quot;的表象下藏着材料与工艺的深水区。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.2 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-bme" data-term="贱金属电极|Base Metal Electrode|BME"><div class="term-h"><b>贱金属电极</b><span class="term-en">Base Metal Electrode (BME)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>MLCC 内部电极过去用昂贵的钯银,现在改用便宜的镍来做,这就是贱金属电极。它大幅降低了成本,让 MLCC 能做到极致便宜和海量供应,但工艺更难。</div><div class="term-l2"><b>📖 是什么</b>用镍等贱金属做内电极的 MLCC 工艺。它不是 PME——BME 用便宜的镍/铜、成本低但需还原气氛共烧、抗还原介质,PME 用贵的钯/银、工艺简单但贵。</div><div class="term-l3"><b>🔬 专业</b>镍电极需在还原气氛下共烧(防氧化),介质须抗还原、防氧空位。成本远低于钯银,是现代高容 MLCC 主流。工艺难点在抗还原介质配方与共烧一致性。</div><div class="term-l4"><b>💡 本质</b>它是 MLCC 成本革命的关键一步——用镍替钯把材料成本砍到极低,代价是全套抗还原介质与共烧工艺,&quot;便宜&quot;的背后是一次不小的工艺跨越。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.2 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-pme" data-term="贵金属电极|Precious Metal Electrode|PME"><div class="term-h"><b>贵金属电极</b><span class="term-en">Precious Metal Electrode (PME)</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>MLCC 内电极用钯、银等贵金属制造的传统做法。工艺相对简单、可靠,但金属太贵,成本高。如今高容量产品多已转向便宜的贱金属电极。</div><div class="term-l2"><b>📖 是什么</b>用钯/银等贵金属做内电极的 MLCC 工艺。它不是 BME——PME 工艺简单、可在空气中共烧,但贵金属成本高;BME 用镍/铜便宜但工艺复杂。</div><div class="term-l3"><b>🔬 专业</b>钯银电极可在氧化气氛共烧、对介质要求宽松,可靠性好。但贵金属价格波动大、成本高。多用于高可靠、军工、高频或小批量产品,大批量已让位 BME。</div><div class="term-l4"><b>💡 本质</b>它代表 MLCC 的&quot;传统高成本路线&quot;——用贵金属换工艺简单和可靠,在成本敏感的消费市场被 BME 取代,却在高可靠场景保留价值,是成本与可靠的分野。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.2 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
+<div class="term" id="t-ceramic-dielectric" data-term="陶瓷介质材料|Ceramic Dielectric Material"><div class="term-h"><b>陶瓷介质材料</b><span class="term-en">Ceramic Dielectric Material</span><span class="term-cat">被动</span></div><div class="term-l1"><b>🔰 打底</b>MLCC 里那层&quot;千层饼馅&quot;用的陶瓷,决定了电容的容值大小和稳定性。不同配方的陶瓷,有的稳定但容值小,有的容值大但脾气差(随温度电压变化),各有用途。</div><div class="term-l2"><b>📖 是什么</b>陶瓷电容中储存电场的介质材料。它不是电极——介质是储电场的绝缘陶瓷(决定容值/稳定性),电极是导电金属层(收集电荷),二者交替叠成 MLCC。</div><div class="term-l3"><b>🔬 专业</b>以钛酸钡(BaTiO₃)等为基,通过配方调控介电常数与温度特性。分Ⅰ类(C0G,顺电、稳定、低介)、Ⅱ类(X7R/X5R,铁电、高介、易变)。晶粒尺寸、掺杂、烧结决定性能。是 MLCC 核心 know-how。</div><div class="term-l4"><b>💡 本质</b>它是 MLCC 的&quot;灵魂配方&quot;——同样的叠层结构,介质材料的配方差异直接决定电容脾气,这层陶瓷的材料科学正是日系厂商的护城河所在。</div><div class="term-ref">→ 详见 <a href="#sec-mlcc">9.2 MLCC：把几百个电容叠进一粒米大小的陶瓷里</a></div></div>
 </div>
 </div>
 <!-- ===== /术语表 ===== -->
