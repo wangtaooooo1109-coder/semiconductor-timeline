@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v7.2 | 2026-09-21 | 统一叙述框架: 42个原理节打槽位标记(①概念②原理③瓶颈-物理结构/材料/工艺④方案⑤对比⑥本质)共154标签+每节"本节讲法"骨架导航; 补写7节缺失的概念+原理开场(5.2/5.3/5.4/7.3/0.6.7/0.11/6.2); 「其他电容家族」从7.3移至7.1品类对比槽位; 前序: 侧边目录+全文搜索+长节折叠+光电链路总纲+术语四层释义表268条 -->
+<!-- version: v7.3 | 2026-09-21 | 光电链路总纲重写(sec-opto-map): 物理主线前置——同一个PN结的三种操作方式(CIS当电荷桶积分/SPAD当扳机触发/硅光不用它探光改做材料集成), 新增「光是什么角色」判别表(信息本身/被计数事件/搬运载体)与「为什么不能互换」反向验证(LiDAR为何不用CIS·拍照为何不用SPAD·硅光为何不能照搬CIS), 四层递进改表格化; 前序: 侧边目录+全文搜索+长节折叠+术语四层释义表268条+统一叙述框架42节154标签 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -332,8 +332,17 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
   html,body{overflow-x:hidden}
   .legend{overflow-x:auto;flex-wrap:nowrap;white-space:nowrap;-webkit-overflow-scrolling:touch}
   .legend::-webkit-scrollbar{height:0}
-  .content table.node-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  /* 所有正文表格窄屏可横向滚动（不止 node-table：原文档有多处裸 table） */
+  .content table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+  .content table::-webkit-scrollbar{height:3px}
+  .content table::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:2px}
   .header h1,.header p{word-break:break-word}
+  /* 兜底：正文块不得超出视口宽度（3D卡/动画卡内部曾被撑宽的父容器带溢出） */
+  .content,.content>*{max-width:100%;min-width:0}
+  .d3-card,.anim-card,.card{max-width:100%;min-width:0;overflow-wrap:anywhere}
+  .d3-card svg,.anim-card svg,.card svg{max-width:100%;height:auto}
+  .d3-grid,.card-row,.card-row-3,.term-grid,.anim-row{grid-template-columns:1fr!important;min-width:0}
+  .kv{min-width:0}.kv span{max-width:100%;overflow-wrap:anywhere}
 }
 
 
@@ -365,7 +374,7 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 @media print{
   #kb-side,#kb-toggle,#kb-progress,#kb-top,#kb-search,.kb-tgwrap{display:none!important}
   body.kb-on{padding-left:0}
-  .kb-body{display:block!important}
+  [data-fold]{display:block!important}
 }
 
 </style>
@@ -5538,86 +5547,139 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <div class="content">
 
-<!-- ===== 光电链路总纲（v7.0 新增） ===== -->
+<!-- ===== 光电链路总纲 v2（v7.3 重写：物理主线前置） ===== -->
 <div class="content">
 
 <div class="card" id="sec-opto-map" style="background:#f5f3ff;border-left:4px solid #7c3aed">
-<div class="ttl">🧭 光电链路总纲：同一个 PN 结，被用在三件完全不同的事上</div>
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>🧭 光电链路总纲：CIS / SPAD / 硅光，本质差在哪</div>
 <div class="dsc">
-<p>光电世界看似庞杂——图像传感器、单光子探测、激光雷达、硅光互连、CPO……但它们的物理起点<b>只有一个</b>：<a href="#sec-phys-pn" style="color:#6d28d9"><b>第零篇 0.2 的 PN 结</b></a>。真正把它们区分开的，不是器件长什么样，而是<b>「让 PN 结干什么活」</b>。</p>
-<p style="background:#ede9fe;padding:8px 12px;border-radius:6px;color:#4c1d95"><b>🔑 一句话主线：</b>同一个反偏 PN 结，<b>一个把它当「光探测器」（漏电流即信号）、一个把它当「成像阵列」（空间上排成千万个探测器）、一个根本不用它探光、而是拿光当「通信载体」去绕开铜线</b>。三者根同而用不同，衡量指标与工程难点因此完全分道扬镳。</p>
+<p>这三类芯片极容易混——<b>都用 PN 结、都涉及光、都在硅上做</b>。但真正的分野不在器件长什么样，而在一个问题上：<b>光在这个系统里扮演什么角色</b>。这是唯一需要记住的判别式。</p>
+
+<table class="node-table nopad" style="margin-top:10px"><thead><tr>
+<th style="width:19%">芯片</th><th style="width:26%">光是什么</th><th style="width:33%">要回答的问题</th><th>属于</th>
+</tr></thead><tbody>
+<tr><td class="hl">CIS 图像传感器</td><td>被测量的<b>信息本身</b></td><td>光在空间上怎么分布、有多强</td><td>传感器</td></tr>
+<tr><td class="hl">SPAD / SiPM</td><td>被计数的<b>事件</b></td><td>有没有光子、<b>什么时候</b>到的</td><td>传感器</td></tr>
+<tr><td class="hl">硅光子</td><td>搬运信息的<b>载体</b></td><td>光本身不含信息，<b>信息是电的</b></td><td>互连</td></tr>
+</tbody></table>
+
+<p style="margin-top:10px;background:#ede9fe;padding:8px 12px;border-radius:6px;color:#4c1d95"><b>🔑 最大的一次跳变在这里：</b>前两类是<b>传感器</b>——感知外界已经存在的光；第三类是<b>互连</b>——自己造光，去替代铜线。<b>一个在「读世界」，一个在「传数据」。</b>把这条线划清，后面全部细节都会各归其位。</p>
 </div></div>
 
 <div class="card">
-<div class="ttl">四层递进：从「有没有光」到「用光搬数据」</div>
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>⚡ 物理上的真正差别：同一个 PN 结，三种操作方式</div>
 <div class="dsc">
+<p>上面那张表是功能分类，下面这一层才是硬物理——<b>三者都源自 <a href="#sec-phys-pn">0.2 的 PN 结</a>，但「怎么操作它」完全不同</b>。这是本质所在。</p>
 
-<p style="margin:2px 0 6px"><b>第一层 · 光 → 电（探测）</b></p>
+<p style="margin:12px 0 6px"><b>① CIS = 把 PN 结当「电荷桶」用 —— 积分</b></p>
 <div class="kv">
-<span><b>物理效应：</b>PN 结反偏 → 光子激发电子-空穴对 → 光生载流子被电场扫出，形成光电流</span>
-<span><b>器件谱系：</b>光电二极管 PD（无增益）→ 雪崩光电二极管 APD（低于击穿、线性增益）→ 单光子雪崩二极管 SPAD（高于击穿、盖革模式）→ 硅光电倍增器 SiPM（一堆 SPAD 并联）</span>
-<span><b>诉求：</b>"有没有光、有多少光子、光什么时候到"</span>
-<span><b>衡量指标：</b>响应度、增益、光子探测效率 PDE、暗计数率 DCR、时间抖动（timing jitter）</span>
-<span class="warn"><b>与下一层的分界线：</b>探测层只关心"光强/光子数/到达时间"这个<b>标量或时间戳</b>，不关心光从空间哪个方向来。一旦要求"空间分布"，就进入成像层。</span>
+<span><b>偏压：</b>反偏，但<b>远低于</b>击穿电压</span>
+<span><b>做什么：</b>光子打出电子-空穴对，电子被囚在势阱里<b>累积</b>——曝光越久，积得越多</span>
+<span class="warn"><b>关键：</b>增益 = 1，<b>完全没有放大</b>。一个小像素的满井容量可能只有<b>几千到上万个电子</b>【业界】</span>
+<span><b>所以胜负手是：</b>读出噪声必须远小于这几千个电子，否则暗部就糊 → <b>噪声底、满井容量、动态范围</b></span>
+<span class="good"><b>本质：</b>模拟精度问题（详见 <a href="#sec-cis">5.6</a>）</span>
 </div>
 
-<p style="margin:12px 0 6px"><b>第二层 · 光 → 电 → 数字（成像）</b></p>
+<p style="margin:14px 0 6px"><b>② SPAD = 把 PN 结当「扳机」用 —— 触发</b></p>
 <div class="kv">
-<span><b>物理效应：</b>仍是 PD 的光电转换，但排成二维阵列，每个像素后面挂一整条<b>模拟读出链</b>（像素放大 → CDS → 列并行 ADC）</span>
-<span><b>器件：</b>CMOS 图像传感器 CIS（见 <a href="#sec-cis">5.6</a>）</span>
-<span><b>诉求：</b>"光在空间上怎么分布 + 保真度"——所以本质是<b>模拟设计问题</b>，胜负手在噪声底而非像素数</span>
-<span><b>衡量指标：</b>读出噪声、满井容量、动态范围、信噪比曲线、量子效率</span>
-<span class="warn"><b>与探测层的分界线：</b>探测层要"单光子灵敏 + 时间戳"，成像层要"千万像素 + 灰度保真"。前者牺牲空间换灵敏度与时间精度，后者牺牲单光子能力换空间与线性度。</span>
+<span><b>偏压：</b>反偏，且<b>高于</b>击穿电压（盖革模式）</span>
+<span><b>做什么：</b>一个光子触发<b>自持雪崩</b>，增益 10⁵–10⁶，输出一个<b>满幅数字脉冲</b></span>
+<span class="warn"><b>关键：</b>它<b>不告诉你「多亮」</b>，只告诉你「响了，在这一刻」</span>
+<span><b>所以胜负手是：</b>时间抖动（几十皮秒量级）与暗计数率 DCR</span>
+<span class="good"><b>本质：</b>数字计时问题（详见 <a href="#sec-opto-detect">5.7</a>）</span>
 </div>
 
-<p style="margin:12px 0 6px"><b>第三层 · 电 → 光 → 电（通信 / 互连）</b></p>
+<p style="margin:14px 0 6px"><b>③ 硅光 = 根本不靠硅来探光 —— 材料集成</b></p>
 <div class="kv">
-<span><b>物理效应：</b>不再"探测环境光"，而是自己<b>产生光、调制光、传输光、再接收光</b>——光只是数据的载体</span>
-<span><b>器件：</b>调制器 + 波导 + 锗探测器 + 外挂 III-V 光源 = 硅光子（见 <a href="#sec-siph-device">6.2</a>）</span>
-<span><b>诉求：</b>"带宽密度与能效"——目的是绕开铜互连的物理极限（见 <a href="#sec-siph-why">6.1</a>）</span>
-<span><b>衡量指标：</b>带宽密度（Tb/s/mm）、每比特能耗（pJ/bit）、调制带宽、插入损耗、误码率</span>
-<span class="good"><b>与探测层的根本区别：</b>探测层用 PN 结的<b>反偏漏电流当信号</b>；通信层里探测器只是链路末端一环，核心矛盾在<b>发光</b>——而硅是间接带隙，几乎不发光，所以必须外挂 III-V 激光器。</span>
+<span><b>光路要干五件事：</b>产生光 → 调制 → 传导 → 复用 → 探测</span>
+<span><b>硅的成绩单：</b>传导<b>很强</b>（折射率差大）／调制<b>勉强</b>（没有 Pockels 效应，只能靠载流子间接改折射率）／探测<b>不行</b>（1310·1550nm 波段硅是透明的，要外延锗）／发光<b>完全不行</b>（间接带隙）</span>
+<span class="warn"><b>核心矛盾不是「怎么把光测准」，而是：</b>怎么把硅不擅长的东西塞进硅工艺里</span>
+<span class="good"><b>本质：</b>异质材料集成问题（详见 <a href="#sec-siph-device">6.2</a>）</span>
 </div>
 
-<p style="margin:12px 0 6px"><b>第四层 · 系统集成</b></p>
-<div class="kv">
-<span><b>做法：</b>把光引擎从可插拔模块一路搬进封装，紧挨交换/计算芯片</span>
-<span><b>器件：</b>CPO 共封装光学（见 <a href="#sec-cpo">6.3</a>）</span>
-<span><b>诉求：</b>缩短高速电通道、榨干带宽密度——逻辑与 <a href="#sec-pkg-purpose">0.9 先进封装</a>、<a href="#sec-hbm-wall">0.10 HBM</a> 的"离电更近、离热更近"合流</span>
-<span class="warn"><b>分界线：</b>前三层是"器件级物理"，第四层是"封装与系统级工程"——决定光电技术能不能真正落到 AI 集群里。</span>
-</div>
-
+<p style="margin-top:12px;background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e40af"><b>🔑 一句话串起来：</b>同一个反偏 PN 结，<b>CIS 让它「攒电荷」、SPAD 让它「放大招」、硅光干脆不用它探光而是拿光当电线</b>。三条路从同一个器件分叉，衡量指标与工程难点因此彻底分道扬镳。</p>
 </div></div>
 
-<div class="card" style="background:#eff6ff;border-left:4px solid #2563eb">
-<div class="ttl">🌱 根同而用不同：三条路都从 PN 结长出来</div>
+<div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>🔁 反向验证：为什么它们不能互换</div>
 <div class="dsc">
-<table class="node-table nopad"><thead><tr><th style="width:16%">用途</th><th style="width:28%">怎么用这个 PN 结</th><th style="width:28%">硅够不够用</th><th>本质诉求</th></tr></thead>
-<tbody>
-<tr><td class="hl">探测（PD/SPAD/SiPM）</td><td>反偏，<b>把光生漏电流当信号</b>；SPAD 更进一步偏到击穿电压之上</td><td>可见光~近红外<b>够用</b>（硅能吸收）</td><td>有没有光 / 单光子 / 时间戳</td></tr>
-<tr><td class="hl">成像（CIS）</td><td>反偏 + <b>排成二维阵列</b> + 挂模拟读出链</td><td>可见光~近红外<b>够用</b></td><td>空间分布 + 保真度（模拟问题）</td></tr>
-<tr><td class="hl">通信（硅光）</td><td><b>不靠它探环境光</b>，探测器只收自家调制光；难点在发光端</td><td><b>不够</b>：通信波段硅透明（外延锗），且硅<b>不发光</b>（外挂 III-V）</td><td>带宽密度 + 能效（光当载体）</td></tr>
+<p>判断「本质是否真的不同」最硬的办法，是看能不能换着用。答案是<b>不能</b>，而且每一条不能的理由都指回上面那个物理差别。</p>
+
+<div class="card-row" style="margin-top:10px">
+<div class="card" style="background:#fff">
+<div class="ttl" style="font-size:14px">❓ 为什么车载 LiDAR 不用 CIS</div>
+<div class="dsc" style="font-size:12.5px">
+<p>远距离回波可能只剩<b>几个光子</b>，CIS 的噪声底直接把它吃掉。</p>
+<p style="margin-top:6px">更致命的是：dToF 测距要的是<b>光子到达的时刻</b>（几十皮秒对应毫米级距离），而 <b>CIS 是积分器</b>——它只知道「这段时间一共来了多少光」，<b>时间信息在积分中被抹掉了</b>。</p>
+</div></div>
+
+<div class="card" style="background:#fff">
+<div class="ttl" style="font-size:14px">❓ 为什么拍照不用 SPAD 阵列</div>
+<div class="dsc" style="font-size:12.5px">
+<p>SPAD 是<b>二值</b>的——响了就饱和，<b>没有灰度</b>。</p>
+<p style="margin-top:6px">雪崩后还有<b>死时间</b>（数十纳秒），强光下漏计数，动态范围差。且每个 SPAD 都要配淬灭电阻与隔离，<b>填充因子低</b>——同样面积做不出几千万像素。</p>
+</div></div>
+</div>
+
+<div class="card" style="background:#fff;margin-top:12px">
+<div class="ttl" style="font-size:14px">❓ 为什么硅光不能照搬 CIS 那一套</div>
+<div class="dsc" style="font-size:12.5px">
+<p>CIS 在<b>接收自然光</b>，硅光要<b>自己发光</b>。而<b>硅发不出光是能带结构决定的</b>——间接带隙，电子跃迁需要声子参与，发光效率极低，<b>这不是工艺能优化掉的</b>。</p>
+<p style="margin-top:6px">这就是为什么硅光必须<b>外挂 III-V 族激光器</b>，也是整个硅光产业最大的成本与良率来源。<b>CIS 面对的是「测不准」，硅光面对的是「硅根本不会」——不同量级的问题。</b></p>
+</div></div>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>🪜 四层递进：从「有没有光」到「用光搬数据」</div>
+<div class="dsc">
+<p>把上面三类摊开，按<b>物理功能</b>排成递进链，就是下面四层。每层的分界线都是一次诉求跳变。</p>
+
+<table class="node-table nopad" style="margin-top:10px"><thead><tr>
+<th style="width:7%">层</th><th style="width:19%">方向</th><th style="width:26%">器件谱系</th><th style="width:22%">诉求</th><th>与上一层的分界</th>
+</tr></thead><tbody>
+<tr><td class="hl">第一层</td><td><b>光 → 电</b><br><span style="color:#64748b;font-size:11px">探测</span></td>
+<td>PD → APD（低于击穿·线性增益）→ SPAD（高于击穿·盖革）→ SiPM（阵列并联）</td>
+<td>有没有光 / 几个光子 / <b>什么时候到</b></td>
+<td>—— 起点</td></tr>
+<tr><td class="hl">第二层</td><td><b>光 → 电 → 数字</b><br><span style="color:#64748b;font-size:11px">成像</span></td>
+<td>PD 排成二维阵列 + 模拟读出链（像素→CDS→列并行 ADC）= <a href="#sec-cis">CIS</a></td>
+<td><b>空间分布</b> + 保真度</td>
+<td>探测层只要标量或时间戳；<b>一旦要「空间分布」就进入成像层</b></td></tr>
+<tr><td class="hl">第三层</td><td><b>电 → 光 → 电</b><br><span style="color:#64748b;font-size:11px">通信</span></td>
+<td>调制器 + 波导 + 锗探测器 + 外挂 III-V 光源 = <a href="#sec-siph-device">硅光</a></td>
+<td><b>带宽密度</b>（Tb/s/mm）+ 每比特能耗</td>
+<td>前两层<b>测外界的光</b>；这一层<b>自己造光当电线用</b>——范式切换</td></tr>
+<tr><td class="hl">第四层</td><td><b>系统集成</b></td>
+<td><a href="#sec-cpo">CPO 共封装光学</a>：把光引擎搬进封装</td>
+<td>缩短高速电通道、榨干带宽密度</td>
+<td>前三层是<b>器件级物理</b>；这一层是<b>封装与系统工程</b>，与 <a href="#sec-pkg-purpose">0.9 封装</a>、<a href="#sec-hbm-wall">0.10 HBM</a> 合流</td></tr>
 </tbody></table>
-<p style="margin-top:8px"><b>🔑 一根线串起全部：</b>都是 <a href="#sec-phys-pn">PN 结</a> 的孩子，但"探测"用它的反偏光电流、"成像"给它加了阵列与读出链、"通信"里它退居末端而把主角让给发光——<b>而发光恰恰是硅唯一无法胜任的环节</b>。这条分界，就是第五篇（模拟：CIS）与第六篇（硅光）分列两篇的根本原因。</p>
 </div></div>
 
-<div class="card" style="background:#f8fafc;border-left:4px solid #64748b">
-<div class="ttl">🗺️ 推荐阅读路线（循序渐进）</div>
+<div class="card" style="background:#f0fdf4;border-left:4px solid #059669">
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>🎯 三句话记住各自的权衡</div>
 <div class="dsc">
-<p style="font-size:14px;line-height:2.1">
+<div class="kv">
+<span style="background:#eff6ff;color:#1e40af"><b>CIS</b>　用<b>噪声底</b>换保真度 —— 把微弱电荷量准确读出来</span>
+<span style="background:#f5f3ff;color:#5b21b6"><b>SPAD / SiPM</b>　用<b>动态范围</b>换灵敏度与时间精度 —— 把单个光子变成一次可计时的数字事件</span>
+<span style="background:#ecfdf5;color:#047857"><b>硅光</b>　用<b>材料集成复杂度</b>换带宽密度 —— 绕开铜线的物理极限</span>
+</div>
+
+<p style="margin-top:12px"><b>🗺️ 循序渐进的阅读路线：</b></p>
+<p style="font-size:13.5px;line-height:2.1">
 <a href="#sec-phys-pn"><b>① PN 结基础</b></a>（0.2 · 一切的物理地基）
 <span style="color:#94a3b8">　→　</span>
-<a href="#sec-opto-detect"><b>② 探测层 PD/APD/SPAD/SiPM</b></a>（本篇新增 · 光→电）
+<a href="#sec-opto-detect"><b>② 探测层 PD/APD/SPAD/SiPM</b></a>（5.7 · 光→电，先建「扳机」直觉）
 <span style="color:#94a3b8">　→　</span>
-<a href="#sec-cis"><b>③ CIS 成像</b></a>（5.6 · 光→电→数字）
+<a href="#sec-cis"><b>③ CIS 成像</b></a>（5.6 · 光→电→数字，理解「电荷桶」为何是模拟问题）
 <span style="color:#94a3b8">　→　</span>
 <a href="#sec-siph-why"><b>④ 为什么要用光</b></a>（6.1 · 铜的物理墙）
 <span style="color:#94a3b8">　→　</span>
-<a href="#sec-siph-device"><b>⑤ 硅光器件家族</b></a>（6.2 · 电→光→电）
+<a href="#sec-siph-device"><b>⑤ 硅光器件家族</b></a>（6.2 · 电→光→电，五棒里硅行不行）
 <span style="color:#94a3b8">　→　</span>
 <a href="#sec-cpo"><b>⑥ CPO 共封装</b></a>（6.3 · 系统集成）
 </p>
-<p style="margin-top:6px;color:#64748b;font-size:12px">读法建议：前两步建立"探测"的直觉（标量 / 时间戳），第三步理解"成像为何是模拟问题"，后三步切换到"光作为载体"的全新范式。三段之间的跳变点，正是理解光电世界的关键。</p>
+<p style="margin-top:8px;color:#475569;font-size:12px"><b>读法建议：</b>②③ 读完要能答出「积分 vs 触发」的区别；④⑤ 之间有一次<b>范式跳变</b>——从「测光」变成「用光」，这是全篇最大的一个坎。跨过去之后，CPO 和先进封装的逻辑就自然接上了。</p>
 </div></div>
 
 </div>
@@ -8063,7 +8125,7 @@ var NO_FOLD={'sec-glossary':1,'sec-sources':1};  // 查阅型：术语表/参考
 var COLLAPSE_MIN=3600;   // 超过此字数的小节默认折叠
 var LEAD_MAX=1300;       // 首块小于此字数则保留为常显摘要
 
-var heads=[],groups=[],idx=[],terms=[],sel=-1,curId='';
+var heads=[],groups=[],idx=[],terms=[],sel=-1,curId='',FOLD_SEQ=0;
 
 /* ---------- 工具 ---------- */
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
@@ -8123,6 +8185,8 @@ function foldable(){
     while(p){
       var tg=p.tagName;
       if(tg==='H1'||tg==='H2'||tg==='HR')break;
+      // 源码 div 不平衡时，后续章节可能成为本块子节点 —— 含 h1/h2 就停，避免整章被折叠吞掉
+      if(p.querySelector&&p.querySelector('h1,h2'))break;
       nodes.push(p);p=p.nextElementSibling;
     }
     if(!nodes.length)return;
@@ -8136,35 +8200,43 @@ function foldable(){
     if(!rest.length)return;
     var rlen=rest.reduce(function(a,b){return a+clean(b.textContent).length},0);
 
-    var body=document.createElement('div');
-    body.className='kb-body';body.style.display='none';
-    rest[0].parentNode.insertBefore(body,rest[0]);
-    rest.forEach(function(x){body.appendChild(x)});
+    // 关键：不搬运 DOM（源码 div 不平衡会把后续整章一起搬走），只逐个切换 display
+    var gid='g'+(++FOLD_SEQ);
+    rest.forEach(function(x){x.setAttribute('data-fold',gid);x.style.display='none'});
 
-    var wrap=document.createElement('div');wrap.className='kb-tgwrap';
+    var wrap=document.createElement('div');wrap.className='kb-tgwrap';wrap.setAttribute('data-foldwrap',gid);
     var kids=(h.kids||[]).length;
     wrap.innerHTML='<button class="kb-tg" type="button"><span class="ic">▼</span>'+
       '<span class="lb">展开细节</span>'+
       '<span class="n">约 '+(rlen>9999?(rlen/10000).toFixed(1)+' 万字':rlen+' 字')+
       (kids?' · '+kids+' 小节':'')+'</span></button>';
-    body.parentNode.insertBefore(wrap,body);
+    rest[0].parentNode.insertBefore(wrap,rest[0]);
     if(lead){
       var tip=document.createElement('div');tip.className='kb-lead-tip';
       tip.textContent='▲ 以上为本节要点，展开可读完整论述';
       wrap.parentNode.insertBefore(tip,wrap);
     }
     var btn=wrap.querySelector('button');
-    btn.addEventListener('click',function(){setFold(btn,body,body.style.display==='none')});
-    h.body=body;h.btn=btn;
+    btn.addEventListener('click',function(){setFold(btn,rest,rest[0].style.display==='none')});
+    h.nodes=rest;h.btn=btn;h.gid=gid;
   });
 }
-function setFold(btn,body,open){
-  body.style.display=open?'':'none';
+function setFold(btn,nodes,open){
+  if(!nodes)return;
+  if(!nodes.forEach)nodes=[nodes];
+  nodes.forEach(function(n){n.style.display=open?'':'none'});
   btn.classList.toggle('open',open);
   btn.querySelector('.lb').textContent=open?'收起细节':'展开细节';
 }
+function unfoldGroup(gid){
+  var w=document.querySelector('[data-foldwrap="'+gid+'"]');
+  var ns=[].slice.call(document.querySelectorAll('[data-fold="'+gid+'"]'));
+  if(!ns.length)return;
+  if(w){var b=w.querySelector('button');if(b){setFold(b,ns,true);return}}
+  ns.forEach(function(n){n.style.display=''});
+}
 function foldAll(open){
-  heads.forEach(function(h){if(h.body)setFold(h.btn,h.body,open)});
+  heads.forEach(function(h){if(h.nodes)setFold(h.btn,h.nodes,open)});
   document.querySelectorAll('.term-grid').forEach(function(g){
     g.style.display=open?'':'none';
     var w=g.previousElementSibling;
@@ -8179,11 +8251,8 @@ function reveal(el){
   revealTerm(el);
   var p=el;
   while(p&&p!==document.body){
-    if(p.classList&&p.classList.contains('kb-body')&&p.style.display==='none'){
-      var w=p.previousElementSibling;
-      while(w&&!w.classList.contains('kb-tgwrap'))w=w.previousElementSibling;
-      if(w)setFold(w.querySelector('button'),p,true);else p.style.display='';
-    }
+    var g=p.getAttribute&&p.getAttribute('data-fold');
+    if(g&&p.style.display==='none')unfoldGroup(g);
     p=p.parentElement;
   }
 }
@@ -8342,10 +8411,11 @@ function build(){
       var tg=p.tagName;
       if(tg==='H1'||tg==='H2'||tg==='HR')break;
       if(tg==='H3')break;
+      if(p.querySelector&&p.querySelector('h1,h2'))break;
       nodes.push(p);p=p.nextElementSibling;
     }
     var tx=nodes.map(function(x){return clean(x.textContent)}).join(' ');
-    if(h.body&&!nodes.length)tx=clean(h.body.textContent);
+    if(h.nodes&&!nodes.length)tx=h.nodes.map(function(x){return clean(x.textContent)}).join(' ');
     idx.push({id:h.id,t:h.t,bk:(groups[h.g]&&groups[h.g].b.n||'').replace(/ ·.*/,''),
       lv:h.lv,tx:tx.slice(0,6000)});
   });
@@ -8453,10 +8523,25 @@ function openS(){
 function closeS(){document.getElementById('kb-search').classList.remove('show')}
 
 /* ---------- 启动 ---------- */
+function safetyUnfold(){
+  // 兜底：带 id 的章节锚点不应被折叠隐藏（防源码结构异常导致整章不可见）
+  var n=0;
+  document.querySelectorAll('h1[id],h2[id],.card[id]').forEach(function(el){
+    var p=el;
+    while(p&&p!==document.body){
+      var g=p.getAttribute&&p.getAttribute('data-fold');
+      if(g&&p.style.display==='none'){unfoldGroup(g);n++}
+      p=p.parentElement;
+    }
+  });
+  if(n)console.info('[KB] safetyUnfold 解除了 '+n+' 处异常折叠');
+  return n;
+}
 function init(){
   collect();
   if(!heads.length)return;
   foldable();
+  safetyUnfold();
   glossaryFold();
   sidebar();
   panel();
@@ -8482,7 +8567,7 @@ function init(){
   }
   window.KB={jump:jump,foldAll:foldAll,open:openS,stats:function(){
     return{groups:groups.length,heads:heads.length,idx:idx.length,terms:terms.length,
-      folded:heads.filter(function(h){return h.body}).length}}};
+      folded:heads.filter(function(h){return h.nodes}).length}}};
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
