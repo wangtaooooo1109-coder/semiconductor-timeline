@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v7.3 | 2026-09-21 | 光电链路总纲重写(sec-opto-map): 物理主线前置——同一个PN结的三种操作方式(CIS当电荷桶积分/SPAD当扳机触发/硅光不用它探光改做材料集成), 新增「光是什么角色」判别表(信息本身/被计数事件/搬运载体)与「为什么不能互换」反向验证(LiDAR为何不用CIS·拍照为何不用SPAD·硅光为何不能照搬CIS), 四层递进改表格化; 前序: 侧边目录+全文搜索+长节折叠+术语四层释义表268条+统一叙述框架42节154标签 -->
+<!-- version: v7.4 | 2026-09-21 | 新增5.0「什么算模拟芯片」定义与谱系(sec-analog-taxonomy): WSTS四大类产业口径树+模拟IC内部信号链/电源管理二分+三条工程判据+边界声明; 澄清电源管理属模拟IC正式子类(且为最大细分市场), 如实标注CIS与SPAD按WSTS属光电子器件、本站就近编排的争议与待改进项; 第五篇副标题改为体现信号链+电源管理二分; 前序: 侧边目录+全文搜索+长节折叠+光电链路总纲+术语268条+统一叙述框架 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -5539,10 +5539,121 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <hr style="margin:60px 0 40px;border:none;border-top:4px solid #0891b2">
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px">第五篇：模拟与混合信号</h1>
-<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">运放 · 基准 · ADC/DAC · 电源管理 · CMOS 图像传感器 —— 摩尔定律之外的那半个半导体世界</p>
+<p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">信号链（运放 · 基准 · ADC/DAC）+ 电源管理（LDO · DC-DC）—— 模拟 IC 的两支主干，摩尔定律之外的那半个半导体世界</p>
 <div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#ecfeff;border-left:3px solid #0891b2;border-radius:6px;font-size:12px;color:#155e75">
 <b>为什么这一篇必须存在：</b>前四篇讲的都是「缩微换性能」的世界——逻辑、存储、功率、MCU 都在比谁的工艺节点更先进。模拟芯片给出的是完全相反的答案：<b>它的「先进」是精度、噪声底、功耗与可靠性，不是栅长</b>；工艺越老反而越值钱，一颗料号能卖十几到二十年。<br>
-<b>CIS 图像传感器也编入本篇</b>，判断依据是核心工程约束而非「是否与光有关」——CIS 的难点在<b>模拟读出链</b>（光电二极管 → 相关双采样 → 列并行 ADC），与 ADC 同源；至于电→光→电的双向通信，见 <a href="#sec-siph" style="color:#0e7490">第六篇 硅光子</a>。
+<b>模拟 IC 的准确定义与全谱系位置见 <a href="#sec-analog-taxonomy" style="color:#0e7490">5.0</a></b>——那里给出 WSTS 产业口径（模拟 IC 是集成电路四个子类之一）、内部「信号链 + 电源管理」二分、以及判断一颗芯片算不算模拟的三条判据。<br>
+<b>关于 <a href="#sec-cis" style="color:#0e7490">CIS</a> 与 <a href="#sec-opto-detect" style="color:#0e7490">光电探测</a>：</b>按 WSTS 口径它们属于<b>光电子器件</b>，不属于模拟 IC；本站编入本篇是按工程约束就近编排，<b>已知争议与待改进项均在 <a href="#sec-analog-taxonomy" style="color:#0e7490">5.0 边界声明</a>中如实标注</b>。至于电→光→电的双向通信，见 <a href="#sec-siph" style="color:#0e7490">第六篇 硅光子</a>。
+</div>
+
+<!-- ===== 5.0 模拟芯片的定义与谱系（v7.4 新增，插在第五篇 5.1 之前） ===== -->
+<h2 id="sec-analog-taxonomy">📐 5.0 先定义：什么算模拟芯片，以及本篇的边界在哪</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（产业口径 → 三条判据）→ 品类对比（全谱系树）→ 本质（边界声明：本站与 WSTS 的分歧）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+
+<div class="content">
+
+<div class="card" style="background:#ecfeff;border-left:4px solid #0891b2">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33">① 概念</span>「处理连续量」这个定义太松，会把半个半导体业都装进来</div>
+<div class="dsc">
+<p>最常见的定义是：<b>数字电路只需分辨 0 和 1，模拟电路要求数值本身准</b>。方向对，但作为分类判据太松——照这条，图像传感器、麦克风、温度传感器、光电二极管全都算模拟。<b>于是「模拟」就变成了「非数字」的垃圾桶。</b></p>
+<p style="margin-top:8px">要把边界划清，得先看产业上是怎么统计的，再补上工程上的判据。这两层合起来才够用。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33">① 概念</span>🌳 产业口径：模拟 IC 在半导体全谱系里的准确位置</div>
+<div class="dsc">
+<p>业界通用的是 <b>WSTS</b>（World Semiconductor Trade Statistics，世界半导体贸易统计组织）口径，先把半导体分四大类，再拆集成电路：</p>
+
+<table class="node-table nopad" style="margin-top:10px"><thead><tr>
+<th style="width:22%">第一层（四大类）</th><th style="width:26%">第二层</th><th>本站对应</th>
+</tr></thead><tbody>
+<tr><td class="hl" rowspan="4"><b>集成电路 IC</b><br><span style="font-size:11px;color:#64748b">占半导体约 八成以上</span></td>
+<td>逻辑 Logic</td><td><a href="#sec-timeline">第一篇 逻辑芯片</a></td></tr>
+<tr><td>存储 Memory</td><td><a href="#sec-storage-pattern">第二篇 存储芯片</a></td></tr>
+<tr><td>微器件 Micro（MPU / MCU / DSP）</td><td><a href="#sec-mcu-timeline">第四篇 车载 MCU</a></td></tr>
+<tr><td><b>模拟 Analog</b></td><td><b>本篇（第五篇）</b></td></tr>
+<tr><td class="hl"><b>分立器件 Discrete</b></td><td>二极管 / 晶闸管 / MOSFET / IGBT</td><td><a href="#sec-power-timeline">第三篇 功率半导体</a></td></tr>
+<tr><td class="hl"><b>光电子器件 Optoelectronics</b></td><td>LED / 激光器 / 光耦 / <b>图像传感器</b> / 光探测器</td><td>⚠️ 见下方边界声明</td></tr>
+<tr><td class="hl"><b>传感器 Sensors</b></td><td>MEMS / 压力 / 温度 / 磁 / 惯性</td><td>本站未单独成篇</td></tr>
+</tbody></table>
+
+<p style="margin-top:10px;background:#cffafe;padding:8px 12px;border-radius:6px;color:#155e75"><b>🔑 第一个关键结论：</b>模拟 IC <b>只是集成电路的四个子类之一</b>，与逻辑、存储、微器件并列。<b>它不包含分立器件、不包含光电子器件、也不包含传感器</b>——这三类在 WSTS 里是与 IC 平级的独立大类。这一条直接决定了本篇的边界。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233">⑤ 对比</span>🔀 模拟 IC 内部只有两支：信号链 与 电源管理</div>
+<div class="dsc">
+<p>这是模拟芯片最实用的一张分类图。业界标准分法是<b>按「处理对象」二分</b>——一支处理<b>信息</b>，一支处理<b>能量</b>：</p>
+
+<div class="card-row" style="margin-top:10px">
+<div class="card" style="background:#eff6ff">
+<div class="ttl" style="font-size:14px">🔗 信号链（Signal Chain）· 处理信息</div>
+<div class="dsc" style="font-size:12.5px">
+<p><b>要的是保真</b>——信号进来长什么样，出去还得是什么样。</p>
+<div class="kv" style="margin-top:6px">
+<span><b>线性产品：</b>运算放大器、比较器、<b>电压基准</b> → <a href="#sec-analog-core">5.2</a></span>
+<span><b>转换器：</b>ADC / DAC、模拟前端 AFE → <a href="#sec-adc">5.3</a></span>
+<span><b>接口：</b>隔离器、电平转换、开关与多路复用、时基</span>
+<span><b>射频微波：</b>LNA、混频器、频率合成器、PLL、RF 收发</span>
+</div>
+<p style="margin-top:7px;color:#1e40af"><b>衡量指标：</b>失调、噪声底、ENOB、SNR/SNDR、线性度</p>
+<p style="margin-top:4px;color:#64748b;font-size:11.5px">代表厂商：ADI、TI、圣邦微、思瑞浦</p>
+</div></div>
+
+<div class="card" style="background:#ecfdf5">
+<div class="ttl" style="font-size:14px">⚡ 电源管理（PMIC）· 处理能量</div>
+<div class="dsc" style="font-size:12.5px">
+<p><b>要的是效率</b>——把一路输入变成多路稳定、干净、按时序上电的电压。</p>
+<div class="kv" style="margin-top:6px">
+<span><b>稳压：</b>LDO 线性稳压器、DC-DC（Buck / Boost）→ <a href="#sec-pmic">5.4</a></span>
+<span><b>集成：</b>多路 PMIC、电源监控、电池管理 BMS IC</span>
+<span><b>驱动：</b>LED 驱动、电机驱动、栅极驱动</span>
+<span><b>保护：</b>过流 / 过压 / 热保护、AC-DC 转换</span>
+</div>
+<p style="margin-top:7px;color:#047857"><b>衡量指标：</b>转换效率、静态电流、负载/线性调整率、PSRR、纹波</p>
+<p style="margin-top:4px;color:#64748b;font-size:11.5px">代表厂商：TI、MPS、Infineon、矽力杰、杰华特</p>
+</div></div>
+</div>
+
+<p style="margin-top:12px;background:#d1fae5;padding:8px 12px;border-radius:6px;color:#065f46"><b>🔑 第二个关键结论——这解答了「为什么电源管理在模拟篇」：</b>电源管理<b>不是被硬塞进来的</b>，它在 WSTS 口径里<b>本来就是模拟 IC 的一个正式子类，而且是最大的那个细分市场</b>。「信号链 + 电源管理」是模拟芯片的标准二分法。<b>真正需要澄清的不是它的位置，而是篇名</b>——只说「模拟与混合信号」容易让人以为这篇全是信号精度，其实它有一半在讲能量转换。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33">① 概念</span>✅ 三条判据：拿到一颗芯片，怎么判断它算不算模拟</div>
+<div class="dsc">
+<p>产业口径解决「统计上归哪类」，但工程上还需要可操作的判据。<b>三条全中才是典型模拟芯片</b>：</p>
+<div class="kv" style="margin-top:8px">
+<span><b>判据一 · 误差直接进结果：</b>数字电路有<b>噪声容限</b>——只要还能分辨 0/1，一点干扰不影响结果；模拟电路<b>没有容限</b>，一毫伏的失调就是一毫伏的误差，会一路传到输出。</span>
+<span><b>判据二 · 精度由匹配与噪声底决定，不由栅长决定：</b>决定性能的是<b>器件匹配（Pelgrom 定律：面积换精度）、热噪声与 1/f 噪声、电压裕度</b>，而不是工艺节点。→ <a href="#sec-analog-why">5.1</a></span>
+<span><b>判据三 · 不靠缩微换性能，成熟工艺反而更值钱：</b>先进节点电压裕度更小、对模拟是<b>帮倒忙</b>；BCD 等成熟工艺一颗料号能卖十几到二十年。→ <a href="#sec-analog-proc">5.5</a></span>
+</div>
+<p style="margin-top:10px;color:#475569;font-size:12px">反向检验：MCU 处理的是数字信号但内部含 ADC/LDO（属混合信号，主体仍是 Micro 类）；IGBT 处理连续的电流电压但它是<b>分立器件</b>不是 IC（判据二三都不适用，它拼的是耐压与损耗）。<b>可见「处理连续量」单独一条远远不够。</b></p>
+</div></div>
+
+<div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933">⑥ 本质</span>⚠️ 边界声明：CIS 与光电探测为什么出现在本篇，以及这一分类的争议</div>
+<div class="dsc">
+<p><b>先把话说清楚：按 WSTS 产业口径，<a href="#sec-cis">CIS 图像传感器</a>与 <a href="#sec-opto-detect">PD/APD/SPAD/SiPM</a> 属于「光电子器件」大类，不属于模拟 IC。</b>本站把它们编入第五篇，是<b>按工程约束就近编排的结果，不是产业统计口径</b>，两者不应混用。</p>
+
+<table class="node-table nopad" style="margin-top:10px"><thead><tr>
+<th style="width:17%">品类</th><th style="width:24%">WSTS 归类</th><th style="width:30%">编入本篇的理由（工程视角）</th><th>这个理由的局限</th>
+</tr></thead><tbody>
+<tr><td class="hl">CIS</td><td><b>光电子器件</b></td>
+<td>难点确实在<b>模拟读出链</b>（像素 → CDS → 列并行 ADC），与 5.3 ADC 同源，三条判据基本都中</td>
+<td>只覆盖了读出链：<b>BSI / 堆栈式是封装工艺、量子效率是材料光学</b>，这两块与模拟设计无关</td></tr>
+<tr><td class="hl">SPAD / SiPM</td><td><b>光电子器件</b></td>
+<td>与 CIS 同源于 PN 结光电转换，放在一起便于对比</td>
+<td><b>理由较弱</b>：它的核心指标是<b>皮秒级时间抖动与光子探测效率</b>——按<a href="#sec-opto-map">光电总纲</a>自己的结论，它的本质是<b>数字计时</b>问题，与「模拟精度」不是一回事</td></tr>
+<tr><td class="hl">PMIC</td><td><b>模拟 IC</b>（正式子类）</td>
+<td>产业口径与工程判据一致，<b>无争议</b></td>
+<td>—— 唯一需要修正的是篇名表述</td></tr>
+</tbody></table>
+
+<p style="margin-top:10px;background:#fef3c7;padding:8px 12px;border-radius:6px;color:#92400e"><b>🔑 一句话本质：</b>「模拟」是<b>按设计方法论划出来的类</b>（精度、噪声、匹配），而「光电子」是<b>按物理效应划出来的类</b>（光电转换）。<b>两条轴不同源，所以必然出现交叠地带——CIS 就站在交叉点上</b>。承认这一点，比强行把它塞进某一篇更诚实。</p>
+
+<p style="margin-top:8px;color:#64748b;font-size:12px"><b>📌 已知待改进项：</b>更自洽的做法是把 CIS + 光电探测独立为「光电感知」一篇，置于<a href="#sec-siph">硅光子篇</a>之前，使阅读链成为「<b>感知（探测→成像）→ 通信（硅光）</b>」，与<a href="#sec-opto-map">光电链路总纲</a>的四层递进完全对齐；本篇则聚焦「信号链 + 电源管理」两支。此项已记录，尚未实施。</p>
+</div></div>
+
 </div>
 
 <div class="content">
