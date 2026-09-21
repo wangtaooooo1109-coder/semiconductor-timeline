@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v8.2 | 2026-09-22 | B/C类全量补齐 + 结构逻辑优化: ①结构: 补第一篇篇级标题(原缺失, 0.12讲完直接跳1.1)与附录标题; 导航层改按编号深度推断层级(修11个h1与「篇」同级导致侧栏0.5看起来像一篇的问题); 修目录标题混入槽位徽标文字; ②B类18条修正: ArF NA数值统一/干法刻蚀补清靠侧向修整非刻蚀能画更细/PVD收严(会升温·反应溅射有化学反应)/铜互连补Ta-TaN阻挡层与扩散毒化根因/退火补RTA抑扩散/椭偏仪改测偏振态/overlay与registration划清/1-f噪声补McWhorter与Hooge两模型争议/本征增益改沟道长度调制ro∝L/kT-C从RC积分收严/MOS三种不理想分别对应平移与变形/NAND极性限定SLC约定/金线更新为铜线PCC/GBW移出直流误差源/过采样+6dB标注无整形前提/GaN 365nm是本征带隙蓝光靠InGaN量子阱; ③C类32块新增(科普向, 生活类比→准确定义→为什么要紧): ALD·刻蚀选择性·干湿法各向异性·ARDE·CMP dishing·单双大马士革·外延·gate-last·化学放大胶CAR·倒胶毛细力·工艺窗口·OPC与多重曝光·scatterometry·齐纳vs雪崩击穿·内建电势·阈值电压定义·restore vs refresh对照·NOR-CHE与NAND-FN分工·3D NAND电荷陷阱层CTF·耐久与保持正交·2.5D vs 3D·混合键合vs微凸点·KGD·感应放大器½VDD预充·斩波vs自动归零·带通采样·APD过剩噪声因子·ClassC效率·Buck占空比 -->
+<!-- version: v8.3 | 2026-09-22 | 通俗化改造 + 结构优化 + B/C类全补齐: ①通俗化: 60处专业术语首次出现处补零门槛生活类比括注(隧穿=鬼探头穿墙/共形性=盖被子服帖/粒子数反转=把人先抬到楼上/盖革模式=上膛的枪/PAPR=按陡坡准备动力/功函数=材料留住电子的握力等); 10篇各加「用外行话说」通俗导语, 显式点出上一篇讲完什么→为什么接下来讲这个; ②结构: 补第一篇与附录篇级标题(第一篇原缺失); 导航层改按编号深度推断层级(修11个h1与篇同级); 13块新知识按归属拆散到6个对应小节(原全挤在sec-fab-modules); 修目录标题混入槽位徽标; ③B类18条修正 + C类32块新增(教材级补齐, 详见 v8.2) -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -592,7 +592,7 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 <span style="background:#fffbeb;color:#b45309"><b>⑥ 本质</b> 这里的权衡到底是什么</span>
 </div>
 <p style="margin-top:10px;background:#f1f5f9;padding:8px 12px;border-radius:6px;color:#334155">
-<b>🔑 为什么要标明「卡在哪一层」：</b>瓶颈归属本身就是最有价值的信息——<b>MLCC 卡材料</b>（BaTiO₃ 晶粒尺寸）、<b>硅光发光卡材料</b>（硅是间接带隙）、<b>MOSFET 缩微卡物理结构</b>（短沟道效应）、<b>车规模块卡工艺</b>（认证与可靠性）。看清卡在哪一层，才知道它能不能被绕过、以及要绕多久。</p>
+<b>🔑 为什么要标明「卡在哪一层」：</b>瓶颈归属本身就是最有价值的信息——<b>MLCC 卡材料</b>（BaTiO₃ 晶粒尺寸）、<b>硅光发光卡材料</b>（硅是间接带隙）、<b>MOSFET 缩微卡物理结构</b>（短沟道效应——晶体管做得越小，源和漏离得太近，栅极这个"开关"就越管不住中间的电流，越容易漏电、越难彻底关断）、<b>车规模块卡工艺</b>（认证与可靠性）。看清卡在哪一层，才知道它能不能被绕过、以及要绕多久。</p>
 <p style="margin-top:8px;color:#64748b;font-size:12px">说明：三类瓶颈是<b>可选槽位</b>——多数小节只卡在其中一两层，不强行凑齐。时间轴、产业格局、各国节点、事件详表、深度研究等<b>叙事类小节不套用此框架</b>。全站范式样本：<a href="#sec-mlcc">9.2 MLCC</a>（结构原理 → 材料下限 → 工艺矛盾 → 隐性劣化 → 品类对比）。</p>
 </div></div></div>
 
@@ -600,8 +600,12 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-phys">第零篇：器件物理地基 —— 为什么芯片能工作</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">掺杂 → PN结 → MOS电容 → MOSFET ·  一条因果链撑起后面全部四篇</p>
+<div style="max-width:1100px;margin:0 auto 20px;padding:12px 16px;background:#f8fafc;border-left:4px solid #7c3aed;border-radius:6px;font-size:13.5px;color:#334155;line-height:1.9">
+<b>🌱 用外行话说：</b>手机、电脑、电车里的每一颗芯片，拆到最小都是同一种小开关——晶体管。它靠一个"电压门"控制电流的通断，开代表 1、关代表 0，亿万个这样的开关拼在一起就成了会算数的芯片。这一篇不讲任何具体产品，只讲这个小开关是怎么用一块硅做出来、又是怎么被"开关"的。看懂了它，后面九篇讲的所有芯片——不管是算的、存的、还是搬电的——本质都是这块地基上盖的楼。
+</div>
+
 <div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#f5f3ff;border-left:3px solid #7c3aed;border-radius:6px;font-size:12px;color:#4c1d95">
-本篇<b>刻意避开数学推导</b>，只讲物理图像与工程上谁可调。范围限于<b>平面 MOSFET 时代</b>的物理，非理想效应讲到 DIBL 与 GIDL；FinFET / GAA / 纳米片的结构问题在第一篇 1.3 展开。凡标「推断」处为外推结论，非原厂原文。
+本篇<b>刻意避开数学推导</b>（不写公式，只讲"这东西到底在干嘛"的画面），只讲物理图像与工程上谁可调。范围限于<b>平面 MOSFET 时代</b>的物理，非理想效应讲到 DIBL（Drain Induced Barrier Lowering，漏致势垒降低——漏极那头电压太高，把源头的"门槛"也压矮了，晶体管想关却关不干净、一直漏电）与 GIDL（Gate Induced Drain Leakage，栅致漏极漏电——本该关断时，栅极边缘反而"逼"出一股漏电流）；FinFET / GAA / 纳米片的结构问题在第一篇 1.3 展开。凡标「推断」处为外推结论，非原厂原文。
 </div>
 
 <div class="content">
@@ -625,11 +629,11 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 <div class="ps-h">🎯 器件物理与制造 · 产品侧影响总结</div>
 <div class="ps-m">地基层的每一条物理限制，最终都落在「芯片多大、多贵、多热、能跑多快」上</div>
 <table class="node-table nopad"><thead><tr><th style="width:26%">限制 / 方案</th><th style="width:28%">直接后果</th><th>产品侧最直观影响</th></tr></thead><tbody>
-<tr><td class="hl">短沟道效应 → 漏电</td><td>必须 HKMG/FinFET/GAA 换几何</td><td>💠 die 面积上升、⚡ 静态功耗上升、🌡️ 散热要求提高</td></tr>
+<tr><td class="hl">短沟道效应 → 漏电</td><td>必须 HKMG（High-K Metal Gate，高介电常数金属栅——把晶体管的"绝缘层"换成更能挡漏电的新材料并配金属栅）/FinFET（把导电沟道立起来做成"鱼鳍"，栅极三面包住、更好关断）/GAA（Gate-All-Around，环绕栅——栅极干脆四面把沟道整根裹住，像手攥紧水管，控制力最强）换几何</td><td>💠 die 面积上升、⚡ 静态功耗上升、🌡️ 散热要求提高</td></tr>
 <tr><td class="hl">光刻分辨率极限</td><td>多重曝光或上 EUV</td><td>📉 掩模层数与工序翻倍 → 单片成本陡增</td></tr>
 <tr><td class="hl">套刻精度不足</td><td>层间对不准，互连失效</td><td>📉 良率直接掉、💠 需放大版图余量</td></tr>
 <tr><td class="hl">光刻胶厚度两难</td><td>太薄挡不住刻蚀、太厚倒胶</td><td>📉 良率窗口变窄、🔢 最小线宽受限</td></tr>
-<tr><td class="hl">横向没空间了</td><td>改为往上堆（TSV/3D）</td><td>📦 封装厚度与工序增加、🌡️ 热密度集中</td></tr>
+<tr><td class="hl">横向没空间了</td><td>改为往上堆（TSV，Through-Silicon Via，硅通孔——直接在芯片上打竖井灌金属，让上下楼层直接通电，好比给大楼装电梯而不是绕外墙楼梯 /3D 立体堆叠）</td><td>📦 封装厚度与工序增加、🌡️ 热密度集中</td></tr>
 <tr><td class="hl">内存墙：算力跑赢带宽</td><td>必须用 HBM + 2.5D 封装</td><td>🔢 带宽定性能上限、📦 需中介层、💰 成本大幅上升</td></tr>
 <tr><td class="hl">HBM 堆高后散热恶化</td><td>风冷不够，逼出液冷</td><td>🌡️ 整机散热方案换代、💰 数据中心 CAPEX 上升</td></tr>
 </tbody></table>
@@ -727,7 +731,7 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 <p><b>② 正偏（P 接正极）</b>【原厂】：外加电压削弱内建电场、耗尽区变窄，载流子得以大量越过 → <b>电流畅通</b>。</p>
 <p><b>③ 反偏（P 接负极）</b>【原厂】：外加电压<b>加强</b>内建电场、耗尽区变宽，载流子更过不去 → <b>几乎不导电</b>。这就是二极管单向导电的由来。</p>
 <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px;font-size:13px;line-height:1.9;color:#4c1d95;margin-top:10px">
-<b>🔑 这条要记住，功率篇全靠它：</b>反偏时，外加的电压<b>几乎全部落在耗尽区上</b>。耗尽区里的电场随电压升高而增强，一旦超过材料的<b>临界击穿场强</b>，就发生雪崩击穿、器件失效。<br>
+<b>🔑 这条要记住，功率篇全靠它：</b>反偏时，外加的电压<b>几乎全部落在耗尽区上</b>。耗尽区里的电场随电压升高而增强，一旦超过材料的<b>临界击穿场强</b>，就发生雪崩击穿（一个高速电子撞出更多电子、这些又各自再撞出更多，像雪球滚下山越滚越大，电流瞬间失控）、器件失效。<br>
 所以「让器件耐更高压」这件事，本质是<b>要一个能承受更强电场而不击穿的材料</b>。<b>→ 这直接解释了第三篇 SiC 为什么耐高压</b>：SiC 带隙远大于硅，临界场强高出约一个数量级，因此挡同样的电压，耐压层可以做得<b>薄得多</b>、掺杂还能更浓；而耐压层越薄越浓，电流通过它的电阻就越小。<b>SiC 于是一举松开了「耐压 ↔ 导通电阻」这对天生矛盾。</b>【推断：由带隙与反偏耐压外推，本篇材料本身不涉及功率器件】
 </div>
 </div></div>
@@ -821,10 +825,10 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 <b>🔑 存储篇的 DRAM 电容为什么长成「一根根深井」，答案就在这三个旋钮里：</b><br>
 DRAM 要在越来越小的单元面积里<b>存住足够多的电荷</b>（电荷太少就读不出、抗干扰差）。可是随制程推进，留给单元的<b>平面面积不断缩小</b>。于是只剩三条路：<br>
 <b>① 把有效面积撑大</b> → 把电容做成又深又窄的三维立体结构，用「侧壁面积」换容量。<b>这就是 DRAM 电容看起来像深井的原因</b>（柱高约等于 footprint 直径的 <b>40 倍</b>，容器深约 1µm，而人的头发丝约 70µm）【原厂】<br>
-<b>② 把介质做薄</b> → 但太薄电子会直接隧穿漏过去，此路有物理上限。<br>
+<b>② 把介质做薄</b> → 但太薄电子会直接隧穿（隧穿：按常理电子过不去的薄墙，量子世界里它有一定概率"穿墙而过"，像鬼探头）漏过去，此路有物理上限。<br>
 <b>③ 换高介电常数（高κ）材料</b> → 原厂明确提到氧化层的趋势就是<b>高κ</b>【原厂】。即使物理厚度不能再薄，也能靠大介电常数把电容做大。
 </div>
-<p style="margin-top:10px"><b>原厂还讲了三种「不理想」</b>【原厂】：金属与硅的功函数失配、介质里的固定电荷、以及界面陷阱。它们对 C-V/阈值曲线的影响并不相同：<b>功函数差与固定电荷</b>主要改变平带电压 V_FB，让曲线<b>沿电压轴整体平移</b>；而<b>界面陷阱</b>会随栅压充放电，主要让曲线<b>被拉伸变形（stretch-out）并带来频率色散</b>。这一点很有用——<b>Flash 的浮栅正是故意利用了「介质里存电荷会平移阈值电压」这个效应</b>（见下节）。</p>
+<p style="margin-top:10px"><b>原厂还讲了三种「不理想」</b>【原厂】：金属与硅的功函数（把一个电子从材料里"拽出来"所需的能量，好比每种材料留住电子的"握力"不同）失配、介质里的固定电荷、以及界面陷阱。它们对 C-V/阈值曲线的影响并不相同：<b>功函数差与固定电荷</b>主要改变平带电压 V_FB，让曲线<b>沿电压轴整体平移</b>；而<b>界面陷阱</b>会随栅压充放电，主要让曲线<b>被拉伸变形（stretch-out）并带来频率色散</b>。这一点很有用——<b>Flash 的浮栅正是故意利用了「介质里存电荷会平移阈值电压」这个效应</b>（见下节）。</p>
 </div></div>
 
 
@@ -857,7 +861,7 @@ DRAM 要在越来越小的单元面积里<b>存住足够多的电荷</b>（电�
 <div class="dsc">
 <p style="background:#fee2e2;padding:8px 12px;border-radius:6px;color:#7f1d1d"><b>⚠️ 一个常见的方向性误解：</b>原厂明确写的是：室温下亚阈值摆幅<b>大于</b> 60mV/dec，而 60mV/dec 是<b>理论下限</b>。所以摆幅<b>越大＝越差＝漏电越难控</b>。【原厂】</p>
 <p><b>第一步：「关」其实关不干净。</b>把漏电流画成对数纵轴，会发现阈值以下是一条<b>直线</b>——说明名义上「关断」时，漏电流随栅压呈<b>指数关系</b>变化。【原厂】</p>
-<p><b>第二步：为什么关不干净？</b>即使栅压低于阈值，源端电子仍然有一条<b>指数拖尾的能量分布</b>——总有少数电子能量特别高，翻得过势垒。栅压稍微一升，就「暴露」出指数增多的高能电子。所以原厂直说：<b>OFF 并非完全 OFF</b>。【原厂】<br>
+<p><b>第二步：为什么关不干净？</b>即使栅压低于阈值，源端电子仍然有一条<b>指数拖尾的能量分布</b>——总有少数电子能量特别高，翻得过势垒（势垒就是电子要越过的一道"能量门槛"，像一堵墙，能量不够的电子翻不过去、能量高的少数电子能翻过去）。栅压稍微一升，就「暴露」出指数增多的高能电子。所以原厂直说：<b>OFF 并非完全 OFF</b>。【原厂】<br>
 <span style="color:#7c3aed">这条拖尾正是 0.1 节讲的费米-狄拉克分布的高能尾巴——<b>地基在这里回收了</b>。</span></p>
 <p><b>第三步：亚阈值摆幅是什么。</b>让漏电流变化 <b>10 倍</b>所需的栅压变化量，单位 mV/dec。【原厂】 <b>越小越好</b>——小意味着栅压稍降漏电就掉一个数量级，即「关得又快又干净」。</p>
 <p><b>第四步：为什么 60mV/dec 是绕不过去的硬墙。</b>完整推导此处从略。物理根源是：<b>载流子的热运动分布本身就是指数型的</b>，这由玻尔兹曼统计决定——栅压每压低 <b>(kT/q)·ln10</b>，电流就掉一个数量级。室温（300K）下这个下限恰好是 <b>(kT/q)·ln10 ≈ 59.6 mV/dec</b>（约 60 mV/dec）。传统 MOSFET 无论怎么优化栅极结构，都只能<b>趋近</b>而永远达不到更低。【原厂】</p>
@@ -905,7 +909,7 @@ DRAM 要在越来越小的单元面积里<b>存住足够多的电荷</b>（电�
 <table class="node-table nopad"><thead><tr><th style="width:15%">五类基本动作</th><th style="width:24%">对应功能区</th><th>本质</th></tr></thead>
 <tbody>
 <tr><td class="hl">① 加材料<br>Add Material</td><td><b>Diffusion</b>（扩散炉）<br><b>CVD</b> 化学气相沉积<br><b>PVD</b> 物理气相沉积<br>Wet Process（电镀）</td><td>在晶圆表面长出或铺上一层膜：绝缘的、导电的、半导体的</td></tr>
-<tr><td class="hl">② 去材料<br>Remove</td><td><b>Dry Etch</b> 干法刻蚀<br>Wet Process 湿法<br><b>CMP</b> 化学机械平坦化</td><td>把不需要的部分去掉——可以是选择性去膜，也可以是磨平起伏</td></tr>
+<tr><td class="hl">② 去材料<br>Remove</td><td><b>Dry Etch</b> 干法刻蚀<br>Wet Process 湿法<br><b>CMP</b> 化学机械平坦化（Chemical Mechanical Planarization——一边用药水软化、一边用磨盘磨平芯片表面的高低起伏，好比把凹凸不平的墙面打磨到镜面平整，好让下一层能平铺上去）</td><td>把不需要的部分去掉——可以是选择性去膜，也可以是磨平起伏</td></tr>
 <tr><td class="hl">③ 造图形<br>Create Patterns</td><td><b>Photolithography</b> 光刻</td><td>唯一负责"画图"的区。定义每一层的形状与位置</td></tr>
 <tr><td class="hl">④ 改电性<br>Change Electrical</td><td><b>Implant</b> 离子注入</td><td>把掺杂原子打进硅里，改变导电类型与浓度</td></tr>
 <tr><td class="hl">⑤ 测与检<br>Measure / Inspect</td><td><b>Metrology</b> 量测<br><b>RDA</b> 实时缺陷分析</td><td><b>都不改变晶圆结构与电性</b>——是"眼睛"，不是"手"</td></tr>
@@ -986,7 +990,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
   <text x="390" y="194" text-anchor="middle" font-size="9.5" font-weight="700" fill="#b91c1c">顶部厚·侧壁与底部薄 → 填不满</text>
 </svg>
 <div class="anim-note">
-<p><b>CVD：</b>气体进腔室反应生成固体膜（Gas A + Gas B → Solid C + 副产物），多数带等离子体。<b>核心优势是共形性极好</b>，能无空洞填窄孔深沟。原厂用它做：碳硬掩模~100nm、硅硬掩模~30nm、STI 填充氧化物~500nm、栅侧壁 spacer、<b>接触孔的钨(W)~150nm</b>、钝化氮化硅&gt;1000nm。</p>
+<p><b>CVD：</b>气体进腔室反应生成固体膜（Gas A + Gas B → Solid C + 副产物），多数带等离子体。<b>核心优势是共形性极好（薄膜能均匀贴合沟壑的侧壁和底部，像给凹凸地形盖被子盖得服不服帖）</b>，能无空洞填窄孔深沟。原厂用它做：碳硬掩模~100nm、硅硬掩模~30nm、STI（Shallow Trench Isolation，浅沟槽隔离——在相邻晶体管之间挖条小沟灌绝缘物，像给邻居之间砌堵墙防止串电）填充氧化物~500nm、栅侧壁 spacer、<b>接触孔的钨(W)~150nm</b>、钝化氮化硅&gt;1000nm。</p>
 <p><b>PVD：</b>即溅射——离子轰击金属靶，溅出的原子沉积到晶圆。<b>纯金属溅射</b>几乎无化学反应、<b>温度较低</b>（并非严格室温：离子轰击与等离子体会让基片升温，有时还主动加热基片改善膜质），快、便宜，但<b>共形性差、不能填深孔</b>。此外<b>反应溅射</b>可在溅射时通入 N₂ 等气体，让金属与之反应生成化合物（如 TiN、TaN 阻挡层）——这一类 PVD 是<b>有化学反应</b>的。原厂用它做栅金属层（~20nm）。</p>
 <p><b>⚠️ 一个常见误解：</b>以为金属都靠 PVD。原厂分工很清楚——<b>栅金属用 PVD、接触孔的钨用 CVD、而 M1 的铜用湿法电镀</b>（晶圆浸硫酸铜溶液通电，Cu 离子迁移沉积）。深沟填厚铜用电镀比 PVD 经济得多。</p>
 <div class="kv"><span class="good">CVD：共形·可填深孔</span><span class="good">PVD：快·便宜·低温</span><span class="warn">PVD：填不了深孔</span><span>铜=电镀</span></div>
@@ -1177,17 +1181,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 <!-- C6 单/双大马士革 -->
-<div class="card">
-<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933">④ 方案</span>单大马士革 vs 双大马士革（属 0.5.3 BEOL）</div>
-<div class="dsc">
-<p><b>先打个比方：</b>要在楼层之间接一根管子，再在楼面上铺一条水槽。<b>单大马士革</b>是分两次施工：先把楼层间的竖管（通孔）挖好填好，再另挖楼面的横槽（沟槽）填一次。<b>双大马士革</b>是先把竖管孔和横槽<b>一起挖好，一次灌满</b>。</p>
-<p><b>准确定义：</b>铜很难像铝那样"先铺一层再刻掉多余"，所以反过来用大马士革——<b>先在介质里刻出凹槽再填铜、最后 CMP 磨平</b>。其中：<b>单大马士革</b>=通孔（via）与沟槽（trench）分两步各自制作、各填一次铜；<b>双大马士革</b>=通孔+沟槽一次成形、<b>一次电镀填满</b>。</p>
-<div class="kv">
-<span class="good"><b>双大马士革的好处：</b>一次填充完成通孔和沟槽，<b>减少 CMP 次数</b>、减少通孔/线之间的界面电阻，是现代 BEOL 铜互连的主流。</span>
-</div>
-<p style="color:#64748b"><b>为什么工程上要紧：</b>芯片有十几层金属，每层都少一次 CMP、少一道界面，累积下来对良率、电阻和成本都是巨大节省。</p>
-</div>
-</div>
+
 
 </div>
 
@@ -1195,114 +1189,37 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <div class="card-row">
 
 <!-- C7 外延 epitaxy -->
-<div class="card">
-<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>外延 Epitaxy：在晶圆上长出"晶向对齐"的新单晶（属 0.5.3）</div>
-<div class="dsc">
-<p><b>先打个比方：</b>在一块砌得整整齐齐的砖墙上，接着往上砌新砖——而且要求每块新砖都<b>顺着下面砖的排列方向</b>码放，接缝对齐，仿佛整面墙是一次砌成的。外延就是让新长的晶体"照抄"下面衬底的晶格排列方向。</p>
-<p><b>准确定义：</b>外延（epitaxy）是在单晶衬底表面<b>生长一层晶向与衬底一致的单晶薄膜</b>。它不是随便堆一层，而是延续衬底的晶格。</p>
-<div class="kv">
-<span><b>源漏应变外延：</b>在源漏处长 <b>SiGe/SiC</b> 等晶格常数不同的单晶，撑或压硅沟道产生<b>应变</b>，<b>提升载流子迁移率</b>（跑得更快、电流更大）。</span>
-<span><b>功率器件漂移区：</b>用外延长出厚度和掺杂精确可控的单晶层，作为耐高压的<b>漂移区</b>。</span>
-</div>
-<p style="color:#64748b"><b>为什么工程上要紧：</b>没有源漏应变外延，先进 CMOS 就少了一大截性能；功率器件的耐压层也依赖外延的精确控制。它是"用材料结构换性能"的关键手段。</p>
-</div>
-</div>
+
 
 <!-- C8 Gate-first vs Gate-last -->
-<div class="card">
-<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233">⑤ 对比</span>Gate-first vs Gate-last：金属栅什么时候装（属 0.5.3 HKMG）</div>
-<div class="dsc">
-<p><b>先打个比方：</b>装修房子要在一间屋里放一件怕热的精密家具。<b>Gate-first</b>是先把家具搬进去，再去干那些要开大火、高温的活——家具可能被烤坏。<b>Gate-last</b>是先摆个不怕热的"假家具"占位，等所有高温活都干完，再把假的换成真的精密家具。</p>
-<p><b>准确定义：</b>先进逻辑用 <b>HKMG</b>（高κ介质 + 金属栅）。真正的<b>金属栅</b>用来精确设定阈值电压，但它<b>怕高温</b>——源漏激活退火的高温会损伤高κ介质与金属栅、让功函数漂移。</p>
-<div class="kv">
-<span><b>Gate-first：</b>先做好高κ/金属栅，再做源漏——栅要经受后续高温，工艺难。</span>
-<span class="good"><b>Gate-last（= replacement metal gate，替代金属栅）：</b>先做<b>假栅（dummy poly 多晶硅）</b>占位，完成源漏注入与<b>高温激活退火</b>后，再挖掉假栅、换上 high-k + 金属栅——<b>避开了高温对金属栅的损伤</b>，故业界（尤其 Intel 路线）多用它。</span>
-</div>
-<p style="color:#64748b"><b>为什么工程上要紧：</b>金属栅的功函数材料不耐源漏激活的高温，先装就会被烤坏，阈值电压失控。gate-last 用"最后再装"化解了这个矛盾，是 HKMG 量产的关键工艺选择。</p>
-</div>
-</div>
+
 
 </div>
 
 <div class="card-row">
 
 <!-- C9 化学放大胶 CAR -->
-<div class="card">
-<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>化学放大胶 CAR：一颗火星点燃一片</div>
-<div class="dsc">
-<p><b>先打个比方：</b>划一根火柴（一个光子）本身能量很小，但如果它点着了引信，引信再引燃一整排鞭炮——<b>一次小触发引发一连串反应</b>。化学放大胶就是让一个光子的"火星"，触发一连串化学反应。</p>
-<p><b>准确定义：</b>CAR（Chemical Amplified Resist，化学放大胶）是 DUV/EUV 的主流光刻胶。胶里掺有<b>光酸产生剂 PAG</b>：曝光时光子让 PAG 产生一个<b>酸</b>；随后在<b>曝光后烘烤（PEB）</b>中，这个酸像催化剂一样<b>催化胶分子链式"脱保护"反应</b>，一个酸能催化很多次反应，且反应后酸不消耗、继续催化下一处——于是<b>一个光子的效果被放大成很多次化学变化</b>。</p>
-<div class="kv">
-<span class="good"><b>好处：</b>灵敏度极高——这正是 DUV/EUV 能用有限光子量产的关键。</span>
-<span class="warn"><b>代价：</b>反应靠酸扩散+温度驱动，所以<b>线宽对 PEB 温度极其敏感</b>（温度差几度线宽就变）。</span>
-</div>
-<p style="color:#64748b"><b>为什么工程上要紧：</b>EUV/DUV 每单位面积的光子本就稀缺，没有化学放大就曝不动、产能上不去。它也解释了为什么 PEB 这一步的温度控制要苛刻到零点几度。</p>
-</div>
-</div>
+
 
 <!-- C10 倒胶毛细力机理 -->
-<div class="card">
-<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633">③ 瓶颈</span>倒胶：干燥时的表面张力把细线拉倒</div>
-<div class="dsc">
-<p><b>先打个比方：</b>洗完头，一根根湿发本来分开，晾干过程中却常常几缕粘成一撮——因为水在头发之间形成的<b>表面张力</b>把它们互相拉拢。又细又高的光刻胶线条也一样，显影液干燥时被"拉倒、粘连"。</p>
-<p><b>准确定义：</b>倒胶（resist collapse）的根因是：显影后冲洗、干燥时，<b>残留在细胶线之间的液体因表面张力产生毛细力</b>，这个横向拉力一旦超过细高胶线的机械强度，就把线拉倒、粘连。<b>深宽比（高÷宽）≥ 3</b> 时尤其易发生。</p>
-<div class="kv">
-<span class="good"><b>缓解：</b>降低胶膜厚度、用表面张力更低的冲洗液、超临界干燥（绕开液体表面张力）、增强胶的机械强度。</span>
-</div>
-<p style="color:#64748b"><b>为什么工程上要紧：</b>线越细越高，越站不稳。这说明光刻的极限不只在光学分辨率，也在图形本身的<b>力学稳定性</b>——它限制了单层胶能做的深宽比。</p>
-</div>
-</div>
+
 
 </div>
 
 <div class="card-row">
 
 <!-- C11 工艺窗口 process window / ED window -->
-<div class="card">
-<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33">① 概念</span>工艺窗口 Process Window / ED Window</div>
-<div class="dsc">
-<p><b>先打个比方：</b>烤面包要同时把"火候（温度）"和"时间"都调在合适范围里，才能烤出合格的面包。两个旋钮都对，才算落在"能烤好"的区域里；这个区域越大，越不怕手抖。</p>
-<p><b>准确定义：</b>光刻里的两个关键旋钮是<b>曝光剂量</b>（给多少光）和<b>焦距/焦深</b>（对得准不准）。把两者当作二维坐标，画出"线宽仍在合格范围内"的可用区域，就是<b>焦距-剂量二维窗口（Exposure-Defocus window，ED window / process window，工艺窗口）</b>。文中的 Focus-Exposure Matrix（焦距-剂量矩阵）就是用来测出这块区域的。</p>
-<div class="kv">
-<span><b>窗口面积越大 → 量产裕度越足</b>，机台轻微波动也不会出废品。</span>
-</div>
-<p style="color:#64748b"><b>为什么工程上要紧：</b>量产机台不可能永远精确，剂量和焦距总有抖动。工艺窗口太小，稍有波动就大批报废；窗口大小直接决定这道光刻能不能稳定量产。</p>
-</div>
-</div>
+
 
 <!-- C12 OPC 与多重曝光 -->
-<div class="card">
-<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933">④ 方案</span>OPC 与多重曝光：故意画歪、拆成几次印</div>
-<div class="dsc">
-<p><b>先打个比方（OPC）：</b>用印章盖字，油墨会在边角晕开，盖出来的字总是圆头圆脑、笔画变形。聪明的办法是<b>预先把印章刻得"故意歪一点"</b>——该细的地方刻得更细、拐角处加个小突起，晕开后正好变成想要的形状。</p>
-<p><b>OPC 准确定义：</b>OPC（Optical Proximity Correction，光学邻近效应校正）就是<b>在掩模上预先把图形"故意画歪"</b>（加衬线、调线宽、加辅助小图形），以<b>补偿光学衍射带来的变形</b>，让最终印在晶圆上的图形接近设计。</p>
-<p><b>先打个比方（多重曝光）：</b>一张纸上要画得密密麻麻，一支粗笔一次画不开，就<b>分几次画</b>：先画一半、错开位置再画另一半，合起来就密了。</p>
-<div class="kv">
-<span><b>LELE（Litho-Etch-Litho-Etch）：</b>光刻+刻蚀做一半图形，再光刻+刻蚀做另一半，两次拼出更密的图形。</span>
-<span><b>SADP / SAQP（自对准双/四重成形）：</b>先印稀疏线，在其侧壁长出侧墙（spacer）当新掩膜，去掉原线后侧墙数量翻倍/翻四倍，图形密度随之加倍/翻四倍。</span>
-<span class="warn"><b>代价：</b>掩模数成倍增加（贵）、多次套刻的误差会叠加（对不准风险上升）、工艺步骤更多。</span>
-</div>
-<p style="color:#64748b"><b>为什么工程上要紧：</b>当光刻波长追不上要印的密度，OPC 榨干单次曝光的极限、多重曝光把密度硬拆着做出来——代价是成本和套刻难度飙升。（SADP/SAQP/LELE 细节另见第一篇。）</p>
-</div>
-</div>
+
 
 </div>
 
 <div class="card-row">
 
 <!-- C13 scatterometry 散射测量 -->
-<div class="card">
-<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>散射测量 Scatterometry：不看图形，看反光"倒推"形貌</div>
-<div class="dsc">
-<p><b>先打个比方：</b>不用显微镜一根根量栅栏，而是拿手电从固定角度照过去，看反射回来的光是什么样——不同的栅栏间距、高矮、胖瘦，会反出不同的光。<b>凭反光的"指纹"反推出栅栏长什么样</b>。</p>
-<p><b>准确定义：</b>scatterometry（光学散射测量，也叫 OCD，optical critical dimension）<b>不直接成像看图形</b>，而是测量周期性图形反射光的<b>光谱/角度分布</b>，再用光学模型<b>反推出线宽、高度、侧壁角等形貌参数</b>。</p>
-<div class="kv">
-<span class="good"><b>优点：</b>快、非破坏、可在线大批量量测，补足 CD-SEM（电子显微镜量线宽）慢的短板。</span>
-<span><b>局限：</b>依赖模型、主要适用周期性图形，不像 SEM 那样直接看到单个图形。</span>
-</div>
-<p style="color:#64748b"><b>为什么工程上要紧：</b>量产要一片接一片快速测线宽和形貌，CD-SEM 又慢又要进真空腔。scatterometry 快而不伤片，是先进产线在线量测的主力手段之一。</p>
-</div>
-</div>
+
 
 </div>
 
@@ -1328,17 +1245,56 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <div class="card" style="border-left:4px solid #0891b2">
 <div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>补充：原子层刻蚀 ALE 与"扩散"这个译名的陷阱</div>
 <div class="dsc">
-<p><b>ALE（原子层刻蚀，Lam Research 口径）：</b>把刻蚀拆成「A 改性 + B 去除」两个<b>自限性</b>步骤，每循环只去掉一个原子层。以硅为例：Cl₂ 吸附形成氯化层（改性，各向同性）→ Ar 离子轰击去除（各向异性）。最大价值是<b>与深宽比无关</b>——消除 ARDE 效应，不同深宽比的结构能等量刻蚀。它<b>不替代</b>传统等离子刻蚀，而是在自对准接触等精密结构上作补充。参照尺度：先进特征的 CD 已经小到约 50 个原子宽。</p>
+<p><b>ALE（原子层刻蚀，Lam Research 口径）：</b>把刻蚀拆成「A 改性 + B 去除」两个<b>自限性</b>步骤，每循环只去掉一个原子层。以硅为例：Cl₂ 吸附形成氯化层（改性，各向同性——朝各个方向啃得一样快，容易把侧壁也啃圆）→ Ar 离子轰击去除（各向异性——只往一个方向（垂直向下）啃，侧壁基本不动，才能刻出笔直的深沟）。最大价值是<b>与深宽比无关（深宽比＝孔有多深比多宽，深又窄的孔通常越往下越难刻，此工艺不受这个影响）</b>——消除 ARDE 效应（Aspect Ratio Dependent Etch，深宽比相关刻蚀——普通刻蚀里深又窄的孔往往刻得比浅宽孔慢，导致快慢不一；消除它就能深浅一起刻到位），不同深宽比的结构能等量刻蚀。它<b>不替代</b>传统等离子刻蚀，而是在自对准接触等精密结构上作补充。参照尺度：先进特征的 CD 已经小到约 50 个原子宽。</p>
 <p><b>「扩散」这个中文译名容易误导：</b>看到 Diffusion 很容易以为是"掺杂扩散"，但<b>原厂的 Diffusion 区主要做三件事：氧化（长 SiO₂）、成膜沉积、热处理/退火</b>，用的是立式炉管批处理（一次最多 125 片、温度可达 1000°C）。<b>掺杂是 Implant 离子注入区的职责，不是 Diffusion 区。</b></p>
 <p><b>氧化会吃掉硅：</b>原厂特别指出，热氧化时氧穿过已生成的氧化膜继续与硅反应，<b>会消耗表层硅</b>——原始硅表面是向下移动的。这是氧化与"沉积一层膜"的本质区别。</p>
 <p><b>CMP 的译名：</b>常译"化学机械抛光"，原厂用 <b>Planarization（平坦化）</b>，并注明"(or Polishing)"。两者都成立，但首要目的是平坦化，抛光只是手段。</p>
 </div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933">④ 方案</span>单大马士革 vs 双大马士革</div>
+<div class="dsc">
+<p><b>先打个比方：</b>要在楼层之间接一根管子，再在楼面上铺一条水槽。<b>单大马士革</b>是分两次施工：先把楼层间的竖管（通孔）挖好填好，再另挖楼面的横槽（沟槽）填一次。<b>双大马士革</b>是先把竖管孔和横槽<b>一起挖好，一次灌满</b>。</p>
+<p><b>准确定义：</b>铜很难像铝那样"先铺一层再刻掉多余"，所以反过来用大马士革——<b>先在介质里刻出凹槽再填铜、最后 CMP 磨平</b>。其中：<b>单大马士革</b>=通孔（via）与沟槽（trench）分两步各自制作、各填一次铜；<b>双大马士革</b>=通孔+沟槽一次成形、<b>一次电镀填满</b>。</p>
+<div class="kv">
+<span class="good"><b>双大马士革的好处：</b>一次填充完成通孔和沟槽，<b>减少 CMP 次数</b>、减少通孔/线之间的界面电阻，是现代 BEOL 铜互连的主流。</span>
+</div>
+<p style="color:#64748b"><b>为什么工程上要紧：</b>芯片有十几层金属，每层都少一次 CMP、少一道界面，累积下来对良率、电阻和成本都是巨大节省。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>外延 Epitaxy：在晶圆上长出"晶向对齐"的新单晶</div>
+<div class="dsc">
+<p><b>先打个比方：</b>在一块砌得整整齐齐的砖墙上，接着往上砌新砖——而且要求每块新砖都<b>顺着下面砖的排列方向</b>码放，接缝对齐，仿佛整面墙是一次砌成的。外延就是让新长的晶体"照抄"下面衬底的晶格排列方向。</p>
+<p><b>准确定义：</b>外延（epitaxy）是在单晶衬底表面<b>生长一层晶向与衬底一致的单晶薄膜</b>。它不是随便堆一层，而是延续衬底的晶格。</p>
+<div class="kv">
+<span><b>源漏应变外延：</b>在源漏处长 <b>SiGe/SiC</b> 等晶格常数不同的单晶，撑或压硅沟道产生<b>应变</b>，<b>提升载流子迁移率</b>（跑得更快、电流更大）。</span>
+<span><b>功率器件漂移区：</b>用外延长出厚度和掺杂精确可控的单晶层，作为耐高压的<b>漂移区</b>。</span>
+</div>
+<p style="color:#64748b"><b>为什么工程上要紧：</b>没有源漏应变外延，先进 CMOS 就少了一大截性能；功率器件的耐压层也依赖外延的精确控制。它是"用材料结构换性能"的关键手段。</p>
+</div>
+</div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233">⑤ 对比</span>Gate-first vs Gate-last：金属栅什么时候装</div>
+<div class="dsc">
+<p><b>先打个比方：</b>装修房子要在一间屋里放一件怕热的精密家具。<b>Gate-first</b>是先把家具搬进去，再去干那些要开大火、高温的活——家具可能被烤坏。<b>Gate-last</b>是先摆个不怕热的"假家具"占位，等所有高温活都干完，再把假的换成真的精密家具。</p>
+<p><b>准确定义：</b>先进逻辑用 <b>HKMG</b>（高κ介质 + 金属栅）。真正的<b>金属栅</b>用来精确设定阈值电压，但它<b>怕高温</b>——源漏激活退火的高温会损伤高κ介质与金属栅、让功函数漂移。</p>
+<div class="kv">
+<span><b>Gate-first：</b>先做好高κ/金属栅，再做源漏——栅要经受后续高温，工艺难。</span>
+<span class="good"><b>Gate-last（= replacement metal gate，替代金属栅）：</b>先做<b>假栅（dummy poly 多晶硅）</b>占位，完成源漏注入与<b>高温激活退火</b>后，再挖掉假栅、换上 high-k + 金属栅——<b>避开了高温对金属栅的损伤</b>，故业界（尤其 Intel 路线）多用它。</span>
+</div>
+<p style="color:#64748b"><b>为什么工程上要紧：</b>金属栅的功函数材料不耐源漏激活的高温，先装就会被烤坏，阈值电压失控。gate-last 用"最后再装"化解了这个矛盾，是 HKMG 量产的关键工艺选择。</p>
+</div>
+</div>
+
 <hr style="margin:60px 0 40px;border:none;border-top:4px solid #7c3aed">
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-litho-deep">0.6 光刻 —— 全线唯一「画图」的工序</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">分辨率物理 · 八步量产工序 · 胶与掩模 · 焦深剂量 · 套刻精度 · 量测闭环</p>
 <div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#f5f3ff;border-left:3px solid #7c3aed;border-radius:6px;font-size:12px;color:#4c1d95">
-⚠️ 本节聚焦<b>量产光刻的工程约束</b>（分辨率、工艺窗口、套刻、量测）。EUV 光源机理与反射光学、High-NA、多重曝光（SADP/SAQP/LELE）、电子束直写、DSA、以及相移掩模/离轴照明/OPC 的细节不在本节展开，相关处均标注推断或另见第一篇。
+⚠️ 本节聚焦<b>量产光刻的工程约束</b>（分辨率、工艺窗口、套刻、量测）。EUV 光源机理与反射光学、High-NA、多重曝光（SADP/SAQP/LELE——一次光刻画不出那么细的线，就分几次错开来画、再拼起来，好比一支粗笔靠反复描边描出更细的图案）、电子束直写、DSA、以及相移掩模/离轴照明/OPC（Optical Proximity Correction，光学邻近校正——线条太细时光会"糊"，事先把掩模图形故意画歪一点来抵消这种糊，最后印出来才正）的细节不在本节展开，相关处均标注推断或另见第一篇。
 </div>
 
 <div class="content">
@@ -1547,6 +1503,22 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 </div>
 
 
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933">④ 方案</span>OPC 与多重曝光：故意画歪、拆成几次印</div>
+<div class="dsc">
+<p><b>先打个比方（OPC）：</b>用印章盖字，油墨会在边角晕开，盖出来的字总是圆头圆脑、笔画变形。聪明的办法是<b>预先把印章刻得"故意歪一点"</b>——该细的地方刻得更细、拐角处加个小突起，晕开后正好变成想要的形状。</p>
+<p><b>OPC 准确定义：</b>OPC（Optical Proximity Correction，光学邻近效应校正）就是<b>在掩模上预先把图形"故意画歪"</b>（加衬线、调线宽、加辅助小图形），以<b>补偿光学衍射带来的变形</b>，让最终印在晶圆上的图形接近设计。</p>
+<p><b>先打个比方（多重曝光）：</b>一张纸上要画得密密麻麻，一支粗笔一次画不开，就<b>分几次画</b>：先画一半、错开位置再画另一半，合起来就密了。</p>
+<div class="kv">
+<span><b>LELE（Litho-Etch-Litho-Etch）：</b>光刻+刻蚀做一半图形，再光刻+刻蚀做另一半，两次拼出更密的图形。</span>
+<span><b>SADP / SAQP（自对准双/四重成形）：</b>先印稀疏线，在其侧壁长出侧墙（spacer）当新掩膜，去掉原线后侧墙数量翻倍/翻四倍，图形密度随之加倍/翻四倍。</span>
+<span class="warn"><b>代价：</b>掩模数成倍增加（贵）、多次套刻的误差会叠加（对不准风险上升）、工艺步骤更多。</span>
+</div>
+<p style="color:#64748b"><b>为什么工程上要紧：</b>当光刻波长追不上要印的密度，OPC 榨干单次曝光的极限、多重曝光把密度硬拆着做出来——代价是成本和套刻难度飙升。（SADP/SAQP/LELE 细节另见第一篇。）</p>
+</div>
+</div>
+
 <h2 id="sec-litho-flow">🔁 0.6.2 八步量产工序：Track 与 Scanner 的分工</h2>
 <div class="skel"><b>🧭 本节讲法</b><span class="path">概念：量产八步与 Track/Scanner 分工</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
@@ -1600,6 +1572,33 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <p style="margin-top:8px"><b>但胶也不能一味加厚：</b>高宽比一旦<b>达到或超过 3</b>，显影后细长的胶线会<b>自己倒下来</b>（倒胶 / resist collapse）【原厂】。<b>「要够厚挡住下游」与「不能太厚否则倒胶」这对矛盾，正是光刻胶工程的核心张力。</b></p>
 </div></div>
 
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>化学放大胶 CAR：一颗火星点燃一片</div>
+<div class="dsc">
+<p><b>先打个比方：</b>划一根火柴（一个光子）本身能量很小，但如果它点着了引信，引信再引燃一整排鞭炮——<b>一次小触发引发一连串反应</b>。化学放大胶就是让一个光子的"火星"，触发一连串化学反应。</p>
+<p><b>准确定义：</b>CAR（Chemical Amplified Resist，化学放大胶）是 DUV/EUV 的主流光刻胶。胶里掺有<b>光酸产生剂 PAG</b>：曝光时光子让 PAG 产生一个<b>酸</b>；随后在<b>曝光后烘烤（PEB）</b>中，这个酸像催化剂一样<b>催化胶分子链式"脱保护"反应</b>，一个酸能催化很多次反应，且反应后酸不消耗、继续催化下一处——于是<b>一个光子的效果被放大成很多次化学变化</b>。</p>
+<div class="kv">
+<span class="good"><b>好处：</b>灵敏度极高——这正是 DUV/EUV 能用有限光子量产的关键。</span>
+<span class="warn"><b>代价：</b>反应靠酸扩散+温度驱动，所以<b>线宽对 PEB 温度极其敏感</b>（温度差几度线宽就变）。</span>
+</div>
+<p style="color:#64748b"><b>为什么工程上要紧：</b>EUV/DUV 每单位面积的光子本就稀缺，没有化学放大就曝不动、产能上不去。它也解释了为什么 PEB 这一步的温度控制要苛刻到零点几度。</p>
+</div>
+</div>
+
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633">③ 瓶颈</span>倒胶：干燥时的表面张力把细线拉倒</div>
+<div class="dsc">
+<p><b>先打个比方：</b>洗完头，一根根湿发本来分开，晾干过程中却常常几缕粘成一撮——因为水在头发之间形成的<b>表面张力</b>把它们互相拉拢。又细又高的光刻胶线条也一样，显影液干燥时被"拉倒、粘连"。</p>
+<p><b>准确定义：</b>倒胶（resist collapse）的根因是：显影后冲洗、干燥时，<b>残留在细胶线之间的液体因表面张力产生毛细力</b>，这个横向拉力一旦超过细高胶线的机械强度，就把线拉倒、粘连。<b>深宽比（高÷宽）≥ 3</b> 时尤其易发生。</p>
+<div class="kv">
+<span class="good"><b>缓解：</b>降低胶膜厚度、用表面张力更低的冲洗液、超临界干燥（绕开液体表面张力）、增强胶的机械强度。</span>
+</div>
+<p style="color:#64748b"><b>为什么工程上要紧：</b>线越细越高，越站不稳。这说明光刻的极限不只在光学分辨率，也在图形本身的<b>力学稳定性</b>——它限制了单层胶能做的深宽比。</p>
+</div>
+</div>
+
 <h2 id="sec-litho-mask">🎭 0.6.4 掩模版与 4X 缩放：为什么掩模比芯片大四倍</h2>
 <div class="skel"><b>🧭 本节讲法</b><span class="path">原理：掩模构造与 4X 缩放</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
@@ -1633,6 +1632,19 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 → 这也解释了 <a href="#sec-fab-modules" style="color:#92400e"><b>0.5.2 里 CMP 为什么是「地基性工艺」</b></a>：表面不平，焦深就不够用。
 </div>
 </div></div>
+
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33">① 概念</span>工艺窗口 Process Window / ED Window</div>
+<div class="dsc">
+<p><b>先打个比方：</b>烤面包要同时把"火候（温度）"和"时间"都调在合适范围里，才能烤出合格的面包。两个旋钮都对，才算落在"能烤好"的区域里；这个区域越大，越不怕手抖。</p>
+<p><b>准确定义：</b>光刻里的两个关键旋钮是<b>曝光剂量</b>（给多少光）和<b>焦距/焦深</b>（对得准不准）。把两者当作二维坐标，画出"线宽仍在合格范围内"的可用区域，就是<b>焦距-剂量二维窗口（Exposure-Defocus window，ED window / process window，工艺窗口）</b>。文中的 Focus-Exposure Matrix（焦距-剂量矩阵）就是用来测出这块区域的。</p>
+<div class="kv">
+<span><b>窗口面积越大 → 量产裕度越足</b>，机台轻微波动也不会出废品。</span>
+</div>
+<p style="color:#64748b"><b>为什么工程上要紧：</b>量产机台不可能永远精确，剂量和焦距总有抖动。工艺窗口太小，稍有波动就大批报废；窗口大小直接决定这道光刻能不能稳定量产。</p>
+</div>
+</div>
 
 <h2 id="sec-litho-overlay">📐 0.6.6 套刻精度：比分辨率更容易卡量产的那个指标（动画）</h2>
 <div class="skel"><b>🧭 本节讲法</b><span class="path">原理（逐层对准）→ 工艺瓶颈（六种误差模式）→ 本质</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
@@ -1796,6 +1808,20 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 
 </div>
 
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>散射测量 Scatterometry：不看图形，看反光"倒推"形貌</div>
+<div class="dsc">
+<p><b>先打个比方：</b>不用显微镜一根根量栅栏，而是拿手电从固定角度照过去，看反射回来的光是什么样——不同的栅栏间距、高矮、胖瘦，会反出不同的光。<b>凭反光的"指纹"反推出栅栏长什么样</b>。</p>
+<p><b>准确定义：</b>scatterometry（光学散射测量，也叫 OCD，optical critical dimension）<b>不直接成像看图形</b>，而是测量周期性图形反射光的<b>光谱/角度分布</b>，再用光学模型<b>反推出线宽、高度、侧壁角等形貌参数</b>。</p>
+<div class="kv">
+<span class="good"><b>优点：</b>快、非破坏、可在线大批量量测，补足 CD-SEM（电子显微镜量线宽）慢的短板。</span>
+<span><b>局限：</b>依赖模型、主要适用周期性图形，不像 SEM 那样直接看到单个图形。</span>
+</div>
+<p style="color:#64748b"><b>为什么工程上要紧：</b>量产要一片接一片快速测线宽和形貌，CD-SEM 又慢又要进真空腔。scatterometry 快而不伤片，是先进产线在线量测的主力手段之一。</p>
+</div>
+</div>
+
 <hr style="margin:60px 0 40px;border:none;border-top:4px solid #7c3aed">
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-mem-deep">0.7–0.8 存储器原理 —— 凭什么记住一个 bit</h1>
@@ -1805,7 +1831,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 
 <h2 id="sec-mem-atlas">🧬 0.7 存储器全类型原理图解（图例 + 动画）</h2>
 <div class="skel"><b>🧭 本节讲法</b><span class="path">全家谱对比 → 分类逐一讲原理（易失/ROM/Flash/新型）→ 横向对比与趋势</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
-<p style="font-size:13.5px;color:#64748b;margin-bottom:10px">把 RAM / ROM 家族的每一种存储机理拆开看：<b>靠什么记住一个 bit、工艺上怎么做出来、以及各自的演进方向</b>。下面所有图示均为动画，展示的是电子/磁矩/离子/晶相在写入与读取时的真实运动方式。</p>
+<p style="font-size:13.5px;color:#64748b;margin-bottom:10px">把 RAM / ROM 家族的每一种存储机理拆开看：<b>靠什么记住一个 bit、工艺上怎么做出来、以及各自的演进方向</b>。下面所有图示均为动画，展示的是电子/磁矩（一小块材料的"磁性朝向"，像一枚小指南针的指向，朝上朝下可代表 0 和 1）/离子/晶相在写入与读取时的真实运动方式。</p>
 
 <div class="mem-legend">
 <div class="mi"><span class="sw sw-sel"></span>图例（存储机理）</div>
@@ -1814,7 +1840,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <div class="mi"><span class="sw sw-res"></span>阻变·细丝导电（RRAM/ReRAM）</div>
 <div class="mi"><span class="sw sw-mag"></span>磁矩方向（MRAM/STT-MRAM）</div>
 <div class="mi"><span class="sw sw-pcm"></span>晶相变化（PCM/3D XPoint）</div>
-<div class="mi"><span class="sw sw-fe"></span>铁电极化（FeRAM/FeFET）</div>
+<div class="mi"><span class="sw sw-fe"></span>铁电极化（FeRAM/FeFET——靠一种"铁电"材料内部电荷的朝向来记 0/1，断电后朝向不变，所以能长期记住；FeFET 是把这种材料做进晶体管里）</div>
 <div class="mi"><span class="sw sw-3d"></span>三维堆叠工艺（3D NAND/3D DRAM）</div>
 </div>
 
@@ -1832,8 +1858,8 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <tr><td><b>EEPROM</b></td><td>浮栅电荷（电可按字节擦）</td><td>2T 浮栅</td><td>~200ns / ms 级</td><td>100 万次</td><td>留</td><td>车规参数存储仍在用</td></tr>
 <tr><td rowspan="2" class="hl">Flash</td><td><b>NOR Flash</b></td><td>浮栅电荷（并联位线）</td><td>1T 浮栅</td><td>~70ns / 慢<br><b>可 XIP</b></td><td>10 万次</td><td>留</td><td>代码存储，停在 45-65nm</td></tr>
 <tr><td><b>NAND Flash</b></td><td>浮栅 / 电荷陷阱（串联位线）</td><td>1T·可 3D 堆叠</td><td>25-100μs / 页写<br><b>不可 XIP</b></td><td>TLC ~1000 次</td><td>留</td><td>SSD 主力，已堆到 300+ 层</td></tr>
-<tr><td rowspan="4" class="hl">新型 NVM<br>（存算融合候选）</td><td><b>MRAM</b></td><td>磁性层磁矩平行/反平行</td><td>1T1MTJ</td><td>~10ns / ~10ns</td><td>10¹²+</td><td>留</td><td>已量产替代嵌入式 SRAM/Flash</td></tr>
-<tr><td><b>RRAM</b></td><td>氧空位细丝通/断</td><td>1T1R / 1S1R</td><td>~10ns / ~50ns</td><td>10⁶-10⁹</td><td>留</td><td><b>英飞凌 TC4x 已用于车规 MCU</b></td></tr>
+<tr><td rowspan="4" class="hl">新型 NVM<br>（存算融合候选）</td><td><b>MRAM</b></td><td>磁性层磁矩（材料的磁性朝向，像小指南针指向）平行/反平行</td><td>1T1MTJ</td><td>~10ns / ~10ns</td><td>10¹²+</td><td>留</td><td>已量产替代嵌入式 SRAM/Flash</td></tr>
+<tr><td><b>RRAM</b></td><td>氧空位（材料里本该有氧原子的位置空了个坑，这些坑能排成一条导电小路）细丝通/断</td><td>1T1R / 1S1R</td><td>~10ns / ~50ns</td><td>10⁶-10⁹</td><td>留</td><td><b>英飞凌 TC4x 已用于车规 MCU</b></td></tr>
 <tr><td><b>PCM</b></td><td>硫系材料晶态/非晶态</td><td>1R（交叉点阵列为 1S1R）</td><td>~50ns / ~100ns</td><td>10⁸</td><td>留</td><td>3D XPoint 已退市，ST 用于车规</td></tr>
 <tr><td><b>FeRAM / FeFET</b></td><td>铁电极化方向</td><td>1T1C / 1T</td><td>~20ns / ~20ns</td><td>10¹⁰-10¹⁴</td><td>留</td><td>HfO₂ 铁电重新点火，小容量量产</td></tr>
 </tbody></table>
@@ -1957,7 +1983,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 <tr><td class="hl">EPROM</td><td>电写入 +<br><b>紫外光整片擦除</b></td><td>浮栅注入电子写入；擦除靠紫外线照射给电子足够能量越过氧化层势垒。封装上要开<b>石英窗</b>。</td><td>擦一次要拆下来照 20 分钟、且只能整片擦 → 被 EEPROM 取代</td></tr>
 <tr><td class="hl">EEPROM</td><td>电写入 +<br><b>电可按字节擦除</b></td><td>薄氧化层（~10nm）让电子可双向隧穿（Fowler-Nordheim 隧穿）。每单元多一个选择管（2T）以支持按字节操作。</td><td><b>车规仍在用</b>：里程表、标定参数、故障码——需要频繁改少量字节（可擦 100 万次）</td></tr>
 </tbody></table>
-<p><b>一条关键的技术分野：</b>EEPROM 和 Flash <b>同属浮栅电荷存储、擦除都靠 F-N 隧穿</b>（写入侧则有差异：NAND 写/擦均用 F-N 隧穿，NOR 编程多用热电子注入 CHE），主要区别在<em>擦除粒度</em>——EEPROM 每个单元都配独立选择管，所以能按字节擦，代价是面积翻倍；Flash 砍掉了这个管子改为按扇区/块整体擦，面积减半、密度飙升。Flash 名字的来源就是"像闪光灯一样一次擦一大片"。这是一次典型的<b>用灵活性换密度</b>的取舍。</p>
+<p><b>一条关键的技术分野：</b>EEPROM 和 Flash <b>同属浮栅电荷存储、擦除都靠 F-N 隧穿</b>（写入侧则有差异：NAND 写/擦均用 F-N 隧穿，NOR 编程多用热电子注入 CHE（Channel Hot Electron，沟道热电子——先把电子加速到很高能量，再"撞"进存储层，像把球用力砸进高处的篮筐）），主要区别在<em>擦除粒度</em>——EEPROM 每个单元都配独立选择管，所以能按字节擦，代价是面积翻倍；Flash 砍掉了这个管子改为按扇区/块整体擦，面积减半、密度飙升。Flash 名字的来源就是"像闪光灯一样一次擦一大片"。这是一次典型的<b>用灵活性换密度</b>的取舍。</p>
 </div></div>
 
 <h3><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>0.7.3 Flash：浮栅、NOR/NAND 分野、以及 3D 堆叠</h3>
@@ -2387,7 +2413,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
   <defs><marker id="pyd" markerWidth="8" markerHeight="8" refX="4" refY="7" orient="auto"><path d="M4 8 L0 0 L8 0 z" fill="#cbd5e1"/></marker></defs>
 </svg>
 <p><b>金字塔存在的原因：</b>没有任何一种存储器能同时做到"快 + 便宜 + 大容量 + 非易失"，所以只能分层，用局部性原理让大部分访问命中上层。</p>
-<p><b>最关键的观察：</b>DRAM（~15ns）和 NAND（~50μs）之间有约<b>三个数量级的性能断层</b>。所有新型非易失存储器——MRAM、RRAM、PCM——本质上都在争夺这个断层的生态位，即所谓 <b>Storage Class Memory（SCM）</b>。Optane 是第一个认真尝试并失败的产品：它证明了断层客观存在，但也证明了<b>仅靠"填空"不足以立足</b>——两侧的 DRAM 和 NAND 都在持续进步，中间层的性价比窗口会被不断挤压。</p>
+<p><b>最关键的观察：</b>DRAM（~15ns）和 NAND（~50μs）之间有约<b>三个数量级的性能断层</b>。所有新型非易失存储器——MRAM、RRAM、PCM——本质上都在争夺这个断层的生态位，即所谓 <b>Storage Class Memory（SCM，存储级内存——一类想填补"快但贵的内存"与"慢但便宜的硬盘"之间空档的新存储，既比硬盘快、又比内存能长期保存）</b>。Optane 是第一个认真尝试并失败的产品：它证明了断层客观存在，但也证明了<b>仅靠"填空"不足以立足</b>——两侧的 DRAM 和 NAND 都在持续进步，中间层的性价比窗口会被不断挤压。</p>
 <p><b>所以现在新型 NVM 的真实落地路径变了：</b>不再执着于做独立的内存条，而是转向<b>嵌入式</b>（做在 SoC/MCU 内部替代 eFlash 和 SRAM）——这里不跟 DRAM/NAND 比性价比，而是比"能否在先进节点上继续存在"。英飞凌 TC4x 的 RRAM、台积电的 eMRAM 平台走的都是这条路，也正是目前唯一被验证成立的商业模式。</p>
 </div></div>
 
@@ -2485,7 +2511,7 @@ Wafer Start → <b>FILMs</b>(CVD/Diffusion/PVD：沉积·氧化·金属化·退�
 
 <div class="anim-card">
 <div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>DRAM 破坏性读出全过程 · 为什么"读一次就得写回一次"</div>
-<div class="am">原厂五步：开字线 → 电荷分享到位线 → 位线产生微小电压摆动 → Sense Amp 放大判读 → <b>锁存后立即写回本行（restore）</b></div>
+<div class="am">原厂五步：开字线 → 电荷分享（把存储小电容里那点电荷"匀"到读取线上，电荷一分摊，读取线电压就微微变化，靠这点变化判读 0/1）到位线 → 位线产生微小电压摆动 → Sense Amp 放大判读 → <b>锁存后立即写回本行（restore）</b></div>
 <svg viewBox="0 0 760 240">
   <rect x="0" y="0" width="760" height="240" fill="#fcfdfe"/>
   <!-- word line -->
@@ -3256,7 +3282,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <span class="warn">↳ 代价</span><span>漂移区越厚越低掺杂 → 电流通过时电阻越大 → <b>导通电阻 R<sub>on</sub> ↑</b></span>
 <span>导通 (Conduction)</span><span>导通压降越低越省电。但它被上面的耐压需求直接顶住</span>
 <span>开关速度 (Switching)</span><span>切换越快 → 每次开关的能量损耗越小、可用更高频</span>
-<span class="warn">↳ 代价</span><span>切换越快 → di/dt、dv/dt 越大 → 引发<b>振荡、电压过冲与 EMI</b>，快不是免费的</span>
+<span class="warn">↳ 代价</span><span>切换越快 → di/dt、dv/dt 越大 → 引发<b>振荡、电压过冲（开关切换太快，电压像急刹车时身体前冲一样冲过头、超出正常值）与 EMI（电磁干扰，器件工作时向外辐射的"电磁噪声"，会干扰旁边的电路）</b>，快不是免费的</span>
 </div>
 <p>三者两两冲突：为耐压加厚漂移区会推高导通电阻；为降损耗把开关加快，又会撞上寄生电感电容引起的振荡与电磁干扰。<b>功率器件设计，本质就是在这个三角里选一个折中点。</b></p>
 
@@ -3399,7 +3425,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <div class="card">
 <div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>IGBT 为什么能又耐压又低导通压降</div>
 <div class="dsc">
-<p><b>结构本质：</b>IGBT = <b>MOSFET 栅控 + 集电极侧增加一层 p 层</b>，构成 Bi-MOS（达林顿式）复合结构。它同时拿到了两边的好处：<b>输入端是 MOS 栅——电压驱动、几乎不耗驱动功率；输出端是双极导通——靠电导率调制降低通态压降</b>。</p>
+<p><b>结构本质：</b>IGBT = <b>MOSFET 栅控 + 集电极侧增加一层 p 层</b>，构成 Bi-MOS（达林顿式）复合结构（把两种晶体管"拼"在一起用，各取所长——输入端好驱动、输出端能扛大电流）。它同时拿到了两边的好处：<b>输入端是 MOS 栅——电压驱动、几乎不耗驱动功率；输出端是双极导通——靠电导率调制降低通态压降</b>。</p>
 <p><b>核心机理是电导率调制（conductivity modulation）：</b>集电极侧的 p 层向高阻的 n 型漂移区<b>注入空穴</b>，与电子形成过剩载流子等离子体，使漂移区电阻大幅下降。这正是 IGBT 能在 1200V 以上电压段做到远低于同耐压 MOSFET 通态压降的原因——<b>而纯 MOSFET 的漂移区电阻随耐压升高急剧恶化</b>。</p>
 <p><b>代价也来自同一机理：</b>关断时这些注入的过剩载流子必须被抽走或复合掉，形成<b>拖尾电流（tail current）</b>，构成 IGBT 关断损耗的主体。这就是 IGBT"耐压高、通态好，但开关频率上不去"的根因，也解释了为什么高频场合要让位给 SiC MOSFET。</p>
 <p><b>历史里程碑分层（注意与"发明"区分）：</b>Baliga 1982 年 12 月 IEDM 首次完整演示、1983 年 6 月 GE 发布首款产品；而<b>富士电机自述 1988 年产品化、三菱电机自述 IGBT 模块 1990 年商用化</b>。三菱后续演进出 CSTBT、RFC 等结构，已至第 7 代。</p>
@@ -3437,10 +3463,10 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <div class="dsc">
 <p>半导体常被简化成「比谁制程更先进」。但读完后面八篇会发现，<b>只有逻辑芯片真正以制程缩微为主线</b>，其余品类各有自己的进步引擎。把驱动力拆成四个维度，全书的结构就清楚了：</p>
 <div class="kv" style="margin-top:8px">
-<span style="background:#eff6ff;color:#1d4ed8"><b>🏗️ 器件结构</b> 改变器件的几何与拓扑（FinFET / 超结 / 沟槽栅 / 1T1C / 盖革模式）</span>
+<span style="background:#eff6ff;color:#1d4ed8"><b>🏗️ 器件结构</b> 改变器件的几何与拓扑（FinFET / 超结 / 沟槽栅 / 1T1C / 盖革模式（Geiger mode：偏压高过击穿点，此时一个光子就能引爆一次"全响"的雪崩，像上了膛的枪——扣一下就是满幅一枪，不分轻重））</span>
 <span style="background:#fef2f2;color:#b91c1c"><b>🧪 材料体系</b> 换一种材料才能突破（SiC/GaN / III-V / BaTiO₃ / GaAs / 高κ介质）</span>
 <span style="background:#fffbeb;color:#92400e"><b>⚙️ 工艺集成</b> 能不能在同一片硅上稳定做出来（EUV / 深孔刻蚀 / eFlash / BCD / 共烧）</span>
-<span style="background:#ecfdf5;color:#047857"><b>📐 设计方法论</b> 靠版图与电路技巧换性能（共质心布局 / 斩波 / CDS / 噪声整形）</span>
+<span style="background:#ecfdf5;color:#047857"><b>📐 设计方法论</b> 靠版图与电路技巧换性能（共质心布局（把配对的元件对称地绕同一个中心摆放，让工艺误差、温度漂移对两边影响一样、正好抵消，像天平两端放法一致才准）/ 斩波（Chopper——不断把信号快速正反翻转再翻回来，顺手把混进来的低频噪声一起"搬走"扔掉）/ CDS（Correlated Double Sampling，相关双采样——先量一次"空底噪声"、再量"信号+噪声"，两者一减就把固定噪声消掉）/ 噪声整形（把噪声"赶"到我们不关心的高频段去，让关心的频段更干净））</span>
 </div>
 <p style="margin-top:10px;background:#ede9fe;padding:8px 12px;border-radius:6px;color:#4c1d95"><b>🔑 再叠加第五个维度——封装与堆叠：</b>它不属于上面任何一类，因为它<b>不改器件本身，而是改「器件之间怎么连」</b>。HBM、Chiplet、3D NAND、BSI/堆栈式 CIS、CPO 全靠它。<b>这是后摩尔时代最大的增量变量。</b></p>
 </div></div>
@@ -3485,7 +3511,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <td>高压大电流下少发热、开关快</td>
 <td><b>🧪 材料 + 🏗️ 器件结构</b><br><span style="font-size:11px;color:#64748b">无制程节点概念</span></td>
 <td>材料（临界电场上限）+ 物理结构（耐压↔导通矛盾）</td>
-<td>超结、沟槽栅；宽禁带 SiC / GaN；双面冷却模块</td>
+<td>超结（在器件里交替排布正负极性的薄柱，让它既能扛高压、导通时电阻又低，鱼与熊掌兼得）、沟槽栅（把栅极开关往下挖进沟里，省横向面积、电流路径更短）；宽禁带 SiC / GaN；双面冷却模块</td>
 <td><a href="#sec-power-breakthrough">3.3</a> <a href="#sec-power-loss">0.11</a></td></tr>
 
 <tr><td class="hl">车载 MCU</td>
@@ -3512,8 +3538,8 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <tr><td class="hl">光电探测<br>SPAD / SiPM</td>
 <td>有没有光子、<b>什么时候</b>到（时间精度）</td>
 <td><b>🏗️ 器件结构 + ⚙️ 工艺</b></td>
-<td>工艺（CMOS 兼容性分歧）+ 物理结构（填充因子、死时间）</td>
-<td>盖革模式偏压；淬灭电阻；SPAD + TDC 堆栈集成</td>
+<td>工艺（CMOS 兼容性分歧）+ 物理结构（填充因子——感光面积占整个像素面积的比例，被电路挤占得越多、真正能接光的面积越小；死时间——探测器刚记录完一个光子后有一小段"缓不过来"的空档，这段时间来的光子会漏记）</td>
+<td>盖革模式（把探测器偏压加到极高，来一个光子就触发一次"雪崩式"大电流，灵敏到能数单个光子，像一触即发的捕鼠夹）偏压；淬灭电阻（雪崩一触发就得赶紧把它"掐灭"复位、准备接下一个光子，这个负责掐灭的电阻叫淬灭电阻）；SPAD + TDC 堆栈集成</td>
 <td><a href="#sec-opto-detect">6.1</a></td></tr>
 
 <tr><td class="hl">CIS 图像传感器</td>
@@ -3527,14 +3553,14 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <td>把电变成光（且要够亮、够窄、够快）</td>
 <td><b>🧪 材料体系</b><br><span style="font-size:11px;color:#b91c1c">与制程完全无关</span></td>
 <td>材料（能带结构：硅是间接带隙，判死刑）</td>
-<td>直接带隙 III-V；量子井；EEL/DFB vs VCSEL</td>
+<td>直接带隙 III-V；量子井（用超薄材料层把电子"关"在一个很窄的夹层里，像把水困在窄缝中，能让它们更高效地变成光）；EEL/DFB vs VCSEL</td>
 <td><a href="#sec-opto-emit">6.3</a></td></tr>
 
 <tr><td class="hl">硅光子</td>
 <td>带宽密度与每比特能耗（绕开铜线）</td>
 <td><b>🧪 材料集成 + 📦 封装</b></td>
 <td>材料（硅不发光、通信波段透明）+ 工艺（耦合对准、温控）</td>
-<td>外挂 III-V 激光器；外延锗探测器；MZM/微环；CPO</td>
+<td>外挂 III-V 激光器；外延锗探测器；MZM（Mach-Zehnder Modulator，马赫-曾德尔调制器——把光分两路、让其中一路稍微"绕点远"，两路再汇合时靠"对不对齐"来把电信号刻到光上，稳但个头大）/微环（一个小光环，靠改变它的"共振颜色"来控光，个头小省电但怕温度变化）；CPO</td>
 <td><a href="#sec-siph-device">7.2</a> <a href="#sec-cpo">7.3</a></td></tr>
 
 <tr><td class="hl">射频芯片</td>
@@ -3580,7 +3606,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <span><b>NAND</b>：高深宽比深孔刻蚀</span>
 <span><b>DRAM</b>：电容深宽比、成膜均匀性</span>
 <span><b>车载 MCU</b>：eFlash 与先进逻辑的集成矛盾</span>
-<span><b>PMIC</b>：高低压器件共片（BCD）</span>
+<span><b>PMIC</b>：高低压器件共片（BCD——一种能把"控制用的低压电路、开关用的中压、扛大电流的高压器件"三种做在同一块芯片上的工艺，好比一栋楼里既有办公室又有配电房）</span>
 <span><b>HBM</b>：堆叠良率与散热</span>
 </div>
 <p style="margin-top:7px;color:#92400e"><b>共同特征：</b>路径明确但门槛在设备与产线，<b>钱和时间能买到进步</b>——这也是产业集中度高的根因。</p>
@@ -3645,6 +3671,10 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-logic">第一篇：逻辑芯片</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">CPU · GPU · AI 加速器 —— 唯一以「制程缩微」为主线的品类，也是摩尔定律的主战场</p>
+<div style="max-width:1100px;margin:0 auto 20px;padding:12px 16px;background:#f8fafc;border-left:4px solid #2563eb;border-radius:6px;font-size:13.5px;color:#334155;line-height:1.9">
+<b>🌱 用外行话说：</b>前面地基篇讲清了单个开关怎么工作，这一篇讲怎么把几百亿个开关塞进指甲盖大小的芯片里，让它们协同"算"东西——这就是电脑和手机里的大脑（CPU、GPU）。故事的主线只有一句话：怎么把开关做得更小更密。可开关一小就漏电、就发热、就难造，这一篇就是讲工程师们如何一次次绕过这些"越做越小带来的麻烦"，也就是所谓的先进制程之争。
+</div>
+
 
 <h2 style="max-width:1100px;margin:16px auto 8px;padding:0 24px;text-align:center;border:none;font-size:20px" id="sec-timeline">🔵 1.1 全景时间轴（← 横向滚动 →）</h2>
 <div class="tl-wrap"><div class="tl-inner" id="tl" style="min-width:4200px"></div></div>
@@ -4076,7 +4106,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <tr><td>1997</td><td>0.25μm</td><td>Intel/AMD</td><td>KrF 248nm</td><td>DUV成熟</td><td>PII/K6</td></tr>
 <tr><td>1999</td><td>180nm</td><td>Intel</td><td>ArF 193nm</td><td><b>铜互连</b></td><td>PIII Coppermine</td></tr>
 <tr><td>2001</td><td>130nm</td><td>Intel/TSMC</td><td>ArF 193nm</td><td>低K介质,入纳米</td><td>P4/NVIDIA GPU</td></tr>
-<tr><td>2003</td><td>90nm</td><td>Intel</td><td>ArF 193nm</td><td><b>应变硅</b></td><td>P4 Prescott</td></tr>
+<tr><td>2003</td><td>90nm</td><td>Intel</td><td>ArF 193nm</td><td><b>应变硅</b>（把硅晶格故意"拉伸"一点，电子在里面跑得更顺、更快，像把拥挤的过道拓宽让人流更快）</td><td>P4 Prescott</td></tr>
 <tr><td class="hl">2004</td><td class="hl" colspan="5">⚡ 浸没式ArF量产(NA=1.35,等效134nm) ← 解锁45nm以下全部节点</td></tr>
 <tr><td>2005</td><td>65nm</td><td>Intel</td><td>浸没式 ArF</td><td>二代应变硅</td><td>Core 2 Duo</td></tr>
 <tr><td class="hl">2007</td><td class="hl">45nm</td><td class="hl">Intel</td><td class="hl">浸没式 ArF</td><td class="hl">★ High-K/Metal Gate</td><td class="hl">Penryn</td></tr>
@@ -4275,7 +4305,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <tr><td class="hl">EUV 单点依赖 ASML</td><td>设备供应受限</td><td>⏱️ 产能扩张节奏被设备交期锁定</td></tr>
 <tr><td class="hl">单 die 面积逼近光罩极限</td><td>良率随面积指数下降</td><td>📉 必须拆 Chiplet、📦 改用先进封装拼接</td></tr>
 <tr><td class="hl">功耗密度上升</td><td>频率无法继续提升</td><td>🔢 转向多核与异构、🌡️ 液冷进入消费与服务器</td></tr>
-<tr><td class="hl">Chiplet 拆分</td><td>互连开销与封装复杂度上升</td><td>📦 封装面积与层数增加、🔬 需 KGD 已知良品测试</td></tr>
+<tr><td class="hl">Chiplet 拆分</td><td>互连开销与封装复杂度上升</td><td>📦 封装面积与层数增加、🔬 需 KGD（Known Good Die，已知良品裸片——芯片还没封装、只是一小块裸片时就先测好确认它是好的，因为堆叠后一颗坏的会连累一整摞，像盖楼前先验每块砖）已知良品测试</td></tr>
 </tbody></table>
 <p style="margin-top:10px;background:#f1f5f9;padding:9px 13px;border-radius:7px;color:#1e293b;font-size:12.5px"><b>🔑 一句话：</b>逻辑芯片的进步反映到产品上是：<b>同面积算力上升，但单位面积成本也在上升</b>。所以先进制程只对高价值、大批量产品成立。</p>
 </div>
@@ -4284,6 +4314,10 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px">第二篇：存储芯片</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:40px">DRAM（动态随机存储器） & NAND Flash（闪存）——半导体产业的"粮仓"</p>
+<div style="max-width:1100px;margin:0 auto 20px;padding:12px 16px;background:#f8fafc;border-left:4px solid #f59e0b;border-radius:6px;font-size:13.5px;color:#334155;line-height:1.9">
+<b>🌱 用外行话说：</b>上一篇的芯片负责"算"，但算完的数得有地方放——这一篇讲的就是芯片的"记忆"。就像人算数也要草稿纸和笔记本：内存（DRAM）是随手写、断电就擦掉的草稿纸，闪存（NAND，手机硬盘用的就是它）是断电也不丢的笔记本。为什么快的记不久、能长久记的又慢？为什么内存越来越跟不上大脑的速度（所谓"内存墙"）？这一篇把各种"记忆"怎么存住 0 和 1、各有什么取舍讲清楚。
+</div>
+
 
 
 <h2 style="max-width:1100px;margin:0 auto 8px;padding:0 24px;text-align:center;border:none;font-size:20px">🟡 2.1 存储时间轴（← 横向滚动 →）</h2>
@@ -4723,7 +4757,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <tr><td class="hl">D</td><td>存取晶体管</td><td>做出那个唯一的开关管。它的<b>关态漏电直接等于数据保持时间</b>——因此 DRAM 的晶体管刻意<b>不追求高速，而追求极低漏电</b>，与逻辑取向正好相反</td></tr>
 <tr><td class="hl">E</td><td>位线与感测放大器接入</td><td>位线负责把单元那点微弱电荷引出去。<b>位线电容必须远小于单元电容</b>，否则读出信号被稀释到无法判读——这条约束直接限制了一条位线上能挂多少单元</td></tr>
 <tr><td class="hl">F</td><td><b>电容孔高深宽比刻蚀（HAR Etch）</b></td><td><b>全流程最难的一步。</b>要在极小的开口上垂直刻出深宽比可达 <b>40:1 以上</b>的深孔，孔径纳米级、深度约 1 µm，且上亿个孔<b>不能歪、不能锥、不能断</b>。这是刻蚀设备（而非光刻机）的技术天花板所在</td></tr>
-<tr><td class="hl">G</td><td>电容介质与电极沉积</td><td>在深孔内壁沉积高κ介质与金属电极，<b>必须原子级共形</b>——深孔底部和顶部的膜厚要一致，否则薄处先击穿。所以只能用 ALD/CVD，PVD 根本进不去。介电常数 k：SiO₂ 3.9 → HfO₂/ZrO₂ 约 25 → TiO₂ 80</td></tr>
+<tr><td class="hl">G</td><td>电容介质与电极沉积</td><td>在深孔内壁沉积高κ介质与金属电极，<b>必须原子级共形</b>——深孔底部和顶部的膜厚要一致，否则薄处先击穿。所以只能用 ALD（Atomic Layer Deposition，原子层沉积——一次只铺一个原子那么薄的层，像刷墙一遍遍薄涂，再深再窄的孔内壁都能均匀镀上）/CVD，PVD 根本进不去。介电常数 k：SiO₂ 3.9 → HfO₂/ZrO₂ 约 25 → TiO₂ 80</td></tr>
 <tr><td class="hl">H</td><td>单元阵列成形</td><td>至此「1T1C」完成。评价指标是<b>单元面积 = n × F²</b>（F 为最小特征尺寸）：6F² 是长期主流，<b>4F² 是下一个台阶</b>，需要垂直沟道晶体管配合</td></tr>
 <tr><td class="hl">I</td><td>外围 CMOS 电路</td><td>感测放大器、译码器、时序控制、I/O 与 ECC 逻辑。<b>矛盾点：外围电路希望用逻辑工艺做快做省，单元阵列却要求低漏电特殊工艺——两者必须在同一片硅上共存</b>，这是 DRAM 工艺整合的核心难题</td></tr>
 <tr><td class="hl">J</td><td>金属互连与钝化</td><td>DRAM 互连层数远少于逻辑（无需数十层布线），最后覆钝化层并开出焊盘窗口</td></tr>
@@ -5195,6 +5229,10 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px">第三篇：功率半导体</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:40px">SCR→MOSFET→IGBT→SiC→GaN · 从工业驱动到AI供电 · 电力电子的演进史诗</p>
+<div style="max-width:1100px;margin:0 auto 20px;padding:12px 16px;background:#f8fafc;border-left:4px solid #059669;border-radius:6px;font-size:13.5px;color:#334155;line-height:1.9">
+<b>🌱 用外行话说：</b>前面两篇的芯片都在"算"和"记"，这一篇讲的芯片在"搬"——搬的是电。手机充电器把 220V 交流变成 5V 直流、电车把电池的直流变成驱动电机的交流，干这些粗活的就是功率半导体。它不比谁的制程更先进、开关做得多小，只比一件事：同样大的电流通过，谁发的热更少、谁能扛更高的电压还不被击穿。所以它拼的是材料和结构，不是纳米数。
+</div>
+
 
 <!-- ====== POWER TIMELINE ====== -->
 <h2 style="max-width:1100px;margin:0 auto 8px;padding:0 24px;text-align:center;border:none;font-size:20px" id="sec-power-timeline">🟢 3.1 功率半导体时间轴（← 横向滚动 →）</h2>
@@ -5239,7 +5277,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="ttl">AI供电革命：功率半导体的"第二增长曲线"</div>
 <div class="by">英飞凌+英伟达 | GaN 12英寸量产前夜 | SiC价格战</div>
 <div class="dsc">
-<p><b>AI数据中心800V HVDC供电：</b>AI GPU集群功率从2023年的10kW/机柜飙升至2026年的100kW+/机柜。传统48V供电方案无法支撑kA级电流需求→800V高压直流供电成为确定方向。英飞凌与英伟达合作开发800V HVDC电源系统，SiC MOSFET和GaN HEMT成为核心器件。每GW数据中心对应的功率半导体价值量从~$80M提升到$180M+。</p>
+<p><b>AI数据中心800V HVDC供电：</b>AI GPU集群功率从2023年的10kW/机柜飙升至2026年的100kW+/机柜。传统48V供电方案无法支撑kA级电流需求→800V高压直流供电成为确定方向。英飞凌与英伟达合作开发800V HVDC电源系统，SiC MOSFET和GaN HEMT（High Electron Mobility Transistor，高电子迁移率晶体管——利用两种材料交界处天然形成的一层"电子高速公路"来导电，开关又快又省电）成为核心器件。每GW数据中心对应的功率半导体价值量从~$80M提升到$180M+。</p>
 <p><b>GaN 12英寸量产(2026-27)：</b>英飞凌全球首发300mm GaN晶圆技术，预计2026底量产→GaN从"可用"跨入"规模可用"，成本大幅下降→消费电源和数据中心供电两个市场将首先爆发。</p>
 </div></div>
 </div>
@@ -5370,7 +5408,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="d3-grid"><div class="d3-card" style="border-left:4px solid #0891b2">
 <div class="d3t">突破 #6：GaN HEMT (2010s—)</div>
 <div class="d3m">EPC/Transphorm/Navitas (初创) → 英飞凌/ST/TI跟进 | 12英寸量产(2026-27)</div>
-<div class="d3-desc"><b>解决了什么？</b>GaN(氮化镓)的二维电子气(2DEG)在AlGaN/GaN异质结界面自然形成高迁移率导电沟道→无需掺杂即可获得极低电阻。开关速度比SiC快10倍(MHz级)、比SiMOSFET快100倍。<b>GaN是高频功率器件的终极方案。</b></div>
+<div class="d3-desc"><b>解决了什么？</b>GaN(氮化镓)的二维电子气(2DEG)在AlGaN/GaN异质结界面自然形成高迁移率（电子在材料里跑得有多顺畅、多快——迁移率越高，同样电压下电流越大、电阻越小）导电沟道→无需掺杂即可获得极低电阻。开关速度比SiC快10倍(MHz级)、比SiMOSFET快100倍。<b>GaN是高频功率器件的终极方案。</b></div>
 <svg viewBox="0 0 720 130">
 <rect x="20" y="15" width="680" height="105" rx="6" fill="#e0f2fe" stroke="#7dd3fc"/>
 <text x="360" y="32" text-anchor="middle" font-size="11" font-weight="700" fill="#0c4a6e">GaN HEMT (High Electron Mobility Transistor) — 二维电子气(2DEG)常开型</text>
@@ -5544,6 +5582,10 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px">第四篇：车载MCU</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:40px">8位→16位→32位 · 分布式ECU→域控→中央计算 · 车内隐形大脑的进化史</p>
+<div style="max-width:1100px;margin:0 auto 20px;padding:12px 16px;background:#f8fafc;border-left:4px solid #dc2626;border-radius:6px;font-size:13.5px;color:#334155;line-height:1.9">
+<b>🌱 用外行话说：</b>前面讲的芯片各管一摊，可一辆车里需要一个"既会算、又自带记忆、还能直接指挥各种部件"的小管家——这就是车载 MCU（微控制器）。它算力不高，但要求极其苛刻：零下几十度到发动机舱的高温都得稳定工作、十几年不出错、关键时刻死也要死得安全（"安全岛"就是它内部一块就算别处崩了也还能踩下刹车的独立小电路）。这一篇讲的就是"为什么车规芯片难在可靠而不难在快"。
+</div>
+
 
 <!-- ====== MCU TIMELINE (4.1) ====== -->
 <h2 style="max-width:1100px;margin:0 auto 8px;padding:0 24px;text-align:center;border:none;font-size:20px" id="sec-mcu-timeline">🔴 4.1 车载MCU时间轴（← 横向滚动 →）</h2>
@@ -5878,7 +5920,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <tr><td><b>SoC内嵌安全岛（当前主流）</b></td><td>MCU级锁步核作为SoC内部独立子域，物理隔离但共享封装</td><td>Mobileye EyeQ6·NVIDIA Thor·高通Ride</td><td><b>安全岛监控SoC主核·失效时安全降级</b></td></tr>
 <tr><td><b>Zone MCU（未来）</b></td><td>中央SoC+分布在车身的Zonal MCU，通过车载以太网TSN互联</td><td>特斯拉Cybertruck·蔚来NT3</td><td>每个Zone的MCU驱动执行器，中央SoC做决策</td></tr>
 </tbody></table>
-<p><b>安全岛的物理隔离机制：</b>安全岛与SoC主域之间通过<em>硬件防火墙(Bridge Firewall)</em>隔离——安全岛可以单向读取主域的状态但主域不能写入安全岛的关键寄存器。供电独立（安全岛有独立LDO），时钟独立（独立RC振荡器做时钟源）。即使主域的电源或时钟崩溃，安全岛仍能发出紧急制动指令。安全岛之所以能在SoC休眠时独立工作，是因为它有自己的always-on电源域——电流仅需几微安，在整车上电前就已完成自检。</p>
+<p><b>安全岛的物理隔离机制：</b>安全岛与SoC主域之间通过<em>硬件防火墙(Bridge Firewall)</em>隔离——安全岛可以单向读取主域的状态但主域不能写入安全岛的关键寄存器。供电独立（安全岛有独立LDO（Low-DropOut regulator，低压差稳压器——一种简单稳压器，把输入电压削成稳定的低电压，输出很干净但要靠"烧掉"多余电压来实现，效率一般）），时钟独立（独立RC振荡器做时钟源）。即使主域的电源或时钟崩溃，安全岛仍能发出紧急制动指令。安全岛之所以能在SoC休眠时独立工作，是因为它有自己的always-on电源域——电流仅需几微安，在整车上电前就已完成自检。</p>
 </div></div>
 
 <h3>4.7.6 功能安全关键机制的物理实现：锁步·ECC·BIST·看门狗</h3>
@@ -6221,6 +6263,10 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-analog">第五篇：模拟与电源管理 IC</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">信号链（运放 · 基准 · ADC/DAC）+ 电源管理（LDO · DC-DC）—— 模拟 IC 的两支主干；含 5.0 谱系定义与 5.1 零门槛概念详解</p>
+<div style="max-width:1100px;margin:0 auto 20px;padding:12px 16px;background:#f8fafc;border-left:4px solid #0891b2;border-radius:6px;font-size:13.5px;color:#334155;line-height:1.9">
+<b>🌱 用外行话说：</b>前面的芯片处理的都是干脆利落的 0 和 1（数字世界），可真实世界是连续变化的——声音的强弱、光的明暗、电池的电压。这一篇讲的模拟芯片，就是数字世界和真实世界之间的"翻译官和门卫"：把话筒的声音、传感器的信号变成芯片能懂的数字，再把杂乱的电源整理成各个芯片要的干净稳定电压（电源管理 IC）。它拼的不是制程，而是老师傅式的电路手艺——越老练越值钱。
+</div>
+
 <div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#ecfeff;border-left:3px solid #0891b2;border-radius:6px;font-size:12px;color:#155e75">
 <b>为什么这一篇必须存在：</b>前四篇讲的都是「缩微换性能」的世界——逻辑、存储、功率、MCU 都在比谁的工艺节点更先进。模拟芯片给出的是完全相反的答案：<b>它的「先进」是精度、噪声底、功耗与可靠性，不是栅长</b>；工艺越老反而越值钱，一颗料号能卖十几到二十年。<br>
 <b>模拟 IC 的准确定义与全谱系位置见 <a href="#sec-analog-taxonomy" style="color:#0e7490">5.0</a></b>——那里给出 WSTS 产业口径（模拟 IC 是集成电路四个子类之一）、内部「信号链 + 电源管理」二分、以及判断一颗芯片算不算模拟的三条判据。<br>
@@ -6275,9 +6321,9 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <span><b>线性产品：</b>运算放大器、比较器、<b>电压基准</b> → <a href="#sec-analog-core">5.3</a></span>
 <span><b>转换器：</b>ADC / DAC、模拟前端 AFE → <a href="#sec-adc">5.4</a></span>
 <span><b>接口：</b>隔离器、电平转换、开关与多路复用、时基</span>
-<span><b>射频微波：</b>LNA、混频器、频率合成器、PLL、RF 收发</span>
+<span><b>射频微波：</b>LNA（Low Noise Amplifier，低噪声放大器——接收链最前端那级放大器，负责在信号还很微弱时先小心放大又不添噪声）、混频器、频率合成器、PLL、RF 收发</span>
 </div>
-<p style="margin-top:7px;color:#1e40af"><b>衡量指标：</b>失调、噪声底、ENOB、SNR/SNDR、线性度</p>
+<p style="margin-top:7px;color:#1e40af"><b>衡量指标：</b>失调、噪声底、ENOB（Effective Number Of Bits，有效位数——转换器名义上说自己有多少位精度，但被噪声一搅，真正管用的位数往往更少，这才是实打实的精度）、SNR/SNDR、线性度</p>
 <p style="margin-top:4px;color:#64748b;font-size:11.5px">代表厂商：ADI、TI、圣邦微、思瑞浦</p>
 </div></div>
 
@@ -6291,7 +6337,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <span><b>驱动：</b>LED 驱动、电机驱动、栅极驱动</span>
 <span><b>保护：</b>过流 / 过压 / 热保护、AC-DC 转换</span>
 </div>
-<p style="margin-top:7px;color:#047857"><b>衡量指标：</b>转换效率、静态电流、负载/线性调整率、PSRR、纹波</p>
+<p style="margin-top:7px;color:#047857"><b>衡量指标：</b>转换效率、静态电流、负载/线性调整率、PSRR（Power Supply Rejection Ratio，电源抑制比——电源本身抖动时，电路能挡掉多少、不让它污染输出，越高越"抗脏电"）、纹波</p>
 <p style="margin-top:4px;color:#64748b;font-size:11.5px">代表厂商：TI、MPS、Infineon、矽力杰、杰华特</p>
 </div></div>
 </div>
@@ -6314,7 +6360,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="card" style="background:#fffbeb;border-left:4px solid #f59e0b">
 <div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933">⑥ 本质</span>⚠️ 边界声明：CIS 与光电探测为什么出现在本篇，以及这一分类的争议</div>
 <div class="dsc">
-<p><b>先把话说清楚：按 WSTS 产业口径，<a href="#sec-cis">CIS 图像传感器</a>与 <a href="#sec-opto-detect">PD/APD/SPAD/SiPM</a> 属于「光电子器件」大类，不属于模拟 IC。</b>本站把它们编入第五篇，是<b>按工程约束就近编排的结果，不是产业统计口径</b>，两者不应混用。</p>
+<p><b>先把话说清楚：按 WSTS 产业口径，<a href="#sec-cis">CIS 图像传感器</a>与 <a href="#sec-opto-detect">PD/APD（Avalanche PhotoDiode，雪崩光电二极管——内部自带"放大"，一个光子能激起一串电子，弱光也能测到）/SPAD（Single-Photon Avalanche Diode，单光子雪崩二极管——灵敏到能数出一个个光子）/SiPM（把很多 SPAD 并起来，既能数光子又能测光强）</a> 属于「光电子器件」大类，不属于模拟 IC。</b>本站把它们编入第五篇，是<b>按工程约束就近编排的结果，不是产业统计口径</b>，两者不应混用。</p>
 
 <table class="node-table nopad" style="margin-top:10px"><thead><tr>
 <th style="width:17%">品类</th><th style="width:24%">WSTS 归类</th><th style="width:30%">编入本篇的理由（工程视角）</th><th>这个理由的局限</th>
@@ -7152,6 +7198,10 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-sensing">第六篇：光电感知</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">光 → 电：光电探测（PD/APD/SPAD/SiPM）与图像传感（CIS）—— 把光变成可用信号的两条路</p>
+<div style="max-width:1100px;margin:0 auto 20px;padding:12px 16px;background:#f8fafc;border-left:4px solid #0284c7;border-radius:6px;font-size:13.5px;color:#334155;line-height:1.9">
+<b>🌱 用外行话说：</b>前几篇处理的都是"电"，这一篇讲怎么把"光"变成电、又把电变成光——这就是光电感知。手机摄像头把镜头进来的光变成照片（图像传感器 CIS）、激光雷达发一束光再接收反射回来测距离、屏幕和光通信里的小激光器把电信号变成光。为什么硅特别擅长"看光"却几乎不会"发光"？这一篇讲清光和电互相转换这道坎，也为下一篇"用光传数据"埋下伏笔。
+</div>
+
 
 <div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#f0f9ff;border-left:3px solid #0284c7;border-radius:6px;font-size:12px;color:#075985">
 <b>为什么独立成篇（v7.5 调整）：</b>本篇内容原先编在第五篇「模拟」之下，理由是 CIS 的难点在模拟读出链。但按 <a href="#sec-analog-taxonomy" style="color:#0369a1">WSTS 产业口径</a>，<b>图像传感器与光探测器属于「光电子器件」大类，与集成电路平级，本不属于模拟 IC</b>；且 SPAD 的核心指标是<b>皮秒级时间抖动</b>，本质是数字计时问题，与「模拟精度」不同源。硬编在模拟篇会同时违背产业口径与本站自己的结论，故独立成篇。<br>
@@ -7420,7 +7470,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <div class="imp-row"><span class="imp-lbl">↳ 产品侧影响</span><span class="imp" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="直接设定速度/精度/带宽的物理天花板"><span class="im-e">🔢</span>性能上限</span><span class="imp" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="裸片尺寸变大 → 单片晶圆出片数减少 → 单颗成本上升"><span class="im-e">💠</span>Die 面积</span><span class="imp" style="color:#65a30d;background:#f7fee7;border-color:#65a30d33" title="影响失效率、寿命、工作温区或车规等级"><span class="im-e">🛡️</span>可靠性寿命</span></div><div class="kv">
 <span><b>击穿电压 V_BR 与过压偏置 V_ov（over-voltage）：</b>SPAD 实际工作电压 = V_BR + V_ov。<b>V_ov 是"超出击穿多少"</b>，通常几伏（如 2~7 V）。V_ov 越大 → 触发概率越高、增益越大、时间抖动越小，<b>但暗计数、后脉冲、串扰也同步恶化</b>——V_ov 是所有性能的总旋钮。</span>
-<span><b>PDE 光子探测效率：</b>一个打进来的光子被真正记录下来的概率。<b>PDE = 量子效率 QE × 填充因子 FF × 触发概率 P_trig</b>。QE 是光子被吸收造出载流子的概率；FF 是敏感面积占比（SPAD 之间要留淬灭电阻和隔离，占掉面积）；P_trig 是载流子真正引发雪崩的概率（随 V_ov 上升）。典型峰值 PDE 量级在 <b>40%~50%</b>（可见光波段、较高 V_ov 下）。【业界】</span>
+<span><b>PDE 光子探测效率（Photon Detection Efficiency——打进来 100 个光子，真正被记录下来的有几个，就像漏斗，进得多不等于接得住）：</b>一个打进来的光子被真正记录下来的概率。<b>PDE = 量子效率 QE × 填充因子 FF × 触发概率 P_trig</b>。QE 是光子被吸收造出载流子的概率；FF 是敏感面积占比（SPAD 之间要留淬灭电阻和隔离，占掉面积）；P_trig 是载流子真正引发雪崩的概率（随 V_ov 上升）。典型峰值 PDE 量级在 <b>40%~50%</b>（可见光波段、较高 V_ov 下）。【业界】</span>
 </div>
 </div></div>
 
@@ -7697,7 +7747,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 <h2 id="sec-opto-emit">💡 6.3 发光原理：电 → 光，为什么硅被判了死刑</h2>
-<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（正偏注入 vs 反偏探测）→ 原理（辐射复合与直接带隙）→ 材料瓶颈（硅不行·效率链）→ 品类对比（LED/EEL/VCSEL）→ 本质与硅光接口</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（正偏注入 vs 反偏探测）→ 原理（辐射复合与直接带隙）→ 材料瓶颈（硅不行·效率链）→ 品类对比（LED/EEL（Edge-Emitting Laser，边发射激光器——光从芯片侧边射出）/VCSEL（Vertical-Cavity Surface-Emitting Laser，垂直腔面发射激光器——光从芯片正上方垂直射出，好做成一大片阵列，手机人脸识别就用它））→ 本质与硅光接口</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="content">
 
@@ -7826,7 +7876,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <h3><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 材料瓶颈</span>效率是层层漏出来的，还有两个公认难题</h3>
 
 <div class="card">
-<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 材料瓶颈">③ 材料瓶颈</span>效率三层漏斗：IQE → EQE → WPE</div>
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 材料瓶颈">③ 材料瓶颈</span>效率三层漏斗：IQE（Internal Quantum Efficiency，内量子效率——芯片内部，一个电子有几率真的变出一个光子）→ EQE（External，外量子效率——变出的光子里有几个真能跑到芯片外面、没被自己挡住）→ WPE（Wall-Plug Efficiency，插座效率——从墙上插座算起，喂进去的电最终有几成变成了照出去的光）</div>
 <div class="imp-row"><span class="imp-lbl">↳ 产品侧影响</span><span class="imp" style="color:#f59e0b;background:#fffbeb;border-color:#f59e0b33" title="同等性能下功耗上升，或为省功耗必须牺牲性能"><span class="im-e">⚡</span>功耗</span><span class="imp" style="color:#ea580c;background:#fff7ed;border-color:#ea580c33" title="逼出更强散热：加散热片 → 热管 → 液冷"><span class="im-e">🌡️</span>散热方案</span><span class="imp" style="color:#b45309;background:#fefce8;border-color:#b4530933" title="料号数量、外挂元件数、整机物料成本"><span class="im-e">💰</span>BOM 成本</span></div>
 <div class="dsc">
 <p>「一个电子进去能不能出来一个光子、这个光子能不能真的照到外面、这一切又费了多少电」——发光效率不是一个数，而是<b>三层依次打折</b>：</p>
@@ -7881,7 +7931,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="card" style="background:#fff">
 <div class="ttl" style="font-size:14px">🔦 激光器 LD = 受激辐射</div>
 <div class="dsc" style="font-size:12.5px">
-<p>加<b>光学谐振腔</b>把光来回反射，让一个光子<b>诱发</b>更多同相同向的光子（受激辐射），前提是先做到<b>粒子数反转</b>。</p>
+<p>加<b>光学谐振腔</b>把光来回反射，让一个光子<b>诱发</b>更多同相同向的光子（受激辐射），前提是先做到<b>粒子数反转（正常情况下大多数电子都待在低能量的"楼下"，要先想办法把多数电子"抬到楼上"高能态，才能像多米诺一样连锁放光）</b>。</p>
 <div class="kv">
 <span>光谱<b>窄</b>（可达亚 nm）</span>
 <span>方向性<b>好</b></span>
@@ -7968,6 +8018,10 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-siph">第七篇：硅光子与光互连</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">波导 · 调制器 · 锗探测器 · 光源原罪 · CPO 共封装光学 —— 当铜线走到尽头</p>
+<div style="max-width:1100px;margin:0 auto 20px;padding:12px 16px;background:#f8fafc;border-left:4px solid #8b5cf6;border-radius:6px;font-size:13.5px;color:#334155;line-height:1.9">
+<b>🌱 用外行话说：</b>上一篇末尾说到硅不擅长发光，可如今芯片之间要传的数据量大到用铜线根本喂不饱、还特别耗电、特别热。于是工程师干脆改用光纤在芯片旁边传数据——这就是硅光子与光互连。它把发光、导光、接光的器件做到芯片边上，让数据以光的形式短距离高速穿梭。一句话：当铜线"堵车"了，就换成光的"高速公路"，这一篇讲的就是怎么在硅片上修这条光路。
+</div>
+
 <div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#f5f3ff;border-left:3px solid #7c3aed;border-radius:6px;font-size:12px;color:#4c1d95">
 <b>这一篇回答一个问题：为什么 AI 集群的真正瓶颈不是算力，而是「把数据搬进搬出芯片」。</b>前五篇讲的都是如何在硅片内部做得更好，这一篇讲的是<b>如何离开硅片</b>——芯片面积可以做大，但边缘周长有限，所有 I/O 必须从边缘「上岸」。<br>
 与 <a href="#sec-cis" style="color:#6d28d9">第五篇 CIS</a> 的分野：CIS 是光→电单向感知、难点在模拟读出链；硅光是<b>电→光→电双向通信</b>、难点在波导调制与光源集成。两者共享光电探测器的物理，工程约束完全不同。
@@ -8497,6 +8551,10 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-rf">第八篇：射频芯片</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">WiFi · 蓝牙 · GNSS · 5G · UWB · 毫米波雷达 —— 把信息塞进电磁波，再从噪声里捞回来</p>
+<div style="max-width:1100px;margin:0 auto 20px;padding:12px 16px;background:#f8fafc;border-left:4px solid #db2777;border-radius:6px;font-size:13.5px;color:#334155;line-height:1.9">
+<b>🌱 用外行话说：</b>前面讲的都是芯片内部或芯片之间，这一篇讲怎么让信息飞到空中、再从空中抓回来——这就是射频芯片，手机能打电话、连 WiFi、刷 5G 全靠它。它干两件事：发射端把你的数据"塞"进电磁波用力发出去（放大器 PA 负责这一脚油门），接收端从满是噪声的空气里把极微弱的信号"捞"回来还不能添乱（低噪放大器 LNA 负责第一道守门）。这一篇讲的就是"隔空传信"这门在噪声里做精细活的手艺。
+</div>
+
 
 <div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#fdf2f8;border-left:3px solid #db2777;border-radius:6px;font-size:12px;color:#9d174d">
 <b>本篇与第五篇的关系：</b>按 <a href="#sec-analog-taxonomy" style="color:#be185d">WSTS 口径</a>，射频/微波是<b>模拟 IC 的一个子类</b>。独立成篇有三个理由：① 频率高到必须按「<b>波</b>」而非「电路」思考（导线变成传输线、要算反射与阻抗匹配）；② 材料体系完全不同（<b>GaAs / GaN / RF SOI</b>，不是纯硅 CMOS）；③ 滤波器是<b>独立的声学器件产业</b>（SAW/BAW），不在 IC 范畴内。<br>
@@ -8625,7 +8683,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div></div>
 
 <div class="card" style="border-left:4px solid #2563eb">
-<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>6️⃣ 线性度 IIP3 / ACLR / EVM —— 放大器不能只看增益</div>
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>6️⃣ 线性度 IIP3 / ACLR（Adjacent Channel Leakage Ratio，邻道泄漏比——你的信号"溢"到隔壁频道去干扰别人的程度，像 KTV 隔音差、歌声串到隔壁包厢）/ EVM（Error Vector Magnitude，误差矢量幅度——实际发出的信号点偏离"标准靶心"多远，偏得越多接收方越容易听错） —— 放大器不能只看增益</div>
 <div class="dsc">
 <p><b>🏠 生活类比：</b>把音响音量开到最大,声音会"破音"——喇叭已经推不动了,输出不再忠实于输入,还冒出刺耳的杂音。放大器过载时也一样:输出不再是输入的等比例放大,而是<b>非线性失真</b>,并凭空生出原本没有的频率成分。</p>
 <p style="margin-top:6px"><b>📖 是什么：</b>线性度衡量放大器"忠实放大"的能力。非线性最要命的后果是<b>互调(intermodulation)</b>:当两个不同频率的干扰信号一起进来,非线性会让它们<b>相乘</b>,生出新的频率,其中一些恰好<b>落在有用信号的频段里,成了拔不掉的假信号</b>。三个常用指标:</p>
@@ -8743,7 +8801,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
   <text x="700" y="214" font-size="12" font-weight="bold" fill="#334155" text-anchor="middle">基带</text>
   <text x="470" y="300" font-size="11" font-weight="bold" fill="#7c3aed" text-anchor="middle">▼ 发射链 TX(由数字到辐射)</text>
 </svg>
-<div class="anim-note">收发共用一个本振 LO(红色虚线):接收时给混频器下变频,发射时给上变频。ADC/DAC 之外即数字基带。</div>
+<div class="anim-note">收发共用一个本振 LO(Local Oscillator，本地振荡器——芯片自己产生的一个标准频率"节拍器"，用它把高频信号搬上搬下，红色虚线):接收时给混频器下变频,发射时给上变频。ADC/DAC 之外即数字基带。</div>
 </div>
 
 <div class="card" style="border-left:4px solid #2563eb">
@@ -8768,7 +8826,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="dsc">
 <p>接收机怎么把高频搬下来,历史上有三条路线,手机主流选了零中频,理由在表里:</p>
 <table class="node-table nopad" style="margin-top:10px"><thead><tr>
-<th style="width:16%">维度</th><th>超外差(Superhet)</th><th>零中频(Zero-IF)</th><th>数字中频(Digital-IF)</th>
+<th style="width:16%">维度</th><th>超外差(Superhet)</th><th>零中频(Zero-IF——IF 即 Intermediate Frequency 中频，是收发时的一个"中转频率"；零中频就是干脆不设中转、直接把信号搬到最低频处理)</th><th>数字中频(Digital-IF)</th>
 </tr></thead><tbody>
 <tr><td class="hl"><b>思路</b></td><td>先搬到固定中频,再解调</td><td>直接搬到 0 Hz 基带</td><td>搬到较低中频后立即数字化</td></tr>
 <tr><td class="hl"><b>镜像抑制</b></td><td class="good">好(靠中频滤波)</td><td>无镜像问题(中频=0)</td><td>可用数字处理抑制</td></tr>
@@ -9022,7 +9080,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 </div>
 
 <h2 id="sec-rf-tx">📤 8.4 发射端原理详解：把功率放出去，而且不能失真</h2>
-<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（发射机的三个指标）→ 原理（PA工作类别与效率来源）→ 物理结构瓶颈（效率↔线性度对撞·PAPR回退）→ 方案（Doherty·ET·DPD）→ 本质</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（发射机的三个指标）→ 原理（PA工作类别与效率来源）→ 物理结构瓶颈（效率↔线性度对撞·PAPR（Peak-to-Average Power Ratio，峰均比——信号的最高瞬时功率比平均功率高出多少；峰太高就得让放大器平时留出余量"回退"着用，牺牲效率）回退）→ 方案（Doherty·ET·DPD）→ 本质</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="content">
 
@@ -9319,7 +9377,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>🔊 滤波器：用「声波」而不是电磁波，是它能做小的全部秘密</div>
 <div class="am">压电材料把电磁波转成声波再转回来——声速比电磁波慢约 5 个数量级，同频率下波长小 10 万倍，器件才能做到毫米级</div>
 <svg viewBox="0 0 760 250">
-<text x="380" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a8a">滤波器的本质：电 → 声 → 电 的两次转换，靠压电效应完成</text>
+<text x="380" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a8a">滤波器的本质：电 → 声 → 电 的两次转换，靠压电效应（某些材料一挤压就产生电、一通电就形变，电和机械振动能互相转换，石英表走时准就靠它）完成</text>
 
 <!-- electrical in -->
 <text x="70" y="46" text-anchor="middle" font-size="9.5" font-weight="700" fill="#7c3aed">电信号输入</text>
@@ -9389,7 +9447,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="统一叙述框架 · 方案">④ 方案</span>LNA 低噪放：噪声系数优先，两条材料路线分工</div>
 <div class="dsc">
 <p>LNA 位于接收链路最前端，它的<b>噪声系数（NF）几乎决定整机灵敏度下限</b>——前级噪声会被后面所有增益放大。因此选材以「谁 NF 更低、性价比更合适」来分工：</p>
-<div class="kv"><span>🔹 <b>SiGe BiCMOS</b>：集成度与成本好，NF 够用，适合大多数消费场景</span><span>🔹 <b>GaAs pHEMT</b>：追求<b>极致噪声系数</b>的场合（如 GNSS、卫星接收）</span></div>
+<div class="kv"><span>🔹 <b>SiGe BiCMOS</b>（一种把两类晶体管做在一起的硅基工艺，便宜、集成度高）：集成度与成本好，NF（Noise Figure，噪声系数——器件自己往信号里添了多少噪声，越低越好）够用，适合大多数消费场景</span><span>🔹 <b>GaAs pHEMT</b>（砷化镓做的高迁移率晶体管，本底噪声极低）：追求<b>极致噪声系数（自己几乎不添噪声）</b>的场合（如 GNSS、卫星接收）</span></div>
 </div></div>
 
 <div class="card">
@@ -9585,6 +9643,10 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <h1 style="font-size:28px;font-weight:800;color:#0f172a;text-align:center;margin:0 0 8px" id="sec-passive">第九篇：被动器件</h1>
 <p style="text-align:center;font-size:14px;color:#64748b;margin-bottom:10px">MLCC · 电阻 · 电感 —— 摩尔定律完全管不到的那一半元器件</p>
+<div style="max-width:1100px;margin:0 auto 20px;padding:12px 16px;background:#f8fafc;border-left:4px solid #ea580c;border-radius:6px;font-size:13.5px;color:#334155;line-height:1.9">
+<b>🌱 用外行话说：</b>前面八篇讲的都是会"干活"的主角芯片，可再厉害的芯片也离不开一群不起眼的配角——电容、电阻、电感这些被动器件。它们不放大、不运算，只做最基础的活：电容像小水库帮着稳住电压、电阻分压限流、电感抗拒电流突变。一块手机主板上密密麻麻上千颗，少一颗都可能不开机。这一篇讲的就是这些"配角"为什么虽小却缺一不可，以及为什么小小一颗电容也能被"卡脖子"。
+</div>
+
 <div style="max-width:1100px;margin:0 auto 24px;padding:10px 14px;background:#fff7ed;border-left:3px solid #ea580c;border-radius:6px;font-size:12px;color:#7c2d12">
 <b>⚠️ 先把边界说清楚：严格意义上，被动器件不是半导体。</b>它们没有 PN 结，不放大、不开关，只做储能、耗能、滤波与阻抗匹配。把它放进这份全景图，理由是另外两条：<b>① 它在 BOM 件数上占绝对多数，一辆电动车用到万颗量级的 MLCC；② 它是断供高发区——单价极低，但缺一颗就能让整条产线停线。</b><br>
 <b>它还提供了一个全站最彻底的对照：</b>前六篇讲的世界里，进步来自把结构做小、把工艺做精；被动器件的进步<b>几乎完全来自材料与叠层工艺</b>，与光刻分辨率、与栅长毫无关系。<b>这里没有摩尔定律。</b>
@@ -9635,7 +9697,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <tr><td class="hl">陶瓷电容<br>（含 <b>MLCC</b>）</td>
 <td>BaTiO₃ 等高 ε 陶瓷<br>叠层增面积</td>
 <td>pF ~ 数百 µF</td>
-<td><b>体积最小、ESR/ESL 最低、无液态成分故寿命长</b></td>
+<td><b>体积最小、ESR（Equivalent Series Resistance，等效串联电阻——电容其实不是完美的，内部还藏着一点"寄生电阻"，它越小电容越干脆、发热越少）/ESL（等效串联电感，同理藏着的一点"寄生电感"）最低、无液态成分故寿命长</b></td>
 <td>温漂、直流偏压衰减、<b>机械应力易开裂</b>、容值随老化下降</td>
 <td>高频去耦、旁路、绝大多数板载场景</td></tr>
 <tr><td class="hl">铝电解电容</td>
@@ -9958,7 +10020,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 <h3>电阻：阻值来自载流子被晶格散射</h3>
 <p><b>电阻（Resistor）</b>的活是限制电流、分压、做电流采样。它的阻值不是凭空规定的，而是材料物理的直接结果：<b>R = ρ · L / A</b>。载流子（电子）在导体里被电场推着走，却不断撞上振动的晶格原子和杂质，每次碰撞损失动量——这种<b>散射</b>就是电阻的微观来源。式中 ρ 是材料的电阻率（由散射强度决定），L 是长度，A 是横截面积：路越长、越细，电子越难通过，阻值越大。</p>
-<p><b>"理想电阻"不存在</b>：晶格振动随温度加剧，散射变强，所以阻值随温度漂（温度系数 TCR）；电阻体和引线还带有寄生电感、极间寄生电容，频率一高就不再是纯电阻。选电阻从来不是只看标称阻值，而是看阻值精度、TCR、长期漂移和高频行为——这正是下面"四种工艺四个精度档位"要展开的。</p>
+<p><b>"理想电阻"不存在</b>：晶格振动随温度加剧，散射变强，所以阻值随温度漂（温度系数 TCR，Temperature Coefficient of Resistance——温度每变一度、阻值跟着变多少，越小越"不怕冷热"）；电阻体和引线还带有寄生电感、极间寄生电容，频率一高就不再是纯电阻。选电阻从来不是只看标称阻值，而是看阻值精度、TCR、长期漂移和高频行为——这正是下面"四种工艺四个精度档位"要展开的。</p>
 
 <p style="background:#dcfce7;padding:8px 12px;border-radius:6px;color:#14532d"><b>本质一句话：</b>电阻的阻值是载流子被晶格散射的宏观结果（ρ·L/A），它抗拒电流通过，而且没有"理想版本"——寄生参数与温漂随时会让它偏离标称。</p>
 <p style="margin-top:8px;color:#475569">正因为阻值是物理量而非固定数字，工程上才有那么多坑：下面先看毫欧级电阻为什么必须用四端 Kelvin 接法测量，再看电阻的四种工艺档位。</p>
@@ -10224,7 +10286,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="term" id="t-photolithography-process" data-term="光刻(工序)|Photolithography"><div class="term-h"><b>光刻(工序)</b><span class="term-en">Photolithography</span><span class="term-cat">制造工艺</span></div><div class="term-l1"><b>🔰 打底</b>光刻是在晶圆上&#x27;印图案&#x27;的工序。先涂一层遇光会变性的胶,再用光透过一张画着电路图的模板照上去,被照到的地方性质改变,显影后就把图案留在了胶上。这层胶接下来当作模板,指导刻蚀或注入去哪儿动手。它是唯一负责&#x27;画图&#x27;的环节。</div><div class="term-l2"><b>📖 是什么</b>光刻(作为工序)是用光把掩模上的图形转移到晶圆表面光刻胶上的图形化步骤。它区别于刻蚀:光刻只是&#x27;定义图案在哪里&#x27;(在胶上),真正去除材料的是随后的刻蚀。</div><div class="term-l3"><b>🔬 专业</b>标准八步:涂胶(HMDS增粘)、软烤、对准曝光、曝后烤、显影、硬烤、检测、去胶。是唯一决定图形尺寸与位置的工序,一颗芯片需数十次光刻。核心指标:分辨率、套刻精度、工艺窗口。每次光刻后都要湿法清洗残胶。它是Fab里最贵、最关键、决定制程节点的工序。</div><div class="term-l4"><b>💡 本质</b>整个制造流程里,光刻是唯一&#x27;创造图形&#x27;的动作,其余都是加料、去料、改性。制程节点的极限,归根结底是光刻能画多细的极限。</div><div class="term-ref">→ 详见 <a href="#sec-litho-flow">0.6.2 八步量产工序：Track 与 Scanner 的分工</a></div></div>
 <div class="term" id="t-cmp" data-term="化学机械抛光|Chemical Mechanical Planarization|CMP"><div class="term-h"><b>化学机械抛光</b><span class="term-en">Chemical Mechanical Planarization (CMP)</span><span class="term-cat">制造工艺</span></div><div class="term-l1"><b>🔰 打底</b>芯片一层层往上盖,表面会越来越坑洼不平,不平就没法在上面继续精确印图案。CMP是用一块旋转的抛光垫加上带有细小磨粒和化学药水的浆液,一边磨一边溶,把表面磨得像镜面一样平整,好让下一层工序在平地上开工。</div><div class="term-l2"><b>📖 是什么</b>CMP是结合化学腐蚀和机械研磨、将晶圆表面磨平的平坦化工艺。它不只是&#x27;磨平&#x27;——化学作用软化表面、机械作用去除,两者协同才能达到全局平坦度,单靠机械会划伤、单靠化学不平整。</div><div class="term-l3"><b>🔬 专业</b>晶圆压在旋转抛光垫上,注入含磨粒和腐蚀剂的浆料(slurry)。用于层间介质平坦化、铜大马士革工艺(磨去多余铜留下沟槽内的铜)、STI隔离、金属栅等。关键指标:平坦度、去除速率、碟形/侵蚀缺陷、终点检测。多层互连和先进节点高度依赖CMP,没有它就无法多层堆叠。</div><div class="term-l4"><b>💡 本质</b>CMP是多层集成的使能技术。正因为每层都能被磨回平整,芯片才能盖到十几二十层金属而不断累积起伏。它让&#x27;越盖越高&#x27;成为可能。</div><div class="term-ref">→ 详见 <a href="#sec-fab-modules">0.5.2 加材料与去材料：CVD/PVD/刻蚀/CMP（动画）</a></div></div>
 <div class="term" id="t-cvd" data-term="化学气相沉积|Chemical Vapor Deposition|CVD"><div class="term-h"><b>化学气相沉积</b><span class="term-en">Chemical Vapor Deposition (CVD)</span><span class="term-cat">制造工艺</span></div><div class="term-l1"><b>🔰 打底</b>CVD是把含有目标材料的气体通到热的晶圆表面,气体在那里发生化学反应,把想要的材料一层层&#x27;长&#x27;到表面上。因为是靠气体反应,气体能钻进各种深孔窄缝,所以哪怕表面坑坑洼洼,也能均匀铺满、不留空洞。</div><div class="term-l2"><b>📖 是什么</b>CVD是通过气态前驱体在衬底表面化学反应生成固态薄膜的沉积技术。它区别于PVD(物理溅射):CVD靠化学反应、共形性好(能均匀覆盖深孔侧壁);PVD靠物理轰击、方向性强、填不进深孔。</div><div class="term-l3"><b>🔬 专业</b>含APCVD、LPCVD、PECVD、HDPCVD等。可沉积氧化硅、氮化硅、多晶硅、钨等。核心优势是共形性(conformality)——膜在深沟槽/高深宽比结构上厚度均匀,这是DRAM深槽电容、3D NAND、接触孔填充的必需。ALD可视为极致共形的原子层级CVD。</div><div class="term-l4"><b>💡 本质</b>CVD用化学反应换来了共形覆盖能力。凡是三维结构、深孔窄缝要铺膜,几乎只能靠它——这是芯片从平面走向立体的基础工艺之一。</div><div class="term-ref">→ 详见 <a href="#sec-fab-modules">0.5.2 加材料与去材料：CVD/PVD/刻蚀/CMP（动画）</a></div></div>
-<div class="term" id="t-ale" data-term="原子层刻蚀|Atomic Layer Etching|ALE"><div class="term-h"><b>原子层刻蚀</b><span class="term-en">Atomic Layer Etching (ALE)</span><span class="term-cat">制造工艺</span></div><div class="term-l1"><b>🔰 打底</b>普通刻蚀一下子去掉一层,快但难精确停住。ALE把刻蚀拆成两步循环:先让表面吸附一层反应物、只改性最上面一个原子层,再用能量温和地把这改性层单独打掉,然后循环。每循环只去掉一个原子层,想去几层就循环几次,精度到单原子级。</div><div class="term-l2"><b>📖 是什么</b>ALE是通过自限制的两步循环(表面改性+去除)逐原子层刻蚀的技术,是ALD的逆过程。它区别于常规干法刻蚀:后者连续刻、靠时间控深度;ALE自限制、靠循环次数精确控原子层数。</div><div class="term-l3"><b>🔬 专业</b>典型循环:①卤素等吸附改性表面一层;②低能离子/热选择性去除改性层,能量不足以损伤下层,故自限制。优势是原子级深度控制、极低损伤、极高选择比与均匀性;代价是速率慢。用于GAA纳米片释放、极薄栅、高深宽比结构的精密刻蚀,是2nm及以下节点的关键。</div><div class="term-l4"><b>💡 本质</b>当器件层薄到几个原子,刻蚀也必须一个原子层一个原子层地拿捏。ALE和ALD是原子尺度制造对&#x27;加&#x27;与&#x27;减&#x27;两个方向的对称答案。</div><div class="term-ref">→ 详见 <a href="#sec-fab-modules">0.5.2 加材料与去材料：CVD/PVD/刻蚀/CMP（动画）</a></div></div>
+<div class="term" id="t-ale" data-term="原子层刻蚀|Atomic Layer Etching|ALE"><div class="term-h"><b>原子层刻蚀</b><span class="term-en">Atomic Layer Etching (ALE)</span><span class="term-cat">制造工艺</span></div><div class="term-l1"><b>🔰 打底</b>普通刻蚀一下子去掉一层,快但难精确停住。ALE把刻蚀拆成两步循环:先让表面吸附一层反应物、只改性最上面一个原子层,再用能量温和地把这改性层单独打掉,然后循环。每循环只去掉一个原子层,想去几层就循环几次,精度到单原子级。</div><div class="term-l2"><b>📖 是什么</b>ALE是通过自限制（每一步反应到"该停就自动停"，铺/啃满一个原子层就不再继续，所以精度能卡到单原子级）的两步循环(表面改性+去除)逐原子层刻蚀的技术,是ALD的逆过程。它区别于常规干法刻蚀:后者连续刻、靠时间控深度;ALE自限制、靠循环次数精确控原子层数。</div><div class="term-l3"><b>🔬 专业</b>典型循环:①卤素等吸附改性表面一层;②低能离子/热选择性去除改性层,能量不足以损伤下层,故自限制。优势是原子级深度控制、极低损伤、极高选择比与均匀性;代价是速率慢。用于GAA纳米片释放、极薄栅、高深宽比结构的精密刻蚀,是2nm及以下节点的关键。</div><div class="term-l4"><b>💡 本质</b>当器件层薄到几个原子,刻蚀也必须一个原子层一个原子层地拿捏。ALE和ALD是原子尺度制造对&#x27;加&#x27;与&#x27;减&#x27;两个方向的对称答案。</div><div class="term-ref">→ 详见 <a href="#sec-fab-modules">0.5.2 加材料与去材料：CVD/PVD/刻蚀/CMP（动画）</a></div></div>
 <div class="term" id="t-ald" data-term="原子层沉积|Atomic Layer Deposition|ALD"><div class="term-h"><b>原子层沉积</b><span class="term-en">Atomic Layer Deposition (ALD)</span><span class="term-cat">制造工艺</span></div><div class="term-l1"><b>🔰 打底</b>ALD是CVD的极致精细版:每次只让表面吸附一个原子层的材料,反应完自动停,再通下一种气体接着长下一层。像刷墙时一次只刷薄薄一遍、干透再刷下一遍,厚度可以精确到一个原子层,而且再深再窄的缝都能均匀铺到。</div><div class="term-l2"><b>📖 是什么</b>ALD是通过自限制表面反应逐层沉积、单次只长一个原子层的沉积技术。它区别于常规CVD:CVD连续生长、靠时间控厚度;ALD是自限制的,单次反应饱和即停,厚度由循环次数决定。</div><div class="term-l3"><b>🔬 专业</b>两种前驱体交替脉冲,每步自限制(饱和后不再反应),故厚度控制达埃级、共形性接近完美。是HKMG高κ介质(HfO₂)、DRAM电容超薄介质、先进阻挡层的关键工艺。缺点是沉积速率极慢(逐层),故只用于必须超薄超均匀的场合。原子层刻蚀ALE是其逆过程。</div><div class="term-l4"><b>💡 本质</b>当尺寸进入原子尺度,连镀膜都必须一个原子层一个原子层来。ALD是纳米时代对&#x27;精度&#x27;的极端要求逼出来的工艺,用速度换取原子级可控。</div><div class="term-ref">→ 详见 <a href="#sec-fab-modules">0.5.2 加材料与去材料：CVD/PVD/刻蚀/CMP（动画）</a></div></div>
 <div class="term" id="t-epitaxy" data-term="外延|Epitaxy|Epi"><div class="term-h"><b>外延</b><span class="term-en">Epitaxy (Epi)</span><span class="term-cat">制造工艺</span></div><div class="term-l1"><b>🔰 打底</b>外延是在原有晶体表面上,按照下面原子的排列规律,一层层长出一层新的、排列同样整齐的晶体。就像在已经砌好的砖墙上继续对齐砖缝往上砌,新长的这层继承了下面的整齐结构,质量比衬底本身还要好。</div><div class="term-l2"><b>📖 是什么</b>外延是在单晶衬底上沿其晶格取向生长出一层新单晶薄膜的技术。它不同于普通沉积(CVD/PVD可长出多晶或非晶膜)——外延层必须与衬底晶格对齐、保持单晶。</div><div class="term-l3"><b>🔬 专业</b>分气相外延(VPE/CVD外延)、分子束外延(MBE)等。外延层可精确控制掺杂和厚度,纯度和晶格完整性优于衬底,用于功率器件耐压层、CMOS抗闩锁衬底、SiGe/III-V异质结、应变硅沟道。晶格失配会引入位错缺陷,是异质外延的核心挑战。</div><div class="term-l4"><b>💡 本质</b>当衬底本身的质量或结构不够用,就在它上面长一层量身定制的完美晶体。外延是把&#x27;材料属性&#x27;从整片衬底解耦到薄薄一层的关键手段。</div><div class="term-ref">→ 详见 <a href="#sec-fab-modules">0.5.2 加材料与去材料：CVD/PVD/刻蚀/CMP（动画）</a></div></div>
 <div class="term" id="t-damascene" data-term="大马士革工艺|Damascene Process"><div class="term-h"><b>大马士革工艺</b><span class="term-en">Damascene Process</span><span class="term-cat">制造工艺</span></div><div class="term-l1"><b>🔰 打底</b>铜很难像铝那样&#x27;先铺一层再刻掉多余的&#x27;。于是反过来做:先在绝缘层里刻出沟槽和孔(就是布线要走的路),再往里灌满铜,最后把表面多余的铜磨掉,只剩沟槽里的铜。像先在石板上刻出花纹凹槽,再往凹槽里填金,磨平后花纹就成了。</div><div class="term-l2"><b>📖 是什么</b>大马士革工艺是&#x27;先刻沟槽再填铜、最后CMP磨平&#x27;的铜互连制造方法。它区别于传统铝的&#x27;沉积-光刻-刻蚀&#x27;流程——大马士革是反向的:图案刻在介质里、金属填进去,因为铜难以直接刻蚀。</div><div class="term-l3"><b>🔬 专业</b>分单大马士革(沟槽/通孔分开做)和双大马士革(通孔与沟槽一次填铜,减少步骤和界面电阻)。流程:介质刻沟槽/通孔→溅射阻挡层+铜种子层→电镀填铜→CMP去除多余铜。得名于古代大马士革金属镶嵌工艺。是现代铜互连的标准方法,双大马士革为主流。</div><div class="term-l4"><b>💡 本质</b>当材料不让你用旧办法,就把流程整个倒过来。大马士革是&#x27;工艺适应材料&#x27;的经典案例:铜的优势,是靠这套反向思路才用上的。</div><div class="term-ref">→ 详见 <a href="#sec-fab-modules">0.5.2 加材料与去材料：CVD/PVD/刻蚀/CMP（动画）</a></div></div>
@@ -10251,7 +10313,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="term" id="t-krf" data-term="KrF准分子激光|KrF Excimer Laser|KrF"><div class="term-h"><b>KrF准分子激光</b><span class="term-en">KrF Excimer Laser (KrF)</span><span class="term-cat">光刻</span></div><div class="term-l1"><b>🔰 打底</b>KrF是一种波长248nm的紫外激光光源,由氟化氪气体受激发光产生,曾是主流光刻光源。它比更早的紫外光波长短、能画更细的线,推动了0.25微米前后几代制程。如今它退居成熟节点,负责那些不需要极致精细的芯片层。</div><div class="term-l2"><b>📖 是什么</b>KrF是波长248nm的氟化氪准分子激光,是一代DUV光源。它区别于ArF(193nm):KrF波长更长、分辨率较低、成本更低,用于较成熟节点;ArF更短更精细、用于更先进节点。</div><div class="term-l3"><b>🔬 专业</b>KrF光刻主导约0.25µm-0.13µm世代(1990年代末-2000年代初),需配套KrF专用光刻胶(化学放大胶)。如今用于成熟节点的宽松层、以及部分存储/显示驱动等。相比i-line提升了分辨率,又比ArF便宜,在成熟制程中仍有稳定需求。准分子激光技术本身也是光刻从汞灯转向激光的标志。</div><div class="term-l4"><b>💡 本质</b>KrF是光刻从汞灯谱线迈入准分子激光时代的一步。它如今的定位说明:每一代光源退役后并不消失,而是沉到成熟节点继续发光发热。</div><div class="term-ref">→ 详见 <a href="#sec-fab-photo">0.6.1 分辨率的物理：波长、数值孔径与浸没式（动画）</a></div></div>
 <div class="term" id="t-reticle-field" data-term="Reticle场|Reticle Field"><div class="term-h"><b>Reticle场</b><span class="term-en">Reticle Field</span><span class="term-cat">光刻</span></div><div class="term-l1"><b>🔰 打底</b>光刻机一次曝光只能照亮晶圆上的一小块方形区域,不是整片一起照。这一小块就是曝光场。芯片如果比这块大,就得分成几块拼起来照。晶圆上要靠这个小方框一步步移动、反复曝光,才能把上千颗芯片全部印出来。这个&#x27;一次能照多大&#x27;限制着单颗芯片的最大尺寸。</div><div class="term-l2"><b>📖 是什么</b>Reticle场(曝光场)是光刻机单次曝光在晶圆上覆盖的最大区域。它限制了单颗芯片的最大面积:超过它的芯片必须拼接(stitching)或拆成Chiplet。标准场约26×33mm。</div><div class="term-l3"><b>🔬 专业</b>标准DUV/EUV曝光场约26mm×33mm(掩模上是4X即约104×132mm)。芯片面积受此上限约束(reticle limit),大芯片(如大GPU)已逼近此极限。High-NA EUV因变形光学,曝光场缩半为约26×16.5mm,大芯片需缝合。步进扫描机(scanner)在场内扫描曝光,再step到下一场。这是Chiplet兴起的直接推手之一。</div><div class="term-l4"><b>💡 本质</b>曝光场是单颗芯片尺寸的物理天花板。当大芯片撞上这堵&#x27;reticle墙&#x27;,拆成小芯片再拼(Chiplet)就从选项变成了必然。</div><div class="term-ref">→ 详见 <a href="#sec-litho-mask">0.6.4 掩模版与 4X 缩放：为什么掩模比芯片大四倍</a></div></div>
 <div class="term" id="t-resist-collapse" data-term="倒胶|Resist Collapse"><div class="term-h"><b>倒胶</b><span class="term-en">Resist Collapse</span><span class="term-cat">光刻</span></div><div class="term-l1"><b>🔰 打底</b>光刻画出的胶线条又细又高,像一排立着的薄薄纸片。显影后冲洗、干燥时,液体表面张力会像风一样把这些细高的线条拽倒、粘连在一起,图形就毁了。这种细高线条被拉倒的现象叫倒胶,是把图形做得又细又高时的一大麻烦。</div><div class="term-l2"><b>📖 是什么</b>倒胶是高深宽比光刻胶图形在显影/干燥过程中因毛细力倒塌、粘连的缺陷。它区别于显影不良:倒胶是物理力学失效(线条站不稳被拉倒),而非化学溶解问题。</div><div class="term-l3"><b>🔬 专业</b>根源是显影后干燥时,线间残留液体的表面张力(毛细力)超过胶线的机械强度,深宽比越高越易倒。缓解:降低胶膜厚度、用表面张力更低的冲洗液、超临界干燥、增强胶机械强度、优化图形密度。它是分辨率提升(线越细越高)的物理副作用,限制了单层能做的深宽比。</div><div class="term-l4"><b>💡 本质</b>倒胶是纳米图形撞上的一道力学墙:线越细高,越站不稳。它说明光刻的极限不只在光学,也在图形本身的机械稳定性。</div><div class="term-ref">→ 详见 <a href="#sec-litho-resist">0.6.3 光刻胶：正性负性之分，以及「胶厚是被下游倒逼的」</a></div></div>
-<div class="term" id="t-photoresist" data-term="光刻胶|Photoresist"><div class="term-h"><b>光刻胶</b><span class="term-en">Photoresist</span><span class="term-cat">光刻</span></div><div class="term-l1"><b>🔰 打底</b>光刻胶是一层涂在晶圆上、遇光会改变性质的特殊胶。被光照到的地方和没照到的地方,在显影液里溶解性不同,于是一冲洗,就把光带来的图案变成了胶上的实体图形。它是把&#x27;光的图案&#x27;翻译成&#x27;物理图形&#x27;的媒介,是光刻能成图的关键材料。</div><div class="term-l2"><b>📖 是什么</b>光刻胶是遇特定波长光后溶解性发生改变的感光高分子材料。它区别于普通涂层:光刻胶的价值在于&#x27;曝光后显影出图形&#x27;,是光图案转为物理图形的中间载体。</div><div class="term-l3"><b>🔬 专业</b>分正性胶(曝光区变可溶)和负性胶(曝光区变不可溶)。先进节点用化学放大胶(CAR):曝光产生光酸,后烤时催化连锁反应放大信号,提高灵敏度。关键指标:分辨率、灵敏度、线边缘粗糙度(LER)、抗刻蚀性。EUV胶还面临光子数少导致的随机效应(stochastic)。日本厂商(JSR、信越、东京应化)高度垄断此材料。</div><div class="term-l4"><b>💡 本质</b>光刻胶是把光信号&#x27;冲洗&#x27;成实体图形的显影剂。它虽是耗材,却是卡脖子材料——日本的垄断说明,越基础的材料越难替代。</div><div class="term-ref">→ 详见 <a href="#sec-litho-resist">0.6.3 光刻胶：正性负性之分，以及「胶厚是被下游倒逼的」</a></div></div>
+<div class="term" id="t-photoresist" data-term="光刻胶|Photoresist"><div class="term-h"><b>光刻胶</b><span class="term-en">Photoresist</span><span class="term-cat">光刻</span></div><div class="term-l1"><b>🔰 打底</b>光刻胶是一层涂在晶圆上、遇光会改变性质的特殊胶。被光照到的地方和没照到的地方,在显影液里溶解性不同,于是一冲洗,就把光带来的图案变成了胶上的实体图形。它是把&#x27;光的图案&#x27;翻译成&#x27;物理图形&#x27;的媒介,是光刻能成图的关键材料。</div><div class="term-l2"><b>📖 是什么</b>光刻胶是遇特定波长光后溶解性发生改变的感光高分子材料。它区别于普通涂层:光刻胶的价值在于&#x27;曝光后显影出图形&#x27;,是光图案转为物理图形的中间载体。</div><div class="term-l3"><b>🔬 专业</b>分正性胶(曝光区变可溶)和负性胶(曝光区变不可溶)。先进节点用化学放大胶(CAR):曝光产生光酸,后烤时催化连锁反应放大信号,提高灵敏度。关键指标:分辨率、灵敏度、线边缘粗糙度(LER，Line Edge Roughness——本该笔直的线条边缘其实毛毛糙糙、像手抖画的线，越细的线这点毛刺越致命)、抗刻蚀性。EUV胶还面临光子数少导致的随机效应(stochastic)。日本厂商(JSR、信越、东京应化)高度垄断此材料。</div><div class="term-l4"><b>💡 本质</b>光刻胶是把光信号&#x27;冲洗&#x27;成实体图形的显影剂。它虽是耗材,却是卡脖子材料——日本的垄断说明,越基础的材料越难替代。</div><div class="term-ref">→ 详见 <a href="#sec-litho-resist">0.6.3 光刻胶：正性负性之分，以及「胶厚是被下游倒逼的」</a></div></div>
 <div class="term" id="t-opc" data-term="光学邻近校正|Optical Proximity Correction|OPC"><div class="term-h"><b>光学邻近校正</b><span class="term-en">Optical Proximity Correction (OPC)</span><span class="term-cat">光刻</span></div><div class="term-l1"><b>🔰 打底</b>当线条细到接近光的极限,光的衍射会让实际印出的图形走样:直角变圆、线条变粗变细、线头缩短。OPC是提前在掩模上&#x27;反向做手脚&#x27;——故意把图形改得歪一点、加些辅助小图案,让衍射走样后恰好变成想要的形状。相当于预判失真、提前反向补偿。</div><div class="term-l2"><b>📖 是什么</b>OPC是在掩模图形上预先加入补偿性修正,以抵消光刻衍射效应、使晶圆图形接近设计意图的技术。它区别于直接照搬设计:OPC后的掩模图形和原设计不一样(加了衬线、辅助条等),就是为了&#x27;印出来才对&#x27;。</div><div class="term-l3"><b>🔬 专业</b>含加衬线(serif)、亚分辨率辅助图形(SRAF)、边缘偏置等。属计算光刻(computational litho)范畴,现代还用逆向光刻(ILT)和机器学习。OPC使掩模数据量和计算量剧增(修正后图形极复杂),是流片周期和成本的重要部分。它是把k₁压到理论极限以下、延续现有波长能力的关键分辨率增强技术(RET)之一。</div><div class="term-l4"><b>💡 本质</b>OPC是&#x27;先算出会怎么失真,再反向把掩模画歪&#x27;的预补偿。它标志光刻从纯光学进入计算光刻时代——图形对不对,越来越取决于算力而非镜头。</div><div class="term-ref">→ 详见 <a href="#sec-litho-window">0.6.5 焦深与剂量：分辨率之外的两个工艺窗口</a></div></div>
 <div class="term" id="t-resolution" data-term="分辨率|Resolution"><div class="term-h"><b>分辨率</b><span class="term-en">Resolution</span><span class="term-cat">光刻</span></div><div class="term-l1"><b>🔰 打底</b>光刻要用光在晶圆上画出线条,但光本身有粗细极限,画得太细就糊成一团分不开。分辨率就是光刻能清晰画出的最小线条尺寸。分辨率越高(数值越小),能画的线条越细、晶体管越小、芯片越强。它是制程节点能推进多远的物理天花板。</div><div class="term-l2"><b>📖 是什么</b>分辨率是光刻能清晰分辨的最小特征尺寸。它区别于套刻精度:分辨率管&#x27;单层图形能画多细&#x27;,套刻精度管&#x27;层与层能对多准&#x27;,两者都是关键但含义不同。</div><div class="term-l3"><b>🔬 专业</b>由瑞利判据CD=k₁·λ/NA决定:波长λ越短、数值孔径NA越大、工艺因子k₁越小,则分辨率越高。缩短波长(DUV 193nm→EUV 13.5nm)、增大NA(浸没式、High-NA)、减小k₁(OPC、多重曝光、相移掩模)是三条主线。k₁理论极限0.25(单次曝光)。分辨率决定了单次光刻的最小线宽。</div><div class="term-l4"><b>💡 本质</b>整部光刻史就是把瑞利判据里三个量往极限推的历史。分辨率的每一次突破,背后都是λ、NA、k₁中某一项的攻坚。</div><div class="term-ref">→ 详见 <a href="#sec-fab-photo">0.6.1 分辨率的物理：波长、数值孔径与浸没式（动画）</a></div></div>
 <div class="term" id="t-multiple-patterning" data-term="多重曝光|Multiple Patterning"><div class="term-h"><b>多重曝光</b><span class="term-en">Multiple Patterning</span><span class="term-cat">光刻</span></div><div class="term-l1"><b>🔰 打底</b>当一次曝光画不出足够密的线条(受光的极限所限),就把密线拆开:先曝光印出一半(稀疏的),再曝光印出另一半,两次错开叠加,合起来就得到了单次做不到的密集图形。用两次甚至更多次曝光,凑出超过设备单次分辨率的密度。代价是步骤翻倍、成本大增。</div><div class="term-l2"><b>📖 是什么</b>多重曝光是用多次光刻/刻蚀凑出超过单次曝光分辨率极限的密集图形的技术。它区别于单次曝光:把一层图形拆成多次做,以突破瑞利判据k₁≥0.25的单次限制,代价是工序和成本成倍增加。</div><div class="term-l3"><b>🔬 专业</b>含双重曝光(LELE)、自对准双/四重成像(SADP/SAQP,靠侧墙定义间距)等。SAQP可把间距缩至单次的1/4。是EUV普及前(及DUV延伸到7nm)的关键手段,中国被禁EUV后靠DUV多重曝光推进先进节点。代价:每增一重,掩模数、工序、套刻要求、成本、周期都大增,良率风险上升。EUV的价值之一就是减少多重曝光次数。</div><div class="term-l4"><b>💡 本质</b>多重曝光是&#x27;用更多步骤换更高密度&#x27;的暴力解法。它既是EUV前的救命稻草,也是被管制者绕开EUV的现实路径——代价是成本和良率的沉重负担。</div><div class="term-ref">→ 详见 <a href="#sec-litho-window">0.6.5 焦深与剂量：分辨率之外的两个工艺窗口</a></div></div>
@@ -10296,7 +10358,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="term" id="t-memory-pyramid" data-term="存储金字塔|Memory Hierarchy"><div class="term-h"><b>存储金字塔</b><span class="term-en">Memory Hierarchy</span><span class="term-cat">存储</span></div><div class="term-l1"><b>🔰 打底</b>计算机的存储不是一种,而是分层的:越靠近处理器的越快但越贵越小(如缓存),越远的越慢但越便宜越大(如硬盘)。把它们按&#x27;快贵小&#x27;到&#x27;慢便宜大&#x27;从上到下排,就成了一座金字塔。系统让常用数据待在快的上层、不常用的沉到慢的下层,兼顾速度和成本。</div><div class="term-l2"><b>📖 是什么</b>存储金字塔(存储层次)是按速度、成本、容量把各类存储从上到下分层的体系。它体现一个根本权衡:没有一种存储能同时又快又便宜又大,只能分层协作、各取所长。</div><div class="term-l3"><b>🔬 专业</b>典型自上而下:寄存器→SRAM缓存(L1/L2/L3)→DRAM主内存→SCM(空档,DRAM与存储间)→NAND SSD→HDD/磁带。越上层越快、越贵、越小、多为易失;越下层越慢、越便宜、越大、非易失。系统靠局部性原理(把热数据放上层)提升整体效能。HBM位于DRAM层但带宽极高;SCM试图填DRAM与NAND间的空档但落地难。</div><div class="term-l4"><b>💡 本质</b>存储金字塔是对&#x27;快、便宜、大不可兼得&#x27;这一铁律的工程回应。整个存储产业的技术版图,本质就是这座金字塔里各层的占位与争夺。</div><div class="term-ref">→ 详见 <a href="#sec-mem-atlas">0.7 存储器全类型原理图解（图例 + 动画）</a></div></div>
 <div class="term" id="t-xip" data-term="就地执行|Execute In Place|XIP"><div class="term-h"><b>就地执行</b><span class="term-en">Execute In Place (XIP)</span><span class="term-cat">存储</span></div><div class="term-l1"><b>🔰 打底</b>XIP指处理器可以直接在存储器上运行程序,不必先把程序整段搬到内存里再跑。这要求存储器能被快速、随机地按需读取任意位置。NOR闪存支持XIP,所以小系统可以省掉一部分内存、开机即用;而NAND不支持,程序必须先加载到RAM才能执行。</div><div class="term-l2"><b>📖 是什么</b>XIP(就地执行)是处理器直接从存储器读取并执行代码、无需先复制到RAM的能力。它区别于&#x27;加载后执行&#x27;:XIP省去搬运、节省RAM,但要求存储介质支持低延迟随机读(如NOR Flash),NAND不支持。</div><div class="term-l3"><b>🔬 专业</b>XIP依赖字节级随机可读、低延迟的存储(NOR Flash、部分新型存储器)。优点:节省RAM、缩短启动、简化小型嵌入式系统架构;缺点:执行速度受介质读速限制(慢于RAM)、限于支持随机读的介质。常见于MCU、IoT、启动引导等资源受限场景。NAND因页读架构不能XIP,故需先把代码搬入RAM(shadowing)。</div><div class="term-l4"><b>💡 本质</b>XIP是&#x27;省一块内存&#x27;与&#x27;代码直接就地跑&#x27;的权衡。它解释了NOR为何在嵌入式里不可替代——不是容量,而是这份随时可执行的随机访问能力。</div><div class="term-ref">→ 详见 <a href="#sec-mem-atlas">0.7 存储器全类型原理图解（图例 + 动画）</a></div></div>
 <div class="term" id="t-mask-rom" data-term="掩模ROM|Mask ROM"><div class="term-h"><b>掩模ROM</b><span class="term-en">Mask ROM</span><span class="term-cat">存储</span></div><div class="term-l1"><b>🔰 打底</b>掩模ROM是在芯片制造时就把数据永久&#x27;刻&#x27;进去的只读存储器,靠掩模版把0和1直接做在电路结构里。做好之后内容再也改不了,断电也不丢。它适合大批量、内容固定的场景(比如固化的程序),因为量大时每颗极便宜,但一旦要改内容就得重做掩模,极不灵活。</div><div class="term-l2"><b>📖 是什么</b>掩模ROM是制造时由掩模决定内容、之后不可更改的只读存储器。它区别于可编程ROM(PROM/EPROM等):掩模ROM在工厂用掩模一次成型、不可改写;后者出厂后还能(有限次)编程。</div><div class="term-l3"><b>🔬 专业</b>数据由晶体管有无/连接方式在流片时固化,非易失。优点:大批量单位成本极低、密度高;缺点:掩模成本高、改内容需重新流片(周期数月)、无灵活性。适合内容确定且量大的场合(早期游戏卡带、固化字库/固件)。现代多被Flash取代(可改写),但在极大批量固定内容场景仍有成本优势。</div><div class="term-l4"><b>💡 本质</b>掩模ROM把数据直接铸进硅里:极致便宜的代价是绝对僵硬。它代表非易失存储最古老的一端——完全牺牲可改写性,换取大批量的极低成本。</div><div class="term-ref">→ 详见 <a href="#sec-mem-atlas">0.7 存储器全类型原理图解（图例 + 动画）</a></div></div>
-<div class="term" id="t-floating-gate" data-term="浮栅|Floating Gate"><div class="term-h"><b>浮栅</b><span class="term-en">Floating Gate</span><span class="term-cat">存储</span></div><div class="term-l1"><b>🔰 打底</b>浮栅是一小块四周被绝缘层完全包裹、和外界不相连的导电小岛,藏在晶体管的控制栅和沟道之间。往里塞进电子,它就会改变这个晶体管开启的门槛;因为四周绝缘,塞进去的电子出不来、断电也留着。用它里面有没有电子,就能记住0和1,而且非易失。</div><div class="term-l2"><b>📖 是什么</b>浮栅是Flash/EPROM中悬浮于控制栅与沟道之间、四周绝缘的电荷存储层。它区别于普通栅极:浮栅不与任何电极相连(悬浮),靠隧穿进出电子、储存的电荷长期保留,是浮栅型非易失存储的核心。</div><div class="term-l3"><b>🔬 专业</b>浮栅存储的电子量会平移器件阈值电压(有电荷则Vth高),用固定读栅压测导通与否即可读出0/1。写入靠热电子注入或FN隧穿,擦除靠反向隧穿。四周绝缘保证非易失(retention可达十年),但反复隧穿会损伤隧穿氧化层→限制耐久度。3D NAND多转向电荷陷阱(CTF,用绝缘层陷阱存电荷)以改善缩微和可靠性。</div><div class="term-l4"><b>💡 本质</b>浮栅是&#x27;把电子关进绝缘孤岛&#x27;的巧思:一次囚禁,长期记忆。整个Flash谱系的非易失性,都源于这个被绝缘层锁死的电荷小岛。</div><div class="term-ref">→ 详见 <a href="#sec-mem-atlas">0.7 存储器全类型原理图解（图例 + 动画）</a></div></div>
+<div class="term" id="t-floating-gate" data-term="浮栅|Floating Gate"><div class="term-h"><b>浮栅</b><span class="term-en">Floating Gate</span><span class="term-cat">存储</span></div><div class="term-l1"><b>🔰 打底</b>浮栅是一小块四周被绝缘层完全包裹、和外界不相连的导电小岛,藏在晶体管的控制栅和沟道之间。往里塞进电子,它就会改变这个晶体管开启的门槛;因为四周绝缘,塞进去的电子出不来、断电也留着。用它里面有没有电子,就能记住0和1,而且非易失。</div><div class="term-l2"><b>📖 是什么</b>浮栅是Flash/EPROM中悬浮于控制栅与沟道之间、四周绝缘的电荷存储层。它区别于普通栅极:浮栅不与任何电极相连(悬浮),靠隧穿进出电子、储存的电荷长期保留,是浮栅型非易失存储的核心。</div><div class="term-l3"><b>🔬 专业</b>浮栅存储的电子量会平移器件阈值电压(有电荷则Vth高),用固定读栅压测导通与否即可读出0/1。写入靠热电子注入或FN隧穿,擦除靠反向隧穿。四周绝缘保证非易失(retention可达十年),但反复隧穿会损伤隧穿氧化层→限制耐久度。3D NAND多转向电荷陷阱(CTF，Charge Trap Flash——把电子存进绝缘层里一个个"小坑"里锁住，而不是关在孤岛上，更省空间也更耐用)以改善缩微和可靠性。</div><div class="term-l4"><b>💡 本质</b>浮栅是&#x27;把电子关进绝缘孤岛&#x27;的巧思:一次囚禁,长期记忆。整个Flash谱系的非易失性,都源于这个被绝缘层锁死的电荷小岛。</div><div class="term-ref">→ 详见 <a href="#sec-mem-atlas">0.7 存储器全类型原理图解（图例 + 动画）</a></div></div>
 <div class="term" id="t-pcm" data-term="相变存储|Phase-Change Memory|PCM"><div class="term-h"><b>相变存储</b><span class="term-en">Phase-Change Memory (PCM)</span><span class="term-cat">存储</span></div><div class="term-l1"><b>🔰 打底</b>PCM用一种特殊材料的两种物理状态来存数据:加热到一定温度再快速冷却,材料变成杂乱的非晶态(高电阻);缓慢冷却则变成排列整齐的晶态(低电阻)。用电阻高低区分0和1,断电也保持。这和刻录光盘的原理相通,是较成熟的新型非易失存储。</div><div class="term-l2"><b>📖 是什么</b>PCM(相变存储)是利用硫系化合物在晶态/非晶态间切换、以电阻差异存储数据的非易失存储器。它区别于RRAM(靠导电细丝)和Flash(靠电荷):PCM靠材料整体相变,状态稳定、多值潜力好。</div><div class="term-l3"><b>🔬 专业</b>材料(如GST锗锑碲)经电流加热:急冷成非晶(高阻),退火成晶态(低阻)。非易失、速度快(纳秒级)、耐久较高(约10^8-10^9)、可多级存储。Intel/美光的3D XPoint(Optane)即基于此,曾定位存储级内存(SCM),填补DRAM与NAND之间的空隙。挑战:写功耗(需加热)、成本、以及Optane商业上已退市。属较成熟的新型存储。</div><div class="term-l4"><b>💡 本质</b>PCM用材料的相变把数据存进物质结构本身,状态天然稳定。Optane的兴衰说明:一项技术即便物理可行,能否在DRAM和NAND的夹缝中找到经济位置,才是生死线。</div><div class="term-ref">→ 详见 <a href="#sec-mem-atlas">0.7 存储器全类型原理图解（图例 + 动画）</a></div></div>
 <div class="term" id="t-tsv" data-term="硅通孔|Through-Silicon Via|TSV"><div class="term-h"><b>硅通孔</b><span class="term-en">Through-Silicon Via (TSV)</span><span class="term-cat">存储</span></div><div class="term-l1"><b>🔰 打底</b>要把多片芯片上下叠起来还能互相通电,得在芯片(硅片)上垂直打出许多细孔、灌上金属,让电信号能直接从上一片穿到下一片。这些贯穿硅片的垂直金属通道就是硅通孔。它取代了又长又慢的绕线,让堆叠芯片之间走最短的垂直路径,是3D堆叠和HBM的关键。</div><div class="term-l2"><b>📖 是什么</b>TSV(硅通孔)是垂直贯穿芯片硅衬底、实现上下层芯片电互连的金属通道。它区别于传统引线/平面布线:TSV走垂直最短路径,是3D堆叠、HBM、2.5D中介层的核心互连结构。</div><div class="term-l3"><b>🔬 专业</b>工艺:深孔刻蚀(高深宽比)→绝缘/阻挡/种子层→电镀填铜→CMP→背面减薄露出。使多层die垂直互连,大幅缩短信号路径、提升带宽密度、降低延迟和功耗。用于HBM堆叠、3D IC、2.5D中介层(interposer上的TSV)、CIS背照等。挑战:高深宽比刻蚀与填充、热应力/翘曲(Cu与Si热膨胀失配)、良率、背面减薄。是先进封装的使能技术。</div><div class="term-l4"><b>💡 本质</b>TSV把&#x27;把线拉短&#x27;做到极致——直接穿过硅本体走垂直路。它是芯片从平面拼接走向立体堆叠的物理基石,HBM和3D IC都建立在它之上。</div><div class="term-ref">→ 详见 <a href="#sec-pkg-tsv">0.9.3 三条堆叠路线：从「绕边」到「打竖井」（动画）</a></div></div>
 <div class="term" id="t-wear-leveling" data-term="磨损均衡|Wear Leveling"><div class="term-h"><b>磨损均衡</b><span class="term-en">Wear Leveling</span><span class="term-cat">存储</span></div><div class="term-l1"><b>🔰 打底</b>闪存每块能擦写的次数有限,如果总往同几块地方写,那几块很快就磨坏了,而别处还很新。磨损均衡就是让控制器聪明地把写入分散到所有块上,轮流着用,让全盘各块磨损尽量平均,不让某几块提前报废,从而延长整个SSD的寿命。</div><div class="term-l2"><b>📖 是什么</b>磨损均衡是SSD/闪存控制器把写入分散到所有物理块、使各块磨损趋于平均的策略。它解决的是&#x27;热点集中&#x27;问题:若无均衡,频繁写的逻辑地址会磨坏固定物理块,而闪存不允许原地覆写。</div><div class="term-l3"><b>🔬 专业</b>分动态(只均衡频繁改写的数据)和静态(连长期不动的冷数据也搬移以让出新块)均衡。依赖FTL(闪存转换层)维护逻辑-物理地址映射。因闪存需先擦后写、按块擦,配合垃圾回收(GC)、超量配置(OP)。是把有限P/E耐久度最大化利用的关键固件技术,直接决定SSD实际寿命(TBW)。</div><div class="term-l4"><b>💡 本质</b>磨损均衡是用软件智能弥补硬件磨损局限:既然每块寿命有限,就让全盘一起变老。它是SSD控制器把闪存这块&#x27;易耗品&#x27;变成耐用产品的核心手段。</div><div class="term-ref">→ 详见 <a href="#sec-mem-atlas">0.7 存储器全类型原理图解（图例 + 动画）</a></div></div>
