@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v7.8 | 2026-09-21 | 产品侧影响落地: ①定义11类产品侧影响标签(die面积/封装面积/良率成本/测试成本/功耗/散热方案/性能上限/可靠性寿命/集成度/BOM成本/供应交期), 给44个③瓶颈块贴「↳产品侧影响」标签行, 把抽象限制落到产品可感知的量; ②九篇各加一张「产品侧影响总结」卡(限制/方案 → 直接后果 → 产品侧最直观影响 三列表 + 一句话本质); ③统一射频篇非标准槽位名 -->
+<!-- version: v8.0 | 2026-09-21 | 射频篇补齐收发端原理详解: ①8.3接收端(sec-rf-rx): 三指标互斥、灵敏度公式S=-174dBm/Hz+10log(BW)+NF+SNRmin与室温热噪声地板、带宽双刃剑、镜频干扰(镜像距信号2倍中频)与三条应对路线、阻塞减敏/邻道选择性/互调、增益分配(噪声看前级线性看后级)与AGC、ADC位置决定架构; ②8.4发射端(sec-rf-tx): 功率/线性度/效率三角、P1dB与失真两后果(ACLR频谱扩散+EVM星座变形)、PA类别A/AB/B/C/E/F对比、PAPR回退(OFDM 8-12dB导致平均效率崩至10-20%量级)、Doherty/ET/DPD三路破局、负载牵引与匹配网络; ③收发对称: 接收端与噪声搏斗、发射端与失真搏斗; 原8.3-8.5顺延为8.5-8.7 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -551,9 +551,11 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 <li><a href="#sec-rf-what"><b>8.0 什么是射频芯片·与模拟的关系</b></a></li>
 <li><a href="#sec-rf-basics"><b>8.1 基础原理·按「波」来想 🎬</b></a></li>
 <li><a href="#sec-rf-chain">8.2 收发链路·从天线到基带 🎬</a></li>
-<li><a href="#sec-rf-devices">8.3 关键器件与材料·PA/滤波器 🎬</a></li>
-<li><a href="#sec-rf-standards">8.4 各制式 WiFi/BT/GNSS/5G/UWB</a></li>
-<li><a href="#sec-rf-pattern">8.5 产业格局·滤波器卡脖子</a></li>
+<li><a href="#sec-rf-rx"><b>8.3 接收端原理详解 🎬</b></a></li>
+<li><a href="#sec-rf-tx"><b>8.4 发射端原理详解 🎬</b></a></li>
+<li><a href="#sec-rf-devices">8.5 关键器件与材料·PA/滤波器 🎬</a></li>
+<li><a href="#sec-rf-standards">8.6 各制式 WiFi/BT/GNSS/5G/UWB</a></li>
+<li><a href="#sec-rf-pattern">8.7 产业格局·滤波器卡脖子</a></li>
 </ol>
 <div style="font-size:11px;color:#0891b2;padding-left:4px;line-height:1.6">📐 模拟基础概念 → <a href="#sec-analog-basics">5.1</a></div>
 </div>
@@ -3220,7 +3222,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <td><b>🧪 材料 + 📦 模组封装</b><br><span style="font-size:11px;color:#b91c1c">PA 不用先进 CMOS</span></td>
 <td>材料（硅衬底损耗、电压裕度不够）+ 工艺（声学器件）</td>
 <td>GaAs HBT（PA）、GaN（基站/雷达）、RF SOI（开关）；SAW/BAW 滤波器；FEM 模组</td>
-<td><a href="#sec-rf-devices">8.3</a> <a href="#sec-rf-standards">8.4</a></td></tr>
+<td><a href="#sec-rf-devices">8.5</a> <a href="#sec-rf-standards">8.6</a></td></tr>
 
 <tr><td class="hl">被动器件</td>
 <td>容值/阻值密度、精度、寿命</td>
@@ -8407,7 +8409,471 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 </div>
 
-<h2 id="sec-rf-devices">📡 8.3 关键器件与材料：为什么射频前端不是一块硅能搞定</h2>
+<h2 id="sec-rf-rx">📥 8.3 接收端原理详解：从天线上那点微弱能量里捞出信息</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（接收机的三个指标）→ 原理（灵敏度公式与噪声底）→ 物理结构瓶颈（灵敏度↔线性度互斥）→ 方案（增益分配·AGC·滤波策略）→ 本质</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+
+<div class="content">
+
+<p style="background:#eff6ff;padding:10px 14px;border-radius:6px;color:#1e40af;border-left:4px solid #2563eb"><a href="#sec-rf-chain">8.2</a> 画了收发链路的框图、讲了为什么要混频、本振与 I/Q。但框图回答不了一个更根本的问题：<b>接收机的性能极限到底从哪来、工程师手里那点资源该怎么分配</b>。本节就讲这个——从天线上收到的常常是 −80、−100 甚至 −130 dBm 的微弱能量（<a href="#sec-rf-basics">8.1 的 dBm 与链路预算</a>已铺垫），要在噪声和干扰的夹缝里把它捞出来。dBm、噪声系数 NF、Friis、IIP3 这些概念 <a href="#sec-rf-basics">8.1 已讲透</a>，这里直接用，不重复。</p>
+
+<h3 style="margin:18px 0 8px;color:#7c3aed">① 概念：接收机只有三个核心指标，而它们互相打架</h3>
+
+<div class="card" style="border-left:4px solid #7c3aed">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33">① 概念</span>灵敏度 · 选择性 · 动态范围 —— 三个指标，一场拔河</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>你在一个吵闹的酒吧里听朋友说话。<b>灵敏度</b>=你能听清多小的声音；<b>选择性</b>=旁边桌大声喧哗时你还能不能专注听你朋友；<b>动态范围/线性度</b>=突然有人在你耳边大吼一声，你会不会被震得暂时什么都听不见。接收机面对的正是这三件事。</p>
+<div class="kv" style="margin-top:8px">
+<span><b>灵敏度（Sensitivity）：</b>能可靠解调的<b>最弱</b>信号功率（越负越好，如 −100 dBm）。它决定"能听见多小的信号"，直接换算成通信距离与覆盖。</span>
+<span><b>选择性（Selectivity）：</b>在<b>强干扰紧挨着</b>的情况下，还能不能把弱的有用信号挑出来。靠滤波器的陡峭度和混频器/放大器的线性度共同决定。</span>
+<span><b>动态范围 / 线性度（Dynamic Range）：</b>从最弱能听见的信号到最强不失真的信号，这个范围有多宽。强信号一来，接收机会不会被"冲糊"（进入压缩失真）。</span>
+</div>
+<p style="margin-top:8px"><b>⚙️ 关键判断——它们天生互斥：</b>提高灵敏度要<b>高增益、低噪声</b>（把微弱信号使劲放大）；但高增益意味着<b>强信号会更早把后级推入饱和</b>，动态范围反而变窄。想同时"听得见最小的、也扛得住最大的"，物理上就是一对矛盾。<b>接收机设计的全部难点，就是在这三者之间做分配</b>——这也是本节后面"增益分配"和"AGC"存在的根本原因。</p>
+<p style="margin-top:8px;background:#f5f3ff;padding:8px 12px;border-radius:6px;color:#5b21b6"><b>🔑 一句话：</b>灵敏度、选择性、动态范围是接收机的三个核心指标；提灵敏度要高增益，高增益又压窄动态范围——它们互斥，设计=分配。</p>
+</div></div>
+
+<h3 style="margin:18px 0 8px;color:#2563eb">② 原理一：灵敏度是算出来的，不是测出来的</h3>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>热噪声底 −174 dBm/Hz —— 宇宙给的地板，谁都突破不了</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>再安静的房间也不是绝对无声——空气分子一直在轻微骚动。电路也一样：任何一个电阻，只要温度在绝对零度以上，内部电子的热运动就在不停地产生噪声。这是"环境本底噪声"，无论你的电路做得多好都清不掉。</p>
+<p style="margin-top:6px"><b>📖 是什么：</b>在<b>常温（约 290 K 室温）</b>下，热噪声的功率谱密度是一个固定值：<b>−174 dBm/Hz</b>（由 kT 推出，k 是玻尔兹曼常数、T 是绝对温度）。这条 <a href="#sec-analog-basics">5.1 讲过的"噪声底"</a>在射频里是一切灵敏度计算的起点。它的含义是：每 1 Hz 带宽里，你至少会收进 −174 dBm 的噪声功率。</p>
+<p style="margin-top:6px"><b>🔬 带宽越宽，收进来的噪声越多：</b>噪声功率会随带宽线性累加，写成 dB 就是——<b>噪声底 = −174 + 10·log₁₀(BW)</b>。举例：BW = 1 MHz（即 10⁶ Hz），10·log₁₀(10⁶)=60，于是噪声底 = −174 + 60 = <b>−114 dBm</b>。带宽每翻 10 倍，噪声底就抬高 10 dB。</p>
+<p style="margin-top:8px;background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e40af"><b>🔑 一句话：</b>室温下热噪声底是 −174 dBm/Hz，这是物理地板；接收机带宽越宽，收进来的噪声越多（+10·log₁₀BW）。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>灵敏度公式 —— 四项相加，全在纸上算得出</div>
+<div class="dsc">
+<p><b>📖 公式：</b>接收灵敏度（能可靠解调的最弱信号功率）</p>
+<p style="margin-top:6px;text-align:center;background:#f8fafc;padding:8px;border-radius:6px"><b>S = −174 dBm/Hz + 10·log₁₀(BW) + NF + SNR<sub>min</sub></b></p>
+<div class="kv" style="margin-top:8px">
+<span><b>−174 dBm/Hz：</b>热噪声地板（室温），前一张卡讲过——宇宙给定的起点。</span>
+<span><b>10·log₁₀(BW)：</b>带宽把噪声按比例收进来。带宽是把双刃剑：宽带宽=高速率，但同时抬高噪声底。</span>
+<span><b>NF（噪声系数）：</b>接收机自己额外掺进的噪声（<a href="#sec-rf-basics">8.1 讲过</a>，由 Friis 主要看第一级 LNA）。NF 越小灵敏度越好。</span>
+<span><b>SNR<sub>min</sub>：</b>解调器要求的最低信噪比——取决于调制方式与纠错编码。BPSK 只需几 dB，256QAM 要 20 dB 以上。</span>
+</div>
+<p style="margin-top:8px"><b>⚙️ 算个具体例子：</b>设 BW = 20 MHz、NF = 3 dB、解调需要 SNR<sub>min</sub> = 10 dB。<br>10·log₁₀(20×10⁶) = 10·log₁₀(2×10⁷) ≈ 73 dB。<br>于是 <b>S = −174 + 73 + 3 + 10 = −88 dBm</b>。这就是这台接收机能听清的最弱信号。想更灵敏？要么降 NF（换更好的 LNA）、要么降带宽（牺牲速率）、要么降 SNR 要求（换更稳健的调制）——每一项都是有代价的交换。</p>
+<p style="margin-top:8px;background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e40af"><b>🔑 一句话：</b>灵敏度 = −174 + 10logBW + NF + SNR，四项相加即可预测；BW=20MHz、NF=3dB、SNR=10dB → S≈−88dBm。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>为什么 GPS 能收到 −130 dBm（低于噪声底）—— 相干/扩频增益</div>
+<div class="dsc">
+<p><b>🤔 一个悖论：</b>按上面的公式，GPS 信号到地面只有约 <b>−130 dBm</b> 量级，比很多接收机的噪声底还低——信号"淹没在噪声里"，怎么还能解出来？</p>
+<p style="margin-top:6px"><b>🔬 靠相关/处理增益：</b>GPS 用<b>扩频（spread spectrum）</b>：发端把每个数据位用一段已知的伪随机码（PRN）铺开、在很宽的带宽上重复发送。接收端用同一段码去做<b>相关运算</b>——本质是"把信号能量在时间上累加、同时把随机噪声平均掉"。信号是相干累加（能量按 N 增长），噪声是不相干累加（按 √N 增长），于是信噪比被拉起来，<b>处理增益可达 30–40 dB 量级【业界】</b>。正是这 30–40 dB 把埋在噪声下的信号又拽回了地平线之上。这也是<b>相干解调</b>威力的体现：知道信号"长什么样"，就能从噪声里把它对出来。各制式怎么用扩频/编码，<a href="#sec-rf-standards">8.4 各制式</a>会展开。</p>
+<p style="margin-top:8px;background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e40af"><b>🔑 一句话：</b>GPS 靠扩频相关把能量在时间上累加（处理增益 30–40dB），信号相干累加、噪声被平均，于是能收到低于噪声底的 −130dBm。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>带宽的双刃剑 —— WiFi 从 20MHz 到 320MHz 的代价</div>
+<div class="dsc">
+<p><b>📖 现象：</b>WiFi 信道带宽从 20 MHz 一路做到 320 MHz（WiFi 7）。带宽×16，峰值速率上去了——但代价藏在公式里：<b>噪声底 = −174 + 10·log₁₀(BW)</b>，带宽 ×16 意味着噪声底抬高 10·log₁₀(16) ≈ <b>12 dB</b>。</p>
+<p style="margin-top:6px"><b>⚙️ 后果：</b>同样发射功率、同样距离，320 MHz 的接收信噪比比 20 MHz 差了约 12 dB。所以<b>大带宽只在近距离、强信号时才好用</b>——离路由器远一点，宽信道就撑不住高阶调制，速率反而掉回去。这解释了为什么 WiFi 会自适应地在"窄信道保距离"和"宽信道拼速率"之间切换。</p>
+<p style="margin-top:8px;background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e40af"><b>🔑 一句话：</b>带宽 ×16 → 噪声底抬高约 12dB；大带宽拼的是速率，只在近距离好用，远了反而不如窄信道稳。</p>
+</div></div>
+
+<h3 style="margin:18px 0 8px;color:#2563eb">② 原理二：镜频干扰 —— 超外差最著名的那个坑</h3>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>为什么会凭空冒出一个"镜像"频率</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>混频就像把两个音叉一起敲，你会听到一个"差频"的拍音。问题是——<b>比本振高一点</b>和<b>比本振低一点</b>的两个频率，敲出来的拍音<b>音高完全一样</b>，你光听拍音分不清声音原本是高是低。混频器就有这个毛病。</p>
+<p style="margin-top:6px"><b>📖 是什么：</b>混频器输出的是 <b>|f<sub>RF</sub> − f<sub>LO</sub>|</b>（射频与本振的差频，即中频 f<sub>IF</sub>）。取了绝对值就出事了：<b>f<sub>LO</sub>+f<sub>IF</sub> 和 f<sub>LO</sub>−f<sub>IF</sub> 这两个频率，混频后落到同一个中频 f<sub>IF</sub> 上</b>。一个是你要的有用信号，另一个（对称地长在本振另一侧）叫<b>镜像（image）</b>，是干扰。混频之后两者叠在一起，<b>频域上再也无法区分</b>——这就是镜频干扰。</p>
+<p style="margin-top:6px"><b>🔬 镜像在哪：</b>镜像频率与有用信号<b>相距 2×f<sub>IF</sub></b>（分居本振两侧、各差一个 f<sub>IF</sub>）。所以中频选得越高，镜像离有用信号越远。</p>
+<p style="margin-top:8px;background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e40af"><b>🔑 一句话：</b>混频输出 |f<sub>RF</sub>−f<sub>LO</sub>|，本振两侧相距 2·f<sub>IF</sub> 的两个频率会落到同一中频，其中一个是镜像干扰，混频后无法区分。</p>
+</div></div>
+
+<div class="anim-card">
+<div class="at">📻 镜频干扰原理图</div>
+<div class="am">本振两侧、各差一个中频的两个频率，混频后都落到同一 f<sub>IF</sub>；前置滤波器负责在混频前把镜像滤掉</div>
+<svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="镜频干扰原理图">
+  <defs>
+    <marker id="rxarrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#475569"/>
+    </marker>
+  </defs>
+  <!-- top: RF spectrum axis -->
+  <text x="20" y="28" font-size="13" font-weight="700" fill="#0f172a">混频前（射频域）</text>
+  <line x1="40" y1="120" x2="470" y2="120" stroke="#475569" stroke-width="1.5" marker-end="url(#rxarrow)"/>
+  <text x="478" y="124" font-size="11" fill="#64748b">频率 f</text>
+  <!-- image line -->
+  <line x1="150" y1="120" x2="150" y2="60" stroke="#dc2626" stroke-width="3"/>
+  <text x="150" y="52" font-size="11" font-weight="700" fill="#dc2626" text-anchor="middle">镜像 f_image</text>
+  <text x="150" y="138" font-size="10" fill="#dc2626" text-anchor="middle">f_LO − f_IF</text>
+  <!-- LO line -->
+  <line x1="270" y1="120" x2="270" y2="75" stroke="#64748b" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="270" y="67" font-size="11" font-weight="700" fill="#64748b" text-anchor="middle">本振 f_LO</text>
+  <!-- RF wanted line -->
+  <line x1="390" y1="120" x2="390" y2="60" stroke="#2563eb" stroke-width="3"/>
+  <text x="390" y="52" font-size="11" font-weight="700" fill="#2563eb" text-anchor="middle">有用 f_RF</text>
+  <text x="390" y="138" font-size="10" fill="#2563eb" text-anchor="middle">f_LO + f_IF</text>
+  <!-- 2 f_IF span -->
+  <line x1="150" y1="98" x2="390" y2="98" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="270" y="92" font-size="10" font-weight="700" fill="#7c3aed" text-anchor="middle">相距 2 × f_IF</text>
+  <!-- mixer symbol -->
+  <circle cx="270" cy="210" r="18" fill="#fff" stroke="#0f172a" stroke-width="1.5"/>
+  <line x1="258" y1="198" x2="282" y2="222" stroke="#0f172a" stroke-width="1.5"/>
+  <line x1="282" y1="198" x2="258" y2="222" stroke="#0f172a" stroke-width="1.5"/>
+  <text x="270" y="248" font-size="10" fill="#64748b" text-anchor="middle">混频器 ×</text>
+  <line x1="270" y1="128" x2="270" y2="192" stroke="#475569" stroke-width="1.2" marker-end="url(#rxarrow)"/>
+  <!-- bottom: IF result -->
+  <text x="360" y="212" font-size="12" font-weight="700" fill="#991b1b">两者叠在同一 f_IF → 无法区分</text>
+  <line x1="500" y1="270" x2="690" y2="270" stroke="#475569" stroke-width="1.5" marker-end="url(#rxarrow)"/>
+  <text x="695" y="274" font-size="11" fill="#64748b">f_IF</text>
+  <line x1="560" y1="270" x2="560" y2="215" stroke="#2563eb" stroke-width="3"/>
+  <line x1="566" y1="270" x2="566" y2="215" stroke="#dc2626" stroke-width="3"/>
+  <text x="563" y="207" font-size="10" font-weight="700" fill="#991b1b" text-anchor="middle">有用+镜像重叠</text>
+  <!-- pre-filter box -->
+  <rect x="470" y="40" width="230" height="120" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="585" y="62" font-size="12" font-weight="700" fill="#047857" text-anchor="middle">前置滤波器（镜像抑制）</text>
+  <text x="585" y="86" font-size="11" fill="#065f46" text-anchor="middle">通带对准有用 f_RF</text>
+  <text x="585" y="106" font-size="11" fill="#065f46" text-anchor="middle">在混频前把镜像衰减掉</text>
+  <text x="585" y="132" font-size="11" font-weight="700" fill="#dc2626" text-anchor="middle">镜像 ✗ 挡住</text>
+  <text x="585" y="150" font-size="11" font-weight="700" fill="#2563eb" text-anchor="middle">有用 ✓ 通过</text>
+</svg>
+<div class="anim-note">中频选得越高，镜像离有用信号越远（2·f_IF 越大），前置滤波器越好做——这正是超外差架构里"中频取多高"这道选择题的核心。</div>
+</div>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>三条应对路线 —— 架构选择的本质是"把难题放在哪一环"</div>
+<div class="dsc">
+<div class="kv" style="margin-top:4px">
+<span><b>① 中频取高一点：</b>镜像离有用信号更远（2·f<sub>IF</sub> 大），<b>前置镜像滤波器好做</b>；代价是——中频高了，后面在中频上做的<b>邻道选择性滤波反而更难</b>做（相对带宽窄、Q 值要求高）。高中频超外差就是这个取舍。</span>
+<span><b>② 镜像抑制混频器：</b>不靠滤波，而是用 <a href="#sec-rf-chain">8.2 的 I/Q 正交</a>关系——把信号分成 I、Q 两路，利用镜像与有用信号相位关系相反的特性，在合并时让<b>镜像相互抵消</b>。代价是依赖 I/Q 幅度与相位的精确匹配，失配就抑制不干净。</span>
+<span><b>③ 零中频（f<sub>IF</sub>=0）：</b>本振直接压到信号频率，中频为零——此时"镜像"就是信号自身的负频率镜像，<b>镜像问题从根上消失</b>。但天下没有免费午餐：换来了<b>直流偏移（DC offset）、I/Q 失配、1/f 闪烁噪声</b>三个新麻烦（<a href="#sec-rf-chain">8.2 已列</a>）。</span>
+</div>
+<p style="margin-top:8px"><b>⚙️ 关键判断：</b>三条路没有哪条"消灭"了镜频这个物理事实——它们只是把难题从"前置滤波"挪到了"I/Q 匹配"或"直流/低频处理"。<b>架构选择的本质，是决定把难题放在哪一环最划算</b>，而不是让难题凭空消失。</p>
+<p style="margin-top:8px;background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e40af"><b>🔑 一句话：</b>高中频靠前置滤波、镜像抑制混频器靠 I/Q 相消、零中频让镜像消失但引入直流/失配——三条路都是"把难题挪到别处"，不是消灭它。</p>
+</div></div>
+
+<h3 style="margin:18px 0 8px;color:#dc2626">③ 物理结构瓶颈：灵敏度与线性度的对撞</h3>
+
+<div class="card" style="border-left:4px solid #dc2626">
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633">③ 物理结构瓶颈</span>阻塞 / 减敏 —— 隔壁的强信号把你的弱信号"压没了"</div>
+<div class="imp-row"><span class="imp-lbl">↳ 产品侧影响</span><span class="imp" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="强干扰下的可用灵敏度决定了实际覆盖上限"><span class="im-e">🔢</span>性能上限</span><span class="imp" style="color:#f59e0b;background:#fffbeb;border-color:#f59e0b33" title="要扛阻塞就得抬高线性度，直接推高电流与功耗"><span class="im-e">⚡</span>功耗</span><span class="imp" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="更高线性度的 LNA/混频器往往需要更大器件面积"><span class="im-e">💠</span>die面积</span></div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>你正努力听远处一句耳语，旁边突然有人开始大喊——你的耳朵被震得暂时"发懵"，那句耳语就此听不见了。这不是耳语变小了，是你的听觉被强声<b>推到了极限</b>。</p>
+<p style="margin-top:6px"><b>📖 是什么：</b><b>阻塞（blocking）/ 减敏（desensitization）</b>：一个强干扰（比如你旁边另一个基站或另一部手机）虽然不落在你的频道里，但它太强，会把接收机前级放大器<b>推进压缩区</b>——增益整体下降。结果是：<b>连带把你想收的弱信号也一起压小了</b>，灵敏度实质性劣化。这就是为什么实验室里测得很好的灵敏度，一到真实强干扰环境就"缩水"。</p>
+<p style="margin-top:8px;background:#fef2f2;padding:8px 12px;border-radius:6px;color:#991b1b"><b>🔑 一句话：</b>带外强干扰把前级推入压缩、整体增益下降，弱信号被连累压没——这就是阻塞/减敏，实测灵敏度因此比理论差。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #dc2626">
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633">③ 物理结构瓶颈</span>邻道选择性与互调 —— 干扰从两条缝里钻进来</div>
+<div class="imp-row"><span class="imp-lbl">↳ 产品侧影响</span><span class="imp" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="邻道抑制与抗互调能力直接设定可用信道密度"><span class="im-e">🔢</span>性能上限</span><span class="imp" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="陡峭滤波器（SAW/BAW）占用额外封装面积"><span class="im-e">📦</span>封装面积</span><span class="imp" style="color:#b45309;background:#fefce8;border-color:#b4530933" title="每增一个滤波器就多一笔器件成本"><span class="im-e">💰</span>BOM成本</span></div>
+<div class="dsc">
+<p><b>📖 邻道选择性：</b>滤波器的滚降（roll-off）不可能无限陡。如果通带边沿不够陡，<b>相邻频道的能量就会从边上泄进来</b>，混进有用信号。要想抑制得干净，就得用更陡的滤波器（SAW/BAW），但陡意味着体积、成本、插损都上去。</p>
+<p style="margin-top:6px"><b>📖 互调（intermodulation）：</b>当两个带外干扰一起进来，前级的<b>非线性</b>会让它们相乘，生出新的组合频率——其中三阶互调产物可能<b>恰好落进有用频段</b>，成了拔不掉的假信号。它的抗性正由 <a href="#sec-rf-basics">8.1 的 IIP3</a> 衡量：IIP3 越高，同样干扰下互调越小。</p>
+<p style="margin-top:8px;background:#fef2f2;padding:8px 12px;border-radius:6px;color:#991b1b"><b>🔑 一句话：</b>滤波器不够陡 → 邻道泄漏；前级不够线性 → 两个干扰互调生出落在带内的假信号（看 IIP3）。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #dc2626">
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633">③ 物理结构瓶颈</span>核心矛盾：低噪要大增益，抗干扰要小增益</div>
+<div class="dsc">
+<p><b>⚙️ 一句话点破：</b>为了压住噪声、提灵敏度，前级 LNA 要给<b>大增益</b>（Friis 说前级增益越大、后级噪声被压得越狠）；但增益一大，任何强干扰都会<b>更早把后级推入饱和</b>，动态范围塌缩、阻塞更严重。<b>低噪声想要大增益，抗干扰却想要小增益——这就是接收机不能用固定增益、必须上 AGC 的根本原因</b>。信号弱时把增益开大保灵敏度，信号强/干扰强时把增益压下来保线性，随环境动态调。</p>
+<p style="margin-top:8px;background:#fef2f2;padding:8px 12px;border-radius:6px;color:#991b1b"><b>🔑 一句话：</b>压噪要大增益、抗干扰要小增益，二者对撞 → 接收机必须用可变增益（AGC）随环境切换，而非固定增益。</p>
+</div></div>
+
+<h3 style="margin:18px 0 8px;color:#059669">④ 方案：增益分配与 AGC —— 接收机设计真正的手艺</h3>
+
+<div class="card" style="border-left:4px solid #059669">
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933">④ 方案</span>增益分配 —— 前级压噪、后级保线性的一道分配题</div>
+<div class="dsc">
+<p><b>📖 两条相反的约束：</b><a href="#sec-rf-basics">8.1 的 Friis</a> 告诉我们——<b>噪声主要看前级</b>（前级 NF 全额计入，后级被前级增益压小）。但<b>线性度主要看后级</b>：因为信号已被前级放大了很多倍，到后级时幅度最大，最容易把后级推入非线性。</p>
+<p style="margin-top:6px"><b>⚙️ 于是工程上的做法是：</b><b>前级给足增益把噪声压下去、后级留出余量保线性</b>。这不是"某一级做到最优"就行，而是把总增益<b>沿链路一级一级分配</b>——前面多给一点会更省噪声但更早饱和，后面多给一点更抗饱和但噪声吃亏。所以它是一道<b>分配题（trade-off），不是单点最优化题</b>。好的射频工程师，手艺就体现在这张增益/NF/IIP3 的分配表上。</p>
+<p style="margin-top:8px;background:#ecfdf5;padding:8px 12px;border-radius:6px;color:#065f46"><b>🔑 一句话：</b>噪声看前级、线性看后级 → 前级给增益压噪、后级留余量保线性，总增益是沿链路分配的 trade-off，不是单级最优。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #059669">
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933">④ 方案</span>AGC 自动增益控制 —— 让接收机随环境变"耳力"</div>
+<div class="dsc">
+<p><b>📖 是什么：</b><b>AGC（Automatic Gain Control）</b>：接收机实时监测收到的信号强度，据此<b>自动调整链路总增益</b>。信号强/干扰强时<b>降增益</b>保线性、避免饱和；信号弱时<b>升增益</b>保灵敏度、把微弱信号顶到 ADC 能分辨的电平。</p>
+<p style="margin-top:6px"><b>⚙️ 怎么实现：</b>可以分段（几档离散增益切换）或连续调节；调节点常分布在 LNA、混频后、基带多处。它必须和解调器紧密配合——AGC 要把信号稳定在 ADC 满量程附近的最佳工作点，既不削顶（过强失真）也不埋在量化噪声里（过弱丢精度）。这正是前面"三指标互斥"在时间维度上的解法：<b>不追求同时满足，而是随时刻的信号环境动态切换重心</b>。</p>
+<p style="margin-top:8px;background:#ecfdf5;padding:8px 12px;border-radius:6px;color:#065f46"><b>🔑 一句话：</b>AGC 实时调总增益——强信号降增益保线性、弱信号升增益保灵敏度，把信号稳在 ADC 最佳电平，是三指标互斥的时域解法。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #059669">
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933">④ 方案</span>滤波策略与 ADC 的位置 —— 难题分几段处理，谁也别独扛</div>
+<div class="dsc">
+<p><b>📖 三段滤波，各司其职：</b></p>
+<div class="kv" style="margin-top:4px">
+<span><b>① 射频前端滤波：</b>抑制镜像和带外强干扰（防阻塞）。越靠天线越好，但射频频率高、相对带宽宽，做不了太陡。</span>
+<span><b>② 中频/基带滤波：</b>抑制邻道（选择性主力）。频率低、相对带宽合适，可以做得很陡。</span>
+<span><b>③ 数字域滤波：</b>过了 ADC 之后在数字里滤——<b>最灵活、可编程、可自适应</b>，但前提是信号要先干净地通过 ADC。</span>
+</div>
+<p style="margin-top:6px"><b>⚙️ 为什么不全靠数字滤波：</b>因为 <a href="#sec-adc">ADC 的动态范围有限</a>——如果不在模拟域先把强干扰滤掉，强干扰会占满 ADC 的量程，弱的有用信号只能落在最低几个量化位上，<b>还没进数字域就已经被量化噪声毁了</b>。所以模拟滤波是"给 ADC 减负"的必要前置。</p>
+<p style="margin-top:6px"><b>⚙️ ADC 的位置决定架构：</b>ADC 放得越靠前（越靠近天线），后面能用数字处理的越多、<b>越灵活</b>——这就是数字中频 / 软件无线电的思路；但代价是 ADC 要承受更高的输入频率、更大的动态范围和<b>更高的功耗</b>。ADC 往前挪多少，是灵活性与功耗/动态范围之间的又一道取舍。</p>
+<p style="margin-top:8px;background:#ecfdf5;padding:8px 12px;border-radius:6px;color:#065f46"><b>🔑 一句话：</b>射频滤镜像/带外、中频滤邻道、数字域最灵活但要先过 ADC；ADC 越靠前越灵活、动态范围与功耗压力越大——架构由 ADC 位置定。</p>
+</div></div>
+
+<h3 style="margin:18px 0 8px;color:#0891b2">⑤ 对比：三指标 × 提高手段 × 代价</h3>
+
+<div class="card" style="border-left:4px solid #0891b2">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233">⑤ 对比</span>一张表看清：想提哪个指标，都得付出什么</div>
+<div class="dsc">
+<table class="node-table">
+<thead><tr><th>指标</th><th>它决定什么</th><th>主要提高手段</th><th>付出的代价</th></tr></thead>
+<tbody>
+<tr><td class="hl">灵敏度</td><td>能听见多小的信号（覆盖/距离）</td><td>降 NF（好 LNA、放最前）、减小带宽、降 SNR 要求（稳健调制）、加处理增益（扩频）</td><td>带宽↓=速率↓；高增益又损动态范围；扩频占频谱</td></tr>
+<tr><td class="hl">选择性</td><td>强干扰旁能否听清弱信号</td><td>更陡的滤波器（SAW/BAW）、更高 IIP3、镜像抑制架构</td><td>滤波器体积/成本/插损↑；高线性度=高功耗、大面积</td></tr>
+<tr><td class="hl">动态范围/线性度</td><td>强信号来了会不会被冲糊</td><td>抬高 IIP3、AGC 降增益、后级留余量</td><td>降增益又伤灵敏度；高 IIP3 推高电流/功耗/die 面积</td></tr>
+</tbody>
+</table>
+<p style="margin-top:8px;background:#ecfeff;padding:8px 12px;border-radius:6px;color:#155e75"><b>🔑 看表要点：</b>每一列"代价"几乎都指向另一个指标或功耗/面积/成本——这就是三指标互斥的量化写照，没有免费的提升。</p>
+</div></div>
+
+<h3 style="margin:18px 0 8px;color:#b45309">⑥ 本质</h3>
+
+<div class="card" style="border-left:4px solid #b45309">
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933">⑥ 本质</span>接收机到底在干什么</div>
+<div class="dsc">
+<p style="font-size:15px;line-height:1.9"><b>一句话本质：</b>接收机的本质，是<b>在噪声地板与干扰天花板之间，为有用信号挤出一条足够宽的通道</b>。</p>
+<p style="margin-top:8px"><b>🔬 展开：</b>下边界是 <b>−174 dBm/Hz 这个物理地板</b>加上器件自身的 <b>NF</b>——这两者共同决定了"能听见多小"，是谁都突破不了的<b>能力上限</b>（除非靠扩频相关增益在时间上换）。上边界是<b>干扰环境</b>——阻塞、邻道、互调决定了在真实世界里你实际<b>能用掉多少</b>动态范围。灵敏度、选择性、动态范围三者互斥，所以工程上从来不是"把某个指标做到极致"，而是用<b>增益分配</b>定好静态的资源划分、用 <b>AGC</b> 做动态的重心切换、用<b>分段滤波</b>把难题拆到最省的那一环去处理。这，就是接收机设计的全部手艺。</p>
+</div></div>
+
+</div>
+
+<h2 id="sec-rf-tx">📤 8.4 发射端原理详解：把功率放出去，而且不能失真</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（发射机的三个指标）→ 原理（PA工作类别与效率来源）→ 物理结构瓶颈（效率↔线性度对撞·PAPR回退）→ 方案（Doherty·ET·DPD）→ 本质</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+
+<div class="content">
+
+<p style="background:#eff6ff;padding:10px 14px;border-radius:6px;color:#1e40af;border-left:4px solid #2563eb"><a href="#sec-rf-chain">8.2 已经画过收发链路框图</a>，知道信号从 DAC 一路上变频、经驱动级到 <b>PA（功率放大器）</b>冲出天线。但框图没讲透最关键的一件事：发射机<b>为什么要这么设计</b>？本节聚焦发射链的"心脏"——PA，把「效率 ↔ 线性度」这对生死冤家、以及业界为化解它而生的 Doherty / 包络跟踪 / 数字预失真三大绝技讲清楚。<a href="#sec-rf-basics">8.1 已讲过的 50Ω 匹配、S 参数、ACLR / EVM、增益×线性度×效率互斥</a>这里不重复，只在其上深入；<b>PA 用什么材料（GaAs HBT / GaN / RF SOI、为什么不用先进 CMOS）交给 <a href="#sec-rf-devices">8.5 器件与材料</a></b>，本节只讲工作原理与线性化技术。</p>
+
+<h3 style="margin-top:18px;color:#7c3aed">① 概念：发射机的三个指标，同样互相打架</h3>
+
+<div class="card" style="background:#f5f3ff;border-left:4px solid #7c3aed">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33">① 概念</span>输出功率、线性度、效率——同一个三角的三个角</div>
+<div class="dsc">
+<p>发射机好不好，就看三个量，而它们<b>是同一个三角形的三个角，动一个必然牺牲另外两个</b>：</p>
+<div class="kv" style="margin-top:6px">
+<span><b>① 输出功率（Pout）：</b>决定<b>通信距离</b>。功率越大，信号冲得越远、越能穿墙。手机 PA 输出典型 +23～+27 dBm（0.2～0.5 W 量级），基站单通道可达数十瓦。</span>
+<span><b>② 线性度：</b>决定<b>信号质量与合规</b>。放大器必须"忠实"放大，否则频谱泄漏到邻道（ACLR 变差、违反法规）、星座图变形（EVM 恶化、接收端解错）。度量见 <a href="#sec-rf-basics">8.1⑥ 的 ACLR / EVM</a>。</span>
+<span><b>③ 效率（PAE）：</b>决定<b>发热与续航</b>。效率是"多少直流功率被变成了有用射频功率"，剩下的全部变成热。效率低 = 费电 + 烫手。</span>
+</div>
+<p style="margin-top:8px"><b>🔺 关键判断：</b>这三者<b>不是三个可以各自优化的旋钮，而是一个三角的三个角</b>——想把输出功率和线性度同时拉满，效率必然崩塌；想省电（高效率）又要大功率，线性度就守不住。这正是 <a href="#sec-rf-basics">8.1 提出的"增益×线性度×效率互斥"</a>在发射端的具体化，下面把机理彻底讲透。</p>
+<p style="margin-top:8px;background:#f5f3ff;padding:8px 12px;border-radius:6px;color:#5b21b6"><b>🔑 一句话：</b>输出功率管距离、线性度管质量、效率管发热——三者是同一个不可能三角，这就是发射端一切设计的起点。</p>
+</div></div>
+
+<h3 style="margin-top:18px;color:#2563eb">② 原理一：PA 为什么会失真（零门槛讲透）</h3>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>线性区与压缩：晶体管推不动了，输出就不跟着涨了</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>把音响音量旋钮从小往大拧，一开始声音成比例变大；拧到某处再往上拧，声音几乎不再变大反而"破音"——喇叭已经推到极限了。PA 也是这样。</p>
+<p style="margin-top:6px"><b>📖 线性区 → 压缩：</b>输入小时，输出功率与输入成正比（<b>线性区</b>）；输入大到一定程度，晶体管进入<b>饱和/截止</b>，输出不再跟着涨——增益被"压缩"了。</p>
+<p style="margin-top:6px"><b>📖 1dB 压缩点 P1dB：</b>随着输入增大，实际增益比"理想线性外推值"逐渐走低。<b>当实际输出比理想线性值低整整 1 dB 的那个输出功率点，就是 P1dB</b>——它是"开始明显失真"的工程标记。超过 P1dB，非线性急剧恶化。</p>
+<p style="margin-top:6px"><b>⚠️ 失真的两个后果：</b></p>
+<div class="kv" style="margin-top:6px">
+<span class="warn"><b>① 频谱扩散：</b>非线性把不同频率分量"相乘"，生出<b>互调分量泄漏到邻道</b> → ACLR 变差，<b>会违反频谱法规</b>（干扰邻居）。</span>
+<span class="warn"><b>② 星座图变形：</b>调制符号偏离理想位置 → <b>EVM 恶化</b>，接收端解调出错（引用 <a href="#sec-rf-basics">8.1⑥</a>）。高阶调制如 256QAM 对 EVM 极敏感。</span>
+</div>
+<p style="margin-top:8px;background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e40af"><b>🔑 一句话：</b>输入太大晶体管推不动就压缩失真；P1bB 是增益跌 1dB 的输出点，越过它就同时糟蹋频谱（ACLR）和星座图（EVM）。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>为什么效率与线性度"天生对立"</div>
+<div class="dsc">
+<p><b>🔬 根子在导通角：</b>效率高，意味着让晶体管尽量像<b>开关</b>一样工作——"要么全开、要么全关"，缩小导通角、削掉波形的一部分，把直流功率尽量榨成射频功率、自身少发热。但<b>削峰、开关式工作，正是产生失真的工作区</b>。</p>
+<p style="margin-top:6px">反过来，要<b>线性</b>，就得让晶体管老老实实待在小信号线性区、留足余量——此时它像一个"半开的水龙头"，<b>大部分能量在管子上变成热</b>，效率自然低。</p>
+<p style="margin-top:6px"><b>⚙️ 这不是工艺不够好，而是物理必然：</b>"忠实放大"要求线性传输特性，"高效率"要求非线性的开关行为——<b>两个要求指向晶体管相反的工作状态</b>。这就是发射端一切矛盾的物理源头，与 <a href="#sec-power-loss">0.11 功率器件"损耗全变热"</a>是同一套逻辑：能量不去做功，就去发热。</p>
+<p style="margin-top:8px;background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e40af"><b>🔑 一句话：</b>高效率要晶体管开关式削峰工作，而那恰恰是失真区；要线性就得留余量、让能量白白发热——两者物理上背道而驰。</p>
+</div></div>
+
+</div>
+<div class="content">
+
+<h3 style="margin-top:18px;color:#2563eb">② 原理二：PA 工作类别 = 在效率与线性度之间取一个点</h3>
+
+<div class="card" style="border-left:4px solid #2563eb">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33">② 原理</span>用"导通角"给放大器分类：削得越狠，越省电也越失真</div>
+<div class="dsc">
+<p>PA 的"类别"（Class A/AB/B/C/E/F）本质是<b>选一个导通角</b>——晶体管在信号一个周期里导通多久。导通越充分越线性、越省着导通越高效，这就是在三角里取点：</p>
+<table class="node-table nopad"><thead><tr><th style="width:16%">类别</th><th style="width:20%">导通角</th><th style="width:18%">理论效率上限</th><th style="width:14%">线性度</th><th>典型用途</th></tr></thead>
+<tbody>
+<tr><td class="hl">Class A</td><td>360°（全周期导通）</td><td><b>50%</b>（实际更低）</td><td class="good">最好</td><td>对线性要求苛刻的小信号级、仪表</td></tr>
+<tr><td class="hl">Class AB</td><td>略小于 360°</td><td>介于 A 与 B 之间</td><td>折中</td><td><b>手机 PA 主力</b>，线性与效率兼顾</td></tr>
+<tr><td class="hl">Class B</td><td>180°</td><td>约 78.5%【业界】</td><td>较差</td><td>推挽结构、恒包络场景</td></tr>
+<tr><td class="hl">Class C</td><td>&lt; 180°</td><td>更高</td><td class="warn">差（强失真）</td><td>恒包络信号（如老式 FM）</td></tr>
+<tr><td class="hl">Class E / F</td><td>开关式（波形整形）</td><td><b>可接近 90%+</b>【业界】</td><td class="warn">差</td><td>恒包络，或配合 ET/DPD 等调制技术</td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>🔬 Class E/F 为什么能到 90%+：</b>靠<b>波形整形</b>让晶体管"电压高的时候不导通、导通的时候电压很低"——电压和电流的乘积（管子上的损耗）时刻接近零，于是几乎不发热。代价是它只能忠实处理<b>恒包络</b>信号，或必须配合下面的调制技术才能用于现代宽带信号。</p>
+<p style="margin-top:8px"><b>🔺 关键判断：</b>"哪个类别最好"是个<b>错问题</b>。正确的问法是——<b>你的信号包络波动有多大？</b>恒包络信号（幅度不变、只变相位/频率）可以放心用高效率的开关类；而下面要讲的现代宽带信号，包络剧烈起伏，逼着 PA 不得不"回退"，故事就此展开。</p>
+<p style="margin-top:8px;background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e40af"><b>🔑 一句话：</b>类别就是选导通角——A 最线性效率上限 50%、AB 是手机主力、E/F 可达 90%+ 但只吃恒包络；选哪个取决于信号包络波动多大。</p>
+</div></div>
+
+<h3 style="margin-top:18px;color:#dc2626">③ 物理结构瓶颈：PAPR 与回退——发射端最贵的那笔账</h3>
+
+<div class="card" style="border-left:4px solid #dc2626">
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633">③ 物理结构瓶颈</span>🔥 PAPR 逼着 PA 长期"退到低效率区"工作</div>
+<div class="imp-row"><span class="imp-lbl">↳ 产品侧影响</span><span class="imp" style="color:#f59e0b;background:#fffbeb;border-color:#f59e0b33" title="回退导致平均效率骤降，大部分电池能量变成热"><span class="im-e">⚡</span>功耗</span><span class="imp" style="color:#ea580c;background:#fff7ed;border-color:#ea580c33" title="PA 是手机/基站的主要发热源，逼出散热设计"><span class="im-e">🌡️</span>散热方案</span><span class="imp" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="回退设定了可用输出功率与续航的天花板"><span class="im-e">🔢</span>性能上限</span></div>
+<div class="dsc">
+<p><b>📖 PAPR（峰均功率比）：</b>OFDM 这类多载波信号，把成百上千个子载波叠加，某些瞬间它们<b>恰好同相叠加</b>，产生远高于平均值的<b>瞬时峰值</b>。峰值与平均功率之比就是 PAPR，现代信号典型 <b>8～12 dB</b>【业界】——峰值能是平均值的 6～16 倍。</p>
+<p style="margin-top:6px"><b>📖 回退 back-off：</b>PA 的失真主要发生在接近饱和处。为了让<b>信号峰值</b>也落在线性区内不失真，就必须把<b>平均功率</b>整体往下压 8～12 dB，远离饱和点——这叫回退。结果是：<b>PA 绝大部分时间都工作在远离最高效率的低功率点上</b>。</p>
+<p style="margin-top:6px"><b>💸 代价量化（这笔账很贵）：</b>Class AB 在饱和点效率或许有 <b>50～60%</b>【业界】，但回退 8 dB 后，平均效率可能只剩 <b>10～20% 量级</b>【业界】。也就是说——<b>大部分电池能量没有变成电波，而是变成了热</b>。</p>
+<div class="kv" style="margin-top:6px">
+<span class="warn">这就是为什么<b>手机打电话、上传大文件时机身最烫</b>——PA 满负荷又被回退拖着低效运行。</span>
+<span class="warn"><b>5G 高阶调制（256QAM）</b>对线性度要求更狠，逼 PA 回退更多、效率更低，对散热压力更大。</span>
+<span class="warn"><b>基站 PA</b> 是通信网络里最大的能耗项之一——数以百万计的基站，PA 效率每提升几个百分点，都是巨额电费与碳排。</span>
+</div>
+<p style="margin-top:8px;background:#fef2f2;padding:8px 12px;border-radius:6px;color:#991b1b"><b>🔑 一句话：</b>OFDM 峰均比 8～12dB，为让峰值不失真必须整体回退，PA 长期在低效点工作，平均效率从 50%+ 掉到 10～20%——这就是发射端最贵的一笔账。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #dc2626">
+<div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633">③ 物理结构瓶颈</span>调制越高阶，回退越深——5G 把 PA 逼到墙角</div>
+<div class="imp-row"><span class="imp-lbl">↳ 产品侧影响</span><span class="imp" style="color:#f59e0b;background:#fffbeb;border-color:#f59e0b33" title="高阶调制逼更深回退，效率进一步下降"><span class="im-e">⚡</span>功耗</span><span class="imp" style="color:#ea580c;background:#fff7ed;border-color:#ea580c33" title="发热更集中，散热设计压力上升"><span class="im-e">🌡️</span>散热方案</span><span class="imp" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="线性度余量占用可用输出，压缩有效功率"><span class="im-e">💠</span>die面积</span></div>
+<div class="dsc">
+<p><b>🔬 为什么越高阶越难：</b>256QAM 这类高阶调制把信息塞进更密的星座点，点与点之间“容错距离”更小 → 对 <a href="#sec-rf-basics">EVM（见 8.1⑥）</a>更苛刻 → 要求 PA 更线性 → 只能<b>回退更深</b>，效率进一步下滑。这是“数据速率”与“能效”之间被 PAPR 放大的又一重结构矛盾。</p>
+<p style="margin-top:6px">同时，为保证峰值不失真而预留的线性度余量、以及更大的管子面积，都会<b>占用芯片面积与成本</b>——这也是为什么高性能 PA 迟迟不能塞进最便宜的工艺。</p>
+<p style="margin-top:8px;background:#fef2f2;padding:8px 12px;border-radius:6px;color:#991b1b"><b>🔑 一句话：</b>阶数越高越吃 EVM、越要回退，速率与能效的矛盾被 PAPR 进一步放大——这正是 Doherty/ET/DPD 必须登场的原因。</p>
+</div></div>
+
+</div>
+<div class="content">
+
+<h3 style="margin-top:18px;color:#059669">④ 方案：三种线性化 / 效率提升技术（发射端的技术制高点）</h3>
+
+<div class="card" style="background:#ecfdf5;border-left:4px solid #059669">
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933">④ 方案</span>三条路：改架构、改供电、改数字域，可叠加</div>
+<div class="dsc">
+<p>既然回退是效率杀手，业界就从三个不同层面下手，各自破解"回退区还要高效"这个难题。三者<b>分别在架构、供电、数字域动手，可以叠加使用</b>：</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #059669">
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933">④ 方案</span>1️⃣ Doherty 架构——用第二个 PA 在回退区"托住"效率</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>爬缓坡一个人推车就够（省力高效），遇到陡坡再叫一个人上来一起推。Doherty 就是"平时一个人、峰值来了两个人"。</p>
+<p style="margin-top:6px"><b>📖 原理：</b>用两个 PA——<b>主放（carrier）+ 峰值放大器（peaking）</b>。小信号时只有主放工作，且让它工作在<b>接近饱和的高效率点</b>；大信号（峰值）来临时峰值放大器加入，通过<b>负载调制（load modulation）</b>动态改变主放看到的负载阻抗，把主放继续"顶"在高效区。</p>
+<p style="margin-top:6px"><b>✅ 效果：</b>在回退 6～8 dB 的区间里<b>依然维持高效率</b>，正好覆盖高 PAPR 信号最常停留的功率区间。<b>基站 PA 的主流架构</b>。</p>
+<p style="margin-top:8px;background:#ecfdf5;padding:8px 12px;border-radius:6px;color:#065f46"><b>🔑 一句话：</b>Doherty 用主放+峰值放大器，靠负载调制让主放在回退区也待在高效点——基站主流。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #059669">
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933">④ 方案</span>2️⃣ 包络跟踪 ET——让供电电压跟着信号包络实时起伏</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>开车时按需给油——平路轻踩、上坡才深踩，而不是全程油门踩到底。ET 让电源"按需供电"。</p>
+<p style="margin-top:6px"><b>📖 原理：</b>普通 PA 供电电压恒定，信号小时管子上多余的电压全变成热。ET（Envelope Tracking）让<b>供电电压跟着信号包络实时变化</b>——信号小时降压（少浪费），信号大时升压（够用），使晶体管始终"贴着"需要的电压工作、减少无谓损耗。</p>
+<p style="margin-top:6px"><b>⚙️ 代价：</b>需要一颗能高速调压的<b>专用 ET 电源芯片</b>，它要在信号带宽内快速跟踪包络——这本质是个高速开关电源，与 <a href="#sec-pmic">5.5 PMIC / 开关电源</a>同源。<b>手机 PA 的主流方案</b>。</p>
+<p style="margin-top:8px;background:#ecfdf5;padding:8px 12px;border-radius:6px;color:#065f46"><b>🔑 一句话：</b>ET 让供电电压随包络实时升降、消掉多余压降的发热，需专用 ET 电源芯片（同源 <a href="#sec-pmic">5.5</a>）——手机主流。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #059669">
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933">④ 方案</span>3️⃣ DPD 数字预失真——先把信号"反向扭曲"，过 PA 后正好被抵消</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>知道哈哈镜会把脸拉长，就先把照片压扁再照，镜子里就正好正常。DPD 就是给 PA 配一面"反哈哈镜"。</p>
+<p style="margin-top:6px"><b>📖 原理：</b>先测出 PA 的非线性特性（它怎么扭曲信号），在<b>数字域</b>构造一个<b>反函数</b>，把待发信号预先"反向扭曲"；信号经过 PA 的非线性后，两次扭曲正好抵消，输出干净。<b>本质是用数字算力，换回模拟电路损失的线性度</b>——于是 PA 可以更靠近饱和、更省电，脏活交给数字补偿。</p>
+<p style="margin-top:6px"><b>⚙️ 代价：</b>需要一条<b>反馈接收链路</b>实时观测 PA 输出、以及不小的<b>数字算力</b>来算反函数并跟踪 PA 随温度/老化的漂移。<b>基站标配</b>，也逐步进入高端手机。</p>
+<p style="margin-top:8px;background:#ecfdf5;padding:8px 12px;border-radius:6px;color:#065f46"><b>🔑 一句话：</b>DPD 在数字域预置 PA 的反函数、抵消非线性，用算力换线性度——基站标配。它是"用数字解决模拟难题"的典范，与 <a href="#sec-adc">5.4 ΣΔ 用过采样+数字换精度</a>是同一种思路。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #059669">
+<div class="ttl"><span class="slot-tag" style="color:#059669;background:#ecfdf5;border-color:#05966933">④ 方案</span>4️⃣ 收尾几件事：匹配网络、负载牵引、谐波与杂散</div>
+<div class="dsc">
+<div class="kv" style="margin-top:2px">
+<span><b>匹配网络：</b>把 PA 输出阻抗匹配到 <a href="#sec-rf-basics">50Ω（见 8.1）</a>，让功率高效送出不反射，同时兼做<b>谐波抑制</b>。</span>
+<span><b>负载牵引 load pull：</b>天线的实际阻抗会随<b>手握姿势、贴近人体、外壳</b>而变化，导致 PA 看到的负载偏离 50Ω → 性能劣化、效率下降，严重时反射功率<b>可能损坏 PA</b>。工程上用<b>隔离器 / 定向耦合器</b>或阻抗<b>调谐器</b>把 PA 与多变的天线"隔开"或实时校正。</span>
+<span><b>谐波与杂散：</b>非线性除了邻道互调，还会在<b>整数倍频率</b>上产生谐波及各种杂散，<b>必须用滤波器滤除</b>才能符合频谱法规、不干扰其他频段。</span>
+</div>
+<p style="margin-top:8px"><b>🔺 关键判断：</b>Doherty（改<b>架构</b>）、ET（改<b>供电</b>）、DPD（改<b>数字域</b>）在三个不同层面出手，现实系统里<b>常常叠加</b>（如基站 Doherty+DPD、手机 ET+DPD）。其中 <b>DPD 是"用数字算力解决模拟线性度难题"的典范</b>。</p>
+</div></div>
+
+<h3 style="margin-top:18px;color:#b45309">⑥ 本质 + 与接收端的对称</h3>
+
+<div class="card" style="background:#fffbeb;border-left:4px solid #b45309">
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933">⑥ 本质</span>发射机的天花板不是"能放多大"，而是"多干净、多省电地放"</div>
+<div class="dsc">
+<p><b>一句话本质：</b>发射机的本质是——<b>在法规允许的失真范围内，把尽可能多的直流功率变成有用的射频功率</b>。它的天花板从来不是"能放多大"，而是<b>放大的同时能有多干净（线性度/合规）、多省电（效率）</b>。Doherty、ET、DPD 全都是在"既要功率、又要线性、还要效率"这个不可能三角里抠折中。</p>
+<p style="margin-top:8px"><b>🔄 收发的对称性：</b>把发射端和接收端并排看，会发现它们是一对镜像——</p>
+<div class="kv" style="margin-top:6px">
+<span><b>接收端</b>在与<b>噪声</b>搏斗：信号微弱如耳语，靠<b>低噪声（LNA）+ 滤波</b>把它从噪声底里捞出来，最怕"<b>听不见</b>"（见 <a href="#sec-rf-rx">8.3 接收端</a>）。</span>
+<span><b>发射端</b>在与<b>失真</b>搏斗：功率很大，靠<b>回退 + 线性化（Doherty/ET/DPD）</b>把它送出去而不弄脏频谱，最怕"<b>说不清</b>"。</span>
+</div>
+<p style="margin-top:8px;background:#fffbeb;padding:8px 12px;border-radius:6px;color:#92400e"><b>🔑 一句话：</b>一个怕听不见（靠低噪与滤波战噪声），一个怕说不清（靠回退与线性化战失真）——收发对称，都是在物理不可能三角里求最优折中。</p>
+</div></div>
+
+</div>
+<div class="content">
+
+<div class="anim-card">
+<div class="at"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633">③ 物理结构瓶颈</span>图解：PAPR 与回退——为什么峰值把平均功率"顶"到了低效区</div>
+<div class="am">上方是带峰值的 OFDM 包络：峰值必须落进线性区 → 平均值被迫退到更低 → 阴影就是白白损失的效率余量</div>
+
+<svg viewBox="0 0 760 460" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,Segoe UI,Arial" role="img" aria-label="PAPR 与回退示意图">
+  <rect x="0" y="0" width="760" height="460" fill="#ffffff"/>
+
+  <!-- ===== 上方：OFDM 包络 ===== -->
+  <text x="70" y="28" font-size="13" font-weight="700" fill="#7c3aed">OFDM 信号包络（瞬时功率随时间起伏）</text>
+  <!-- 包络框 -->
+  <rect x="70" y="40" width="620" height="90" fill="#faf5ff" stroke="#e9d5ff" stroke-width="1"/>
+  <!-- 峰值线 -->
+  <line x1="70" y1="50" x2="690" y2="50" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="500" y="46" font-size="11" fill="#dc2626">瞬时峰值（必须落在线性区内）</text>
+  <!-- 平均线 -->
+  <line x1="70" y1="104" x2="690" y2="104" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="560" y="118" font-size="11" fill="#2563eb">平均功率</text>
+  <!-- 起伏包络曲线 -->
+  <path d="M70,100 Q100,60 130,95 T190,90 Q215,52 245,98 T310,92 Q340,58 370,100 T430,88 Q460,54 490,96 T555,94 Q585,60 615,98 T690,95" fill="none" stroke="#7c3aed" stroke-width="2"/>
+  <!-- PAPR 双箭头 -->
+  <line x1="410" y1="50" x2="410" y2="104" stroke="#b45309" stroke-width="1.4" marker-start="url(#ar)" marker-end="url(#ar)"/>
+  <text x="418" y="72" font-size="12" font-weight="700" fill="#b45309">PAPR</text>
+  <text x="418" y="88" font-size="10.5" fill="#b45309">8-12 dB</text>
+
+  <!-- ===== 下方：PA 传输特性 ===== -->
+  <!-- 坐标轴 -->
+  <line x1="120" y1="420" x2="700" y2="420" stroke="#334155" stroke-width="1.5" marker-end="url(#ax)"/>
+  <line x1="120" y1="420" x2="120" y2="160" stroke="#334155" stroke-width="1.5" marker-end="url(#ax)"/>
+  <text x="560" y="444" font-size="12" fill="#334155">输入功率 Pin</text>
+  <text x="30" y="178" font-size="12" fill="#334155">输出功率</text>
+  <text x="30" y="194" font-size="12" fill="#334155">Pout</text>
+
+  <!-- 理想线性线 -->
+  <line x1="120" y1="420" x2="600" y2="180" stroke="#059669" stroke-width="1.6" stroke-dasharray="6,4"/>
+  <text x="470" y="205" font-size="11" fill="#059669">理想线性（等比放大）</text>
+  <!-- 实际压缩曲线 -->
+  <path d="M120,420 L360,300 Q470,244 560,236 Q640,232 660,232" fill="none" stroke="#dc2626" stroke-width="2.4"/>
+  <text x="602" y="252" font-size="11" fill="#dc2626">实际（压缩/饱和）</text>
+
+  <!-- 饱和点 -->
+  <circle cx="620" cy="233" r="4.5" fill="#dc2626"/>
+  <text x="560" y="222" font-size="11" font-weight="700" fill="#dc2626">饱和点 Psat</text>
+  <!-- P1dB 点：线性线在该Pin处比实际高1dB -->
+  <circle cx="470" cy="266" r="4.5" fill="#ea580c"/>
+  <line x1="470" y1="266" x2="470" y2="243" stroke="#ea580c" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="392" y="238" font-size="11" font-weight="700" fill="#ea580c">P1dB</text>
+  <text x="352" y="254" font-size="9.5" fill="#ea580c">（增益跌 1dB）</text>
+
+  <!-- 线性区标注 -->
+  <text x="150" y="360" font-size="11" fill="#059669">线性区</text>
+  <text x="150" y="376" font-size="10" fill="#059669">（输出跟着涨）</text>
+
+  <!-- 峰值工作点（贴近线性区上沿）→ 平均工作点（回退后） -->
+  <!-- 峰值映射到 P1dB 附近 -->
+  <line x1="470" y1="266" x2="470" y2="420" stroke="#dc2626" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="440" y="410" font-size="10" fill="#dc2626">峰值→此</text>
+  <!-- 平均工作点回退 -->
+  <circle cx="300" cy="342" r="4.5" fill="#2563eb"/>
+  <line x1="300" y1="342" x2="300" y2="420" stroke="#2563eb" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="230" y="410" font-size="10" fill="#2563eb">平均→退到此</text>
+  <!-- 回退双箭头（横向，Pin轴上） -->
+  <line x1="300" y1="400" x2="470" y2="400" stroke="#b45309" stroke-width="1.3" marker-start="url(#ar)" marker-end="url(#ar)"/>
+  <text x="318" y="393" font-size="11" font-weight="700" fill="#b45309">回退 back-off 8-12dB</text>
+
+  <!-- 效率损失阴影：平均工作点远离饱和 -->
+  <rect x="122" y="344" width="176" height="74" fill="#f59e0b" opacity="0.14"/>
+  <text x="132" y="330" font-size="10.5" fill="#b45309">阴影区=低效率工作区</text>
+  <text x="132" y="343" font-size="9.5" fill="#b45309">（能量多变成热）</text>
+
+  <defs>
+    <marker id="ax" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#334155"/></marker>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#b45309"/></marker>
+  </defs>
+</svg>
+<div class="anim-note">要让瞬时峰值不失真，峰值就得映射到 P1dB 以内；峰值比平均高 8-12dB（PAPR），于是平均功率被迫回退同样的量、退到远离饱和的低效点——阴影区就是被 PAPR 吃掉的效率。Doherty / ET / DPD 都是为了让 PA 在这个回退区里还能高效工作。</div>
+</div>
+
+</div>
+
+<h2 id="sec-rf-devices">📡 8.5 关键器件与材料：为什么射频前端不是一块硅能搞定</h2>
 <div class="skel"><b>🧭 本节讲法</b><span class="path">概念（前端分工）→ 材料瓶颈（硅做不了 PA）→ 方案（GaAs/GaN/SOI）→ 滤波器原理 → 材料对比 → 模组化</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="content">
@@ -8553,7 +9019,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 </div>
 
-<h2 id="sec-rf-standards">📡 8.4 各制式的技术要点与差异</h2>
+<h2 id="sec-rf-standards">📡 8.6 各制式的技术要点与差异</h2>
 <div class="skel"><b>🧭 本节讲法</b><span class="path">概念（别背参数，看约束）→ 各制式的核心工程约束 → 对比</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="content">
@@ -8634,7 +9100,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 </div>
 
-<h2 id="sec-rf-pattern">📡 8.5 产业格局：材料受限 + 高度模组化</h2>
+<h2 id="sec-rf-pattern">📡 8.7 产业格局：材料受限 + 高度模组化</h2>
 <div class="skel"><b>🧭 本节讲法</b><span class="path">五大转折 → 玩家 → 国产位置 → 本质</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="content">
