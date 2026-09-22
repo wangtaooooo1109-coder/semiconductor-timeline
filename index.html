@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- version: v8.4 | 2026-09-22 | 新增第十篇「传感器与MEMS」(sec-sensor)，补齐 WSTS 四大类的最后一极「传感器与执行器」: 10.0 定义与三条边界(传感器vs光电子/vs执行器/vs MEMS交叉关系) · 10.1 MEMS原理(表面微加工与牺牲层释放/体硅DRIE-Bosch/晶圆键合/电容式aF级与压阻式读出/stiction粘连/布朗噪声底→越小越差/封装应力/Q值与真空封装) · 10.2 惯性(弹簧质量阻尼/科里奥利力/正交误差/零偏稳定性ARW与光学陀螺的数量级鸿沟) · 10.3 压力声学环境(介质隔离/MEMS麦克风背腔与ASIC必要性/MOX微热板与选择性漂移) · 10.4 磁传感(Hall/AMR 180度/GMR/TMR与MRAM同结构/差分抑杂散场) · 10.5 温度与电流(PTAT/热路径滞后/分流vs磁式/隔离与磁饱和) · 10.6 封装标定认证(封装即器件/逐颗标定"修"vs逻辑芯片"筛"/AEC-Q103/self-test) · 10.7 产业格局(法规造就市场/MEMS无通用PDK故IDM不可分离/欧日主导/国产从消费切入). nav.js 篇号正则扩展认「十」+CN映射+BOOKS. 既有锚点id零改动 -->
+<!-- version: v8.5 | 2026-09-22 | 第五篇补齐升压缺口（用户指出「电源部门只有降压，升压没讲」）: 新增 5.6 升压与拓扑全谱(sec-boost): Boost 靠电感电流惯性顶高电位 Vout=Vin/(1-D) 与 Buck 的 Vout=D*Vin 对称 / 电荷泵(电容并充串放, 无电感可全集成) / 自举 bootstrap(纯降压电路内部也藏一个小升压, 解释 Buck 最大占空比限制) / 拓扑全谱(四开关升降压解决输入穿越输出 / SEPIC / Cuk / 隔离: 反激 Flyback / LLC 谐振软开关) / RHP zero 右半平面零点(负载变重时输出先下掉后上升, 环路带宽被迫压低, Boost 动态天生慢于 Buck) / 无法真正关断(二极管直通路径) / 升压比实际极限. 原 5.6 工艺侧→5.7、原 5.7 产业格局→5.8（锚点 id 不动）. 并修 v7.5 拆篇遗留错标 3 处（显示5.7实指6.1光电探测、第五篇6.1→第六篇、第五篇6.2→第六篇） -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -519,8 +519,9 @@ button.kb-tg.open .ic{transform:rotate(180deg)}
 <li><a href="#sec-analog-core">5.3 运放与电压基准 🎬</a></li>
 <li><a href="#sec-adc">5.4 ADC 四大架构 🎬</a></li>
 <li><a href="#sec-pmic">5.5 电源管理 LDO vs Buck 🎬</a></li>
-<li><a href="#sec-analog-proc">5.6 BCD 工艺与成熟节点</a></li>
-<li><a href="#sec-analog-pattern">5.7 产业格局五大转折</a></li>
+<li><a href="#sec-boost"><b>5.6 升压与拓扑全谱 · Boost/电荷泵/反激/LLC 🎬</b></a></li>
+<li><a href="#sec-analog-proc">5.7 BCD 工艺与成熟节点</a></li>
+<li><a href="#sec-analog-pattern">5.8 产业格局五大转折</a></li>
 </ol>
 <div style="font-size:11px;color:#0284c7;padding-left:4px;line-height:1.6">📷 CIS 与光电探测 → 第六篇 <a href="#sec-sensing">光电感知</a></div>
 </div>
@@ -3548,7 +3549,7 @@ Roofline 是把「算力上限」和「带宽上限」画在同一张图上的�
 <td><b>⚙️ 工艺集成 + 拓扑</b><br><span style="font-size:11px;color:#64748b">成熟节点长寿</span></td>
 <td>工艺（高低压器件共片 = BCD）</td>
 <td>BCD 工艺；开关拓扑；把电源搬到负载旁边</td>
-<td><a href="#sec-pmic">5.5</a> <a href="#sec-analog-proc">5.6</a></td></tr>
+<td><a href="#sec-pmic">5.5</a> <a href="#sec-boost">5.6</a> <a href="#sec-analog-proc">5.7</a></td></tr>
 
 <tr><td class="hl">光电探测<br>SPAD / SiPM</td>
 <td>有没有光子、<b>什么时候</b>到（时间精度）</td>
@@ -6367,7 +6368,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="kv" style="margin-top:8px">
 <span><b>判据一 · 误差直接进结果：</b>数字电路有<b>噪声容限</b>——只要还能分辨 0/1，一点干扰不影响结果；模拟电路<b>没有容限</b>，一毫伏的失调就是一毫伏的误差，会一路传到输出。</span>
 <span><b>判据二 · 精度由匹配与噪声底决定，不由栅长决定：</b>决定性能的是<b>器件匹配（Pelgrom 定律：面积换精度）、热噪声与 1/f 噪声、电压裕度</b>，而不是工艺节点。→ <a href="#sec-analog-why">5.2</a></span>
-<span><b>判据三 · 不靠缩微换性能，成熟工艺反而更值钱：</b>先进节点电压裕度更小、对模拟是<b>帮倒忙</b>；BCD 等成熟工艺一颗料号能卖十几到二十年。→ <a href="#sec-analog-proc">5.6</a></span>
+<span><b>判据三 · 不靠缩微换性能，成熟工艺反而更值钱：</b>先进节点电压裕度更小、对模拟是<b>帮倒忙</b>；BCD 等成熟工艺一颗料号能卖十几到二十年。→ <a href="#sec-analog-proc">5.7</a></span>
 </div>
 <p style="margin-top:10px;color:#475569;font-size:12px">反向检验：MCU 处理的是数字信号但内部含 ADC/LDO（属混合信号，主体仍是 Micro 类）；IGBT 处理连续的电流电压但它是<b>分立器件</b>不是 IC（判据二三都不适用，它拼的是耐压与损耗）。<b>可见「处理连续量」单独一条远远不够。</b></p>
 </div></div>
@@ -7003,7 +7004,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="card" style="background:#fff7ed;border-left:4px solid #ea580c">
 <div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先弄清：降压在物理上只有两条路</div>
 <div class="dsc">
-<p>现代芯片里，一块电池或一路 12 V 输入要伺候一大堆需要不同电压的模块。<b>PMIC（Power Management IC，电源管理芯片）</b>干的活，就是把一路输入变成多路稳定、干净、按时序上电的输出。而"把高电压变成低电压"这件事，物理上<b>只有两条路可走</b>——这个二分是整节的地基。</p>
+<p>现代芯片里，一块电池或一路 12 V 输入要伺候一大堆需要不同电压的模块。<b>PMIC（Power Management IC，电源管理芯片）</b>干的活，就是把一路输入变成多路稳定、干净、按时序上电的输出。而"把高电压变成低电压"这件事，物理上<b>只有两条路可走</b>——这个二分是整节的地基。<br><span style="display:inline-block;margin-top:6px;background:#ecfeff;color:#0e7490;padding:5px 10px;border-radius:6px;font-size:12.5px">⚠️ <b>注意边界：</b>这里说的「两条路」只针对<b>降压</b>。现实中大量场景要求<b>输出电压高于输入</b>（电池升到 5V、OLED 要几十 V、Flash 编程要高压），那是另一个独立问题 → 见 <a href="#sec-boost" style="color:#0e7490"><b>5.6 升压与拓扑全谱</b></a>。</span></p>
 
 <h3>① 线性：把多余的电压当热耗掉</h3>
 <p>让电流流过一个串联的可调电阻（调节管），多出来的电压全落在它两端变成热。输出电流和输入电流几乎相等，多余的 (V_in − V_out) 全被这个管子"吃掉"。代表是 <b>LDO（Low-Dropout Regulator，低压差线性稳压器）</b>。它的效率约等于 <b>Vout / Vin</b>——不是因为"线性所以低效"这种循环说法，而是<b>输入端搬进的电荷量和输出端一样多，但每个电荷只用掉了 Vout 的电压、白搬了 (Vin−Vout)</b>，这部分能量必然变热。所以压差越大越浪费。</p>
@@ -7108,7 +7109,256 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <p class="dsc" style="margin-top:6px"><b>⚙️ 为什么要紧：</b>这一行公式说明<b>输出电压由“时间比例”而非“烧掉多余电压”决定</b>——所以 Buck 效率可达 90%+，与 LDO 的 η≈Vout/Vin（多余电压全变热）形成对称记忆点：一个用<b>开关时间</b>换电压、一个用<b>发热</b>换电压。</p>
 </div>
 
-<h2 id="sec-analog-proc">🏭 5.6 工艺侧：BCD 与成熟节点为什么长寿</h2>
+
+<h2 id="sec-boost">🔋 5.6 升压与拓扑全谱：当输出电压必须高于输入</h2>
+<div class="skel"><b>🧭 本节讲法</b><span class="path">概念（5.5 的"只有两条路"讲的是降压，升压是另一个独立问题）→ 原理（电感顶压 / 电荷泵 / 自举）→ 瓶颈（RHP zero、切不断、升压比极限）→ 方案（非隔离拓扑全谱 + 隔离拓扑 + 工程手段）→ 对比（一张总表）→ 本质（用时间换电压）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
+<div class="content">
+
+<div class="card" style="background:#fff7ed;border-left:4px solid #ea580c">
+<div class="ttl"><span class="slot-tag" style="color:#7c3aed;background:#f5f3ff;border-color:#7c3aed33" title="统一叙述框架 · 概念">① 概念</span>先把 5.5 的框架补完整：那句"只有两条路"说的是降压</div>
+<div class="dsc">
+<p>上一节（5.5）开篇立下地基：<b>"把高电压变成低电压这件事，物理上只有两条路可走"</b>——线性耗散（LDO，η≈Vout/Vin）与开关储能（Buck，Vout=D·Vin）。这句话没有错，但要说清楚：<b>它讲的只是"降压"</b>。现实里有大量场景，要求<b>输出电压高于输入电压</b>——这是一个<b>独立的、方向相反的问题</b>，5.5 一个字没讲。本节就把这块补齐。</p>
+
+<h3>🏠 先感受一下：哪些日常设备天天在"升压"</h3>
+<p>升压离你并不远，只是你从没意识到它在发生：</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.9">
+<li><b>锂电池供 5 V USB / 传感器：</b>一节锂电池满电 4.2 V、快没电时掉到 3.0 V，可它要给需要稳定 5 V 的 USB 口或传感器供电——<b>输入电压比目标还低</b>，必须升上去。</li>
+<li><b>手机屏幕：</b>OLED 屏、LED 背光需要十几到几十伏，远高于电池的 3～4 V。</li>
+<li><b>电子墨水屏：</b>需要正负两路高压（几十伏）来翻转墨水粒子。</li>
+<li><b>汽车电气：</b>12 V 系统与 48 V 系统之间要互相变换（12 V→48 V 升压，或反过来降压）。</li>
+<li><b>快充协议：</b>要在电池电压之上输出一个可调的更高电压（比如把电池的 3.7 V 升到 9 V / 12 V 往外送）。</li>
+<li><b>闪光灯 / 压电驱动 / MEMS 静电驱动：</b>需要几十到上百伏的驱动电压。</li>
+<li><b>芯片内部：</b>CMOS 里的 Flash / EEPROM <b>编程时需要高于电源的电压</b>来把电子"推"进浮栅——存储器为什么需要这种电压，见 <a href="#sec-mem-deep">0.7–0.8 存储器原理</a>。</li>
+</ul>
+
+<h3>💡 关键洞见：电池设备最麻烦的是"输入会穿越输出"</h3>
+<p>把上面第一条想透，就抓住了整节的钥匙：一节锂电池<b>放电过程中电压是一路下滑的</b>（4.2 V → 3.0 V）。如果你要的输出是稳定的 3.3 V，那么——<b>满电时输入高于目标（要降压），快没电时输入低于目标（要升压）</b>。同一个负载，同一块电池，输入电压会<b>从上方穿越到下方</b>。</p>
+<div class="kv"><span class="warn">满电 4.2 V → 需要降压到 3.3 V</span><span class="warn">没电 3.0 V → 需要升压到 3.3 V</span><span class="good">结论：必须能升也能降 → Buck-Boost 存在的理由</span></div>
+<p style="background:#ffedd5;padding:8px 12px;border-radius:6px;color:#7c2d12;margin-top:8px"><b>本质一句话：</b>5.5 讲的"只有两条路"是降压的两条路；升压是另一个独立问题，而电池供电设备因为输入电压会穿越输出，逼出了"既能升又能降"的第三类需求——这就是本节要展开的升压与全拓扑谱系。</p>
+</div></div>
+
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>Boost 凭什么能"无中生有"造出更高电压</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>想象你在<b>甩一桶水</b>——手臂匀速带着水桶转，水面很平静；可你要是<b>突然把手停住</b>，桶里的水会因为惯性猛地往上冲、甚至溅出桶口，那一瞬间水面高度远超平时。<b>水锤效应</b>也一样：水管里的水流得好好的，你猛地关上阀门，水的惯性会在阀门处顶出一个远高于原来的压力，"咚"地一声甚至能震裂管子。Boost 升压玩的就是这一手：<b>电感里流着的电流有"惯性"，你突然掐断它的去路，它会为了维持电流而顶出一个远高于输入的电压。</b></p>
+
+<p><b>📖 是什么（和 Buck 划界）：</b>Boost（升压开关变换器）和 Buck 用的是同一批元件（开关、电感、二极管、电容），但接法不同：Buck 是"先开关、后电感"把能量<b>截取</b>下来；Boost 是让电感<b>先攒能量、再一次顶出去</b>。它不是靠什么新物理，而是把电感"电流不能突变"这条铁律用到极致。</p>
+
+<p><b>🔬 专业机制（分两步）：</b></p>
+<ul style="margin:6px 0 6px 18px;line-height:1.9">
+<li><b>开关导通（储能）：</b>电感一端接输入、另一端被开关拉到地，电流在电感里<b>线性上升</b>，能量以磁场形式攒进电感（<b>V = L·di/dt</b>，这是电感的定义式——电压等于电感量乘以电流变化率）。此时二极管截止，输出全靠输出电容自己供着负载。</li>
+<li><b>开关断开（顶压）：</b>电感的电流<b>不能瞬间归零</b>，为了维持这股电流，电感<b>自己把两端电压抬起来</b>，高到足以推开二极管——于是电流经二极管把能量"顶"到输出电容上。因为电感这一顶是<b>叠加在输入电压之上</b>的，输出电位自然就<b>高于输入</b>。</li>
+</ul>
+
+<div class="kv"><span class="good">对称记忆：Buck 降压 Vout = D·Vin</span><span class="good">Boost 升压 Vout = Vin / (1 − D)</span><span>D=占空比 0~1</span></div>
+<p style="margin-top:6px"><b>公式的对称之美：</b>Buck 是 <b>Vout = D·Vin</b>（D 永远小于 1，所以输出恒小于输入）；Boost 是 <b>Vout = Vin / (1 − D)</b>（分母 1−D 小于 1，所以输出恒大于输入）。占空比 D 越接近 1，1−D 越小，输出被顶得越高。两个公式互为镜像，是本节最值得记住的一对。</p>
+
+<p style="background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e3a8a;margin-top:8px"><b>⚠️ 能量没有凭空多出来：</b>外行最容易误会升压是"电压凭空变多了"。不是的——<b>电压升上去了，电流按比例降下来</b>，功率守恒：Pin ≈ Pout（Vin·Iin ≈ Vout·Iout）。升压 3 倍，输入电流就得是输出电流的约 3 倍。这也埋下了后面③瓶颈"升压比越大越吃力"的伏笔。</p>
+
+<p style="background:#fef2f2;padding:8px 12px;border-radius:6px;color:#7f1d1d;margin-top:8px"><b>一个和 Buck 的结构性差异（后面很关键）：</b>Boost 的输入和输出之间，永远存在一条<b>经二极管（或 MOSFET 体二极管）的直通路径</b>。这意味着<b>即使把开关关死，输出端也切不断电</b>——输入还是会经二极管漏到输出。Buck 关断就真的断了，Boost 关不断。这一条直接决定了后面的保护设计难题。</p>
+</div></div>
+
+<div class="anim-card">
+<div class="at"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>⚡ Boost 两阶段工作原理：攒能量 → 顶出去</div>
+<div class="am">开关导通时电感攒能量、输出靠电容撑着；开关断开时电感顶高电位、把能量经二极管送到输出——电压升上去、电流降下来</div>
+<svg viewBox="0 0 760 300">
+<!-- Stage 1 -->
+<text x="200" y="24" text-anchor="middle" font-size="12" font-weight="800" fill="#1e40af">阶段① 开关导通：电感储能</text>
+<rect x="40" y="60" width="48" height="30" rx="4" fill="#cbd5e1" stroke="#64748b"/>
+<text x="64" y="80" text-anchor="middle" font-size="9.5" font-weight="700" fill="#334155">Vin</text>
+<rect x="150" y="52" width="70" height="30" rx="5" fill="#ddd6fe" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="185" y="71" text-anchor="middle" font-size="9" font-weight="700" fill="#4c1d95">电感 L</text>
+<rect x="150" y="120" width="70" height="30" rx="5" fill="#bfdbfe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="185" y="139" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1e3a8a">开关 闭合</text>
+<rect x="270" y="52" width="52" height="30" rx="4" fill="#e2e8f0" stroke="#94a3b8"/>
+<text x="296" y="66" text-anchor="middle" font-size="8" fill="#64748b">二极管</text>
+<text x="296" y="77" text-anchor="middle" font-size="8" font-weight="700" fill="#b91c1c">截止</text>
+<rect x="270" y="120" width="52" height="34" rx="4" fill="#bbf7d0" stroke="#059669"/>
+<text x="296" y="134" text-anchor="middle" font-size="8" fill="#065f46">输出电容</text>
+<text x="296" y="147" text-anchor="middle" font-size="8" font-weight="700" fill="#065f46">供负载</text>
+<!-- wires stage1 -->
+<line x1="88" y1="67" x2="150" y2="67" stroke="#334155" stroke-width="2"/>
+<line x1="220" y1="67" x2="185" y2="67" stroke="#334155" stroke-width="0"/>
+<line x1="185" y1="82" x2="185" y2="120" stroke="#334155" stroke-width="2"/>
+<circle cx="120" cy="67" r="4" fill="#2563eb"><animate attributeName="cx" values="100;170" dur="1.2s" repeatCount="indefinite"/></circle>
+<text x="185" y="176" text-anchor="middle" font-size="9" font-weight="700" fill="#4c1d95">电流在 L 里线性上升，攒磁能</text>
+<text x="296" y="176" text-anchor="middle" font-size="8.5" fill="#065f46">输出暂由电容撑着</text>
+
+<!-- divider -->
+<line x1="380" y1="40" x2="380" y2="230" stroke="#e2e8f0" stroke-width="2"/>
+
+<!-- Stage 2 -->
+<text x="560" y="24" text-anchor="middle" font-size="12" font-weight="800" fill="#b45309">阶段② 开关断开：电感顶压</text>
+<rect x="400" y="60" width="48" height="30" rx="4" fill="#cbd5e1" stroke="#64748b"/>
+<text x="424" y="80" text-anchor="middle" font-size="9.5" font-weight="700" fill="#334155">Vin</text>
+<rect x="510" y="52" width="70" height="30" rx="5" fill="#fed7aa" stroke="#ea580c" stroke-width="1.5"/>
+<text x="545" y="71" text-anchor="middle" font-size="9" font-weight="700" fill="#7c2d12">电感 L↑</text>
+<rect x="510" y="120" width="70" height="30" rx="5" fill="#e2e8f0" stroke="#94a3b8"/>
+<text x="545" y="135" text-anchor="middle" font-size="8" fill="#64748b">开关 断开</text>
+<rect x="630" y="52" width="52" height="30" rx="4" fill="#fecaca" stroke="#dc2626"/>
+<text x="656" y="66" text-anchor="middle" font-size="8" fill="#7f1d1d">二极管</text>
+<text x="656" y="77" text-anchor="middle" font-size="8" font-weight="700" fill="#047857">导通</text>
+<rect x="630" y="120" width="52" height="34" rx="4" fill="#86efac" stroke="#059669"/>
+<text x="656" y="134" text-anchor="middle" font-size="8" font-weight="700" fill="#065f46">Vout</text>
+<text x="656" y="147" text-anchor="middle" font-size="8" font-weight="700" fill="#065f46">&gt; Vin</text>
+<!-- wires stage2 -->
+<line x1="448" y1="67" x2="510" y2="67" stroke="#334155" stroke-width="2"/>
+<line x1="580" y1="67" x2="630" y2="67" stroke="#334155" stroke-width="2"/>
+<circle cx="470" cy="67" r="4" fill="#ea580c"><animate attributeName="cx" values="460;640" dur="1s" repeatCount="indefinite"/></circle>
+<text x="545" y="176" text-anchor="middle" font-size="9" font-weight="700" fill="#b45309">L 抬高电位，把能量顶向输出</text>
+<text x="656" y="176" text-anchor="middle" font-size="8.5" font-weight="700" fill="#065f46">电位叠加 → 高于 Vin</text>
+
+<!-- bottom conclusion -->
+<rect x="40" y="248" width="680" height="42" rx="6" fill="#eff6ff" stroke="#2563eb"/>
+<text x="60" y="266" font-size="10" fill="#1e3a8a"><tspan font-weight="700">一句话点透：</tspan>电压升上去了、电流按比例降下来，功率守恒（Pin ≈ Pout）——升压不是凭空变多，</text>
+<text x="60" y="282" font-size="10" fill="#1e3a8a">而是把电感电流的"惯性"换成了更高的电压。对照 Buck：Vout=D·Vin（降）↔ Boost：Vout=Vin/(1−D)（升）。</text>
+</svg>
+</div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>电荷泵：不用电感的另一条升压路</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>像<b>两个人接力往上传水桶</b>——第一个人把桶在低处灌满水，然后把这一桶举到第二个人肩膀的高度递上去，水的"高度"就叠加了。电荷泵不用电感、不靠惯性，而是靠<b>电容轮流充电、再串联叠加</b>把电压一级一级垫高。</p>
+<p><b>📖 是什么：</b>电荷泵（Charge Pump）用开关阵列控制若干电容：<b>先让电容并联接到输入充电到 Vin，再把它们串联起来输出</b>，电位就叠加成 2×Vin、3×Vin。经典结构是 <b>Dickson 电荷泵</b>（多级级联的倍压链），也有简单的倍压、三倍压电路。它和电感式 Boost 的分工要划清楚。</p>
+<p><b>🔬 专业·和电感式的分工：</b></p>
+<table class="node-table nopad"><thead><tr><th style="width:30%">维度</th><th>电荷泵（电容式）</th><th>电感式 Boost</th></tr></thead>
+<tbody>
+<tr><td class="hl">磁性元件</td><td><b>无电感</b>，只用电容</td><td>必须有电感</td></tr>
+<tr><td class="hl">面积/集成</td><td>面积小，<b>可全集成进芯片</b></td><td>电感难集成，通常外挂</td></tr>
+<tr><td class="hl">EMI</td><td>低（无高频开关磁场辐射）</td><td>较高（开关+电感）</td></tr>
+<tr><td class="hl">输出电流</td><td><b>小</b>（毫安级偏多）</td><td>大（可到安培级）</td></tr>
+<tr><td class="hl">升压比</td><td><b>固定</b>（整数倍附近，2×/3×）</td><td>连续可调</td></tr>
+<tr><td class="hl">效率</td><td>轻载尚可，<b>随负载加重快速下降</b></td><td>宽负载都能维持高效率</td></tr>
+</tbody></table>
+<p style="margin-top:8px"><b>💡 本质：</b>电荷泵是<b>"用面积和集成度换掉电感"</b>的升压方案——适合片上高压（如 Flash 编程电压）、小电流偏置、LCD 偏压、低功耗场景；一旦要大电流，还得回到电感式 Boost。</p>
+</div></div>
+
+<div class="card">
+<div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 原理</span>自举 (bootstrap)：藏在每个 Buck 里的隐形升压</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>你想推开一扇比你还高的门闩，可门闩装在半空——你得先<b>踩着一个小板凳</b>把自己垫高，才够得着。自举电容就是这个"小板凳"：它先在低处充好电，等需要时驮着开关的电位一起被抬高，让驱动电压够得着比输入还高的地方。</p>
+<p><b>📖 问题从哪来：</b>Buck 的<b>高边开关</b>如果用 N 沟道 MOSFET（便宜、导通电阻小、业界主流），要让它导通，<b>栅极电压必须高于源极电压</b>。可高边开关导通那一刻，它的源极电位就被拉到接近 Vin。于是栅极要驱动它，就<b>需要一个高于 Vin 的电压</b>——降压电路里居然冒出了"要比输入更高的电压"这个需求。</p>
+<p><b>🔬 方案：</b>加一个<b>自举电容 + 自举二极管</b>。在低边开关导通、开关节点被拉到地的那段时间，自举电容经二极管从内部电源<b>充电</b>；等切换到高边导通、开关节点被抬到 Vin 时，这个充好电的电容<b>"驮"在源极电位上</b>，把栅极顶到 Vin 之上，高边 N-MOS 才导通得起来。</p>
+<p style="background:#eff6ff;padding:8px 12px;border-radius:6px;color:#1e3a8a;margin-top:8px"><b>💡 让人开窍的洞见：</b>所以<b>即使是纯降压电路，内部也必须藏着一个小升压</b>——升压不是升压芯片的专利。而且这也解释了 Buck 为什么有<b>最大占空比限制</b>：自举电容需要"低边导通"的那段时间来补电，如果占空比 D 长期趋近 1、高边几乎一直开着，自举电容<b>没机会充电就会耗尽</b>，高边就驱动不动了。这就是"D 不能长期趋近 1"这条工程约束的物理来源。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #047857">
+<div class="ttl"><span class="slot-tag" style="color:#047857;background:#ecfdf5;border-color:#04785733" title="统一叙述框架 · 方案">④ 方案</span>拓扑全谱（一）：非隔离，从"能升能降"到"同极性"</div>
+<div class="dsc">
+<p>有了 Boost 的原理，现实需求把它衍生成一整个谱系。先看<b>非隔离</b>（输入输出共用一条地线）的家族，逐个说"怎么做 + 为什么用它"：</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.95">
+<li><b>反相 Buck-Boost：</b>把 Buck 的电感和开关重排，输出电压<b>极性翻转</b>（输入正、输出负）。用于需要负电压的场合，比如给运放、LCD 偏压、某些传感器供负轨。缺点是输出对地是负的，用起来要小心参考电位。</li>
+<li><b>四开关 Buck-Boost（升降压）：</b>用四个开关，让同一块电路<b>既能在输入高于输出时降压、又能在输入低于输出时升压，且输出同极性</b>。这正是①概念里"锂电池放电时输入穿越输出"问题的<b>标准解</b>——满电降压、没电升压，全程输出稳定，是电池供电设备的主流方案。</li>
+<li><b>SEPIC：</b>能升能降，且<b>输出与输入同极性</b>（不像反相 Buck-Boost 要翻转），输入与输出之间有一个<b>隔直电容</b>——好处是<b>输入短路时不会直通到输出</b>（Boost 做不到这点），常用于输入电压范围很宽、又要同极性输出的场合（如车载、电池到 5 V）。</li>
+<li><b>Ćuk：</b>输出<b>反相</b>，但靠电容传能量、<b>输入输出电流纹波都很小</b>，适合对纹波敏感的场合。</li>
+<li><b>Zeta：</b>SEPIC 的"镜像"，同样能升降且同极性，特性介于两者之间，选它多是为了特定的纹波/控制表现。</li>
+</ul>
+<p style="background:#ecfdf5;padding:8px 12px;border-radius:6px;color:#065f46;margin-top:6px"><b>选型直觉：</b>只要输出可能高于也可能低于输入 → 四开关 Buck-Boost 最省心；要同极性又要宽输入 → SEPIC；要极低纹波 → Ćuk；只缺一路负压 → 反相 Buck-Boost。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #047857">
+<div class="ttl"><span class="slot-tag" style="color:#047857;background:#ecfdf5;border-color:#04785733" title="统一叙述框架 · 方案">④ 方案</span>拓扑全谱（二）：隔离——为什么要在输入输出之间"断开电"</div>
+<div class="dsc">
+<p>前面所有拓扑，输入输出都<b>共用一条地线（共地）</b>。而隔离拓扑在两侧之间插入一个<b>变压器</b>，让能量以<b>磁场</b>形式跨过去、<b>电气上却不直接相连</b>。这一块此前文档完全没讲，先说清"隔离是什么、为什么要它"。</p>
+<h3>🏠 隔离是什么 & 为什么需要</h3>
+<p><b>类比：</b>隔离就像用<b>水车传动</b>代替直接的齿轮咬合——上游的水推动水车、水车再带动下游，两边靠水流（磁场）传力，却<b>没有一根轴直接连着</b>。为什么要这么麻烦：</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.9">
+<li><b>人身安全：</b>市电（220 V）这类高压直接接触会电死人，隔离让用户能碰到的低压侧和危险的高压侧<b>没有直接导电通路</b>（充电器、适配器强制要求）。</li>
+<li><b>消除地环路/共地干扰：</b>两个设备各有各的"地"，直接连会形成地环路引入噪声；隔离切断这条环路。</li>
+<li><b>高低压侧参考电位不同：</b>控制电路在低压侧、功率在高压侧，两边"地"的电位差可能上百伏——典型如<b>车载 OBC（车载充电机）、工业电源、BMS 高压采样、充电桩</b>。</li>
+</ul>
+<h3>逐个拓扑（功率由小到大）</h3>
+<ul style="margin:6px 0 6px 18px;line-height:1.95">
+<li><b>反激 Flyback：</b>元件最少、最便宜的隔离方案，中小功率（<b>数瓦到百瓦量级</b>）通用，手机充电器/适配器的经典方案。关键要讲清：它<b>不是普通变压器那样"边输入边把交流传过去"</b>，而是<b>储能-释放式</b>——开关导通时能量先<b>存进变压器的磁芯</b>（此时副边不输出），开关断开时再把存的能量<b>释放</b>到副边。所以 Flyback 的变压器本质是"带隔离的耦合电感"。</li>
+<li><b>正激 / 推挽 / 半桥 / 全桥：</b>功率<b>依次递增</b>的隔离拓扑。正激是能量"边输入边传递"（真变压器传能），推挽/半桥/全桥用更多开关让变压器双向励磁、利用率更高，从百瓦做到千瓦以上。</li>
+<li><b>LLC 谐振：</b>中大功率高效率的主流。它靠一个谐振网络让开关在<b>电流或电压过零的瞬间</b>动作——这叫<b>软开关</b>（相对地，前面那些"硬邦邦地在有电压电流时强行切换"叫硬开关，开关损耗大）。软开关让开关损耗大幅下降，于是可以<b>把开关频率推得很高、磁性元件和体积随之做小</b>，效率还高。<b>车载 OBC、服务器电源</b>广泛用它。</li>
+</ul>
+<p style="background:#ecfdf5;padding:8px 12px;border-radius:6px;color:#065f46;margin-top:6px"><b>💡 隔离的附带好处：</b>变压器的<b>变比 N</b>（原副边匝数比）本身就提供了一个<b>与占空比无关的额外升降压自由度</b>——想升想降，先靠匝数比"预设"一个倍率，再用占空比微调。这是非隔离拓扑没有的一张牌。</p>
+</div></div>
+
+<div class="card" style="border-left:4px solid #dc2626">
+<div class="ttl"><span class="slot-tag" style="color:#b91c1c;background:#fef2f2;border-color:#b91c1c33" title="统一叙述框架 · 瓶颈">③ 瓶颈·物理结构</span>右半平面零点 (RHP zero)：Boost 天生反应慢</div>
+<div class="dsc">
+<p><b>🏠 生活类比：</b>开手动挡的车想加速，你踩油门之前<b>得先踩下离合换挡</b>——那一瞬间动力被切断，<b>车速反而先掉一下，过一会儿才提起来</b>。你越想快点加速，那个"先掉一下"越明显。Boost 遇到负载突然变重时，就是这种"想上先下"的别扭反应。</p>
+<p><b>🔬 到底发生了什么：</b>负载突然变重（要更多电流），Boost 的<b>正确应对是增大占空比、让电感多储能</b>。可"多储能"意味着开关要更长时间导通——而开关导通的那段时间里，<b>二极管是截止的，输出完全靠电容撑着</b>。于是在刚增大占空比的那一瞬间，<b>送到输出的能量反而变少了，输出电压先往下掉</b>，要等电感把攒下的能量在后续周期顶出去，电压才涨上来。</p>
+<p><b>📖 这在控制理论里叫什么：</b>这种"<b>先反向、后正向</b>"的响应，数学上对应传递函数里一个<b>右半平面零点（RHP zero）</b>。它的后果很硬：<b>环路带宽必须被压低</b>——你不能让电路反应太快，否则它会被自己那个"先往下掉"的反向动作骗进<b>振荡</b>。结果就是 <b>Boost 的动态响应天生比 Buck 慢</b>。</p>
+<p style="background:#fef2f2;padding:8px 12px;border-radius:6px;color:#7f1d1d;margin-top:6px"><b>💡 关键：这不是设计水平问题，是拓扑决定的。</b>只要能量要"先存进电感再顶出去"，这个先反向的动作就躲不掉。Buck 没有这个问题（它是直接把输入截取给输出），所以 Buck 稳、Boost 难控，是结构性的不对称。</p>
+<div class="imp-row"><span class="imp-lbl">↳ 产品侧影响</span><span class="imp" style="color:#059669;background:#ecfdf5;border-color:#05966933" title="直接设定速度/精度/带宽的物理天花板"><span class="im-e">🔢</span>性能上限</span></div>
+</div></div>
+
+<div class="card" style="border-left:4px solid #dc2626">
+<div class="ttl"><span class="slot-tag" style="color:#b91c1c;background:#fef2f2;border-color:#b91c1c33" title="统一叙述框架 · 瓶颈">③ 瓶颈·物理结构</span>关不断 & 保护难：输入到输出永远有条直通路</div>
+<div class="dsc">
+<p><b>问题：</b>如②原理最后强调的，Boost 的输入和输出之间存在一条<b>经二极管（或 MOSFET 体二极管）的直通路径</b>。这带来两个绕不开的麻烦：</p>
+<ul style="margin:6px 0 6px 18px;line-height:1.9">
+<li><b>关断也切不断输出：</b>把开关关死，输入电压依然会经二极管漏到输出端，<b>输出仍然带电</b>。想真正断开负载，做不到。</li>
+<li><b>短路保护难：</b>输出一旦短路，电流会<b>直接从输入经二极管灌进短路点</b>，Boost 自身的开关管不上——必须额外加一个<b>串联的隔离开关</b>或<b>熔断/eFuse</b>来强行切断这条通路。</li>
+</ul>
+<p style="background:#fef2f2;padding:8px 12px;border-radius:6px;color:#7f1d1d;margin-top:6px"><b>💡 本质：</b>Buck 的开关串在能量通路上，关它就断了；Boost 的开关是"对地放电"的旁路开关，它管的是"存多少"而不是"通不通"，所以保护要靠额外器件。这是 Boost 系统 BOM 里常常多一个隔离开关的原因。</p>
+<div class="imp-row"><span class="imp-lbl">↳ 产品侧影响</span><span class="imp" style="color:#65a30d;background:#f7fee7;border-color:#65a30d33" title="影响失效率、寿命、工作温区或车规等级"><span class="im-e">🛡️</span>可靠性寿命</span></div>
+</div></div>
+
+<div class="card" style="border-left:4px solid #dc2626">
+<div class="ttl"><span class="slot-tag" style="color:#b91c1c;background:#fef2f2;border-color:#b91c1c33" title="统一叙述框架 · 瓶颈">③ 瓶颈·物理结构</span>升压比的实际极限：公式说无穷，物理说几倍</div>
+<div class="dsc">
+<p><b>公式的幻觉：</b>Vout = Vin/(1−D)，当 D→1 时 Vout→∞。<b>纸面上升压比可以无限大</b>。现实里远不是这样。</p>
+<p><b>🔬 真实的天花板：</b></p>
+<ul style="margin:6px 0 6px 18px;line-height:1.9">
+<li><b>寄生电阻吃电压：</b>开关和电感都有寄生电阻，D 越大、电流越大，这些电阻上的压降越吃掉输出，实际升压比远达不到理想值。</li>
+<li><b>二极管正向压降：</b>每次能量经二极管都要损失一个正向压降，低压升高压时这部分占比不小。</li>
+<li><b>电流应力按平方增长：</b>因为功率守恒，升压比越大，<b>输入电流远大于输出电流</b>（升 5 倍，输入电流约是输出的 5 倍）。而导通损耗正比于电流的平方（I²R），<b>升压比越大，损耗按平方级恶化，发热剧增</b>。</li>
+<li><b>最小关断时间：</b>开关不可能"几乎一直开着"，D 有实际上限。</li>
+</ul>
+<p style="background:#fef2f2;padding:8px 12px;border-radius:6px;color:#7f1d1d;margin-top:6px"><b>💡 结论：</b>单级 Boost 的升压比通常被限制在<b>几倍量级</b>；要更高的升压比，只能靠<b>多级级联</b>或改用<b>带变压器的隔离拓扑</b>（用匝数比一次性拉高）。这直接影响 BOM 成本与散热方案。</p>
+<div class="imp-row"><span class="imp-lbl">↳ 产品侧影响</span><span class="imp" style="color:#b45309;background:#fefce8;border-color:#b4530933" title="料号数量、外挂元件数、整机物料成本"><span class="im-e">💰</span>BOM 成本</span><span class="imp" style="color:#ea580c;background:#fff7ed;border-color:#ea580c33" title="逼出更强散热：加散热片 → 热管 → 液冷"><span class="im-e">🌡️</span>散热方案</span></div>
+</div></div>
+
+<div class="card" style="border-left:4px solid #dc2626">
+<div class="ttl"><span class="slot-tag" style="color:#b91c1c;background:#fef2f2;border-color:#b91c1c33" title="统一叙述框架 · 瓶颈">③ 瓶颈·工艺</span>高压侧器件的耐压—导通电阻矛盾</div>
+<div class="dsc">
+<p>升压意味着开关和二极管要承受<b>比输入更高的电压</b>，就需要<b>耐压更高的器件</b>。可器件的<b>耐压和导通电阻天生对立</b>——耐压做高，导通电阻往往上升、导通损耗变大。要在同一片硅上同时集成低压控制逻辑与高压功率器件，就要靠 <b>BCD 工艺</b>（把双极、CMOS、DMOS 三种器件放在一片硅上），这正是<a href="#sec-analog-proc">工艺侧那一节</a>讲的核心矛盾；离散高压功率器件的耐压—损耗—栅极驱动权衡，则见第三篇 <a href="#sec-power-eng">0.11 功率器件工程层</a>。</p>
+<div class="imp-row"><span class="imp-lbl">↳ 产品侧影响</span><span class="imp" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="良率下降或工序增加，直接推高单颗成本"><span class="im-e">📉</span>良率成本</span></div>
+</div></div>
+
+<div class="card" style="background:#ecfeff;border-left:4px solid #0891b2">
+<div class="ttl"><span class="slot-tag" style="color:#0891b2;background:#ecfeff;border-color:#0891b233" title="统一叙述框架 · 对比">⑤ 对比</span>🗺️ 八种拓扑总表：选哪个，由「方向 + 要不要隔离 + 多大功率」三件事决定</div>
+<div class="dsc">
+<p>前面讲了一堆原理，真到选型时其实就问三个问题：<b>① 电压要升还是降（会不会穿越）？② 输入输出之间要不要电气隔开？③ 多大功率？</b>下面这张表就是按这三问排的。</p>
+<table class="node-table nopad" style="margin-top:10px"><thead><tr>
+<th style="width:12%">拓扑</th><th style="width:10%">电压方向</th><th style="width:7%">隔离</th><th style="width:13%">磁性元件</th><th style="width:11%">典型功率</th><th style="width:9%">效率量级</th><th style="width:10%">动态响应</th><th>典型场景</th>
+</tr></thead><tbody>
+<tr><td class="hl">Buck 降压</td><td>只降</td><td>❌</td><td>1 电感</td><td>mW ~ 百 W</td><td>90%+</td><td><b>快</b>（无 RHP zero）</td><td>SoC 内核供电、12V→1V、PMIC 主力</td></tr>
+<tr><td class="hl">Boost 升压</td><td>只升</td><td>❌</td><td>1 电感</td><td>mW ~ 数百 W</td><td>90%+</td><td><b>慢</b>（RHP zero）</td><td>电池→5V、OLED/背光、PFC 前级</td></tr>
+<tr><td class="hl">四开关<br>Buck-Boost</td><td><b>可升可降</b></td><td>❌</td><td>1 电感</td><td>W ~ 百 W 量级</td><td>90%+</td><td>中（按工作区切换）</td><td><b>电池设备标准解</b>（输入穿越输出）、快充、USB-PD</td></tr>
+<tr><td class="hl">反相<br>Buck-Boost</td><td>升/降但<b>极性反转</b></td><td>❌</td><td>1 电感</td><td>小功率为主</td><td>中等</td><td>慢（含 RHP zero）</td><td>需要负电压：LCD 偏压、运放负轨、CCD</td></tr>
+<tr><td class="hl">SEPIC</td><td>可升可降<br><b>同极性</b></td><td>❌</td><td>2 电感（或耦合）<br>+ 隔直电容</td><td>小到中功率</td><td>略低于 Buck/Boost</td><td>慢</td><td>输入范围宽且要同极性；<b>隔直电容使输入短路不直通</b></td></tr>
+<tr><td class="hl">Ćuk</td><td>可升可降<br>极性反转</td><td>❌</td><td>2 电感 + 电容</td><td>小到中功率</td><td>中等</td><td>慢</td><td>要求输入输出<b>电流纹波都小</b>的场合</td></tr>
+<tr><td class="hl">电荷泵</td><td>整数倍升压<br>（或反相）</td><td>❌</td><td><b>无电感</b>，纯电容</td><td>µW ~ 数百 mW</td><td>受倍压比与负载影响大</td><td>快（小信号）</td><td><b>可全集成</b>：Flash 编程高压、片上偏置、LCD 偏压</td></tr>
+<tr><td class="hl">反激 Flyback</td><td>变比 N 自由升降</td><td>✅</td><td>变压器（储能式）</td><td>数 W ~ 百 W</td><td>80%+ 量级</td><td>中等偏慢</td><td>元件最少的隔离方案：适配器、辅助电源、BMS 采样供电</td></tr>
+<tr><td class="hl">LLC 谐振</td><td>变比 N + 频率调节</td><td>✅</td><td>变压器 + 谐振网络</td><td>百 W ~ kW</td><td><b>最高档</b>（软开关）</td><td>慢（谐振环路）</td><td>中大功率高效率：<b>车载 OBC</b>、服务器/储能电源</td></tr>
+</tbody></table>
+<p style="margin-top:10px;background:#f1f5f9;padding:9px 13px;border-radius:7px;color:#334155;font-size:12.5px"><b>🧭 一分钟选型口诀：</b>只降→<b>Buck</b>；只升→<b>Boost</b>；<b>输入会穿越输出</b>→四开关 Buck-Boost；要负压→反相 Buck-Boost 或 Ćuk；要宽输入且同极性→SEPIC；<b>只要小电流又想全做进芯片</b>→电荷泵；<b>要安全隔离</b>且功率不大→反激；<b>功率大又要高效率</b>→LLC。</p>
+<p style="margin-top:8px;color:#64748b;font-size:12px">⚠️ 表中功率范围与效率均为<b>常见工程量级</b>，并非硬边界——实际取决于器件、频率与散热设计。主要供应商覆盖 TI、ADI（含 Maxim）、英飞凌、ST、瑞萨（含 Intersil）、MPS 芯源，国产有矽力杰、南芯、圣邦微、杰华特等；<b>各家精确份额缺统一口径，故不列数字</b>。</p>
+</div></div>
+
+<div class="card" style="background:#fffbeb;border-left:4px solid #b45309">
+<div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>💡 降压是「把多余的电压丢掉」，升压是「用时间换电压」</div>
+<div class="dsc">
+<p>把 5.5 和本节合起来看，整个电源变换的世界其实只有<b>一句话</b>：</p>
+<div class="kv" style="margin-top:8px">
+<span style="background:#eff6ff;color:#1d4ed8"><b>降压 = 减法。</b>多余的那部分电压，要么<b>烧成热</b>（LDO，η≈Vout/Vin），要么<b>按时间比例只取一段</b>（Buck，Vout=D·Vin）。总之是「拿掉」。</span>
+<span style="background:#fff7ed;color:#9a3412"><b>升压 = 攒与顶。</b>没有谁能凭空造出更高的电压，只能<b>先花一段时间把能量攒进电感（或电容）里，再一次性顶出去</b>（Boost，Vout=Vin/(1−D)）。本质是<b>用时间换电压</b>。</span>
+</div>
+<p style="margin-top:10px">所以<b>所有 DC-DC 拓扑都是同一件事的变体</b>：把能量先存进某个储能元件，再以另一个电压释放出来。差别只在三处——<b>存在电感里还是电容里、怎么放出来、要不要在中间断开电气连接（隔离）</b>。反激不过是"把 Boost 的电感换成变压器"，LLC 不过是"再让开关动作发生在电流过零的时刻"。</p>
+<p style="margin-top:10px;background:#fef2f2;padding:9px 13px;border-radius:7px;color:#991b1b"><b>⚖️ 代价是不对称的，这一点最值得记：</b>Buck <b>天生好控</b>——你想让输出涨，加大占空比，输出立刻就涨。Boost <b>天生难控</b>——你想让输出涨，得先把能量扣在电感里，输出<b>反而先掉一下</b>（右半平面零点）。<b>这不是设计水平的差距，而是"能量搬运方向"带来的必然结果。</b>升压这条路上，你多拿到的每一伏电压，都是用<b>响应速度</b>和<b>更大的输入电流</b>换来的。</p>
+<p style="margin-top:8px;color:#78350f;font-size:13px"><b>🔑 一句话：</b>降压是丢东西，容易；升压是攒东西再顶出去，所以它<b>慢、费电流、还切不断</b>——世上没有免费的电压。</p>
+</div></div>
+
+
+</div>
+
+<h2 id="sec-analog-proc">🏭 5.7 工艺侧：BCD 与成熟节点为什么长寿</h2>
 <div class="skel"><b>🧭 本节讲法</b><span class="path">工艺瓶颈/方案（BCD）→ 概念（成熟节点为何长寿）</span><span class="legend">①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质</span></div>
 
 <div class="card">
@@ -7142,7 +7392,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 
 
 
-<h2 id="sec-analog-pattern">🌐 5.7 产业格局：模拟与电源管理的五大转折</h2>
+<h2 id="sec-analog-pattern">🌐 5.8 产业格局：模拟与电源管理的五大转折</h2>
 
 <div class="card-row-3 dense">
 
@@ -7262,7 +7512,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <span><b>做什么：</b>一个光子触发<b>自持雪崩</b>，增益 10⁵–10⁶，输出一个<b>满幅数字脉冲</b></span>
 <span class="warn"><b>关键：</b>它<b>不告诉你「多亮」</b>，只告诉你「响了，在这一刻」</span>
 <span><b>所以胜负手是：</b>时间抖动（几十皮秒量级）与暗计数率 DCR</span>
-<span class="good"><b>本质：</b>数字计时问题（详见 <a href="#sec-opto-detect">5.7</a>）</span>
+<span class="good"><b>本质：</b>数字计时问题（详见 <a href="#sec-opto-detect">第六篇 6.1</a>）</span>
 </div>
 
 <p style="margin:14px 0 6px"><b>③ 硅光 = 根本不靠硅来探光 —— 材料集成</b></p>
@@ -8539,7 +8789,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <tr><td class="hl">硅光每个器件都是妥协</td><td>不吸收通信波段→外延锗；不发光→集成 III-V；温漂→加热闭环。<b>这是硅光无法简单缩微的根源</b></td></tr>
 <tr><td class="hl">CPO 是先进封装问题</td><td>与 <a href="#sec-pkg-tsv" style="color:#166534">0.9.3</a>、<a href="#sec-hbm" style="color:#166534">0.10</a> 同源——<b>HBM 把存储搬近计算，CPO 把光搬近交换</b></td></tr>
 <tr><td class="hl">提频遇墙就转并行</td><td>与第二篇 <a href="#sec-ddr-gen" style="color:#166534">2.7 DDR</a> 完全同构：DDR 用子通道与 Bank，光用 WDM 与多纤芯</td></tr>
-<tr><td class="hl">CIS 与硅光的分野</td><td>见 <a href="#sec-cis" style="color:#166534">第五篇 6.2</a>：单向感知 vs 双向通信，硅能吸收可见光但吸收不了通信波段</td></tr>
+<tr><td class="hl">CIS 与硅光的分野</td><td>见 <a href="#sec-cis" style="color:#166534">第六篇 6.2</a>：单向感知 vs 双向通信，硅能吸收可见光但吸收不了通信波段</td></tr>
 </tbody></table>
 </div></div>
 
@@ -9358,7 +9608,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="ttl"><span class="slot-tag" style="color:#dc2626;background:#fef2f2;border-color:#dc262633" title="统一叙述框架 · 瓶颈">③ 材料瓶颈</span>PA 功率放大器：为什么主流是 GaAs HBT 而不是先进 CMOS</div>
 <div class="imp-row"><span class="imp-lbl">↳ 产品侧影响</span><span class="imp" style="color:#db2777;background:#fdf2f8;border-color:#db277733" title="能否单片集成，或必须拆成多芯片/多材料/模组"><span class="im-e">🧩</span>集成度</span><span class="imp" style="color:#b45309;background:#fefce8;border-color:#b4530933" title="料号数量、外挂元件数、整机物料成本"><span class="im-e">💰</span>BOM 成本</span><span class="imp" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="裸片尺寸变大 → 单片晶圆出片数减少 → 单颗成本上升"><span class="im-e">💠</span>Die 面积</span></div>
 <div class="dsc">
-<p>手机 PA 的主力至今是 <b>GaAs HBT（砷化镓异质结双极晶体管）</b>，而不是最先进的 CMOS。这不是设计能力问题，而是<b>材料的物理限制</b>——和 <a href="#sec-analog-proc" style="color:#7c3aed">5.6 成熟节点为何长寿</a> 是同一类逻辑：先进节点擅长的事，恰恰不是这里需要的事。</p>
+<p>手机 PA 的主力至今是 <b>GaAs HBT（砷化镓异质结双极晶体管）</b>，而不是最先进的 CMOS。这不是设计能力问题，而是<b>材料的物理限制</b>——和 <a href="#sec-analog-proc" style="color:#7c3aed">5.7 成熟节点为何长寿</a> 是同一类逻辑：先进节点擅长的事，恰恰不是这里需要的事。</p>
 <table class="node-table nopad"><thead><tr><th style="width:24%">约束</th><th>为什么先进 CMOS 吃亏</th></tr></thead>
 <tbody>
 <tr><td class="hl">输出功率上不去</td><td>先进 CMOS 电源电压极低（常 &lt;1V），而输出功率大致 ∝ V²/R——<b>电压被砍到 1V 以下，功率天然做不大</b>。PA 要几瓦级输出，需要更高的耐压</td></tr>
@@ -9543,7 +9793,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="card">
 <div class="ttl"><span class="slot-tag" style="color:#2563eb;background:#eff6ff;border-color:#2563eb33" title="统一叙述框架 · 原理">② 车载 V2X / 毫米波雷达</span>77GHz 雷达与 LiDAR 的分工</div>
 <div class="dsc">
-<p>车载侧包含 TBOX / V2X 通信，以及关键的 <b>77GHz 毫米波雷达（76–81GHz）</b>。它与<a href="#sec-opto-detect" style="color:#2563eb">第五篇 6.1 光电探测</a>里讲的 LiDAR 是<b>互补分工</b>，不是替代：</p>
+<p>车载侧包含 TBOX / V2X 通信，以及关键的 <b>77GHz 毫米波雷达（76–81GHz）</b>。它与<a href="#sec-opto-detect" style="color:#2563eb">第六篇 6.1 光电探测</a>里讲的 LiDAR 是<b>互补分工</b>，不是替代：</p>
 <table class="node-table nopad"><thead><tr><th style="width:24%">传感器</th><th style="width:34%">强项</th><th>弱项</th></tr></thead>
 <tbody>
 <tr><td class="hl">77GHz 毫米波雷达</td><td><b>穿透雨雾好、直接测速</b>（多普勒）、全天候</td><td>角分辨率较低</td></tr>
@@ -9631,7 +9881,7 @@ Token Throughput ≈ HBM Size × HBM Bandwidth
 <div class="card" style="background:#fffbeb;border-left:4px solid #b45309">
 <div class="ttl"><span class="slot-tag" style="color:#b45309;background:#fffbeb;border-color:#b4530933" title="统一叙述框架 · 本质">⑥ 本质</span>射频前端的三句话</div>
 <div class="dsc">
-<p style="font-size:15px;line-height:1.9"><b>材料决定上限</b>——PA 用 GaAs、大功率用 GaN、开关用 RF SOI，不是设计选择，是物理边界（同 <a href="#sec-analog-proc" style="color:#b45309">5.6</a> 成熟节点长寿的逻辑）。<br>
+<p style="font-size:15px;line-height:1.9"><b>材料决定上限</b>——PA 用 GaAs、大功率用 GaN、开关用 RF SOI，不是设计选择，是物理边界（同 <a href="#sec-analog-proc" style="color:#b45309">5.7</a> 成熟节点长寿的逻辑）。<br>
 <b>模组决定份额</b>——频段爆炸让"一块搞定"成为刚需，FEM/FEMiD 的打包能力决定谁拿下客户。<br>
 <b>滤波器决定谁能上牌桌</b>——BAW 是材料+工艺+专利三重壁垒叠加，也是国产最后、最难攻下的一环。</p>
 <p style="margin-top:6px;color:#78350f">一句话：<b>射频是一个"摩尔定律管不到、材料与声学器件说了算"的领域</b>——这与被动器件篇（第九篇）的结论遥相呼应。</p>
@@ -11796,7 +12046,7 @@ var BOOKS={
   '2':{n:'第二篇 · 存储芯片',c:'#f59e0b',t:'DRAM · NAND · DDR 世代'},
   '3':{n:'第三篇 · 功率半导体',c:'#059669',t:'IGBT · SiC · GaN · AI 供电'},
   '4':{n:'第四篇 · 车载 MCU',c:'#dc2626',t:'架构之争 · 功能安全 · 国产替代'},
-  '5':{n:'第五篇 · 模拟与电源管理 IC',c:'#0891b2',t:'谱系定义 · 运放 · ADC · 电源'},
+  '5':{n:'第五篇 · 模拟与电源管理 IC',c:'#0891b2',t:'谱系定义 · 运放 · ADC · 降压与升压'},
   '6':{n:'第六篇 · 光电感知',c:'#0284c7',t:'光电探测 SPAD/SiPM · 图像传感 CIS'},
   '7':{n:'第七篇 · 硅光子与光互连',c:'#8b5cf6',t:'带宽密度 · 调制器 · CPO'},
   '8':{n:'第八篇 · 射频芯片',c:'#db2777',t:'WiFi · 蓝牙 · GNSS · 5G · 毫米波'},
