@@ -1,0 +1,3534 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SGT / 超结 MOSFET 专题 · 原理与全球供应商料号分析</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0f1420; --bg2:#151b2b; --card:#1a2133; --line:#2a3category;
+  --line:#28324a; --tx:#dfe6f2; --tx2:#9aa8c2; --ac:#5b8def; --ac2:#a06cf5;
+  --warn:#f5a524; --ok:#2dd4a8; --bad:#f5576c;
+}
+body{background:var(--bg);color:var(--tx);
+ font:15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+ -webkit-font-smoothing:antialiased}
+a{color:var(--ac);text-decoration:none}
+a:hover{text-decoration:underline}
+
+header{position:sticky;top:0;z-index:50;background:rgba(15,20,32,.92);
+ backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hwrap{max-width:1500px;margin:0 auto;padding:14px 22px}
+h1.site{font-size:19px;font-weight:700;letter-spacing:.5px;display:flex;align-items:center;gap:10px}
+h1.site .dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--ac2));flex:none}
+.sub{font-size:12.5px;color:var(--tx2);margin-top:4px}
+.tabs{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.tab{background:var(--card);color:var(--tx2);border:1px solid var(--line);
+ border-radius:999px;padding:6px 16px;font-size:13.5px;cursor:pointer;transition:.18s;font-family:inherit}
+.tab:hover{color:var(--tx);border-color:#3a4766}
+.tab.active{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;border-color:transparent;font-weight:600}
+
+.layout{max-width:1500px;margin:0 auto;padding:22px;display:grid;
+ grid-template-columns:238px minmax(0,1fr);gap:26px;align-items:start}
+aside{position:sticky;top:118px;max-height:calc(100vh - 140px);overflow:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px}
+aside .lb{font-size:11px;letter-spacing:1.5px;color:var(--tx2);text-transform:uppercase;margin-bottom:9px}
+.toc-group a{display:block;font-size:13px;color:var(--tx2);padding:5px 8px;border-radius:7px;
+ border-left:2px solid transparent;line-height:1.45}
+.toc-group a:hover{background:#1f2738;color:var(--tx);text-decoration:none;border-left-color:var(--ac)}
+
+main{min-width:0}
+.panel{display:none}
+.panel.active{display:block}
+
+h1,h2,h3,h4{line-height:1.35}
+.panel>h1{font-size:25px;font-weight:700;margin:0 0 6px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.panel h2{font-size:20px;font-weight:700;margin:34px 0 14px;padding-left:12px;
+ border-left:4px solid;border-image:linear-gradient(var(--ac),var(--ac2)) 1;scroll-margin-top:130px}
+.panel h3{font-size:16.5px;font-weight:650;margin:24px 0 10px;color:#c9d6ee}
+.panel h4{font-size:14.5px;font-weight:650;margin:18px 0 8px;color:var(--tx2)}
+.panel p{margin:10px 0}
+.panel ul,.panel ol{margin:10px 0 10px 22px}
+.panel li{margin:5px 0}
+.panel hr{border:0;border-top:1px solid var(--line);margin:30px 0}
+.panel strong{color:#fff}
+.panel em{color:var(--tx2)}
+
+blockquote{background:#18203380;border-left:3px solid var(--warn);
+ border-radius:0 10px 10px 0;padding:11px 15px;margin:14px 0;color:#c7d2e6;font-size:14px}
+blockquote p{margin:5px 0}
+
+code{background:#222c42;color:#9fd0ff;padding:1.5px 6px;border-radius:5px;
+ font-size:12.5px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:#101726;border:1px solid var(--line);border-radius:11px;
+ padding:14px 16px;overflow:auto;margin:14px 0}
+pre code{background:none;color:#a8c4e6;padding:0;font-size:12.5px;line-height:1.6}
+
+.tw{overflow:auto;margin:15px 0;border:1px solid var(--line);border-radius:11px;
+ -webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:520px}
+th{background:#1e2739;color:#b9c8e4;font-weight:650;text-align:left;
+ padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0}
+td{padding:8px 12px;border-bottom:1px solid #222b3f;vertical-align:top}
+tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:#1b2334}
+
+footer{max-width:1500px;margin:0 auto;padding:24px 22px 46px;color:var(--tx2);font-size:12.5px;
+ border-top:1px solid var(--line)}
+
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr;padding:16px}
+  aside{display:none}
+  .panel>h1{font-size:21px}
+  .panel h2{font-size:17.5px}
+}
+</style></head><body>
+
+<header><div class="hwrap">
+  <h1 class="site"><span class="dot"></span>SGT / 超结 MOSFET 专题</h1>
+  <div class="sub">原理 · 低压电压区间技术特点 · 全球供应商料号分析　|　草稿 v1　更新 2026-09-29 16:14</div>
+  <div class="tabs"><button class="tab active" data-t="principles">原理与电压分区</button>
+<button class="tab" data-t="overseas">海外厂商料号</button>
+<button class="tab" data-t="china">国内厂商料号</button></div>
+</div></header>
+
+<div class="layout">
+  <aside><div class="lb">本页目录</div><div class="toc-group" data-t="principles" style="display:block"><a href="#principles-h1">0. 先说清一个前提：功率 MOSFET 的账只有两笔</a>
+<a href="#principles-h2">1. 导通电阻是由哪几段串起来的（这决定了改哪里有收益）</a>
+<a href="#principles-h3">2. 硅极限（Silicon Limit）：这是所有后续创新的起点</a>
+<a href="#principles-h4">3. SGT MOSFET（屏蔽栅沟槽）：中低压的主力解法</a>
+<a href="#principles-h5">4. 超结 MOSFET（Super Junction, SJ）：高压段的解法</a>
+<a href="#principles-h6">5. 低压功率 MOSFET 的电压分区与技术特点（核心表）</a>
+<a href="#principles-h7">6. 产业格局要点（不含精确份额）</a>
+<a href="#principles-h8">7. 待补充/待核实</a></div>
+<div class="toc-group" data-t="overseas" style="display:none"><a href="#overseas-h1">一、技术平台代际总览表</a>
+<a href="#overseas-h2">二、分厂商料号明细</a>
+<a href="#overseas-h3">三、横向对标：同电压段主流料号对比</a>
+<a href="#overseas-h4">四、数据缺口与待核实清单</a></div>
+<div class="toc-group" data-t="china" style="display:none"><a href="#china-h1">一、厂商技术平台总览表</a>
+<a href="#china-h2">二、分厂商料号明细</a>
+<a href="#china-h3">三、国产 vs 海外同电压段对比</a>
+<a href="#china-h4">四、替代成熟度三档分布与差距归因</a>
+<a href="#china-h5">五、数据缺口与待核实清单</a></div></aside>
+  <main><section class="panel active" data-t="principles"><h1 id="mosfet-trench-sgt">功率 MOSFET 结构演进：Trench / SGT / 超结 原理与电压分区</h1>
+<blockquote>
+<p>整理日期：2026-09-29 ｜ 用途：待评估是否并入《半导体概览》第三篇（功率半导体）
+编写纪律：按「六槽位」框架（①概念 ②原理 ③瓶颈 ④方案 ⑤对比 ⑥本质），术语按四层释义补充</p>
+</blockquote>
+<hr />
+<h2 id="principles-h1">0. 先说清一个前提：功率 MOSFET 的账只有两笔</h2>
+<p>功率 MOSFET 的全部技术演进，本质上都在跟两个数打架：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>物理含义</th>
+<th>对应损耗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>R_DS(on)</strong> 导通电阻</td>
+<td>导通时漏源之间的直流电阻</td>
+<td>导通损耗 <code>P = I²·R_DS(on)</code></td>
+</tr>
+<tr>
+<td><strong>Q_g / Q_gd</strong> 栅极电荷 / 米勒电荷</td>
+<td>开通关断时必须搬进搬出栅极的电荷量</td>
+<td>开关损耗 + 驱动损耗</td>
+</tr>
+</tbody>
+</table></div>
+<p>工业界用一个综合指标衡量器件水平：</p>
+<blockquote>
+<p><strong>FOM（Figure of Merit）= R_DS(on) × Q_g</strong>，单位 mΩ·nC，越小越好。
+变体：FOM_gd = R_DS(on) × Q_gd（更贴近硬开关场景）。</p>
+</blockquote>
+<p><strong>为什么这两个数天生互相拧着？</strong>
+想降 R_DS(on) → 要么把元胞做密（沟道更宽）、要么把漂移区掺杂提高。
+把元胞做密 → 栅极总面积变大 → Q_g 上升。
+把漂移区掺杂提高 → 耐压掉下来。</p>
+<p><strong>所有结构创新，都是在找一个能同时松开这两个约束的几何设计。</strong></p>
+<hr />
+<h2 id="principles-h2">1. 导通电阻是由哪几段串起来的（这决定了改哪里有收益）</h2>
+<p>R_DS(on) = R_cs（源极接触） + R_n+（源区） + <strong>R_ch（沟道）</strong> + R_a（积累层） + <strong>R_jfet（JFET 区）</strong> + <strong>R_epi（漂移区）</strong> + R_sub（衬底） + R_cd（漏极接触）</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>电压段</th>
+<th>占比主导项</th>
+<th>因此该往哪里动结构</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>低压（≤100V）</strong></td>
+<td>沟道 + 积累区 + JFET 区占大头，漂移区占比小</td>
+<td>做<strong>沟槽栅</strong>：增加单位面积沟道宽度，并且<strong>直接消灭 JFET 区</strong></td>
+</tr>
+<tr>
+<td><strong>中压（100–250V）</strong></td>
+<td>沟道与漂移区大致分权</td>
+<td>沟槽栅不够了，要<strong>同时压漂移区</strong>→ SGT（电荷耦合）</td>
+</tr>
+<tr>
+<td><strong>高压（≥500V）</strong></td>
+<td>漂移区占到绝对主导（600V 器件可 &gt;90%）</td>
+<td>栅结构怎么改都没用，必须重做<strong>漂移区耐压机制</strong> → 超结</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>💡 <strong>本质</strong>：结构创新的落点，永远跟着「电阻占比最大的那一段」走。这一条规律贯穿 Trench → SGT → 超结，也同样解释了为什么 3300V SiC 还在用平面栅（那个电压下漂移区占八成以上，改栅结构收益只有百分之几）。
+来源：elecfans.com（导通电阻分量占比图）、sekorm.com（SGT 电阻分量解析式）、sohu.com（SiC 沟槽 vs 平面分电压段归因）</p>
+</blockquote>
+<hr />
+<h2 id="principles-h3">2. 硅极限（Silicon Limit）：这是所有后续创新的起点</h2>
+<h3 id="_1">🔰 打底</h3>
+<p>同一块硅，你想让它「扛更高的电压」和「导电时更省电」，这两件事是矛盾的。矛盾的程度不是线性的，是<strong>指数级</strong>的。</p>
+<h3 id="_2">📖 是什么</h3>
+<p>传统结构（平面栅 / 普通沟槽）功率 MOSFET，其比导通电阻与击穿电压满足约：</p>
+<blockquote>
+<p><strong>R_DS(on),sp ∝ V_DSS^2.4~2.5</strong></p>
+</blockquote>
+<p>意味着：
+- V_DSS 提高到 <strong>2 倍</strong> → R_DS(on) 约 <strong>5.6 倍</strong>
+- V_DSS 提高到 <strong>10 倍</strong> → R_DS(on) 约 <strong>300 倍以上</strong></p>
+<h3 id="_3">🔬 专业</h3>
+<p>物理根源：传统器件靠<strong>纵向耗尽</strong>承压。耐压由耗尽层在漂移区里的纵向扩展决定，所以漂移区必须<strong>又厚又低掺杂</strong>。
+- 厚 → 电流路径长
+- 低掺杂 → 电阻率高</p>
+<p>两个因素同向叠加，所以是超线性恶化。
+电场分布是<strong>三角形</strong>（在 p-body/n-epi 结处峰值，向漏极侧线性衰减）。三角形的面积 = 击穿电压。
+→ <strong>三角形意味着一半的硅厚度被"浪费"了</strong>，它承担的电场远低于临界值。</p>
+<h3 id="_4">💡 本质</h3>
+<p>硅极限不是"硅的材料强度不够"，而是<strong>"三角形电场"这个几何形状本身效率太低</strong>。
+后面的 SGT 和超结，做的是<strong>同一件事的两个版本：把三角形压成矩形。</strong></p>
+<p>来源：bilibili（浮思特/Semihow 科普，VDSS^2.5 关系）、baidu 百科「超结MOSFET」、elecfans.com</p>
+<hr />
+<h2 id="principles-h4">3. SGT MOSFET（屏蔽栅沟槽）：中低压的主力解法</h2>
+<h3 id="1_1">① 概念</h3>
+<p><strong>SGT = Shielded Gate Trench MOSFET</strong>，屏蔽栅沟槽 MOSFET。
+别名："Super Trench MOSFET"（新洁能口径）、"Shielded Gate Transistor"、部分厂商叫"Split Gate"。
+定位：<strong>20V ~ 250V 中低压段的主流高端工艺</strong>，正在系统性取代普通 Trench MOSFET。</p>
+<h3 id="2">② 原理</h3>
+<p><strong>结构上只做了一件事：在沟槽里塞两层多晶硅。</strong></p>
+<pre><code>        源极 S
+    ┌──────┬──────┐
+    │ N+源 │ P-body │      ← 沟道在这一段的侧壁
+    │  ┌───┴───┐   │
+    │  │ 控制栅 │   │      ← 上层多晶硅 = Gate（接栅极）
+    │  ├───────┤   │      ← IPO 层（中间隔离氧化层）
+    │  │ 屏蔽栅 │   │      ← 下层多晶硅 = Shield（接源极！）
+    │  └───────┘   │
+    │   N- 漂移区   │      ← 被屏蔽栅横向耗尽
+    ├──────────────┤
+    │   N+ 衬底     │
+    └──────────────┘
+        漏极 D
+</code></pre>
+<p>沟槽深度是普通 Trench 的 <strong>3–5 倍</strong>。下层多晶硅接<strong>源极</strong>（不是栅极），厚氧化层隔开漂移区。</p>
+<p><strong>两个物理效应同时发生：</strong></p>
+<p><strong>效应 A · 电场屏蔽 → 砍米勒电容</strong>
+屏蔽栅插在控制栅和漏极之间，把原本的<strong>栅漏耦合面积</strong>几乎全部隔断。
+后果：<strong>C_gd（米勒电容）降低 5–10 倍</strong>（不同资料给 "10 倍以上"）。
+更准确的说法：<strong>C_gd 被转化成了 C_gs</strong>（栅漏电容变栅源电容）——因为屏蔽栅接源极，原本对漏极的耦合变成了对源极的耦合。</p>
+<p><strong>效应 B · 电荷耦合（Charge Coupling）→ 砍导通电阻</strong>
+屏蔽栅作为<strong>场板（field plate）</strong>，通过厚氧化层的电荷感应，在漂移区里引入<strong>横向耗尽</strong>（传统 Trench 只有 p-body/n-epi 的纵向耗尽）。
+深槽底部由此产生<strong>第二个电场峰值</strong>，把漂移区电场从<strong>三角形压成近似矩形/梯形</strong>。</p>
+<p>→ 同样的击穿电压下，<strong>漂移区可以用更高掺杂浓度的外延片</strong>（电阻率更低）+ <strong>更薄的 EPI 层</strong>
+→ 比导通电阻 R_sp 显著下降（业内口径：内阻比普通 Trench <strong>低 2 倍以上</strong>；同功耗下<strong>芯片面积减少 40% 以上</strong>）</p>
+<p><strong>效应 C · 内置 RC 缓冲 → EMI 改善（顺带的）</strong>
+SGT 结构中寄生的 C_D-shield 与 R_shield 形成天然缓冲，能吸收关断时 dv/dt 带来的尖峰与振荡。</p>
+<h3 id="3">③ 瓶颈（工艺侧，这是国产替代的真实战场）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>瓶颈项</th>
+<th>物理/工艺来源</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>超深沟槽均匀刻蚀</strong></td>
+<td>深宽比大，槽底 CD 难控，侧壁角度偏差直接改沟道长度</td>
+<td>📉良率成本 🛡️可靠性寿命</td>
+</tr>
+<tr>
+<td><strong>深槽无空洞填充</strong></td>
+<td>多晶硅回填若有空洞 → 局部电流瓶颈，R_DS(on) 异常抬升</td>
+<td>📉良率成本 🔢性能上限</td>
+</tr>
+<tr>
+<td><strong>IPO 中间氧化层质量</strong></td>
+<td>传统热氧化工艺厚度不足 → I_gss（栅源漏电）不良。华虹宏力路线是改用 <strong>HDP-CVD</strong> 沉积 + 湿法刻蚀优化深宽比</td>
+<td>🛡️可靠性寿命 📉良率成本</td>
+</tr>
+<tr>
+<td><strong>元胞尺寸（Pitch）</strong></td>
+<td>Pitch 越小 R_sp 越低，但深槽填充与对准难度陡增</td>
+<td>💠die面积 💰BOM成本</td>
+</tr>
+<tr>
+<td><strong>双层多晶硅精准制备</strong></td>
+<td>上下层对位与厚度控制，工序数远多于普通 Trench</td>
+<td>💰BOM成本 ⏱️供应交期</td>
+</tr>
+<tr>
+<td><strong>C_oss / Q_oss 上升</strong></td>
+<td>屏蔽栅与漂移区之间的大面积氧化层电容计入 C_ds</td>
+<td>⚡功耗（轻载/软开关场景可能反吃）</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>⚠️ <strong>SGT 的代价</strong>：工艺流程复杂度和成本<strong>远高于</strong>普通 Trench，良率管控难度大。
+这也是为什么 30V/40V 的低端量大市场普通 Trench 仍有生存空间——<strong>不是所有场景都值得为 FOM 付这个成本</strong>。</p>
+</blockquote>
+<h3 id="4">④ 方案（工艺平台的两条分支）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>元胞排布</th>
+<th>说明</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>上下结构（Split Gate 垂直分栅）</strong></td>
+<td>槽下多晶硅=屏蔽栅接源极，槽上=控制栅</td>
+<td><strong>全电压段通用</strong>，主流</td>
+</tr>
+<tr>
+<td><strong>左中右结构</strong></td>
+<td>屏蔽与控制栅横向布置</td>
+<td>仅适用于<strong>中高压 SGT</strong></td>
+</tr>
+</tbody>
+</table></div>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>IPO 形成工艺</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Thermal 工艺</strong></td>
+<td>热氧化形成中间氧化层，成本低，厚度受限</td>
+</tr>
+<tr>
+<td><strong>HDP 工艺（HDP-CVD）</strong></td>
+<td>高密度等离子体沉积，厚度可控、I_gss 好，成本高</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>厂商按应用领域 + 成本综合选择哪条平台。国内华虹宏力在 HDP-CVD 屏蔽栅工艺上是主要代工支撑。</p>
+</blockquote>
+<h3 id="5-sgt-vs-trench">⑤ 对比：SGT vs 普通 Trench</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>普通 Trench MOSFET</th>
+<th>SGT MOSFET</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>沟槽深度</td>
+<td>基准</td>
+<td><strong>3–5 倍</strong></td>
+</tr>
+<tr>
+<td>槽内多晶硅</td>
+<td>单层（栅）</td>
+<td><strong>双层（栅 + 源极屏蔽栅）</strong></td>
+</tr>
+<tr>
+<td>漂移区耗尽</td>
+<td>纵向（p-body/n-epi）</td>
+<td><strong>纵向 + 横向（场板辅助）</strong></td>
+</tr>
+<tr>
+<td>漂移区电场</td>
+<td>三角形</td>
+<td><strong>近似矩形/梯形</strong></td>
+</tr>
+<tr>
+<td>C_gd（米勒电容）</td>
+<td>基准</td>
+<td><strong>降 5–10 倍以上</strong></td>
+</tr>
+<tr>
+<td>C_gd/C_gs 比值</td>
+<td>高（同步整流易 shoot-through）</td>
+<td><strong>低</strong>，抑制直通</td>
+</tr>
+<tr>
+<td>R_sp 比导通电阻</td>
+<td>基准</td>
+<td><strong>低 2 倍以上</strong></td>
+</tr>
+<tr>
+<td>同功耗芯片面积</td>
+<td>基准</td>
+<td><strong>减少 &gt;40%</strong></td>
+</tr>
+<tr>
+<td>雪崩/浪涌耐受</td>
+<td>一般</td>
+<td><strong>更强</strong>（EAS 更好）</td>
+</tr>
+<tr>
+<td>EMI</td>
+<td>米勒电容大→振铃、驱动误开通风险</td>
+<td><strong>内置 RC 缓冲，dv/dt 尖峰吸收</strong></td>
+</tr>
+<tr>
+<td>C_oss / 轻载损耗</td>
+<td>较低</td>
+<td><strong>较高</strong>（结构代价）</td>
+</tr>
+<tr>
+<td>工艺复杂度/成本</td>
+<td>低</td>
+<td><strong>高，良率难管</strong></td>
+</tr>
+<tr>
+<td>耐压上限</td>
+<td>~200V</td>
+<td><strong>~250V</strong>（再往上不经济）</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="6">⑥ 本质</h3>
+<blockquote>
+<p><strong>SGT 是"用一块接地（源）的金属板，把电场从三角形掰成矩形"。</strong>
+它同时买到了两件东西：屏蔽掉栅漏耦合（降 Q_gd）+ 场板辅助耗尽（降 R_sp）。
+代价是把工艺难度从"挖一个槽"升级为"在一个深槽里精准叠两层多晶硅、中间还要有一层高质量氧化膜"。
+<strong>它花钱买的不是材料，是工艺控制精度。</strong></p>
+</blockquote>
+<p>来源：lonten.com（龙腾 SGT 结构说明）、elecfans.com、sekorm.com、dzsc.com、bilibili（功率MOS工艺系列）、baidu 知道（新洁能/华虹 HDP-CVD）</p>
+<hr />
+<h2 id="principles-h5">4. 超结 MOSFET（Super Junction, SJ）：高压段的解法</h2>
+<h3 id="1_2">① 概念</h3>
+<p><strong>SJ-MOSFET / 超结 MOSFET / 超级结 MOSFET</strong>，商品名如 Infineon <strong>CoolMOS</strong>、ST <strong>MDmesh / PowerMESH</strong>、onsemi <strong>SUPERFET</strong>、Toshiba <strong>DTMOS</strong>。
+定位：<strong>500V ~ 1000V+ 高压段</strong>，主流是 600V/650V。
+历史：<strong>1993 年陈星弼教授提出概念，1997 年总结为「超结」理论，1998 年英飞凌首次商业化（CoolMOS）</strong>。</p>
+<h3 id="2_1">② 原理</h3>
+<p><strong>核心思想一句话：在 N 型漂移区里周期性插入 P 型柱，让正负电荷横向对冲。</strong></p>
+<pre><code>    源极 S
+┌───┬───┬───┬───┐
+│P+ │N+ │P+ │N+ │  ← 体区/源区
+├───┴───┴───┴───┤
+│ P │ N │ P │ N │  ← 超结：P柱 / N柱 交替
+│ 柱│ 柱│ 柱│ 柱│    关断时横向互耗尽
+│   │   │   │   │    导通时 N 柱走电流
+├───────────────┤
+│    N+ 衬底     │
+└───────────────┘
+    漏极 D
+</code></pre>
+<p><strong>关断时</strong>：相邻 P 柱与 N 柱<strong>横向相互耗尽</strong>。在理想电荷平衡状态下，整个漂移区被<strong>完全耗尽</strong>，等效成一层近似本征半导体 → 耐压机制类似 <strong>PIN 二极管</strong>，电场在漂移区里<strong>近似处处相等（矩形）</strong>。</p>
+<p>→ 击穿电压 ≈ 临界电场 × 漂移区长度（线性关系！）</p>
+<p><strong>导通时</strong>：N 柱是<strong>高掺杂</strong>的（可达传统结构的约 5 倍浓度），为电子提供低阻通路。</p>
+<p><strong>关键突破</strong>：耐压不再依赖「厚 + 低掺杂」的漂移区，而依赖「柱深 + 电荷平衡精度」。
+→ R_sp 与 BV 的关系从 <strong>2.5 次方</strong> 改善到 <strong>约 1.03 ~ 1.32 次方</strong>（近似线性）
+→ 同耐压下 R_DS(on) 可降 <strong>5–10 倍</strong></p>
+<h3 id="3_1">③ 瓶颈</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>瓶颈项</th>
+<th>来源</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>电荷平衡精度</strong></td>
+<td>P/N 柱电荷量必须严格相等。偏差 → 电场不再矩形 → 耐压掉</td>
+<td>🔢性能上限 📉良率成本</td>
+</tr>
+<tr>
+<td><strong>深宽比</strong></td>
+<td>600V 需 40–50μm 深的柱，做窄间距深沟槽是工艺极限活</td>
+<td>📉良率成本 💰BOM成本</td>
+</tr>
+<tr>
+<td><strong>多次外延的界面态</strong></td>
+<td>外延次数随耐压升高而增多（40μm P柱需 5–6 次外延+注入），界面不平整、热扩散时间难控</td>
+<td>🛡️可靠性寿命 💰BOM成本</td>
+</tr>
+<tr>
+<td><strong>体二极管特性差</strong></td>
+<td>超结器件 Q_rr 大、反向恢复硬，桥式/LLC 场景要专门做 FRD 版本（如 CoolMOS CFD、ROHM PrestoMOS）</td>
+<td>⚡功耗 🛡️可靠性寿命</td>
+</tr>
+<tr>
+<td><strong>C_oss 强非线性</strong></td>
+<td>低压区 C_oss 陡降，软开关设计难度上升</td>
+<td>🔢性能上限</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="4_1">④ 方案（两条工艺路线，这是超结厂商的技术分水岭）</h3>
+<p><strong>路线一：多次外延 + 离子注入（Multi-EPI）</strong>
+- 流程：N型外延 → 硼注入 → 重复外延生长 + 热扩散 → …（40μm 需 5–6 轮）
+- 变体：单杂质注入（仅注 P 补偿）/ 双杂质注入（同时注 N 和 P，均匀性更好但多一次光刻+注入）
+- 优点：晶格质量好、缺陷与界面态少
+- 缺点：<strong>外延次数随耐压线性增加 → 成本随耐压上升</strong>；界面不平整风险</p>
+<p><strong>路线二：深沟槽刻蚀 + 填充（Deep Trench）</strong>
+- 流程：N-外延 → 深槽刻蚀 → 槽内掺杂 → CMP 平坦化
+- 槽内掺杂三种方式：
+  1. <strong>外延填充</strong>：槽内外延生长 P 型硅（主流，600V 以上首选）
+  2. <strong>斜角注入</strong>：倾斜注入分别在槽壁形成 N/P 柱，靠剂量控制电荷平衡
+  3. <strong>气相掺杂</strong>：槽壁气相掺杂形成 P 柱
+- 优点：更易实现小深宽比、超结区掺杂分布更均匀 → R_DS(on) 更低
+- 缺点：刻蚀与填充工艺门槛最高</p>
+<blockquote>
+<p>国内厂商产品线常直接按工艺路线分系列：如「SJ MOSFET（深沟槽，600V/650V）」与「SJ MOSFET（多层外延，600V~1000V）」并列销售。</p>
+</blockquote>
+<h3 id="5">⑤ 对比：三种结构的适用边界</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th></th>
+<th>平面栅 VDMOS</th>
+<th>普通 Trench</th>
+<th><strong>SGT</strong></th>
+<th><strong>超结 SJ</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主力电压段</td>
+<td>高压（成本导向）、高可靠</td>
+<td><strong>20–200V</strong> 低压</td>
+<td><strong>20–250V</strong> 中低压高端</td>
+<td><strong>500–1000V+</strong> 高压</td>
+</tr>
+<tr>
+<td>耐压机制</td>
+<td>纵向耗尽，三角形电场</td>
+<td>纵向耗尽</td>
+<td>纵向+横向（场板），近似矩形</td>
+<td><strong>横向互耗尽，矩形（PIN 式）</strong></td>
+</tr>
+<tr>
+<td>主要消灭的电阻项</td>
+<td>—</td>
+<td><strong>沟道 + JFET 区</strong></td>
+<td>沟道 + <strong>漂移区（提掺杂）</strong></td>
+<td><strong>漂移区（提掺杂 5 倍）</strong></td>
+</tr>
+<tr>
+<td>R_sp ∝ BV^n</td>
+<td>n ≈ 2.4–2.5</td>
+<td>n ≈ 2.4–2.5</td>
+<td>打破硅极限（中低压段）</td>
+<td><strong>n ≈ 1.03–1.32</strong></td>
+</tr>
+<tr>
+<td>工艺关键</td>
+<td>简单，成本低</td>
+<td>沟槽刻蚀 + 栅氧</td>
+<td><strong>双层多晶硅 + 深槽填充 + IPO</strong></td>
+<td><strong>深槽外延填充 / 多次外延 + 电荷平衡</strong></td>
+</tr>
+<tr>
+<td>典型应用</td>
+<td>高压低成本、线性场景</td>
+<td>低端量大（消费、低压负载开关）</td>
+<td>快充、同步整流、服务器/AI电源、BMS、48V、电机驱动</td>
+<td>PFC、LLC、AC-DC、光伏逆变、充电桩、OBC</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="6_1">⑥ 本质</h3>
+<blockquote>
+<p><strong>SGT 和超结是同一个思想在两个电压段的两种实现：把三角形电场压成矩形。</strong>
+- SGT 用<strong>槽内场板（一块接源的多晶硅）</strong>做横向耗尽 → 适合薄漂移区，所以只能到 ~250V
+- 超结用<strong>成对的 P/N 柱</strong>做横向耗尽 → 柱可以做到几十微米深，所以能撑 600V+</p>
+<p>区别在于：SGT 的耗尽伙伴是"电极"，超结的耗尽伙伴是"另一种掺杂的硅"。
+前者卡在<strong>氧化膜与填充质量</strong>，后者卡在<strong>电荷平衡精度与外延/刻蚀深宽比</strong>。</p>
+</blockquote>
+<p>来源：baidu 百科「超结MOSFET」、elecfans.com（超结工艺实现方式）、bilibili（浮思特/Semihow）、csdn（深沟槽流程拆解）</p>
+<hr />
+<h2 id="principles-h6">5. 低压功率 MOSFET 的电压分区与技术特点（核心表）</h2>
+<blockquote>
+<p>⚠️ 电压分界是<strong>工程经验带</strong>而非硬边界，各厂商产品线有交叠。以下按主流工艺选择归纳。</p>
+</blockquote>
+<h3 id="51">5.1 分区总表</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>电压段</th>
+<th>主流工艺</th>
+<th>电阻构成特点</th>
+<th>关键优化指标</th>
+<th>典型应用</th>
+<th>典型 R_DS(on) 量级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>12–25V</strong></td>
+<td>Trench / SGT（低压逻辑电平）</td>
+<td>沟道电阻绝对主导，漂移区几乎不贡献</td>
+<td><strong>R_DS(on) 极致（亚毫欧）</strong>、V_GS(th) 低、逻辑电平驱动（4.5V 甚至 2.5V）</td>
+<td>手机/笔电负载开关、锂电保护（1–2串）、OR-ing、点负载 POL</td>
+<td><strong>0.5–2 mΩ</strong></td>
+</tr>
+<tr>
+<td><strong>25–40V</strong></td>
+<td><strong>SGT 主战场（量最大）</strong></td>
+<td>沟道为主，漂移区开始有份</td>
+<td><strong>FOM = R×Q_g</strong>、低 Q_gd 防误开通、SOA</td>
+<td>PC 主板 VRM 多相供电、GPU 供电、12V/24V 母线同步整流、无人机电调、扫地机</td>
+<td><strong>0.3–2 mΩ</strong></td>
+</tr>
+<tr>
+<td><strong>40–60V</strong></td>
+<td>SGT</td>
+<td>沟道 ≈ 漂移区</td>
+<td>FOM、雪崩能力 EAS、体二极管 Q_rr</td>
+<td>48V 轻混/电动两轮、BLDC 电机驱动、DC-DC、快充二次侧</td>
+<td><strong>0.8–4 mΩ</strong></td>
+</tr>
+<tr>
+<td><strong>60–100V</strong></td>
+<td><strong>SGT（高端主力）</strong></td>
+<td>漂移区占比明显上升</td>
+<td><strong>FOM_gd</strong>、软恢复体二极管低 Q_rr、并联均流的 V_GS(th) 收敛度</td>
+<td>48V 通信母线、服务器/AI 电源 IBC、光伏微逆、储能、BMS</td>
+<td><strong>1–5 mΩ</strong></td>
+</tr>
+<tr>
+<td><strong>100–150V</strong></td>
+<td>SGT（工艺难度陡升）</td>
+<td>漂移区主导</td>
+<td>R_DS(on) × 面积、热阻 R_thJC、SOA</td>
+<td>数据中心电源、UPS、车载 DC/DC、工业变换器、电动两轮牵引逆变</td>
+<td><strong>1.2–10 mΩ</strong></td>
+</tr>
+<tr>
+<td><strong>150–250V</strong></td>
+<td>SGT 上限区 / 部分转平面或超结</td>
+<td>漂移区绝对主导，SGT 收益递减</td>
+<td>耐压裕量、可靠性、成本权衡</td>
+<td>工业电源、电机、部分车载</td>
+<td><strong>3–30 mΩ</strong></td>
+</tr>
+<tr>
+<td><strong>250–500V</strong></td>
+<td>平面 / 早期超结（过渡带，料号较少）</td>
+<td>—</td>
+<td>成本</td>
+<td>小功率工业</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>≥500V</strong></td>
+<td><strong>超结 SJ</strong>（600/650V 为主，至 900/1000V）</td>
+<td>漂移区 &gt;90%</td>
+<td>R_DS(on)×面积、Q_rr、C_oss 线性度</td>
+<td>PFC、LLC、AC-DC 快充、光伏逆变、充电桩、OBC</td>
+<td><strong>20 mΩ – 1.4 Ω</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="52-sgt-250v">5.2 为什么 SGT 的天花板在 ~250V</h3>
+<p>三条原因叠加：
+1. <strong>场板耗尽的作用范围有限</strong>：屏蔽栅只能辅助耗尽它"够得着"的那段漂移区。耐压要求越高，漂移区越厚，槽就得越深——深宽比很快撞到工艺墙。
+2. <strong>收益递减</strong>：电压越高，漂移区在总电阻中占比越大，而 SGT 对漂移区的改善靠"提高掺杂 + 减薄 EPI"，这个杠杆在高压段被稀释。
+3. <strong>成本交叉</strong>：到 600V 段，超结的 n≈1.1 次方定律碾压一切，SGT 再挖深也追不上。</p>
+<blockquote>
+<p>💡 这与 SiC 里"3300V 仍用平面栅"是同一条逻辑：<strong>栅侧结构创新的收益，与漂移区在总电阻中的占比成反比。</strong></p>
+</blockquote>
+<h3 id="53">5.3 选型时容易踩的坑（工程侧）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>坑</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>只比 R_DS(on) 数字</strong></td>
+<td>必须同时看<strong>测试 V_GS</strong>（10V 还是 4.5V）、<strong>结温</strong>（25℃ vs 175℃，硅基每升 10℃ 约增 3–5%，125℃ 时可比 25℃ 高 50–80%）、<strong>封装热阻 R_thJC</strong></td>
+</tr>
+<tr>
+<td><strong>忽略 FOM</strong></td>
+<td>高频场景里 Q_g/Q_gd 比 R_DS(on) 更决定总损耗。优质 SGT 的 FOM 可达传统器件的 1/3</td>
+</tr>
+<tr>
+<td><strong>同步整流忽略 C_gd/C_gs 比值</strong></td>
+<td>该比值低才能抑制 <strong>shoot-through（直通）</strong>，这是 SGT 在同步整流的核心卖点，不是 R_DS(on)</td>
+</tr>
+<tr>
+<td><strong>线性模式/热插拔用普通 SGT</strong></td>
+<td>普通沟槽/SGT 在线性区 SOA 很窄，易热击穿。热插拔、eFuse、ORing 必须用<strong>专门做宽 SOA 的 Linear FET 版本</strong></td>
+</tr>
+<tr>
+<td><strong>并联不看 V_GS(th) 分布</strong></td>
+<td>多管并联均流取决于阈值电压离散度，这是厂商工艺一致性的硬指标（Infineon OptiMOS 6 135V 宣称比 OptiMOS 5 150V 低 38% 的 V_GS(th) 离散）</td>
+</tr>
+<tr>
+<td><strong>轻载忽略 C_oss</strong></td>
+<td>C_oss 大 → 关断 dv/dt 低（利于 EMI），但<strong>轻载损耗增加</strong>。SGT 的 C_oss 天生偏高</td>
+</tr>
+<tr>
+<td><strong>超结用在桥臂不看 Q_rr</strong></td>
+<td>超结体二极管反向恢复硬，桥式/LLC 需选 FRD 集成版本</td>
+</tr>
+</tbody>
+</table></div>
+<p>来源：elecfans.com、toshiba-semicon-storage.com（电容特性）、sekorm.com、infineon.com、ofweek.com（分电压段选型指南）</p>
+<hr />
+<h2 id="principles-h7">6. 产业格局要点（不含精确份额）</h2>
+<blockquote>
+<p>⚠️ 各厂商精确份额缺统一年份与口径，故只给相对位次与结构性判断。</p>
+</blockquote>
+<ul>
+<li><strong>低压 MOSFET 是国产替代最成功的赛道之一</strong>：核心原因是它<strong>绕开了先进光刻</strong>——SGT 的难点在深槽刻蚀/填充、双层多晶硅、IPO 氧化膜质量，这些靠工艺迭代和代工协同可以追，不靠 EUV。</li>
+<li><strong>海外一线厂商的重心在往上走</strong>：Infineon、onsemi 等把主要利润放在 SiC/GaN、高压模块和车规上，低压 SGT 虽仍持续迭代（OptiMOS 6、PowerTrench T10），但这是"守"而不是"攻"。</li>
+<li><strong>国内厂商在 30–200V SGT 已进入正面竞争</strong>：新洁能、华润微、士兰微、东微、扬杰、长晶、龙腾等均有量产 SGT 产品线；代工侧华虹宏力的 HDP-CVD 屏蔽栅工艺是关键支撑。</li>
+<li><strong>剩下的硬骨头在</strong>：① 车规级的长期可靠性数据与十年供货承诺；② 极限 FOM（元胞 Pitch 做到最小）；③ 宽 SOA 线性 FET 这类"靠老工程师手感"的品类；④ 150V 以上高端段的一致性。</li>
+<li><strong>新增量市场</strong>：AI 数据中心供电（48V IBC、多相 VRM、Hot Swap/ORing）是当前低压 SGT 最强的拉动力，单机架功率密度突破 100kW 直接推高对 FOM 与 SOA 的要求。</li>
+</ul>
+<hr />
+<h2 id="principles-h8">7. 待补充/待核实</h2>
+<ul>
+<li>[ ] 各厂商具体料号与参数 → 见 <code>mos-vendors-overseas.md</code> / <code>mos-vendors-china.md</code></li>
+<li>[ ] 各电压段"典型 R_DS(on) 量级"需用实际料号表回填校准（当前为搜索资料的经验区间）</li>
+<li>[ ] SGT 的 C_oss / Q_oss 相对普通 Trench 的具体倍数，公开资料口径不一，需原厂 datasheet 实测比对</li>
+<li>[ ] SGT 首次商业化年份与首创厂商（Fairchild PowerTrench? Siliconix?）需查原始文献</li>
+<li>[ ] 超结在 SiC 上的延伸（2026-09 瑶芯微发布全球首款 SiC 超结 MOSFET，1200V/实测 1635V/175℃ 1.5mΩ·cm²）——若并入需单独核实</li>
+</ul></section>
+<section class="panel" data-t="overseas"><h1 id="mosfet">海外低压/中压功率 MOSFET 厂商料号分析</h1>
+<blockquote>
+<p>调研时间：2026-09-29　·　范围：海外主流功率 MOSFET 厂商的低压/中压（≤200V 为主）技术平台与真实料号。
+纪律说明：本文所有料号均来自实际检索到的原厂产品页 / 数据手册 / 分销与媒体页面，来源域名已在每条后标注。无法核实的参数一律写 <code>n/a</code>，未做估算。超结（SJ）高压平台仅作背景一行罗列，非重点。</p>
+</blockquote>
+<hr />
+<h2 id="overseas-h1">一、技术平台代际总览表</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>低压/中压平台名（代际）</th>
+<th>结构类型</th>
+<th>电压覆盖</th>
+<th>首发/上市年份</th>
+<th>差异化卖点</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Infineon（英飞凌）</td>
+<td>OptiMOS 3 / 5 / 6 / 7 / 8；StrongIRFET / StrongIRFET 2；OptiMOS Linear FET / Linear FET 2；OptiMOS Source-Down</td>
+<td>主流 Trench + <strong>SGT（OptiMOS 5/6/7/8 为屏蔽栅沟槽）</strong></td>
+<td>25V/30V/40V/60V/80V/100V/120V/135V/150V/200V/250V/300V</td>
+<td>OptiMOS 6 40V 约 2023；OptiMOS 8 100V 2024 发布</td>
+<td>极低 RDS(on)×Qg FOM；OptiMOS 6/7 超高开关频率；Linear FET 2 兼顾宽 SOA 与低 RDS(on)；Source-Down 封装；薄晶圆工艺；并联友好</td>
+<td>infineon.com / digikey.cn / mouser.com</td>
+</tr>
+<tr>
+<td>onsemi（安森美）</td>
+<td>PowerTrench T1 / T6 / T8 / T10（含 T10 GEN2）；Dual Cool；Source-Down T10</td>
+<td><strong>SGT（屏蔽栅沟槽 Shielded Gate）</strong></td>
+<td>25V/30V/40V/60V/80V/100V</td>
+<td>T10 为近年主力平台</td>
+<td>低 Qrr、低 Qg、低寄生电容；改善振铃/过冲/EMI；Dual Cool 双面散热；Source-Down 封装（WDFN9）；车规</td>
+<td>onsemi.com / onsemi.cn / ldteq.com</td>
+</tr>
+<tr>
+<td>Nexperia（安世）</td>
+<td>NextPower / NextPower 80-100V；NextPower S3；NextPower Live；Trench 9 / Trench 11</td>
+<td>Trench；NextPower 80/100V 与 S3 为先进沟槽（低 Qrr 优化）</td>
+<td>25V–150V（重点 40/80/100V）</td>
+<td>NextPower 80/100V 8" 线 2021 启动；S3(Trench 11) 2023</td>
+<td>业界极低 Qrr 品质因数(RDS×Qrr)；LFPAK 铜夹封装（56/33/88）；交互式数据手册；软恢复体二极管</td>
+<td>nexperia（elecfans/eetrend/eefocus 转载）/ wpgdadawant.com</td>
+</tr>
+<tr>
+<td>Toshiba（东芝）</td>
+<td>U-MOS IV / VIII / IX / X（含 U-MOS X-H）；DTMOS（超结，高压）</td>
+<td>Trench；较新代际趋向 SGT 结构</td>
+<td>30V/40V/60V/80V/100V(+高压)</td>
+<td>各代逐步推出</td>
+<td>极低 RDS(on)、高散热效率封装（DSOP/SOP Advance、TOLL 类 L-TOGL/S-TOGL）；车规</td>
+<td>toshiba-semicon-storage.com / hqew.com</td>
+</tr>
+<tr>
+<td>STMicroelectronics（ST）</td>
+<td>STripFET F7 / F8（DeepGATE）；STPOWER 系列；MDmesh（超结，高压）</td>
+<td>Trench（F8 为氧化物填充沟槽 oxide-filled trench，趋近 SGT）</td>
+<td>40V–120V（F7）；100V（F8 首发工业级）</td>
+<td>F7 较早；F8 100V 工业级 2023 前后</td>
+<td>市场最低 RDS(on)×Qg；优化 Crss/Ciss 抗 EMI；高雪崩耐量；F8 软体二极管、VGS(th) 收敛好利于并联；800A/10µs 短路耐受</td>
+<td>st.com / news.icgoo.net / elecfans.com</td>
+</tr>
+<tr>
+<td>Vishay / Siliconix</td>
+<td>TrenchFET Gen III / Gen IV / Gen V；Gen IV 车规</td>
+<td><strong>Trench（部分中压为屏蔽栅结构）</strong></td>
+<td>20V/25V/30V/40V/60V/80V/100V(+至 200V/-200~800V 系列)</td>
+<td>Gen IV 多年主力</td>
+<td>极低 RDS×Qg 与 RDS×Qoss FOM；Qgd/Qgs&lt;1 优化开关；100% Rg/UIS 测试；PowerPAK SO-8 / 1212-8 / SO-8L；车规 AEC-Q101</td>
+<td>vishay.com / szlcsc.com / sekorm.com</td>
+</tr>
+<tr>
+<td>AOS（Alpha &amp; Omega）</td>
+<td>AlphaSGT；AlphaMOS；XSPod / 双面散热封装</td>
+<td><strong>SGT（AlphaSGT = Shielded Gate Trench）</strong></td>
+<td>40V–400V（中压）；含 60V/80V/100V 等</td>
+<td>持续迭代</td>
+<td>优异 QG×RDS(on) FOM；宽 SOA（48V AI 服务器热插拔）；创新双面散热 DFN5x6 顶部开窗；175°C 结温；同步整流适配</td>
+<td>aosmd.com / dldz360.com / elecfans.com</td>
+</tr>
+<tr>
+<td>Renesas</td>
+<td>低压 Trench MOSFET（RJK 系列等）</td>
+<td>Trench</td>
+<td>30V 等（低压为主）</td>
+<td>n/a</td>
+<td>低 RDS(on)、QFN8/小封装、同步整流/开关</td>
+<td>chip100.com</td>
+</tr>
+<tr>
+<td>ROHM</td>
+<td>RS6 / RH6（第 6 代）N 沟道功率 MOSFET；Wide-SOA 系列</td>
+<td>Trench（6th Gen）</td>
+<td>20V/30V/40V/45V/60V/80V/100V/150V</td>
+<td>RS6/RH6 系列 2023-05 发布</td>
+<td>低 RDS(on)、小型 HSOP8/HSMT8、Wide-SOA（宽安全工作区）产品、6 代热性能优</td>
+<td>rohm.com / fscdn.rohm.com / 百度贴吧转载</td>
+</tr>
+<tr>
+<td>Texas Instruments</td>
+<td>NexFET（含普及型 NexFET）</td>
+<td>Trench</td>
+<td>25V/30V/40V/60V/80V/100V</td>
+<td>普及型 NexFET 系列</td>
+<td>超低 Qg/Qgd；低热阻；雪崩额定；TO-220 / SON 5x6 / SON 2x2 多封装</td>
+<td>ti.com / eepw.com.cn / elecfans.com</td>
+</tr>
+<tr>
+<td>Diodes Inc.</td>
+<td>DMTH / DMT 系列（含车规 PowerDI 8080-5、PowerDI 3333-8）</td>
+<td>Trench</td>
+<td>40V/60V/80V/100V</td>
+<td>PowerDI8080-5 100V 车规 2026-03</td>
+<td>行业领先超低 RDS(on)（40V 0.4mΩ）；车规 AEC；8x8 鸥翼引线；BLDC/OBC/48V 系统</td>
+<td>diodes（eepw/elecfans/eastmoney 转载）</td>
+</tr>
+<tr>
+<td>Magnachip</td>
+<td>低/中压 MOSFET（含 Super Junction 高压）</td>
+<td>Trench + Super Junction</td>
+<td>低压~高压</td>
+<td>n/a</td>
+<td>车规与工业电源；具体低压料号本轮未核实到</td>
+<td>（待核实）</td>
+</tr>
+<tr>
+<td>Littelfuse / IXYS</td>
+<td>Trench Power MOSFET；Polar / Ultra Junction / Linear L2（多为高压/大功率）</td>
+<td>Trench + 高压</td>
+<td>以中高压/大电流为主，低压覆盖较窄</td>
+<td>n/a</td>
+<td>强项在高压大功率与线性 FET（L2）；低压主流段非其重心</td>
+<td>sekorm.com / ickey.cn</td>
+</tr>
+<tr>
+<td>Fuji Electric</td>
+<td>Super J MOS S2 / S2FD（超结）；Trench Power MOSFET Series；Automotive Trench</td>
+<td>Trench（低压）+ Super Junction（高压）</td>
+<td>≤80V Trench 段 + 高压 SJ</td>
+<td>n/a</td>
+<td>车规 Trench + 超结全覆盖；低压段产品线较窄</td>
+<td>india.fujielectric.com</td>
+</tr>
+<tr>
+<td>Sanken</td>
+<td>低压 MOSFET（本轮未核实到具体低压料号）</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>以电源 IC / 中高压器件见长</td>
+<td>（待核实）</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="super-junction">超结（Super Junction）高压平台（背景，非重点）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>平台</th>
+<th>电压</th>
+<th>备注</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Infineon</td>
+<td>CoolMOS C7 / P7 / CFD7 / S7 / G7 / PFD7；CoolMOS 8</td>
+<td>600V / 650V</td>
+<td>CoolMOS 8（2024）集成快体二极管，Qg 较 CFD7 降 18%</td>
+<td>infineon.com / elecfans.com</td>
+</tr>
+<tr>
+<td>ST</td>
+<td>MDmesh M6 / DM6（及 M5 如 STW88N65M5）</td>
+<td>500–650V+</td>
+<td>家储/PFC/逆变主流</td>
+<td>百度知道转载 / st.com</td>
+</tr>
+<tr>
+<td>onsemi</td>
+<td>SUPERFET III / SUPERFET III FAST（如 NTP125N65S3H）</td>
+<td>650V</td>
+<td>FAST 版低 Qrr 适配谐振</td>
+<td>elecfans.com</td>
+</tr>
+<tr>
+<td>Toshiba</td>
+<td>DTMOS VI（π-MOS 系列）</td>
+<td>600V+</td>
+<td>深沟槽填充工艺</td>
+<td>百度百科（技术背景）</td>
+</tr>
+<tr>
+<td>Fuji Electric</td>
+<td>Super J MOS S2 / S2FD</td>
+<td>500–650V+</td>
+<td>S2FD 内置 FRD</td>
+<td>india.fujielectric.com</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="overseas-h2">二、分厂商料号明细</h2>
+<h3 id="infineon-optimos-568-strongirfet-2-linear-fet">Infineon（英飞凌）— OptiMOS 5/6/8, StrongIRFET 2, Linear FET</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>平台</th>
+<th>VDS</th>
+<th>RDS(on) 典型/最大 (VGS)</th>
+<th>ID</th>
+<th>Qg / FOM</th>
+<th>封装</th>
+<th>应用</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ISK024NE2LM5</td>
+<td>OptiMOS 5</td>
+<td>25V</td>
+<td>2.4 mΩ</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>PQFN 2x2</td>
+<td>高性能小型化 SMPS</td>
+<td>baijiahao/infineon 转载</td>
+</tr>
+<tr>
+<td>ISK036N03LM5</td>
+<td>OptiMOS 5</td>
+<td>30V</td>
+<td>3.6 mΩ</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>PQFN 2x2</td>
+<td>SMPS</td>
+<td>baijiahao/infineon 转载</td>
+</tr>
+<tr>
+<td>IQE006NE2LM5</td>
+<td>OptiMOS 5 Source-Down</td>
+<td>25V</td>
+<td>~较标准低约30% (n/a mΩ)</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>PQFN 3.3x3.3（源极底置）</td>
+<td>服务器/电信同步整流</td>
+<td>icpdf.com</td>
+</tr>
+<tr>
+<td>ISK057N04LM6</td>
+<td>OptiMOS 6</td>
+<td>40V</td>
+<td>5.7 mΩ</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>PQFN 2x2</td>
+<td>高性能设计（如 ESC）</td>
+<td>baijiahao/infineon 转载</td>
+</tr>
+<tr>
+<td>BSC010N04LS6</td>
+<td>OptiMOS 6</td>
+<td>40V</td>
+<td>10 mΩ 级（型号编码 010=1.0mΩ 量级，需核实）</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>SuperSO8 类</td>
+<td>SMPS 同步整流</td>
+<td>infineon.com</td>
+</tr>
+<tr>
+<td>IPT010N08NM5</td>
+<td>OptiMOS 5</td>
+<td>80V</td>
+<td>1.0 mΩ 量级（编码 010，最低 RDS(on)@25/175°C）</td>
+<td>425A（封装能力）</td>
+<td>n/a</td>
+<td>TOLL（TO-Leadless）</td>
+<td>叉车/LEV/低压驱动/BMS</td>
+<td>ic37.com / icpdf.com</td>
+</tr>
+<tr>
+<td>IPT010N08NM5（同上）</td>
+<td>OptiMOS 5</td>
+<td>80V</td>
+<td>见上</td>
+<td>见上</td>
+<td>见上</td>
+<td>TOLL</td>
+<td>电信/服务器同步整流</td>
+<td>ic37.com</td>
+</tr>
+<tr>
+<td>IPT017N10NM5LF2</td>
+<td>OptiMOS 5 Linear FET 2</td>
+<td>100V</td>
+<td>1.7 mΩ 量级（编码 017）</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>TOLL</td>
+<td>热插拔/宽 SOA、电池保护</td>
+<td>mouser.com / elecfans.com</td>
+</tr>
+<tr>
+<td>IPT015N10NF2S</td>
+<td>StrongIRFET 2</td>
+<td>100V</td>
+<td>1.5 mΩ 量级（编码 015）</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>TOLL</td>
+<td>BMS/保护、大电流路径</td>
+<td>mouser.com</td>
+</tr>
+<tr>
+<td>IPT009N10NM8</td>
+<td>OptiMOS 8</td>
+<td>100V</td>
+<td>0.9 mΩ 量级（编码 009）</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>TOLL</td>
+<td>电机控制/电池保护</td>
+<td>mouser.com / elecfans.com</td>
+</tr>
+<tr>
+<td>OptiMOS Linear FET（60/80/100/150/200V 系列）</td>
+<td>Linear FET / LF2</td>
+<td>60–200V</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>D²PAK / D²PAK-7 / TOLL / SuperSO8 / PQFN3.3x3.3</td>
+<td>电信热插拔、PoE 软启动</td>
+<td>infineon.com</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>说明：Infineon 料号编码中数字段（如 010/017/009）通常表示 RDS(on) 量级（mΩ×10 或类似），上表已注明"编码"来源；未在数据手册逐一核实的具体典型值写量级并标注需核实。</p>
+</blockquote>
+<h3 id="onsemi-powertrench-t10-sgt">onsemi（安森美）— PowerTrench T10 (SGT)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>平台</th>
+<th>VDS</th>
+<th>RDS(on) 典型 (VGS)</th>
+<th>ID</th>
+<th>Qg 典型</th>
+<th>封装</th>
+<th>应用</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NTTFSSH0D7N02X</td>
+<td>PowerTrench T10（Source Down）</td>
+<td>25V</td>
+<td>0.72 mΩ</td>
+<td>276A</td>
+<td>n/a</td>
+<td>WDFN9（源极底置）</td>
+<td>高密度电源</td>
+<td>onsemi.com</td>
+</tr>
+<tr>
+<td>NVMFWS0D45N04XM</td>
+<td>PowerTrench T10M</td>
+<td>40V</td>
+<td>0.45 mΩ</td>
+<td>469A</td>
+<td>n/a</td>
+<td>Power 33 (u8FL) 类</td>
+<td>大电流 DC-DC</td>
+<td>onsemi.com</td>
+</tr>
+<tr>
+<td>NVMFWS0D5N04XM</td>
+<td>PowerTrench T10</td>
+<td>40V</td>
+<td>0.52 mΩ</td>
+<td>414A</td>
+<td>n/a</td>
+<td>u8FL 类</td>
+<td>大电流</td>
+<td>onsemi.com</td>
+</tr>
+<tr>
+<td>NTMFSCH0D4N04XM</td>
+<td>PowerTrench T10 GEN2</td>
+<td>40V</td>
+<td>0.40 mΩ</td>
+<td>529A</td>
+<td>n/a</td>
+<td>DFN8 5x6 Dual Cool</td>
+<td>大电流同步整流</td>
+<td>onsemi.com</td>
+</tr>
+<tr>
+<td>NTMFS4D7N04XM</td>
+<td>PowerTrench T10</td>
+<td>40V</td>
+<td>4.7 mΩ</td>
+<td>66A</td>
+<td>10.4 nC</td>
+<td>Power 56 (SO-8FL)</td>
+<td>电源</td>
+<td>onsemi.cn</td>
+</tr>
+<tr>
+<td>NTMFS1D7N04XM</td>
+<td>PowerTrench T10</td>
+<td>40V</td>
+<td>1.8 mΩ</td>
+<td>151A</td>
+<td>28.7 nC</td>
+<td>SO-8FL / DFN-5</td>
+<td>低中压电源</td>
+<td>onsemi.com</td>
+</tr>
+<tr>
+<td>NTMFSC2D6N08X</td>
+<td>PowerTrench T10</td>
+<td>80V</td>
+<td>2.6 mΩ</td>
+<td>154A</td>
+<td>n/a</td>
+<td>DUAL COOL DFN8 5x6</td>
+<td>48V 母线/服务器</td>
+<td>onsemi.com</td>
+</tr>
+<tr>
+<td>NTMFS3D0N08X</td>
+<td>PowerTrench T10</td>
+<td>80V</td>
+<td>2.6 mΩ</td>
+<td>154A</td>
+<td>n/a</td>
+<td>SO8FL-HEFET</td>
+<td>48V 电源</td>
+<td>onsemi.com</td>
+</tr>
+<tr>
+<td>NTMFS3D5N08X</td>
+<td>PowerTrench T10</td>
+<td>80V</td>
+<td>3.0–3.5 mΩ</td>
+<td>119–135A</td>
+<td>33 nC</td>
+<td>SO8FL-HEFET</td>
+<td>48V 通信/服务器</td>
+<td>onsemi.com</td>
+</tr>
+<tr>
+<td>NTMFS6D2N08X</td>
+<td>PowerTrench T10</td>
+<td>80V</td>
+<td>6.2 mΩ</td>
+<td>73A</td>
+<td>n/a</td>
+<td>SO8FL</td>
+<td>通用 80V</td>
+<td>onsemi.com</td>
+</tr>
+<tr>
+<td>NVMFS016N10MCL</td>
+<td>PowerTrench T10</td>
+<td>100V</td>
+<td>1.6 mΩ 量级（编码 016）</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>5x6 类</td>
+<td>AI 数据中心/48V</td>
+<td>elecfans.com</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="nexperia-nextpower-nextpower-s3-trench-911">Nexperia（安世）— NextPower / NextPower S3 (Trench 9/11)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>平台</th>
+<th>VDS</th>
+<th>RDS(on)</th>
+<th>ID</th>
+<th>Qrr/FOM</th>
+<th>封装</th>
+<th>应用</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PSMN3R5-80YSF</td>
+<td>NextPower 80/100V</td>
+<td>80V</td>
+<td>3.5 mΩ（编码 3R5）</td>
+<td>n/a</td>
+<td>业界极低 RDS×Qrr FOM</td>
+<td>LFPAK56</td>
+<td>AC/DC、DC/DC、电机控制</td>
+<td>dramx.com / sohu.com</td>
+</tr>
+<tr>
+<td>PSMN3R9-100YSF</td>
+<td>NextPower 80/100V</td>
+<td>100V</td>
+<td>3.9 mΩ（编码 3R9，前代 7mΩ→新 4.3mΩ）</td>
+<td>n/a</td>
+<td>Qrr 44nC，比竞品平均低约61%</td>
+<td>LFPAK56E</td>
+<td>开关电源/替代料</td>
+<td>dramx.com / sohu.com</td>
+</tr>
+<tr>
+<td>NextPower 80/100V 新系列（多料号）</td>
+<td>NextPower F</td>
+<td>80V/100V</td>
+<td>1.8–15 mΩ（组合范围）</td>
+<td>n/a</td>
+<td>低 Qrr</td>
+<td>LFPAK56 / LFPAK88 / 8x8</td>
+<td>服务器/电源/快充/USB-PD/电信</td>
+<td>eetrend.com / eefocus.com</td>
+</tr>
+<tr>
+<td>（规划）LFPAK88 80V</td>
+<td>NextPower</td>
+<td>80V</td>
+<td>低至 1.2 mΩ</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>LFPAK88</td>
+<td>高功率密度</td>
+<td>eetrend.com</td>
+</tr>
+<tr>
+<td>40V LFPAK33 低 RDS(on) 系列</td>
+<td>NextPower</td>
+<td>40V</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>LFPAK33</td>
+<td>30–300W 水/油/燃油泵动力总成</td>
+<td>elecfans.com</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>料号命名（来自 Nexperia LFPAK 家族 PDF, wpgdadawant.com）：技术族标识 F=NextPower 80/100V，H=NextPowerS3(最低 RDSon)，E=NextPower Live(热插拔)，K=软恢复快开关；封装 Y=LFPAK56 / M=LFPAK33 / S=LFPAK88；RDS(on) 编码如 R51=0.51mΩ、4R0=4mΩ。</p>
+</blockquote>
+<h3 id="toshiba-u-mos">Toshiba（东芝）— U-MOS 系列</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>平台</th>
+<th>VDS</th>
+<th>RDS(on) 最大 (VGS=10V)</th>
+<th>ID 最大</th>
+<th>封装</th>
+<th>应用</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TPWR6003PL</td>
+<td>U-MOS（30V 系列）</td>
+<td>30V</td>
+<td>0.6 mΩ</td>
+<td>412A</td>
+<td>DSOP Advance</td>
+<td>无绳电动工具/LED 照明</td>
+<td>toshiba-semicon-storage.com</td>
+</tr>
+<tr>
+<td>XPN3R804NC</td>
+<td>U-MOS（40V）</td>
+<td>40V</td>
+<td>n/a</td>
+<td>40A</td>
+<td>TSON Advance(WF)</td>
+<td>车载 HVAC</td>
+<td>toshiba-semicon-storage.com</td>
+</tr>
+<tr>
+<td>TK1R4S04PB</td>
+<td>U-MOS（40V）</td>
+<td>40V</td>
+<td>1.4 mΩ 量级（编码 1R4）</td>
+<td>120A</td>
+<td>DPAK+</td>
+<td>车载</td>
+<td>toshiba-semicon-storage.com</td>
+</tr>
+<tr>
+<td>XPQR3004PB</td>
+<td>U-MOS（40V）</td>
+<td>40V</td>
+<td>0.30 mΩ 量级（编码 R30）</td>
+<td>200A</td>
+<td>S-TOGL</td>
+<td>车载大电流</td>
+<td>toshiba-semicon-storage.com</td>
+</tr>
+<tr>
+<td>TPWR8004PL</td>
+<td>U-MOS（40V）</td>
+<td>40V</td>
+<td>0.8 mΩ</td>
+<td>340A</td>
+<td>DSOP Advance</td>
+<td>电动工具</td>
+<td>toshiba-semicon-storage.com</td>
+</tr>
+<tr>
+<td>TPHR7404PU</td>
+<td>U-MOS（40V）</td>
+<td>40V</td>
+<td>0.74 mΩ</td>
+<td>400A</td>
+<td>SOP Advance</td>
+<td>电动工具/LED</td>
+<td>toshiba-semicon-storage.com</td>
+</tr>
+<tr>
+<td>TPH2R408QM</td>
+<td>U-MOS（80V 系列）</td>
+<td>80V</td>
+<td>2.4 mΩ 量级（编码 2R4）</td>
+<td>n/a</td>
+<td>SOP Advance</td>
+<td>通用 80V</td>
+<td>toshiba-semicon-storage.com</td>
+</tr>
+<tr>
+<td>TPN8R408QM</td>
+<td>U-MOS（80V）</td>
+<td>80V</td>
+<td>8.4 mΩ 量级（编码 8R4）</td>
+<td>n/a</td>
+<td>TSON Advance</td>
+<td>通用 80V</td>
+<td>toshiba-semicon-storage.com</td>
+</tr>
+<tr>
+<td>XPW4R10ANB</td>
+<td>U-MOS（100V）</td>
+<td>100V</td>
+<td>4.10 mΩ 量级（编码 4R10）</td>
+<td>70A</td>
+<td>DSOP Advance(WF)L</td>
+<td>汽车 LED 前照灯/DC-DC</td>
+<td>toshiba-semicon-storage.com</td>
+</tr>
+<tr>
+<td>XPQ1R00AQB</td>
+<td>U-MOS（100V）</td>
+<td>100V</td>
+<td>1.00 mΩ 量级（编码 1R00）</td>
+<td>300A</td>
+<td>L-TOGL</td>
+<td>大电流 100V</td>
+<td>toshiba-semicon-storage.com</td>
+</tr>
+<tr>
+<td>TK40A10K3</td>
+<td>U-MOS IV</td>
+<td>100V</td>
+<td>11.5 mΩ（典型）</td>
+<td>40A</td>
+<td>TO-220 类</td>
+<td>SMPS 次级同步整流</td>
+<td>hqew.com</td>
+</tr>
+<tr>
+<td>TK80A08K3</td>
+<td>U-MOS IV</td>
+<td>75V</td>
+<td>3.6 mΩ（典型）</td>
+<td>80A</td>
+<td>TO-220SIS</td>
+<td>SMPS</td>
+<td>hqew.com</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="stmicroelectronicsst-stripfet-f7-f8">STMicroelectronics（ST）— STripFET F7 / F8</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>平台</th>
+<th>VDS</th>
+<th>RDS(on)</th>
+<th>ID</th>
+<th>封装</th>
+<th>应用</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STP220N6F7</td>
+<td>STripFET F7</td>
+<td>60V</td>
+<td>2.1 mΩ</td>
+<td>120A</td>
+<td>TO-220</td>
+<td>叉车/电机</td>
+<td>st.com (flyer)</td>
+</tr>
+<tr>
+<td>STL220N6F7</td>
+<td>STripFET F7</td>
+<td>60V</td>
+<td>~2.1 mΩ</td>
+<td>120A</td>
+<td>PowerFLAT 5x6</td>
+<td>大电流/高密度</td>
+<td>st.com</td>
+</tr>
+<tr>
+<td>STL140N6F7</td>
+<td>STripFET F7</td>
+<td>60V</td>
+<td>2.8 mΩ</td>
+<td>96A</td>
+<td>PowerFLAT 5x6</td>
+<td>电源</td>
+<td>st.com</td>
+</tr>
+<tr>
+<td>STL130N6F7</td>
+<td>STripFET F7</td>
+<td>60V</td>
+<td>3.5 mΩ</td>
+<td>96A</td>
+<td>PowerFLAT 5x6</td>
+<td>电源</td>
+<td>st.com</td>
+</tr>
+<tr>
+<td>STL60N10F7</td>
+<td>STripFET F7 DeepGATE</td>
+<td>100V</td>
+<td>14.5 mΩ 典型 / 18 mΩ 最大</td>
+<td>12A</td>
+<td>PowerFLAT 5x6</td>
+<td>开关应用</td>
+<td>st.com (datasheet)</td>
+</tr>
+<tr>
+<td>STL120N10F8</td>
+<td>STripFET F8</td>
+<td>100V</td>
+<td>4.6 mΩ 最大 (VGS=10V)</td>
+<td>n/a</td>
+<td>PowerFLAT 5x6</td>
+<td>电机/电信/计算电源、LED</td>
+<td>news.icgoo.net / stmcu.com.cn</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="vishay-siliconix-trenchfet-gen-iv">Vishay / Siliconix — TrenchFET Gen IV</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>平台</th>
+<th>VDS</th>
+<th>RDS(on) 最大 (VGS)</th>
+<th>ID</th>
+<th>Qg 典型</th>
+<th>封装</th>
+<th>应用</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SQJ138EP-T1_GE3</td>
+<td>TrenchFET Gen IV（AEC-Q101）</td>
+<td>40V</td>
+<td>1.8 mΩ @10V</td>
+<td>330A</td>
+<td>n/a（Coss 1.56nF）</td>
+<td>PowerPAK SO-8L</td>
+<td>车规大电流</td>
+<td>szlcsc.com</td>
+</tr>
+<tr>
+<td>SIR120DP-T1-RE3</td>
+<td>TrenchFET Gen IV</td>
+<td>80V</td>
+<td>n/a（低 FOM）</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>PowerPAK SO-8</td>
+<td>同步整流/初级开关</td>
+<td>elecfans.com (datasheet)</td>
+</tr>
+<tr>
+<td>SIR680DP-T1-RE3</td>
+<td>TrenchFET Gen IV</td>
+<td>80V</td>
+<td>2.9 mΩ @10V</td>
+<td>100A</td>
+<td>53.5 nC @7.5V</td>
+<td>PowerPAK SO-8</td>
+<td>同步整流/DC-DC/负载开关</td>
+<td>szlcsc.com</td>
+</tr>
+<tr>
+<td>SI7460DP-T1-E3</td>
+<td>TrenchFET（快开关）</td>
+<td>60V</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>PowerPAK SO-8</td>
+<td>快速开关</td>
+<td>sekorm.com</td>
+</tr>
+<tr>
+<td>SI7850DP-T1-E3</td>
+<td>TrenchFET</td>
+<td>60V</td>
+<td>18 mΩ @n/a（ID 6.2A）</td>
+<td>6.2A</td>
+<td>n/a</td>
+<td>PowerPAK SO-8</td>
+<td>PWM 快开关</td>
+<td>amphenol-connect.com</td>
+</tr>
+<tr>
+<td>SI7852DP-T1-GE3</td>
+<td>TrenchFET</td>
+<td>80V</td>
+<td>16.5 mΩ @10V</td>
+<td>7.6A</td>
+<td>n/a</td>
+<td>PowerPAK SO-8</td>
+<td>通用 80V</td>
+<td>szlcsc.com</td>
+</tr>
+<tr>
+<td>SI7810DN-T1-E3</td>
+<td>TrenchFET</td>
+<td>100V</td>
+<td>52 mΩ @n/a</td>
+<td>3.4A</td>
+<td>n/a</td>
+<td>PowerPAK 1212-8</td>
+<td>通用 100V</td>
+<td>amphenol-connect.com</td>
+</tr>
+<tr>
+<td>SIRA90DP-T1-GE3</td>
+<td>TrenchFET Gen IV</td>
+<td>30V</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>PowerPAK SO-8</td>
+<td>负载开关/DC-DC</td>
+<td>elecfans.com (datasheet)</td>
+</tr>
+<tr>
+<td>SI7658ADP-T1-GE3</td>
+<td>TrenchFET</td>
+<td>30V</td>
+<td>2.8 mΩ @4.5V</td>
+<td>60A</td>
+<td>n/a</td>
+<td>SO-8</td>
+<td>低压大电流</td>
+<td>szlcsc.com</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="aosalpha-omega-alphasgt">AOS（Alpha &amp; Omega）— AlphaSGT</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>平台</th>
+<th>VDS</th>
+<th>RDS(on) 最大 (VGS)</th>
+<th>ID</th>
+<th>封装</th>
+<th>应用</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AONS62618</td>
+<td>60V AlphaSGT</td>
+<td>60V</td>
+<td>&lt;4.7 mΩ @10V / &lt;6.3 mΩ @4.5V</td>
+<td>44A</td>
+<td>DFN5x6-8L</td>
+<td>AC-DC 快充同步整流</td>
+<td>gys.cn</td>
+</tr>
+<tr>
+<td>AOSP66920</td>
+<td>100V AlphaSGT</td>
+<td>100V</td>
+<td>&lt;8.5 mΩ @10V / &lt;11 mΩ @4.5V</td>
+<td>13.5A</td>
+<td>SO-8</td>
+<td>高频开关/同步整流</td>
+<td>elecfans.com (datasheet)</td>
+</tr>
+<tr>
+<td>AONA66916</td>
+<td>100V AlphaSGT</td>
+<td>100V</td>
+<td>3.4 mΩ 最大</td>
+<td>n/a（Tj 175°C）</td>
+<td>双面散热 DFN5x6（顶部开窗）</td>
+<td>电信/工业硬开关</td>
+<td>dldz360.com / elecfans.com</td>
+</tr>
+<tr>
+<td>AOTL66935</td>
+<td>100V AlphaSGT（宽 SOA）</td>
+<td>100V</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>TOLL 类</td>
+<td>48V AI 服务器热插拔</td>
+<td>aosmd.com</td>
+</tr>
+<tr>
+<td>AOD2810</td>
+<td>AlphaMOS</td>
+<td>80V</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>TO-252 (DPAK)</td>
+<td>通用 80V</td>
+<td>eeworld.com.cn</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="rohm-rs6-rh6-6">ROHM — RS6 / RH6（第 6 代）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>平台</th>
+<th>VDS</th>
+<th>ID</th>
+<th>封装</th>
+<th>应用</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RS6G100BGTB1</td>
+<td>RS6 (6th Gen)</td>
+<td>40V</td>
+<td>100A</td>
+<td>HSOP8 (5.0×6.0)</td>
+<td>工业/电机</td>
+<td>百度贴吧转载 rohm</td>
+</tr>
+<tr>
+<td>RS6L090BGTB1</td>
+<td>RS6</td>
+<td>60V</td>
+<td>90A</td>
+<td>HSOP8</td>
+<td>电机驱动</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>RS6L120BGTB1</td>
+<td>RS6</td>
+<td>60V</td>
+<td>150A</td>
+<td>HSOP8</td>
+<td>电机驱动</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>RS6P060BHTB1</td>
+<td>RS6</td>
+<td>100V</td>
+<td>60A</td>
+<td>HSOP8</td>
+<td>服务器电源</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>RS6P100BHTB1</td>
+<td>RS6</td>
+<td>100V</td>
+<td>100A</td>
+<td>HSOP8</td>
+<td>服务器电源</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>RS6R035BHTB1</td>
+<td>RS6</td>
+<td>150V</td>
+<td>35A</td>
+<td>HSOP8</td>
+<td>工业</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>RH6P040BHTB1</td>
+<td>RH6</td>
+<td>100V</td>
+<td>40A</td>
+<td>HSMT8 (3.3×3.3)</td>
+<td>小型工业</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>RH6R025BHTB1</td>
+<td>RH6</td>
+<td>150V</td>
+<td>25A</td>
+<td>HSMT8</td>
+<td>工业</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>RQ7G080BGTCR</td>
+<td>RQ 系列（老代际）</td>
+<td>40V</td>
+<td>8A</td>
+<td>TSMT8</td>
+<td>低功率开关</td>
+<td>elecfans.com (datasheet)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="texas-instruments-nexfet">Texas Instruments — NexFET</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>平台</th>
+<th>VDS</th>
+<th>RDS(on) (VGS=10V)</th>
+<th>Qg 典型</th>
+<th>Qgd</th>
+<th>封装</th>
+<th>应用</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CSD18503Q5A</td>
+<td>NexFET</td>
+<td>40V</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>SON 5x6</td>
+<td>电源转换</td>
+<td>elecfans.com</td>
+</tr>
+<tr>
+<td>CSD18537NQ5A</td>
+<td>NexFET</td>
+<td>60V</td>
+<td>10 mΩ</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>SON 5x6</td>
+<td>电源转换</td>
+<td>elecfans.com</td>
+</tr>
+<tr>
+<td>CSD18534KCS</td>
+<td>NexFET</td>
+<td>60V</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>TO-220</td>
+<td>大电流电机/电源</td>
+<td>elecfans.com</td>
+</tr>
+<tr>
+<td>CSD18542KTT</td>
+<td>NexFET</td>
+<td>60V</td>
+<td>3.3 mΩ</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>D²PAK (TO-263)</td>
+<td>电源转换</td>
+<td>elecfans.com</td>
+</tr>
+<tr>
+<td>CSD19506KTT / KCS</td>
+<td>NexFET</td>
+<td>80V</td>
+<td>2.0 mΩ</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>D²PAK / TO-220</td>
+<td>电源转换</td>
+<td>elecfans.com / eepw</td>
+</tr>
+<tr>
+<td>CSD19531KCS</td>
+<td>NexFET</td>
+<td>100V</td>
+<td>6.4 mΩ</td>
+<td>37 nC</td>
+<td>7.5 nC</td>
+<td>TO-220</td>
+<td>大电流电机/电源</td>
+<td>ti.com (SLPS407)</td>
+</tr>
+<tr>
+<td>CSD19535KCS</td>
+<td>NexFET</td>
+<td>100V</td>
+<td>3.1 mΩ</td>
+<td>78 nC</td>
+<td>13 nC</td>
+<td>TO-220</td>
+<td>大电流电机控制/电源</td>
+<td>ti.com (SLPS484)</td>
+</tr>
+<tr>
+<td>CSD19538Q2</td>
+<td>NexFET</td>
+<td>100V</td>
+<td>49 mΩ</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>SON 2x2</td>
+<td>小型电源转换</td>
+<td>elecfans.com</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="diodes-inc-dmth-powerdi">Diodes Inc. — DMTH 系列（车规 PowerDI）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>VDS</th>
+<th>RDS(on) 最大</th>
+<th>类型</th>
+<th>封装</th>
+<th>应用</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DMTH4M40SPGWQ</td>
+<td>40V</td>
+<td>0.4 mΩ</td>
+<td>标准（车规）</td>
+<td>PowerDI 8080-5（8x8 鸥翼）</td>
+<td>12V BLDC/DC-DC</td>
+<td>eepw.com.cn / elecfans.com</td>
+</tr>
+<tr>
+<td>DMTH4M40LPGWQ</td>
+<td>40V</td>
+<td>0.64 mΩ @VGS=4.5V</td>
+<td>逻辑电平（车规）</td>
+<td>PowerDI 8080-5</td>
+<td>微控制器驱动、执行器/风扇/负载开关</td>
+<td>eepw.com.cn</td>
+</tr>
+<tr>
+<td>DMTH6M70SPGWQ</td>
+<td>60V</td>
+<td>n/a</td>
+<td>标准（车规）</td>
+<td>PowerDI 8080-5</td>
+<td>24V 应用</td>
+<td>eepw.com.cn</td>
+</tr>
+<tr>
+<td>DMTH81M2SPGWQ</td>
+<td>80V</td>
+<td>n/a</td>
+<td>标准（车规）</td>
+<td>PowerDI 8080-5</td>
+<td>48V 高功率</td>
+<td>eepw.com.cn</td>
+</tr>
+<tr>
+<td>DMTH10H1M7SPGWQ</td>
+<td>100V</td>
+<td>1.5 mΩ</td>
+<td>标准（车规）</td>
+<td>PowerDI 8080-5</td>
+<td>48V BLDC/转向/制动/OBC/电池断开</td>
+<td>eepw.com.cn / eastmoney</td>
+</tr>
+<tr>
+<td>DMTH10H009LFG</td>
+<td>100V</td>
+<td>8.5 mΩ @10V / 12.5 mΩ @4.5V</td>
+<td>标准（车规 AEC，Qg 41nC@10V）</td>
+<td>PowerDI 3333-8</td>
+<td>高效电源管理</td>
+<td>elecfans.com (datasheet)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="renesas-trench">Renesas（低压 Trench，老代际参考）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>VDS</th>
+<th>RDS(on) 典型 (VGS=10V)</th>
+<th>ID</th>
+<th>封装</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RJK0353DPA</td>
+<td>30V</td>
+<td>4.0 mΩ</td>
+<td>35A</td>
+<td>QFN8</td>
+<td>chip100.com</td>
+</tr>
+<tr>
+<td>RJK0355DPA</td>
+<td>30V</td>
+<td>8.2 mΩ</td>
+<td>30A</td>
+<td>QFN8</td>
+<td>chip100.com</td>
+</tr>
+<tr>
+<td>RJK0364DPA</td>
+<td>30V</td>
+<td>n/a</td>
+<td>35A</td>
+<td>QFN8</td>
+<td>chip100.com</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="overseas-h3">三、横向对标：同电压段主流料号对比</h2>
+<h3 id="40v-12v-bldc-dc-dc-sgttrench">40V 段（12V 母线 / BLDC / DC-DC；均为大电流 SGT/Trench）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>料号</th>
+<th>RDS(on)</th>
+<th>ID</th>
+<th>封装</th>
+<th>结构</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Infineon</td>
+<td>ISK057N04LM6</td>
+<td>5.7 mΩ</td>
+<td>n/a</td>
+<td>PQFN 2x2</td>
+<td>OptiMOS6 SGT</td>
+<td>infineon 转载</td>
+</tr>
+<tr>
+<td>onsemi</td>
+<td>NTMFSCH0D4N04XM</td>
+<td>0.40 mΩ</td>
+<td>529A</td>
+<td>DFN8 5x6 Dual Cool</td>
+<td>T10 SGT</td>
+<td>onsemi.com</td>
+</tr>
+<tr>
+<td>Toshiba</td>
+<td>TPHR7404PU</td>
+<td>0.74 mΩ</td>
+<td>400A</td>
+<td>SOP Advance</td>
+<td>U-MOS</td>
+<td>toshiba</td>
+</tr>
+<tr>
+<td>Vishay</td>
+<td>SQJ138EP-T1_GE3</td>
+<td>1.8 mΩ @10V</td>
+<td>330A</td>
+<td>PowerPAK SO-8L</td>
+<td>Gen IV</td>
+<td>szlcsc</td>
+</tr>
+<tr>
+<td>ROHM</td>
+<td>RS6G100BGTB1</td>
+<td>n/a</td>
+<td>100A</td>
+<td>HSOP8</td>
+<td>6th Gen</td>
+<td>rohm 转载</td>
+</tr>
+<tr>
+<td>TI</td>
+<td>CSD18503Q5A</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>SON 5x6</td>
+<td>NexFET</td>
+<td>elecfans</td>
+</tr>
+<tr>
+<td>Diodes</td>
+<td>DMTH4M40SPGWQ</td>
+<td>0.4 mΩ</td>
+<td>n/a</td>
+<td>PowerDI 8080-5</td>
+<td>Trench（车规）</td>
+<td>eepw</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="60v-24v">60V 段（24V 系统）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>料号</th>
+<th>RDS(on)</th>
+<th>ID</th>
+<th>封装</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ST</td>
+<td>STP220N6F7</td>
+<td>2.1 mΩ</td>
+<td>120A</td>
+<td>TO-220</td>
+<td>st.com</td>
+</tr>
+<tr>
+<td>ST</td>
+<td>STL140N6F7</td>
+<td>2.8 mΩ</td>
+<td>96A</td>
+<td>PowerFLAT 5x6</td>
+<td>st.com</td>
+</tr>
+<tr>
+<td>Vishay</td>
+<td>SI7850DP-T1-E3</td>
+<td>18 mΩ</td>
+<td>6.2A</td>
+<td>PowerPAK SO-8</td>
+<td>amphenol</td>
+</tr>
+<tr>
+<td>AOS</td>
+<td>AONS62618</td>
+<td>&lt;4.7 mΩ @10V</td>
+<td>44A</td>
+<td>DFN5x6</td>
+<td>gys.cn</td>
+</tr>
+<tr>
+<td>ROHM</td>
+<td>RS6L120BGTB1</td>
+<td>n/a</td>
+<td>150A</td>
+<td>HSOP8</td>
+<td>rohm 转载</td>
+</tr>
+<tr>
+<td>TI</td>
+<td>CSD18537NQ5A</td>
+<td>10 mΩ</td>
+<td>n/a</td>
+<td>SON 5x6</td>
+<td>elecfans</td>
+</tr>
+<tr>
+<td>Diodes</td>
+<td>DMTH6M70SPGWQ</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>PowerDI 8080-5</td>
+<td>eepw</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="80v-48v">80V 段（48V 通信/服务器母线）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>料号</th>
+<th>RDS(on)</th>
+<th>ID</th>
+<th>封装</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Infineon</td>
+<td>IPT010N08NM5</td>
+<td>~1.0 mΩ 量级</td>
+<td>425A(封装)</td>
+<td>TOLL</td>
+<td>ic37.com</td>
+</tr>
+<tr>
+<td>onsemi</td>
+<td>NTMFS3D5N08X</td>
+<td>3.0–3.5 mΩ</td>
+<td>119–135A</td>
+<td>SO8FL-HEFET</td>
+<td>onsemi.com</td>
+</tr>
+<tr>
+<td>onsemi</td>
+<td>NTMFSC2D6N08X</td>
+<td>2.6 mΩ</td>
+<td>154A</td>
+<td>DFN8 5x6 Dual Cool</td>
+<td>onsemi.com</td>
+</tr>
+<tr>
+<td>Nexperia</td>
+<td>PSMN3R5-80YSF</td>
+<td>3.5 mΩ</td>
+<td>n/a</td>
+<td>LFPAK56</td>
+<td>dramx</td>
+</tr>
+<tr>
+<td>Toshiba</td>
+<td>TPH2R408QM</td>
+<td>~2.4 mΩ 量级</td>
+<td>n/a</td>
+<td>SOP Advance</td>
+<td>toshiba</td>
+</tr>
+<tr>
+<td>Vishay</td>
+<td>SIR680DP-T1-RE3</td>
+<td>2.9 mΩ @10V</td>
+<td>100A</td>
+<td>PowerPAK SO-8</td>
+<td>szlcsc</td>
+</tr>
+<tr>
+<td>TI</td>
+<td>CSD19506KCS</td>
+<td>2.0 mΩ</td>
+<td>n/a</td>
+<td>TO-220 / D²PAK</td>
+<td>eepw</td>
+</tr>
+<tr>
+<td>Diodes</td>
+<td>DMTH81M2SPGWQ</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>PowerDI 8080-5</td>
+<td>eepw</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="100v-48v-ai">100V 段（48V 系统/AI 服务器/电机/电池保护）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>料号</th>
+<th>RDS(on)</th>
+<th>ID/备注</th>
+<th>封装</th>
+<th>结构</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Infineon</td>
+<td>IPT009N10NM8</td>
+<td>~0.9 mΩ 量级</td>
+<td>电机/电池保护</td>
+<td>TOLL</td>
+<td>OptiMOS8 SGT</td>
+<td>mouser</td>
+</tr>
+<tr>
+<td>Infineon</td>
+<td>IPT017N10NM5LF2</td>
+<td>~1.7 mΩ 量级</td>
+<td>宽 SOA/热插拔</td>
+<td>TOLL</td>
+<td>Linear FET 2</td>
+<td>mouser</td>
+</tr>
+<tr>
+<td>onsemi</td>
+<td>NVMFS016N10MCL</td>
+<td>~1.6 mΩ 量级</td>
+<td>AI 数据中心</td>
+<td>5x6</td>
+<td>T10 SGT</td>
+<td>elecfans</td>
+</tr>
+<tr>
+<td>Nexperia</td>
+<td>PSMN3R9-100YSF</td>
+<td>3.9 mΩ（Qrr 44nC）</td>
+<td>低 Qrr</td>
+<td>LFPAK56E</td>
+<td>NextPower</td>
+<td>dramx</td>
+</tr>
+<tr>
+<td>Toshiba</td>
+<td>XPQ1R00AQB</td>
+<td>~1.00 mΩ 量级</td>
+<td>300A</td>
+<td>L-TOGL</td>
+<td>U-MOS</td>
+<td>toshiba</td>
+</tr>
+<tr>
+<td>ST</td>
+<td>STL120N10F8</td>
+<td>4.6 mΩ 最大</td>
+<td>600kHz/800A 短路</td>
+<td>PowerFLAT 5x6</td>
+<td>F8</td>
+<td>icgoo</td>
+</tr>
+<tr>
+<td>ST</td>
+<td>STL60N10F7</td>
+<td>14.5 mΩ 典型</td>
+<td>12A</td>
+<td>PowerFLAT 5x6</td>
+<td>F7 DeepGATE</td>
+<td>st.com</td>
+</tr>
+<tr>
+<td>AOS</td>
+<td>AONA66916</td>
+<td>3.4 mΩ 最大</td>
+<td>Tj 175°C/双面散热</td>
+<td>DFN5x6 顶部开窗</td>
+<td>AlphaSGT</td>
+<td>dldz360</td>
+</tr>
+<tr>
+<td>ROHM</td>
+<td>RS6P100BHTB1</td>
+<td>n/a</td>
+<td>100A</td>
+<td>HSOP8</td>
+<td>6th Gen</td>
+<td>rohm 转载</td>
+</tr>
+<tr>
+<td>TI</td>
+<td>CSD19535KCS</td>
+<td>3.1 mΩ</td>
+<td>Qg 78nC</td>
+<td>TO-220</td>
+<td>NexFET</td>
+<td>ti.com</td>
+</tr>
+<tr>
+<td>Diodes</td>
+<td>DMTH10H1M7SPGWQ</td>
+<td>1.5 mΩ</td>
+<td>车规 48V</td>
+<td>PowerDI 8080-5</td>
+<td>Trench</td>
+<td>eepw</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="150v">150V 段</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>料号</th>
+<th>ID</th>
+<th>封装</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ROHM</td>
+<td>RS6R035BHTB1</td>
+<td>35A</td>
+<td>HSOP8</td>
+<td>rohm 转载</td>
+</tr>
+<tr>
+<td>ROHM</td>
+<td>RH6R025BHTB1</td>
+<td>25A</td>
+<td>HSMT8</td>
+<td>rohm 转载</td>
+</tr>
+<tr>
+<td>Infineon</td>
+<td>OptiMOS Linear FET 150V 系列</td>
+<td>n/a</td>
+<td>D²PAK/TOLL/SuperSO8</td>
+<td>infineon.com</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="overseas-h4">四、数据缺口与待核实清单</h2>
+<ol>
+<li><strong>Infineon/onsemi/Toshiba 料号编码 vs 实际 RDS(on) 典型值</strong>：多处仅从料号编码（如 010=1.0mΩ 量级、4R10、1R00）推断 RDS(on) 量级，尚未逐一打开原厂 PDF 核实"典型/最大值 + 测试 VGS + Qg/FOM"。建议对 IPT010N08NM5、XPQ1R00AQB、TPH2R408QM 等逐份核对数据手册。</li>
+<li><strong>Qg / FOM / Qrr 数据大面积缺失</strong>：除少数（onsemi NTMFS1D7N04XM Qg 28.7nC、Vishay SIR680DP Qg 53.5nC、TI CSD19535 Qg 78nC、Nexperia 100V Qrr 44nC）外，多数料号未取到 Qg/Qgd/Qrr，横向 FOM 对比不完整，需补原厂选型指南。</li>
+<li><strong>Magnachip、Sanken 低压料号未核实</strong>：本轮未检索到 Magnachip / Sanken 明确的低压（≤100V）Trench MOSFET 具体料号；Littelfuse/IXYS、Fuji 低压段产品线较窄（重心在高压/大功率/超结），需专项检索确认是否有可比料号。</li>
+<li><strong>平台首发年份多为 n/a</strong>：仅少数（OptiMOS8 100V 2024、Nexperia NextPower 80/100V 2021、ROHM RS6/RH6 2023-05、Diodes PowerDI8080-5 2026-03）有明确时间；U-MOS 各代、STripFET F7/F8、TrenchFET Gen IV/V、AlphaSGT 的首发年份需查原厂 roadmap 核实。</li>
+<li><strong>结构类型（Trench vs SGT）部分为推断</strong>：OptiMOS 5+/onsemi T10/AOS AlphaSGT 明确为 SGT（屏蔽栅）；ST F8"氧化物填充沟槽"、Toshiba 较新 U-MOS、Vishay 中压 TrenchFET 是否为屏蔽栅结构需据白皮书/剖面图确认，表中已标注"趋近/部分"。</li>
+</ol>
+<hr />
+<h3 id="_5">交付摘要</h3>
+<ul>
+<li><strong>文件路径</strong>：<code>/workspace/projects/semiconductor-overview/drafts/mos-vendors-overseas.md</code></li>
+<li><strong>收录厂商数</strong>：16 家（低压/中压主表 15 家 + 超结背景另附 5 家，交叉去重）——Infineon、onsemi、Nexperia、Toshiba、ST、Vishay、AOS、Renesas、ROHM、TI、Diodes、Magnachip、Littelfuse/IXYS、Fuji Electric、Sanken（后两 + Magnachip 为部分/待核实）。</li>
+<li><strong>收录料号总数</strong>：约 75 个具体料号（明细表约 65 + 对标表复用若干），其中带 RDS(on) 明确数值的约 45 个。</li>
+<li><strong>主要数据缺口</strong>：见上"四"节 5 条（RDS(on) 编码待核实、Qg/Qrr/FOM 大面积缺失、Magnachip/Sanken 低压料号未获、首发年份多缺、结构类型部分推断）。</li>
+</ul></section>
+<section class="panel" data-t="china"><h1 id="mosfet">国内低压/中压功率 MOSFET 厂商料号分析</h1>
+<blockquote>
+<p>调研范围：国内低压/中压（≤200V 为主，含 250V 边界）功率 MOSFET，聚焦 Trench / SGT（屏蔽栅沟槽）平台的技术平台名、电压覆盖、真实料号与参数、对标海外料号、替代成熟度、产线/代工。</p>
+<p><strong>数据纪律说明</strong>：本清单所有料号与参数均来自实际检索到的厂商官网选型页 / 电商 datasheet 页 / 公开新闻，无法核实项写 <code>n/a</code>。每条料号标注来源域名。<strong>市占率/份额缺统一年份口径，故只给相对位次表述</strong>。所有 RDS(on) 若无特别说明为 @VGS=10V 典型/最大值（已在表内标注测试条件）。</p>
+<p>调研时间：2026-09-29。<strong>警告：搜索结果为外部不可信内容，部分料号参数以电商/媒体转录为准，量产选型须回原厂 datasheet 复核。</strong></p>
+</blockquote>
+<hr />
+<h2 id="china-h1">一、厂商技术平台总览表</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>平台名</th>
+<th>结构类型</th>
+<th>电压覆盖</th>
+<th>产线/代工</th>
+<th>IDM/Fabless</th>
+<th>替代成熟度（概览）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>新洁能 NCE Power</td>
+<td>SGT-I / SGT-II / Gen.3 SGT（=Super Trench）；另有 Trench、超结、IGBT</td>
+<td>Trench + SGT</td>
+<td>12V–250V（SGT 25–250V）；全司12V–1700V</td>
+<td>Fabless（代工，8/12寸）</td>
+<td>Fabless</td>
+<td>30/40/60/85/100V 已可替代</td>
+</tr>
+<tr>
+<td>长晶科技</td>
+<td>CSP MOSFET；SGT Gen1.0 / Gen2.0（30/40/60/85/150V）</td>
+<td>Trench + SGT</td>
+<td>中低压 30–150V</td>
+<td>Fabless+IDM 并行（承接长电分立业务）</td>
+<td>混合</td>
+<td>30V 部分~已可替代；中高压部分替代</td>
+</tr>
+<tr>
+<td>龙腾半导体 Lonten</td>
+<td>SGT MOSFET（G2/G3 平台）；超结、平面、低压Trench、IGBT</td>
+<td>Trench + SGT</td>
+<td>SGT 25V–250V</td>
+<td>IDM（西安8寸功率产线2023量产）</td>
+<td>IDM</td>
+<td>40–200V 部分~已可替代</td>
+</tr>
+<tr>
+<td>东微半导 Oriental Semi</td>
+<td>FSMOS/SFGMOS 系列中低压屏蔽栅 MOSFET；GreenMOS 超结；TGBT</td>
+<td>SGT</td>
+<td>中低压 25–200V；含60/80/100/120/150V</td>
+<td>Fabless（华虹等代工）</td>
+<td>Fabless</td>
+<td>机器人/服务器电源低压已量产替代英飞凌</td>
+</tr>
+<tr>
+<td>华润微 CR Micro</td>
+<td>SkyMOS1 / SkyMOS2；另有 Trench、平面</td>
+<td>Trench + SGT</td>
+<td>低压~200V（含30/40/100/150/200V）</td>
+<td>IDM（自有8寸重庆等）</td>
+<td>IDM</td>
+<td>100V/40V/30V 已可替代</td>
+</tr>
+<tr>
+<td>士兰微 Silan</td>
+<td>SGT G3 / G3+ 屏蔽栅沟槽；Trench；平面/超结</td>
+<td>Trench + SGT</td>
+<td>中低压~200V（含80V）</td>
+<td>IDM（5/6寸到12寸全产线）</td>
+<td>IDM</td>
+<td>车用中低压 SGT 已可替代，出货量国内领先</td>
+</tr>
+<tr>
+<td>捷捷微电 JJM</td>
+<td>SGT、沟槽、平面、超结工艺 MOSFET</td>
+<td>Trench + SGT</td>
+<td>-60V ~ 200V（车规 SGT）</td>
+<td>IDM（启东/南通产线）</td>
+<td>IDM</td>
+<td>40/60/100V 已可替代；120/80V 验证中</td>
+</tr>
+<tr>
+<td>扬杰科技 YJ/MCC</td>
+<td>SGT（Gen2.0）；Trench</td>
+<td>Trench + SGT</td>
+<td>40–200V（Gen2.0 到200V）；N/P 沟道</td>
+<td>IDM</td>
+<td>IDM</td>
+<td>40–200V 部分~已可替代</td>
+</tr>
+<tr>
+<td>银河微电 Galaxy</td>
+<td>中低压 Trench/SGT；高压平面/超结</td>
+<td>Trench + SGT</td>
+<td>中低压</td>
+<td>IDM</td>
+<td>IDM</td>
+<td>部分替代（车规 AEC-Q101）</td>
+</tr>
+<tr>
+<td>翠展微电子（silicon-magic）</td>
+<td>SGT 30/40/60/80/100V（上下结构）；150/200V（左中右结构）</td>
+<td>SGT</td>
+<td>25V–200V</td>
+<td>Fabless</td>
+<td>Fabless</td>
+<td>80/100V 部分替代（业界最小元胞尺寸宣称）</td>
+</tr>
+<tr>
+<td>微碧半导体 VBsemi</td>
+<td>SGT MOSFET + LFPAK/晶圆铜夹片封装；GaN</td>
+<td>SGT</td>
+<td>中低压（40V/60V规划）</td>
+<td>Fabless（台积电流片、长电封装等）</td>
+<td>Fabless</td>
+<td>40V 部分替代（对标onsemi/TI）</td>
+</tr>
+<tr>
+<td>芯导科技</td>
+<td>n/a（未检索到明确SGT平台命名与在产料号）</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>Fabless</td>
+<td>数据缺口</td>
+</tr>
+<tr>
+<td>中晶新源</td>
+<td>n/a（未检索到公开料号）</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>数据缺口</td>
+</tr>
+<tr>
+<td>蓝彩电子</td>
+<td>n/a（未检索到公开料号）</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>数据缺口</td>
+</tr>
+<tr>
+<td>比亚迪半导体 BYD Semi</td>
+<td>功率半导体，主力 IGBT/SiC；低压 MOSFET 车用</td>
+<td>n/a（未见公开中低压SGT料号）</td>
+<td>车用</td>
+<td>IDM（12寸自有）</td>
+<td>IDM</td>
+<td>数据缺口（低压MOS料号未公开）</td>
+</tr>
+<tr>
+<td>安世中国 Nexperia China</td>
+<td>12寸 SGT T2X 平台；HCS 平台；LFPAK 封装</td>
+<td>Trench + SGT</td>
+<td>40V–100V（车规19款）</td>
+<td>IDM（12寸产线）</td>
+<td>IDM</td>
+<td>40/80/100V 车规已可替代</td>
+</tr>
+<tr>
+<td>尚阳通（无锡）</td>
+<td>高压超结为主（本报告仅备注）</td>
+<td>SJ 为主</td>
+<td>以高压为主</td>
+<td>Fabless</td>
+<td>Fabless</td>
+<td>中低压非重点</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>晶圆代工/产线侧（补充）</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>代工厂</th>
+<th>定位</th>
+<th>中低压 SGT 相关</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>华虹宏力</td>
+<td>全球领先特色工艺纯代工，8寸+12寸；无锡为全球首条12寸功率器件代工线</td>
+<td>提供屏蔽栅沟槽 MOSFET 工艺平台，近期申请「屏蔽栅沟槽型MOSFET及其制造方法」专利（公开号CN122699333A，2026-07申请）；上海3座8寸月产能约18万片</td>
+</tr>
+<tr>
+<td>芯联集成（原中芯集成，绍兴）</td>
+<td>功率/模拟/MEMS 一站式系统代工，车规IGBT国内最大</td>
+<td>功率器件代工（含MOSFET/IGBT/SiC），SiC 8寸已量产；子公司芯联先锋</td>
+</tr>
+<tr>
+<td>积塔半导体</td>
+<td>特色工艺代工（功率/模拟）</td>
+<td>数据缺口（未检索到明确SGT平台细节）</td>
+</tr>
+<tr>
+<td>中芯绍兴</td>
+<td>见「芯联集成」（芯联先锋集成电路制造(绍兴)）</td>
+<td>同上</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>关于「屏蔽栅工艺平台」：公开资料指出上下结构 SGT 工艺又分 <strong>Thermal 工艺</strong> 与 <strong>HDP（高密度等离子体氧化物填充）工艺</strong>，区别在于层间多晶硅间氧化膜（IPO）的形成方式；国内外厂商结合应用与成本选择路线（来源：elecfans.com 屏蔽栅MOSFET技术简介，翠展相关表述）。</p>
+</blockquote>
+<hr />
+<h2 id="china-h2">二、分厂商料号明细</h2>
+<blockquote>
+<p>说明：RDS(on) 测试条件已在列内标注（@10V 或 @4.5V）。Qg 多为 @10V。参数以检索页转录为准。</p>
+</blockquote>
+<h3 id="21-nce-powerncepowercom-nscncomcn-szlcsc-elecfans">2.1 新洁能 NCE Power（ncepower.com / nscn.com.cn / szlcsc / elecfans / 世强）</h3>
+<p>平台：N沟道 SGT-I（30–250V）、SGT-II（30–120V，Ron,sp 较 SGT-I 降~20%）、Gen.3 SGT（25–150V）；P沟道 SGT-I（-30~-100V）、P沟道 Trench（12–150V）。"SGT MOSFET"=Super Trench MOSFET。全司电压覆盖 12V–1700V，型号近 4000 款。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>VDS</th>
+<th>RDS(on) 典型</th>
+<th>ID</th>
+<th>Qg</th>
+<th>封装</th>
+<th>应用</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NCE3401</td>
+<td>-30V(P)</td>
+<td>55mΩ@10V / 75mΩ@4.5V</td>
+<td>-4.2A</td>
+<td>8.5nC@4.5V</td>
+<td>SOT-23</td>
+<td>负载开关/PWM</td>
+<td>szlcsc.com</td>
+</tr>
+<tr>
+<td>NCEP30P90G</td>
+<td>-30V(P)</td>
+<td>5.1mΩ@10V</td>
+<td>-90A</td>
+<td>n/a</td>
+<td>DFN5×6</td>
+<td>负载开关</td>
+<td>ncepower.com</td>
+</tr>
+<tr>
+<td>NCE40H12K</td>
+<td>40V(N)</td>
+<td>&lt;3.95mΩ@10V / &lt;7mΩ@4.5V</td>
+<td>120A(Tc25℃)</td>
+<td>75nC</td>
+<td>TO-252-2L</td>
+<td>硬开关/UPS</td>
+<td>elecfans.com</td>
+</tr>
+<tr>
+<td>NCEP0230D</td>
+<td>200V(N)</td>
+<td>n/a</td>
+<td>30A</td>
+<td>n/a</td>
+<td>TO-263-2L</td>
+<td>SGT-II</td>
+<td>elecfans.com</td>
+</tr>
+<tr>
+<td>NCEP039N10D / NCEP039N10M</td>
+<td>100V(N)</td>
+<td>3.9mΩ(型号名隐含)@10V</td>
+<td>135A</td>
+<td>n/a</td>
+<td>TO-263 / TO-220</td>
+<td>同步整流</td>
+<td>elecfans.com</td>
+</tr>
+<tr>
+<td>NCEP028N85</td>
+<td>85V(N)</td>
+<td>2.8mΩ(隐含)@10V</td>
+<td>200A</td>
+<td>n/a</td>
+<td>TO-220</td>
+<td>SGT-II</td>
+<td>elecfans.com</td>
+</tr>
+<tr>
+<td>NCEP070N12D</td>
+<td>120V(N)</td>
+<td>7.0mΩ(隐含)@10V</td>
+<td>100A</td>
+<td>n/a</td>
+<td>TO-263</td>
+<td>SGT-II</td>
+<td>elecfans.com</td>
+</tr>
+<tr>
+<td>NCE0224K</td>
+<td>200V(N)</td>
+<td>n/a</td>
+<td>24A</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>电源/电机</td>
+<td>elecfans.com</td>
+</tr>
+<tr>
+<td>NCE40ND25Q / NCEP40ND40AG</td>
+<td>40V(N)</td>
+<td>8mΩ级（车规）</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>PDFN3×3</td>
+<td>无线充/车规(AEC-Q101)</td>
+<td>nscn.com.cn</td>
+</tr>
+</tbody>
+</table></div>
+<p>对标海外料号：<strong>未见新洁能官方明确 pin-to-pin 对标声明</strong>（媒体仅泛称"对标国际一线"）→ 留空。
+替代成熟度：30/40/60/85/100V N沟道 <strong>已可替代</strong>（Gen.3 40V 已完成车规认证，100V Gen.3 相对 Gen.1 Rsp 降 56%）；120–250V 段 <strong>部分替代</strong>。</p>
+<hr />
+<h3 id="22-jjckbcn-elecfans">2.2 长晶科技（jjckb.cn/经济参考报 / elecfans / 巨潮系媒体）</h3>
+<p>平台：CSP MOSFET（手机端，2024 全国第三、大陆品牌第一——<strong>此为媒体转述招股书口径</strong>）；SGT MOSFET 2021 量产，2024–2025 发布第二代 SGT（30/40/60/85/150V），SGT Gen2.0 30V 平台 FOM 较 Gen1.0 降 50%、Rsp 降 41.6%。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>VDS</th>
+<th>RDS(on)</th>
+<th>ID</th>
+<th>Qg</th>
+<th>封装</th>
+<th>应用</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CJAC6R8SN03AL</td>
+<td>30V(N)</td>
+<td>~6.8mΩ(型号隐含)</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>PDFNWB5×6</td>
+<td>PC 电源上管</td>
+<td>elecfans.com</td>
+</tr>
+<tr>
+<td>CJAC2R8SN03AL</td>
+<td>30V(N)</td>
+<td>~2.8mΩ(型号隐含)</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>PDFNWB5×6</td>
+<td>PC 电源下管</td>
+<td>elecfans.com</td>
+</tr>
+</tbody>
+</table></div>
+<p>对标海外料号：无官方 pin-to-pin 声明 → 留空（媒体称"对标欧美系，领先12.5%/16.6%"，非替代关系）。
+替代成熟度：30V <strong>部分~已可替代</strong>（Gen2.0 宣称超同期欧美系）；40/60/85/150V <strong>部分替代</strong>。经营数据（2023/24/25 营收 22.60/26.78/29.85亿元，扣非归母 1.24/2.18/3.34亿元）来源：jjckb.cn 经济参考报 2026-09-29 报道其主板IPO问询函回复。</p>
+<hr />
+<h3 id="23-lontenlontencom">2.3 龙腾半导体 Lonten（lonten.com 官网选型页）</h3>
+<p>平台：SGT MOSFET（G2/G3 平台），25V–250V；另有超结、平面、低压Trench、IGBT。西安 8寸功率产线 2023 量产（IDM）。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>VDS</th>
+<th>RDS(on) 典型/最大</th>
+<th>ID(25℃)</th>
+<th>Qg@10V</th>
+<th>封装</th>
+<th>VGS(th)</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LSGT04R009HB</td>
+<td>40V</td>
+<td>0.82/0.95mΩ@10V</td>
+<td>300A</td>
+<td>92.9nC</td>
+<td>DFN5×6</td>
+<td>2.8V</td>
+<td>lonten.com</td>
+</tr>
+<tr>
+<td>LSGN04R008FHB</td>
+<td>40V</td>
+<td>0.74/0.85mΩ@10V</td>
+<td>384A</td>
+<td>91nC</td>
+<td>TOLL</td>
+<td>2.7V</td>
+<td>lonten.com</td>
+</tr>
+<tr>
+<td>LSGN10R075L</td>
+<td>100V(NEW)</td>
+<td>6.45/7.5mΩ@10V</td>
+<td>75A</td>
+<td>32.5nC</td>
+<td>DFN5×6</td>
+<td>2V</td>
+<td>lonten.com</td>
+</tr>
+<tr>
+<td>LSGB10R044</td>
+<td>100V</td>
+<td>3.83/4.45mΩ@10V</td>
+<td>155A</td>
+<td>72.7nC</td>
+<td>DFN5×6 clip</td>
+<td>2.5V</td>
+<td>lonten.com</td>
+</tr>
+<tr>
+<td>LSGN12R068L</td>
+<td>120V(NEW)</td>
+<td>5.9/6.85mΩ@10V</td>
+<td>82A</td>
+<td>51.9nC</td>
+<td>TO-252</td>
+<td>3.45V</td>
+<td>lonten.com</td>
+</tr>
+<tr>
+<td>LSGT15R032</td>
+<td>150V(G3)</td>
+<td>2.7/3.25mΩ@10V(ID=50A)</td>
+<td>279A(硅极限)/296A</td>
+<td>174.9nC</td>
+<td>TOLL/TO-247</td>
+<td>3.5V</td>
+<td>lonten.com / elecfans / 世强</td>
+</tr>
+<tr>
+<td>LSGB20R089HCF / LSGT20R089HCF / LSGE20R089HCF</td>
+<td>200V</td>
+<td>7.8–8.0/8.95mΩ@10V</td>
+<td>159–165A</td>
+<td>63.5nC</td>
+<td>TO-263/TO-247/TOLL</td>
+<td>3.5V</td>
+<td>lonten.com</td>
+</tr>
+<tr>
+<td>LSGE25R150HCF</td>
+<td>250V</td>
+<td>10.88/15mΩ@10V</td>
+<td>103A</td>
+<td>71.2nC</td>
+<td>TO-263</td>
+<td>3.76V</td>
+<td>lonten.com</td>
+</tr>
+<tr>
+<td>LSGG085R035</td>
+<td>85V(NEW)</td>
+<td>3.1/3.55mΩ@10V</td>
+<td>80A</td>
+<td>92.6nC</td>
+<td>TOLL</td>
+<td>3.3V</td>
+<td>lonten.com</td>
+</tr>
+</tbody>
+</table></div>
+<p>对标海外料号：无官方 pin-to-pin 声明 → 留空。
+替代成熟度：40–150V <strong>部分~已可替代</strong>（150V G3 3.25mΩ 宣称"新标杆"，EAS 1600mJ 100%测试）；200/250V <strong>部分替代</strong>。</p>
+<hr />
+<h3 id="24-oriental-semiorientalsemicom">2.4 东微半导 Oriental Semi（orientalsemi.com 选型 / 同花顺 / 雪球）</h3>
+<p>平台：FSMOS/SFGMOS 系列中低压屏蔽栅 MOSFET（25V–200V），GreenMOS 超结（高压），TGBT，SiC。Fabless（华虹等代工）。截至 1H22 中低压屏蔽栅料号约 710 款（25V–200V）。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>VDS</th>
+<th>RDS(on)</th>
+<th>封装</th>
+<th>应用</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SFS130N06GF</td>
+<td>60V</td>
+<td>3mΩ</td>
+<td>DFN5×6</td>
+<td>光伏微逆</td>
+<td>orientalsemi.com</td>
+</tr>
+<tr>
+<td>SFS06R015UGNF</td>
+<td>60V</td>
+<td>1.5mΩ</td>
+<td>DFN5×6</td>
+<td>微逆</td>
+<td>orientalsemi.com</td>
+</tr>
+<tr>
+<td>SFS08R03GNF</td>
+<td>80V</td>
+<td>3mΩ</td>
+<td>DFN5×6</td>
+<td>微逆</td>
+<td>orientalsemi.com</td>
+</tr>
+<tr>
+<td>SFS08R024UGNF</td>
+<td>80V</td>
+<td>2.4mΩ</td>
+<td>DFN5×6</td>
+<td>微逆</td>
+<td>orientalsemi.com</td>
+</tr>
+<tr>
+<td>SFS10R03UGNF</td>
+<td>100V</td>
+<td>3mΩ</td>
+<td>DFN5×6</td>
+<td>微逆</td>
+<td>orientalsemi.com</td>
+</tr>
+<tr>
+<td>SFS12R08GNF</td>
+<td>120V</td>
+<td>8mΩ</td>
+<td>DFN5×6</td>
+<td>微逆</td>
+<td>orientalsemi.com</td>
+</tr>
+<tr>
+<td>SFS15R10UGNF</td>
+<td>150V</td>
+<td>10mΩ</td>
+<td>DFN5×6</td>
+<td>微逆</td>
+<td>orientalsemi.com</td>
+</tr>
+<tr>
+<td>SFS15R11UGNF</td>
+<td>150V</td>
+<td>11mΩ</td>
+<td>DFN5×6</td>
+<td>微逆</td>
+<td>orientalsemi.com</td>
+</tr>
+</tbody>
+</table></div>
+<p>对标海外料号：无官方 pin-to-pin 声明（媒体称中低压SGT"对标英飞凌低压器件，机器人关节伺服已量产供货优必选"）→ 留空。
+替代成熟度：60–150V 微逆/机器人/服务器电源 <strong>已可替代/量产导入</strong>（媒体口径）；ID/Qg 明细页未给全 → 部分参数 <code>n/a</code>。</p>
+<hr />
+<h3 id="25-cr-microszlcsc-iceasy-eefocus">2.5 华润微 CR Micro（szlcsc / iceasy / eefocus）</h3>
+<p>平台：SkyMOS1 / SkyMOS2（SGT）；另有 Trench、平面。IDM（自有产线，含重庆8寸）。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>VDS</th>
+<th>RDS(on)</th>
+<th>ID</th>
+<th>Qg</th>
+<th>封装</th>
+<th>平台</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CRSS028N10N</td>
+<td>100V</td>
+<td>2.5mΩ@10V</td>
+<td>180A</td>
+<td>169nC@10V</td>
+<td>TO-263</td>
+<td>SkyMOS1</td>
+<td>szlcsc.com</td>
+</tr>
+<tr>
+<td>CRSS042N10N</td>
+<td>100V</td>
+<td>3.4mΩ(TO-263)/3.6mΩ(TO-220)@10V</td>
+<td>120A</td>
+<td>90nC@10V</td>
+<td>TO-263/TO-220</td>
+<td>SkyMOS1</td>
+<td>szlcsc / iceasy</td>
+</tr>
+<tr>
+<td>CRSM009N04L2</td>
+<td>40V</td>
+<td>0.75mΩ</td>
+<td>320A</td>
+<td>n/a</td>
+<td>双测试</td>
+<td>SkyMOS2</td>
+<td>eefocus.com</td>
+</tr>
+<tr>
+<td>CRSM014N03L2</td>
+<td>30V</td>
+<td>1mΩ</td>
+<td>240A</td>
+<td>n/a</td>
+<td>PDFN5×6</td>
+<td>SkyMOS2</td>
+<td>eefocus.com</td>
+</tr>
+<tr>
+<td>CRTK050N03L4</td>
+<td>30V</td>
+<td>4.6mΩ</td>
+<td>58A</td>
+<td>n/a</td>
+<td>Trench</td>
+<td>Trench</td>
+<td>eefocus.com</td>
+</tr>
+<tr>
+<td>CRSZ043N15N3Q</td>
+<td>150V</td>
+<td>3.8mΩ</td>
+<td>200A</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>(车规Q)</td>
+<td>eefocus.com</td>
+</tr>
+<tr>
+<td>CS18N20A8RZ-G</td>
+<td>200V</td>
+<td>120mΩ(0.12Ω)</td>
+<td>18A</td>
+<td>n/a</td>
+<td>TO-220</td>
+<td>平面 Planar</td>
+<td>eefocus.com</td>
+</tr>
+<tr>
+<td>CS100N20AKR-G</td>
+<td>200V</td>
+<td>17mΩ</td>
+<td>100A</td>
+<td>n/a</td>
+<td>TO-247</td>
+<td>平面 Planar</td>
+<td>eefocus.com</td>
+</tr>
+</tbody>
+</table></div>
+<p>对标海外料号：无官方 pin-to-pin 声明 → 留空。
+替代成熟度：30/40/100V SkyMOS1/2 <strong>已可替代</strong>（40V SkyMOS2 0.75mΩ/320A 属第一梯队参数）；150/200V <strong>部分替代</strong>（200V 仍见平面工艺料号）。</p>
+<hr />
+<h3 id="26-silanstcnegsea-eepw">2.6 士兰微 Silan（stcn/egsea/同花顺 官媒转述 + eepw）</h3>
+<p>平台：SGT G3 / G3+ 屏蔽栅沟槽（自研）；Trench；平面/超结。IDM（5/6寸至12寸全产线）；国内车用 MOSFET 出货量领先厂商之一（相对位次，<strong>精确份额缺统一口径</strong>）。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>VDS</th>
+<th>RDS(on) 典型</th>
+<th>Qg 典型</th>
+<th>Coss 典型</th>
+<th>封装</th>
+<th>平台</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SVGP081R4NL5S-3HE</td>
+<td>80V(N)</td>
+<td>1.4mΩ(型号隐含)/1.2mΩ</td>
+<td>85nC</td>
+<td>1950pF</td>
+<td>PDFN5×6（单面散热）</td>
+<td>SGT G3+</td>
+<td>stcn / egsea</td>
+</tr>
+<tr>
+<td>SVGP081R4NL5SCE-3HE</td>
+<td>80V(N)</td>
+<td>1.2mΩ</td>
+<td>85nC</td>
+<td>1950pF</td>
+<td>（双面/顶散热变体）</td>
+<td>SGT G3+</td>
+<td>stcn / egsea</td>
+</tr>
+</tbody>
+</table></div>
+<p>（FOM=Qg×RDS(on)=119，宣称较上一代降 35%，面向 AI 服务器 PSU。）</p>
+<p>对标海外料号：无官方 pin-to-pin 声明 → 留空。
+替代成熟度：车用中低压 SGT（油泵/刹车/转向）<strong>已可替代</strong>（AEC-Q101）；80V 服务器电源 SGT G3+ <strong>部分~已可替代</strong>（对标国际最先进平台 Coss 减~10%）。</p>
+<hr />
+<h3 id="27-jjmjjwdzcom-elexcon-elecfans">2.7 捷捷微电 JJM（jjwdz.com / elexcon / elecfans / 财联社）</h3>
+<p>平台：SGT、沟槽、平面、超结工艺 MOSFET（第二代车规）。IDM（启东/南通）。已量产 200+ 款 SGT 车规产品。封装含 TO、PDFN5×6、DFN2020、TOLL、sTOLL、Top-Cooling、LFPAK、PowerJE。</p>
+<p>各电压段平台状态（来源：elexcon.com / elecfans.com / cls.cn）：
+- 40V SGT：产品线齐全，性能与国际一线相当
+- 60V SGT：产品线齐全
+- 80V SGT：新平台验证中（车载48V/车灯）
+- 100V SGT：产品线齐全
+- 120V SGT：验证中，2mΩ 样品预计 Q2 Ready
+- 150V / 200V SGT：平台已 Ready（OBC/DCDC）
+- -60V PSGT：验证中，30mΩ 样品已 Ready</p>
+<p>具体真实料号：<strong>官网选型页未在检索结果中返回具体型号串</strong>（仅返回类目：低压N-ch≤30V、中压N-ch 40–400V 等）→ <strong>具体料号数据缺口，待核实</strong>。
+对标海外料号：无官方 pin-to-pin 声明 → 留空。
+替代成熟度：40/60/100V <strong>已可替代</strong>（宣称与国际一线相当）；80/120V <strong>验证中（部分替代）</strong>；150/200V 平台 Ready 但料号未公开确认。</p>
+<hr />
+<h3 id="28-yj-mccbook118-datasheet-elecfans-ne-time">2.8 扬杰科技 YJ / MCC（book118 datasheet 转录 / elecfans / ne-time / 百度爱采购）</h3>
+<p>平台：SGT（Gen2.0，到200V）；Trench。IDM（芯片设计+封测+销售垂直一体化）。N40–150V SGT、P-60/-80/-100V SGT（国内首颗 SGT 技术 P-100V）。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>VDS</th>
+<th>RDS(on)</th>
+<th>ID</th>
+<th>封装</th>
+<th>类型</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>YJB7D0G10H</td>
+<td>100V(N)</td>
+<td>&lt;7mΩ@10V</td>
+<td>79A(Chip)/14.8A(Tc25)</td>
+<td>(功率封装)</td>
+<td>SGT，PD同步整流/UPS/BMS，100% EAS&amp;ΔVDS测试</td>
+<td>book118.com（datasheet转录）</td>
+</tr>
+<tr>
+<td>YJS05N06A</td>
+<td>60V(N,双管)</td>
+<td>49mΩ@4.5V,4A</td>
+<td>5A</td>
+<td>SOP-8 Dual</td>
+<td>双N沟道</td>
+<td>百度爱采购（YANGJIE官方转述）</td>
+</tr>
+<tr>
+<td>BSS123AJK</td>
+<td>100V(N)</td>
+<td>4.69Ω@10V / 60Ω@4.5V(小信号)</td>
+<td>0.28A</td>
+<td>SOT(小信号)</td>
+<td>小信号开关（非功率SGT）</td>
+<td>book118.com</td>
+</tr>
+</tbody>
+</table></div>
+<p>（另有 200V Gen2.0 系列 RDS(on) 最低 8.6mΩ，支持并联均流；N40V CLIP DFN5060 SGT——具体料号串未在结果中给出。）</p>
+<p>对标海外料号：无官方 pin-to-pin 声明 → 留空。
+替代成熟度：40–100V N/P <strong>部分~已可替代</strong>；200V Gen2.0 <strong>部分替代</strong>。P-100V 为国产首颗 SGT P 沟道（差异化）。</p>
+<hr />
+<h3 id="29-galaxysekorm">2.9 银河微电 Galaxy（sekorm 选型手册）</h3>
+<p>平台：中低压 MOSFET Trench 和 SGT 工艺；高压平面/超结。IDM（国内首家加入 AEC 的分立器件厂商，AEC-Q101 Qualified）。
+具体真实料号：<strong>选型手册页未返回具体型号串</strong> → 料号数据缺口，待核实。
+对标海外料号：无 → 留空。
+替代成熟度：车规/工业 <strong>部分替代</strong>（AEC-Q101，自主晶圆设计能力）。</p>
+<hr />
+<h3 id="210-silicon-magiccom">2.10 翠展微电子（silicon-magic.com 选型页）</h3>
+<p>平台：SGT 30/40/60/80/100V（上下结构，业界最小单位元胞尺寸宣称）；150–200V（左中右结构，增强高温电流与抗冲击）。符合 AEC-Q101。Fabless。
+命名：SDx 系列（SDH=低阈值/高性能，SDA/SDN 变体）。列内参数为选型页转录（含 Qg/Qgd/Qgs、Ciss 等混列，取可辨识项）。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>VDS</th>
+<th>RDS(on)典型/最大 @10V</th>
+<th>RDS(on) @4.5V</th>
+<th>VGS(th)</th>
+<th>封装</th>
+<th>状态</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SDH04L0P6NN-BA</td>
+<td>40V</td>
+<td>0.5/0.6mΩ</td>
+<td>0.67/0.85mΩ</td>
+<td>1.6V</td>
+<td>PDFN5×6-DSC-8</td>
+<td>ES ready</td>
+<td>silicon-magic.com</td>
+</tr>
+<tr>
+<td>SDA04N0P4CN-BA</td>
+<td>40V</td>
+<td>0.45/0.52mΩ</td>
+<td>—</td>
+<td>3V</td>
+<td>PDFN5×6-8 CLIP</td>
+<td>ES ready</td>
+<td>silicon-magic.com</td>
+</tr>
+<tr>
+<td>SDA04N002CN-BA</td>
+<td>40V</td>
+<td>1.76/2.09mΩ</td>
+<td>—</td>
+<td>3V</td>
+<td>PDFN5×6-8L</td>
+<td>ES ready</td>
+<td>silicon-magic.com</td>
+</tr>
+<tr>
+<td>SDH03L0P7CA-AB</td>
+<td>30V</td>
+<td>0.47/0.58mΩ</td>
+<td>—</td>
+<td>1.6V</td>
+<td>PDFN5×6-8L</td>
+<td>ES ready</td>
+<td>silicon-magic.com</td>
+</tr>
+<tr>
+<td>SDHE2L0P6VN-AB</td>
+<td>25V</td>
+<td>0.5/0.6mΩ</td>
+<td>0.75/0.9mΩ</td>
+<td>1.4V</td>
+<td>DFN3.3×3.3 Source-down</td>
+<td>ES ready</td>
+<td>silicon-magic.com</td>
+</tr>
+<tr>
+<td>SDHE2L0P6VN-AD</td>
+<td>25V</td>
+<td>0.45/0.55mΩ</td>
+<td>0.63/0.8mΩ</td>
+<td>1.6V</td>
+<td>DFN3.3×3.3 Source-down</td>
+<td>ES ready</td>
+<td>silicon-magic.com</td>
+</tr>
+</tbody>
+</table></div>
+<p>对标海外料号：无官方 pin-to-pin 声明 → 留空。
+替代成熟度：25–40V <strong>部分替代</strong>（多为 ES ready 工程样品状态，量产成熟度需核实）；80/100V 宣称最小元胞尺寸但检索未取到该段具体料号 → 待核实。</p>
+<hr />
+<h3 id="211-vbsemi-szlcsc-hqew">2.11 微碧半导体 VBsemi（新浪财经 / szlcsc / hqew）</h3>
+<p>平台：SGT MOSFET + 独创"晶圆+铜夹片"/LFPAK 封装；GaN HEMT。Fabless（台积电流片、长电封装等；据电商描述 CMP100N04-VB 为台积电流片+长电封装）。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>VDS</th>
+<th>RDS(on)</th>
+<th>ID</th>
+<th>Qg</th>
+<th>封装</th>
+<th>备注</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VBGED1401</td>
+<td>40V(N)</td>
+<td>0.8mΩ@10V</td>
+<td>150A</td>
+<td>n/a</td>
+<td>LFPAK56</td>
+<td>SGT，媒体称对标 onsemi/TI</td>
+<td>新浪财经 k.sina.cn</td>
+</tr>
+<tr>
+<td>CMP100N04-VB</td>
+<td>40V(N)</td>
+<td>6mΩ@10V</td>
+<td>110A</td>
+<td>130nC@10V</td>
+<td>TO-220AB</td>
+<td>Trench（非SGT），台积电流片长电封装</td>
+<td>szlcsc.com</td>
+</tr>
+</tbody>
+</table></div>
+<p>对标海外料号：<strong>VBGED1401 媒体明确列出对标（非官方pin-to-pin，但点名竞品）：onsemi NTMYS1D3N04CTWG（1.15mΩ）、TI SQJ138EP-T1_GE3（1.5mΩ）</strong> → 记录为"竞品对比"，非确证 pin-to-pin 替代。
+替代成熟度：40V <strong>部分替代</strong>（0.8mΩ 参数领先，规划 2026 推 60V/0.8mΩ；量产规模/车规状态待核实）。</p>
+<hr />
+<h3 id="212-nexperia-china">2.12 安世中国 Nexperia China（华声在线 / 充电头网 拆解）</h3>
+<p>平台：12寸 SGT <strong>T2X</strong> 平台 + <strong>HCS</strong> 平台；LFPAK/LFPAK56/I2PAK 封装。IDM（12寸产线，月20+款设计产出，2026底部署18大工艺平台）。2026 一次发布 19 款 40–100V 车规 MOSFET。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>料号</th>
+<th>VDS</th>
+<th>RDS(on)</th>
+<th>封装</th>
+<th>应用/整机</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PSMN1R4-40YLD</td>
+<td>40V(N)</td>
+<td>1.12mΩ</td>
+<td>LFPAK56（175℃）</td>
+<td>海韵850W电源同步整流</td>
+<td>充电头网</td>
+</tr>
+<tr>
+<td>PSMN3R3-40YS</td>
+<td>40V(N)</td>
+<td>3.3mΩ</td>
+<td>LFPAK（175℃）</td>
+<td>惠普180W电源</td>
+<td>充电头网</td>
+</tr>
+<tr>
+<td>PSMN8R5-60YS</td>
+<td>60V(N)</td>
+<td>8.5mΩ</td>
+<td>LFPAK（175℃）</td>
+<td>华硕150W适配器</td>
+<td>充电头网</td>
+</tr>
+<tr>
+<td>PSMN8R5-100ES</td>
+<td>100V(N)</td>
+<td>8.5mΩ</td>
+<td>I2PAK（175℃）</td>
+<td>惠普90W PD快充</td>
+<td>充电头网</td>
+</tr>
+</tbody>
+</table></div>
+<p>（车规19款 T2X 平台参数：40V 最低 0.48mΩ、80V 最低 1.3mΩ、100V 低至 0.99mΩ / 460A+，来源：华声在线 voc.com.cn 2026-08。）</p>
+<p>对标海外料号：安世本身即原 NXP/飞利浦标准品体系，PSMN 系列为其自有型号 → 无"国产对标海外"意义（其本身为海外基准料号），此处作为国内产线（东莞封测+国内12寸）参与者收录。
+替代成熟度：40/60/80/100V <strong>已可替代</strong>（本即行业基准供应商，车规体系成熟）。</p>
+<hr />
+<h3 id="213-sgt">2.13 其他补充（第三方 SGT 料号，非目标名单但检索中出现，供交叉参考）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>料号</th>
+<th>VDS</th>
+<th>RDS(on)</th>
+<th>封装</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>瑶芯微 AK</td>
+<td>AK2G10N021GAM-H</td>
+<td>100V</td>
+<td>1.66mΩ典型/2.1mΩmax</td>
+<td>PDFN5×6</td>
+<td>充电头网/新浪（G5平台）</td>
+</tr>
+<tr>
+<td>瑶芯微 AK</td>
+<td>AK2G10N019GAL</td>
+<td>100V</td>
+<td>1.9mΩ级</td>
+<td>PDFN5×6</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>杰盛微 JSMSEMI</td>
+<td>JSM70N04Q</td>
+<td>40V</td>
+<td>极低（型号族）</td>
+<td>DFN3030-8L</td>
+<td>seccw.com</td>
+</tr>
+<tr>
+<td>杰盛微 JSMSEMI</td>
+<td>JSM180N04Q</td>
+<td>40V</td>
+<td>&lt;1.4mΩ@10V</td>
+<td>PDFN5060-8L</td>
+<td>seccw.com</td>
+</tr>
+<tr>
+<td>龙夏电子</td>
+<td>LR013N04SD8</td>
+<td>40V</td>
+<td>1.11mΩ</td>
+<td>PDFN5×6</td>
+<td>eefocus.com</td>
+</tr>
+<tr>
+<td>中科微电 ZK</td>
+<td>ZK100G325P / ZK100G325B</td>
+<td>100V</td>
+<td>(325型族)</td>
+<td>大功率封装</td>
+<td>elecfans.com</td>
+</tr>
+<tr>
+<td>GOFORD</td>
+<td>GT025N06AD5</td>
+<td>60V</td>
+<td>1.8mΩ</td>
+<td>DFN5×6-8L</td>
+<td>世强</td>
+</tr>
+<tr>
+<td>MDD辰达</td>
+<td>MDDG03R04Q</td>
+<td>30V</td>
+<td>3.5mΩ</td>
+<td>n/a</td>
+<td>elecfans.com</td>
+</tr>
+<tr>
+<td>上海贝岭</td>
+<td>150V SGT 系列（未取具体串）</td>
+<td>150V</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>elecfans.com</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="china-h3">三、国产 vs 海外同电压段对比</h2>
+<blockquote>
+<p>海外基准梯队：英飞凌 OptiMOS、onsemi PowerTrench/T10、安世 NextPowerS/T2X（安世本身12寸国内也产）、ST STripFET、TI/Vishay 等。以下比较基于检索到的国产<strong>最优 RDS(on) 参数点</strong>（同封装/相近电流能力，非严格 pin-to-pin），仅作量级参照。</p>
+</blockquote>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>电压段</th>
+<th>国产代表最优参数（料号 / RDS(on)）</th>
+<th>海外对标量级</th>
+<th>差距判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>30V</strong></td>
+<td>长晶 CJAC2R8SN03AL ~2.8mΩ（PDFN5×6）；华润 CRSM014N03L2 1mΩ/240A</td>
+<td>onsemi/英飞凌 30V 亚mΩ级</td>
+<td>基本追平，30V <strong>已可替代</strong></td>
+</tr>
+<tr>
+<td><strong>40V</strong></td>
+<td>微碧 VBGED1401 0.8mΩ/150A（LFPAK56）；华润 CRSM009N04L2 0.75mΩ/320A；龙腾 LSGN04R008FHB 0.74mΩ</td>
+<td>安世 PSMN1R4-40 1.12mΩ；英飞凌 OptiMOS6 40V</td>
+<td>国产已达/优于同档参数点，<strong>已可替代</strong>（车规体系仍需逐一认证）</td>
+</tr>
+<tr>
+<td><strong>60V</strong></td>
+<td>东微 SFS06R015UGNF 1.5mΩ；GOFORD GT025N06AD5 1.8mΩ</td>
+<td>安世 PSMN8R5-60 8.5mΩ（不同电流档）</td>
+<td>参数点已可替代，<strong>已可替代~部分替代</strong></td>
+</tr>
+<tr>
+<td><strong>80V</strong></td>
+<td>士兰 SVGP081R4NL5S 1.2mΩ/85nC（SGT G3+）；东微 SFS08R024UGNF 2.4mΩ</td>
+<td>英飞凌/onsemi 80V 服务器级</td>
+<td>服务器电源段 <strong>部分~已可替代</strong></td>
+</tr>
+<tr>
+<td><strong>100V</strong></td>
+<td>华润 CRSS028N10N 2.5mΩ/180A；瑶芯 AK2G10N021 1.66mΩ；东微 SFS10R03UGNF 3mΩ</td>
+<td>onsemi FDMS 100V PowerTrench；安世 100V T2X 0.99mΩ</td>
+<td>参数追平，<strong>已可替代</strong>（AI电源/快充已导入）</td>
+</tr>
+<tr>
+<td><strong>150V</strong></td>
+<td>龙腾 LSGT15R032 2.7mΩ/279A（G3）；赛晶虹安 HAG040TN15 3.2mΩ/230A；东微 SFS15R10 10mΩ</td>
+<td>英飞凌 150V OptiMOS</td>
+<td>高端参数接近，<strong>部分~已可替代</strong>（BMS/OBC 导入中）</td>
+</tr>
+<tr>
+<td><strong>200V</strong></td>
+<td>龙腾 200V 系列 7.8–8mΩ/165A；扬杰 200V Gen2.0 8.6mΩ；新洁能 SGT-II 200V</td>
+<td>英飞凌/ST 200V</td>
+<td><strong>部分替代</strong>（工业为主，车规认证与长期可靠性数据仍需补）</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="china-h4">四、替代成熟度三档分布与差距归因</h2>
+<h3 id="_4">三档分布（按电压段综合）</h3>
+<ul>
+<li><strong>已可替代（30V / 40V / 60V / 100V 主流场景）</strong>：新洁能、华润微、士兰微（车用中低压）、捷捷微电（40/60/100V）、安世中国（40–100V车规）、微碧（40V 参数点）。依据：RDS(on) 参数点已追平或优于同封装海外基准；快充同步整流、服务器电源、消费/工业电机驱动已规模出货；40V 已见车规 AEC-Q101 认证料号。</li>
+<li><strong>部分替代（80V / 120V / 150V / 200V，及车规高可靠场景）</strong>：长晶（40–150V）、龙腾（150–250V）、东微（120–200V）、扬杰（200V Gen2.0）、翠展（多为 ES ready）、捷捷（80/120V 验证中）。依据：平台已 Ready 或样品阶段，量产料号与长期可靠性/车规数据尚在积累；高压段元胞与外延一致性挑战更大。</li>
+<li><strong>仍有明显差距（车规 200V+ 的极限可靠性、超大电流长期数据、部分厂商料号未公开）</strong>：芯导科技、中晶新源、蓝彩电子、比亚迪半导体（低压MOS料号未公开）——<strong>主要是数据缺口 + 公开可靠性证据不足</strong>，不等同技术落后，但公开层面无法确证替代。</li>
+</ul>
+<h3 id="_5">差距卡在哪一层（归因）</h3>
+<ol>
+<li><strong>外延片（EPI）</strong>：高压段（150–250V）对低阻厚外延均匀性要求高，国产厚外延掺杂一致性与进口片仍有差距，直接影响 RDS(on)×BV 硅极限逼近程度与批次一致性。</li>
+<li><strong>深槽刻蚀与填充</strong>：SGT 沟槽比普通 Trench 深 3–5 倍，深槽刻蚀 CD 控制、无空洞多晶硅/氧化物填充（Thermal vs HDP 工艺路线）是良率与元胞微缩关键。华虹近期专利即针对沟槽底部电场峰值/抗高压击穿——说明该层仍在持续攻关。</li>
+<li><strong>双层多晶硅间氧化膜（IPO）</strong>：屏蔽栅与控制栅之间氧化膜质量决定栅漏可靠性与 Qgd，HDP 填充工艺的均匀性是差异点。</li>
+<li><strong>元胞尺寸（cell pitch）</strong>：领先厂商（新洁能 Gen.3、翠展）以"业界最小元胞"作为卖点，微缩能力决定同面积 Rsp 与成本；这是国产头部已接近、二三线仍落后的分水岭。</li>
+<li><strong>测试与可靠性数据</strong>：100% UIS/EAS/ΔVDS 测试头部已具备，但<strong>长期可靠性（HTRB/HTGB/H3TRB 数万小时）与批次 ppm 级数据</strong>在车规高压段公开不足。</li>
+<li><strong>车规认证</strong>：AEC-Q101 是入场券，PPAP/PCN/零缺陷 ppm 供货体系才是壁垒；40V 已有认证料号，150–200V 车规料号覆盖数仍少。</li>
+</ol>
+<hr />
+<h2 id="china-h5">五、数据缺口与待核实清单</h2>
+<ol>
+<li><strong>芯导科技 / 中晶新源 / 蓝彩电子 / 比亚迪半导体（低压MOS）</strong>：未检索到明确的中低压 SGT 平台命名与在产料号串，全部 <code>n/a</code> —— 需查官网选型手册/立创商城型号页确认是否有中低压 MOSFET 产品线。</li>
+<li><strong>捷捷微电、银河微电、扬杰科技（部分）</strong>：官网选型页/手册未在搜索结果中返回<strong>具体料号串</strong>（仅电压段/类目或个别型号）—— 需直接下载各家 MOSFET Selection Guide PDF 逐段补料号、RDS(on)@测试条件、Qg、ID。</li>
+<li><strong>参数测试条件</strong>：多条来自电商/媒体转录的 RDS(on) 未标全 VGS 与 ID 测试点；型号名中"R008/R044"等隐含阻值需回 datasheet 与实测典型/最大值对齐（本表已尽量标注，隐含值以<code>(型号隐含)</code>注明）。</li>
+<li><strong>对标海外 pin-to-pin</strong>：除微碧 VBGED1401 有媒体点名竞品外，其余厂商均无官方 pin-to-pin 替代声明；"对标国际一线"为宣传口径，不等于封装/引脚兼容替代 —— 若需确证替代关系，须查各厂 cross-reference / 替代选型表。</li>
+<li><strong>代工/产线归属</strong>：新洁能、东微、翠展、微碧为 Fabless，具体代工厂（华虹/中芯/芯联/台积电等）与 8寸 vs 12寸归属，除个别（东微→华虹系、微碧 CMP100N04→台积电+长电）外多为推断，需向厂商/招股书核实；积塔、中芯绍兴（芯联先锋）在中低压 SGT 上的具体平台细节缺公开资料。</li>
+</ol></section></main>
+</div>
+
+<footer>
+  ⚠️ 本页为<b>待评估草稿</b>，尚未并入《半导体概览》主文档。料号参数多来自厂商官网 / 分销 / 媒体页面，
+  已在各表标注来源域名；标记 <code>n/a</code> 者为未核实项，<b>量产选型请回原厂 datasheet 复核</b>。
+  市占率类数字因缺统一年份口径，一律只给相对位次。
+</footer>
+
+<script>
+document.querySelectorAll('.tab').forEach(function(b){
+  b.addEventListener('click',function(){
+    var t=b.dataset.t;
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.toggle('active',x===b)});
+    document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.dataset.t===t)});
+    document.querySelectorAll('.toc-group').forEach(function(g){g.style.display=(g.dataset.t===t)?'block':'none'});
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+document.querySelectorAll('aside a').forEach(function(a){
+  a.addEventListener('click',function(e){
+    e.preventDefault();
+    var el=document.querySelector(a.getAttribute('href'));
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+</script>
+</body></html>
