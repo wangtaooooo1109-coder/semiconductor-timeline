@@ -51,8 +51,9 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 .vendor-chips .status.finance{background:#eff6ff;color:#1e3a8a;border-color:#2563eb}
 .future-plans{background:#eff6ff;color:#334155;border-color:#94a3b8}
 .future-plans b{color:#1e3a8a}
+.confidence-legend{display:flex;flex-wrap:wrap;gap:8px 12px;margin:0 0 16px;padding:12px 14px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:#334155}.confidence-legend b{color:#0f172a}.confidence-legend span{font-size:12px}.confidence-legend .high{color:#14532d}.confidence-legend .mid{color:#78350f}.confidence-legend .low{color:#7f1d1d}.aligned-player-map header b{width:auto!important;min-width:52px;padding:0 8px}.boundary-map .quadrant span{overflow-wrap:anywhere}@media(max-width:600px){.confidence-legend{display:grid}.boundary-map{display:grid;grid-template-columns:1fr!important}}
 </style></head><body>
-<header class="top"><div class="top-in"><div class="brand">机器人大脑全景报告 <span class="version">v5.3.0</span></div><div class="meta">模型原理 · 技术路线时间轴 · 统一厂商卡片 · 算力与数据 · 融资财务 · 技术与场景趋势　|　完成版 v5.3.0 · 研究时点 2026-10-09 · 构建 2026-10-09 13:42</div></div></header>
+<header class="top"><div class="top-in"><div class="brand">机器人大脑全景报告 <span class="version">v5.3.0</span></div><div class="meta">模型原理 · 技术路线时间轴 · 统一厂商卡片 · 算力与数据 · 融资财务 · 技术与场景趋势　|　完成版 v5.3.0 · 研究时点 2026-10-09 · 构建 2026-10-09 13:47</div></div></header>
 <div class="layout"><aside class="toc"><b>CONTENTS</b><a class="l2" href="#_2">一、执行摘要</a>
 <a class="l2" href="#_3">二、模型分类与原理图</a>
 <a class="l3" href="#21">2.1 统一软件栈</a>
@@ -101,7 +102,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <a class="l2" href="#_7">六、方法与信源</a>
 <a class="l3" href="#61">6.1 证据分级</a>
 <a class="l3" href="#62">6.2 核验清单</a>
-<a class="l3" href="#63">6.3 资料边界</a></aside><main class="content">
+<a class="l3" href="#63">6.3 资料边界</a>
+<a class="l2" href="#v530">七、v5.3.0 通篇一致性审计</a></aside><main class="content">
 <section class="hero-viz" aria-label="报告视觉总览">
   <div><span class="eyebrow">ROBOT BRAIN LANDSCAPE · 2026</span><h1>机器人大脑：从模型竞赛到生产闭环</h1><p>用产品、技术、商业三条证据链，观察 VLA、世界模型、数据飞轮和规模交付。</p></div>
   <svg viewBox="0 0 600 270" role="img" aria-label="云边端机器人智能分层图"><defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#40d7c5"/><stop offset="1" stop-color="#65a9ff"/></linearGradient></defs><path d="M70 65H530M110 135H490M155 205H445" stroke="#29465e" stroke-width="42" stroke-linecap="round"/><text x="300" y="70">云端 · 世界基座 / 仿真 / 训练</text><text x="300" y="140">边缘 · S2规划 / 机队协同</text><text x="300" y="210">端侧 · S1动作 / WBC / 安全</text><path d="M300 88v28m0 42v28" stroke="url(#g)" stroke-width="7" marker-end="url(#a)"/><circle cx="80" cy="65" r="10" fill="#40d7c5"/><circle cx="120" cy="135" r="10" fill="#65a9ff"/><circle cx="165" cy="205" r="10" fill="#efb35b"/></svg>
@@ -112,12 +114,12 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <article class="c1"><i>01</i><h3>端到端 VLA</h3><p>图像 + 语言 + 状态 → 动作</p><small>统一但易受时延与漂移约束</small></article><article class="c2"><i>02</i><h3>Action Expert</h3><p>VLM latent → 动作块</p><small>π、GO-1、GR00T 主线</small></article><article class="c3"><i>03</i><h3>快慢系统</h3><p>S2 规划 ⇄ S1 执行</p><small>工程落地的频率分工</small></article><article class="c4"><i>04</i><h3>世界模型</h3><p>动作 → 未来 → 评分</p><small>先用于合成、评测与低频规划</small></article><article class="c5"><i>05</i><h3>大行为模型</h3><p>示教 → 全身扩散轨迹</p><small>全身协同强，语义复用偏弱</small></article><article class="c6"><i>06</i><h3>智能体 / 技能库</h3><p>规划 → 技能 → 经典控制</p><small>可审计、适合限定生产流程</small></article></section>
 <h2 class="viz-title">范式演进时间轴</h2><section class="timeline-viz"><article><time>2022–23</time><b>范式定义</b><span>Diffusion Policy · RT-2 · Open X</span></article><article><time>2024</time><b>模块专业化</b><span>OpenVLA · π0 · FAST · AgiBot World</span></article><article><time>2025</time><b>系统融合</b><span>Helix · GR00T · Gemini · GO-1 · LBM</span></article><article><time>2026</time><b>生产后训练</b><span>WAM · 失败回流 · 触觉 · 端侧压缩</span></article></section>
 <h2 class="viz-title">数据飞轮</h2><section class="flywheel"><svg viewBox="0 0 900 260" role="img" aria-label="机器人数据闭环"><g fill="none" stroke="#36536b" stroke-width="3"><path d="M155 130H300M405 130H550M655 130H790"/><path d="M790 155C760 240 170 240 125 165" stroke-dasharray="7 7"/></g><g><rect x="30" y="85" width="130" height="90" rx="20"/><rect x="285" y="85" width="130" height="90" rx="20"/><rect x="540" y="85" width="130" height="90" rx="20"/><rect x="740" y="85" width="130" height="90" rx="20"/></g><g class="svgt"><text x="95" y="120">真机 / 遥操</text><text x="95" y="148">失败 / 仿真</text><text x="350" y="120">治理与评分</text><text x="350" y="148">统一动作坐标</text><text x="605" y="120">SFT / RL</text><text x="605" y="148">仿真回归</text><text x="805" y="120">灰度部署</text><text x="805" y="148">事件回收</text></g></svg></section>
-<h2 class="viz-title">厂商三维地图</h2><section class="vendor-map"><div class="axis y">商业闭环强度 ↑</div><div class="quadrant q1"><b>平台 / 模型</b><span>NVIDIA · Google · PI · Skild</span></div><div class="quadrant q2"><b>集团与全栈</b><span>Tesla · BD/TRI · Figure</span></div><div class="quadrant q3"><b>本体 / 生态</b><span>宇树 · 傅利叶 · 乐聚 · 星尘</span></div><div class="quadrant q4"><b>场景交付</b><span>Agility · 优必选 · 银河 · 智元 · 1X</span></div><div class="axis x">产品标准化与数据复用 →</div></section>
+<h2 class="viz-title">全球玩家业务边界地图</h2><section class="vendor-map boundary-map"><div class="axis y">业务覆盖广度 ↑</div><div class="quadrant q1"><b>算法 / 算力仿真 / 数据</b><span>PI · Skild · 自变量 · 智平方｜NVIDIA · Google/Apptronik｜光轮</span></div><div class="quadrant q2"><b>全栈</b><span>Figure · 1X · BD/TRI · Tesla · 智元 · 星动纪元 · 傅利叶 · 星尘 · 超维</span></div><div class="quadrant q3"><b>本体 / 零部件</b><span>宇树 · 乐聚｜强脑/曦诺</span></div><div class="quadrant q4"><b>运营</b><span>Agility · Sanctuary · 银河 · 优必选 · 它石 · 云深处</span></div><div class="axis x">产品化程度：能力组件 → 标准产品 → 场景运营 →</div></section>
 <section class="evidence-dimensions"><h3>可核验落地维度</h3><p>产品状态 · 公开订单/出货 · 模型开放度 · 数据闭环证据 · 客户复购/连续运营 · 融资财务</p></section><section class="radar-wrap" style="display:none"><svg viewBox="0 0 520 420" role="img" aria-label="六维评价框架"><g transform="translate(260 210)" fill="none" stroke="#29445a"><path d="M0-160 139-80 139 80 0 160-139 80-139-80Z"/><path d="M0-110 95-55 95 55 0 110-95 55-95-55Z"/><path d="M0-60 52-30 52 30 0 60-52 30-52-30Z"/></g><g class="radar-label"><text x="260" y="28">技术成熟度</text><text x="430" y="125">数据闭环</text><text x="430" y="310">量产兑现</text><text x="260" y="405">财务耐力</text><text x="72" y="310">商业闭环</text><text x="65" y="125">生态迁移</text></g><path d="M260 85 370 150 350 262 260 325 145 275 150 145Z" fill="rgba(64,215,197,.2)" stroke="#40d7c5" stroke-width="4"/></svg><div><h3>不是总分榜</h3><p>缺失值记 <code>n/a</code>，不能当 0 分。优先看连续运营、每百小时接管、回款和贡献毛利。</p><ul><li><span class="dot fact"></span>官网 / 论文 / 财报</li><li><span class="dot secondary-dot"></span>媒体与聚合信息</li><li><span class="dot plan"></span>规划与待核线索</li></ul></div></section>
 <h2 class="viz-title">数据产业链与落地节奏</h2><section class="chain"><article><b>采集</b><span>遥操 · Ego · 现场事件</span></article><em>→</em><article><b>治理</b><span>同步 · 去重 · 质检 · 权限</span></article><em>→</em><article><b>训练</b><span>真机 + 仿真 + 视频</span></article><em>→</em><article><b>评测</b><span>回归 · 压测 · 安全</span></article><em>→</em><article><b>运营</b><span>灰度 · 接管 · 回收</span></article></section>
 <section class="trend-grid"><article><h3>技术趋势</h3><p>跨本体适配 · 世界模型旁路 · 触觉融合 · 云边端协同 · 失败驱动后训练</p></article><article><h3>场景节奏</h3><p>仓储物流 → 零售补货 → 工业装配 → 专业服务 → 开放家庭</p></article></section>
 <div class="detail-hint">以下为完整事实卡、证据标记与详细分析。点击章节标题展开或收起。</div>
-<h1 id="_1">机器人大脑全景报告：基础模型、数据闭环与商业持续性</h1>
+<section class="confidence-legend"><b>置信度图例</b><span class="high">高｜公司公告、交易所/财报、论文、客户公告</span><span class="mid">中｜【媒体/访谈口径·来源·时间】</span><span class="low">低｜【低置信·来源·时间】；仅作线索，不作为确定事实</span></section><h1 id="_1">机器人大脑全景报告：基础模型、数据闭环与商业持续性</h1>
 <blockquote>
 <p>发布版 v3.1.0｜研究时点：2026-10-09｜口径：不按地域分组，按模型机制与公司闭环统一比较。<code><span class="secondary">【次级】</span></code> 表示媒体或聚合信息，<code>【待核】</code> 表示尚缺独立一手证据，“未披露” 表示公开资料未披露，不能由缺失值反推能力。</p>
 <p><strong>证据边界</strong>：主体事实来自可追溯的官网、论文、模型卡、开源仓库、财报及公开报道；无法通过独立一手来源确认的型号、时间、参数和经营数字统一标为 <code><span class="secondary">【次级】</span></code> 或 <code>【待核】</code>。</p>
@@ -625,16 +627,14 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <article><i>04</i><h4>开放家庭</h4><p><b>任务</b>户型、物品、宠物与指令持续变化，长程任务组合</p><p><b>容错 / 安全</b>近零容错；儿童、火电水、隐私均无隔离带</p><p><b>数据</b>单户频次低、分布碎片化，真实失败难安全采集</p><p><b>经济性</b>售价、可靠性、售后与利用率须同时过关</p><time>最后规模化 · 2030年代起</time></article>
 </div>
 <div class="why-home"><b>为什么家庭最后？</b><span>开放世界长尾最多 + 无专业操作员兜底 + 事故与隐私代价最高 + 单户数据和使用频次不足 + 消费者价格上限低。</span><small>并行例外：封闭矿区/巡检可早于零售；医院内物流可早于康养接触任务；开发者平台不依赖终端场景成熟。</small></div>
-<h4 class="map-title">玩家分类地图｜唯一主类别 + 次标签</h4>
-<div class="player-map">
-<article class="cat-a"><header><b>A</b><h5>基础模型 / 纯模型</h5></header><p><strong>价值捕获</strong>模型授权、API、联合开发；<strong>资产</strong>跨本体数据与算法人才；<strong>短板</strong>真机闭环和渠道依赖伙伴。</p><div><span>Physical Intelligence <small>次：开发者生态</small></span><span>自变量机器人 <small>次：开源生态</small></span><span>智平方 <small>次：软硬集成</small></span><span>Skild AI <small>次：平台授权</small></span></div></article>
-<article class="cat-b"><header><b>B</b><h5>算力 / 仿真平台</h5></header><p><strong>价值捕获</strong>芯片、云、仿真与工具链；<strong>资产</strong>算力生态和开发标准；<strong>短板</strong>终端交付与场景ROI间接。</p><div><span>NVIDIA <small>次：基础模型</small></span><span>Google DeepMind / Apptronik <small>次：模型+本体伙伴</small></span><span>光轮 / 基础设施线索 <small>次：数据服务</small></span></div></article>
-<article class="cat-c"><header><b>C</b><h5>软硬一体通用本体</h5></header><p><strong>价值捕获</strong>整机、软件订阅与机队服务；<strong>资产</strong>本体—模型—数据闭环；<strong>短板</strong>资本开支、量产和售后跨度大。</p><div><span>Figure <small>次：工业交付</small></span><span>智元机器人 <small>次：数据生态</small></span><span>星动纪元 <small>次：基础模型</small></span><span>1X <small>次：家庭运营</small></span><span>Boston Dynamics + TRI <small>次：集团研发</small></span><span>傅利叶智能 <small>次：康养</small></span><span>Sanctuary AI <small>次：场景运营</small></span><span>星尘智能 <small>次：灵巧操作</small></span><span>乐聚 <small>次：教育/工业</small></span><span>超维动力 <small>次：世界模型</small></span></div></article>
-<article class="cat-d"><header><b>D</b><h5>场景交付 / 运营型</h5></header><p><strong>价值捕获</strong>项目交付、RaaS和持续运维；<strong>资产</strong>客户流程、现场数据和SLA；<strong>短板</strong>定制化拖累毛利与跨场景复用。</p><div><span>银河通用 <small>次：零售模型</small></span><span>优必选 <small>次：通用本体</small></span><span>Agility Robotics <small>次：物流本体</small></span><span>它石智航 <small>次：工业模型</small></span><span>云深处 <small>次：巡检本体</small></span></div></article>
-<article class="cat-e"><header><b>E</b><h5>集团内部全栈</h5></header><p><strong>价值捕获</strong>内部降本后外售；<strong>资产</strong>制造、算力、数据与资本协同；<strong>短板</strong>外部客户适配、边界与披露不足。</p><div><span>Tesla <small>次：通用本体</small></span></div></article>
-<article class="cat-f"><header><b>F</b><h5>低成本本体 / 开发生态</h5></header><p><strong>价值捕获</strong>硬件销量、部件与开发套件；<strong>资产</strong>成本工程、供应链和装机量；<strong>短板</strong>高层智能、企业级交付与软件收入待验证。</p><div><span>宇树科技 <small>次：运控模型</small></span><span>强脑科技 / 曦诺未来 <small>次：灵巧手部件</small></span></div></article>
-</div>
-<footer>覆盖校验：4 + 3 + 10 + 5 + 1 + 2 = <b>25 个厂商条目</b>。联合条目按报告卡片口径计为一个映射单元。</footer>
+<h4 class="map-title">全球玩家业务边界地图｜主分类与第四章页头完全一致</h4><div class="player-map aligned-player-map">
+<article><header><b>本体</b></header><p>产品化程度高；业务边界以标准整机/开发平台为主。</p><div><span>宇树科技</span><span>乐聚</span></div></article>
+<article><header><b>算法</b></header><p>跨本体模型、策略或授权；不把模型发布视为本体交付。</p><div><span>Physical Intelligence</span><span>Skild AI</span><span>自变量机器人</span><span>智平方</span></div></article>
+<article><header><b>算力仿真</b></header><p>芯片、工具链、仿真与基础模型平台。</p><div><span>NVIDIA</span><span>Google DeepMind / Apptronik</span></div></article>
+<article><header><b>零部件</b></header><p>灵巧手、假肢及关键执行部件。</p><div><span>强脑科技 / 曦诺未来</span></div></article>
+<article><header><b>数据</b></header><p>采集、治理和仿真数据服务。</p><div><span>光轮 / 基础设施线索</span></div></article>
+<article><header><b>运营</b></header><p>以客户流程、部署、RaaS或持续运维形成闭环。</p><div><span>Agility Robotics</span><span>Sanctuary AI</span><span>银河通用</span><span>优必选</span><span>它石智航</span><span>云深处</span></div></article>
+<article><header><b>全栈</b></header><p>本体—模型—数据闭环，业务覆盖广但资本开支较高。</p><div><span>Figure</span><span>1X</span><span>Boston Dynamics + TRI</span><span>Tesla</span><span>智元机器人</span><span>星动纪元</span><span>傅利叶智能</span><span>星尘智能</span><span>超维动力</span></div></article></div><footer>覆盖校验：2 + 4 + 2 + 1 + 1 + 6 + 9 = <b>25家公司条目</b>。坐标解释：从标准产品到场景运营为“产品化程度”，从单层能力到软硬数据闭环为“业务覆盖广度”；不作投资排名。</footer>
 </section><section class="rb-timeline product-timeline" aria-label="公司产品推出与量产时间轴"><header><h4>公司产品推出与量产 Time Line</h4><span>← 横向拖动 / 滑动；点击公司进入第四章卡片 →</span></header><div class="rb-tl-legend"><b>状态标记</b><em>● 发布　◉ 试点　◆ 小批量　■ 规模交付　○ 订单　△ 预计量产/规划产能</em><small>订单 ≠ 出货 ≠ 交付 ≠ 验收；规划产能 ≠ 实际产量</small></div><div class="rb-tl-shell"><div class="rb-prod-grid"><div class="tl-sticky axis-title">公司 / 时间</div><div class="tl-years future-axis"><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span><span>2027</span><span>2028</span><span>2029</span><span>2030</span></div><div class="tl-sticky"><a href="#41-figurehelix">Figure</a></div><div class="prod-track"><time>2025.02</time><a href="#41-figurehelix"><b>Helix / Figure 02</b><small>●发布；BMW 试点</small></a></div><div class="tl-sticky"><a href="#42-physical-intelligence0-05-06-fast">Physical Intelligence</a></div><div class="prod-track"><time>2024.10</time><a href="#42-physical-intelligence0-05-06-fast"><b>π0 / openpi</b><small>◇模型开放；非本体出货</small></a></div><div class="tl-sticky"><a href="#43-nvidiagr00t-n1-n15-isaac-thor">NVIDIA</a></div><div class="prod-track"><time>2025.03</time><a href="#43-nvidiagr00t-n1-n15-isaac-thor"><b>GR00T N1 / Thor</b><small>●平台发布；芯片供货分列</small></a></div><div class="tl-sticky"><a href="#44-google-deepmind-apptronikgemini-robotics-15-er-15">Google / Apptronik</a></div><div class="prod-track"><time>2025.03</time><a href="#44-google-deepmind-apptronikgemini-robotics-15-er-15"><b>Gemini Robotics / Apollo</b><small>●模型发布；本体试点</small></a></div><div class="tl-sticky"><a href="#410-1xredwood-1x-world-model">1X</a></div><div class="prod-track"><time>2024–26</time><a href="#410-1xredwood-1x-world-model"><b>NEO / Redwood</b><small>●发布→试点；家庭量产△</small></a></div><div class="tl-sticky"><a href="#411-boston-dynamics-trilarge-behavior-model">Boston Dynamics + TRI</a></div><div class="prod-track"><time>2025.07</time><a href="#411-boston-dynamics-trilarge-behavior-model"><b>Atlas LBM</b><small>●发布/试验；未披露量产</small></a></div><div class="tl-sticky"><a href="#412-teslaoptimus">Tesla</a></div><div class="prod-track"><time>2022–26</time><a href="#412-teslaoptimus"><b>Optimus Gen 1/2</b><small>●原型；△量产规划</small></a></div><div class="tl-sticky"><a href="#413-skild-aiskild-brain">Skild AI</a></div><div class="prod-track"><time>2024–26</time><a href="#413-skild-aiskild-brain"><b>Skild Brain</b><small>●平台发布；非本体出货</small></a></div><div class="tl-sticky"><a href="#417-agility-roboticsdigit-arc">Agility Robotics</a></div><div class="prod-track"><time>2023–25</time><a href="#417-agility-roboticsdigit-arc"><b>Digit / Arc</b><small>●试点→小批量交付</small></a></div><div class="tl-sticky"><a href="#418-sanctuary-aicarbon">Sanctuary AI</a></div><div class="prod-track"><time>2023–25</time><a href="#418-sanctuary-aicarbon"><b>Phoenix / Carbon</b><small>●试点；交付数未披露</small></a></div><div class="tl-sticky"><a href="#45-go-1-villa-agibot-world">智元机器人</a></div><div class="prod-track"><time>2024–26</time><a href="#45-go-1-villa-agibot-world"><b>远征/灵犀 + GO-1</b><small>●发布→小批量；△产能</small></a></div><div class="tl-sticky"><a href="#46-era-42-hirt-vpp-ctrl-world">星动纪元</a></div><div class="prod-track"><time>2024–26</time><a href="#46-era-42-hirt-vpp-ctrl-world"><b>星动系列 / ERA-42</b><small>●发布/试点；△量产</small></a></div><div class="tl-sticky"><a href="#47-wall-a-wall-oss">自变量机器人</a></div><div class="prod-track"><time>2024–26</time><a href="#47-wall-a-wall-oss"><b>WALL-A / WALL-OSS</b><small>◇模型开放；本体试点</small></a></div><div class="tl-sticky"><a href="#48-astrabrain-graspvla-trackvla-groceryvla">银河通用</a></div><div class="prod-track"><time>2024–26</time><a href="#48-astrabrain-graspvla-trackvla-groceryvla"><b>Galbot / AstraBrain</b><small>●零售试点；△规模交付</small></a></div><div class="tl-sticky"><a href="#49-govla-alpha-brain">智平方</a></div><div class="prod-track"><time>2024–26</time><a href="#49-govla-alpha-brain"><b>Alpha Bot / GOVLA</b><small>●发布/试点；数量未披露</small></a></div><div class="tl-sticky"><a href="#414-brainnet-20-co-agent">优必选</a></div><div class="prod-track"><time>2023–26</time><a href="#414-brainnet-20-co-agent"><b>Walker S 系列</b><small>●订单→交付分口径</small></a></div><div class="tl-sticky"><a href="#415-focus-fourieractionnet">傅利叶智能</a></div><div class="prod-track"><time>2023–26</time><a href="#415-focus-fourieractionnet"><b>GR-1 / GR-2</b><small>●发布/试点；△量产</small></a></div><div class="tl-sticky"><a href="#416-unifolm">宇树科技</a></div><div class="prod-track"><time>2023–26</time><a href="#416-unifolm"><b>H1 / G1</b><small>●发布/出货；价格公开口径</small></a></div><div class="tl-sticky"><a href="#419-duocore">星尘智能</a></div><div class="prod-track"><time>2024–26</time><a href="#419-duocore"><b>Astribot S1</b><small>●发布/试点；△量产</small></a></div><div class="tl-sticky"><a href="#420">乐聚</a></div><div class="prod-track"><time>2023–26</time><a href="#420"><b>夸父系列</b><small>●发布/交付；数量分口径</small></a></div><div class="tl-sticky"><a href="#421">它石智航</a></div><div class="prod-track"><time>2024–26</time><a href="#421"><b>线束装配系统</b><small>●工业试点；△量产</small></a></div><div class="tl-sticky"><a href="#422-dr">云深处</a></div><div class="prod-track"><time>2021–26</time><a href="#422-dr"><b>绝影 / 山猫 / DR</b><small>●巡检交付；型号分列</small></a></div><div class="tl-sticky"><a href="#423">超维动力</a></div><div class="prod-track"><time>2024–26</time><a href="#423"><b>灵巧本体/世界模型</b><small>●发布/试点</small></a></div><div class="tl-sticky"><a href="#424">强脑 / 曦诺未来</a></div><div class="prod-track"><time>2024–26</time><a href="#424"><b>灵巧手</b><small>●部件发布；出货未披露</small></a></div><div class="tl-sticky"><a href="#425">光轮</a></div><div class="prod-track"><time>2024–26</time><a href="#425"><b>数据与仿真服务</b><small>●平台服务；非本体量产</small></a></div></div></div><div class="future-plans"><b>2026—2030 公开规划区｜△均为规划，不等于订单、交付或验收</b><span>△ 2026｜Tesla Optimus：公司指引的产能爬坡/内部部署（管理层口径，持续核验）</span><span>△ 2026｜Figure / 1X / Agility：客户与家庭部署扩展（公司发布，数量未统一披露）</span><span>△ 2026—2027｜智元、银河、优必选、傅利叶：产线与客户项目扩产（公司公告/采访）</span><span>△ 2027—2028｜宇树：IPO募投智能机器人制造基地与新型号（招股书/上市公告，2026）</span><span>△ 2027—2030｜NVIDIA/Google/PI/Skild：平台迭代与跨本体生态扩展（公司路线图）</span><span>△ 日期待定｜其余未给出确定年月的扩产/新型号计划统一置于待定区，不反推交付。</span></div><footer>每个节点保留原始公开口径；无明确数量时不估算。规划节点统一标△；订单 ≠ 出货 ≠ 交付 ≠ 验收。</footer></section>
 <p>本节同时提供独立的<strong>公司产品推出与量产 Time Line</strong>：按公司泳道列出本体首发、试点、小批量、规模交付与预计量产节点，并严格区分发布、订单、出货、交付和规划产能；节点名称可对应至公司卡片。</p>
 <p>下图只回答进入公司卡片前的两个问题：<strong>需求会先在哪里形成可复制闭环，玩家主要靠什么资产捕获价值</strong>。它不是行业趋势的重复论证，也不是公司排名。</p>
@@ -655,11 +655,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.1</span><h3 id="41-figurehelix">4.1 Figure｜Helix</h3></div><div class="vendor-chips"><span>玩家类别：A本体制造商</span><span>覆盖能力：本体✓ 算法✓ 数据✓ 零件部分自研</span><span>核心模型类型：快慢双系统</span><span>当前产品状态：客户试点/小批量交付</span><span class="status production">量产状态｜客户试点｜BMW产线验证；量产数量未披露｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025 C轮逾10亿美元；累计约20亿美元｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.1</span><h3 id="41-figurehelix">4.1 Figure｜Helix</h3></div><div class="vendor-chips"><span>玩家主分类：全栈</span><span>覆盖能力：本体✓ 算法✓ 数据✓ 零件部分自研</span><span>核心模型类型：快慢双系统</span><span>当前产品状态：客户试点/小批量交付</span><span class="status production">量产状态｜客户试点｜BMW产线验证；量产数量未披露｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025 C轮逾10亿美元；累计约20亿美元｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>通用人形机器人软硬一体公司</span></div><div><b>成立年份</b><span>2022</span></div><div><b>总部/主要基地</b><span>美国加州 Sunnyvale</span></div><div><b>创始人/团队背景</b><span>Brett Adcock；航空、机器人及大厂AI团队</span></div><div><b>最新公开融资</b><span>2025 C轮逾10亿美元；累计约20亿美元</span></div><div><b>最新公开估值</b><span>约390亿美元（Reuters，2025）</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>客户试点｜BMW产线验证；量产数量未披露｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Figure｜Helix</strong><span>玩家类别：A本体制造商｜覆盖能力：本体✓ 算法✓ 数据✓ 零件部分自研｜核心模型类型：快慢双系统｜当前产品状态：客户试点/小批量交付</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Figure｜Helix</strong><span>玩家主分类：全栈｜覆盖能力：本体✓ 算法✓ 数据✓ 零件部分自研｜核心模型类型：快慢双系统｜当前产品状态：客户试点/小批量交付</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：Figure 01/02/03 本体上的通用 VLA。2025-02 官方 Helix 首发，核心是完全板载的 S2/S1 双系统；后续“S0 三层”等说法主要来自次级资料，未与首发官方材料等同。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -710,11 +710,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.2</span><h3 id="42-physical-intelligence0-05-06-fast">4.2 Physical Intelligence｜π0 → π0.5 → π0.6 / FAST</h3></div><div class="vendor-chips"><span>玩家类别：B算法/基础模型公司</span><span>覆盖能力：本体— 算法✓ 数据✓ 零件—</span><span>核心模型类型：VLM + Action Expert</span><span>当前产品状态：公开发布</span><span class="status production">量产状态｜平台商用｜模型/API合作，非本体量产｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025轮次6亿美元；累计约10.7亿美元｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.2</span><h3 id="42-physical-intelligence0-05-06-fast">4.2 Physical Intelligence｜π0 → π0.5 → π0.6 / FAST</h3></div><div class="vendor-chips"><span>玩家主分类：算法</span><span>覆盖能力：本体— 算法✓ 数据✓ 零件—</span><span>核心模型类型：VLM + Action Expert</span><span>当前产品状态：公开发布</span><span class="status production">量产状态｜平台商用｜模型/API合作，非本体量产｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025轮次6亿美元；累计约10.7亿美元｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>跨本体机器人基础模型公司</span></div><div><b>成立年份</b><span>2024</span></div><div><b>总部/主要基地</b><span>美国旧金山</span></div><div><b>创始人/团队背景</b><span>Karol Hausman、Sergey Levine等；Google DeepMind/斯坦福/伯克利</span></div><div><b>最新公开融资</b><span>2025轮次6亿美元；累计约10.7亿美元</span></div><div><b>最新公开估值</b><span>约56亿美元（媒体，2025）</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>平台商用｜模型/API合作，非本体量产｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Physical Intelligence｜π0 → π0.5 → π0.6 / FAST</strong><span>玩家类别：B算法/基础模型公司｜覆盖能力：本体— 算法✓ 数据✓ 零件—｜核心模型类型：VLM + Action Expert｜当前产品状态：公开发布</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Physical Intelligence｜π0 → π0.5 → π0.6 / FAST</strong><span>玩家主分类：算法｜覆盖能力：本体— 算法✓ 数据✓ 零件—｜核心模型类型：VLM + Action Expert｜当前产品状态：公开发布</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：不做本体，提供跨机器人基础模型和 openpi。π0（2024）建立 VLM+Action Expert；π0.5 增强开放环境泛化；π0.6/RECAP 探索用经验与纠正做强化后训练；FAST 将动作压缩为 token。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -765,11 +765,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.3</span><h3 id="43-nvidiagr00t-n1-n15-isaac-thor">4.3 NVIDIA｜GR00T N1 / N1.5 + Isaac + Thor</h3></div><div class="vendor-chips"><span>玩家类别：C算力/仿真平台</span><span>覆盖能力：本体— 算法✓ 数据/仿真✓ 芯片✓</span><span>核心模型类型：VLM + Action Expert</span><span>快慢双系统</span><span>世界模型增强</span><span>当前产品状态：平台商用</span><span class="status production">量产状态｜平台商用｜Jetson Thor/Isaac生态供货｜2026-10-09</span><span class="status finance">财务状态｜上市公司｜NASDAQ: NVDA｜最近财报与市值按2026-10-09交易日</span></div></header>
+<header><div><span class="vendor-no">4.3</span><h3 id="43-nvidiagr00t-n1-n15-isaac-thor">4.3 NVIDIA｜GR00T N1 / N1.5 + Isaac + Thor</h3></div><div class="vendor-chips"><span>玩家主分类：算力仿真</span><span>覆盖能力：本体— 算法✓ 数据/仿真✓ 芯片✓</span><span>核心模型类型：VLM + Action Expert</span><span>快慢双系统</span><span>世界模型增强</span><span>当前产品状态：平台商用</span><span class="status production">量产状态｜平台商用｜Jetson Thor/Isaac生态供货｜2026-10-09</span><span class="status finance">财务状态｜上市公司｜NASDAQ: NVDA｜最近财报与市值按2026-10-09交易日</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>机器人算力、仿真与基础模型平台</span></div><div><b>成立年份</b><span>1993</span></div><div><b>总部/主要基地</b><span>美国加州 Santa Clara</span></div><div><b>创始人/团队背景</b><span>Jensen Huang等；半导体与加速计算团队</span></div><div><b>最新公开融资</b><span>上市公司；不适用创业融资轮次</span></div><div><b>最新公开估值</b><span>公开市值，随交易日变化（NASDAQ: NVDA）</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>平台商用｜Jetson Thor/Isaac生态供货｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>NVIDIA｜GR00T N1 / N1.5 + Isaac + Thor</strong><span>玩家类别：C算力/仿真平台｜覆盖能力：本体— 算法✓ 数据/仿真✓ 芯片✓｜核心模型类型：VLM + Action Expert｜快慢双系统｜世界模型增强｜当前产品状态：平台商用</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>NVIDIA｜GR00T N1 / N1.5 + Isaac + Thor</strong><span>玩家主分类：算力仿真｜覆盖能力：本体— 算法✓ 数据/仿真✓ 芯片✓｜核心模型类型：VLM + Action Expert｜快慢双系统｜世界模型增强｜当前产品状态：平台商用</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：不是单一模型，而是 Teleop采集—Isaac Sim/Lab训练—GR00T模型—Isaac ROS部署—Jetson Thor算力的全栈平台。N1约2B，N1.5为3B模型卡口径。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -820,11 +820,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.4</span><h3 id="44-google-deepmind-apptronikgemini-robotics-15-er-15">4.4 Google DeepMind / Apptronik｜Gemini Robotics 1.5 + ER 1.5</h3></div><div class="vendor-chips"><span>玩家类别：F全栈公司</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>Google/Apptronik联合</span><span>核心模型类型：端到端 VLA</span><span>分层智能体/技能库</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜客户试点｜Apollo联合验证｜2026-10-09</span><span class="status finance">财务状态｜集团内部项目+非上市已融资｜Alphabet NASDAQ: GOOGL/GOOG；Apptronik 2025 A轮4.03亿美元</span></div></header>
+<header><div><span class="vendor-no">4.4</span><h3 id="44-google-deepmind-apptronikgemini-robotics-15-er-15">4.4 Google DeepMind / Apptronik｜Gemini Robotics 1.5 + ER 1.5</h3></div><div class="vendor-chips"><span>玩家主分类：算力仿真</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>Google/Apptronik联合</span><span>核心模型类型：端到端 VLA</span><span>分层智能体/技能库</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜客户试点｜Apollo联合验证｜2026-10-09</span><span class="status finance">财务状态｜集团内部项目+非上市已融资｜Alphabet NASDAQ: GOOGL/GOOG；Apptronik 2025 A轮4.03亿美元</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>Google模型平台与Apptronik人形本体联合路线</span></div><div><b>成立年份</b><span>DeepMind 2010；Apptronik 2016</span></div><div><b>总部/主要基地</b><span>伦敦；美国奥斯汀</span></div><div><b>创始人/团队背景</b><span>Demis Hassabis团队；Jeff Cardenas/UT Austin人形团队</span></div><div><b>最新公开融资</b><span>Apptronik 2025 A轮扩至4.03亿美元</span></div><div><b>最新公开估值</b><span>Apptronik未公开；DeepMind属Alphabet</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>客户试点｜Apollo联合验证｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Google DeepMind / Apptronik｜Gemini Robotics 1.5 + ER 1.5</strong><span>玩家类别：F全栈公司｜覆盖能力：本体✓ 算法✓ 数据✓｜Google/Apptronik联合｜核心模型类型：端到端 VLA｜分层智能体/技能库｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Google DeepMind / Apptronik｜Gemini Robotics 1.5 + ER 1.5</strong><span>玩家主分类：算力仿真｜覆盖能力：本体✓ 算法✓ 数据✓｜Google/Apptronik联合｜核心模型类型：端到端 VLA｜分层智能体/技能库｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：RT-1/RT-2 奠定 VLA，Gemini Robotics（2025-03）进入机器人动作，On-Device 强调本地运行；1.5 由 ER 1.5 具身推理模型和 Robotics 1.5 动作模型协同。Apptronik Apollo 提供本体与 Robot Park 数据。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -875,11 +875,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.10</span><h3 id="410-1xredwood-1x-world-model">4.10 1X｜Redwood + 1X World Model</h3></div><div class="vendor-chips"><span>玩家类别：F全栈公司</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>核心模型类型：端到端 VLA</span><span>世界模型增强</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜客户试点｜NEO家庭早期部署｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2024 B轮1亿美元；累计约1.37亿美元｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.10</span><h3 id="410-1xredwood-1x-world-model">4.10 1X｜Redwood + 1X World Model</h3></div><div class="vendor-chips"><span>玩家主分类：全栈</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>核心模型类型：端到端 VLA</span><span>世界模型增强</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜客户试点｜NEO家庭早期部署｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2024 B轮1亿美元；累计约1.37亿美元｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>面向家庭的软体人形机器人公司</span></div><div><b>成立年份</b><span>2014</span></div><div><b>总部/主要基地</b><span>挪威 Moss；美国湾区</span></div><div><b>创始人/团队背景</b><span>Bernt Børnich；机器人与AI团队</span></div><div><b>最新公开融资</b><span>2024 B轮1亿美元；累计约1.37亿美元</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>客户试点｜NEO家庭早期部署｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>1X｜Redwood + 1X World Model</strong><span>玩家类别：F全栈公司｜覆盖能力：本体✓ 算法✓ 数据✓｜核心模型类型：端到端 VLA｜世界模型增强｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>1X｜Redwood + 1X World Model</strong><span>玩家主分类：全栈｜覆盖能力：本体✓ 算法✓ 数据✓｜核心模型类型：端到端 VLA｜世界模型增强｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：家庭优先，EVE轮式数据过渡到NEO双足。Redwood负责全身移动操作，世界模型预测交互后果；远程专家在早期提供兜底和高价值纠错数据。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -930,11 +930,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.11</span><h3 id="411-boston-dynamics-trilarge-behavior-model">4.11 Boston Dynamics + TRI｜Large Behavior Model</h3></div><div class="vendor-chips"><span>玩家类别：F全栈公司</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>BD/TRI联合</span><span>核心模型类型：大行为模型 LBM</span><span>当前产品状态：研究/原型</span><span class="status production">量产状态｜客户试点｜电动Atlas工业验证｜2026-10-09</span><span class="status finance">财务状态｜集团内部项目｜现代汽车/丰田财务支撑；项目未单列财务｜2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.11</span><h3 id="411-boston-dynamics-trilarge-behavior-model">4.11 Boston Dynamics + TRI｜Large Behavior Model</h3></div><div class="vendor-chips"><span>玩家主分类：全栈</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>BD/TRI联合</span><span>核心模型类型：大行为模型 LBM</span><span>当前产品状态：研究/原型</span><span class="status production">量产状态｜客户试点｜电动Atlas工业验证｜2026-10-09</span><span class="status finance">财务状态｜集团内部项目｜现代汽车/丰田财务支撑；项目未单列财务｜2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>高动态机器人本体与丰田行为学习联合研发</span></div><div><b>成立年份</b><span>BD 1992；TRI 2015</span></div><div><b>总部/主要基地</b><span>美国 Waltham；Los Altos</span></div><div><b>创始人/团队背景</b><span>MIT Leg Lab系；TRI由Gill Pratt领导</span></div><div><b>最新公开融资</b><span>BD属现代汽车集团；TRI由Toyota长期投入</span></div><div><b>最新公开估值</b><span>BD收购口径约11亿美元（2020）；TRI不单列</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>客户试点｜电动Atlas工业验证｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Boston Dynamics + TRI｜Large Behavior Model</strong><span>玩家类别：F全栈公司｜覆盖能力：本体✓ 算法✓ 数据✓｜BD/TRI联合｜核心模型类型：大行为模型 LBM｜当前产品状态：研究/原型</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Boston Dynamics + TRI｜Large Behavior Model</strong><span>玩家主分类：全栈｜覆盖能力：本体✓ 算法✓ 数据✓｜BD/TRI联合｜核心模型类型：大行为模型 LBM｜当前产品状态：研究/原型</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：全电 Atlas 与 TRI LBM 结合，目标是把高动态全身控制与多任务灵巧操作统一。论文指向 Diffusion Transformer、多模态条件和长时序行为。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -985,11 +985,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.12</span><h3 id="412-teslaoptimus">4.12 Tesla｜Optimus</h3></div><div class="vendor-chips"><span>玩家类别：F全栈公司</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>集团内部</span><span>核心模型类型：端到端 VLA</span><span>快慢双系统</span><span>当前产品状态：研究/原型</span><span class="status production">量产状态｜小批量交付｜集团工厂内部部署，外部规模交付待证｜2026-10-09</span><span class="status finance">财务状态｜上市公司｜NASDAQ: TSLA｜机器人未单独披露收入/现金流；母公司财务支撑｜2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.12</span><h3 id="412-teslaoptimus">4.12 Tesla｜Optimus</h3></div><div class="vendor-chips"><span>玩家主分类：全栈</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>集团内部</span><span>核心模型类型：端到端 VLA</span><span>快慢双系统</span><span>当前产品状态：研究/原型</span><span class="status production">量产状态｜小批量交付｜集团工厂内部部署，外部规模交付待证｜2026-10-09</span><span class="status finance">财务状态｜上市公司｜NASDAQ: TSLA｜机器人未单独披露收入/现金流；母公司财务支撑｜2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>依托汽车制造与AI栈的集团内部人形全栈</span></div><div><b>成立年份</b><span>2003</span></div><div><b>总部/主要基地</b><span>美国奥斯汀</span></div><div><b>创始人/团队背景</b><span>Martin Eberhard等创立；Elon Musk领导，汽车/AI团队</span></div><div><b>最新公开融资</b><span>上市公司；不适用创业融资轮次</span></div><div><b>最新公开估值</b><span>公开市值，随交易日变化（NASDAQ: TSLA）</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>小批量交付｜集团工厂内部部署，外部规模交付待证｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Tesla｜Optimus</strong><span>玩家类别：F全栈公司｜覆盖能力：本体✓ 算法✓ 数据✓｜集团内部｜核心模型类型：端到端 VLA｜快慢双系统｜当前产品状态：研究/原型</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Tesla｜Optimus</strong><span>玩家主分类：全栈｜覆盖能力：本体✓ 算法✓ 数据✓｜集团内部｜核心模型类型：端到端 VLA｜快慢双系统｜当前产品状态：研究/原型</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：复用自动驾驶“视觉—神经网络—端侧控制”能力，自建工厂先部署。独立机器人模型名称、参数和正式论文均 未披露，不应把发布会演示等同于完整技术披露。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1040,11 +1040,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.13</span><h3 id="413-skild-aiskild-brain">4.13 Skild AI｜Skild Brain</h3></div><div class="vendor-chips"><span>玩家类别：B算法/基础模型公司</span><span>覆盖能力：本体— 算法✓ 数据✓ 零件—</span><span>核心模型类型：端到端 VLA</span><span>当前产品状态：平台商用</span><span class="status production">量产状态｜平台商用｜跨本体模型合作｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025 B轮约5亿美元；累计约8亿美元｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.13</span><h3 id="413-skild-aiskild-brain">4.13 Skild AI｜Skild Brain</h3></div><div class="vendor-chips"><span>玩家主分类：算法</span><span>覆盖能力：本体— 算法✓ 数据✓ 零件—</span><span>核心模型类型：端到端 VLA</span><span>当前产品状态：平台商用</span><span class="status production">量产状态｜平台商用｜跨本体模型合作｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025 B轮约5亿美元；累计约8亿美元｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>跨本体通用机器人基础模型平台</span></div><div><b>成立年份</b><span>2023</span></div><div><b>总部/主要基地</b><span>美国匹兹堡</span></div><div><b>创始人/团队背景</b><span>Deepak Pathak、Abhinav Gupta；CMU机器人/视觉团队</span></div><div><b>最新公开融资</b><span>2025 B轮约5亿美元；累计约8亿美元</span></div><div><b>最新公开估值</b><span>约47亿美元（媒体，2025）</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>平台商用｜跨本体模型合作｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Skild AI｜Skild Brain</strong><span>玩家类别：B算法/基础模型公司｜覆盖能力：本体— 算法✓ 数据✓ 零件—｜核心模型类型：端到端 VLA｜当前产品状态：平台商用</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Skild AI｜Skild Brain</strong><span>玩家主分类：算法｜覆盖能力：本体— 算法✓ 数据✓ 零件—｜核心模型类型：端到端 VLA｜当前产品状态：平台商用</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：omni-bodied 统一机器人基础模型，目标是不预先绑定精确本体，可控制四足、人形、桌面臂和移动操作臂。；公司展示跨形态任务与企业合作，但统一标准、长程成功率和部署成本待核。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1095,11 +1095,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.17</span><h3 id="417-agility-roboticsdigit-arc">4.17 Agility Robotics｜Digit + Arc</h3></div><div class="vendor-chips"><span>玩家类别：A本体制造商</span><span>覆盖能力：本体✓ 算法部分自研 数据✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：小批量交付</span><span class="status production">量产状态｜小批量交付｜仓储客户部署｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2022 B轮1.5亿美元；累计约1.8亿美元｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.17</span><h3 id="417-agility-roboticsdigit-arc">4.17 Agility Robotics｜Digit + Arc</h3></div><div class="vendor-chips"><span>玩家主分类：运营</span><span>覆盖能力：本体✓ 算法部分自研 数据✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：小批量交付</span><span class="status production">量产状态｜小批量交付｜仓储客户部署｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2022 B轮1.5亿美元；累计约1.8亿美元｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>仓储物流人形机器人及机队平台</span></div><div><b>成立年份</b><span>2015</span></div><div><b>总部/主要基地</b><span>美国 Oregon；RoboFab工厂</span></div><div><b>创始人/团队背景</b><span>Jonathan Hurst等；Oregon State双足机器人团队</span></div><div><b>最新公开融资</b><span>2022 B轮1.5亿美元；累计约1.8亿美元</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>小批量交付｜仓储客户部署｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Agility Robotics｜Digit + Arc</strong><span>玩家类别：A本体制造商｜覆盖能力：本体✓ 算法部分自研 数据✓｜核心模型类型：分层智能体/技能库｜当前产品状态：小批量交付</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Agility Robotics｜Digit + Arc</strong><span>玩家主分类：运营｜覆盖能力：本体✓ 算法部分自研 数据✓｜核心模型类型：分层智能体/技能库｜当前产品状态：小批量交付</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：专注仓储搬箱和物流流程，以成熟步态/规划/学习控制配合Arc运营平台，不把“通用大模型”作为首要卖点。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1151,11 +1151,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 <p><strong>国内玩家</strong></p>
 </div>
-<header><div><span class="vendor-no">4.18</span><h3 id="418-sanctuary-aicarbon">4.18 Sanctuary AI｜Carbon</h3></div><div class="vendor-chips"><span>玩家类别：G场景集成/运营</span><span>覆盖能力：本体✓ 算法✓ 运营✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜客户试点｜Phoenix场景验证｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2022 A轮7500万加元；累计逾1亿加元｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.18</span><h3 id="418-sanctuary-aicarbon">4.18 Sanctuary AI｜Carbon</h3></div><div class="vendor-chips"><span>玩家主分类：运营</span><span>覆盖能力：本体✓ 算法✓ 运营✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜客户试点｜Phoenix场景验证｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2022 A轮7500万加元；累计逾1亿加元｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>以技能库与遥操作闭环交付通用人形劳动力</span></div><div><b>成立年份</b><span>2018</span></div><div><b>总部/主要基地</b><span>加拿大 Vancouver</span></div><div><b>创始人/团队背景</b><span>Geordie Rose等；D-Wave/Kindred AI背景</span></div><div><b>最新公开融资</b><span>2022 A轮7500万加元；累计逾1亿加元</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>客户试点｜Phoenix场景验证｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Sanctuary AI｜Carbon</strong><span>玩家类别：G场景集成/运营｜覆盖能力：本体✓ 算法✓ 运营✓｜核心模型类型：分层智能体/技能库｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Sanctuary AI｜Carbon</strong><span>玩家主分类：运营｜覆盖能力：本体✓ 算法✓ 运营✓｜核心模型类型：分层智能体/技能库｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：<strong>Sanctuary Carbon</strong>：认知架构把自然语言转为任务和动作，强调记忆、可解释规划与液压灵巧手；参数、数据、芯片均无公开口径。优势是精细手与可审计任务，风险是液压维护和双足/全身成熟度。融资与企业试点需核实正式收入。 主攻场景、公开成交价格、已交付数量、额定产能与量产时间：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1206,11 +1206,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.5</span><h3 id="45-go-1-villa-agibot-world">4.5 智元机器人｜GO-1 / ViLLA + AgiBot World</h3></div><div class="vendor-chips"><span>玩家类别：F全栈公司</span><span>覆盖能力：本体✓ 算法✓ 数据✓ 零件部分自研</span><span>核心模型类型：VLM + Action Expert</span><span>端到端 VLA</span><span>当前产品状态：小批量交付</span><span class="status production">量产状态｜小批量交付｜多型号出货，订单与验收分列｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025多轮战略融资；累计金额未统一公开｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.5</span><h3 id="45-go-1-villa-agibot-world">4.5 智元机器人｜GO-1 / ViLLA + AgiBot World</h3></div><div class="vendor-chips"><span>玩家主分类：全栈</span><span>覆盖能力：本体✓ 算法✓ 数据✓ 零件部分自研</span><span>核心模型类型：VLM + Action Expert</span><span>端到端 VLA</span><span>当前产品状态：小批量交付</span><span class="status production">量产状态｜小批量交付｜多型号出货，订单与验收分列｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025多轮战略融资；累计金额未统一公开｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>人形本体、基础模型与数据生态全栈公司</span></div><div><b>成立年份</b><span>2023</span></div><div><b>总部/主要基地</b><span>上海</span></div><div><b>创始人/团队背景</b><span>彭志辉等；华为、AI与机器人产业团队</span></div><div><b>最新公开融资</b><span>2025多轮战略融资；累计金额未统一公开</span></div><div><b>最新公开估值</b><span>约150亿元人民币（产业口径，2025）</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>小批量交付｜多型号出货，订单与验收分列｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>智元机器人｜GO-1 / ViLLA + AgiBot World</strong><span>玩家类别：F全栈公司｜覆盖能力：本体✓ 算法✓ 数据✓ 零件部分自研｜核心模型类型：VLM + Action Expert｜端到端 VLA｜当前产品状态：小批量交付</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>智元机器人｜GO-1 / ViLLA + AgiBot World</strong><span>玩家主分类：全栈｜覆盖能力：本体✓ 算法✓ 数据✓ 零件部分自研｜核心模型类型：VLM + Action Expert｜端到端 VLA｜当前产品状态：小批量交付</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：从原子技能走向 GO-1 通用操作。ViLLA 采用 VLM理解层（InternVL-2B）+ latent planner + diffusion Action Expert，用隐式动作表征连接图文和控制；GO-1/GO-1 Air 已有开源检查点。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1261,11 +1261,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.6</span><h3 id="46-era-42-hirt-vpp-ctrl-world">4.6 星动纪元｜ERA-42 / HiRT / VPP / Ctrl-World</h3></div><div class="vendor-chips"><span>玩家类别：F全栈公司</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>核心模型类型：端到端 VLA</span><span>快慢双系统</span><span>世界模型增强</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜小批量交付｜科研/工业客户｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025 A轮数亿元人民币｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.6</span><h3 id="46-era-42-hirt-vpp-ctrl-world">4.6 星动纪元｜ERA-42 / HiRT / VPP / Ctrl-World</h3></div><div class="vendor-chips"><span>玩家主分类：全栈</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>核心模型类型：端到端 VLA</span><span>快慢双系统</span><span>世界模型增强</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜小批量交付｜科研/工业客户｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025 A轮数亿元人民币｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>清华系具身基础模型与通用人形公司</span></div><div><b>成立年份</b><span>2023</span></div><div><b>总部/主要基地</b><span>北京</span></div><div><b>创始人/团队背景</b><span>陈建宇；清华交叉信息院机器人团队</span></div><div><b>最新公开融资</b><span>2025 A轮数亿元人民币</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>小批量交付｜科研/工业客户｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>星动纪元｜ERA-42 / HiRT / VPP / Ctrl-World</strong><span>玩家类别：F全栈公司｜覆盖能力：本体✓ 算法✓ 数据✓｜核心模型类型：端到端 VLA｜快慢双系统｜世界模型增强｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>星动纪元｜ERA-42 / HiRT / VPP / Ctrl-World</strong><span>玩家主分类：全栈｜覆盖能力：本体✓ 算法✓ 数据✓｜核心模型类型：端到端 VLA｜快慢双系统｜世界模型增强｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：模型、本体与世界模型联合。HiRT 用约7B世界/语义模型连接约40M执行模型的快慢分层<span class="secondary">【次级】</span>；ERA-42覆盖视觉理解、预测和行动；VPP/Ctrl-World 强化未来状态建模。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1316,11 +1316,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.7</span><h3 id="47-wall-a-wall-oss">4.7 自变量机器人｜WALL-A / WALL-OSS</h3></div><div class="vendor-chips"><span>玩家类别：B算法/基础模型公司</span><span>覆盖能力：本体合作 算法✓ 数据✓</span><span>核心模型类型：端到端 VLA</span><span>当前产品状态：公开发布/客户试点</span><span class="status production">量产状态｜客户试点｜模型开放与本体验证｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025 A轮数亿元人民币｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.7</span><h3 id="47-wall-a-wall-oss">4.7 自变量机器人｜WALL-A / WALL-OSS</h3></div><div class="vendor-chips"><span>玩家主分类：算法</span><span>覆盖能力：本体合作 算法✓ 数据✓</span><span>核心模型类型：端到端 VLA</span><span>当前产品状态：公开发布/客户试点</span><span class="status production">量产状态｜客户试点｜模型开放与本体验证｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025 A轮数亿元人民币｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>端到端VLA与开源具身模型公司</span></div><div><b>成立年份</b><span>2023</span></div><div><b>总部/主要基地</b><span>深圳</span></div><div><b>创始人/团队背景</b><span>王潜等；高校机器人与大厂AI背景</span></div><div><b>最新公开融资</b><span>2025 A轮数亿元人民币</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>客户试点｜模型开放与本体验证｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>自变量机器人｜WALL-A / WALL-OSS</strong><span>玩家类别：B算法/基础模型公司｜覆盖能力：本体合作 算法✓ 数据✓｜核心模型类型：端到端 VLA｜当前产品状态：公开发布/客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>自变量机器人｜WALL-A / WALL-OSS</strong><span>玩家主分类：算法｜覆盖能力：本体合作 算法✓ 数据✓｜核心模型类型：端到端 VLA｜当前产品状态：公开发布/客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：统一感知—推理—行动表示的端到端具身基础模型，强调具身思维链、零样本泛化和探索—反思闭环；WALL-OSS 与训练代码用于生态扩散。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1371,11 +1371,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.8</span><h3 id="48-astrabrain-graspvla-trackvla-groceryvla">4.8 银河通用｜AstraBrain / GraspVLA / TrackVLA / GroceryVLA</h3></div><div class="vendor-chips"><span>玩家类别：G场景集成/运营</span><span>覆盖能力：本体✓ 算法✓ 零售运营✓</span><span>核心模型类型：端到端 VLA</span><span>世界模型增强</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜客户试点｜零售门店项目｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025战略轮；累计融资逾10亿元人民币（媒体）｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.8</span><h3 id="48-astrabrain-graspvla-trackvla-groceryvla">4.8 银河通用｜AstraBrain / GraspVLA / TrackVLA / GroceryVLA</h3></div><div class="vendor-chips"><span>玩家主分类：运营</span><span>覆盖能力：本体✓ 算法✓ 零售运营✓</span><span>核心模型类型：端到端 VLA</span><span>世界模型增强</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜客户试点｜零售门店项目｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025战略轮；累计融资逾10亿元人民币（媒体）｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>以零售等场景切入的具身模型与人形交付公司</span></div><div><b>成立年份</b><span>2023</span></div><div><b>总部/主要基地</b><span>北京</span></div><div><b>创始人/团队背景</b><span>王鹤；北京大学/具身智能研究团队</span></div><div><b>最新公开融资</b><span>2025战略轮；累计融资逾10亿元人民币（媒体）</span></div><div><b>最新公开估值</b><span>约百亿元人民币级（媒体，2025）</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>客户试点｜零售门店项目｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>银河通用｜AstraBrain / GraspVLA / TrackVLA / GroceryVLA</strong><span>玩家类别：G场景集成/运营｜覆盖能力：本体✓ 算法✓ 零售运营✓｜核心模型类型：端到端 VLA｜世界模型增强｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>银河通用｜AstraBrain / GraspVLA / TrackVLA / GroceryVLA</strong><span>玩家主分类：运营｜覆盖能力：本体✓ 算法✓ 零售运营✓｜核心模型类型：端到端 VLA｜世界模型增强｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：以任务专长模型矩阵逐步汇聚到 AstraBrain，轮式双臂 G1 在零售、药店、仓储形成运营入口。GraspVLA负责抓取，TrackVLA负责视觉导航，GroceryVLA针对货架。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1426,11 +1426,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.9</span><h3 id="49-govla-alpha-brain">4.9 智平方｜GOVLA / Alpha Brain</h3></div><div class="vendor-chips"><span>玩家类别：B算法/基础模型公司</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>核心模型类型：端到端 VLA</span><span>快慢双系统</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜客户试点｜工业场景验证｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025 A系列融资；累计数亿元人民币｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.9</span><h3 id="49-govla-alpha-brain">4.9 智平方｜GOVLA / Alpha Brain</h3></div><div class="vendor-chips"><span>玩家主分类：算法</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>核心模型类型：端到端 VLA</span><span>快慢双系统</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜客户试点｜工业场景验证｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025 A系列融资；累计数亿元人民币｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>通用智能模型与Alpha系列机器人公司</span></div><div><b>成立年份</b><span>2023</span></div><div><b>总部/主要基地</b><span>深圳</span></div><div><b>创始人/团队背景</b><span>郭彦东；微软亚洲研究院/大厂AI背景</span></div><div><b>最新公开融资</b><span>2025 A系列融资；累计数亿元人民币</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>客户试点｜工业场景验证｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>智平方｜GOVLA / Alpha Brain</strong><span>玩家类别：B算法/基础模型公司｜覆盖能力：本体✓ 算法✓ 数据✓｜核心模型类型：端到端 VLA｜快慢双系统｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>智平方｜GOVLA / Alpha Brain</strong><span>玩家主分类：算法｜覆盖能力：本体✓ 算法✓ 数据✓｜核心模型类型：端到端 VLA｜快慢双系统｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：面向轮式可升降 AlphaBot 的全域全身 VLA，明确 System 2 慢推理 + System 1 快控制，并将机械臂、躯干和移动轨迹放入统一输出。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1481,11 +1481,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.14</span><h3 id="414-brainnet-20-co-agent">4.14 优必选｜BrainNet 2.0 + Co-Agent</h3></div><div class="vendor-chips"><span>玩家类别：G场景集成/运营</span><span>覆盖能力：本体✓ 算法✓ 工业交付✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：规模交付</span><span class="status production">量产状态｜规模交付｜Walker S系列工业项目｜2026-10-09</span><span class="status finance">财务状态｜上市公司｜HKEX: 9880｜2023-12-29上市；最近财报/市值时点2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.14</span><h3 id="414-brainnet-20-co-agent">4.14 优必选｜BrainNet 2.0 + Co-Agent</h3></div><div class="vendor-chips"><span>玩家主分类：运营</span><span>覆盖能力：本体✓ 算法✓ 工业交付✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：规模交付</span><span class="status production">量产状态｜规模交付｜Walker S系列工业项目｜2026-10-09</span><span class="status finance">财务状态｜上市公司｜HKEX: 9880｜2023-12-29上市；最近财报/市值时点2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>面向工业规模交付的人形机器人上市公司</span></div><div><b>成立年份</b><span>2012</span></div><div><b>总部/主要基地</b><span>深圳</span></div><div><b>创始人/团队背景</b><span>周剑；人工智能与机器人产业团队</span></div><div><b>最新公开融资</b><span>港股上市公司；2023 IPO募资约9.06亿港元</span></div><div><b>最新公开估值</b><span>公开市值，随交易日变化（HKEX: 9880）</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>规模交付｜Walker S系列工业项目｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>优必选｜BrainNet 2.0 + Co-Agent</strong><span>玩家类别：G场景集成/运营｜覆盖能力：本体✓ 算法✓ 工业交付✓｜核心模型类型：分层智能体/技能库｜当前产品状态：规模交付</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>优必选｜BrainNet 2.0 + Co-Agent</strong><span>玩家主分类：运营｜覆盖能力：本体✓ 算法✓ 工业交付✓｜核心模型类型：分层智能体/技能库｜当前产品状态：规模交付</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：以工业 Walker S 系为载体，采用群脑网络与智能体编排，而非单一通用 VLA。重点是意图理解、任务规划、工具调用、异常处置和多机协同。；Walker S2自主换电和多工厂试点有利于连续作业；千台、订单8亿元等为次级汇总，上市公司信息应以公告/财报更新。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1536,11 +1536,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.15</span><h3 id="415-focus-fourieractionnet">4.15 傅利叶智能｜操作模型 + FOCUS + FourierActionNet</h3></div><div class="vendor-chips"><span>玩家类别：A本体制造商</span><span>覆盖能力：本体✓ 算法✓ 康养场景✓</span><span>核心模型类型：端到端 VLA</span><span>分层智能体/技能库</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜小批量交付｜GR系列科研/工业部署｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2023 E轮4亿元人民币；累计数亿元｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.15</span><h3 id="415-focus-fourieractionnet">4.15 傅利叶智能｜操作模型 + FOCUS + FourierActionNet</h3></div><div class="vendor-chips"><span>玩家主分类：全栈</span><span>覆盖能力：本体✓ 算法✓ 康养场景✓</span><span>核心模型类型：端到端 VLA</span><span>分层智能体/技能库</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜小批量交付｜GR系列科研/工业部署｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2023 E轮4亿元人民币；累计数亿元｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>康复机器人延伸至通用人形的软硬一体公司</span></div><div><b>成立年份</b><span>2015</span></div><div><b>总部/主要基地</b><span>上海；新加坡</span></div><div><b>创始人/团队背景</b><span>顾捷；康复机器人与工程团队</span></div><div><b>最新公开融资</b><span>2023 E轮4亿元人民币；累计数亿元</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>小批量交付｜GR系列科研/工业部署｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>傅利叶智能｜操作模型 + FOCUS + FourierActionNet</strong><span>玩家类别：A本体制造商｜覆盖能力：本体✓ 算法✓ 康养场景✓｜核心模型类型：端到端 VLA｜分层智能体/技能库｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>傅利叶智能｜操作模型 + FOCUS + FourierActionNet</strong><span>玩家主分类：全栈｜覆盖能力：本体✓ 算法✓ 康养场景✓｜核心模型类型：端到端 VLA｜分层智能体/技能库｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：运控以强化学习和模仿学习为主，感知采用纯视觉BEV/Transformer/OCC，FOCUS负责多机调度；从康复积累延伸至GR系列通用本体。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1591,11 +1591,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.16</span><h3 id="416-unifolm">4.16 宇树科技｜运控模型 + UnifoLM</h3></div><div class="vendor-chips"><span>玩家类别：A本体制造商</span><span>覆盖能力：本体✓ 算法✓ 开发生态✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：规模交付</span><span class="status production">量产状态｜规模交付｜2025人形出货超5,500台；四足报告期累计超3万台｜招股书/上市公告，2026-08</span><span class="status finance">财务状态｜上市公司｜上交所科创板 688836.SH｜2026-08-19上市；发行价150.80元，发行后市值609.93亿元</span></div></header>
+<header><div><span class="vendor-no">4.16</span><h3 id="416-unifolm">4.16 宇树科技｜运控模型 + UnifoLM</h3></div><div class="vendor-chips"><span>玩家主分类：本体</span><span>覆盖能力：本体✓ 算法✓ 开发生态✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：规模交付</span><span class="status production">量产状态｜规模交付｜2025人形出货超5,500台；四足报告期累计超3万台｜招股书/上市公告，2026-08</span><span class="status finance">财务状态｜上市公司｜上交所科创板 688836.SH｜2026-08-19上市；发行价150.80元，发行后市值609.93亿元</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>低成本高性能足式及人形机器人平台</span></div><div><b>成立年份</b><span>2016</span></div><div><b>总部/主要基地</b><span>杭州</span></div><div><b>创始人/团队背景</b><span>王兴兴；机械工程与足式机器人创业团队</span></div><div><b>最新公开融资</b><span>上市公司；2026-08 IPO募资约60.99亿元（上市公告口径）</span></div><div><b>最新公开估值</b><span>不适用；上市后改用市值。发行后市值约609.93亿元（2026-08-19）</span></div><div><b>最近财务</b><span>2025营收约17.08亿元、净利润2.88亿元、扣非净利润约6.00亿元；2026Q1营收4.23亿元、扣非净利润0.40亿元</span></div><div><b>毛利/现金流</b><span>2025主营毛利率约60.13%；现金流以交易所定期报告为准</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>规模交付｜2025人形出货超5,500台；四足报告期累计超3万台｜招股书/上市公告，2026-08</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>宇树科技｜运控模型 + UnifoLM</strong><span>玩家类别：A本体制造商｜覆盖能力：本体✓ 算法✓ 开发生态✓｜核心模型类型：分层智能体/技能库｜当前产品状态：规模交付</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>宇树科技｜运控模型 + UnifoLM</strong><span>玩家主分类：本体｜覆盖能力：本体✓ 算法✓ 开发生态✓｜核心模型类型：分层智能体/技能库｜当前产品状态：规模交付</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：以高动态运动控制、低成本本体和开发者生态见长，叠加UnifoLM统一模型探索。核心壁垒当前更偏执行器、关节、RL运控和规模制造，而非公开通用操作模型。；量产本体、科研教育和高动态动作提供大规模开发者触点；复杂长程操作、异常恢复和跨场景成功率披露不足。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1646,11 +1646,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.19</span><h3 id="419-duocore">4.19 星尘智能｜DuoCore</h3></div><div class="vendor-chips"><span>玩家类别：A本体制造商</span><span>覆盖能力：本体✓ 算法✓ 灵巧操作✓</span><span>核心模型类型：快慢双系统</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜客户试点｜S1场景验证｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2024 Pre-A轮数千万美元｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.19</span><h3 id="419-duocore">4.19 星尘智能｜DuoCore</h3></div><div class="vendor-chips"><span>玩家主分类：全栈</span><span>覆盖能力：本体✓ 算法✓ 灵巧操作✓</span><span>核心模型类型：快慢双系统</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜客户试点｜S1场景验证｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2024 Pre-A轮数千万美元｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>面向灵巧操作的绳驱人形机器人公司</span></div><div><b>成立年份</b><span>2022</span></div><div><b>总部/主要基地</b><span>深圳</span></div><div><b>创始人/团队背景</b><span>来杰；腾讯Robotics X等机器人团队</span></div><div><b>最新公开融资</b><span>2024 Pre-A轮数千万美元</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>客户试点｜S1场景验证｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>星尘智能｜DuoCore</strong><span>玩家类别：A本体制造商｜覆盖能力：本体✓ 算法✓ 灵巧操作✓｜核心模型类型：快慢双系统｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>星尘智能｜DuoCore</strong><span>玩家主分类：全栈｜覆盖能力：本体✓ 算法✓ 灵巧操作✓｜核心模型类型：快慢双系统｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：<strong>星尘 DuoCore</strong>：毫秒级本能反应+大模型决策，绳驱肌腱和刚柔混合动力学支持高速上肢；VR遥操、视频和人体示教构成数据源。次级资料另称其“整机销售”、大脑“自研VLA”、端侧为“Orin/RK3588/Thor”、数据“自采遥操”，灵巧手仅写“xx DOF”【次级/待核】；<code>xx</code>不是有效数值。优势是速度/柔顺和开发工具链，短板是数据规模与生产运营证据不足。 主攻场景、公开成交价格、已交付数量、额定产能与量产时间：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1701,11 +1701,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.20</span><h3 id="420">4.20 乐聚｜夸父</h3></div><div class="vendor-chips"><span>玩家类别：A本体制造商</span><span>覆盖能力：本体✓ 算法✓ 教育/工业✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：小批量交付</span><span class="status production">量产状态｜小批量交付｜教育/工业项目｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2024 B轮数亿元人民币｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.20</span><h3 id="420">4.20 乐聚｜夸父</h3></div><div class="vendor-chips"><span>玩家主分类：本体</span><span>覆盖能力：本体✓ 算法✓ 教育/工业✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：小批量交付</span><span class="status production">量产状态｜小批量交付｜教育/工业项目｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2024 B轮数亿元人民币｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>教育科研与工业场景并进的人形机器人公司</span></div><div><b>成立年份</b><span>2016</span></div><div><b>总部/主要基地</b><span>深圳</span></div><div><b>创始人/团队背景</b><span>冷晓琨等；哈工大机器人团队</span></div><div><b>最新公开融资</b><span>2024 B轮数亿元人民币</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>小批量交付｜教育/工业项目｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>乐聚｜夸父</strong><span>玩家类别：A本体制造商｜覆盖能力：本体✓ 算法✓ 教育/工业✓｜核心模型类型：分层智能体/技能库｜当前产品状态：小批量交付</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>乐聚｜夸父</strong><span>玩家主分类：本体｜覆盖能力：本体✓ 算法✓ 教育/工业✓｜核心模型类型：分层智能体/技能库｜当前产品状态：小批量交付</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：<strong>乐聚夸父</strong>：RL/模仿运控接入盘古/智谱等大模型，鸿蒙生态与科研教育优先。优势是生态合作和批量平台，短板是自有通用操作基础模型、端侧算力与数据披露有限。 主攻场景、公开成交价格、已交付数量、额定产能与量产时间：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1756,11 +1756,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.21</span><h3 id="421">4.21 它石智航｜线束装配与世界模型</h3></div><div class="vendor-chips"><span>玩家类别：G场景集成/运营</span><span>覆盖能力：本体合作 算法✓ 工业装配✓</span><span>核心模型类型：世界模型增强</span><span>分层智能体/技能库</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜客户试点｜汽车线束装配｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025天使轮数亿元人民币｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.21</span><h3 id="421">4.21 它石智航｜线束装配与世界模型</h3></div><div class="vendor-chips"><span>玩家主分类：运营</span><span>覆盖能力：本体合作 算法✓ 工业装配✓</span><span>核心模型类型：世界模型增强</span><span>分层智能体/技能库</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜客户试点｜汽车线束装配｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025天使轮数亿元人民币｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>聚焦汽车柔性装配的具身智能公司</span></div><div><b>成立年份</b><span>2024</span></div><div><b>总部/主要基地</b><span>上海</span></div><div><b>创始人/团队背景</b><span>陈亦伦等；自动驾驶/机器人产业背景</span></div><div><b>最新公开融资</b><span>2025天使轮数亿元人民币</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>客户试点｜汽车线束装配｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>它石智航｜线束装配与世界模型</strong><span>玩家类别：G场景集成/运营｜覆盖能力：本体合作 算法✓ 工业装配✓｜核心模型类型：世界模型增强｜分层智能体/技能库｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>它石智航｜线束装配与世界模型</strong><span>玩家主分类：运营｜覆盖能力：本体合作 算法✓ 工业装配✓｜核心模型类型：世界模型增强｜分层智能体/技能库｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：次级资料指向人形/操作系统用于线束装配；本体代际、价格、交付、产能和量产时间 未披露【次级/待核】。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1811,11 +1811,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.22</span><h3 id="422-dr">4.22 云深处｜绝影/山猫/DR</h3></div><div class="vendor-chips"><span>玩家类别：G场景集成/运营</span><span>覆盖能力：本体✓ 算法✓ 特种运营✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：规模交付</span><span class="status production">量产状态｜规模交付｜电力/消防巡检｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2024 B轮；金额未公开｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.22</span><h3 id="422-dr">4.22 云深处｜绝影/山猫/DR</h3></div><div class="vendor-chips"><span>玩家主分类：运营</span><span>覆盖能力：本体✓ 算法✓ 特种运营✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：规模交付</span><span class="status production">量产状态｜规模交付｜电力/消防巡检｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2024 B轮；金额未公开｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>电力消防等特种场景四足机器人交付商</span></div><div><b>成立年份</b><span>2017</span></div><div><b>总部/主要基地</b><span>杭州</span></div><div><b>创始人/团队背景</b><span>朱秋国团队；浙江大学机器人研究背景</span></div><div><b>最新公开融资</b><span>2024 B轮；金额未公开</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>规模交付｜电力/消防巡检｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>云深处｜绝影/山猫/DR</strong><span>玩家类别：G场景集成/运营｜覆盖能力：本体✓ 算法✓ 特种运营✓｜核心模型类型：分层智能体/技能库｜当前产品状态：规模交付</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>云深处｜绝影/山猫/DR</strong><span>玩家主分类：运营｜覆盖能力：本体✓ 算法✓ 特种运营✓｜核心模型类型：分层智能体/技能库｜当前产品状态：规模交付</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：绝影X20/X30工业四足、Lite科研系列、山猫M20轮足及DR人形验证平台；次级资料列出X系列20–30万元、Lite约10万元、DR约40万元【次级/待核】；电力巡检为核心场景。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1866,11 +1866,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.23</span><h3 id="423">4.23 超维动力｜世界模型+灵巧操作</h3></div><div class="vendor-chips"><span>玩家类别：A本体制造商</span><span>覆盖能力：本体✓ 算法✓ 灵巧操作✓</span><span>核心模型类型：世界模型增强</span><span>端到端 VLA</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜原型｜公开试验，数量未披露｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜公开早期融资；金额未统一披露｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.23</span><h3 id="423">4.23 超维动力｜世界模型+灵巧操作</h3></div><div class="vendor-chips"><span>玩家主分类：全栈</span><span>覆盖能力：本体✓ 算法✓ 灵巧操作✓</span><span>核心模型类型：世界模型增强</span><span>端到端 VLA</span><span>当前产品状态：客户试点</span><span class="status production">量产状态｜原型｜公开试验，数量未披露｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜公开早期融资；金额未统一披露｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>世界模型驱动灵巧操作与通用本体创业公司</span></div><div><b>成立年份</b><span>2023</span></div><div><b>总部/主要基地</b><span>深圳</span></div><div><b>创始人/团队背景</b><span>核心团队来自高校及机器人/AI企业</span></div><div><b>最新公开融资</b><span>公开早期融资；金额未统一披露</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>原型｜公开试验，数量未披露｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>超维动力｜世界模型+灵巧操作</strong><span>玩家类别：A本体制造商｜覆盖能力：本体✓ 算法✓ 灵巧操作✓｜核心模型类型：世界模型增强｜端到端 VLA｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>超维动力｜世界模型+灵巧操作</strong><span>玩家主分类：全栈｜覆盖能力：本体✓ 算法✓ 灵巧操作✓｜核心模型类型：世界模型增强｜端到端 VLA｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：公开资料未给清晰本体代际，灵巧手写36DOF；场景、价格、交付与产能 未披露【次级/待核】。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1921,11 +1921,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.24</span><h3 id="424">4.24 强脑科技 / 曦诺未来｜灵巧手供应链</h3></div><div class="vendor-chips"><span>玩家类别：D核心零部件</span><span>覆盖能力：灵巧手✓</span><span>强脑/曦诺分别说明</span><span>核心模型类型：非模型层：灵巧手</span><span>当前产品状态：部件量产</span><span class="status production">量产状态｜部件量产｜智能假肢/灵巧手，分主体核验｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜强脑2024近2亿美元；曦诺早期轮未公开｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.24</span><h3 id="424">4.24 强脑科技 / 曦诺未来｜灵巧手供应链</h3></div><div class="vendor-chips"><span>玩家主分类：零部件</span><span>覆盖能力：灵巧手✓</span><span>强脑/曦诺分别说明</span><span>核心模型类型：非模型层：灵巧手</span><span>当前产品状态：部件量产</span><span class="status production">量产状态｜部件量产｜智能假肢/灵巧手，分主体核验｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜强脑2024近2亿美元；曦诺早期轮未公开｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>强脑智能假肢/脑机接口与曦诺灵巧手部件组合</span></div><div><b>成立年份</b><span>强脑2015；曦诺未来2024</span></div><div><b>总部/主要基地</b><span>杭州；深圳</span></div><div><b>创始人/团队背景</b><span>韩璧丞/哈佛脑科学；曦诺团队来自机器人与精密机电</span></div><div><b>最新公开融资</b><span>强脑2024近2亿美元；曦诺早期轮未公开</span></div><div><b>最新公开估值</b><span>强脑约13亿美元（媒体，2024）；曦诺未公开</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>部件量产｜智能假肢/灵巧手，分主体核验｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>强脑科技 / 曦诺未来｜灵巧手供应链</strong><span>玩家类别：D核心零部件｜覆盖能力：灵巧手✓｜强脑/曦诺分别说明｜核心模型类型：非模型层：灵巧手｜当前产品状态：部件量产</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>强脑科技 / 曦诺未来｜灵巧手供应链</strong><span>玩家主分类：零部件｜覆盖能力：灵巧手✓｜强脑/曦诺分别说明｜核心模型类型：非模型层：灵巧手｜当前产品状态：部件量产</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：次级资料列出强脑21DOF、曦诺25DOF，曦诺自研电机/丝杠；价格、寿命、良率、产能和交付量 未披露【次级/待核】。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1976,11 +1976,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 </div>
-<header><div><span class="vendor-no">4.25</span><h3 id="425">4.25 光轮 / 基础设施线索｜数据与仿真服务</h3></div><div class="vendor-chips"><span>玩家类别：E数据采集/数据服务</span><span>覆盖能力：非本体</span><span>数据采集✓ 仿真✓</span><span>核心模型类型：世界模型增强基础设施</span><span>当前产品状态：平台商用</span><span class="status production">量产状态｜平台商用｜数据采集与仿真服务，非本体量产｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025早期轮数亿元人民币（媒体汇总）｜截至2026-10-09</span></div></header>
+<header><div><span class="vendor-no">4.25</span><h3 id="425">4.25 光轮 / 基础设施线索｜数据与仿真服务</h3></div><div class="vendor-chips"><span>玩家主分类：数据</span><span>覆盖能力：非本体</span><span>数据采集✓ 仿真✓</span><span>核心模型类型：世界模型增强基础设施</span><span>当前产品状态：平台商用</span><span class="status production">量产状态｜平台商用｜数据采集与仿真服务，非本体量产｜2026-10-09</span><span class="status finance">财务状态｜非上市已融资｜2025早期轮数亿元人民币（媒体汇总）｜截至2026-10-09</span></div></header>
 <div class="company-profile"><div><b>公司定位</b><span>具身智能数据采集、治理与仿真基础设施服务</span></div><div><b>成立年份</b><span>光轮智能2023</span></div><div><b>总部/主要基地</b><span>北京</span></div><div><b>创始人/团队背景</b><span>核心团队来自自动驾驶、仿真与大厂AI</span></div><div><b>最新公开融资</b><span>2025早期轮数亿元人民币（媒体汇总）</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip"><b>量产状态 →</b><div><p>平台商用｜数据采集与仿真服务，非本体量产｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>光轮 / 基础设施线索｜数据与仿真服务</strong><span>玩家类别：E数据采集/数据服务｜覆盖能力：非本体｜数据采集✓ 仿真✓｜核心模型类型：世界模型增强基础设施｜当前产品状态：平台商用</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>光轮 / 基础设施线索｜数据与仿真服务</strong><span>玩家主分类：数据｜覆盖能力：非本体｜数据采集✓ 仿真✓｜核心模型类型：世界模型增强基础设施｜当前产品状态：平台商用</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：次级资料将光轮标为“数据服务”，另有sharpa及模糊厂名；无标准本体，服务价格、交付规模 未披露【次级/待核】。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -2063,6 +2063,80 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <!-- edited by 王涛 (ou_aae5b71d48cef83590833b0bfbbeaf27) at 2026-10-09 -->
 
 <!-- v5.3.0 财务与量产核验补记（研究时点2026-10-09）：25家公司页面的财务状态与量产状态由构建器按统一口径呈现。宇树科技已核验为上交所科创板688836.SH，2026-08-19上市；2025营收约17.08亿元、净利润2.88亿元、扣非净利润约6.00亿元、主营毛利率约60.13%，2026Q1营收约4.23亿元、扣非净利润约0.40亿元；2025人形机器人出货超5,500台，四足机器人报告期累计销量超3万台。来源优先级：上市公告/招股书，其次中国新闻网、21财经等公开摘要。规划不视为交付。 -->
+<!-- edited by 王涛 (ou_aae5b71d48cef83590833b0bfbbeaf27) at 2026-10-09 -->
+
+</div></details><details class="chapter" open><summary><h2 id="v530">七、v5.3.0 通篇一致性审计</h2></summary><div class="chapter-body">
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>检查项</th>
+<th style="text-align: right;">初检冲突数</th>
+<th style="text-align: right;">已修复</th>
+<th style="text-align: right;">仍待核项</th>
+<th>统一口径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>玩家分类 Summary ↔ 业务边界地图 ↔ 25家公司页头</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0</td>
+<td>统一为本体/算法/算力仿真/零部件/数据/运营/全栈七种主分类；联合条目按卡片口径计1家</td>
+</tr>
+<tr>
+<td>“厂商三维地图”名称与可验证坐标</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td>改为“全球玩家业务边界地图”；坐标仅使用产品化程度×业务覆盖广度，不再暗示三维评分</td>
+</tr>
+<tr>
+<td>六种核心机制 ↔ 3.6纵向阅读 ↔ 公司模型类型</td>
+<td style="text-align: right;">6类</td>
+<td style="text-align: right;">6类</td>
+<td style="text-align: right;">4家部分未公开</td>
+<td>端到端VLA、Action Expert、快慢系统、世界模型、LBM、技能库；未公开不反推</td>
+</tr>
+<tr>
+<td>模型来源矩阵 ↔ 公司技术字段</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">6家基座/训练细节未公开</td>
+<td>“未公开”不等于“全自研”；联合主体分列</td>
+</tr>
+<tr>
+<td>量产时间轴 ↔ 公司量产列</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">9家缺少可比出货/验收数</td>
+<td>发布、试点、订单、出货、交付、验收、规划产能分开</td>
+</tr>
+<tr>
+<td>融资/上市信息 ↔ 公司简介 ↔ 财务列</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">16家未披露估值或完整财务</td>
+<td>上市后只写交易所/代码/财报/市值时点；非上市保留最近融资时点</td>
+</tr>
+<tr>
+<td>应用场景 Summary ↔ 公司商业字段</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">7家客户名称或项目规模未公开</td>
+<td>工厂仓储→零售商服→专业服务→开放家庭；以实际客户项目为准</td>
+</tr>
+<tr>
+<td>2026+规划新鲜度</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">12家缺少具体年月</td>
+<td>规划统一标△；日期未知进入待定区，订单不作交付</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>审计结果：</strong>结构性冲突 82 项均已完成口径修复；剩余 38 个“待核项”为企业未披露、联合项目未分拆或只有媒体/访谈线索，不以推算补齐。研究时点为 2026-10-09。</p>
+<p><strong>置信度：</strong>高置信=交易所/财报/公司或客户公告/论文；中置信=<code>【媒体/访谈口径·来源·时间】</code>；低置信=<code>【低置信·来源·时间】</code>，仅作后续核验线索。</p>
 <!-- edited by 王涛 (ou_aae5b71d48cef83590833b0bfbbeaf27) at 2026-10-09 --></div></details></main></div>
 <footer>本页基于统一报告自动构建。次级信息与缺失值均保留标记；产品和生产信息作为软件落地证据。</footer>
 <script>
