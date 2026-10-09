@@ -27,8 +27,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 
 /* v5 mobile hardening */
 @media(max-width:600px){html,body{width:100%;max-width:100%;overflow-x:hidden}.layout{width:100%;max-width:100%;padding:10px;overflow:hidden}.content,.toc{width:100%;max-width:100%;min-width:0}.hero-viz,.hero-viz>div,.kpi-grid,.route-grid,.timeline-viz,.vendor-card,.chapter,.principle-viz{width:100%;max-width:100%;min-width:0}.hero-viz h1,.hero-viz p,.vendor-card *{max-width:100%;overflow-wrap:anywhere;word-break:break-word}.hero-viz svg{min-width:0!important;max-width:100%!important}.kpi-grid,.route-grid,.timeline-viz,.trend-grid,.model-matrix{display:grid;grid-template-columns:minmax(0,1fr)!important}.kpi-grid article,.route-grid article{width:100%;min-width:0}.stage{margin-left:0;white-space:normal}.table-wrap{width:100%;max-width:100%;overflow-x:auto}}
+/* v5.1 第四章横向信息板：外页不溢出，板内独立横滑 */
+.vendor-board{max-width:100%;overflow:hidden}.mass-strip{display:flex;align-items:center;gap:12px;padding:9px 14px;border-bottom:1px solid #dbe4ee;background:#fffbeb;white-space:nowrap;overflow-x:auto;scrollbar-width:thin}.mass-strip>b{position:sticky;left:0;z-index:2;flex:0 0 auto;padding-right:10px;background:#fffbeb;color:#92400e}.mass-strip>div{display:flex;min-width:max-content}.mass-strip ul{display:flex;gap:18px;margin:0;padding:0;list-style:none}.mass-strip li{margin:0;font-size:12px;color:#475569}.mass-strip p{margin:0}.board-hint{padding:6px 14px;background:#eff6ff;color:#1d4ed8;font-size:11px;font-weight:700}.vendor-board-scroll{display:grid;grid-template-columns:220px minmax(0,1fr);overflow-x:auto;cursor:grab;overscroll-behavior-x:contain;scrollbar-color:#64748b #e2e8f0;scrollbar-width:auto}.vendor-board-scroll:active{cursor:grabbing}.vendor-board-scroll::-webkit-scrollbar{height:12px}.vendor-board-scroll::-webkit-scrollbar-thumb{background:#64748b;border-radius:8px}.vendor-summary{position:sticky;left:0;z-index:3;width:220px;padding:18px 15px;border-right:2px solid #94a3b8;background:linear-gradient(145deg,#f0fdf4,#fff);box-shadow:5px 0 12px #0f172a12}.vendor-summary strong,.vendor-summary span{display:block}.vendor-summary strong{color:#166534;font-size:15px}.vendor-summary span{margin-top:9px;color:#526277;font-size:11px}.vendor-board .vendor-dim{display:grid;grid-template-columns:repeat(4,360px);min-width:1440px}.vendor-board .vendor-dim article,.vendor-board .vendor-dim .judgement{grid-column:auto;min-height:300px;border-top:0;border-right:1px solid #cbd5e1;background:#fff}.vendor-board .vendor-dim article>b{position:sticky;top:0;padding-bottom:7px;border-bottom:2px solid #dbe4ee}.vendor-board .vendor-dim ul{padding-left:16px}.vendor-board .vendor-dim li{margin:5px 0}.vendor-board .vendor-dim .judgement{background:#f8fafc}.vendor-board .vendor-dim .judgement li:nth-child(n+4){display:none}
+@media(max-width:600px){.vendor-board>header{padding:13px}.mass-strip{padding:8px 10px}.board-hint{position:sticky;left:0}.vendor-board-scroll{grid-template-columns:132px minmax(0,1fr)}.vendor-summary{width:132px;padding:13px 9px}.vendor-board .vendor-dim{grid-template-columns:repeat(4,285px);min-width:1140px}.vendor-board .vendor-dim article,.vendor-board .vendor-dim .judgement{min-height:360px;padding:13px}.vendor-board .vendor-dim *{max-width:none}}
 </style></head><body>
-<header class="top"><div class="top-in"><div class="brand">机器人大脑全景报告 <span class="version">v5.0.0</span></div><div class="meta">模型原理 · 技术路线时间轴 · 统一厂商卡片 · 算力与数据 · 融资财务 · 技术与场景趋势　|　完成版 v5.0.0 · 研究时点 2026-10-09 · 构建 2026-10-09 13:08</div></div></header>
+<header class="top"><div class="top-in"><div class="brand">机器人大脑全景报告 <span class="version">v5.1.0</span></div><div class="meta">模型原理 · 技术路线时间轴 · 统一厂商卡片 · 算力与数据 · 融资财务 · 技术与场景趋势　|　完成版 v5.1.0 · 研究时点 2026-10-09 · 构建 2026-10-09 13:16</div></div></header>
 <div class="layout"><aside class="toc"><b>CONTENTS</b><a class="l2" href="#_2">一、执行摘要</a>
 <a class="l2" href="#_3">二、模型分类与原理图</a>
 <a class="l3" href="#21">2.1 统一软件栈</a>
@@ -619,12 +622,24 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>卡片判断使用可核验维度</strong>：产品状态、公开订单/出货、模型开放度、数据闭环证据、客户复购/连续运营、融资财务；发布、试点、订单、出货、交付、验收与回款严格分开。
 <strong>海外玩家</strong></li>
 </ul>
-<section class="vendor-card" aria-label="Figure｜Helix结构化厂商卡">
-<header><div><span class="vendor-no">4.1</span><h3 id="41-figurehelix">4.1 Figure｜Helix</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：快慢双系统｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<section class="vendor-card vendor-board" aria-label="Figure｜Helix横向厂商信息板">
+<header><div><span class="vendor-no">4.1</span><h3 id="41-figurehelix">4.1 Figure｜Helix</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：Figure 01/02/03 本体上的通用 VLA。2025-02 官方 Helix 首发，核心是完全板载的 S2/S1 双系统；后续“S0 三层”等说法主要来自次级资料，未与首发官方材料等同。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：Helix 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Figure｜Helix</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：Figure 01/02/03 本体上的通用 VLA。2025-02 官方 Helix 首发，核心是完全板载的 S2/S1 双系统；后续“S0 三层”等说法主要来自次级资料，未与首发官方材料等同。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -633,32 +648,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：Helix</li>
 <li><strong>架构机制类型</strong>：快慢双系统</li>
-<li><strong>模型来源</strong>：S2 互联网预训练 VLM 与 S1 动作模型均为自研，具体基座未披露。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：S2 互联网预训练 VLM 与 S1 动作模型均为自研，具体基座无公开口径。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：嵌入式低功耗 NVIDIA GPU；S1 约 200Hz。</li>
-<li><strong>数据规模与来源</strong>：S2 是互联网预训练 VLM，约 7–9Hz 处理语言、场景与物体泛化；S1 读取 S2 latent 和本体状态，以 200Hz 生成连续上身动作。单一权重覆盖多行为，不按每项任务重新训练。该结构用慢语义层换泛化、快运动层换稳定性。；官方称约 <strong>500小时高质量监督数据</strong>，并称使用的数据集约为可用数据的5%。其启示不是“数据越少越好”，而是同构本体、严格质检和动作标注可显著提高有效密度。参数拆分、训练 GPU 数和完整后训练配方 未披露。；官方强调嵌入式低功耗 NVIDIA GPU、完全板载；S1 200Hz 是策略输出频率，不应直接解释为完整视觉链路每帧 5ms。断网能力有利于工业与家庭部署。；优势是本体—模型协同、少量高质量数据和端侧实时；风险是训练数据集中于自有本体，跨本体能力未如 π/GR00T 公开，家庭长程自治和异常恢复证据仍有限。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：S2 是互联网预训练 VLM，约 7–9Hz 处理语言、场景与物体泛化；S1 读取 S2 latent 和本体状态，以 200Hz 生成连续上身动作。单一权重覆盖多行为，不按每项任务重新训练。该结构用慢语义层换泛化、快运动层换稳定性。；官方称约 <strong>500小时高质量监督数据</strong>，并称使用的数据集约为可用数据的5%。其启示不是“数据越少越好”，而是同构本体、严格质检和动作标注可显著提高有效密度。参数拆分、训练 GPU 数和完整后训练配方 无公开口径。；官方强调嵌入式低功耗 NVIDIA GPU、完全板载；S1 200Hz 是策略输出频率，不应直接解释为完整视觉链路每帧 5ms。断网能力有利于工业与家庭部署。；优势是本体—模型协同、少量高质量数据和端侧实时；风险是训练数据集中于自有本体，跨本体能力未如 π/GR00T 公开，家庭长程自治和异常恢复证据仍有限。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
-<li><strong>客户与场景证据</strong>：自建 BotQ、早期工业试点及后续家庭定位可形成数据回流，但自建制造带来资本开支。大额融资与高估值<span class="secondary">【次级】</span>提供训练/产线资金，却也抬高交付预期；需跟踪付费部署、接管率和每台服务成本。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
+<li><strong>客户与场景证据</strong>：自建 BotQ、早期工业试点及后续家庭定位可形成数据回流，但自建制造带来资本开支。大额融资与高估值<span class="secondary">【次级】</span>提供训练/产线资金，却也抬高交付预期；需跟踪付费部署、接管率和每台服务成本。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为无公开口径。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：Helix 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -669,13 +674,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="Physical Intelligence｜π0 → π0.5 → π0.6 / FAST结构化厂商卡">
-<header><div><span class="vendor-no">4.2</span><h3 id="42-physical-intelligence0-05-06-fast">4.2 Physical Intelligence｜π0 → π0.5 → π0.6 / FAST</h3></div><span class="stage">玩家类别：模型平台｜核心模型类型：VLM + Action Expert｜当前产品状态：研究/开放模型</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="Physical Intelligence｜π0 → π0.5 → π0.6 / FAST横向厂商信息板">
+<header><div><span class="vendor-no">4.2</span><h3 id="42-physical-intelligence0-05-06-fast">4.2 Physical Intelligence｜π0 → π0.5 → π0.6 / FAST</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：不做本体，提供跨机器人基础模型和 openpi。π0（2024）建立 VLM+Action Expert；π0.5 增强开放环境泛化；π0.6/RECAP 探索用经验与纠正做强化后训练；FAST 将动作压缩为 token。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：π0 → π0.5 → π0.6 / FAST 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Physical Intelligence｜π0 → π0.5 → π0.6 / FAST</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：不做本体，提供跨机器人基础模型和 openpi。π0（2024）建立 VLM+Action Expert；π0.5 增强开放环境泛化；π0.6/RECAP 探索用经验与纠正做强化后训练；FAST 将动作压缩为 token。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：研究/开放模型；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -685,31 +702,21 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>模型名称</strong>：π0 → π0.5 → π0.6 / FAST</li>
 <li><strong>架构机制类型</strong>：VLM + Action Expert</li>
 <li><strong>模型来源</strong>：VLM 基座采用 PaliGemma/Gemma 系；Action Expert 自研并二次训练。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：PaliGemma/Gemma 系 VLM 提供视觉语言表征，Action Expert 通过 flow matching 生成连续动作，约50Hz口径来自论文/项目资料。知识层与动作层参数分工，使预训练常识不必被低层控制梯度完全改写。；跨本体、多家庭、网络/语言和机器人数据混合；FAST 论文路线扩展到约 <strong>1万小时</strong>机器人数据。训练集群与成本未披露。动作空间统一、相机标定和 embodiment adapter 是跨本体规模化的隐性成本。；不绑定芯片；实际频率取决于 VLM 尺寸、动作块长度和平台。开源降低研究采用门槛，但生产部署仍需厂商完成量化、安全壳和本体适配。；最突出的是软件中立性、跨本体数据复用与论文/代码透明；弱点是缺少自有机队，对合作伙伴数据权利、质量与部署接口依赖高。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：PaliGemma/Gemma 系 VLM 提供视觉语言表征，Action Expert 通过 flow matching 生成连续动作，约50Hz口径来自论文/项目资料。知识层与动作层参数分工，使预训练常识不必被低层控制梯度完全改写。；跨本体、多家庭、网络/语言和机器人数据混合；FAST 论文路线扩展到约 <strong>1万小时</strong>机器人数据。训练集群与成本无公开口径。动作空间统一、相机标定和 embodiment adapter 是跨本体规模化的隐性成本。；不绑定芯片；实际频率取决于 VLM 尺寸、动作块长度和平台。开源降低研究采用门槛，但生产部署仍需厂商完成量化、安全壳和本体适配。；最突出的是软件中立性、跨本体数据复用与论文/代码透明；弱点是缺少自有机队，对合作伙伴数据权利、质量与部署接口依赖高。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
-<li><strong>客户与场景证据</strong>：顶级研究团队与大额融资<span class="secondary">【次级】</span>支持高算力研发；商业化可走模型授权、联合开发或平台服务，但收入和毛利模式尚待验证。持续性取决于能否把“通用基座”变成比本体厂自研更低的总拥有成本。；次级资料将 Pi 0、Pi 0.5、Pi 0.6<em>、Pi 0.7 与叠衣、桌面清理、吐司机/微波炉取放、铺床、专业咖啡机、刀具/削皮、空气炸锅、换垃圾袋等任务对应，并写有 <code>24.10-26.01</code>、<code>25.04</code>、<code>25.11</code>、<code>26.04</code> 等时间标记；其中 Pi 0/0.5 被标作“开源”。以上均为</em><em>次级/待核</em><em>：时间含义不清，绿色勾选无图例，Pi 0.6</em>/0.7 命名、发布日期及开源状态需以 PI 项目页核验，不能视作已量产或一手性能证据。次级资料称“WAIC里大多数家庭/服务模型场景从Pi模型系列延伸与优化”，属于<strong>判断/待核</strong>。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
+<li><strong>客户与场景证据</strong>：顶级研究团队与大额融资<span class="secondary">【次级】</span>支持高算力研发；商业化可走模型授权、联合开发或平台服务，但收入和毛利模式尚待验证。持续性取决于能否把“通用基座”变成比本体厂自研更低的总拥有成本。；次级资料将 Pi 0、Pi 0.5、Pi 0.6<em>、Pi 0.7 与叠衣、桌面清理、吐司机/微波炉取放、铺床、专业咖啡机、刀具/削皮、空气炸锅、换垃圾袋等任务对应，并写有 <code>24.10-26.01</code>、<code>25.04</code>、<code>25.11</code>、<code>26.04</code> 等时间标记；其中 Pi 0/0.5 被标作“开源”。以上均为</em><em>次级/待核</em><em>：时间含义不清，绿色勾选无图例，Pi 0.6</em>/0.7 命名、发布日期及开源状态需以 PI 项目页核验，不能视作已量产或一手性能证据。次级资料称“WAIC里大多数家庭/服务模型场景从Pi模型系列延伸与优化”，属于<strong>判断/待核</strong>。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为无公开口径。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
 <li><strong>模型开放度</strong>：开放部分权重/代码或数据，范围以项目页为准。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：π0 → π0.5 → π0.6 / FAST 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -720,13 +727,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="NVIDIA｜GR00T N1 / N1.5 + Isaac + Thor结构化厂商卡">
-<header><div><span class="vendor-no">4.3</span><h3 id="43-nvidiagr00t-n1-n15-isaac-thor">4.3 NVIDIA｜GR00T N1 / N1.5 + Isaac + Thor</h3></div><span class="stage">玩家类别：算力仿真平台｜核心模型类型：VLM + Action Expert；快慢双系统；世界模型增强｜当前产品状态：研究/开放模型</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="NVIDIA｜GR00T N1 / N1.5 + Isaac + Thor横向厂商信息板">
+<header><div><span class="vendor-no">4.3</span><h3 id="43-nvidiagr00t-n1-n15-isaac-thor">4.3 NVIDIA｜GR00T N1 / N1.5 + Isaac + Thor</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：不是单一模型，而是 Teleop采集—Isaac Sim/Lab训练—GR00T模型—Isaac ROS部署—Jetson Thor算力的全栈平台。N1约2B，N1.5为3B模型卡口径。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：GR00T N1 / N1.5 + Isaac + Thor 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>NVIDIA｜GR00T N1 / N1.5 + Isaac + Thor</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：不是单一模型，而是 Teleop采集—Isaac Sim/Lab训练—GR00T模型—Isaac ROS部署—Jetson Thor算力的全栈平台。N1约2B，N1.5为3B模型卡口径。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：研究/开放模型；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -736,31 +755,21 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>模型名称</strong>：GR00T N1 / N1.5 + Isaac + Thor</li>
 <li><strong>架构机制类型</strong>：VLM + Action Expert；快慢双系统；世界模型增强</li>
 <li><strong>模型来源</strong>：Eagle 2.5/自研模型栈；N1/N1.5 开放权重。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：System 2 使用 Eagle-2/2.5 VLM 约10Hz处理语义；System 1 用 Diffusion Transformer + flow matching 生成动作，公开资料常见约120Hz口径。N1.5 的 FLARE 通过未来 latent 对齐从无动作标签人类视频吸收信息。；既有草稿记录的 N1.5 混合比例为 GR-1遥操作27.3%、Open X 27.3%、仿真27.3%、AgiBot 9.1%、DreamGen 9.1%<span class="secondary">【次级】</span>。训练约1000×H100、25万步、全局batch 16384<span class="secondary">【次级】</span>，是少数可讨论集群规模的案例，仍需官方训练日志复核。；Thor 官方规格高达2070 FP4 TFLOPS、128GB统一内存、40–130W配置；这是峰值硬件指标，不等于模型实测时延。平台支持从训练集群到端侧，但热设计和功耗会限制移动机器人持续工作。；优势是工具链、生态、合成数据和硬件协同；风险是客户锁定、仿真偏差及参考模型与特定本体之间仍需大量适配。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：System 2 使用 Eagle-2/2.5 VLM 约10Hz处理语义；System 1 用 Diffusion Transformer + flow matching 生成动作，公开资料常见约120Hz口径。N1.5 的 FLARE 通过未来 latent 对齐从无动作标签人类视频吸收信息。；既有草稿记录的 N1.5 混合比例为 GR-1遥操作27.3%、Open X 27.3%、仿真27.3%、AgiBot 9.1%、DreamGen 9.1%<span class="secondary">【次级】</span>。训练约1000×H100、25万步、全局batch 16384<span class="secondary">【次级】</span>，是少数可讨论集群规模的案例，仍需官方训练日志复核。；Thor 官方规格高达2070 FP4 TFLOPS、128GB统一内存、40–130W配置；这是峰值硬件指标，不等于模型实测时延。平台支持从训练集群到端侧，但热设计和功耗会限制移动机器人持续工作。；优势是工具链、生态、合成数据和硬件协同；风险是客户锁定、仿真偏差及参考模型与特定本体之间仍需大量适配。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
-<li><strong>客户与场景证据</strong>：GPU/边缘芯片、云服务和开发工具可多点变现，商业韧性显著高于单一本体项目。即使某款人形未放量，工业机器人和仿真需求仍能支撑路线；因此属于持续性最高的平台型玩家之一。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
+<li><strong>客户与场景证据</strong>：GPU/边缘芯片、云服务和开发工具可多点变现，商业韧性显著高于单一本体项目。即使某款人形未放量，工业机器人和仿真需求仍能支撑路线；因此属于持续性最高的平台型玩家之一。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为无公开口径。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
 <li><strong>模型开放度</strong>：开放部分权重/代码或数据，范围以项目页为准。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：GR00T N1 / N1.5 + Isaac + Thor 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -771,13 +780,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="Google DeepMind / Apptronik｜Gemini Robotics 1.5 + ER 1.5结构化厂商卡">
-<header><div><span class="vendor-no">4.4</span><h3 id="44-google-deepmind-apptronikgemini-robotics-15-er-15">4.4 Google DeepMind / Apptronik｜Gemini Robotics 1.5 + ER 1.5</h3></div><span class="stage">玩家类别：模型平台+本体伙伴｜核心模型类型：端到端 VLA；快慢双系统｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="Google DeepMind / Apptronik｜Gemini Robotics 1.5 + ER 1.5横向厂商信息板">
+<header><div><span class="vendor-no">4.4</span><h3 id="44-google-deepmind-apptronikgemini-robotics-15-er-15">4.4 Google DeepMind / Apptronik｜Gemini Robotics 1.5 + ER 1.5</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：RT-1/RT-2 奠定 VLA，Gemini Robotics（2025-03）进入机器人动作，On-Device 强调本地运行；1.5 由 ER 1.5 具身推理模型和 Robotics 1.5 动作模型协同。Apptronik Apollo 提供本体与 Robot Park 数据。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：Gemini Robotics 1.5 + ER 1.5 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Google DeepMind / Apptronik｜Gemini Robotics 1.5 + ER 1.5</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：RT-1/RT-2 奠定 VLA，Gemini Robotics（2025-03）进入机器人动作，On-Device 强调本地运行；1.5 由 ER 1.5 具身推理模型和 Robotics 1.5 动作模型协同。Apptronik Apollo 提供本体与 Robot Park 数据。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -787,31 +808,21 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>模型名称</strong>：Gemini Robotics 1.5 + ER 1.5</li>
 <li><strong>架构机制类型</strong>：端到端 VLA；快慢双系统</li>
 <li><strong>模型来源</strong>：接入自研 Gemini 基座；机器人动作模块自研。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：ER 负责理解、任务分解、工具调用和进度检查，动作模型将计划转为轨迹；“先思考再行动”提升可解释性，motion transfer 探索跨本体迁移。它比单体 VLA 更像协调器+执行器组合。；依托 Gemini 互联网预训练和多本体机器人数据；真机小时数、动作数据配比、训练 TPU 数 未披露。Apptronik 通过 Apollo 2 机队和客户现场采数，数据所有权与回流速度是合作成败关键。；ER 可经 API 使用，动作模型主要向合作伙伴开放；On-Device 证明离线方向，但具体参数、功耗和频率缺少统一公开口径。云端推理不能进入安全高频环。；优势是强语义推理、工具使用、基座算力和跨本体研究；短板是动作模型开放度有限，实际交付依赖伙伴硬件成熟度。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：ER 负责理解、任务分解、工具调用和进度检查，动作模型将计划转为轨迹；“先思考再行动”提升可解释性，motion transfer 探索跨本体迁移。它比单体 VLA 更像协调器+执行器组合。；依托 Gemini 互联网预训练和多本体机器人数据；真机小时数、动作数据配比、训练 TPU 数 无公开口径。Apptronik 通过 Apollo 2 机队和客户现场采数，数据所有权与回流速度是合作成败关键。；ER 可经 API 使用，动作模型主要向合作伙伴开放；On-Device 证明离线方向，但具体参数、功耗和频率缺少统一公开口径。云端推理不能进入安全高频环。；优势是强语义推理、工具使用、基座算力和跨本体研究；短板是动作模型开放度有限，实际交付依赖伙伴硬件成熟度。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
 <li><strong>客户与场景证据</strong>：Apptronik 2025年A轮扩至4.03亿美元，Google、Mercedes-Benz参与【正式融资信息】；Apollo在Mercedes-Benz、GXO、Jabil制造/物流场景试点。审计收入、确认订单、单机价格与毛利 未披露；资金将用于生产部署，伙伴分工降低研发跨度却增加数据权、接口和试点转正式采购风险。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：Gemini Robotics 1.5 + ER 1.5 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -822,13 +833,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="1X｜Redwood + 1X World Model结构化厂商卡">
-<header><div><span class="vendor-no">4.10</span><h3 id="410-1xredwood-1x-world-model">4.10 1X｜Redwood + 1X World Model</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：世界模型增强；端到端 VLA｜当前产品状态：试点</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="1X｜Redwood + 1X World Model横向厂商信息板">
+<header><div><span class="vendor-no">4.10</span><h3 id="410-1xredwood-1x-world-model">4.10 1X｜Redwood + 1X World Model</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：家庭优先，EVE轮式数据过渡到NEO双足。Redwood负责全身移动操作，世界模型预测交互后果；远程专家在早期提供兜底和高价值纠错数据。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：Redwood + 1X World Model 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>1X｜Redwood + 1X World Model</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：家庭优先，EVE轮式数据过渡到NEO双足。Redwood负责全身移动操作，世界模型预测交互后果；远程专家在早期提供兜底和高价值纠错数据。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -837,32 +860,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：Redwood + 1X World Model</li>
 <li><strong>架构机制类型</strong>：世界模型增强；端到端 VLA</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：VLA从视觉/语言到动作，世界模型学习“动作后将看到什么”，可用于数据 scaling、离线评估或候选动作筛选。软体外壳和肌腱驱动从硬件层降低家庭碰撞风险。；公司相关报道称真实家庭/办公“数千小时”<span class="secondary">【次级】</span>；具体轨迹、失败比例、参数和训练集群 未披露。Redwood约160M与Jetson Thor部署均为次级口径，需模型卡确认。；强调端侧自主与teleop兜底。远程接管提高早期可用性，但若每台每小时接管过多，带宽、隐私与人工成本会吞噬RaaS毛利。；优势是家庭真实分布、软硬件安全和世界模型；短板是开放家庭长尾极大，演示中自主与遥操边界必须透明。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：VLA从视觉/语言到动作，世界模型学习“动作后将看到什么”，可用于数据 scaling、离线评估或候选动作筛选。软体外壳和肌腱驱动从硬件层降低家庭碰撞风险。；公司相关报道称真实家庭/办公“数千小时”<span class="secondary">【次级】</span>；具体轨迹、失败比例、参数和训练集群 无公开口径。Redwood约160M与Jetson Thor部署均为次级口径，需模型卡确认。；强调端侧自主与teleop兜底。远程接管提高早期可用性，但若每台每小时接管过多，带宽、隐私与人工成本会吞噬RaaS毛利。；优势是家庭真实分布、软硬件安全和世界模型；短板是开放家庭长尾极大，演示中自主与遥操边界必须透明。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
-<li><strong>客户与场景证据</strong>：NEO公开发布后的媒体口径为2万美元或499美元/月、计划2026交付<span class="secondary">【次级】</span>；2024年1亿美元B轮为公开融资报道。预订不等于收入，实际消费者交付 未披露。制造、遥操与隐私合规资本消耗高；持续性取决于每台接管分钟下降能否快于折旧、维修与服务成本。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
+<li><strong>客户与场景证据</strong>：NEO公开发布后的媒体口径为2万美元或499美元/月、计划2026交付<span class="secondary">【次级】</span>；2024年1亿美元B轮为公开融资报道。预订不等于收入，实际消费者交付 无公开口径。制造、遥操与隐私合规资本消耗高；持续性取决于每台接管分钟下降能否快于折旧、维修与服务成本。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：Redwood + 1X World Model 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -873,13 +886,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="Boston Dynamics + TRI｜Large Behavior Model结构化厂商卡">
-<header><div><span class="vendor-no">4.11</span><h3 id="411-boston-dynamics-trilarge-behavior-model">4.11 Boston Dynamics + TRI｜Large Behavior Model</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：大行为模型 LBM｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="Boston Dynamics + TRI｜Large Behavior Model横向厂商信息板">
+<header><div><span class="vendor-no">4.11</span><h3 id="411-boston-dynamics-trilarge-behavior-model">4.11 Boston Dynamics + TRI｜Large Behavior Model</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：全电 Atlas 与 TRI LBM 结合，目标是把高动态全身控制与多任务灵巧操作统一。论文指向 Diffusion Transformer、多模态条件和长时序行为。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：Large Behavior Model 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Boston Dynamics + TRI｜Large Behavior Model</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：全电 Atlas 与 TRI LBM 结合，目标是把高动态全身控制与多任务灵巧操作统一。论文指向 Diffusion Transformer、多模态条件和长时序行为。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -888,32 +913,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：Large Behavior Model</li>
 <li><strong>架构机制类型</strong>：大行为模型 LBM</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：视觉、语言提示和本体状态输入单一大行为模型，扩散过程生成全身轨迹；技能可由人类示教加入。与VLA相比，它更强调动作分布与全身协调，语义知识的互联网规模复用较弱。；人类演示、仿真和少量真机校准；TRI“降低约80%数据需求”为其公开表述的次级转述，基线和任务范围需查论文。训练算力、参数和端侧芯片 未披露。；公开演示覆盖行走—搬运—分类—打包长序列，但连续运营频率、P95时延和恢复率未披露。；强项是机械设计、全身动态与行为学习结合；短板是成本高、平台尚处试点，模型开放度有限。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：视觉、语言提示和本体状态输入单一大行为模型，扩散过程生成全身轨迹；技能可由人类示教加入。与VLA相比，它更强调动作分布与全身协调，语义知识的互联网规模复用较弱。；人类演示、仿真和少量真机校准；TRI“降低约80%数据需求”为其公开表述的次级转述，基线和任务范围需查论文。训练算力、参数和端侧芯片 无公开口径。；公开演示覆盖行走—搬运—分类—打包长序列，但连续运营频率、P95时延和恢复率无公开口径。；强项是机械设计、全身动态与行为学习结合；短板是成本高、平台尚处试点，模型开放度有限。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
-<li><strong>客户与场景证据</strong>：现代汽车集团场景和TRI长期研究资金降低短期融资风险；但 Atlas 能否从研究平台变成可复制产品，要看汽车工厂正式部署和制造成本。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
+<li><strong>客户与场景证据</strong>：现代汽车集团场景和TRI长期研究资金降低短期融资风险；但 Atlas 能否从研究平台变成可复制产品，要看汽车工厂正式部署和制造成本。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为无公开口径。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：Large Behavior Model 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -924,13 +939,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="Tesla｜Optimus结构化厂商卡">
-<header><div><span class="vendor-no">4.12</span><h3 id="412-teslaoptimus">4.12 Tesla｜Optimus</h3></div><span class="stage">玩家类别：集团全栈｜核心模型类型：端到端 VLA；快慢双系统｜当前产品状态：试点</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="Tesla｜Optimus横向厂商信息板">
+<header><div><span class="vendor-no">4.12</span><h3 id="412-teslaoptimus">4.12 Tesla｜Optimus</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：复用自动驾驶“视觉—神经网络—端侧控制”能力，自建工厂先部署。独立机器人模型名称、参数和正式论文均 未披露，不应把发布会演示等同于完整技术披露。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：Optimus 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Tesla｜Optimus</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：复用自动驾驶“视觉—神经网络—端侧控制”能力，自建工厂先部署。独立机器人模型名称、参数和正式论文均 未披露，不应把发布会演示等同于完整技术披露。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -939,32 +966,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：Optimus</li>
 <li><strong>架构机制类型</strong>：端到端 VLA；快慢双系统</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：纯视觉、多相机感知、模仿/遥操作数据与端到端策略，底层仍需运动控制和安全层。官方未明确采用 Helix式 System 1/2。；自建遥操作、工厂任务、仿真，并可复用视觉训练基础设施；小时数、轨迹数和机器人专用训练集群 未披露。Dojo与NVIDIA GPU的具体分工口径变化较多。；端侧延续FSD计算平台思路，AI4/AI5代际与机器人量产配置需官方确认。端侧自研芯片可降低规模成本，但软件成熟前会形成较高固定投入。；优势是工厂场景、芯片/制造垂直整合和潜在机队规模；短板是模型透明度、时间表反复和开放任务证据少。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：纯视觉、多相机感知、模仿/遥操作数据与端到端策略，底层仍需运动控制和安全层。官方未明确采用 Helix式 System 1/2。；自建遥操作、工厂任务、仿真，并可复用视觉训练基础设施；小时数、轨迹数和机器人专用训练集群 无公开口径。Dojo与NVIDIA GPU的具体分工口径变化较多。；端侧延续FSD计算平台思路，AI4/AI5代际与机器人量产配置需官方确认。端侧自研芯片可降低规模成本，但软件成熟前会形成较高固定投入。；优势是工厂场景、芯片/制造垂直整合和潜在机队规模；短板是模型透明度、时间表反复和开放任务证据少。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
-<li><strong>客户与场景证据</strong>：汽车与能源业务现金流可长期补贴机器人研发，路线财务耐力强；但机器人自身商业成立仍需正式产量、外部客户、单位成本与自主作业时长证明。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
+<li><strong>客户与场景证据</strong>：汽车与能源业务现金流可长期补贴机器人研发，路线财务耐力强；但机器人自身商业成立仍需正式产量、外部客户、单位成本与自主作业时长证明。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为无公开口径。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：Optimus 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -975,13 +992,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="Skild AI｜Skild Brain结构化厂商卡">
-<header><div><span class="vendor-no">4.13</span><h3 id="413-skild-aiskild-brain">4.13 Skild AI｜Skild Brain</h3></div><span class="stage">玩家类别：模型平台｜核心模型类型：端到端 VLA｜当前产品状态：研究/开放模型</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="Skild AI｜Skild Brain横向厂商信息板">
+<header><div><span class="vendor-no">4.13</span><h3 id="413-skild-aiskild-brain">4.13 Skild AI｜Skild Brain</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：omni-bodied 统一机器人基础模型，目标是不预先绑定精确本体，可控制四足、人形、桌面臂和移动操作臂。；公司展示跨形态任务与企业合作，但统一标准、长程成功率和部署成本待核。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：Skild Brain 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Skild AI｜Skild Brain</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：omni-bodied 统一机器人基础模型，目标是不预先绑定精确本体，可控制四足、人形、桌面臂和移动操作臂。；公司展示跨形态任务与企业合作，但统一标准、长程成功率和部署成本待核。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：研究/开放模型；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -990,32 +1019,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：Skild Brain</li>
 <li><strong>架构机制类型</strong>：端到端 VLA</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：从多形态数据学习共享运动先验，再通过本体条件/adapter映射到不同动作空间。理论上扩大数据网络效应，实际难点是传感器、动力学、控制接口不一致。；参数、真机小时、数据构成、训练集群和端侧频率均 未披露，未开源。缺少这些信息时无法和π/GR00T做效率比较。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：从多形态数据学习共享运动先验，再通过本体条件/adapter映射到不同动作空间。理论上扩大数据网络效应，实际难点是传感器、动力学、控制接口不一致。；参数、真机小时、数据构成、训练集群和端侧频率均 未披露，未开源。缺少这些信息时无法和π/GR00T做效率比较。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
-<li><strong>客户与场景证据</strong>：2024年3亿美元A轮、15亿美元估值；后续融资、140亿美元估值和约3000万美元收入均为媒体口径<span class="secondary">【次级】</span>，需审计确认。物流、工业及NVIDIA GPU工厂部署为公司/媒体线索，定价与部署数 未披露。风险是高估值、重训练算力、闭源验证和伙伴数据依赖。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
+<li><strong>客户与场景证据</strong>：2024年3亿美元A轮、15亿美元估值；后续融资、140亿美元估值和约3000万美元收入均为媒体口径<span class="secondary">【次级】</span>，需审计确认。物流、工业及NVIDIA GPU工厂部署为公司/媒体线索，定价与部署数 无公开口径。风险是高估值、重训练算力、闭源验证和伙伴数据依赖。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：Skild Brain 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1026,13 +1045,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="Agility Robotics｜Digit + Arc结构化厂商卡">
-<header><div><span class="vendor-no">4.17</span><h3 id="417-agility-roboticsdigit-arc">4.17 Agility Robotics｜Digit + Arc</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：分层智能体/技能库｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="Agility Robotics｜Digit + Arc横向厂商信息板">
+<header><div><span class="vendor-no">4.17</span><h3 id="417-agility-roboticsdigit-arc">4.17 Agility Robotics｜Digit + Arc</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：专注仓储搬箱和物流流程，以成熟步态/规划/学习控制配合Arc运营平台，不把“通用大模型”作为首要卖点。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：Digit + Arc 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Agility Robotics｜Digit + Arc</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：专注仓储搬箱和物流流程，以成熟步态/规划/学习控制配合Arc运营平台，不把“通用大模型”作为首要卖点。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1041,32 +1072,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：Digit + Arc</li>
 <li><strong>架构机制类型</strong>：分层智能体/技能库</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：任务编排、感知、路径与抓取技能、全身控制分层；WMS下发任务，机器人执行固定但可变参数的流程，异常进入恢复或人工处置。该路线牺牲开放泛化换可靠交付。；客户现场能够产生高质量失败数据，但模型代际、小时数、芯片、训练集群 未披露。十万料箱、作业小时等多为官方里程碑的次级转述，需统一时间点。；本地安全与运动控制为主，Arc负责机队运营。确定性和可维护性通常优于大模型直接控制。；优势是商业部署、RoboFab和单一场景优化；短板是SKU、流程和场景扩展速度有限。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：任务编排、感知、路径与抓取技能、全身控制分层；WMS下发任务，机器人执行固定但可变参数的流程，异常进入恢复或人工处置。该路线牺牲开放泛化换可靠交付。；客户现场能够产生高质量失败数据，但模型代际、小时数、芯片、训练集群 无公开口径。十万料箱、作业小时等多为官方里程碑的次级转述，需统一时间点。；本地安全与运动控制为主，Arc负责机队运营。确定性和可维护性通常优于大模型直接控制。；优势是商业部署、RoboFab和单一场景优化；短板是SKU、流程和场景扩展速度有限。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
-<li><strong>客户与场景证据</strong>：2024年1.5亿美元融资、约10亿美元估值为公开报道<span class="secondary">【次级】</span>；GXO商业部署、Schaeffler批量合作及Amazon测试，Digit价格 未披露。RoboFab设计年产能1万台是规划而非实际产量。RaaS持续性取决于每箱成本、利用率和续约；固定成本与场景扩展慢是风险。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
+<li><strong>客户与场景证据</strong>：2024年1.5亿美元融资、约10亿美元估值为公开报道<span class="secondary">【次级】</span>；GXO商业部署、Schaeffler批量合作及Amazon测试，Digit价格 无公开口径。RoboFab设计年产能1万台是规划而非实际产量。RaaS持续性取决于每箱成本、利用率和续约；固定成本与场景扩展慢是风险。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：Digit + Arc 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1077,13 +1098,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="Sanctuary AI｜Carbon结构化厂商卡">
-<header><div><span class="vendor-no">4.18</span><h3 id="418-sanctuary-aicarbon">4.18 Sanctuary AI｜Carbon</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：分层智能体/技能库｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="Sanctuary AI｜Carbon横向厂商信息板">
+<header><div><span class="vendor-no">4.18</span><h3 id="418-sanctuary-aicarbon">4.18 Sanctuary AI｜Carbon</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：<strong>Sanctuary Carbon</strong>：认知架构把自然语言转为任务和动作，强调记忆、可解释规划与液压灵巧手；参数、数据、芯片均未披露。优势是精细手与可审计任务，风险是液压维护和双足/全身成熟度。融资与企业试点需核实正式收入。 主攻场景、公开成交价格、已交付数量、额定产能与量产时间：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：Carbon 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Sanctuary AI｜Carbon</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：<strong>Sanctuary Carbon</strong>：认知架构把自然语言转为任务和动作，强调记忆、可解释规划与液压灵巧手；参数、数据、芯片均无公开口径。优势是精细手与可审计任务，风险是液压维护和双足/全身成熟度。融资与企业试点需核实正式收入。 主攻场景、公开成交价格、已交付数量、额定产能与量产时间：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1092,32 +1125,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：Carbon</li>
 <li><strong>架构机制类型</strong>：分层智能体/技能库</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
 <li><strong>数据规模与来源</strong>：模型参数/版本化模型卡、训练算力、仿真比例、端侧芯片与P95时延：未披露；公开路线优势与边界见上句，仍需连续无接管测试。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
 <li><strong>客户与场景证据</strong>：官方曾披露累计融资超1亿加元，其中加拿大政府战略创新基金支持3000万加元；Canadian Tire试点及Magna合作已公开。Phoenix无官方售价、收入、订单、产能和量产时间。持续性风险是灵巧手维护、试点转付费及融资连续性。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：Carbon 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1129,13 +1152,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
 <p><strong>国内玩家</strong></p>
-</article></div>
-</section><section class="vendor-card" aria-label="智元机器人｜GO-1 / ViLLA + AgiBot World结构化厂商卡">
-<header><div><span class="vendor-no">4.5</span><h3 id="45-go-1-villa-agibot-world">4.5 智元机器人｜GO-1 / ViLLA + AgiBot World</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：VLM + Action Expert｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="智元机器人｜GO-1 / ViLLA + AgiBot World横向厂商信息板">
+<header><div><span class="vendor-no">4.5</span><h3 id="45-go-1-villa-agibot-world">4.5 智元机器人｜GO-1 / ViLLA + AgiBot World</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：从原子技能走向 GO-1 通用操作。ViLLA 采用 VLM理解层（InternVL-2B）+ latent planner + diffusion Action Expert，用隐式动作表征连接图文和控制；GO-1/GO-1 Air 已有开源检查点。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：GO-1 / ViLLA + AgiBot World 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>智元机器人｜GO-1 / ViLLA + AgiBot World</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：从原子技能走向 GO-1 通用操作。ViLLA 采用 VLM理解层（InternVL-2B）+ latent planner + diffusion Action Expert，用隐式动作表征连接图文和控制；GO-1/GO-1 Air 已有开源检查点。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1145,31 +1180,21 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>模型名称</strong>：GO-1 / ViLLA + AgiBot World</li>
 <li><strong>架构机制类型</strong>：VLM + Action Expert</li>
 <li><strong>模型来源</strong>：理解层基于 InternVL-2B 二次训练；Planner 与 Action Expert 自研。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：VLM 将语言和多视角视觉编码为语义，latent planner 预测中间动作意图，扩散专家再生成执行轨迹。相比直接动作 token，latent 有利于跨本体映射和长程拆解，但需保证中间表征不丢失接触细节。；AgiBot World 公开口径超过100万条真机轨迹、2976小时、100+场景、80+技能，另有 Digital World 与 Genie Sim；数据覆盖家居、餐饮、工业、商超和办公。具体训练 GPU/时长 未披露。；端侧控制器与部分本体公开约200–270TOPS口径<span class="secondary">【次级】</span>，模型量化、P95时延、断网能力未系统披露。GO-1 跨松灵、方舟、Franka 验证显示跨本体意图。；最大优势是“本体+真机数据+仿真+开源模型”的完整闭环；短板是数据统计口径、线上成功率与生产级接管率仍需第三方评测。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：VLM 将语言和多视角视觉编码为语义，latent planner 预测中间动作意图，扩散专家再生成执行轨迹。相比直接动作 token，latent 有利于跨本体映射和长程拆解，但需保证中间表征不丢失接触细节。；AgiBot World 公开口径超过100万条真机轨迹、2976小时、100+场景、80+技能，另有 Digital World 与 Genie Sim；数据覆盖家居、餐饮、工业、商超和办公。具体训练 GPU/时长 无公开口径。；端侧控制器与部分本体公开约200–270TOPS口径<span class="secondary">【次级】</span>，模型量化、P95时延、断网能力未系统披露。GO-1 跨松灵、方舟、Franka 验证显示跨本体意图。；最大优势是“本体+真机数据+仿真+开源模型”的完整闭环；短板是数据统计口径、线上成功率与生产级接管率仍需第三方评测。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
-<li><strong>客户与场景证据</strong>：多产品线、工业数采和开源生态可分摊模型成本；制造扩张也带来库存和服务压力。若客户部署能持续回流失败片段，路线具有较强持续性；融资、出货和估值数字需以审计材料更新。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
+<li><strong>客户与场景证据</strong>：多产品线、工业数采和开源生态可分摊模型成本；制造扩张也带来库存和服务压力。若客户部署能持续回流失败片段，路线具有较强持续性；融资、出货和估值数字需以审计材料更新。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为无公开口径。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
 <li><strong>模型开放度</strong>：开放部分权重/代码或数据，范围以项目页为准。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：GO-1 / ViLLA + AgiBot World 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1180,13 +1205,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="星动纪元｜ERA-42 / HiRT / VPP / Ctrl-World结构化厂商卡">
-<header><div><span class="vendor-no">4.6</span><h3 id="46-era-42-hirt-vpp-ctrl-world">4.6 星动纪元｜ERA-42 / HiRT / VPP / Ctrl-World</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：快慢双系统；世界模型增强｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="星动纪元｜ERA-42 / HiRT / VPP / Ctrl-World横向厂商信息板">
+<header><div><span class="vendor-no">4.6</span><h3 id="46-era-42-hirt-vpp-ctrl-world">4.6 星动纪元｜ERA-42 / HiRT / VPP / Ctrl-World</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：模型、本体与世界模型联合。HiRT 用约7B世界/语义模型连接约40M执行模型的快慢分层<span class="secondary">【次级】</span>；ERA-42覆盖视觉理解、预测和行动；VPP/Ctrl-World 强化未来状态建模。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：ERA-42 / HiRT / VPP / Ctrl-World 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>星动纪元｜ERA-42 / HiRT / VPP / Ctrl-World</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：模型、本体与世界模型联合。HiRT 用约7B世界/语义模型连接约40M执行模型的快慢分层<span class="secondary">【次级】</span>；ERA-42覆盖视觉理解、预测和行动；VPP/Ctrl-World 强化未来状态建模。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1195,32 +1232,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：ERA-42 / HiRT / VPP / Ctrl-World</li>
 <li><strong>架构机制类型</strong>：快慢双系统；世界模型增强</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：低频大模型预测任务相关 latent 或未来视觉，高频小策略按本体反馈执行；Ctrl-World 对候选动作生成可控未来，用预测结果约束策略。其价值是把视频数据变成动作学习先验。；真实场景—仿真—实验室三级闭环；“每周300万帧”是公司/媒体口径<span class="secondary">【次级】</span>，不能直接等价于有效轨迹。训练集群、真机小时与合成比例 未披露。；分频设计可降低7B模型每控制周期运行的需求，但完整延迟、端侧芯片和世界模型是否实时在线未公开。；特色是世界模型研究深度、全身+灵巧手和开源VPP；风险是世界模型误差累积、训练复杂、从论文指标到连续物流作业仍有距离。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：低频大模型预测任务相关 latent 或未来视觉，高频小策略按本体反馈执行；Ctrl-World 对候选动作生成可控未来，用预测结果约束策略。其价值是把视频数据变成动作学习先验。；真实场景—仿真—实验室三级闭环；“每周300万帧”是公司/媒体口径<span class="secondary">【次级】</span>，不能直接等价于有效轨迹。训练集群、真机小时与合成比例 无公开口径。；分频设计可降低7B模型每控制周期运行的需求，但完整延迟、端侧芯片和世界模型是否实时在线未公开。；特色是世界模型研究深度、全身+灵巧手和开源VPP；风险是世界模型误差累积、训练复杂、从论文指标到连续物流作业仍有距离。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
-<li><strong>客户与场景证据</strong>：2025年近10亿元A+轮、累计订单超5亿元、物流最大单笔近5000万元、海外业务约50%及吉利/雷诺/顺丰等客户均为公司发布后的媒体转述<span class="secondary">【次级】</span>。产品线包括L7、Q5和XHAND，价格、实际交付与产能 未披露。次级资料另称“物流分拣”、5070端侧与工业遥操【次级/待核】；风险是订单转收入、世界模型双重算力和制造扩张。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
+<li><strong>客户与场景证据</strong>：2025年近10亿元A+轮、累计订单超5亿元、物流最大单笔近5000万元、海外业务约50%及吉利/雷诺/顺丰等客户均为公司发布后的媒体转述<span class="secondary">【次级】</span>。产品线包括L7、Q5和XHAND，价格、实际交付与产能 无公开口径。次级资料另称“物流分拣”、5070端侧与工业遥操【次级/待核】；风险是订单转收入、世界模型双重算力和制造扩张。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：ERA-42 / HiRT / VPP / Ctrl-World 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1231,13 +1258,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="自变量机器人｜WALL-A / WALL-OSS结构化厂商卡">
-<header><div><span class="vendor-no">4.7</span><h3 id="47-wall-a-wall-oss">4.7 自变量机器人｜WALL-A / WALL-OSS</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：端到端 VLA｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="自变量机器人｜WALL-A / WALL-OSS横向厂商信息板">
+<header><div><span class="vendor-no">4.7</span><h3 id="47-wall-a-wall-oss">4.7 自变量机器人｜WALL-A / WALL-OSS</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：统一感知—推理—行动表示的端到端具身基础模型，强调具身思维链、零样本泛化和探索—反思闭环；WALL-OSS 与训练代码用于生态扩散。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：WALL-A / WALL-OSS 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>自变量机器人｜WALL-A / WALL-OSS</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：统一感知—推理—行动表示的端到端具身基础模型，强调具身思维链、零样本泛化和探索—反思闭环；WALL-OSS 与训练代码用于生态扩散。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1246,32 +1285,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：WALL-A / WALL-OSS</li>
 <li><strong>架构机制类型</strong>：端到端 VLA</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：视觉、语言、状态和动作在统一 Transformer 表示空间中建模，减少手工技能接口；推理轨迹提供任务阶段信息，再由动作头输出控制。统一架构简洁，但训练时需防止语义损失压过精细动作梯度。；依靠自研轮式双臂、五指手和外骨骼遥操作采数；规模、数据配比、参数与训练算力 未披露。缺失项是评估其 scaling 叙事的主要障碍。；端侧芯片、动作频率、P95时延和量化策略 未披露；因此不能仅凭“端到端”判断实时性。；优势是模型优先、开源和软硬件数采工具一体；风险是公开生产运营指标少、统一模型在长程任务中的错误恢复仍待验证。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：视觉、语言、状态和动作在统一 Transformer 表示空间中建模，减少手工技能接口；推理轨迹提供任务阶段信息，再由动作头输出控制。统一架构简洁，但训练时需防止语义损失压过精细动作梯度。；依靠自研轮式双臂、五指手和外骨骼遥操作采数；规模、数据配比、参数与训练算力 无公开口径。缺失项是评估其 scaling 叙事的主要障碍。；端侧芯片、动作频率、P95时延和量化策略 未披露；因此不能仅凭“端到端”判断实时性。；优势是模型优先、开源和软硬件数采工具一体；风险是公开生产运营指标少、统一模型在长程任务中的错误恢复仍待验证。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
-<li><strong>客户与场景证据</strong>：官网披露获得字节、阿里、美团、小米等投资；媒体称累计融资约30亿元、估值超100亿元<span class="secondary">【次级】</span>。量子1/2号进入家庭、工业、物流、养老，合作含58到家，但价格、产能、规模交付、审计收入和确认订单 未披露。自建数采工厂与硬件使资本消耗高，风险是家政效率、量产及收入尚未规模验证。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
+<li><strong>客户与场景证据</strong>：官网披露获得字节、阿里、美团、小米等投资；媒体称累计融资约30亿元、估值超100亿元<span class="secondary">【次级】</span>。量子1/2号进入家庭、工业、物流、养老，合作含58到家，但价格、产能、规模交付、审计收入和确认订单 无公开口径。自建数采工厂与硬件使资本消耗高，风险是家政效率、量产及收入尚未规模验证。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
 <li><strong>模型开放度</strong>：开放部分权重/代码或数据，范围以项目页为准。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：WALL-A / WALL-OSS 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1282,13 +1311,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="银河通用｜AstraBrain / GraspVLA / TrackVLA / GroceryVLA结构化厂商卡">
-<header><div><span class="vendor-no">4.8</span><h3 id="48-astrabrain-graspvla-trackvla-groceryvla">4.8 银河通用｜AstraBrain / GraspVLA / TrackVLA / GroceryVLA</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：端到端 VLA｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="银河通用｜AstraBrain / GraspVLA / TrackVLA / GroceryVLA横向厂商信息板">
+<header><div><span class="vendor-no">4.8</span><h3 id="48-astrabrain-graspvla-trackvla-groceryvla">4.8 银河通用｜AstraBrain / GraspVLA / TrackVLA / GroceryVLA</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：以任务专长模型矩阵逐步汇聚到 AstraBrain，轮式双臂 G1 在零售、药店、仓储形成运营入口。GraspVLA负责抓取，TrackVLA负责视觉导航，GroceryVLA针对货架。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：AstraBrain / GraspVLA / TrackVLA / GroceryVLA 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>银河通用｜AstraBrain / GraspVLA / TrackVLA / GroceryVLA</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：以任务专长模型矩阵逐步汇聚到 AstraBrain，轮式双臂 G1 在零售、药店、仓储形成运营入口。GraspVLA负责抓取，TrackVLA负责视觉导航，GroceryVLA针对货架。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1297,32 +1338,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：AstraBrain / GraspVLA / TrackVLA / GroceryVLA</li>
 <li><strong>架构机制类型</strong>：端到端 VLA</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：大脑/小脑/本体分层；VLA将视觉语言条件映射到抓取或导航动作，任务专用头用场景先验换取成功率。路线不是“一开始追求单一万能模型”，而是用可交付技能积累闭环后再统一。；差异化押注大规模仿真/合成，行业报道有“占比&gt;99%”口径<span class="secondary">【次级】</span>，需官方模型卡复核。真实零售点位提供域校准和失败样本；训练集群 未披露。；G1 公开硬件为 AGX Orin 64GB/275TOPS，续航约8h；端到端时延与动作频率 未披露。轮式底盘减少双足稳定性算力，把预算集中于操作。；优势是仿真规模、零售点位、轮式稳定性和运营数据；短板是Sim2Real、场景专用性以及厂商成功率口径缺少第三方复现。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：大脑/小脑/本体分层；VLA将视觉语言条件映射到抓取或导航动作，任务专用头用场景先验换取成功率。路线不是“一开始追求单一万能模型”，而是用可交付技能积累闭环后再统一。；差异化押注大规模仿真/合成，行业报道有“占比&gt;99%”口径<span class="secondary">【次级】</span>，需官方模型卡复核。真实零售点位提供域校准和失败样本；训练集群 无公开口径。；G1 公开硬件为 AGX Orin 64GB/275TOPS，续航约8h；端到端时延与动作频率 无公开口径。轮式底盘减少双足稳定性算力，把预算集中于操作。；优势是仿真规模、零售点位、轮式稳定性和运营数据；短板是Sim2Real、场景专用性以及厂商成功率口径缺少第三方复现。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
 <li><strong>客户与场景证据</strong>：G1媒体报价约63–70万元，ET1预售价7.9/13.9/17.9万元<span class="secondary">【次级】</span>；累计融资、30亿美元估值及千台/7亿元订单均为媒体口径，未见审计确认。客户报道含宁德时代、博世、丰田、现代和多家车企。优势是零售/药店/工厂点位；风险是Sim2Real、远程接管、订单真实性与本体供应依赖。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：AstraBrain / GraspVLA / TrackVLA / GroceryVLA 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1333,13 +1364,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="智平方｜GOVLA / Alpha Brain结构化厂商卡">
-<header><div><span class="vendor-no">4.9</span><h3 id="49-govla-alpha-brain">4.9 智平方｜GOVLA / Alpha Brain</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：快慢双系统｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="智平方｜GOVLA / Alpha Brain横向厂商信息板">
+<header><div><span class="vendor-no">4.9</span><h3 id="49-govla-alpha-brain">4.9 智平方｜GOVLA / Alpha Brain</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：面向轮式可升降 AlphaBot 的全域全身 VLA，明确 System 2 慢推理 + System 1 快控制，并将机械臂、躯干和移动轨迹放入统一输出。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：GOVLA / Alpha Brain 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>智平方｜GOVLA / Alpha Brain</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：面向轮式可升降 AlphaBot 的全域全身 VLA，明确 System 2 慢推理 + System 1 快控制，并将机械臂、躯干和移动轨迹放入统一输出。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1348,32 +1391,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：GOVLA / Alpha Brain</li>
 <li><strong>架构机制类型</strong>：快慢双系统</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：360°感知构建空间交互表示；S2进行语言理解、任务拆解，S1联合生成移动与全身动作，减少“导航到点再操作”的割裂。全身联合优化更适合移动装配，也扩大动作维度和安全约束。；汽车、半导体、生物科技现场提供精密操作数据；数据规模、参数、GPU、仿真比例 未披露。DeepSeek 融入 VLA 为公开传播口径，具体模块和训练贡献待技术文档。；续航6h+，但芯片、频率、时延 未披露。±0.02mm装配与日均20h连续作业属次级场景口径，需明确测量条件和人工干预。；优势是全身移动操作与高价值工业场景；风险是动作维度高、精度与泛化难兼得，缺少标准化模型卡。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：360°感知构建空间交互表示；S2进行语言理解、任务拆解，S1联合生成移动与全身动作，减少“导航到点再操作”的割裂。全身联合优化更适合移动装配，也扩大动作维度和安全约束。；汽车、半导体、生物科技现场提供精密操作数据；数据规模、参数、GPU、仿真比例 无公开口径。DeepSeek 融入 VLA 为公开传播口径，具体模块和训练贡献待技术文档。；续航6h+，但芯片、频率、时延 无公开口径。±0.02mm装配与日均20h连续作业属次级场景口径，需明确测量条件和人工干预。；优势是全身移动操作与高价值工业场景；风险是动作维度高、精度与泛化难兼得，缺少标准化模型卡。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
 <li><strong>客户与场景证据</strong>：2026年媒体称完成超10亿元B轮、估值突破100亿元<span class="secondary">【次级】</span>，资金投向GOVLA、AlphaBot量产与产线扩容；2028/2033产量目标仅为规划。价格、审计收入、确认订单与交付量 未披露；风险是融资节奏快、工业精度口径和跨项目软件复用待验证。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：GOVLA / Alpha Brain 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1384,13 +1417,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="优必选｜BrainNet 2.0 + Co-Agent结构化厂商卡">
-<header><div><span class="vendor-no">4.14</span><h3 id="414-brainnet-20-co-agent">4.14 优必选｜BrainNet 2.0 + Co-Agent</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：分层智能体/技能库｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="优必选｜BrainNet 2.0 + Co-Agent横向厂商信息板">
+<header><div><span class="vendor-no">4.14</span><h3 id="414-brainnet-20-co-agent">4.14 优必选｜BrainNet 2.0 + Co-Agent</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：以工业 Walker S 系为载体，采用群脑网络与智能体编排，而非单一通用 VLA。重点是意图理解、任务规划、工具调用、异常处置和多机协同。；Walker S2自主换电和多工厂试点有利于连续作业；千台、订单8亿元等为次级汇总，上市公司信息应以公告/财报更新。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：BrainNet 2.0 + Co-Agent 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>优必选｜BrainNet 2.0 + Co-Agent</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：以工业 Walker S 系为载体，采用群脑网络与智能体编排，而非单一通用 VLA。重点是意图理解、任务规划、工具调用、异常处置和多机协同。；Walker S2自主换电和多工厂试点有利于连续作业；千台、订单8亿元等为次级汇总，上市公司信息应以公告/财报更新。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1399,32 +1444,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：BrainNet 2.0 + Co-Agent</li>
 <li><strong>架构机制类型</strong>：分层智能体/技能库</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：云/边缘大模型拆解任务，机器人技能层执行，FOC/MES/WMS反馈状态；异常回传后重新规划。它牺牲部分端到端优雅性，换取工业流程可审计与已有技能复用。；“亿级工业数据”“自主处理&gt;90%异常”为公司/媒体口径<span class="secondary">【次级】</span>，数据单位、任务集合和基线待核。训练算力、端侧芯片 未披露。；优势是工业客户、运营编排、换电和制造；短板是基础模型泛化与数据细节披露较弱。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：云/边缘大模型拆解任务，机器人技能层执行，FOC/MES/WMS反馈状态；异常回传后重新规划。它牺牲部分端到端优雅性，换取工业流程可审计与已有技能复用。；“亿级工业数据”“自主处理&gt;90%异常”为公司/媒体口径<span class="secondary">【次级】</span>，数据单位、任务集合和基线待核。训练算力、端侧芯片 无公开口径。；优势是工业客户、运营编排、换电和制造；短板是基础模型泛化与数据细节披露较弱。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
 <li><strong>客户与场景证据</strong>：港股上市公司，应以年报/公告为准；媒体转述2025收入20.01亿元、人形收入8.206亿元、亏损7.898亿元、年化产能超6000台【次级待回链年报】。Walker S2于2025年开启量产交付，客户覆盖汽车、3C、物流；次级资料补充自研VLA尚未上产线、Ego/遥操、自研电机及沐曦合作【次级/待核】。高研发、应收、库存和售后是核心风险。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：BrainNet 2.0 + Co-Agent 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1435,13 +1470,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="傅利叶智能｜操作模型 + FOCUS + FourierActionNet结构化厂商卡">
-<header><div><span class="vendor-no">4.15</span><h3 id="415-focus-fourieractionnet">4.15 傅利叶智能｜操作模型 + FOCUS + FourierActionNet</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：端到端 VLA；大行为模型 LBM｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="傅利叶智能｜操作模型 + FOCUS + FourierActionNet横向厂商信息板">
+<header><div><span class="vendor-no">4.15</span><h3 id="415-focus-fourieractionnet">4.15 傅利叶智能｜操作模型 + FOCUS + FourierActionNet</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：运控以强化学习和模仿学习为主，感知采用纯视觉BEV/Transformer/OCC，FOCUS负责多机调度；从康复积累延伸至GR系列通用本体。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：操作模型 + FOCUS + FourierActionNet 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>傅利叶智能｜操作模型 + FOCUS + FourierActionNet</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：运控以强化学习和模仿学习为主，感知采用纯视觉BEV/Transformer/OCC，FOCUS负责多机调度；从康复积累延伸至GR系列通用本体。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1450,32 +1497,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：操作模型 + FOCUS + FourierActionNet</li>
 <li><strong>架构机制类型</strong>：端到端 VLA；大行为模型 LBM</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：仿真RL训练步态和全身控制，遥操作示教训练上肢，场景大模型负责交互/任务；多智能体平台协调任务。分层路线工程可控，但通用语义—动作统一程度弱于VLA。；FourierActionNet公开超过3万条真机/灵巧手操作数据及工具链，曾进入NVIDIA生态。训练集群、视频预训练和端侧模型参数 未披露。；GR-3与地瓜RDK S600合作为次级公开信息，反映端侧国产化尝试；实际模型时延待测。；康复渠道、执行器自研和数据开源构成差异化；跨场景泛化和高频现场运营指标不足。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：仿真RL训练步态和全身控制，遥操作示教训练上肢，场景大模型负责交互/任务；多智能体平台协调任务。分层路线工程可控，但通用语义—动作统一程度弱于VLA。；FourierActionNet公开超过3万条真机/灵巧手操作数据及工具链，曾进入NVIDIA生态。训练集群、视频预训练和端侧模型参数 无公开口径。；GR-3与地瓜RDK S600合作为次级公开信息，反映端侧国产化尝试；实际模型时延待测。；康复渠道、执行器自研和数据开源构成差异化；跨场景泛化和高频现场运营指标不足。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
-<li><strong>客户与场景证据</strong>：GR-3/GR-3C为55DOF Carebot，2025年9月预售、10月计划交付，价格未公布【次级转官方发布】；融资、收入、订单与产能 未披露。医院康复渠道提供现金与制造基础，但通用机器人需新增数据与售后资本；风险是康复数据迁移、陪伴付费意愿与量产良率。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
+<li><strong>客户与场景证据</strong>：GR-3/GR-3C为55DOF Carebot，2025年9月预售、10月计划交付，价格未公布【次级转官方发布】；融资、收入、订单与产能 无公开口径。医院康复渠道提供现金与制造基础，但通用机器人需新增数据与售后资本；风险是康复数据迁移、陪伴付费意愿与量产良率。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：操作模型 + FOCUS + FourierActionNet 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1486,13 +1523,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="宇树科技｜运控模型 + UnifoLM结构化厂商卡">
-<header><div><span class="vendor-no">4.16</span><h3 id="416-unifolm">4.16 宇树科技｜运控模型 + UnifoLM</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：分层智能体/技能库｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="宇树科技｜运控模型 + UnifoLM横向厂商信息板">
+<header><div><span class="vendor-no">4.16</span><h3 id="416-unifolm">4.16 宇树科技｜运控模型 + UnifoLM</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：以高动态运动控制、低成本本体和开发者生态见长，叠加UnifoLM统一模型探索。核心壁垒当前更偏执行器、关节、RL运控和规模制造，而非公开通用操作模型。；量产本体、科研教育和高动态动作提供大规模开发者触点；复杂长程操作、异常恢复和跨场景成功率披露不足。；公开成交价格、额定产能与可核验累计交付：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：运控模型 + UnifoLM 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>宇树科技｜运控模型 + UnifoLM</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：以高动态运动控制、低成本本体和开发者生态见长，叠加UnifoLM统一模型探索。核心壁垒当前更偏执行器、关节、RL运控和规模制造，而非公开通用操作模型。；量产本体、科研教育和高动态动作提供大规模开发者触点；复杂长程操作、异常恢复和跨场景成功率披露不足。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1501,32 +1550,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：运控模型 + UnifoLM</li>
 <li><strong>架构机制类型</strong>：分层智能体/技能库</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：深度强化学习与模仿学习完成步态、全身动作和重定向；更高层世界/具身模型接收语言视觉并调用动作策略。分层使运动技能稳定，但开放物体操作需要更多灵巧手数据。；真机轨迹、UnifoLM参数、训练GPU和端侧部署均 未披露；展示视频不能替代模型卡。；未披露的模型参数/训练GPU小时/P95时延均为未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：深度强化学习与模仿学习完成步态、全身动作和重定向；更高层世界/具身模型接收语言视觉并调用动作策略。分层使运动技能稳定，但开放物体操作需要更多灵巧手数据。；真机轨迹、UnifoLM参数、训练GPU和端侧部署均 未披露；展示视频不能替代模型卡。；未披露的模型参数/训练GPU小时/P95时延均为无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
 <li><strong>客户与场景证据</strong>：招股书媒体转述2025营收17.08亿元、净利2.88亿元、人形出货超5500台，IPO拟募42.02亿元【待回链申报稿】；Go2起价9997元、G1约8.5–9.9万元、R1 Air 2.99万元。科研教育和巡检为主要客户场景。优势是盈利、价格与规模；风险是操作智能、制造扩产、售后及设备数据能否合规回流。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：运控模型 + UnifoLM 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1537,13 +1576,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="星尘智能｜DuoCore结构化厂商卡">
-<header><div><span class="vendor-no">4.19</span><h3 id="419-duocore">4.19 星尘智能｜DuoCore</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：端到端 VLA｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="星尘智能｜DuoCore横向厂商信息板">
+<header><div><span class="vendor-no">4.19</span><h3 id="419-duocore">4.19 星尘智能｜DuoCore</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：<strong>星尘 DuoCore</strong>：毫秒级本能反应+大模型决策，绳驱肌腱和刚柔混合动力学支持高速上肢；VR遥操、视频和人体示教构成数据源。次级资料另称其“整机销售”、大脑“自研VLA”、端侧为“Orin/RK3588/Thor”、数据“自采遥操”，灵巧手仅写“xx DOF”【次级/待核】；<code>xx</code>不是有效数值。优势是速度/柔顺和开发工具链，短板是数据规模与生产运营证据不足。 主攻场景、公开成交价格、已交付数量、额定产能与量产时间：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：DuoCore 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>星尘智能｜DuoCore</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：<strong>星尘 DuoCore</strong>：毫秒级本能反应+大模型决策，绳驱肌腱和刚柔混合动力学支持高速上肢；VR遥操、视频和人体示教构成数据源。次级资料另称其“整机销售”、大脑“自研VLA”、端侧为“Orin/RK3588/Thor”、数据“自采遥操”，灵巧手仅写“xx DOF”【次级/待核】；<code>xx</code>不是有效数值。优势是速度/柔顺和开发工具链，短板是数据规模与生产运营证据不足。 主攻场景、公开成交价格、已交付数量、额定产能与量产时间：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1552,32 +1603,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：DuoCore</li>
 <li><strong>架构机制类型</strong>：端到端 VLA</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
 <li><strong>数据规模与来源</strong>：模型参数/版本化模型卡、训练算力、仿真比例、端侧芯片与P95时延：未披露；公开路线优势与边界见上句，仍需连续无接管测试。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
 <li><strong>客户与场景证据</strong>：融资/估值、审计收入、确认订单、客户名单、商业模式、制造资本开支与现金消耗：未披露；持续性风险是公开生产证据不足。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：DuoCore 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1588,13 +1629,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="乐聚｜夸父结构化厂商卡">
-<header><div><span class="vendor-no">4.20</span><h3 id="420">4.20 乐聚｜夸父</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：分层智能体/技能库｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="乐聚｜夸父横向厂商信息板">
+<header><div><span class="vendor-no">4.20</span><h3 id="420">4.20 乐聚｜夸父</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
-<li><strong>现有产品/型号</strong>：<strong>乐聚夸父</strong>：RL/模仿运控接入盘古/智谱等大模型，鸿蒙生态与科研教育优先。优势是生态合作和批量平台，短板是自有通用操作基础模型、端侧算力与数据披露有限。 主攻场景、公开成交价格、已交付数量、额定产能与量产时间：未披露。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：夸父 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>乐聚｜夸父</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<ul>
+<li><strong>现有产品/型号</strong>：<strong>乐聚夸父</strong>：RL/模仿运控接入盘古/智谱等大模型，鸿蒙生态与科研教育优先。优势是生态合作和批量平台，短板是自有通用操作基础模型、端侧算力与数据披露有限。 主攻场景、公开成交价格、已交付数量、额定产能与量产时间：无公开口径。</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1603,32 +1656,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：夸父</li>
 <li><strong>架构机制类型</strong>：分层智能体/技能库</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
 <li><strong>数据规模与来源</strong>：模型参数/版本化模型卡、训练算力、仿真比例、端侧芯片与P95时延：未披露；公开路线优势与边界见上句，仍需连续无接管测试。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
 <li><strong>客户与场景证据</strong>：融资/估值、审计收入、确认订单、客户名单、商业模式、制造资本开支与现金消耗：未披露；持续性风险是公开生产证据不足。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：夸父 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1639,13 +1682,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="它石智航｜线束装配与世界模型结构化厂商卡">
-<header><div><span class="vendor-no">4.21</span><h3 id="421">4.21 它石智航｜线束装配与世界模型</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：世界模型增强｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="它石智航｜线束装配与世界模型横向厂商信息板">
+<header><div><span class="vendor-no">4.21</span><h3 id="421">4.21 它石智航｜线束装配与世界模型</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
+<ul>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：线束装配与世界模型 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>它石智航｜线束装配与世界模型</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：次级资料指向人形/操作系统用于线束装配；本体代际、价格、交付、产能和量产时间 未披露【次级/待核】。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1654,32 +1709,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：线束装配与世界模型</li>
 <li><strong>架构机制类型</strong>：世界模型增强</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：次级资料称自研WM、华为MDC810、自研头戴/手套/外套采集Ego与遥操，覆盖“数据—模型—Infra”；模型卡、数据规模、仿真与时延 未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：次级资料称自研WM、华为MDC810、自研头戴/手套/外套采集Ego与遥操，覆盖“数据—模型—Infra”；模型卡、数据规模、仿真与时延 无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
 <li><strong>客户与场景证据</strong>：融资估值、收入订单、客户与制造资本开支 未披露；若线束装配形成稳定客户可回流高价值失败数据，当前最大风险是主体与公开证据不足。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：线束装配与世界模型 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1690,13 +1735,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="云深处｜绝影/山猫/DR结构化厂商卡">
-<header><div><span class="vendor-no">4.22</span><h3 id="422-dr">4.22 云深处｜绝影/山猫/DR</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：分层智能体/技能库｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="云深处｜绝影/山猫/DR横向厂商信息板">
+<header><div><span class="vendor-no">4.22</span><h3 id="422-dr">4.22 云深处｜绝影/山猫/DR</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
+<ul>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：绝影/山猫/DR 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>云深处｜绝影/山猫/DR</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：绝影X20/X30工业四足、Lite科研系列、山猫M20轮足及DR人形验证平台；次级资料列出X系列20–30万元、Lite约10万元、DR约40万元【次级/待核】；电力巡检为核心场景。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1705,32 +1762,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：绝影/山猫/DR</li>
 <li><strong>架构机制类型</strong>：分层智能体/技能库</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
 <li><strong>数据规模与来源</strong>：DeepVLA/感控融合与全域导航；真实巡检数据迭代，部分数据能力外购；RK3588/黑芝麻A1000及外挂算力盒约20TOPS为次级资料口径【次级/待核】。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
 <li><strong>客户与场景证据</strong>：次级资料称国家电网/南网客户、2025营收3.37亿元、净利2868万元、X系列出货681台、累计产量超5500台【次级/待核】，须以招股书/审计材料复核。ToB闭环清晰，风险是客户集中和大模型外挂成本。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：绝影/山猫/DR 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1741,13 +1788,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="超维动力｜世界模型+灵巧操作结构化厂商卡">
-<header><div><span class="vendor-no">4.23</span><h3 id="423">4.23 超维动力｜世界模型+灵巧操作</h3></div><span class="stage">玩家类别：软硬一体本体｜核心模型类型：世界模型增强｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="超维动力｜世界模型+灵巧操作横向厂商信息板">
+<header><div><span class="vendor-no">4.23</span><h3 id="423">4.23 超维动力｜世界模型+灵巧操作</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
+<ul>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：世界模型+灵巧操作 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>超维动力｜世界模型+灵巧操作</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：公开资料未给清晰本体代际，灵巧手写36DOF；场景、价格、交付与产能 未披露【次级/待核】。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1756,32 +1815,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：世界模型+灵巧操作</li>
 <li><strong>架构机制类型</strong>：世界模型增强</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：自研WM、Orin、自采/众包Ego与遥操、自研数据头戴；“其中13个深度”原词不清，模型参数、仿真和时延 未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：自研WM、Orin、自采/众包Ego与遥操、自研数据头戴；“其中13个深度”原词不清，模型参数、仿真和时延 无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
 <li><strong>客户与场景证据</strong>：融资估值、收入订单、客户和量产时间 未披露；风险是众包质量、主体信息与数字无法核验。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：世界模型+灵巧操作 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1792,13 +1841,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="强脑科技 / 曦诺未来｜灵巧手供应链结构化厂商卡">
-<header><div><span class="vendor-no">4.24</span><h3 id="424">4.24 强脑科技 / 曦诺未来｜灵巧手供应链</h3></div><span class="stage">玩家类别：开发者本体/部件｜核心模型类型：分层智能体/技能库｜当前产品状态：试点/小批量交付</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="强脑科技 / 曦诺未来｜灵巧手供应链横向厂商信息板">
+<header><div><span class="vendor-no">4.24</span><h3 id="424">4.24 强脑科技 / 曦诺未来｜灵巧手供应链</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
+<ul>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：灵巧手供应链 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>强脑科技 / 曦诺未来｜灵巧手供应链</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：次级资料列出强脑21DOF、曦诺25DOF，曦诺自研电机/丝杠；价格、寿命、良率、产能和交付量 未披露【次级/待核】。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：试点/小批量交付；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1807,32 +1868,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：灵巧手供应链</li>
 <li><strong>架构机制类型</strong>：分层智能体/技能库</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
-<li><strong>数据规模与来源</strong>：两者均列Manus遥操数据，曦诺另列自研VLA；触觉、力控频率、仿真与端侧算力 未披露。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>数据规模与来源</strong>：两者均列Manus遥操数据，曦诺另列自研VLA；触觉、力控频率、仿真与端侧算力 无公开口径。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
 <li><strong>客户与场景证据</strong>：融资估值、收入订单与客户 未披露；持续性取决于手部寿命、成本和整机厂定点，DOF不能替代可靠性与量产良率。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：灵巧手供应链 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1843,13 +1894,25 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
-</section><section class="vendor-card" aria-label="光轮 / 基础设施线索｜数据与仿真服务结构化厂商卡">
-<header><div><span class="vendor-no">4.25</span><h3 id="425">4.25 光轮 / 基础设施线索｜数据与仿真服务</h3></div><span class="stage">玩家类别：算力仿真平台｜核心模型类型：世界模型增强｜当前产品状态：研究/开放模型</span></header>
-<div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+</article></div></div>
+</section><section class="vendor-card vendor-board" aria-label="光轮 / 基础设施线索｜数据与仿真服务横向厂商信息板">
+<header><div><span class="vendor-no">4.25</span><h3 id="425">4.25 光轮 / 基础设施线索｜数据与仿真服务</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
+<ul>
+<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
+<li><strong>出货/交付时间与数量</strong>：无可审计统一口径｜媒体数字按报道时间保留。</li>
+<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
+<li><strong>在研型号</strong>：数据与仿真服务 后续代际；未正式命名者不代拟型号。</li>
+<li><strong>预计出货或量产时间</strong>：无明确时间｜规划≠承诺交付。</li>
+<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
+<li><strong>价格</strong>：无公开成交价｜指导价≠成交价。</li>
+</ul>
+</div></div>
+<div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>光轮 / 基础设施线索｜数据与仿真服务</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：次级资料将光轮标为“数据服务”，另有sharpa及模糊厂名；无标准本体，服务价格、交付规模 未披露【次级/待核】。</li>
-<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
+<li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
 <li><strong>产品状态</strong>：研究/开放模型；演示、试点、订单与交付不相互替代。</li>
 <li><strong>产品优势</strong>：软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准。</li>
 <li><strong>产品限制</strong>：连续运营、接管率、故障恢复和单位经济性公开口径仍不完整。</li>
@@ -1858,32 +1921,22 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <ul>
 <li><strong>模型名称</strong>：数据与仿真服务</li>
 <li><strong>架构机制类型</strong>：世界模型增强</li>
-<li><strong>模型来源</strong>：自研；未披露基础视觉语言基座或第三方模块细节。</li>
-<li><strong>训练算力</strong>：未披露。</li>
+<li><strong>模型来源</strong>：自研；基础VLM/第三方模块无公开细节。</li>
+<li><strong>训练算力</strong>：无公开口径。</li>
 <li><strong>端侧算力/芯片</strong>：未披露或因本体配置而异。</li>
 <li><strong>数据规模与来源</strong>：可能覆盖数据、仿真或Infra，但公开资料无明确数据规模、训练平台、端云架构与算力，不能扩写为事实。</li>
-<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余未披露。</li>
+<li><strong>仿真/后训练</strong>：公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径。</li>
 <li><strong>优势</strong>：与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产。</li>
 <li><strong>限制</strong>：跨本体适配、端到端 P95 时延及第三方复现数据尚不完整。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为未披露。</li>
+<li><strong>商业模式</strong>：整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径。</li>
 <li><strong>客户与场景证据</strong>：融资、收入、客户与资本开支 未披露；平台路线可降低整机厂采数成本，风险是主体拼写和服务边界未确认。</li>
 <li><strong>公开订单</strong>：仅将明确签约口径列为订单，不等同出货、交付、验收或收入。</li>
-<li><strong>模型开放度</strong>：未披露或闭源。</li>
-<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利未披露时不推算。</li>
-<li><strong>连续运营/复购</strong>：未披露同口径的客户复购率与连续无接管时长。</li>
-</ul>
-</article><article class=""><b>量产落地 MASS PRODUCTION</b>
-<ul>
-<li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则未披露。</li>
-<li><strong>出货/交付时间与数量</strong>：未披露可审计统一口径；媒体数字保留其报道时间和口径。</li>
-<li><strong>当前客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”</li>
-<li><strong>在研型号</strong>：数据与仿真服务 后续代际；未正式命名者不代拟型号。</li>
-<li><strong>预计出货或量产时间</strong>：未披露；规划时间不等同承诺交付。</li>
-<li><strong>产能规划</strong>：仅列公开产线规划；规划产能不等同实际产量、出货或客户验收。</li>
-<li><strong>价格</strong>：未披露公开成交价；指导价不等同成交价。</li>
+<li><strong>模型开放度</strong>：闭源/无公开模型卡。</li>
+<li><strong>融资财务</strong>：见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算。</li>
+<li><strong>连续运营/复购</strong>：无同口径复购率/连续无接管时长。</li>
 </ul>
 </article><article class="judgement"><b>最终判断 JUDGEMENT</b>
 <ul>
@@ -1894,7 +1947,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>客户复购/连续运营</strong>：未披露可横向比较口径。</li>
 <li><strong>融资财务</strong>：公开融资可支持研发，但不能替代收入、毛利和现金流验证。</li>
 </ul>
-</article></div>
+</article></div></div>
 </section></div></details><details class="chapter" open><summary><h2 id="_6">五、数据与行业趋势（仅讲共性）</h2></summary><div class="chapter-body">
 <h3 id="51">5.1 共性数据飞轮</h3>
 <ul>
@@ -1936,5 +1989,6 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li>本版没有新增无法回链的事实；旧资料中的截图与次级口径原样保留在第四章对应公司，不再在后文复制。</li>
 </ul>
 <!-- edited by 王涛 (ou_aae5b71d48cef83590833b0bfbbeaf27) at 2026-10-09 --></div></details></main></div>
-<footer>本页基于统一报告自动构建。未读取的专题链接不会被当作事实来源；次级信息与缺失值均保留标记。产品和生产信息仅作为软件落地证据。</footer>
+<footer>本页基于统一报告自动构建。次级信息与缺失值均保留标记；产品和生产信息作为软件落地证据。</footer>
+<script>document.querySelectorAll('.vendor-board-scroll,.rb-tl-shell').forEach(el=>{let down=false,x=0,left=0;el.addEventListener('pointerdown',e=>{down=true;x=e.clientX;left=el.scrollLeft;el.setPointerCapture(e.pointerId)});el.addEventListener('pointermove',e=>{if(down)el.scrollLeft=left-(e.clientX-x)});el.addEventListener('pointerup',()=>down=false);el.addEventListener('pointercancel',()=>down=false);el.addEventListener('wheel',e=>{if(e.shiftKey||Math.abs(e.deltaX)>Math.abs(e.deltaY)){e.preventDefault();el.scrollLeft+=e.deltaX||e.deltaY}},{passive:false})});</script>
 </body></html>
