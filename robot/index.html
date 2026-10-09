@@ -5,7 +5,7 @@
 <style>
 *{box-sizing:border-box}html{scroll-behavior:smooth}:root{--bg:#09111b;--panel:#111d2a;--line:#26384a;--text:#e6edf4;--muted:#9aabba;--cyan:#40d7c5;--blue:#65a9ff;--amber:#efb35b}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.78 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.top{position:sticky;top:0;z-index:9;background:rgba(9,17,27,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.top-in{max-width:1500px;margin:auto;padding:13px 22px}.brand{font-size:19px;font-weight:750}.brand:before{content:"";display:inline-block;width:9px;height:9px;margin-right:10px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--blue))}.meta{color:var(--muted);font-size:12px;margin-top:3px}.layout{max-width:1500px;margin:auto;padding:22px;display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px}.toc{position:sticky;top:94px;max-height:calc(100vh - 118px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}.toc b{display:block;font-size:11px;letter-spacing:1.4px;color:var(--muted);margin-bottom:8px}.toc a{display:block;color:var(--muted);padding:4px 7px;border-left:2px solid transparent;line-height:1.4}.toc a:hover{color:var(--text);border-left-color:var(--cyan);text-decoration:none}.toc .l3{padding-left:18px;font-size:12px}.content{min-width:0}.content>h1{font-size:28px;line-height:1.25;margin:0 0 18px}.content h2{font-size:21px;margin:38px 0 14px;padding-left:12px;border-left:4px solid var(--cyan);scroll-margin-top:84px}.content h3{font-size:17px;margin:27px 0 10px;color:#cde0f1;scroll-margin-top:84px}.content p{margin:10px 0}.content ul,.content ol{padding-left:24px}.content li{margin:5px 0}.content blockquote{margin:14px 0;padding:10px 15px;background:#121f2d;border-left:3px solid var(--amber);border-radius:0 10px 10px 0;color:#c7d5e2}.content pre{overflow:auto;padding:16px 18px;background:#0c1723;border:1px solid #294055;border-radius:12px;color:#bfe6df;line-height:1.55}.content h3[id^="31-"]~ul,.content h3[id^="32-"]~ul{background:#101d2a}.table-wrap{overflow:auto;margin:16px 0;border:1px solid var(--line);border-radius:11px}table{border-collapse:collapse;width:100%;min-width:650px;font-size:13px}th{background:#172638;color:#bfd1e1;text-align:left;padding:9px 11px;white-space:nowrap}td{padding:8px 11px;vertical-align:top;border-top:1px solid #203143}tr:hover td{background:#122131}code{background:#172536;color:#80dece;padding:2px 5px;border-radius:4px}.secondary{color:var(--amber);font-size:11px;font-weight:700}.na{color:#72869a;font-style:italic}footer{max-width:1500px;margin:auto;padding:20px 22px 42px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}@media(max-width:900px){body{overflow-x:hidden}.hero-viz{grid-template-columns:1fr;padding:22px;overflow:hidden}.hero-viz h1{font-size:28px!important;line-height:1.2}.hero-viz svg{max-width:100%;height:auto}.kpi-grid,.route-grid{grid-template-columns:1fr 1fr}.timeline-viz{grid-template-columns:1fr 1fr}.radar-wrap{grid-template-columns:1fr}.chain{overflow:auto}.chain article{min-width:150px}.vendor-map{height:auto;grid-template-columns:1fr}.axis{display:none}.layout{grid-template-columns:1fr;padding:16px}.toc{display:none}.content>h1{font-size:23px}.content h2{font-size:18px}}
 
-.hero-viz{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:center;padding:34px;border:1px solid #28455b;border-radius:24px;background:radial-gradient(circle at 80% 20%,rgba(64,215,197,.12),transparent 45%),linear-gradient(145deg,#122235,#0d1825)}.hero-viz h1{font-size:38px!important;margin:8px 0 12px!important}.hero-viz p{color:var(--muted);max-width:620px}.hero-viz svg{width:100%}.hero-viz svg text{text-anchor:middle;fill:#e8f2fa;font-size:16px;font-weight:700}.eyebrow{color:var(--cyan);font-weight:800;letter-spacing:2px;font-size:11px}.kpi-grid,.route-grid,.trend-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 34px}.kpi-grid article,.route-grid article,.trend-grid article{background:linear-gradient(145deg,#132235,#0e1a27);border:1px solid var(--line);border-radius:16px;padding:18px}.kpi-grid b,.kpi-grid small,.route-grid small{display:block;color:var(--muted)}.kpi-grid strong{display:block;color:#fff;font-size:18px;margin:6px 0}.viz-title{margin-top:34px!important}.route-grid{grid-template-columns:repeat(3,1fr)}.route-grid i{font-style:normal;color:var(--cyan);font-weight:800}.route-grid h3{margin:8px 0!important;color:#fff!important}.route-grid p{font-family:ui-monospace,monospace;color:#aee9df}.timeline-viz{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:10px 0 36px}.timeline-viz article{position:relative;padding:22px 16px;border-top:3px solid var(--cyan);background:#101d2a}.timeline-viz article:before{content:"";position:absolute;top:-8px;left:16px;width:13px;height:13px;border-radius:50%;background:var(--cyan)}.timeline-viz time,.timeline-viz b,.timeline-viz span{display:block}.timeline-viz time{color:var(--cyan);font-weight:800}.timeline-viz span{color:var(--muted);font-size:12px}.flywheel{border:1px solid var(--line);border-radius:20px;background:#0e1a27;overflow:auto}.flywheel svg{min-width:720px;width:100%}.flywheel rect{fill:#152a3c;stroke:#40d7c5}.svgt text{text-anchor:middle;fill:#dcebf5;font-size:14px}.vendor-map{position:relative;height:410px;border:1px solid var(--line);border-radius:20px;padding:35px;display:grid;grid-template-columns:1fr 1fr;gap:12px;background:linear-gradient(90deg,transparent 49.8%,#29445a 50%,transparent 50.2%),linear-gradient(0deg,transparent 49.8%,#29445a 50%,transparent 50.2%),#0e1925}.quadrant{padding:28px;border-radius:14px;background:rgba(20,38,54,.82)}.quadrant b,.quadrant span{display:block}.quadrant b{color:var(--cyan);font-size:18px}.quadrant span{color:#b7c7d4}.axis{position:absolute;color:var(--muted);font-size:12px}.axis.y{left:8px;top:8px}.axis.x{right:14px;bottom:8px}.radar-wrap{display:grid;grid-template-columns:1fr 1fr;align-items:center;border:1px solid var(--line);border-radius:20px;background:#0e1925;padding:20px}.radar-wrap svg{width:100%;max-height:390px}.radar-label text{text-anchor:middle;fill:#b7cad9;font-size:13px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px}.fact{background:var(--cyan)}.secondary-dot{background:var(--amber)}.plan{background:#78889a}.chain{display:flex;align-items:stretch;gap:10px}.chain article{flex:1;padding:16px;background:#132235;border:1px solid var(--line);border-radius:14px}.chain b,.chain span{display:block}.chain span{font-size:12px;color:var(--muted)}.chain em{align-self:center;color:var(--cyan)}.trend-grid{grid-template-columns:1fr 1fr}.detail-hint{margin:40px 0 12px;padding:14px 18px;border-radius:12px;background:#14283a;color:#bcd1df}.chapter{border:1px solid var(--line);border-radius:16px;margin:14px 0;background:#0e1925;overflow:hidden}.chapter summary{cursor:pointer;list-style:none;padding:2px 18px;background:#111f2d}.chapter summary::-webkit-details-marker{display:none}.chapter summary h2{margin:16px 0!important}.chapter-body{padding:0 20px 22px}.chapter:not([open]) summary h2:after{content:" ＋";float:right;color:var(--cyan)}.chapter[open] summary h2:after{content:" −";float:right;color:var(--cyan)}
+.vla-wm-guide{margin:22px 0 34px;padding:24px;border:1px solid var(--line);border-radius:20px;background:#0e1a27}.vla-wm-guide header span{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:1.5px}.vla-wm-guide header h2{margin:6px 0!important;padding:0!important;border:0!important}.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.compare-grid article,.arch-three article{padding:14px;border:1px solid #29445a;border-radius:12px;background:#132235}.compare-grid p{margin:5px 0;font-size:12px}.arch-three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}.arch-three b,.arch-three span{display:block}.arch-three span{color:var(--muted);font-size:12px}.source-matrix{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.source-matrix span{padding:7px;border-radius:7px;background:#17283a;color:#cde0f1;font-size:11px}.hero-viz{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:center;padding:34px;border:1px solid #28455b;border-radius:24px;background:radial-gradient(circle at 80% 20%,rgba(64,215,197,.12),transparent 45%),linear-gradient(145deg,#122235,#0d1825)}.hero-viz h1{font-size:38px!important;margin:8px 0 12px!important}.hero-viz p{color:var(--muted);max-width:620px}.hero-viz svg{width:100%}.hero-viz svg text{text-anchor:middle;fill:#e8f2fa;font-size:16px;font-weight:700}.eyebrow{color:var(--cyan);font-weight:800;letter-spacing:2px;font-size:11px}.kpi-grid,.route-grid,.trend-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 34px}.kpi-grid article,.route-grid article,.trend-grid article{background:linear-gradient(145deg,#132235,#0e1a27);border:1px solid var(--line);border-radius:16px;padding:18px}.kpi-grid b,.kpi-grid small,.route-grid small{display:block;color:var(--muted)}.kpi-grid strong{display:block;color:#fff;font-size:18px;margin:6px 0}.viz-title{margin-top:34px!important}.route-grid{grid-template-columns:repeat(3,1fr)}.route-grid i{font-style:normal;color:var(--cyan);font-weight:800}.route-grid h3{margin:8px 0!important;color:#fff!important}.route-grid p{font-family:ui-monospace,monospace;color:#aee9df}.timeline-viz{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:10px 0 36px}.timeline-viz article{position:relative;padding:22px 16px;border-top:3px solid var(--cyan);background:#101d2a}.timeline-viz article:before{content:"";position:absolute;top:-8px;left:16px;width:13px;height:13px;border-radius:50%;background:var(--cyan)}.timeline-viz time,.timeline-viz b,.timeline-viz span{display:block}.timeline-viz time{color:var(--cyan);font-weight:800}.timeline-viz span{color:var(--muted);font-size:12px}.flywheel{border:1px solid var(--line);border-radius:20px;background:#0e1a27;overflow:auto}.flywheel svg{min-width:720px;width:100%}.flywheel rect{fill:#152a3c;stroke:#40d7c5}.svgt text{text-anchor:middle;fill:#dcebf5;font-size:14px}.vendor-map{position:relative;height:410px;border:1px solid var(--line);border-radius:20px;padding:35px;display:grid;grid-template-columns:1fr 1fr;gap:12px;background:linear-gradient(90deg,transparent 49.8%,#29445a 50%,transparent 50.2%),linear-gradient(0deg,transparent 49.8%,#29445a 50%,transparent 50.2%),#0e1925}.quadrant{padding:28px;border-radius:14px;background:rgba(20,38,54,.82)}.quadrant b,.quadrant span{display:block}.quadrant b{color:var(--cyan);font-size:18px}.quadrant span{color:#b7c7d4}.axis{position:absolute;color:var(--muted);font-size:12px}.axis.y{left:8px;top:8px}.axis.x{right:14px;bottom:8px}.radar-wrap{display:grid;grid-template-columns:1fr 1fr;align-items:center;border:1px solid var(--line);border-radius:20px;background:#0e1925;padding:20px}.radar-wrap svg{width:100%;max-height:390px}.radar-label text{text-anchor:middle;fill:#b7cad9;font-size:13px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px}.fact{background:var(--cyan)}.secondary-dot{background:var(--amber)}.plan{background:#78889a}.chain{display:flex;align-items:stretch;gap:10px}.chain article{flex:1;padding:16px;background:#132235;border:1px solid var(--line);border-radius:14px}.chain b,.chain span{display:block}.chain span{font-size:12px;color:var(--muted)}.chain em{align-self:center;color:var(--cyan)}.trend-grid{grid-template-columns:1fr 1fr}.detail-hint{margin:40px 0 12px;padding:14px 18px;border-radius:12px;background:#14283a;color:#bcd1df}.chapter{border:1px solid var(--line);border-radius:16px;margin:14px 0;background:#0e1925;overflow:hidden}.chapter summary{cursor:pointer;list-style:none;padding:2px 18px;background:#111f2d}.chapter summary::-webkit-details-marker{display:none}.chapter summary h2{margin:16px 0!important}.chapter-body{padding:0 20px 22px}.chapter:not([open]) summary h2:after{content:" ＋";float:right;color:var(--cyan)}.chapter[open] summary h2:after{content:" −";float:right;color:var(--cyan)}
 @media(max-width:600px){.kpi-grid,.route-grid,.timeline-viz,.trend-grid{grid-template-columns:1fr}.hero-viz{padding:18px}.hero-viz h1{font-size:25px!important}.hero-viz svg{margin-top:-18px}.quadrant{padding:18px}.chapter-body{padding:0 13px 18px}.content h2{font-size:17px}.radar-wrap{padding:8px}.flywheel{margin-left:-8px;margin-right:-8px}}
 /* 与半导体主报告统一的视觉系统：浅色工业报告、蓝紫绿语义色、白底图卡 */
 :root{--bg:#f8fafc;--panel:#fff;--line:#d9e2ec;--text:#1e293b;--muted:#526277;--cyan:#2563eb;--blue:#7c3aed;--amber:#d97706}
@@ -26,12 +26,12 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 .rb-timeline{margin:16px 0 26px;border:1px solid #cbd9e8;border-radius:16px;background:#fff;overflow:hidden}.rb-timeline>header{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 20px;background:#0f2744;color:#fff}.rb-timeline h4{margin:0;font-size:20px}.rb-timeline header span{color:#bfdbfe;font-size:12px;font-weight:700}.rb-tl-legend{position:relative;z-index:3;display:flex;flex-wrap:wrap;gap:7px 12px;align-items:center;padding:10px 18px;border-bottom:1px solid #dbe4ee;background:#f8fafc;font-size:11px}.rb-tl-legend i{width:9px;height:9px;border-radius:50%}.rb-tl-legend em{margin-left:auto;font-style:normal;color:#475569}.rb-tl-legend small{color:#b45309}.rb-tl-shell{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-color:#94a3b8 #e2e8f0;scrollbar-width:auto}.rb-tl-shell::-webkit-scrollbar{height:10px}.rb-tl-shell::-webkit-scrollbar-thumb{background:#94a3b8;border-radius:5px}.rb-tl-shell::-webkit-scrollbar-track{background:#e2e8f0}.rb-tl-grid,.rb-prod-grid{display:grid;grid-template-columns:160px 1740px;min-width:1900px;position:relative}.tl-sticky{position:sticky;left:0;z-index:4;padding:14px 12px;border-right:1px solid #cbd5e1;border-bottom:1px solid #e2e8f0;background:#f8fafc;color:#334155;font-size:12px;font-weight:800}.tl-sticky a{color:#1e3a5f}.axis-title{background:#eaf1f8}.tl-years{position:sticky;top:0;z-index:3;display:grid;grid-template-columns:repeat(6,1fr);padding:10px 0;border-bottom:1px solid #cbd5e1;background:repeating-linear-gradient(90deg,#fff 0,#fff calc(16.667% - 1px),#cbd5e1 calc(16.667% - 1px),#cbd5e1 16.667%)}.tl-years span{text-align:center;color:#64748b;font-size:11px;font-weight:800}.tl-track{position:relative;height:92px;border-bottom:1px solid #e2e8f0;background:repeating-linear-gradient(90deg,#fff 0,#fff calc(16.667% - 1px),#edf2f7 calc(16.667% - 1px),#edf2f7 16.667%)}.event{position:absolute;top:10px;width:185px;padding:7px 9px;border:1px solid currentColor;border-left:5px solid;border-radius:8px;background:#fff;box-shadow:0 2px 6px #0f172a12;color:#2563eb}.event time,.event b,.event small{display:block}.event time{font-size:10px}.event b{font-size:12px;color:#172b3f}.event small{font-size:10px;color:#526277;white-space:normal}.m1{color:#2563eb!important}.m2{color:#7c3aed!important}.m3{color:#059669!important}.m4{color:#d97706!important}.m5{color:#dc2626!important}.m6{color:#0891b2!important}.prod-track{position:relative;min-height:72px;padding:7px 18px;border-bottom:1px solid #e2e8f0;background:repeating-linear-gradient(90deg,#fff 0,#fff calc(16.667% - 1px),#dbe4ee calc(16.667% - 1px),#dbe4ee 16.667%)}.prod-track time{position:absolute;top:5px;color:#2563eb;font-size:10px;font-weight:800;white-space:nowrap}.prod-track a{position:absolute;top:24px;display:flex;gap:15px;align-items:center;width:245px;padding:7px 12px;border-left:4px solid #2563eb;border-radius:7px;background:#eff6ff;box-shadow:0 2px 6px #0f172a18}.prod-track b,.prod-track small{display:block}.prod-track small{color:#526277}.rb-timeline>footer{padding:9px 16px;background:#fffbeb;color:#92400e;font-size:11px}@media(max-width:600px){.rb-timeline>header{align-items:flex-start;flex-direction:column;padding:14px}.rb-timeline h4{font-size:17px}.rb-tl-legend{padding:9px 12px}.rb-tl-legend em{margin-left:0}.rb-tl-grid,.rb-prod-grid{grid-template-columns:110px 1740px;min-width:1850px}.tl-sticky{padding:12px 7px}.rb-tl-shell:after{content:"继续横滑 →";position:sticky;right:8px;bottom:8px;float:right;padding:4px 8px;border-radius:999px;background:#0f2744;color:#fff;font-size:10px}}
 
 /* v5 mobile hardening */
-@media(max-width:600px){html,body{width:100%;max-width:100%;overflow-x:hidden}.layout{width:100%;max-width:100%;padding:10px;overflow:hidden}.content,.toc{width:100%;max-width:100%;min-width:0}.hero-viz,.hero-viz>div,.kpi-grid,.route-grid,.timeline-viz,.vendor-card,.chapter,.principle-viz{width:100%;max-width:100%;min-width:0}.hero-viz h1,.hero-viz p,.vendor-card *{max-width:100%;overflow-wrap:anywhere;word-break:break-word}.hero-viz svg{min-width:0!important;max-width:100%!important}.kpi-grid,.route-grid,.timeline-viz,.trend-grid,.model-matrix{display:grid;grid-template-columns:minmax(0,1fr)!important}.kpi-grid article,.route-grid article{width:100%;min-width:0}.stage{margin-left:0;white-space:normal}.table-wrap{width:100%;max-width:100%;overflow-x:auto}}
+@media(max-width:600px){.compare-grid,.arch-three,.source-matrix{grid-template-columns:1fr}.vla-wm-guide{padding:15px}html,body{width:100%;max-width:100%;overflow-x:hidden}.layout{width:100%;max-width:100%;padding:10px;overflow:hidden}.content,.toc{width:100%;max-width:100%;min-width:0}.hero-viz,.hero-viz>div,.kpi-grid,.route-grid,.timeline-viz,.vendor-card,.chapter,.principle-viz{width:100%;max-width:100%;min-width:0}.hero-viz h1,.hero-viz p,.vendor-card *{max-width:100%;overflow-wrap:anywhere;word-break:break-word}.hero-viz svg{min-width:0!important;max-width:100%!important}.kpi-grid,.route-grid,.timeline-viz,.trend-grid,.model-matrix{display:grid;grid-template-columns:minmax(0,1fr)!important}.kpi-grid article,.route-grid article{width:100%;min-width:0}.stage{margin-left:0;white-space:normal}.table-wrap{width:100%;max-width:100%;overflow-x:auto}}
 /* v5.1 第四章横向信息板：外页不溢出，板内独立横滑 */
-.vendor-board{max-width:100%;overflow:hidden}.mass-strip{display:flex;align-items:center;gap:12px;padding:9px 14px;border-bottom:1px solid #dbe4ee;background:#fffbeb;white-space:nowrap;overflow-x:auto;scrollbar-width:thin}.mass-strip>b{position:sticky;left:0;z-index:2;flex:0 0 auto;padding-right:10px;background:#fffbeb;color:#92400e}.mass-strip>div{display:flex;min-width:max-content}.mass-strip ul{display:flex;gap:18px;margin:0;padding:0;list-style:none}.mass-strip li{margin:0;font-size:12px;color:#475569}.mass-strip p{margin:0}.board-hint{padding:6px 14px;background:#eff6ff;color:#1d4ed8;font-size:11px;font-weight:700}.vendor-board-scroll{display:grid;grid-template-columns:220px minmax(0,1fr);overflow-x:auto;cursor:grab;overscroll-behavior-x:contain;scrollbar-color:#64748b #e2e8f0;scrollbar-width:auto}.vendor-board-scroll:active{cursor:grabbing}.vendor-board-scroll::-webkit-scrollbar{height:12px}.vendor-board-scroll::-webkit-scrollbar-thumb{background:#64748b;border-radius:8px}.vendor-summary{position:sticky;left:0;z-index:3;width:220px;padding:18px 15px;border-right:2px solid #94a3b8;background:linear-gradient(145deg,#f0fdf4,#fff);box-shadow:5px 0 12px #0f172a12}.vendor-summary strong,.vendor-summary span{display:block}.vendor-summary strong{color:#166534;font-size:15px}.vendor-summary span{margin-top:9px;color:#526277;font-size:11px}.vendor-board .vendor-dim{display:grid;grid-template-columns:repeat(4,360px);min-width:1440px}.vendor-board .vendor-dim article,.vendor-board .vendor-dim .judgement{grid-column:auto;min-height:300px;border-top:0;border-right:1px solid #cbd5e1;background:#fff}.vendor-board .vendor-dim article>b{position:sticky;top:0;padding-bottom:7px;border-bottom:2px solid #dbe4ee}.vendor-board .vendor-dim ul{padding-left:16px}.vendor-board .vendor-dim li{margin:5px 0}.vendor-board .vendor-dim .judgement{background:#f8fafc}.vendor-board .vendor-dim .judgement li:nth-child(n+4){display:none}
-@media(max-width:600px){.vendor-board>header{padding:13px}.mass-strip{padding:8px 10px}.board-hint{position:sticky;left:0}.vendor-board-scroll{grid-template-columns:132px minmax(0,1fr)}.vendor-summary{width:132px;padding:13px 9px}.vendor-board .vendor-dim{grid-template-columns:repeat(4,285px);min-width:1140px}.vendor-board .vendor-dim article,.vendor-board .vendor-dim .judgement{min-height:360px;padding:13px}.vendor-board .vendor-dim *{max-width:none}}
+.vendor-board{max-width:100%;overflow:hidden}.vendor-chips{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}.vendor-chips span{padding:5px 9px;border:1px solid #90c8a4;border-radius:999px;background:#e3f5e9;color:#205c3a;font-size:11px;font-weight:800}.company-profile{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#cfe0d5;border-bottom:1px solid #cfe0d5}.company-profile div{display:grid;grid-template-columns:98px 1fr;gap:8px;padding:9px 12px;background:#f2faf4;font-size:12px;line-height:1.45}.company-profile b{color:#397352}.company-profile span{color:#334155}.mass-strip{display:flex;align-items:center;gap:12px;padding:9px 14px;border-bottom:1px solid #dbe4ee;background:#fffbeb;white-space:nowrap;overflow-x:auto;scrollbar-width:thin}.mass-strip>b{position:sticky;left:0;z-index:2;flex:0 0 auto;padding-right:10px;background:#fffbeb;color:#92400e}.mass-strip>div{display:flex;min-width:max-content}.mass-strip ul{display:flex;gap:18px;margin:0;padding:0;list-style:none}.mass-strip li{margin:0;font-size:12px;color:#475569}.mass-strip p{margin:0}.board-hint{padding:6px 14px;background:#eff6ff;color:#1d4ed8;font-size:11px;font-weight:700}.vendor-board-scroll{display:grid;grid-template-columns:220px minmax(0,1fr);overflow-x:auto;cursor:grab;overscroll-behavior-x:contain;scrollbar-color:#64748b #e2e8f0;scrollbar-width:auto}.vendor-board-scroll:active{cursor:grabbing}.vendor-board-scroll::-webkit-scrollbar{height:12px}.vendor-board-scroll::-webkit-scrollbar-thumb{background:#64748b;border-radius:8px}.vendor-summary{position:sticky;left:0;z-index:3;width:220px;padding:18px 15px;border-right:2px solid #94a3b8;background:linear-gradient(145deg,#f0fdf4,#fff);box-shadow:5px 0 12px #0f172a12}.vendor-summary strong,.vendor-summary span{display:block}.vendor-summary strong{color:#166534;font-size:15px}.vendor-summary span{margin-top:9px;color:#526277;font-size:11px}.vendor-board .vendor-dim{display:grid;grid-template-columns:repeat(4,360px);min-width:1440px}.vendor-board .vendor-dim article,.vendor-board .vendor-dim .judgement{grid-column:auto;min-height:300px;border-top:0;border-right:1px solid #cbd5e1;background:#fff}.vendor-board .vendor-dim article>b{position:sticky;top:0;padding-bottom:7px;border-bottom:2px solid #dbe4ee}.vendor-board .vendor-dim ul{padding-left:16px}.vendor-board .vendor-dim li{margin:5px 0}.vendor-board .vendor-dim .judgement{background:#f8fafc}.vendor-board .vendor-dim .judgement li:nth-child(n+4){display:none}
+@media(max-width:600px){.vendor-board>header{padding:13px}.vendor-chips{justify-content:flex-start}.company-profile{grid-template-columns:1fr}.company-profile div{grid-template-columns:92px 1fr}.mass-strip{padding:8px 10px}.board-hint{position:sticky;left:0}.vendor-board-scroll{grid-template-columns:132px minmax(0,1fr)}.vendor-summary{width:132px;padding:13px 9px}.vendor-board .vendor-dim{grid-template-columns:repeat(4,285px);min-width:1140px}.vendor-board .vendor-dim article,.vendor-board .vendor-dim .judgement{min-height:360px;padding:13px}.vendor-board .vendor-dim *{max-width:none}}
 </style></head><body>
-<header class="top"><div class="top-in"><div class="brand">机器人大脑全景报告 <span class="version">v5.1.0</span></div><div class="meta">模型原理 · 技术路线时间轴 · 统一厂商卡片 · 算力与数据 · 融资财务 · 技术与场景趋势　|　完成版 v5.1.0 · 研究时点 2026-10-09 · 构建 2026-10-09 13:22</div></div></header>
+<header class="top"><div class="top-in"><div class="brand">机器人大脑全景报告 <span class="version">v5.2.0</span></div><div class="meta">模型原理 · 技术路线时间轴 · 统一厂商卡片 · 算力与数据 · 融资财务 · 技术与场景趋势　|　完成版 v5.2.0 · 研究时点 2026-10-09 · 构建 2026-10-09 13:32</div></div></header>
 <div class="layout"><aside class="toc"><b>CONTENTS</b><a class="l2" href="#_2">一、执行摘要</a>
 <a class="l2" href="#_3">二、模型分类与原理图</a>
 <a class="l3" href="#21">2.1 统一软件栈</a>
@@ -85,6 +85,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
   <div><span class="eyebrow">ROBOT BRAIN LANDSCAPE · 2026</span><h1>机器人大脑：从模型竞赛到生产闭环</h1><p>用产品、技术、商业三条证据链，观察 VLA、世界模型、数据飞轮和规模交付。</p></div>
   <svg viewBox="0 0 600 270" role="img" aria-label="云边端机器人智能分层图"><defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#40d7c5"/><stop offset="1" stop-color="#65a9ff"/></linearGradient></defs><path d="M70 65H530M110 135H490M155 205H445" stroke="#29465e" stroke-width="42" stroke-linecap="round"/><text x="300" y="70">云端 · 世界基座 / 仿真 / 训练</text><text x="300" y="140">边缘 · S2规划 / 机队协同</text><text x="300" y="210">端侧 · S1动作 / WBC / 安全</text><path d="M300 88v28m0 42v28" stroke="url(#g)" stroke-width="7" marker-end="url(#a)"/><circle cx="80" cy="65" r="10" fill="#40d7c5"/><circle cx="120" cy="135" r="10" fill="#65a9ff"/><circle cx="165" cy="205" r="10" fill="#efb35b"/></svg>
 </section>
+<section class="vla-wm-guide"><header><span>FOUNDATION PRIMER</span><h2>VLA 与世界模型：区别、关系和行业采用方式</h2><p>VLA 是“看懂指令并直接做动作”的策略；世界模型是“在脑中预演动作后果”的预测器。后者不是前者的替代品，常作为数据生成、后果预测、离线评测或低频规划旁路。</p></header><div class="compare-grid"><article><h3>VLA｜会做</h3><p><b>输入/输出</b>图像、语言、本体状态 → 动作/动作块</p><p><b>训练目标</b>模仿示教动作或生成动作分布</p><p><b>时序/数据</b>短时闭环；机器人轨迹、遥操作、视频语言</p><p><b>算力</b>训练大，端侧推理需低时延</p><p><b>优势/短板</b>链路直接、技能泛化；长程漂移、难解释</p><p><b>适用</b>抓取、装配、移动操作</p></article><article><h3>世界模型｜会预想</h3><p><b>输入/输出</b>状态+候选动作 → 未来状态/视频/奖励</p><p><b>训练目标</b>预测时序变化与动作后果；通常不直接输出电机动作</p><p><b>时序/数据</b>多步预测；视频、轨迹、仿真与事件数据</p><p><b>算力</b>视频生成训练/推演昂贵，可离线或低频运行</p><p><b>优势/短板</b>放大数据、筛风险；预测误差会累积</p><p><b>适用</b>合成、评测、规划、异常恢复</p></article></div><div class="arch-three"><article><b>VLA 单独</b><span>眼睛+指令 → “熟练厨师” → 手部动作</span></article><article><b>世界模型单独</b><span>现状+尝试 → “脑内彩排” → 未来画面/评分</span></article><article><b>VLA + 世界模型</b><span>VLA提候选 → 世界模型预演筛选 → 安全控制执行</span></article></div><h3>各家模型来源总览</h3><div class="source-matrix"><span>Figure｜全自研</span><span>PI｜开源基座二训·PaliGemma/Gemma</span><span>NVIDIA｜全自研+开源发布</span><span>Google/Apptronik｜混合·Gemini</span><span>1X｜全自研/部分未公开</span><span>BD/TRI｜混合·TRI LBM</span><span>Tesla｜全自研口径</span><span>Skild｜全自研</span><span>Agility｜混合·Arc技能栈</span><span>Sanctuary｜全自研·Carbon</span><span>智元｜混合·自研GO-1</span><span>星动纪元｜全自研</span><span>自变量｜自研+开源WALL-OSS</span><span>银河通用｜全自研</span><span>智平方｜全自研</span><span>优必选｜混合·自研+第三方基座</span><span>傅利叶｜混合</span><span>宇树｜全自研运控/UnifoLM</span><span>星尘｜全自研DuoCore</span><span>乐聚｜混合/部分未公开</span><span>它石｜全自研口径</span><span>云深处｜全自研运控/混合</span><span>超维动力｜全自研口径</span><span>强脑/曦诺｜非模型层·第三方可接入</span><span>光轮｜数据平台·客户模型接入</span></div><small>“未公开”绝不等同“全自研”；联合条目分别标主体。详细基座与证据见第四章“模型来源”。</small></section>
 <section class="kpi-grid"><article><b>主线</b><strong>VLM + Action Expert</strong><small>语义慢推理与高频动作解耦</small></article><article><b>数据</b><strong>失败回流 &gt; 总帧数</strong><small>现场长尾决定迭代速度</small></article><article><b>部署</b><strong>云训 · 端推</strong><small>断网安全与 P95 时延是门槛</small></article><article><b>商业</b><strong>单位经济性</strong><small>接管、折旧、运维必须入账</small></article></section>
 <h2 class="viz-title">六种核心架构机制</h2><section class="route-grid">
 <article class="c1"><i>01</i><h3>端到端 VLA</h3><p>图像 + 语言 + 状态 → 动作</p><small>统一但易受时延与漂移约束</small></article><article class="c2"><i>02</i><h3>Action Expert</h3><p>VLM latent → 动作块</p><small>π、GO-1、GR00T 主线</small></article><article class="c3"><i>03</i><h3>快慢系统</h3><p>S2 规划 ⇄ S1 执行</p><small>工程落地的频率分工</small></article><article class="c4"><i>04</i><h3>世界模型</h3><p>动作 → 未来 → 评分</p><small>先用于合成、评测与低频规划</small></article><article class="c5"><i>05</i><h3>大行为模型</h3><p>示教 → 全身扩散轨迹</p><small>全身协同强，语义复用偏弱</small></article><article class="c6"><i>06</i><h3>智能体 / 技能库</h3><p>规划 → 技能 → 经典控制</p><small>可审计、适合限定生产流程</small></article></section>
@@ -623,7 +624,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <strong>海外玩家</strong></li>
 </ul>
 <section class="vendor-card vendor-board" aria-label="Figure｜Helix横向厂商信息板">
-<header><div><span class="vendor-no">4.1</span><h3 id="41-figurehelix">4.1 Figure｜Helix</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.1</span><h3 id="41-figurehelix">4.1 Figure｜Helix</h3></div><div class="vendor-chips"><span>玩家类别：A本体制造商</span><span>覆盖能力：本体✓ 算法✓ 数据✓ 零件部分自研</span><span>核心模型类型：快慢双系统</span><span>当前产品状态：客户试点/小批量交付</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>通用人形机器人软硬一体公司</span></div><div><b>成立年份</b><span>2022</span></div><div><b>总部/主要基地</b><span>美国加州 Sunnyvale</span></div><div><b>创始人/团队背景</b><span>Brett Adcock；航空、机器人及大厂AI团队</span></div><div><b>最新公开融资</b><span>2025 C轮逾10亿美元；累计约20亿美元</span></div><div><b>最新公开估值</b><span>约390亿美元（Reuters，2025）</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -636,7 +638,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Figure｜Helix</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Figure｜Helix</strong><span>玩家类别：A本体制造商｜覆盖能力：本体✓ 算法✓ 数据✓ 零件部分自研｜核心模型类型：快慢双系统｜当前产品状态：客户试点/小批量交付</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：Figure 01/02/03 本体上的通用 VLA。2025-02 官方 Helix 首发，核心是完全板载的 S2/S1 双系统；后续“S0 三层”等说法主要来自次级资料，未与首发官方材料等同。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -676,7 +678,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="Physical Intelligence｜π0 → π0.5 → π0.6 / FAST横向厂商信息板">
-<header><div><span class="vendor-no">4.2</span><h3 id="42-physical-intelligence0-05-06-fast">4.2 Physical Intelligence｜π0 → π0.5 → π0.6 / FAST</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.2</span><h3 id="42-physical-intelligence0-05-06-fast">4.2 Physical Intelligence｜π0 → π0.5 → π0.6 / FAST</h3></div><div class="vendor-chips"><span>玩家类别：B算法/基础模型公司</span><span>覆盖能力：本体— 算法✓ 数据✓ 零件—</span><span>核心模型类型：VLM + Action Expert</span><span>当前产品状态：公开发布</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>跨本体机器人基础模型公司</span></div><div><b>成立年份</b><span>2024</span></div><div><b>总部/主要基地</b><span>美国旧金山</span></div><div><b>创始人/团队背景</b><span>Karol Hausman、Sergey Levine等；Google DeepMind/斯坦福/伯克利</span></div><div><b>最新公开融资</b><span>2025轮次6亿美元；累计约10.7亿美元</span></div><div><b>最新公开估值</b><span>约56亿美元（媒体，2025）</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -689,7 +692,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Physical Intelligence｜π0 → π0.5 → π0.6 / FAST</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Physical Intelligence｜π0 → π0.5 → π0.6 / FAST</strong><span>玩家类别：B算法/基础模型公司｜覆盖能力：本体— 算法✓ 数据✓ 零件—｜核心模型类型：VLM + Action Expert｜当前产品状态：公开发布</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：不做本体，提供跨机器人基础模型和 openpi。π0（2024）建立 VLM+Action Expert；π0.5 增强开放环境泛化；π0.6/RECAP 探索用经验与纠正做强化后训练；FAST 将动作压缩为 token。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -729,7 +732,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="NVIDIA｜GR00T N1 / N1.5 + Isaac + Thor横向厂商信息板">
-<header><div><span class="vendor-no">4.3</span><h3 id="43-nvidiagr00t-n1-n15-isaac-thor">4.3 NVIDIA｜GR00T N1 / N1.5 + Isaac + Thor</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.3</span><h3 id="43-nvidiagr00t-n1-n15-isaac-thor">4.3 NVIDIA｜GR00T N1 / N1.5 + Isaac + Thor</h3></div><div class="vendor-chips"><span>玩家类别：C算力/仿真平台</span><span>覆盖能力：本体— 算法✓ 数据/仿真✓ 芯片✓</span><span>核心模型类型：VLM + Action Expert</span><span>快慢双系统</span><span>世界模型增强</span><span>当前产品状态：平台商用</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>机器人算力、仿真与基础模型平台</span></div><div><b>成立年份</b><span>1993</span></div><div><b>总部/主要基地</b><span>美国加州 Santa Clara</span></div><div><b>创始人/团队背景</b><span>Jensen Huang等；半导体与加速计算团队</span></div><div><b>最新公开融资</b><span>上市公司；不适用创业融资轮次</span></div><div><b>最新公开估值</b><span>公开市值，随交易日变化（NASDAQ: NVDA）</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -742,7 +746,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>NVIDIA｜GR00T N1 / N1.5 + Isaac + Thor</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>NVIDIA｜GR00T N1 / N1.5 + Isaac + Thor</strong><span>玩家类别：C算力/仿真平台｜覆盖能力：本体— 算法✓ 数据/仿真✓ 芯片✓｜核心模型类型：VLM + Action Expert｜快慢双系统｜世界模型增强｜当前产品状态：平台商用</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：不是单一模型，而是 Teleop采集—Isaac Sim/Lab训练—GR00T模型—Isaac ROS部署—Jetson Thor算力的全栈平台。N1约2B，N1.5为3B模型卡口径。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -782,7 +786,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="Google DeepMind / Apptronik｜Gemini Robotics 1.5 + ER 1.5横向厂商信息板">
-<header><div><span class="vendor-no">4.4</span><h3 id="44-google-deepmind-apptronikgemini-robotics-15-er-15">4.4 Google DeepMind / Apptronik｜Gemini Robotics 1.5 + ER 1.5</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.4</span><h3 id="44-google-deepmind-apptronikgemini-robotics-15-er-15">4.4 Google DeepMind / Apptronik｜Gemini Robotics 1.5 + ER 1.5</h3></div><div class="vendor-chips"><span>玩家类别：F全栈公司</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>Google/Apptronik联合</span><span>核心模型类型：端到端 VLA</span><span>分层智能体/技能库</span><span>当前产品状态：客户试点</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>Google模型平台与Apptronik人形本体联合路线</span></div><div><b>成立年份</b><span>DeepMind 2010；Apptronik 2016</span></div><div><b>总部/主要基地</b><span>伦敦；美国奥斯汀</span></div><div><b>创始人/团队背景</b><span>Demis Hassabis团队；Jeff Cardenas/UT Austin人形团队</span></div><div><b>最新公开融资</b><span>Apptronik 2025 A轮扩至4.03亿美元</span></div><div><b>最新公开估值</b><span>Apptronik未公开；DeepMind属Alphabet</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -795,7 +800,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Google DeepMind / Apptronik｜Gemini Robotics 1.5 + ER 1.5</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Google DeepMind / Apptronik｜Gemini Robotics 1.5 + ER 1.5</strong><span>玩家类别：F全栈公司｜覆盖能力：本体✓ 算法✓ 数据✓｜Google/Apptronik联合｜核心模型类型：端到端 VLA｜分层智能体/技能库｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：RT-1/RT-2 奠定 VLA，Gemini Robotics（2025-03）进入机器人动作，On-Device 强调本地运行；1.5 由 ER 1.5 具身推理模型和 Robotics 1.5 动作模型协同。Apptronik Apollo 提供本体与 Robot Park 数据。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -835,7 +840,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="1X｜Redwood + 1X World Model横向厂商信息板">
-<header><div><span class="vendor-no">4.10</span><h3 id="410-1xredwood-1x-world-model">4.10 1X｜Redwood + 1X World Model</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.10</span><h3 id="410-1xredwood-1x-world-model">4.10 1X｜Redwood + 1X World Model</h3></div><div class="vendor-chips"><span>玩家类别：F全栈公司</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>核心模型类型：端到端 VLA</span><span>世界模型增强</span><span>当前产品状态：客户试点</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>面向家庭的软体人形机器人公司</span></div><div><b>成立年份</b><span>2014</span></div><div><b>总部/主要基地</b><span>挪威 Moss；美国湾区</span></div><div><b>创始人/团队背景</b><span>Bernt Børnich；机器人与AI团队</span></div><div><b>最新公开融资</b><span>2024 B轮1亿美元；累计约1.37亿美元</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -848,7 +854,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>1X｜Redwood + 1X World Model</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>1X｜Redwood + 1X World Model</strong><span>玩家类别：F全栈公司｜覆盖能力：本体✓ 算法✓ 数据✓｜核心模型类型：端到端 VLA｜世界模型增强｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：家庭优先，EVE轮式数据过渡到NEO双足。Redwood负责全身移动操作，世界模型预测交互后果；远程专家在早期提供兜底和高价值纠错数据。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -888,7 +894,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="Boston Dynamics + TRI｜Large Behavior Model横向厂商信息板">
-<header><div><span class="vendor-no">4.11</span><h3 id="411-boston-dynamics-trilarge-behavior-model">4.11 Boston Dynamics + TRI｜Large Behavior Model</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.11</span><h3 id="411-boston-dynamics-trilarge-behavior-model">4.11 Boston Dynamics + TRI｜Large Behavior Model</h3></div><div class="vendor-chips"><span>玩家类别：F全栈公司</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>BD/TRI联合</span><span>核心模型类型：大行为模型 LBM</span><span>当前产品状态：研究/原型</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>高动态机器人本体与丰田行为学习联合研发</span></div><div><b>成立年份</b><span>BD 1992；TRI 2015</span></div><div><b>总部/主要基地</b><span>美国 Waltham；Los Altos</span></div><div><b>创始人/团队背景</b><span>MIT Leg Lab系；TRI由Gill Pratt领导</span></div><div><b>最新公开融资</b><span>BD属现代汽车集团；TRI由Toyota长期投入</span></div><div><b>最新公开估值</b><span>BD收购口径约11亿美元（2020）；TRI不单列</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -901,7 +908,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Boston Dynamics + TRI｜Large Behavior Model</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Boston Dynamics + TRI｜Large Behavior Model</strong><span>玩家类别：F全栈公司｜覆盖能力：本体✓ 算法✓ 数据✓｜BD/TRI联合｜核心模型类型：大行为模型 LBM｜当前产品状态：研究/原型</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：全电 Atlas 与 TRI LBM 结合，目标是把高动态全身控制与多任务灵巧操作统一。论文指向 Diffusion Transformer、多模态条件和长时序行为。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -941,7 +948,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="Tesla｜Optimus横向厂商信息板">
-<header><div><span class="vendor-no">4.12</span><h3 id="412-teslaoptimus">4.12 Tesla｜Optimus</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.12</span><h3 id="412-teslaoptimus">4.12 Tesla｜Optimus</h3></div><div class="vendor-chips"><span>玩家类别：F全栈公司</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>集团内部</span><span>核心模型类型：端到端 VLA</span><span>快慢双系统</span><span>当前产品状态：研究/原型</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>依托汽车制造与AI栈的集团内部人形全栈</span></div><div><b>成立年份</b><span>2003</span></div><div><b>总部/主要基地</b><span>美国奥斯汀</span></div><div><b>创始人/团队背景</b><span>Martin Eberhard等创立；Elon Musk领导，汽车/AI团队</span></div><div><b>最新公开融资</b><span>上市公司；不适用创业融资轮次</span></div><div><b>最新公开估值</b><span>公开市值，随交易日变化（NASDAQ: TSLA）</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -954,7 +962,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Tesla｜Optimus</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Tesla｜Optimus</strong><span>玩家类别：F全栈公司｜覆盖能力：本体✓ 算法✓ 数据✓｜集团内部｜核心模型类型：端到端 VLA｜快慢双系统｜当前产品状态：研究/原型</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：复用自动驾驶“视觉—神经网络—端侧控制”能力，自建工厂先部署。独立机器人模型名称、参数和正式论文均 未披露，不应把发布会演示等同于完整技术披露。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -994,7 +1002,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="Skild AI｜Skild Brain横向厂商信息板">
-<header><div><span class="vendor-no">4.13</span><h3 id="413-skild-aiskild-brain">4.13 Skild AI｜Skild Brain</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.13</span><h3 id="413-skild-aiskild-brain">4.13 Skild AI｜Skild Brain</h3></div><div class="vendor-chips"><span>玩家类别：B算法/基础模型公司</span><span>覆盖能力：本体— 算法✓ 数据✓ 零件—</span><span>核心模型类型：端到端 VLA</span><span>当前产品状态：平台商用</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>跨本体通用机器人基础模型平台</span></div><div><b>成立年份</b><span>2023</span></div><div><b>总部/主要基地</b><span>美国匹兹堡</span></div><div><b>创始人/团队背景</b><span>Deepak Pathak、Abhinav Gupta；CMU机器人/视觉团队</span></div><div><b>最新公开融资</b><span>2025 B轮约5亿美元；累计约8亿美元</span></div><div><b>最新公开估值</b><span>约47亿美元（媒体，2025）</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1007,7 +1016,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Skild AI｜Skild Brain</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Skild AI｜Skild Brain</strong><span>玩家类别：B算法/基础模型公司｜覆盖能力：本体— 算法✓ 数据✓ 零件—｜核心模型类型：端到端 VLA｜当前产品状态：平台商用</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：omni-bodied 统一机器人基础模型，目标是不预先绑定精确本体，可控制四足、人形、桌面臂和移动操作臂。；公司展示跨形态任务与企业合作，但统一标准、长程成功率和部署成本待核。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1047,7 +1056,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="Agility Robotics｜Digit + Arc横向厂商信息板">
-<header><div><span class="vendor-no">4.17</span><h3 id="417-agility-roboticsdigit-arc">4.17 Agility Robotics｜Digit + Arc</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.17</span><h3 id="417-agility-roboticsdigit-arc">4.17 Agility Robotics｜Digit + Arc</h3></div><div class="vendor-chips"><span>玩家类别：A本体制造商</span><span>覆盖能力：本体✓ 算法部分自研 数据✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：小批量交付</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>仓储物流人形机器人及机队平台</span></div><div><b>成立年份</b><span>2015</span></div><div><b>总部/主要基地</b><span>美国 Oregon；RoboFab工厂</span></div><div><b>创始人/团队背景</b><span>Jonathan Hurst等；Oregon State双足机器人团队</span></div><div><b>最新公开融资</b><span>2022 B轮1.5亿美元；累计约1.8亿美元</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1060,7 +1070,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Agility Robotics｜Digit + Arc</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Agility Robotics｜Digit + Arc</strong><span>玩家类别：A本体制造商｜覆盖能力：本体✓ 算法部分自研 数据✓｜核心模型类型：分层智能体/技能库｜当前产品状态：小批量交付</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：专注仓储搬箱和物流流程，以成熟步态/规划/学习控制配合Arc运营平台，不把“通用大模型”作为首要卖点。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1100,7 +1110,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="Sanctuary AI｜Carbon横向厂商信息板">
-<header><div><span class="vendor-no">4.18</span><h3 id="418-sanctuary-aicarbon">4.18 Sanctuary AI｜Carbon</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.18</span><h3 id="418-sanctuary-aicarbon">4.18 Sanctuary AI｜Carbon</h3></div><div class="vendor-chips"><span>玩家类别：G场景集成/运营</span><span>覆盖能力：本体✓ 算法✓ 运营✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：客户试点</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>以技能库与遥操作闭环交付通用人形劳动力</span></div><div><b>成立年份</b><span>2018</span></div><div><b>总部/主要基地</b><span>加拿大 Vancouver</span></div><div><b>创始人/团队背景</b><span>Geordie Rose等；D-Wave/Kindred AI背景</span></div><div><b>最新公开融资</b><span>2022 A轮7500万加元；累计逾1亿加元</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1113,7 +1124,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Sanctuary AI｜Carbon</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>Sanctuary AI｜Carbon</strong><span>玩家类别：G场景集成/运营｜覆盖能力：本体✓ 算法✓ 运营✓｜核心模型类型：分层智能体/技能库｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：<strong>Sanctuary Carbon</strong>：认知架构把自然语言转为任务和动作，强调记忆、可解释规划与液压灵巧手；参数、数据、芯片均无公开口径。优势是精细手与可审计任务，风险是液压维护和双足/全身成熟度。融资与企业试点需核实正式收入。 主攻场景、公开成交价格、已交付数量、额定产能与量产时间：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1154,7 +1165,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <p><strong>国内玩家</strong></p>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="智元机器人｜GO-1 / ViLLA + AgiBot World横向厂商信息板">
-<header><div><span class="vendor-no">4.5</span><h3 id="45-go-1-villa-agibot-world">4.5 智元机器人｜GO-1 / ViLLA + AgiBot World</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.5</span><h3 id="45-go-1-villa-agibot-world">4.5 智元机器人｜GO-1 / ViLLA + AgiBot World</h3></div><div class="vendor-chips"><span>玩家类别：F全栈公司</span><span>覆盖能力：本体✓ 算法✓ 数据✓ 零件部分自研</span><span>核心模型类型：VLM + Action Expert</span><span>端到端 VLA</span><span>当前产品状态：小批量交付</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>人形本体、基础模型与数据生态全栈公司</span></div><div><b>成立年份</b><span>2023</span></div><div><b>总部/主要基地</b><span>上海</span></div><div><b>创始人/团队背景</b><span>彭志辉等；华为、AI与机器人产业团队</span></div><div><b>最新公开融资</b><span>2025多轮战略融资；累计金额未统一公开</span></div><div><b>最新公开估值</b><span>约150亿元人民币（产业口径，2025）</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1167,7 +1179,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>智元机器人｜GO-1 / ViLLA + AgiBot World</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>智元机器人｜GO-1 / ViLLA + AgiBot World</strong><span>玩家类别：F全栈公司｜覆盖能力：本体✓ 算法✓ 数据✓ 零件部分自研｜核心模型类型：VLM + Action Expert｜端到端 VLA｜当前产品状态：小批量交付</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：从原子技能走向 GO-1 通用操作。ViLLA 采用 VLM理解层（InternVL-2B）+ latent planner + diffusion Action Expert，用隐式动作表征连接图文和控制；GO-1/GO-1 Air 已有开源检查点。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1207,7 +1219,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="星动纪元｜ERA-42 / HiRT / VPP / Ctrl-World横向厂商信息板">
-<header><div><span class="vendor-no">4.6</span><h3 id="46-era-42-hirt-vpp-ctrl-world">4.6 星动纪元｜ERA-42 / HiRT / VPP / Ctrl-World</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.6</span><h3 id="46-era-42-hirt-vpp-ctrl-world">4.6 星动纪元｜ERA-42 / HiRT / VPP / Ctrl-World</h3></div><div class="vendor-chips"><span>玩家类别：F全栈公司</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>核心模型类型：端到端 VLA</span><span>快慢双系统</span><span>世界模型增强</span><span>当前产品状态：客户试点</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>清华系具身基础模型与通用人形公司</span></div><div><b>成立年份</b><span>2023</span></div><div><b>总部/主要基地</b><span>北京</span></div><div><b>创始人/团队背景</b><span>陈建宇；清华交叉信息院机器人团队</span></div><div><b>最新公开融资</b><span>2025 A轮数亿元人民币</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1220,7 +1233,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>星动纪元｜ERA-42 / HiRT / VPP / Ctrl-World</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>星动纪元｜ERA-42 / HiRT / VPP / Ctrl-World</strong><span>玩家类别：F全栈公司｜覆盖能力：本体✓ 算法✓ 数据✓｜核心模型类型：端到端 VLA｜快慢双系统｜世界模型增强｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：模型、本体与世界模型联合。HiRT 用约7B世界/语义模型连接约40M执行模型的快慢分层<span class="secondary">【次级】</span>；ERA-42覆盖视觉理解、预测和行动；VPP/Ctrl-World 强化未来状态建模。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1260,7 +1273,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="自变量机器人｜WALL-A / WALL-OSS横向厂商信息板">
-<header><div><span class="vendor-no">4.7</span><h3 id="47-wall-a-wall-oss">4.7 自变量机器人｜WALL-A / WALL-OSS</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.7</span><h3 id="47-wall-a-wall-oss">4.7 自变量机器人｜WALL-A / WALL-OSS</h3></div><div class="vendor-chips"><span>玩家类别：B算法/基础模型公司</span><span>覆盖能力：本体合作 算法✓ 数据✓</span><span>核心模型类型：端到端 VLA</span><span>当前产品状态：公开发布/客户试点</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>端到端VLA与开源具身模型公司</span></div><div><b>成立年份</b><span>2023</span></div><div><b>总部/主要基地</b><span>深圳</span></div><div><b>创始人/团队背景</b><span>王潜等；高校机器人与大厂AI背景</span></div><div><b>最新公开融资</b><span>2025 A轮数亿元人民币</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1273,7 +1287,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>自变量机器人｜WALL-A / WALL-OSS</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>自变量机器人｜WALL-A / WALL-OSS</strong><span>玩家类别：B算法/基础模型公司｜覆盖能力：本体合作 算法✓ 数据✓｜核心模型类型：端到端 VLA｜当前产品状态：公开发布/客户试点</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：统一感知—推理—行动表示的端到端具身基础模型，强调具身思维链、零样本泛化和探索—反思闭环；WALL-OSS 与训练代码用于生态扩散。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1313,7 +1327,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="银河通用｜AstraBrain / GraspVLA / TrackVLA / GroceryVLA横向厂商信息板">
-<header><div><span class="vendor-no">4.8</span><h3 id="48-astrabrain-graspvla-trackvla-groceryvla">4.8 银河通用｜AstraBrain / GraspVLA / TrackVLA / GroceryVLA</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.8</span><h3 id="48-astrabrain-graspvla-trackvla-groceryvla">4.8 银河通用｜AstraBrain / GraspVLA / TrackVLA / GroceryVLA</h3></div><div class="vendor-chips"><span>玩家类别：G场景集成/运营</span><span>覆盖能力：本体✓ 算法✓ 零售运营✓</span><span>核心模型类型：端到端 VLA</span><span>世界模型增强</span><span>当前产品状态：客户试点</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>以零售等场景切入的具身模型与人形交付公司</span></div><div><b>成立年份</b><span>2023</span></div><div><b>总部/主要基地</b><span>北京</span></div><div><b>创始人/团队背景</b><span>王鹤；北京大学/具身智能研究团队</span></div><div><b>最新公开融资</b><span>2025战略轮；累计融资逾10亿元人民币（媒体）</span></div><div><b>最新公开估值</b><span>约百亿元人民币级（媒体，2025）</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1326,7 +1341,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>银河通用｜AstraBrain / GraspVLA / TrackVLA / GroceryVLA</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>银河通用｜AstraBrain / GraspVLA / TrackVLA / GroceryVLA</strong><span>玩家类别：G场景集成/运营｜覆盖能力：本体✓ 算法✓ 零售运营✓｜核心模型类型：端到端 VLA｜世界模型增强｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：以任务专长模型矩阵逐步汇聚到 AstraBrain，轮式双臂 G1 在零售、药店、仓储形成运营入口。GraspVLA负责抓取，TrackVLA负责视觉导航，GroceryVLA针对货架。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1366,7 +1381,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="智平方｜GOVLA / Alpha Brain横向厂商信息板">
-<header><div><span class="vendor-no">4.9</span><h3 id="49-govla-alpha-brain">4.9 智平方｜GOVLA / Alpha Brain</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.9</span><h3 id="49-govla-alpha-brain">4.9 智平方｜GOVLA / Alpha Brain</h3></div><div class="vendor-chips"><span>玩家类别：B算法/基础模型公司</span><span>覆盖能力：本体✓ 算法✓ 数据✓</span><span>核心模型类型：端到端 VLA</span><span>快慢双系统</span><span>当前产品状态：客户试点</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>通用智能模型与Alpha系列机器人公司</span></div><div><b>成立年份</b><span>2023</span></div><div><b>总部/主要基地</b><span>深圳</span></div><div><b>创始人/团队背景</b><span>郭彦东；微软亚洲研究院/大厂AI背景</span></div><div><b>最新公开融资</b><span>2025 A系列融资；累计数亿元人民币</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1379,7 +1395,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>智平方｜GOVLA / Alpha Brain</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>智平方｜GOVLA / Alpha Brain</strong><span>玩家类别：B算法/基础模型公司｜覆盖能力：本体✓ 算法✓ 数据✓｜核心模型类型：端到端 VLA｜快慢双系统｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：面向轮式可升降 AlphaBot 的全域全身 VLA，明确 System 2 慢推理 + System 1 快控制，并将机械臂、躯干和移动轨迹放入统一输出。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1419,7 +1435,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="优必选｜BrainNet 2.0 + Co-Agent横向厂商信息板">
-<header><div><span class="vendor-no">4.14</span><h3 id="414-brainnet-20-co-agent">4.14 优必选｜BrainNet 2.0 + Co-Agent</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.14</span><h3 id="414-brainnet-20-co-agent">4.14 优必选｜BrainNet 2.0 + Co-Agent</h3></div><div class="vendor-chips"><span>玩家类别：G场景集成/运营</span><span>覆盖能力：本体✓ 算法✓ 工业交付✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：规模交付</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>面向工业规模交付的人形机器人上市公司</span></div><div><b>成立年份</b><span>2012</span></div><div><b>总部/主要基地</b><span>深圳</span></div><div><b>创始人/团队背景</b><span>周剑；人工智能与机器人产业团队</span></div><div><b>最新公开融资</b><span>港股上市公司；2023 IPO募资约9.06亿港元</span></div><div><b>最新公开估值</b><span>公开市值，随交易日变化（HKEX: 9880）</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1432,7 +1449,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>优必选｜BrainNet 2.0 + Co-Agent</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>优必选｜BrainNet 2.0 + Co-Agent</strong><span>玩家类别：G场景集成/运营｜覆盖能力：本体✓ 算法✓ 工业交付✓｜核心模型类型：分层智能体/技能库｜当前产品状态：规模交付</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：以工业 Walker S 系为载体，采用群脑网络与智能体编排，而非单一通用 VLA。重点是意图理解、任务规划、工具调用、异常处置和多机协同。；Walker S2自主换电和多工厂试点有利于连续作业；千台、订单8亿元等为次级汇总，上市公司信息应以公告/财报更新。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1472,7 +1489,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="傅利叶智能｜操作模型 + FOCUS + FourierActionNet横向厂商信息板">
-<header><div><span class="vendor-no">4.15</span><h3 id="415-focus-fourieractionnet">4.15 傅利叶智能｜操作模型 + FOCUS + FourierActionNet</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.15</span><h3 id="415-focus-fourieractionnet">4.15 傅利叶智能｜操作模型 + FOCUS + FourierActionNet</h3></div><div class="vendor-chips"><span>玩家类别：A本体制造商</span><span>覆盖能力：本体✓ 算法✓ 康养场景✓</span><span>核心模型类型：端到端 VLA</span><span>分层智能体/技能库</span><span>当前产品状态：客户试点</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>康复机器人延伸至通用人形的软硬一体公司</span></div><div><b>成立年份</b><span>2015</span></div><div><b>总部/主要基地</b><span>上海；新加坡</span></div><div><b>创始人/团队背景</b><span>顾捷；康复机器人与工程团队</span></div><div><b>最新公开融资</b><span>2023 E轮4亿元人民币；累计数亿元</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1485,7 +1503,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>傅利叶智能｜操作模型 + FOCUS + FourierActionNet</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>傅利叶智能｜操作模型 + FOCUS + FourierActionNet</strong><span>玩家类别：A本体制造商｜覆盖能力：本体✓ 算法✓ 康养场景✓｜核心模型类型：端到端 VLA｜分层智能体/技能库｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：运控以强化学习和模仿学习为主，感知采用纯视觉BEV/Transformer/OCC，FOCUS负责多机调度；从康复积累延伸至GR系列通用本体。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1525,7 +1543,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="宇树科技｜运控模型 + UnifoLM横向厂商信息板">
-<header><div><span class="vendor-no">4.16</span><h3 id="416-unifolm">4.16 宇树科技｜运控模型 + UnifoLM</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.16</span><h3 id="416-unifolm">4.16 宇树科技｜运控模型 + UnifoLM</h3></div><div class="vendor-chips"><span>玩家类别：A本体制造商</span><span>覆盖能力：本体✓ 算法✓ 开发生态✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：规模交付</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>低成本高性能足式及人形机器人平台</span></div><div><b>成立年份</b><span>2016</span></div><div><b>总部/主要基地</b><span>杭州</span></div><div><b>创始人/团队背景</b><span>王兴兴；机械工程与足式机器人创业团队</span></div><div><b>最新公开融资</b><span>2025 C轮；累计融资额未统一公开</span></div><div><b>最新公开估值</b><span>约120亿元人民币（媒体，2025）</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1538,7 +1557,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>宇树科技｜运控模型 + UnifoLM</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>宇树科技｜运控模型 + UnifoLM</strong><span>玩家类别：A本体制造商｜覆盖能力：本体✓ 算法✓ 开发生态✓｜核心模型类型：分层智能体/技能库｜当前产品状态：规模交付</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：以高动态运动控制、低成本本体和开发者生态见长，叠加UnifoLM统一模型探索。核心壁垒当前更偏执行器、关节、RL运控和规模制造，而非公开通用操作模型。；量产本体、科研教育和高动态动作提供大规模开发者触点；复杂长程操作、异常恢复和跨场景成功率披露不足。；公开成交价格、额定产能与可核验累计交付：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1578,7 +1597,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="星尘智能｜DuoCore横向厂商信息板">
-<header><div><span class="vendor-no">4.19</span><h3 id="419-duocore">4.19 星尘智能｜DuoCore</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.19</span><h3 id="419-duocore">4.19 星尘智能｜DuoCore</h3></div><div class="vendor-chips"><span>玩家类别：A本体制造商</span><span>覆盖能力：本体✓ 算法✓ 灵巧操作✓</span><span>核心模型类型：快慢双系统</span><span>当前产品状态：客户试点</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>面向灵巧操作的绳驱人形机器人公司</span></div><div><b>成立年份</b><span>2022</span></div><div><b>总部/主要基地</b><span>深圳</span></div><div><b>创始人/团队背景</b><span>来杰；腾讯Robotics X等机器人团队</span></div><div><b>最新公开融资</b><span>2024 Pre-A轮数千万美元</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1591,7 +1611,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>星尘智能｜DuoCore</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>星尘智能｜DuoCore</strong><span>玩家类别：A本体制造商｜覆盖能力：本体✓ 算法✓ 灵巧操作✓｜核心模型类型：快慢双系统｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：<strong>星尘 DuoCore</strong>：毫秒级本能反应+大模型决策，绳驱肌腱和刚柔混合动力学支持高速上肢；VR遥操、视频和人体示教构成数据源。次级资料另称其“整机销售”、大脑“自研VLA”、端侧为“Orin/RK3588/Thor”、数据“自采遥操”，灵巧手仅写“xx DOF”【次级/待核】；<code>xx</code>不是有效数值。优势是速度/柔顺和开发工具链，短板是数据规模与生产运营证据不足。 主攻场景、公开成交价格、已交付数量、额定产能与量产时间：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1631,7 +1651,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="乐聚｜夸父横向厂商信息板">
-<header><div><span class="vendor-no">4.20</span><h3 id="420">4.20 乐聚｜夸父</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.20</span><h3 id="420">4.20 乐聚｜夸父</h3></div><div class="vendor-chips"><span>玩家类别：A本体制造商</span><span>覆盖能力：本体✓ 算法✓ 教育/工业✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：小批量交付</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>教育科研与工业场景并进的人形机器人公司</span></div><div><b>成立年份</b><span>2016</span></div><div><b>总部/主要基地</b><span>深圳</span></div><div><b>创始人/团队背景</b><span>冷晓琨等；哈工大机器人团队</span></div><div><b>最新公开融资</b><span>2024 B轮数亿元人民币</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1644,7 +1665,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>乐聚｜夸父</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>乐聚｜夸父</strong><span>玩家类别：A本体制造商｜覆盖能力：本体✓ 算法✓ 教育/工业✓｜核心模型类型：分层智能体/技能库｜当前产品状态：小批量交付</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：<strong>乐聚夸父</strong>：RL/模仿运控接入盘古/智谱等大模型，鸿蒙生态与科研教育优先。优势是生态合作和批量平台，短板是自有通用操作基础模型、端侧算力与数据披露有限。 主攻场景、公开成交价格、已交付数量、额定产能与量产时间：无公开口径。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1684,7 +1705,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="它石智航｜线束装配与世界模型横向厂商信息板">
-<header><div><span class="vendor-no">4.21</span><h3 id="421">4.21 它石智航｜线束装配与世界模型</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.21</span><h3 id="421">4.21 它石智航｜线束装配与世界模型</h3></div><div class="vendor-chips"><span>玩家类别：G场景集成/运营</span><span>覆盖能力：本体合作 算法✓ 工业装配✓</span><span>核心模型类型：世界模型增强</span><span>分层智能体/技能库</span><span>当前产品状态：客户试点</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>聚焦汽车柔性装配的具身智能公司</span></div><div><b>成立年份</b><span>2024</span></div><div><b>总部/主要基地</b><span>上海</span></div><div><b>创始人/团队背景</b><span>陈亦伦等；自动驾驶/机器人产业背景</span></div><div><b>最新公开融资</b><span>2025天使轮数亿元人民币</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1697,7 +1719,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>它石智航｜线束装配与世界模型</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>它石智航｜线束装配与世界模型</strong><span>玩家类别：G场景集成/运营｜覆盖能力：本体合作 算法✓ 工业装配✓｜核心模型类型：世界模型增强｜分层智能体/技能库｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：次级资料指向人形/操作系统用于线束装配；本体代际、价格、交付、产能和量产时间 未披露【次级/待核】。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1737,7 +1759,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="云深处｜绝影/山猫/DR横向厂商信息板">
-<header><div><span class="vendor-no">4.22</span><h3 id="422-dr">4.22 云深处｜绝影/山猫/DR</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.22</span><h3 id="422-dr">4.22 云深处｜绝影/山猫/DR</h3></div><div class="vendor-chips"><span>玩家类别：G场景集成/运营</span><span>覆盖能力：本体✓ 算法✓ 特种运营✓</span><span>核心模型类型：分层智能体/技能库</span><span>当前产品状态：规模交付</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>电力消防等特种场景四足机器人交付商</span></div><div><b>成立年份</b><span>2017</span></div><div><b>总部/主要基地</b><span>杭州</span></div><div><b>创始人/团队背景</b><span>朱秋国团队；浙江大学机器人研究背景</span></div><div><b>最新公开融资</b><span>2024 B轮；金额未公开</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1750,7 +1773,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>云深处｜绝影/山猫/DR</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>云深处｜绝影/山猫/DR</strong><span>玩家类别：G场景集成/运营｜覆盖能力：本体✓ 算法✓ 特种运营✓｜核心模型类型：分层智能体/技能库｜当前产品状态：规模交付</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：绝影X20/X30工业四足、Lite科研系列、山猫M20轮足及DR人形验证平台；次级资料列出X系列20–30万元、Lite约10万元、DR约40万元【次级/待核】；电力巡检为核心场景。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1790,7 +1813,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="超维动力｜世界模型+灵巧操作横向厂商信息板">
-<header><div><span class="vendor-no">4.23</span><h3 id="423">4.23 超维动力｜世界模型+灵巧操作</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.23</span><h3 id="423">4.23 超维动力｜世界模型+灵巧操作</h3></div><div class="vendor-chips"><span>玩家类别：A本体制造商</span><span>覆盖能力：本体✓ 算法✓ 灵巧操作✓</span><span>核心模型类型：世界模型增强</span><span>端到端 VLA</span><span>当前产品状态：客户试点</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>世界模型驱动灵巧操作与通用本体创业公司</span></div><div><b>成立年份</b><span>2023</span></div><div><b>总部/主要基地</b><span>深圳</span></div><div><b>创始人/团队背景</b><span>核心团队来自高校及机器人/AI企业</span></div><div><b>最新公开融资</b><span>公开早期融资；金额未统一披露</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1803,7 +1827,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>超维动力｜世界模型+灵巧操作</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>超维动力｜世界模型+灵巧操作</strong><span>玩家类别：A本体制造商｜覆盖能力：本体✓ 算法✓ 灵巧操作✓｜核心模型类型：世界模型增强｜端到端 VLA｜当前产品状态：客户试点</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：公开资料未给清晰本体代际，灵巧手写36DOF；场景、价格、交付与产能 未披露【次级/待核】。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1843,7 +1867,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="强脑科技 / 曦诺未来｜灵巧手供应链横向厂商信息板">
-<header><div><span class="vendor-no">4.24</span><h3 id="424">4.24 强脑科技 / 曦诺未来｜灵巧手供应链</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.24</span><h3 id="424">4.24 强脑科技 / 曦诺未来｜灵巧手供应链</h3></div><div class="vendor-chips"><span>玩家类别：D核心零部件</span><span>覆盖能力：灵巧手✓</span><span>强脑/曦诺分别说明</span><span>核心模型类型：非模型层：灵巧手</span><span>当前产品状态：部件量产</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>强脑智能假肢/脑机接口与曦诺灵巧手部件组合</span></div><div><b>成立年份</b><span>强脑2015；曦诺未来2024</span></div><div><b>总部/主要基地</b><span>杭州；深圳</span></div><div><b>创始人/团队背景</b><span>韩璧丞/哈佛脑科学；曦诺团队来自机器人与精密机电</span></div><div><b>最新公开融资</b><span>强脑2024近2亿美元；曦诺早期轮未公开</span></div><div><b>最新公开估值</b><span>强脑约13亿美元（媒体，2024）；曦诺未公开</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1856,7 +1881,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>强脑科技 / 曦诺未来｜灵巧手供应链</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>强脑科技 / 曦诺未来｜灵巧手供应链</strong><span>玩家类别：D核心零部件｜覆盖能力：灵巧手✓｜强脑/曦诺分别说明｜核心模型类型：非模型层：灵巧手｜当前产品状态：部件量产</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：次级资料列出强脑21DOF、曦诺25DOF，曦诺自研电机/丝杠；价格、寿命、良率、产能和交付量 未披露【次级/待核】。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
@@ -1896,7 +1921,8 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </article></div></div>
 </section><section class="vendor-card vendor-board" aria-label="光轮 / 基础设施线索｜数据与仿真服务横向厂商信息板">
-<header><div><span class="vendor-no">4.25</span><h3 id="425">4.25 光轮 / 基础设施线索｜数据与仿真服务</h3></div><span class="stage">玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></header>
+<header><div><span class="vendor-no">4.25</span><h3 id="425">4.25 光轮 / 基础设施线索｜数据与仿真服务</h3></div><div class="vendor-chips"><span>玩家类别：E数据采集/数据服务</span><span>覆盖能力：非本体</span><span>数据采集✓ 仿真✓</span><span>核心模型类型：世界模型增强基础设施</span><span>当前产品状态：平台商用</span></div></header>
+<div class="company-profile"><div><b>公司定位</b><span>具身智能数据采集、治理与仿真基础设施服务</span></div><div><b>成立年份</b><span>光轮智能2023</span></div><div><b>总部/主要基地</b><span>北京</span></div><div><b>创始人/团队背景</b><span>核心团队来自自动驾驶、仿真与大厂AI</span></div><div><b>最新公开融资</b><span>2025早期轮数亿元人民币（媒体汇总）</span></div><div><b>最新公开估值</b><span>未公开</span></div></div>
 <div class="mass-strip" aria-label="量产状态单行"><b>量产状态 →</b><div>
 <ul>
 <li><strong>已出货型号</strong>：公开材料明确为出货/交付的型号方计入；否则无公开口径。</li>
@@ -1909,7 +1935,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </ul>
 </div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 判断</div>
-<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>光轮 / 基础设施线索｜数据与仿真服务</strong><span>玩家类别：未披露｜核心模型类型：未披露｜当前产品状态：未披露</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
+<div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>光轮 / 基础设施线索｜数据与仿真服务</strong><span>玩家类别：E数据采集/数据服务｜覆盖能力：非本体｜数据采集✓ 仿真✓｜核心模型类型：世界模型增强基础设施｜当前产品状态：平台商用</span></aside><div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品/型号</strong>：次级资料将光轮标为“数据服务”，另有sharpa及模糊厂名；无标准本体，服务价格、交付规模 未披露【次级/待核】。</li>
 <li><strong>目标客户/场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</li>
