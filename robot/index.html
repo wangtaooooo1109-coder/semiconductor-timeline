@@ -19,7 +19,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 @media(max-width:760px){.principle-viz{padding:13px}.lane,.nodes,.loop-row{display:grid;grid-template-columns:1fr}.lane b{width:auto}.lane i,.nodes i,.loop-row i{text-align:center;transform:rotate(90deg)}.model-matrix,.route-compare{grid-template-columns:1fr}.action-viz{padding:0}.action-flow,.route-compare{padding:14px}.route-compare p{min-height:0}.compute-strip{grid-template-columns:1fr}.compute-strip span{border-left:0;border-top:1px solid #4a6d91;padding:7px 0 0}.evolution-viz{grid-template-columns:1fr}.evolution-viz>i{transform:rotate(90deg);text-align:center}.world-track{grid-column:1}.action-viz>footer{display:grid}.model-matrix article{min-width:0}}
 @media(max-width:760px){.vendor-card>header{align-items:flex-start;flex-direction:column}.vendor-card h3{font-size:17px!important;overflow-wrap:anywhere}.stage{margin-left:53px}.vendor-thesis{grid-template-columns:1fr}.vendor-thesis b{display:block;padding:9px 14px}.vendor-thesis span{padding:11px 14px}.vendor-dim{grid-template-columns:1fr}.vendor-dim article{border-right:0;border-bottom:1px dashed #cbd5e1;padding:15px}.vendor-dim article:last-child{border-bottom:0}}
 </style></head><body>
-<header class="top"><div class="top-in"><div class="brand">机器人大脑全景报告 <span class="version">v4.0.0</span></div><div class="meta">模型原理 · 技术路线时间轴 · 统一厂商卡片 · 算力与数据 · 融资财务 · 技术与场景趋势　|　完成版 v4.0.0 · 研究时点 2026-10-09 · 构建 2026-10-09 11:33</div></div></header>
+<header class="top"><div class="top-in"><div class="brand">机器人大脑全景报告 <span class="version">v4.0.0</span></div><div class="meta">模型原理 · 技术路线时间轴 · 统一厂商卡片 · 算力与数据 · 融资财务 · 技术与场景趋势　|　完成版 v4.0.0 · 研究时点 2026-10-09 · 构建 2026-10-09 11:41</div></div></header>
 <div class="layout"><aside class="toc"><b>CONTENTS</b><a class="l2" href="#_2">一、执行摘要</a>
 <a class="l2" href="#_3">二、模型分类与原理图</a>
 <a class="l3" href="#21">2.1 统一软件栈</a>
@@ -567,29 +567,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：Figure 01/02/03 本体上的通用 VLA。2025-02 官方 Helix 首发，核心是完全板载的 S2/S1 双系统；后续“S0 三层”等说法主要来自次级资料，未与首发官方材料等同。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：S2 是互联网预训练 VLM，约 7–9Hz 处理语言、场景与物体泛化；S1 读取 S2 latent 和本体状态，以 200Hz 生成连续上身动作。单一权重覆盖多行为，不按每项任务重新训练。该结构用慢语义层换泛化、快运动层换稳定性。；官方称约 <strong>500小时高质量监督数据</strong>，并称使用的数据集约为可用数据的5%。其启示不是“数据越少越好”，而是同构本体、严格质检和动作标注可显著提高有效密度。参数拆分、训练 GPU 数和完整后训练配方 <span class="na">n/a</span>。；官方强调嵌入式低功耗 NVIDIA GPU、完全板载；S1 200Hz 是策略输出频率，不应直接解释为完整视觉链路每帧 5ms。断网能力有利于工业与家庭部署。；优势是本体—模型协同、少量高质量数据和端侧实时；风险是训练数据集中于自有本体，跨本体能力未如 π/GR00T 公开，家庭长程自治和异常恢复证据仍有限。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：自建 BotQ、早期工业试点及后续家庭定位可形成数据回流，但自建制造带来资本开支。大额融资与高估值<span class="secondary">【次级】</span>提供训练/产线资金，却也抬高交付预期；需跟踪付费部署、接管率和每台服务成本。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为n/a。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -605,29 +605,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：不做本体，提供跨机器人基础模型和 openpi。π0（2024）建立 VLM+Action Expert；π0.5 增强开放环境泛化；π0.6/RECAP 探索用经验与纠正做强化后训练；FAST 将动作压缩为 token。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：平台/模型层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：PaliGemma/Gemma 系 VLM 提供视觉语言表征，Action Expert 通过 flow matching 生成连续动作，约50Hz口径来自论文/项目资料。知识层与动作层参数分工，使预训练常识不必被低层控制梯度完全改写。；跨本体、多家庭、网络/语言和机器人数据混合；FAST 论文路线扩展到约 <strong>1万小时</strong>机器人数据。训练集群与成本未披露。动作空间统一、相机标定和 embodiment adapter 是跨本体规模化的隐性成本。；不绑定芯片；实际频率取决于 VLM 尺寸、动作块长度和平台。开源降低研究采用门槛，但生产部署仍需厂商完成量化、安全壳和本体适配。；最突出的是软件中立性、跨本体数据复用与论文/代码透明；弱点是缺少自有机队，对合作伙伴数据权利、质量与部署接口依赖高。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：顶级研究团队与大额融资<span class="secondary">【次级】</span>支持高算力研发；商业化可走模型授权、联合开发或平台服务，但收入和毛利模式尚待验证。持续性取决于能否把“通用基座”变成比本体厂自研更低的总拥有成本。；次级资料将 Pi 0、Pi 0.5、Pi 0.6<em>、Pi 0.7 与叠衣、桌面清理、吐司机/微波炉取放、铺床、专业咖啡机、刀具/削皮、空气炸锅、换垃圾袋等任务对应，并写有 <code>24.10-26.01</code>、<code>25.04</code>、<code>25.11</code>、<code>26.04</code> 等时间标记；其中 Pi 0/0.5 被标作“开源”。以上均为</em><em>次级/待核</em><em>：时间含义不清，绿色勾选无图例，Pi 0.6</em>/0.7 命名、发布日期及开源状态需以 PI 项目页核验，不能视作已量产或一手性能证据。次级资料称“WAIC里大多数家庭/服务模型场景从Pi模型系列延伸与优化”，属于<strong>判断/待核</strong>。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为n/a。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -643,29 +643,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：不是单一模型，而是 Teleop采集—Isaac Sim/Lab训练—GR00T模型—Isaac ROS部署—Jetson Thor算力的全栈平台。N1约2B，N1.5为3B模型卡口径。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：平台/模型层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：System 2 使用 Eagle-2/2.5 VLM 约10Hz处理语义；System 1 用 Diffusion Transformer + flow matching 生成动作，公开资料常见约120Hz口径。N1.5 的 FLARE 通过未来 latent 对齐从无动作标签人类视频吸收信息。；既有草稿记录的 N1.5 混合比例为 GR-1遥操作27.3%、Open X 27.3%、仿真27.3%、AgiBot 9.1%、DreamGen 9.1%<span class="secondary">【次级】</span>。训练约1000×H100、25万步、全局batch 16384<span class="secondary">【次级】</span>，是少数可讨论集群规模的案例，仍需官方训练日志复核。；Thor 官方规格高达2070 FP4 TFLOPS、128GB统一内存、40–130W配置；这是峰值硬件指标，不等于模型实测时延。平台支持从训练集群到端侧，但热设计和功耗会限制移动机器人持续工作。；优势是工具链、生态、合成数据和硬件协同；风险是客户锁定、仿真偏差及参考模型与特定本体之间仍需大量适配。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：GPU/边缘芯片、云服务和开发工具可多点变现，商业韧性显著高于单一本体项目。即使某款人形未放量，工业机器人和仿真需求仍能支撑路线；因此属于持续性最高的平台型玩家之一。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为n/a。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -681,29 +681,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：RT-1/RT-2 奠定 VLA，Gemini Robotics（2025-03）进入机器人动作，On-Device 强调本地运行；1.5 由 ER 1.5 具身推理模型和 Robotics 1.5 动作模型协同。Apptronik Apollo 提供本体与 Robot Park 数据。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：ER 负责理解、任务分解、工具调用和进度检查，动作模型将计划转为轨迹；“先思考再行动”提升可解释性，motion transfer 探索跨本体迁移。它比单体 VLA 更像协调器+执行器组合。；依托 Gemini 互联网预训练和多本体机器人数据；真机小时数、动作数据配比、训练 TPU 数 <span class="na">n/a</span>。Apptronik 通过 Apollo 2 机队和客户现场采数，数据所有权与回流速度是合作成败关键。；ER 可经 API 使用，动作模型主要向合作伙伴开放；On-Device 证明离线方向，但具体参数、功耗和频率缺少统一公开口径。云端推理不能进入安全高频环。；优势是强语义推理、工具使用、基座算力和跨本体研究；短板是动作模型开放度有限，实际交付依赖伙伴硬件成熟度。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：Apptronik 2025年A轮扩至4.03亿美元，Google、Mercedes-Benz参与【正式融资信息】；Apollo在Mercedes-Benz、GXO、Jabil制造/物流场景试点。审计收入、确认订单、单机价格与毛利 <span class="na">n/a</span>；资金将用于生产部署，伙伴分工降低研发跨度却增加数据权、接口和试点转正式采购风险。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -719,29 +719,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：从原子技能走向 GO-1 通用操作。ViLLA 采用 VLM理解层（InternVL-2B）+ latent planner + diffusion Action Expert，用隐式动作表征连接图文和控制；GO-1/GO-1 Air 已有开源检查点。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：VLM 将语言和多视角视觉编码为语义，latent planner 预测中间动作意图，扩散专家再生成执行轨迹。相比直接动作 token，latent 有利于跨本体映射和长程拆解，但需保证中间表征不丢失接触细节。；AgiBot World 公开口径超过100万条真机轨迹、2976小时、100+场景、80+技能，另有 Digital World 与 Genie Sim；数据覆盖家居、餐饮、工业、商超和办公。具体训练 GPU/时长 <span class="na">n/a</span>。；端侧控制器与部分本体公开约200–270TOPS口径<span class="secondary">【次级】</span>，模型量化、P95时延、断网能力未系统披露。GO-1 跨松灵、方舟、Franka 验证显示跨本体意图。；最大优势是“本体+真机数据+仿真+开源模型”的完整闭环；短板是数据统计口径、线上成功率与生产级接管率仍需第三方评测。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：多产品线、工业数采和开源生态可分摊模型成本；制造扩张也带来库存和服务压力。若客户部署能持续回流失败片段，路线具有较强持续性；融资、出货和估值数字需以审计材料更新。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为n/a。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -757,29 +757,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：模型、本体与世界模型联合。HiRT 用约7B世界/语义模型连接约40M执行模型的快慢分层<span class="secondary">【次级】</span>；ERA-42覆盖视觉理解、预测和行动；VPP/Ctrl-World 强化未来状态建模。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：低频大模型预测任务相关 latent 或未来视觉，高频小策略按本体反馈执行；Ctrl-World 对候选动作生成可控未来，用预测结果约束策略。其价值是把视频数据变成动作学习先验。；真实场景—仿真—实验室三级闭环；“每周300万帧”是公司/媒体口径<span class="secondary">【次级】</span>，不能直接等价于有效轨迹。训练集群、真机小时与合成比例 <span class="na">n/a</span>。；分频设计可降低7B模型每控制周期运行的需求，但完整延迟、端侧芯片和世界模型是否实时在线未公开。；特色是世界模型研究深度、全身+灵巧手和开源VPP；风险是世界模型误差累积、训练复杂、从论文指标到连续物流作业仍有距离。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：2025年近10亿元A+轮、累计订单超5亿元、物流最大单笔近5000万元、海外业务约50%及吉利/雷诺/顺丰等客户均为公司发布后的媒体转述<span class="secondary">【次级】</span>。产品线包括L7、Q5和XHAND，价格、实际交付与产能 <span class="na">n/a</span>。次级资料另称“物流分拣”、5070端侧与工业遥操【次级/待核】；风险是订单转收入、世界模型双重算力和制造扩张。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -795,29 +795,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：统一感知—推理—行动表示的端到端具身基础模型，强调具身思维链、零样本泛化和探索—反思闭环；WALL-OSS 与训练代码用于生态扩散。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：视觉、语言、状态和动作在统一 Transformer 表示空间中建模，减少手工技能接口；推理轨迹提供任务阶段信息，再由动作头输出控制。统一架构简洁，但训练时需防止语义损失压过精细动作梯度。；依靠自研轮式双臂、五指手和外骨骼遥操作采数；规模、数据配比、参数与训练算力 <span class="na">n/a</span>。缺失项是评估其 scaling 叙事的主要障碍。；端侧芯片、动作频率、P95时延和量化策略 <span class="na">n/a</span>；因此不能仅凭“端到端”判断实时性。；优势是模型优先、开源和软硬件数采工具一体；风险是公开生产运营指标少、统一模型在长程任务中的错误恢复仍待验证。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：官网披露获得字节、阿里、美团、小米等投资；媒体称累计融资约30亿元、估值超100亿元<span class="secondary">【次级】</span>。量子1/2号进入家庭、工业、物流、养老，合作含58到家，但价格、产能、规模交付、审计收入和确认订单 <span class="na">n/a</span>。自建数采工厂与硬件使资本消耗高，风险是家政效率、量产及收入尚未规模验证。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -833,29 +833,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：以任务专长模型矩阵逐步汇聚到 AstraBrain，轮式双臂 G1 在零售、药店、仓储形成运营入口。GraspVLA负责抓取，TrackVLA负责视觉导航，GroceryVLA针对货架。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：大脑/小脑/本体分层；VLA将视觉语言条件映射到抓取或导航动作，任务专用头用场景先验换取成功率。路线不是“一开始追求单一万能模型”，而是用可交付技能积累闭环后再统一。；差异化押注大规模仿真/合成，行业报道有“占比&gt;99%”口径<span class="secondary">【次级】</span>，需官方模型卡复核。真实零售点位提供域校准和失败样本；训练集群 <span class="na">n/a</span>。；G1 公开硬件为 AGX Orin 64GB/275TOPS，续航约8h；端到端时延与动作频率 <span class="na">n/a</span>。轮式底盘减少双足稳定性算力，把预算集中于操作。；优势是仿真规模、零售点位、轮式稳定性和运营数据；短板是Sim2Real、场景专用性以及厂商成功率口径缺少第三方复现。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：G1媒体报价约63–70万元，ET1预售价7.9/13.9/17.9万元<span class="secondary">【次级】</span>；累计融资、30亿美元估值及千台/7亿元订单均为媒体口径，未见审计确认。客户报道含宁德时代、博世、丰田、现代和多家车企。优势是零售/药店/工厂点位；风险是Sim2Real、远程接管、订单真实性与本体供应依赖。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -871,29 +871,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：面向轮式可升降 AlphaBot 的全域全身 VLA，明确 System 2 慢推理 + System 1 快控制，并将机械臂、躯干和移动轨迹放入统一输出。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：360°感知构建空间交互表示；S2进行语言理解、任务拆解，S1联合生成移动与全身动作，减少“导航到点再操作”的割裂。全身联合优化更适合移动装配，也扩大动作维度和安全约束。；汽车、半导体、生物科技现场提供精密操作数据；数据规模、参数、GPU、仿真比例 <span class="na">n/a</span>。DeepSeek 融入 VLA 为公开传播口径，具体模块和训练贡献待技术文档。；续航6h+，但芯片、频率、时延 <span class="na">n/a</span>。±0.02mm装配与日均20h连续作业属次级场景口径，需明确测量条件和人工干预。；优势是全身移动操作与高价值工业场景；风险是动作维度高、精度与泛化难兼得，缺少标准化模型卡。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：2026年媒体称完成超10亿元B轮、估值突破100亿元<span class="secondary">【次级】</span>，资金投向GOVLA、AlphaBot量产与产线扩容；2028/2033产量目标仅为规划。价格、审计收入、确认订单与交付量 <span class="na">n/a</span>；风险是融资节奏快、工业精度口径和跨项目软件复用待验证。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -909,29 +909,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：家庭优先，EVE轮式数据过渡到NEO双足。Redwood负责全身移动操作，世界模型预测交互后果；远程专家在早期提供兜底和高价值纠错数据。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：VLA从视觉/语言到动作，世界模型学习“动作后将看到什么”，可用于数据 scaling、离线评估或候选动作筛选。软体外壳和肌腱驱动从硬件层降低家庭碰撞风险。；公司相关报道称真实家庭/办公“数千小时”<span class="secondary">【次级】</span>；具体轨迹、失败比例、参数和训练集群 <span class="na">n/a</span>。Redwood约160M与Jetson Thor部署均为次级口径，需模型卡确认。；强调端侧自主与teleop兜底。远程接管提高早期可用性，但若每台每小时接管过多，带宽、隐私与人工成本会吞噬RaaS毛利。；优势是家庭真实分布、软硬件安全和世界模型；短板是开放家庭长尾极大，演示中自主与遥操边界必须透明。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：NEO公开发布后的媒体口径为2万美元或499美元/月、计划2026交付<span class="secondary">【次级】</span>；2024年1亿美元B轮为公开融资报道。预订不等于收入，实际消费者交付 <span class="na">n/a</span>。制造、遥操与隐私合规资本消耗高；持续性取决于每台接管分钟下降能否快于折旧、维修与服务成本。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -947,29 +947,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：全电 Atlas 与 TRI LBM 结合，目标是把高动态全身控制与多任务灵巧操作统一。论文指向 Diffusion Transformer、多模态条件和长时序行为。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：视觉、语言提示和本体状态输入单一大行为模型，扩散过程生成全身轨迹；技能可由人类示教加入。与VLA相比，它更强调动作分布与全身协调，语义知识的互联网规模复用较弱。；人类演示、仿真和少量真机校准；TRI“降低约80%数据需求”为其公开表述的次级转述，基线和任务范围需查论文。训练算力、参数和端侧芯片 <span class="na">n/a</span>。；公开演示覆盖行走—搬运—分类—打包长序列，但连续运营频率、P95时延和恢复率未披露。；强项是机械设计、全身动态与行为学习结合；短板是成本高、平台尚处试点，模型开放度有限。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：现代汽车集团场景和TRI长期研究资金降低短期融资风险；但 Atlas 能否从研究平台变成可复制产品，要看汽车工厂正式部署和制造成本。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为n/a。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -985,29 +985,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：复用自动驾驶“视觉—神经网络—端侧控制”能力，自建工厂先部署。独立机器人模型名称、参数和正式论文均 <span class="na">n/a</span>，不应把发布会演示等同于完整技术披露。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：纯视觉、多相机感知、模仿/遥操作数据与端到端策略，底层仍需运动控制和安全层。官方未明确采用 Helix式 System 1/2。；自建遥操作、工厂任务、仿真，并可复用视觉训练基础设施；小时数、轨迹数和机器人专用训练集群 <span class="na">n/a</span>。Dojo与NVIDIA GPU的具体分工口径变化较多。；端侧延续FSD计算平台思路，AI4/AI5代际与机器人量产配置需官方确认。端侧自研芯片可降低规模成本，但软件成熟前会形成较高固定投入。；优势是工厂场景、芯片/制造垂直整合和潜在机队规模；短板是模型透明度、时间表反复和开放任务证据少。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：汽车与能源业务现金流可长期补贴机器人研发，路线财务耐力强；但机器人自身商业成立仍需正式产量、外部客户、单位成本与自主作业时长证明。；审计收入、确认订单、现金余额、制造资本开支与单机毛利未披露者均为n/a。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -1023,29 +1023,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：omni-bodied 统一机器人基础模型，目标是不预先绑定精确本体，可控制四足、人形、桌面臂和移动操作臂。；公司展示跨形态任务与企业合作，但统一标准、长程成功率和部署成本待核。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：从多形态数据学习共享运动先验，再通过本体条件/adapter映射到不同动作空间。理论上扩大数据网络效应，实际难点是传感器、动力学、控制接口不一致。；参数、真机小时、数据构成、训练集群和端侧频率均 <span class="na">n/a</span>，未开源。缺少这些信息时无法和π/GR00T做效率比较。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：2024年3亿美元A轮、15亿美元估值；后续融资、140亿美元估值和约3000万美元收入均为媒体口径<span class="secondary">【次级】</span>，需审计确认。物流、工业及NVIDIA GPU工厂部署为公司/媒体线索，定价与部署数 <span class="na">n/a</span>。风险是高估值、重训练算力、闭源验证和伙伴数据依赖。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -1061,29 +1061,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：以工业 Walker S 系为载体，采用群脑网络与智能体编排，而非单一通用 VLA。重点是意图理解、任务规划、工具调用、异常处置和多机协同。；Walker S2自主换电和多工厂试点有利于连续作业；千台、订单8亿元等为次级汇总，上市公司信息应以公告/财报更新。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：云/边缘大模型拆解任务，机器人技能层执行，FOC/MES/WMS反馈状态；异常回传后重新规划。它牺牲部分端到端优雅性，换取工业流程可审计与已有技能复用。；“亿级工业数据”“自主处理&gt;90%异常”为公司/媒体口径<span class="secondary">【次级】</span>，数据单位、任务集合和基线待核。训练算力、端侧芯片 <span class="na">n/a</span>。；优势是工业客户、运营编排、换电和制造；短板是基础模型泛化与数据细节披露较弱。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：港股上市公司，应以年报/公告为准；媒体转述2025收入20.01亿元、人形收入8.206亿元、亏损7.898亿元、年化产能超6000台【次级待回链年报】。Walker S2于2025年开启量产交付，客户覆盖汽车、3C、物流；次级资料补充自研VLA尚未上产线、Ego/遥操、自研电机及沐曦合作【次级/待核】。高研发、应收、库存和售后是核心风险。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -1099,29 +1099,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：运控以强化学习和模仿学习为主，感知采用纯视觉BEV/Transformer/OCC，FOCUS负责多机调度；从康复积累延伸至GR系列通用本体。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：仿真RL训练步态和全身控制，遥操作示教训练上肢，场景大模型负责交互/任务；多智能体平台协调任务。分层路线工程可控，但通用语义—动作统一程度弱于VLA。；FourierActionNet公开超过3万条真机/灵巧手操作数据及工具链，曾进入NVIDIA生态。训练集群、视频预训练和端侧模型参数 <span class="na">n/a</span>。；GR-3与地瓜RDK S600合作为次级公开信息，反映端侧国产化尝试；实际模型时延待测。；康复渠道、执行器自研和数据开源构成差异化；跨场景泛化和高频现场运营指标不足。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：GR-3/GR-3C为55DOF Carebot，2025年9月预售、10月计划交付，价格未公布【次级转官方发布】；融资、收入、订单与产能 <span class="na">n/a</span>。医院康复渠道提供现金与制造基础，但通用机器人需新增数据与售后资本；风险是康复数据迁移、陪伴付费意愿与量产良率。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -1137,29 +1137,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：以高动态运动控制、低成本本体和开发者生态见长，叠加UnifoLM统一模型探索。核心壁垒当前更偏执行器、关节、RL运控和规模制造，而非公开通用操作模型。；量产本体、科研教育和高动态动作提供大规模开发者触点；复杂长程操作、异常恢复和跨场景成功率披露不足。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：深度强化学习与模仿学习完成步态、全身动作和重定向；更高层世界/具身模型接收语言视觉并调用动作策略。分层使运动技能稳定，但开放物体操作需要更多灵巧手数据。；真机轨迹、UnifoLM参数、训练GPU和端侧部署均 <span class="na">n/a</span>；展示视频不能替代模型卡。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：招股书媒体转述2025营收17.08亿元、净利2.88亿元、人形出货超5500台，IPO拟募42.02亿元【待回链申报稿】；Go2起价9997元、G1约8.5–9.9万元、R1 Air 2.99万元。科研教育和巡检为主要客户场景。优势是盈利、价格与规模；风险是操作智能、制造扩产、售后及设备数据能否合规回流。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -1175,29 +1175,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：专注仓储搬箱和物流流程，以成熟步态/规划/学习控制配合Arc运营平台，不把“通用大模型”作为首要卖点。；公开成交价格、额定产能与可核验累计交付：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：平台/模型层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：任务编排、感知、路径与抓取技能、全身控制分层；WMS下发任务，机器人执行固定但可变参数的流程，异常进入恢复或人工处置。该路线牺牲开放泛化换可靠交付。；客户现场能够产生高质量失败数据，但模型代际、小时数、芯片、训练集群 <span class="na">n/a</span>。十万料箱、作业小时等多为官方里程碑的次级转述，需统一时间点。；本地安全与运动控制为主，Arc负责机队运营。确定性和可维护性通常优于大模型直接控制。；优势是商业部署、RoboFab和单一场景优化；短板是SKU、流程和场景扩展速度有限。；未披露的模型参数/训练GPU小时/P95时延均为n/a。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：2024年1.5亿美元融资、约10亿美元估值为公开报道<span class="secondary">【次级】</span>；GXO商业部署、Schaeffler批量合作及Amazon测试，Digit价格 <span class="na">n/a</span>。RoboFab设计年产能1万台是规划而非实际产量。RaaS持续性取决于每箱成本、利用率和续约；固定成本与场景扩展慢是风险。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -1213,29 +1213,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：<strong>Sanctuary Carbon</strong>：认知架构把自然语言转为任务和动作，强调记忆、可解释规划与液压灵巧手；参数、数据、芯片均n/a。优势是精细手与可审计任务，风险是液压维护和双足/全身成熟度。融资与企业试点需核实正式收入。 主攻场景、公开成交价格、已交付数量、额定产能与量产时间：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：模型参数/版本化模型卡、训练算力、仿真比例、端侧芯片与P95时延：<span class="na">n/a</span>；公开路线优势与边界见上句，仍需连续无接管测试。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：官方曾披露累计融资超1亿加元，其中加拿大政府战略创新基金支持3000万加元；Canadian Tire试点及Magna合作已公开。Phoenix无官方售价、收入、订单、产能和量产时间。持续性风险是灵巧手维护、试点转付费及融资连续性。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -1251,29 +1251,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：<strong>星尘 DuoCore</strong>：毫秒级本能反应+大模型决策，绳驱肌腱和刚柔混合动力学支持高速上肢；VR遥操、视频和人体示教构成数据源。次级资料另称其“整机销售”、大脑“自研VLA”、端侧为“Orin/RK3588/Thor”、数据“自采遥操”，灵巧手仅写“xx DOF”【次级/待核】；<code>xx</code>不是有效数值。优势是速度/柔顺和开发工具链，短板是数据规模与生产运营证据不足。 主攻场景、公开成交价格、已交付数量、额定产能与量产时间：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：模型参数/版本化模型卡、训练算力、仿真比例、端侧芯片与P95时延：<span class="na">n/a</span>；公开路线优势与边界见上句，仍需连续无接管测试。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：融资/估值、审计收入、确认订单、客户名单、商业模式、制造资本开支与现金消耗：<span class="na">n/a</span>；持续性风险是公开生产证据不足。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -1289,29 +1289,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：<strong>乐聚夸父</strong>：RL/模仿运控接入盘古/智谱等大模型，鸿蒙生态与科研教育优先。优势是生态合作和批量平台，短板是自有通用操作基础模型、端侧算力与数据披露有限。 主攻场景、公开成交价格、已交付数量、额定产能与量产时间：<span class="na">n/a</span>。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：平台/模型层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：模型参数/版本化模型卡、训练算力、仿真比例、端侧芯片与P95时延：<span class="na">n/a</span>；公开路线优势与边界见上句，仍需连续无接管测试。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：融资/估值、审计收入、确认订单、客户名单、商业模式、制造资本开支与现金消耗：<span class="na">n/a</span>；持续性风险是公开生产证据不足。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -1327,29 +1327,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：次级资料指向人形/操作系统用于线束装配；本体代际、价格、交付、产能和量产时间 <span class="na">n/a</span>【次级/待核】。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：次级资料称自研WM、华为MDC810、自研头戴/手套/外套采集Ego与遥操，覆盖“数据—模型—Infra”；模型卡、数据规模、仿真与时延 <span class="na">n/a</span>。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：融资估值、收入订单、客户与制造资本开支 <span class="na">n/a</span>；若线束装配形成稳定客户可回流高价值失败数据，当前最大风险是主体与公开证据不足。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -1365,29 +1365,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：绝影X20/X30工业四足、Lite科研系列、山猫M20轮足及DR人形验证平台；次级资料列出X系列20–30万元、Lite约10万元、DR约40万元【次级/待核】；电力巡检为核心场景。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：平台/模型层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：DeepVLA/感控融合与全域导航；真实巡检数据迭代，部分数据能力外购；RK3588/黑芝麻A1000及外挂算力盒约20TOPS为次级资料口径【次级/待核】。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：次级资料称国家电网/南网客户、2025营收3.37亿元、净利2868万元、X系列出货681台、累计产量超5500台【次级/待核】，须以招股书/审计材料复核。ToB闭环清晰，风险是客户集中和大模型外挂成本。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -1403,29 +1403,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：公开资料未给清晰本体代际，灵巧手写36DOF；场景、价格、交付与产能 <span class="na">n/a</span>【次级/待核】。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：自研WM、Orin、自采/众包Ego与遥操、自研数据头戴；“其中13个深度”原词不清，模型参数、仿真和时延 <span class="na">n/a</span>。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：融资估值、收入订单、客户和量产时间 <span class="na">n/a</span>；风险是众包质量、主体信息与数字无法核验。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -1441,29 +1441,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：次级资料列出强脑21DOF、曦诺25DOF，曦诺自研电机/丝杠；价格、寿命、良率、产能和交付量 <span class="na">n/a</span>【次级/待核】。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：两者均列Manus遥操数据，曦诺另列自研VLA；触觉、力控频率、仿真与端侧算力 <span class="na">n/a</span>。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：融资估值、收入订单与客户 <span class="na">n/a</span>；持续性取决于手部寿命、成本和整机厂定点，DOF不能替代可靠性与量产良率。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -1479,29 +1479,29 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="vendor-dim"><article class=""><b>产品 PRODUCT</b>
 <ul>
 <li><strong>现有产品 / 本体与代际时间线</strong>：次级资料将光轮标为“数据服务”，另有sharpa及模糊厂名；无标准本体，服务价格、交付规模 <span class="na">n/a</span>【次级/待核】。</li>
-<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者为 <span class="na">n/a</span>。</li>
+<li><strong>面向客户</strong>：见“客户 / 订单 / 交付证据”；无可核验细分者标为“公开资料未披露”。</li>
 <li><strong>产业链环节</strong>：本体与模型集成层（基于公开业务描述归类，不代表公司法定口径）。</li>
-<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者为 <span class="na">n/a</span>。</li>
-<li><strong>公开价格</strong>：原始证据未明确披露时为 <span class="na">n/a</span>；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
+<li><strong>量产 / 交付状态与时间</strong>：仅采信上条原始证据中的明确状态；未明确区分试点、订单、验收和回款者标为“公开资料未披露”。</li>
+<li><strong>公开价格</strong>：原始证据未明确披露时标为“公开资料未披露”；媒体价格保留<span class="secondary">【次级】</span>标签，不视作成交价。</li>
 <li><strong>产品优势</strong>：仅见上条公开路线描述；缺少连续运营对照时不外推。</li>
-<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段为 <span class="na">n/a</span>，需后续核验。</li>
+<li><strong>产品短板</strong>：交付量、产能、价格或现场连续运营指标存在缺口的字段标为“公开资料未披露”，需后续核验。</li>
 </ul>
 </article><article class=""><b>技术 TECHNOLOGY</b>
 <ul>
 <li><strong>模型名称与代际</strong>：可能覆盖数据、仿真或Infra，但公开资料无明确数据规模、训练平台、端云架构与算力，不能扩写为事实。</li>
-<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式为 <span class="na">n/a</span>。</li>
-<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项为 <span class="na">n/a</span>。峰值芯片算力不等于实测模型时延。</li>
+<li><strong>模型范式 / 架构</strong>：见上条已披露架构；未公开的模块连接方式标为“公开资料未披露”。</li>
+<li><strong>算力（训练 / 端侧芯片 / 云边分工）</strong>：仅保留上条明确口径；训练 GPU 小时、P95 时延等未披露项标为“公开资料未披露”。峰值芯片算力不等于实测模型时延。</li>
 <li><strong>数据（来源 / 规模 / 采集 / 闭环 / 仿真合成）</strong>：仅保留上条有来源口径；帧数不等于有效轨迹，规划规模不等于已采集规模。</li>
 <li><strong>技术优势</strong>：见上条公开证据所支持的能力边界，不将演示外推为开放场景泛化。</li>
-<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均为 <span class="na">n/a</span> / 待验证。</li>
+<li><strong>技术风险</strong>：数据口径、跨本体适配、异常恢复、端侧实时性或第三方复现中未披露者均标 / 待验证。</li>
 </ul>
 </article><article class=""><b>商业 BUSINESS</b>
 <ul>
-<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时为 <span class="na">n/a</span>。</li>
+<li><strong>应用场景</strong>：从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料未披露”。</li>
 <li><strong>客户 / 订单 / 交付证据</strong>：融资、收入、客户与资本开支 <span class="na">n/a</span>；平台路线可降低整机厂采数成本，风险是主体拼写和服务边界未确认。</li>
-<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时为 <span class="na">n/a</span>。</li>
-<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余 <span class="na">n/a</span>。融资、估值、订单、收入不得相互替代。</li>
-<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时为 <span class="na">n/a</span>。</li>
+<li><strong>商业模式</strong>：公开材料未明确授权、整机销售、RaaS 或运营分成口径时标为“公开资料未披露”。</li>
+<li><strong>融资 / 估值 / 收入 / 财务（时间与口径）</strong>：仅采用上条带时间和证据标签的数字；其余标为“公开资料未披露”。融资、估值、订单、收入不得相互替代。</li>
+<li><strong>资本开支与现金消耗判断</strong>：自建本体/产线通常资本更重、纯模型平台相对更轻，但公司实际资本开支、现金余额和消耗率未披露时标为“公开资料未披露”。</li>
 <li><strong>持续性结论</strong>：需同时验证现场复购/回款、数据回流和单位经济性；当前缺项不以融资额代替。</li>
 <li><strong>未来验证点</strong>：付费客户、验收与回款、每百小时接管、P95 时延、单机毛利/服务成本及失败数据闭环。</li>
 </ul>
@@ -1535,7 +1535,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <h3 id="61">6.1 证据分级</h3>
 <ol>
 <li><strong>【事实】</strong>：公司官网/博客、论文与模型卡、财报/招股书、正式监管公告。</li>
-<li><strong><span class="secondary">【次级】</span></strong>：可回链媒体、采访或行业汇总，须保留时间与原始口径。</li>
+<li><strong>【媒体/产业口径】</strong>：权威媒体、产业研究、投融资数据库公开报道、采访、券商/咨询摘要或公司发布会转述；必须标来源域名/媒体与时间，冲突时并列不同口径。原存量 <code><span class="secondary">【次级】</span></code> 与本标签同级，后续逐步统一。</li>
 <li><strong>【规划】</strong>：目标、产能、发布日期或管理层展望，不等于完成。</li>
 <li><strong>【截图口径/待核】</strong>：2026-10-09 用户截图中的型号、芯片、价格、任务勾选、财务和供应链线索；全部保留在对应公司原始证据段，未核实前不升级。</li>
 <li><strong>n/a</strong>：公开资料不足、口径冲突或无法回链；不猜测、不按 0 分处理。</li>
