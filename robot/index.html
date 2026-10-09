@@ -1,1222 +1,1539 @@
 <!doctype html>
 <html lang="zh-CN"><head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>机器人大脑方案概览 · 产品 / 算法 / 生产三维度</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>机器人大脑全景报告｜模型、数据与商业持续性</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#0b1016; --bg2:#121a24; --card:#16202c; --line:#243241;
-  --tx:#e2e9f0; --tx2:#93a4b8; --ac:#22c1a4; --ac2:#4f9bf5;
-  --warn:#f5a524; --na:#6b7c91; --lv2:#c98a3c;
-}
-body{background:var(--bg);color:var(--tx);
- font:15px/1.78 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
- -webkit-font-smoothing:antialiased}
-a{color:var(--ac2);text-decoration:none}
-a:hover{text-decoration:underline}
-
-header{position:sticky;top:0;z-index:50;background:rgba(11,16,22,.93);
- backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.hwrap{max-width:1500px;margin:0 auto;padding:14px 22px}
-h1.site{font-size:19px;font-weight:700;letter-spacing:.5px;display:flex;align-items:center;gap:10px}
-h1.site .dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--ac2));flex:none}
-.sub{font-size:12.5px;color:var(--tx2);margin-top:4px}
-.tabs{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-.tab{background:var(--card);color:var(--tx2);border:1px solid var(--line);
- border-radius:999px;padding:6px 16px;font-size:13.5px;cursor:pointer;transition:.18s;font-family:inherit}
-.tab:hover{color:var(--tx);border-color:#35485c}
-.tab.active{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#06121a;border-color:transparent;font-weight:700}
-
-.legend-bar{max-width:1500px;margin:0 auto;padding:10px 22px 0;display:flex;gap:16px;
- flex-wrap:wrap;font-size:11.5px;color:var(--tx2)}
-.legend-bar b{font-weight:700}
-
-.layout{max-width:1500px;margin:0 auto;padding:18px 22px;display:grid;
- grid-template-columns:250px minmax(0,1fr);gap:26px;align-items:start}
-aside{position:sticky;top:120px;max-height:calc(100vh - 142px);overflow:auto;
- background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px}
-aside .lb{font-size:11px;letter-spacing:1.5px;color:var(--tx2);text-transform:uppercase;margin-bottom:9px}
-.toc-group a{display:block;font-size:13px;color:var(--tx2);padding:5px 8px;border-radius:7px;
- border-left:2px solid transparent;line-height:1.45}
-.toc-group a:hover{background:#1b2634;color:var(--tx);text-decoration:none;border-left-color:var(--ac)}
-
-main{min-width:0}
-.panel{display:none}
-.panel.active{display:block}
-
-h1,h2,h3,h4{line-height:1.35}
-.panel>h1{font-size:25px;font-weight:700;margin:0 0 6px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-.panel h2{font-size:20px;font-weight:700;margin:34px 0 14px;padding-left:12px;
- border-left:4px solid;border-image:linear-gradient(var(--ac),var(--ac2)) 1;scroll-margin-top:132px}
-.panel h3{font-size:16.5px;font-weight:650;margin:26px 0 10px;color:#cfe0ef;
- padding-bottom:6px;border-bottom:1px dashed #223040}
-.panel h4{font-size:14.5px;font-weight:650;margin:18px 0 8px;color:var(--tx2)}
-.panel p{margin:10px 0}
-.panel ul,.panel ol{margin:10px 0 10px 22px}
-.panel li{margin:5px 0}
-.panel hr{border:0;border-top:1px solid var(--line);margin:30px 0}
-.panel strong{color:#fff}
-.panel em{color:var(--tx2)}
-
-blockquote{background:#141d28;border-left:3px solid var(--warn);
- border-radius:0 10px 10px 0;padding:11px 15px;margin:14px 0;color:#c2d2e2;font-size:13.5px}
-blockquote p{margin:5px 0}
-
-code{background:#1d2836;color:#84d8c4;padding:1.5px 6px;border-radius:5px;
- font-size:12.5px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-pre{background:#0d141d;border:1px solid var(--line);border-radius:11px;padding:14px 16px;overflow:auto;margin:14px 0}
-pre code{background:none;color:#9fc0da;padding:0;font-size:12.5px;line-height:1.6}
-
-.tw{overflow:auto;margin:15px 0;border:1px solid var(--line);border-radius:11px;-webkit-overflow-scrolling:touch}
-table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:560px}
-th{background:#1a2532;color:#aec2d6;font-weight:650;text-align:left;
- padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0}
-td{padding:8px 12px;border-bottom:1px solid #1e2937;vertical-align:top}
-tr:last-child td{border-bottom:0}
-tbody tr:hover td{background:#17222f}
-
-.lv2{color:var(--lv2);font-size:11px;font-weight:700;background:#2a1f10;
- padding:1px 5px;border-radius:4px;border:1px solid #4a3617;white-space:nowrap}
-.na{color:var(--na);font-style:italic}
-.unconf{color:#e08a8a;border-bottom:1px dotted #e08a8a}
-
-footer{max-width:1500px;margin:0 auto;padding:24px 22px 46px;color:var(--tx2);font-size:12.5px;
- border-top:1px solid var(--line)}
-
-@media(max-width:900px){
-  .layout{grid-template-columns:1fr;padding:16px}
-  aside{display:none}
-  .panel>h1{font-size:21px}
-  .panel h2{font-size:17.5px}
-}
+*{box-sizing:border-box}html{scroll-behavior:smooth}:root{--bg:#09111b;--panel:#111d2a;--line:#26384a;--text:#e6edf4;--muted:#9aabba;--cyan:#40d7c5;--blue:#65a9ff;--amber:#efb35b}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.78 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.top{position:sticky;top:0;z-index:9;background:rgba(9,17,27,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.top-in{max-width:1500px;margin:auto;padding:13px 22px}.brand{font-size:19px;font-weight:750}.brand:before{content:"";display:inline-block;width:9px;height:9px;margin-right:10px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--blue))}.meta{color:var(--muted);font-size:12px;margin-top:3px}.layout{max-width:1500px;margin:auto;padding:22px;display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px}.toc{position:sticky;top:94px;max-height:calc(100vh - 118px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}.toc b{display:block;font-size:11px;letter-spacing:1.4px;color:var(--muted);margin-bottom:8px}.toc a{display:block;color:var(--muted);padding:4px 7px;border-left:2px solid transparent;line-height:1.4}.toc a:hover{color:var(--text);border-left-color:var(--cyan);text-decoration:none}.toc .l3{padding-left:18px;font-size:12px}.content{min-width:0}.content>h1{font-size:28px;line-height:1.25;margin:0 0 18px}.content h2{font-size:21px;margin:38px 0 14px;padding-left:12px;border-left:4px solid var(--cyan);scroll-margin-top:84px}.content h3{font-size:17px;margin:27px 0 10px;color:#cde0f1;scroll-margin-top:84px}.content p{margin:10px 0}.content ul,.content ol{padding-left:24px}.content li{margin:5px 0}.content blockquote{margin:14px 0;padding:10px 15px;background:#121f2d;border-left:3px solid var(--amber);border-radius:0 10px 10px 0;color:#c7d5e2}.content pre{overflow:auto;padding:16px 18px;background:#0c1723;border:1px solid #294055;border-radius:12px;color:#bfe6df;line-height:1.55}.content h3[id^="31-"]~ul,.content h3[id^="32-"]~ul{background:#101d2a}.table-wrap{overflow:auto;margin:16px 0;border:1px solid var(--line);border-radius:11px}table{border-collapse:collapse;width:100%;min-width:650px;font-size:13px}th{background:#172638;color:#bfd1e1;text-align:left;padding:9px 11px;white-space:nowrap}td{padding:8px 11px;vertical-align:top;border-top:1px solid #203143}tr:hover td{background:#122131}code{background:#172536;color:#80dece;padding:2px 5px;border-radius:4px}.secondary{color:var(--amber);font-size:11px;font-weight:700}.na{color:#72869a;font-style:italic}footer{max-width:1500px;margin:auto;padding:20px 22px 42px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}@media(max-width:900px){.layout{grid-template-columns:1fr;padding:16px}.toc{display:none}.content>h1{font-size:23px}.content h2{font-size:18px}}
 </style></head><body>
-
-<header><div class="hwrap">
-  <h1 class="site"><span class="dot"></span>机器人大脑方案概览</h1>
-  <div class="sub">产品 · 算法 · 生产 三维度　|　海外 + 国内头部 10 家　|　初版 v0.1　生成 2026-09-29 17:20</div>
-  <div class="tabs"><button class="tab active" data-t="overseas">海外厂商</button>
-<button class="tab" data-t="china">国内头部 10 家</button></div>
-</div></header>
-
-<div class="legend-bar">
-  <span><b>信源标记：</b>未标注＝官网/论文/访谈等一级信源</span>
-  <span><span class="lv2">【次级】</span> 媒体或供应链转述</span>
-  <span><span class="unconf">未经官方确认</span> 供应链传闻</span>
-  <span><span class="na">n/a</span> 未核实到，不做推测</span>
-</div>
-
-<div class="layout">
-  <aside><div class="lb">本页目录</div><div class="toc-group" data-t="overseas" style="display:block"><a href="#overseas-h1">一、总览对照表</a>
-<a href="#overseas-h2">二、分厂商详解</a>
-<a href="#overseas-h3">三、算法范式横向对比</a>
-<a href="#overseas-h4">四、数据与算力横向对比</a>
-<a href="#overseas-h5">五、供应链横向对比</a>
-<a href="#overseas-h6">六、信源质量说明 + 数据缺口清单</a></div>
-<div class="toc-group" data-t="china" style="display:none"><a href="#china-h1">〇、前 10 家筛选依据（为什么是这 10 家）</a>
-<a href="#china-h2">一、总览对照表</a>
-<a href="#china-h3">二、分厂商详解</a>
-<a href="#china-h4">三、算法范式横向对比（国内路线分歧）</a>
-<a href="#china-h5">四、数据与算力横向对比</a>
-<a href="#china-h6">五、供应链横向对比（自研边界与国产供应商图谱）</a>
-<a href="#china-h7">六、与海外的差距与优势判断</a>
-<a href="#china-h8">七、信源质量说明 + 数据缺口清单</a></div></aside>
-  <main><section class="panel active" data-t="overseas"><h1 id="_1">海外人形/通用机器人「大脑方案」全景</h1>
+<header class="top"><div class="top-in"><div class="brand">机器人大脑全景报告</div><div class="meta">模型原理 · 技术路线时间轴 · 统一厂商卡片 · 算力与数据 · 融资财务 · 技术与场景趋势　|　构建 2026-10-09 10:25</div></div></header>
+<div class="layout"><aside class="toc"><b>CONTENTS</b><a class="l2" href="#_2">一、执行摘要</a>
+<a class="l2" href="#_3">二、模型分类与原理图</a>
+<a class="l3" href="#21">2.1 统一软件栈</a>
+<a class="l3" href="#22">2.2 六类模型及其工作原理</a>
+<a class="l3" href="#23-diffusion-flow-matching">2.3 动作生成：为什么 diffusion / flow matching 流行</a>
+<a class="l3" href="#24">2.4 数据闭环与算力流</a>
+<a class="l2" href="#_4">三、模型技术路线时间轴</a>
+<a class="l3" href="#31">3.1 总体演进图</a>
+<a class="l3" href="#32-20222023">3.2 2022—2023：从视觉动作策略到语言条件动作</a>
+<a class="l3" href="#33-2024vla">3.3 2024：开放VLA与动作专家成形</a>
+<a class="l3" href="#34-2025">3.4 2025：快慢双系统、跨本体与世界模型融合</a>
+<a class="l3" href="#35-2026wam">3.5 2026：WAM集中探索与生产级后训练</a>
+<a class="l3" href="#36">3.6 按技术路线纵向阅读</a>
+<a class="l3" href="#37">3.7 时间轴后的阶段性判断</a>
+<a class="l2" href="#_5">四、统一厂商与模型卡片</a>
+<a class="l3" href="#31-figurehelix">3.1 Figure｜Helix</a>
+<a class="l3" href="#32-physical-intelligence0-05-06-fast">3.2 Physical Intelligence｜π0 → π0.5 → π0.6 / FAST</a>
+<a class="l3" href="#33-nvidiagr00t-n1-n15-isaac-thor">3.3 NVIDIA｜GR00T N1 / N1.5 + Isaac + Thor</a>
+<a class="l3" href="#34-google-deepmind-apptronikgemini-robotics-15-er-15">3.4 Google DeepMind / Apptronik｜Gemini Robotics 1.5 + ER 1.5</a>
+<a class="l3" href="#35-go-1-villa-agibot-world">3.5 智元机器人｜GO-1 / ViLLA + AgiBot World</a>
+<a class="l3" href="#36-era-42-hirt-vpp-ctrl-world">3.6 星动纪元｜ERA-42 / HiRT / VPP / Ctrl-World</a>
+<a class="l3" href="#37-wall-a-wall-oss">3.7 自变量机器人｜WALL-A / WALL-OSS</a>
+<a class="l3" href="#38-astrabrain-graspvla-trackvla-groceryvla">3.8 银河通用｜AstraBrain / GraspVLA / TrackVLA / GroceryVLA</a>
+<a class="l3" href="#39-govla-alpha-brain">3.9 智平方｜GOVLA / Alpha Brain</a>
+<a class="l3" href="#310-1xredwood-1x-world-model">3.10 1X｜Redwood + 1X World Model</a>
+<a class="l3" href="#311-boston-dynamics-trilarge-behavior-model">3.11 Boston Dynamics + TRI｜Large Behavior Model</a>
+<a class="l3" href="#312-teslaoptimus">3.12 Tesla｜Optimus</a>
+<a class="l3" href="#313-skild-aiskild-brain">3.13 Skild AI｜Skild Brain</a>
+<a class="l3" href="#314-brainnet-20-co-agent">3.14 优必选｜BrainNet 2.0 + Co-Agent</a>
+<a class="l3" href="#315-focus-fourieractionnet">3.15 傅利叶智能｜操作模型 + FOCUS + FourierActionNet</a>
+<a class="l3" href="#316-unifolm">3.16 宇树科技｜运控模型 + UnifoLM</a>
+<a class="l3" href="#317-agility-roboticsdigit-arc">3.17 Agility Robotics｜Digit + Arc</a>
+<a class="l3" href="#318-sanctuary-ai">3.18 Sanctuary AI / 星尘智能 / 乐聚｜差异化分层路线</a>
+<a class="l2" href="#_6">四、路线横向对比：能力、优劣、算力与数据</a>
+<a class="l3" href="#41">4.1 机制级比较</a>
+<a class="l3" href="#42">4.2 推理算力与端云分工</a>
+<a class="l3" href="#43">4.3 数据需求比较</a>
+<a class="l2" href="#_7">五、融资、财务、商业化与路线持续性</a>
+<a class="l3" href="#51">5.1 商业模式的现金流结构</a>
+<a class="l3" href="#52">5.2 公司持续性判断</a>
+<a class="l3" href="#53">5.3 融资金额为何不能单独证明路线</a>
+<a class="l2" href="#_8">六、技术路线趋势</a>
+<a class="l3" href="#61">6.1 从“动作模型”走向“可恢复的长程智能”</a>
+<a class="l3" href="#62">6.2 从单本体到跨本体，但不会取消适配层</a>
+<a class="l3" href="#63">6.3 数据从“采成功”转向“采分布边界”</a>
+<a class="l3" href="#64">6.4 世界模型先在离线训练和安全评测落地</a>
+<a class="l3" href="#65">6.5 端侧小模型与云端大模型协作</a>
+<a class="l3" href="#66">6.6 开源竞争从代码转向数据协议与评测</a>
+<a class="l2" href="#_9">七、应用场景趋势</a>
+<a class="l2" href="#_10">八、判断矩阵与评分口径</a>
+<a class="l3" href="#81">8.1 统一评分口径</a>
+<a class="l3" href="#82">8.2 厂商综合判断矩阵（逐家公司）</a>
+<a class="l2" href="#_11">九、数据采集产业化专题</a>
+<a class="l3" href="#91">9.1 为什么投入上升</a>
+<a class="l3" href="#92">9.2 田野截图中的场景与采集设备信号</a>
+<a class="l3" href="#92_1">9.2 采集方式变化与成本结构</a>
+<a class="l3" href="#93">9.3 谁能形成闭环，以及关键指标</a>
+<a class="l2" href="#_12">十、技术路线逐项产业判断</a>
+<a class="l3" href="#101">10.1 组合路线结论</a>
+<a class="l2" href="#_13">十一、证据、核验框架与资料待补充</a>
+<a class="l3" href="#111">11.1 证据等级</a>
+<a class="l3" href="#112">11.2 建议统一模型卡字段</a>
+<a class="l3" href="#113">11.3 待补充文档</a>
+<a class="l3" href="#114">11.4 优先核验清单</a>
+<a class="l3" href="#115">11.5 主要一手资料入口</a></aside><main class="content"><h1 id="_1">机器人大脑全景报告：基础模型、数据闭环与商业持续性</h1>
 <blockquote>
-<p>调研时点：2026-09-29（Asia/Shanghai）。本文聚焦"大脑"（算法/模型/算力）维度，并附产品与生产链信息。
-<strong>信源纪律</strong>：每条关键信息尽量标注来源域名；媒体/供应链传闻标 <code><span class="lv2">【次级】</span></code>；无法核实写 <code>n/a</code>；供应链非官方确认标「<span class="unconf">未经官方确认</span>」。
-⚠️ <strong>时效性提示</strong>：部分自媒体/聚合站（optimusk.blog、robozaps.com、botinfo.ai 等）为聚合性质，含较多"预期/规划"口径，已在正文用 <code><span class="lv2">【次级】</span></code> 或"仅宣称/规划"标注；官方原始信源（tesla.com、figure.ai、arxiv.org、deepmind.google、nvidia.com、apptronik.com、bostondynamics.com 等）优先采信。</p>
+<p>发布版 v2.1｜研究时点：2026-10-09｜口径：不按地域分组，按模型机制与公司闭环统一比较。<code><span class="secondary">【次级】</span></code> 表示媒体或聚合信息，<code>n/a</code> 表示公开资料未披露，不能由缺失值反推能力。</p>
+<p><strong>资料边界</strong>：指定参考文档 <code>W5lgwJhzliDmQ5kDOKHcz51sn8f</code>、<code>AgCAwkqhaitKpIkJ9g4cebAVnZb</code>、<code>MQhjdmvTponKjOx36nicsQCknuc</code> 的机器人 API 均返回 <code>forBidden</code>，本版<strong>未读取正文、未假装引用</strong>。相关位置统一列入“资料待补充”。主体基于项目既有草稿及其中可追溯的官网、论文、模型卡、开源仓库与公开报道重构。</p>
 </blockquote>
-<hr />
-<h2 id="overseas-h1">一、总览对照表</h2>
-<div class="tw"><table>
+<!-- edited by 王涛 (ou_aae5b71d48cef83590833b0bfbbeaf27) at 2026-10-09 -->
+
+<h2 id="_2">一、执行摘要</h2>
+<ol>
+<li><strong>通用 VLA 成为操作模型主线，分频执行成为工程共识。</strong> 互联网预训练 VLM 负责语义与任务分解，Action Expert / DiT 负责连续动作，底层全身控制继续保留确定性安全边界。Figure Helix、GR00T、Gemini Robotics、π 系、GO-1/ViLLA、GOVLA 虽命名不同，本质都在解决“慢推理与快控制”的频率矛盾。</li>
+<li><strong>世界模型不是 VLA 的替代品，而是数据放大器、后果预测器和评测器。</strong> Ctrl-World、1X World Model、DreamGen/VPP 将视频预测、合成轨迹或动作后果加入闭环；短期更可能以旁路模块进入产品，而非直接接管高频控制。</li>
+<li><strong>竞争单位从模型升级为系统飞轮。</strong> 真正决定进步速度的是“采集—治理—预训练—后训练—仿真回归—真机灰度—失败回收”。智元用 AgiBot World 和 GO-1 联动，NVIDIA 用 Isaac/GR00T/Thor 联动，银河通用用仿真与零售运营联动，均比孤立模型更具持续性。</li>
+<li><strong>公开参数不等于真实能力。</strong> 机器人成功率高度依赖本体、相机位姿、控制频率、任务边界和人工接管。应优先跟踪长程成功率、每百小时接管次数、异常恢复率、碰撞率、端到端 P95 时延和跨本体迁移损失。</li>
+<li><strong>算力瓶颈呈“两头重”。</strong> 训练端需要大规模 GPU 与视频/轨迹存储，部署端需要低功耗、确定性时延。GR00T N1.5 的 1000×H100/约25万步为少数公开口径<span class="secondary">【次级】</span>；多数公司训练集群 <span class="na">n/a</span>。端侧 NVIDIA Orin/Thor 占据事实标准，板载模型压缩和动作分块决定可用性。</li>
+<li><strong>路线持续性不能只看融资。</strong> 纯模型公司拥有跨本体规模效应，但依赖本体伙伴提供真实数据；本体公司掌握场景回流，却承担制造、售后和营运资本压力；平台公司可从芯片、云和工具链多点变现。最稳健的组合是“可交付场景收入 + 高频失败数据 + 可复用软件资产”。</li>
+<li><strong>近中期场景按容错率而非“炫技程度”扩散。</strong> 先是仓储搬运、产线物流、零售补货、科研数采；随后是精密装配、康养辅助和半结构化服务；开放家庭最后突破，关键约束是安全、远程接管成本和长尾任务密度。</li>
+</ol>
+<h2 id="_3">二、模型分类与原理图</h2>
+<h3 id="21">2.1 统一软件栈</h3>
+<pre><code class="language-text">云端/数据中心：数据湖 → VLM/视频预训练 → VLA后训练/RL → 仿真回归 → 模型注册与灰度
+                                      ↓ 版本/策略
+厂内边缘：任务编排 / 多机调度 / 地图与共享记忆 / 监控 / 人工接管
+                                      ↓ 子目标
+机器人端：System 2语义规划(1–10Hz) → System 1动作策略(20–200Hz) → 全身控制(100–1000Hz)
+              ↑视觉/语言/记忆               ↑本体状态             ↓力矩/位置
+          世界模型预测与异常评估 ←──────── 传感器与执行器安全闭环 ────────→ 急停
+</code></pre>
+<p><strong>边界解释</strong>：System 2 输出任务、子目标或语义 latent；System 1 把它转成动作块或连续轨迹；MPC/WBC/RL locomotion 负责动力学可行性；伺服和安全控制器不能依赖公网。所谓“端到端”通常指训练目标贯通，不代表工程上取消频率与安全分层。</p>
+<h3 id="22">2.2 六类模型及其工作原理</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
-<th>厂商</th>
-<th>代表型号</th>
-<th>模型范式</th>
-<th>端侧芯片</th>
-<th>量产状态</th>
-<th>主攻场景</th>
+<th>类别</th>
+<th>图形化原理</th>
+<th>代表</th>
+<th>最强项</th>
+<th>主要短板</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Tesla</td>
-<td>Optimus Gen 2（V3研发中）</td>
-<td>端到端，复用 FSD 神经网络思路 / 自研</td>
-<td>自研 FSD 计算机（AI4→AI5 规划中）</td>
-<td>已发布未量产（厂内自用测试）</td>
-<td>自家工厂内搬运/产线辅助</td>
+<td>端到端 VLA</td>
+<td><code>图像+语言+状态 → Transformer → 动作token/连续动作</code></td>
+<td>RT-2、WALL-A、GraspVLA</td>
+<td>结构统一、易规模化</td>
+<td>大模型推理慢；动作误差会累积</td>
 </tr>
 <tr>
-<td>Figure AI</td>
-<td>Figure 02 / 03</td>
-<td>端到端 VLA，双系统 S2(VLM 7B)+S1(80M, 200Hz)</td>
-<td>板载嵌入式低功耗 GPU（NVIDIA）</td>
-<td>已发布未量产→小批量产线爬坡<span class="lv2">【次级】</span></td>
-<td>商业/家庭（宣传家庭，实测工业试点为主）</td>
+<td>VLM + Action Expert</td>
+<td><code>VLM语义latent → 动作专家 → action chunk</code></td>
+<td>π0/π0.5、GO-1</td>
+<td>复用互联网知识且保留控制专长</td>
+<td>两模块对齐、跨本体动作归一化复杂</td>
 </tr>
 <tr>
-<td>1X Technologies</td>
-<td>NEO（EVE 前代）</td>
-<td>端到端 VLA（Redwood）+ 世界模型</td>
-<td>NVIDIA Jetson Thor<span class="lv2">【次级】</span></td>
-<td>已发布未量产（预订/家庭试点）</td>
-<td>家庭</td>
+<td>快慢双系统</td>
+<td><code>S2计划(低频) ⇄ S1执行(高频) → WBC</code></td>
+<td>Helix、GR00T、GOVLA</td>
+<td>实时性、可分工扩展</td>
+<td>接口漂移；错误归因困难</td>
 </tr>
 <tr>
-<td>Agility Robotics</td>
-<td>Digit（v4/v5）</td>
-<td>分层：经典规划+学习控制，接入基础模型</td>
-<td>n/a（未官方披露）</td>
-<td><strong>已量产交付</strong>（RaaS 商用）</td>
-<td>仓储物流搬箱</td>
+<td>世界模型增强</td>
+<td><code>当前状态+候选动作 → 未来视频/latent → 评分 → 策略</code></td>
+<td>Ctrl-World、1X WM、DreamGen</td>
+<td>合成数据、预演风险、长程预测</td>
+<td>生成误差与现实偏差可能被策略放大</td>
 </tr>
 <tr>
-<td>Apptronik</td>
-<td>Apollo / Apollo 2</td>
-<td>接入 Google DeepMind Gemini Robotics</td>
-<td>n/a</td>
-<td>已发布未量产（工厂试点+数据采集）</td>
-<td>制造/物流</td>
+<td>大行为模型 LBM</td>
+<td><code>多任务示教 → Diffusion Transformer → 全身轨迹</code></td>
+<td>BD/TRI LBM</td>
+<td>多任务、灵巧、全身协同</td>
+<td>依赖高质量示教，语义推理通常较弱</td>
 </tr>
 <tr>
-<td>Boston Dynamics</td>
-<td>Atlas（电动版）</td>
-<td>LBM 大行为模型（与 TRI 合作，Diffusion Transformer）</td>
-<td>n/a</td>
-<td>研发/试点（尚未商业量产）</td>
-<td>汽车制造/物流（研究平台）</td>
+<td>分层智能体/技能库</td>
+<td><code>LLM规划 → 工具/技能选择 → 经典控制</code></td>
+<td>Carbon、BrainNet、Agility Arc</td>
+<td>可审计、易接 MES/WMS、可靠</td>
+<td>新技能需工程集成，开放泛化较弱</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="23-diffusion-flow-matching">2.3 动作生成：为什么 diffusion / flow matching 流行</h3>
+<pre><code class="language-text">训练：真实动作 a ─加噪→ a_t；网络学习“从噪声回到可执行动作”的速度场/去噪方向
+推理：随机噪声 ─多步/少步积分→ 一段动作块 [a1...aH] ─滚动执行→ 新观测再规划
+优势：同一场景存在多种正确抓取路径时，可表达多峰分布；动作块减少逐帧网络调用。
+代价：迭代去噪增加时延；长动作块反应慢，短动作块计算贵，需要闭环折中。
+</code></pre>
+<p>FAST 等动作 token 化路线把连续轨迹经频域压缩后自回归预测，优点是借用语言模型扩展规律和训练基础设施；缺点是量化误差、token 长度与精细接触控制之间存在冲突。两条路线短期会并存。</p>
+<h3 id="24">2.4 数据闭环与算力流</h3>
+<pre><code class="language-text">遥操作/现场失败/人类视频/仿真
+          ↓ 去重、同步、质量评分、统一动作坐标
+  语义预训练 ─→ 示教SFT ─→ 失败片段后训练/RL
+          ↓              ↑
+   离线基准 → 仿真压力测试 → 真机小流量 → 事件触发回收
+          ↓                                      ↑
+     版本淘汰 ← 成功率/接管率/碰撞/P95时延/能耗监控 ─┘
+</code></pre>
+<p>真机数据负责接触真实性，仿真负责覆盖和危险测试，互联网/人类视频负责语义广度。三者不是简单替代关系；有效数据量应按“可执行、同步、任务覆盖、失败密度”加权，而不能只比较小时数。</p>
+<h2 id="_4">三、模型技术路线时间轴</h2>
+<blockquote>
+<p><strong>读法</strong>：先按年份观察范式变化，再按路线标签纵向追踪。状态分为：<code>【发布】</code> 厂商正式公布产品/模型，<code>【论文】</code> 有论文或技术报告，<code>【开源】</code> 权重、代码或数据公开，<code>【规划】</code> 路线图/截图中的未来节点但尚无充分一手材料。一个节点可同时具备多种状态。截图将节点以年份横向排布、颜色区分 VLA/基座推理/WAM/混合路线、绿色星标表示开源；本页保留这种“时间×路线×状态”的三维读法，但不采信截图中无法辨识的小字。</p>
+</blockquote>
+<h3 id="31">3.1 总体演进图</h3>
+<pre><code class="language-text">2022              2023                 2024                         2025                         2026
+VA/技能策略 ──→  RT-2把动作变成语言token ──→ OpenVLA / π0 / FAST ──→ Helix / GR00T / Gemini / GO-1 ──→ 快慢系统深化
+ Diffusion Policy      VLA范式确立             VLM+Action Expert           VLA规模化、跨本体              与端侧压缩
+      │                                            │                          │
+      └──────── 世界模型：DreamerV3 ───────────────┼── Cosmos / DreamGen / V-JEPA 2 ──→ WAM/视频动力学集中探索
+                                                   │                          │
+                                                   └── 数据基础设施：Open X / AgiBot World / Isaac / 仿真与失败回流
+</code></pre>
+<p>路线不是简单替代关系：VA仍适合低时延单技能；VLA加入语言语义；AWM用动作条件预测未来并做规划；WAM尝试把未来视频、物理动力学和动作联合生成；混合架构则把上述模块装进快慢分层系统。</p>
+<h3 id="32-20222023">3.2 2022—2023：从视觉动作策略到语言条件动作</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>时间</th>
+<th>厂商/机构</th>
+<th>模型/版本</th>
+<th>路线</th>
+<th>状态</th>
+<th>关键架构变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2022.06</td>
+<td>Columbia 等</td>
+<td>Diffusion Policy</td>
+<td>VA</td>
+<td>【论文】【开源】</td>
+<td>用条件扩散对机器人动作分布建模；视觉/状态直接生成动作序列，适合多峰操作，但没有语言和显式世界模型。论文版本时间需以arXiv记录为准。</td>
 </tr>
 <tr>
-<td>Sanctuary AI</td>
-<td>Phoenix</td>
-<td>分层：Carbon 认知控制系统</td>
-<td>n/a</td>
-<td>仅试点/研发</td>
-<td>通用劳动力（企业任务）</td>
+<td>2023.01</td>
+<td>Dreamer团队</td>
+<td>DreamerV3</td>
+<td>AWM</td>
+<td>【论文】【开源】</td>
+<td>RSSM潜状态预测未来、奖励和终止，Actor-Critic在“想象轨迹”中学习；代表动作条件世界模型，而非VLA。</td>
 </tr>
 <tr>
-<td>Physical Intelligence（π）</td>
-<td>模型层：π0 / π0.5 / π0.6</td>
-<td>端到端 VLA（VLM主干+Action Expert，流匹配）</td>
-<td>跨平台（不做本体）</td>
-<td>模型层（开源 π0/π0.5）</td>
-<td>通用操作基础模型</td>
-</tr>
-<tr>
-<td>Skild AI</td>
-<td>模型层：Skild Brain</td>
-<td>通用"omni-bodied"基础模型</td>
-<td>跨平台（不做本体）</td>
-<td>模型层（未开源）</td>
-<td>跨形态通用控制</td>
-</tr>
-<tr>
-<td>NVIDIA</td>
-<td>平台层：Isaac GR00T N1/N1.5</td>
-<td>双系统 VLA（VLM S2 + Diffusion Transformer S1）</td>
-<td>Jetson AGX Thor（自产）</td>
-<td>平台/模型（开源 N1/N1.5）</td>
-<td>人形机器人参考平台/基础模型</td>
-</tr>
-<tr>
+<td>2023.07</td>
 <td>Google DeepMind</td>
-<td>模型层：Gemini Robotics 1.5 / ER 1.5</td>
-<td>VLA（1.5）+ 具身推理 VLM（ER 1.5），"先思考再行动"</td>
-<td>跨平台（On-Device 版可端侧）</td>
-<td>模型层（部分合作伙伴/API）</td>
-<td>多本体通用大脑</td>
+<td>RT-2</td>
+<td>VLA</td>
+<td>【发布】【论文】</td>
+<td>将机器人动作表示为文本token并接入VLM，让互联网视觉语言知识迁移到控制，确立“视觉—语言—动作”范式。</td>
+</tr>
+<tr>
+<td>2023.10</td>
+<td>多机构</td>
+<td>Open X-Embodiment / RT-X</td>
+<td>数据/跨本体</td>
+<td>【发布】【论文】【开源】</td>
+<td>汇聚多机器人数据与统一格式，证明跨本体联合训练可提高泛化，为后续π、GR00T等路线提供数据方法论。</td>
 </tr>
 </tbody>
 </table></div>
-<hr />
-<h2 id="overseas-h2">二、分厂商详解</h2>
-<h3 id="1-teslaoptimus">1. Tesla（Optimus）</h3>
-<p><strong>产品</strong>
-- 代际：AI Day 2021 概念 → 2022 原型 → <strong>Gen 1（2023.3）</strong> → <strong>Gen 2（2023.12 发布）</strong> → V3/Gen 3（研发中，未正式发布完整机体）。<code>tesla.com</code>
-- 硬件（Gen 2）：身高约 173cm、体重约 57kg（较 Gen 1 的约 73kg 减重）；行走速度较 Gen 1 提升约 30%；手部 Gen 2 为 11 自由度/手。<code>tesla.com</code>（发布会）/<span class="lv2">【次级】</span>optimusk.blog、aihumanlove.com
-- V3/Gen 3 传闻（<strong>均属<span class="lv2">【次级】</span>或规划</strong>）：22-DoF 手、手部执行器移入前臂的仿生方案、2.3kWh 电池、AI5 端侧推理芯片——<strong>这些数字来自聚合站（optimusk.blog、aihumanlove.com），未见 Tesla 官方逐项确认，谨慎采信</strong>。
-- 布局市场场景 vs 主攻场景：对外宣传通用家用/工业；<strong>真实主攻＝自家工厂内</strong>（Fremont/Austin 产线搬运、简单装配、电池分拣演示）。<code>tesla.com</code>
-- 量产状态：<strong>已发布未量产</strong>。Musk 多次称大规模自用与外售时间表反复推迟；对外销售仅为"宣称/规划"，无确定时间承诺。<span class="lv2">【次级】</span>reuters/blog.robozaps.com
-- 价格：Musk 曾口头称长期目标价约 2 万–3 万美元区间，<strong>属规划口径，非正式定价</strong>。<span class="lv2">【次级】</span></p>
-<p><strong>算法（大脑）</strong>
-- 范式：端到端神经网络，复用其 FSD（自动驾驶）"从像素到控制"的视觉端到端思路，强调纯视觉+神经网络输出动作；官方未明确公开命名独立"System 1/System 2"划分。<code>tesla.com</code>（AI Day/演示）
-- 模型名称/代际：未公开正式模型命名（不同于 Figure Helix、π0 这类命名）；对外主要以演示视频呈现。<span class="na">n/a</span>（正式论文/白皮书）
-- Roadmap：官方公开信息有限；主要通过发布会/Musk 社媒表述，<strong>多为规划口径</strong>。
-- 数据来源：主要为自建遥操作采集 + 工厂真实场景 + 仿真；<strong>具体小时数/轨迹数官方未披露</strong> → <span class="na">n/a</span>。
-- 芯片与算力：端侧复用自研 FSD 计算机（AI4；AI5 为规划）；训练侧使用自研 Dojo 及 NVIDIA GPU 集群（Dojo 后续战略有调整传闻）。训练集群具体规模官方口径不统一 → 数字从略。<code>tesla.com</code>/<span class="lv2">【次级】</span>
-- 云端-端侧分工：以端侧推理为主（延续车端理念）；官方未详述。n/a</p>
-<p><strong>生产</strong>
-- 组装：自建（Tesla 自有产线，Fremont/Austin）。<code>tesla.com</code>
-- 关键零部件：执行器（旋转/线性）、灵巧手、电机、丝杠等<strong>强调高度自研/垂直整合</strong>；具体外采供应商官方未系统披露，供应链传闻众多但<strong><span class="unconf">未经官方确认</span></strong>。<span class="lv2">【次级】</span>
-- 自研 vs 外采边界：执行器、手、控制器、芯片倾向自研；减速器/丝杠等是否外采未官方确认 → <span class="na">n/a</span>。</p>
-<hr />
-<h3 id="2-figure-ai">2. Figure AI</h3>
-<p><strong>产品</strong>
-- 代际：Figure 01 → <strong>Figure 02</strong> → <strong>Figure 03</strong>（官网现主推 Figure 03）。<code>figure.ai</code>
-- 硬件：官方对全身自由度/负载等逐项参数披露有限；第三方称 Figure 02 全身约 39 DOF（<strong><span class="lv2">【次级】</span></strong>，网易/研报口径）。Figure 03 强调触觉手、掌心摄像头、足底无线充电等（<strong><span class="lv2">【次级】</span></strong>百家号，官方 figure.ai 主页可见 Figure 03 定位家庭）。
-- 布局 vs 主攻：宣传转向<strong>家庭</strong>（Figure 03 定位家用）；<strong>真实主攻早期为工业试点</strong>（BMW 工厂试点、物流客户试点）。<code>figure.ai</code>/<span class="lv2">【次级】</span>csdn
-- 量产状态：<strong>已发布未量产→小批量爬坡</strong>。第三方称 2026 年产线节拍"每小时约 1 台"（<strong><span class="lv2">【次级】</span></strong>csdn，未见官方逐条确认）。BMW/亚马逊等<strong>多为试点，无公开金额年度采购合同</strong>。<span class="lv2">【次级】</span>
-- 价格：<span class="na">n/a</span>（未公开定价）。
-- 估值：第三方称约 390 亿美元级别（<strong><span class="lv2">【次级】</span></strong>，需带时间点，口径不一，此处不作定论）。</p>
-<p><strong>算法（大脑）——重点</strong>
-- 范式：<strong>端到端 VLA，首创"System 1 / System 2"双系统</strong>。<code>figure.ai/news/helix</code>（2025-02-20 官方博客，一级信源）
-  - <strong>System 2 (S2)</strong>：板载、互联网预训练 VLM，7–9 Hz，负责场景与语言理解、泛化。<code>figure.ai</code>
-  - <strong>System 1 (S1)</strong>：快速反应视觉运动策略，200 Hz，将 S2 潜在语义表征转为连续动作。<code>figure.ai</code>
-  - 单一神经网络权重覆盖多行为，无需按任务微调；<strong>首个完全在板载嵌入式低功耗 GPU 上运行的 VLA</strong>。<code>figure.ai</code>
-- 模型代际：<strong>Helix（2025-02 首发，控制上半身）</strong>；后续 Helix 迭代（S1 参数约 80M、S2 约 7B 的双系统说法见<span class="lv2">【次级】</span>csdn；Helix 02 三层 S0/S1/S2 说法见<span class="lv2">【次级】</span>百度百科/百家号，<strong>官方 figure.ai 原始博客仅明确 S1/S2 双系统</strong>，"S0 三层"未在所引官方页确认→标<span class="lv2">【次级】</span>）。
-- 数据来源：官方称 Helix 训练仅用<strong>约 500 小时高质量监督数据</strong>（数据集约 5%）。<code>figure.ai</code>（一级信源）；另有自建人类行为数据集"Index"的说法（<span class="lv2">【次级】</span>微博，规模数字未采信）。
-- 芯片：<strong>端侧 NVIDIA 嵌入式 GPU</strong>（官方称 embedded low-power GPU）。<code>figure.ai</code>
-- 云端-端侧：<strong>完全板载运行</strong>（面向商用部署）。<code>figure.ai</code>
-- 供应商关系变化：Figure 于 2025-02-05 前后<strong>终止与 OpenAI 合作</strong>、转自研模型（Helix 于其后发布）。<code>figure.ai</code>/<span class="lv2">【次级】</span>新浪财经</p>
-<p><strong>生产</strong>
-- 组装：自建 BotQ 工厂（Figure 自述自建量产线）。<code>figure.ai</code>/<span class="lv2">【次级】</span>
-- 关键零部件：官方强调自研执行器；第三方称"全谐波方案"（<strong><span class="lv2">【次级】</span></strong>网易研报，未经官方逐项确认）。
-- 自研边界：模型（Helix）、执行器、手、整机集成自研；端侧 GPU 外采 NVIDIA。<code>figure.ai</code></p>
-<hr />
-<h3 id="3-1x-technologies">3. 1X Technologies</h3>
-<p><strong>产品</strong>
-- 代际：<strong>EVE</strong>（轮式，约 25 DOF，肌腱驱动）→ <strong>NEO Beta（2024）→ NEO / NEO Gamma</strong>（双足家用）。<code>1x.tech</code>/<span class="lv2">【次级】</span>今日头条、雪球
-- 硬件（NEO Beta，<span class="lv2">【次级】</span>）：约身高 1.65m、重约 30kg；软体外壳、肌腱驱动、强调家庭安全。<span class="lv2">【次级】</span>vocus.cc、雪球
-- 布局 vs 主攻：<strong>明确家庭优先</strong>（先进家庭采数据再训 AI），与多数走 B 端的厂商差异化。<code>1x.tech</code>/<span class="lv2">【次级】</span>
-- 量产状态：<strong>已发布未量产</strong>。2025 起开放家庭试点，第三方称已启动 NEO 预订（约 499 美元/月租或约 2 万美元买断，2026 交付）——<strong>定价与交付属<span class="lv2">【次级】</span></strong>（今日头条/雪球），需以 1X 官方为准。
-- 早期演示多为<strong>遥操作</strong>（NVIDIA GTC 2025 展台 NEO 近乎连续演示但为 teleop）。<span class="lv2">【次级】</span>therobotreport.com</p>
-<p><strong>算法（大脑）</strong>
-- 范式：<strong>端到端 VLA（Redwood）+ 独立世界模型</strong>。
-  - <strong>Redwood</strong>：1X 自研 VLA，面向全身移动操作（mobile manipulation）；第三方称约 <strong>1.6 亿参数</strong> Transformer，跑在机器人内置 NVIDIA Jetson Thor 上（约 2070 TFLOPS）——<strong>参数/芯片数字属<span class="lv2">【次级】</span></strong>（今日头条/雪球），<code>therobotreport.com</code> 与 1X 官方确认 Redwood 存在且用于自主家务。
-  - <strong>1X World Model（2024-09）</strong>：世界模型，用于仿真/预测不同动作交互结果，1X 称验证了数据 Scaling 效应。<span class="lv2">【次级】</span>雪球（引 1X 表述）
-- 模型代际：EVE/NEO 数据训练 → Redwood（2025 年中发布并部署 NEO Gamma）。<span class="lv2">【次级】</span>i-newcar.com、雪球
-- 数据来源：<strong>真实家庭/办公场景数千小时</strong>（1X 表述），并计划 2025 底在"数百到数千"家庭部署采数据。<span class="lv2">【次级】</span>xueqiu/toutiao（引 1X）
-- 芯片：端侧 NVIDIA Jetson Thor<span class="lv2">【次级】</span>；训练集群 <span class="na">n/a</span>。
-- 云端-端侧：Redwood 端侧运行；teleop 兜底（"专家模式"远程操作）。<span class="lv2">【次级】</span>robozaps.com
-- 核心人物：CEO Bernt Børnich、AI 副总裁 Eric Jang（有公开访谈/播客）。<span class="lv2">【次级】</span>youtube-访谈/播客</p>
-<p><strong>生产</strong>
-- 组装：自建；2025 总部迁至美国 Palo Alto，推进量产。<span class="lv2">【次级】</span>vocus.cc
-- 零部件：Halodi 自研 Revo1 电机 + 肌腱驱动（EVE）；软体外壳。<span class="lv2">【次级】</span>今日头条
-- 产能：第三方称 2028 目标 10 万台+（<strong>规划口径</strong>）。<span class="lv2">【次级】</span>vocus.cc</p>
-<hr />
-<h3 id="4-agility-roboticsdigit">4. Agility Robotics（Digit）</h3>
-<p><strong>产品</strong>
-- 代际：Digit 首代 2019 → 2023 升级 → <strong>Digit v4（续航 &gt;6h、负载最高约 25kg、可换末端、自动充电）</strong>；<strong>Digit v5</strong>（无围栏 fence-free，第三方称目标 2026 末）。<span class="lv2">【次级】</span>toutiao/robozaps.com
-- 硬件：为物流设计，双足、可爬楼、动态避障；负载官方历史口径约 16kg（早期），v4 称最高约 25kg（<span class="lv2">【次级】</span>）。<span class="lv2">【次级】</span>夸克百科/toutiao
-- 布局 vs 主攻：<strong>主攻＝仓储物流搬箱</strong>（tote 搬运、卡车装卸）——定位专一，不追求家庭。<code>agilityrobotics.com</code>/<span class="lv2">【次级】</span>
-- 量产状态：<strong>已量产交付</strong>（业界最早正式商用部署之一，RaaS 模式）。
-  - GXO 多年商业合同；<strong>2025-11 官方称在 GXO 佐治亚仓库累计搬运超 10 万个料箱</strong>。<span class="lv2">【次级】</span>百度百科/robozaps.com（引 Agility 官方里程碑）
-  - 客户含 Amazon、GXO、Schaeffler（舍弗勒，战略投资+批量采购意向）、Mercado Libre 等。<span class="lv2">【次级】</span>
-  - 第三方（引 SEC 文件）称累计 6.5 万+真实作业小时、九个客户设施（截至 2026-05）。<span class="lv2">【次级】</span>robozaps.com
-- 产能/出货：RoboFab（俄勒冈 Salem）年产能规划约 1 万台；第三方称 2025 实际出货约 150 台（<span class="lv2">【次级】</span>百度百科引 2026-01 报告）。
-- 价格：第三方称约 25 万美元级或 RaaS 按服务计费（<strong><span class="lv2">【次级】</span></strong>，口径不一）。</p>
-<p><strong>算法（大脑）</strong>
-- 范式：<strong>分层架构为主</strong>——成熟的经典步态/运动规划 + 学习控制，逐步接入基础模型（Agility Arc 平台 + 与 WMS 集成）。官方模型命名与端到端程度披露有限。<code>agilityrobotics.com</code>
-- 模型代际/数据/芯片：官方未系统披露独立大模型代际、真机数据小时数、端侧芯片型号 → <strong>n/a</strong>。
-- 定位差异：相对 Figure/1X 的"通用大脑"叙事，Agility 更强调<strong>已交付的可靠作业</strong>而非模型能力宣传。</p>
-<p><strong>生产</strong>
-- 组装：<strong>自建 RoboFab</strong>（首批人形专用大规模产线之一）。<span class="lv2">【次级】</span>robotsj.cn
-- 零部件：ABICO 提供传感器（增强环境感知，供亚洲工厂部署）——<span class="lv2">【次级】</span>toutiao；其余关节/减速器供应商未官方系统披露 → <span class="na">n/a</span>。
-- 自研边界：整机与运动控制自研；AI 栈部分接入合作模型；具体外采边界 <span class="na">n/a</span>。</p>
-<hr />
-<h3 id="5-apptronikapollo">5. Apptronik（Apollo）</h3>
-<p><strong>产品</strong>
-- 代际：<strong>Apollo（2023-08 发布）→ Apollo 2</strong>（2026 起在"Robot Park"用机队采数据）。<code>apptronik.com</code>
-- 硬件（Apollo）：身高约 1.73–1.76m、体重约 72.5–73kg、最大负载约 25kg、全身约 32 个执行器、续航约 4h；有轮式版本变体。<span class="lv2">【次级】</span>百度百科/东方财富（引 Apptronik）
-- 布局 vs 主攻：<strong>主攻制造/物流</strong>——Mercedes-Benz 工厂试用（送料/检查）、GXO 物流中心测试分拣。<code>apptronik.com</code>/<span class="lv2">【次级】</span>ithome、东方财富
-- 量产状态：<strong>已发布未量产</strong>（工厂试点 + 机队数据采集阶段）。第三方称规模化入场时间 2028–2031（<strong>规划口径</strong>）。<span class="lv2">【次级】</span>东方财富
-- 融资：第三方称 A 轮约 3.5 亿美元（<strong>带时间点需以官方为准</strong>）。<span class="lv2">【次级】</span>东方财富</p>
-<p><strong>算法（大脑）</strong>
-- 范式：<strong>接入 Google DeepMind 的 Gemini Robotics</strong>（2024-12 官宣合作，共研下一代人形；Apollo 植入 Gemini 系列模型）。<code>apptronik.com</code>/<code>deepmind.google</code>/<span class="lv2">【次级】</span>ithome
-- 自研程度：Apptronik 侧重<strong>硬件本体 + 数据</strong>，大脑侧深度绑定 DeepMind；另通过"Robot Park"用 Apollo 2 机队为 DeepMind 采真实世界数据训练未来模型。<code>apptronik.com</code>（2026-06 新闻稿）
-- 数据来源：多地 Robot Park + 客户现场机队持续采数据。<code>apptronik.com</code>
-- 芯片/算力：端侧芯片官方未逐项披露 → <span class="na">n/a</span>；训练由 DeepMind 侧承担（推测，未官方细化）。
-- 血统：源自 UT Austin 人本机器人实验室，曾参与 NASA Valkyrie 等 15 款机器人。<span class="lv2">【次级】</span>ithome</p>
-<p><strong>生产</strong>
-- 组装：自建；引入前 Waymo/Boston Dynamics/Amazon 高管加速商业化（2026-04 新闻稿）。<code>apptronik.com</code>
-- 零部件：模块化设计，具体供应商 <span class="na">n/a</span>（未官方系统披露）。</p>
-<hr />
-<h3 id="6-boston-dynamicsatlas">6. Boston Dynamics（Atlas 电动版）</h3>
-<p><strong>产品</strong>
-- 代际：液压 Atlas（研究平台，2024 退役）→ <strong>全电动 Atlas（2024-04 发布）</strong>。<code>bostondynamics.com</code>
-- 硬件：官方展示高自由度、关节可超越人类活动范围的电动执行；具体逐项参数（DOF/负载/续航）官方在博客/视频中未系统列表 → 关键数字部分 <span class="na">n/a</span>。<code>bostondynamics.com</code>
-- 布局 vs 主攻：<strong>当前为研究/试点平台</strong>，面向汽车制造与物流（母公司现代 Hyundai 场景）。<code>bostondynamics.com</code>
-- 量产状态：<strong>研发/试点，尚无商业量产</strong>。</p>
-<p><strong>算法（大脑）</strong>
-- 范式：<strong>LBM（Large Behavior Model，大行为模型）</strong>，与 Toyota Research Institute（TRI）合作。
-  - 架构：<strong>Diffusion Transformer</strong>，多模态（视觉+语言提示+本体运动状态）输入，端到端；语言条件、长时序、全身操控+移动。<code>bostondynamics.com/blog/large-behavior-models-atlas-find-new-footing</code>/<code>toyotaresearchinstitute.github.io/lbm1</code>
-  - 论文：Barreiros et al., "A careful examination of large behavior models for multitask dexterous manipulation," <strong>arXiv:2507.05331 (2025)</strong>。<code>arxiv.org</code>
-  - 2025-08-20 Toyota/BD 联合公布：单一 LBM 让 Atlas 自主完成行走→搬运→分类→打包序列，技能由人类演示添加。<code>bostondynamics.com</code>/<span class="lv2">【次级】</span>marklines
-  - TRI 侧研究：LBM 可使多任务训练数据需求降低约 80%（TRI 2025-07-14 表述）。<span class="lv2">【次级】</span>chinaagv（引 TRI）
-- 数据来源：人类演示 + 仿真（并处理 Sim2Real gap，用真机数据缩小差距）。<code>toyotaresearchinstitute.github.io</code>/<span class="lv2">【次级】</span>
-- 芯片/算力：端侧芯片型号官方未披露 → <span class="na">n/a</span>。
-- 云端-端侧：以端侧策略执行为主；训练在集群。<span class="na">n/a</span>（细节）</p>
-<p><strong>生产</strong>
-- 组装：自建（Boston Dynamics，隶属现代汽车集团）。<code>bostondynamics.com</code>
-- 零部件：自研电动执行器为核心；具体外采件 <span class="na">n/a</span>。
-- 自研边界：本体与执行器自研；大脑（LBM）与 TRI 联合研发。</p>
-<hr />
-<h3 id="7-sanctuary-aiphoenix">7. Sanctuary AI（Phoenix）</h3>
-<p><strong>产品</strong>
-- 代际：Phoenix（2023-05 发布）系列迭代。<code>sanctuary.ai</code>
-- 硬件：身高约 170cm（第三方另有 5'7"≈170cm 说法）、体重约 70kg、负载约 25kg；<strong>灵巧手液压驱动、20–21 自由度/手，支持手内操纵（in-hand manipulation）</strong>，液压阀执行器称经 20 亿+次测试无退化/泄漏。<code>sanctuary.ai</code>/<span class="lv2">【次级】</span>百度百科、腾讯网
-- 布局 vs 主攻：通用劳动力，面向企业任务（分拣、精细操作）；下半身双足此前仍在研发（早期）。<span class="lv2">【次级】</span>河马机器人
-- 量产状态：<strong>仅试点/研发</strong>（未见规模量产交付）。</p>
-<p><strong>算法（大脑）</strong>
-- 范式：<strong>分层认知控制系统"Carbon"</strong>——将自然语言转为现实动作，具备可解释/可审查的推理与任务规划；强调类人认知功能（记忆、视听触觉）。<code>sanctuary.ai</code>/<span class="lv2">【次级】</span>河马机器人、百度百科
-- 与主流 VLA 差异：Carbon 叙事偏"认知架构 + 任务规划"，非单纯端到端 VLA；官方对是否端到端神经网络控制底层未系统披露 → 细节 <span class="na">n/a</span>。
-- 数据/芯片/算力：真机数据小时数、端侧芯片、训练集群规模 → <strong>n/a</strong>。
-- 特色：<strong>液压灵巧手</strong>在业内独树一帜（多数厂商走电驱）。</p>
-<p><strong>生产</strong>
-- 组装：自建（加拿大温哥华）。<code>sanctuary.ai</code>
-- 零部件：自研微型液压阀执行器（灵巧手核心）；其余 <span class="na">n/a</span>。
-- 自研边界：液压手/控制系统自研；下半身与整机双足能力早期较弱。</p>
-<hr />
-<h3 id="8-physical-intelligence">8. Physical Intelligence（π，模型层）</h3>
-<p><strong>产品</strong>
-- 不做本体，做<strong>跨平台机器人基础模型</strong>。</p>
-<p><strong>算法（大脑）——重点</strong>
-- 范式：<strong>端到端 VLA</strong>——预训练 VLM 主干（PaliGemma / gemma_2b 系）+ 专门的 <strong>Action Expert</strong> 模块；π0 用<strong>流匹配（flow matching）</strong>输出连续动作（约 50Hz 低级电机指令）。<code>arxiv.org</code>（π0: arXiv:2410.24164）/<span class="lv2">【次级】</span>知乎、substack
-- 模型代际：
-  - <strong>π0（2024-10）</strong>：首个通用机器人 VLA 基础模型；单一稀疏 MoE Transformer 思路，含 VLM+Action Expert 两套权重。<code>arxiv.org:2410.24164</code>
-  - <strong>π0-FAST / FAST</strong>：DCT 频域动作 tokenization（FAST），使自回归 VLA 可扩到 <strong>1 万小时</strong>机器人数据训练，较扩散 VLA 训练提速约 5×。<code>arxiv.org</code>（FAST）
-  - <strong>π0.5（2025-04-22，arXiv:2504.16054；2025-09 开源）</strong>：面向真实世界泛化，跨异构数据迁移（其他机器人数据、高层子任务预测、语音指令、网络数据）；提出"知识绝缘（Knowledge-Insulated VLA）"范式（arXiv:2505.23705）。<code>arxiv.org</code>
-  - <strong>π0.6（2025-11-17）+ RECAP（优势条件策略的经验与修正 RL），训练出 π*0.6</strong>；2025-12 观察到"人机技能迁移涌现"。<span class="lv2">【次级】</span>知乎、csdn（引 PI 论文/项目页；π0.6 论文页存在）
-- 数据来源：多机器人跨本体（cross-embodiment）+ 多家庭真实数据 + 网络数据 + 人类第一视角数据；FAST 路线验证到 <strong>1 万小时</strong>级真机数据。<code>arxiv.org</code>
-- 芯片：跨平台部署，不绑定端侧芯片。
-- 开源：π0/π0.5 开源（openpi，github.com/Physical-Intelligence/openpi）；π0.6 未（截至引用时点）。<code>github.com</code>
-- 核心人物：Sergey Levine 等（有大量公开论文/访谈）。<code>arxiv.org</code>/youtube-访谈</p>
-<p><strong>生产</strong>：不适用（软件/模型公司）。</p>
-<hr />
-<h3 id="9-skild-ai">9. Skild AI（模型层）</h3>
-<p><strong>产品</strong>
-- 不做本体，做<strong>统一机器人基础模型</strong>。</p>
-<p><strong>算法（大脑）</strong>
-- 范式：<strong>Skild Brain</strong>，自称"业界首个统一机器人基础模型"，<strong>omni-bodied（全形态）</strong>——无需预知机器人确切形态即可控制四足/人形/桌面机械臂/移动操作臂；强调数据飞轮与"适应"能力。<code>skild.ai</code>/<span class="lv2">【次级】</span>crunchbase、mg21.com
-- 模型细节（参数/数据/芯片）：官方公开的具体参数、真机数据小时数、端侧芯片 → <strong>n/a</strong>（未开源，披露有限）。
-- 商业化：第三方称 2025 营收从 0 到约 3000 万美元；规划先企业任务、后进家庭。<span class="lv2">【次级】</span>crunchbase、新浪财经
-- 融资/估值（<strong>带时间点，均<span class="lv2">【次级】</span></strong>）：
-  - A 轮约 3 亿美元（2024-07，Bezos Expeditions/Coatue/Lightspeed/SoftBank 领投）。<span class="lv2">【次级】</span>mg21.com
-  - B 轮约 1.35 亿美元（2025-06，NVIDIA/Samsung/SoftBank 领投）。<span class="lv2">【次级】</span>mg21.com
-  - C 轮约 14 亿美元（2026-01，SoftBank 领投），估值约 140 亿美元。<span class="lv2">【次级】</span>crunchbase、mg21.com、新浪财经
-- 成立：2023，总部美国费城。<span class="lv2">【次级】</span>mg21.com
-- 核心人物：Deepak Pathak、Abhinav Gupta（CMU 背景）——<span class="lv2">【次级】</span>（本次检索未直接引用，标记待补）。</p>
-<p><strong>生产</strong>：不适用。</p>
-<hr />
-<h3 id="10-nvidiagr00t-isaac">10. NVIDIA（GR00T / Isaac，平台层）</h3>
-<p><strong>产品/平台</strong>
-- <strong>Project GR00T（2024-03-18 GTC 发布）</strong>：世界首个面向人形机器人的通用基础模型计划（GEAR 实验室）。<code>investor.nvidia.com</code>（2024-03-18 新闻稿）
-- <strong>Jetson (AGX) Thor</strong>：端侧计算平台，基于 Blackwell GPU，官方称高达 <strong>2070 FP4 TFLOPS</strong>、14 核 Arm CPU、128GB 统一内存、40–130W 可配置。<code>nvidia.com</code>/<span class="lv2">【次级】</span>bitauto（引官方规格）
-- <strong>Isaac GR00T 人形参考平台</strong>：整合 Isaac Teleop（采数据）、GR00T 开放基础模型、Isaac Sim/Isaac Lab（仿真训练）、Isaac ROS（部署中间件）。<code>nvidia.com</code></p>
-<p><strong>算法（大脑）——重点</strong>
-- 范式：<strong>双系统 VLA</strong>（受人类认知启发）：
-  - <strong>System 2</strong>：VLM（基于 Eagle-2；N1.5 升级为 Eagle 2.5），约 10Hz，负责感知/推理/规划。<code>arxiv.org</code>（GR00T N1 论文）/<span class="lv2">【次级】</span>csdn、知乎
-  - <strong>System 1</strong>：<strong>Diffusion Transformer</strong>，通过<strong>流匹配（flow matching）</strong>去噪生成连续动作，约 <strong>120Hz</strong>。<code>arxiv.org</code>/<span class="lv2">【次级】</span>weibo、csdn
-- 模型代际：
-  - <strong>GR00T N1（2025-03-27 开源）</strong>：约 20 亿参数（GR00T-N1-2B），端到端"从光子到动作"，支持从桌面臂到人形多形态。<code>arxiv.org</code>（GR00T N1: An Open Foundation Model for Humanoid Robots）/github、huggingface
-  - <strong>GR00T N1.5（2025-05 Computex 发布，2025-06-11 开源，GR00T-N1.5-3B）</strong>：架构不变，VLM 升级 Eagle 2.5，新增 <strong>FLARE（未来潜在表示对齐）</strong> 目标以从无动作标签的人类视频学习。<code>huggingface.co/nvidia/GR00T-N1.5-3B</code>/<span class="lv2">【次级】</span>csdn、知乎
-- 数据来源（N1.5 预训练五分类，<span class="lv2">【次级】</span>知乎，引官方博客口径）：真实 GR-1 遥操作 27.3%、OpenX-Embodiment 公开机械臂 27.3%、Sim GR-1 仿真 27.3%、AgiBot-Beta 9.1%、DreamGen 合成神经轨迹 9.1%；配合 DreamGen 视频世界模型生成合成数据。
-- 训练算力：<strong>N1.5 在 1000× H100 上完成约 25 万步预训练，全局 batch 16384，AdamW + 余弦调度</strong>。<span class="lv2">【次级】</span>知乎（引官方技术博客）
-- 定位：NVIDIA 提供<strong>"大脑 + 算力 + 仿真 + 部署"全栈平台</strong>，被多家本体厂商采用（Figure、1X 端侧、生态伙伴）。<code>nvidia.com</code></p>
-<p><strong>生产</strong>：芯片自产（Thor SoC，代工台积电等，未在本次引用中确认→标 <span class="na">n/a</span> 细节）；不做人形本体。</p>
-<hr />
-<h3 id="11-google-deepmindgemini-robotics">11. Google DeepMind（Gemini Robotics，模型层）</h3>
-<p><strong>产品/模型</strong>
-- 血统：<strong>RT-1（2022）→ RT-2（2023，首个把 VLM 变成"会说动作"的 VLA）→ Gemini Robotics 系列</strong>。<code>deepmind.google</code>/<span class="lv2">【次级】</span>arjunvirk.com、新浪财经
-- 代际：
-  - <strong>Gemini Robotics（2025-03-12）</strong>：基于 Gemini 2.0 的 VLA，感知-认知-行动闭环。<code>deepmind.google</code>/<span class="lv2">【次级】</span>夸克百科
-  - <strong>Gemini Robotics On-Device（2025-06）</strong>：端侧本地化版本，无云端可实时控制。<code>deepmind.google</code>/<span class="lv2">【次级】</span>中关村在线
-  - <strong>Gemini Robotics 1.5 + Gemini Robotics-ER 1.5（2025-09-25）</strong>：<code>deepmind.google/models/gemini-robotics</code>
-    - <strong>ER 1.5</strong>：首个专为具身推理优化的"思考型"多模态 VLM，负责上层规划/推理/调用工具/评估进度；官方称 15 项基准平均约 62.8 分（领先第二名约 60.6）。<code>deepmind.google</code>/<span class="lv2">【次级】</span>中科院
-    - <strong>1.5（VLA）</strong>：动作模型，把 ER 的自然语言计划转为底层动作轨迹；引入<strong>"先思考再行动"</strong>（生成内部推理、自然语言解释步骤）；<strong>跨本体动作迁移（motion transfer）</strong>，一种机器人学到的技能可零样本迁移到另一本体。<code>deepmind.google</code>/<span class="lv2">【次级】</span>微博、新浪财经
-    - 论文：Gemini Robotics Team, "Gemini Robotics 1.5: Pushing the Frontier of Generalist Robots...," <strong>arXiv:2510.03342（2025-10-02）</strong>。<code>arxiv.org</code>
-- 系统分工：<strong>协调器（ER 1.5，"大脑"上层思考）+ 动作模型（1.5，"小脑"底层控制）</strong> 双模型协同。<code>deepmind.google</code>/<span class="lv2">【次级】</span>新浪财经
-- 可用性：ER 1.5 经 Google AI Studio 的 Gemini API 提供；1.5 目前限部分合作伙伴。<code>deepmind.google</code>
-- 本体合作：Apptronik（Apollo）为主要硬件合作方；亦有多本体验证。<code>deepmind.google</code>/<code>apptronik.com</code></p>
-<p><strong>数据/算力</strong>：依托 Gemini 大模型基座与 Google 训练基础设施；机器人专用数据结构官方论文有述，具体真机小时数逐项数字 <span class="na">n/a</span>（以 arXiv:2510.03342 为准，本次未逐条摘取）。<code>arxiv.org</code></p>
-<p><strong>生产</strong>：不做本体（软件/模型）。</p>
-<hr />
-<h2 id="overseas-h3">三、算法范式横向对比</h2>
-<div class="tw"><table>
+<p><strong>阶段结论</strong>：核心突破是把“单任务视觉模仿”扩展为“语言条件通用操作”。但动作token化的精度和频率受限，世界模型与VLA仍基本是两条平行研究线。</p>
+<h3 id="33-2024vla">3.3 2024：开放VLA与动作专家成形</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
-<th>范式</th>
-<th>代表厂商/模型</th>
-<th>特点</th>
-<th>选择理由</th>
+<th>时间</th>
+<th>厂商/机构</th>
+<th>模型/版本</th>
+<th>路线</th>
+<th>状态</th>
+<th>关键架构变化</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>端到端 VLA（单/双系统）</strong></td>
-<td>Figure Helix（S1/S2）、NVIDIA GR00T（VLM+DiT）、π0/π0.5、Gemini Robotics 1.5、1X Redwood</td>
-<td>VLM 主干提供泛化，快控制头/Action Expert 提供高频动作；多为 200/120/50Hz 分频</td>
-<td>借 VLM 的互联网常识实现零样本物体泛化；用少量真机数据即可涌现新技能（Figure 称约 500h）</td>
+<td>2024.06</td>
+<td>Stanford / Berkeley 等</td>
+<td>OpenVLA 7B</td>
+<td>VLA</td>
+<td>【论文】【开源】</td>
+<td>基于开源VLM做机器人动作微调，推动可复现VLA；参数较大，端侧时延与硬件适配成为工程问题。</td>
 </tr>
 <tr>
-<td><strong>"System 1 / System 2"显式双系统</strong></td>
-<td>Figure Helix（首创）、NVIDIA GR00T（VLM 10Hz + DiT 120Hz）、Gemini（ER 规划 + 1.5 动作）</td>
-<td>慢思考(推理) + 快行动(执行)解耦，各自最优时间尺度</td>
-<td>解决"VLM 通用但慢、运动策略快但不通用"的矛盾</td>
-</tr>
-<tr>
-<td><strong>世界模型（辅助/预测）</strong></td>
-<td>1X（1X World Model）、NVIDIA（DreamGen 视频世界模型生成合成数据）</td>
-<td>预测动作后果/生成合成轨迹，缓解真机数据稀缺</td>
-<td>用生成数据放大数据规模、验证 Scaling</td>
-</tr>
-<tr>
-<td><strong>大行为模型 LBM（Diffusion Transformer）</strong></td>
-<td>Boston Dynamics + TRI</td>
-<td>单一多任务行为模型，语言条件、长时序、模仿学习为主</td>
-<td>从人类演示学习，降低约 80% 训练数据需求（TRI 表述）</td>
-</tr>
-<tr>
-<td><strong>认知/分层控制</strong></td>
-<td>Sanctuary Carbon、Agility（经典规划+学习）</td>
-<td>强调可解释推理/任务规划或成熟运动控制</td>
-<td>可审查性、工程可靠性（Agility 优先"能干活"）</td>
-</tr>
-<tr>
-<td><strong>omni-bodied 统一基础模型</strong></td>
-<td>Skild Brain</td>
-<td>不预知本体形态即可控制多形态</td>
-<td>一个模型适配所有机器人，数据飞轮</td>
-</tr>
-<tr>
-<td><strong>纯视觉端到端（复用自驾）</strong></td>
-<td>Tesla Optimus</td>
-<td>复用 FSD"像素到控制"思路，垂直整合</td>
-<td>复用车端神经网络/芯片/数据管线经验</td>
-</tr>
-</tbody>
-</table></div>
-<p><strong>主流共识</strong>：VLA（尤其双系统）是当前海外主线（RT-2 奠基，Figure/NVIDIA/Gemini/π 全在此谱系）；世界模型作为<strong>数据/预测增强</strong>而非主控；LBM 是 Diffusion 路线的强变体。分歧点在于<strong>是否显式分层、动作生成用流匹配还是自回归 token（FAST）</strong>。</p>
-<hr />
-<h2 id="overseas-h4">四、数据与算力横向对比</h2>
-<div class="tw"><table>
-<thead>
-<tr>
-<th>厂商/模型</th>
-<th>真机数据量级</th>
-<th>仿真/合成占比</th>
-<th>互联网/视频预训练</th>
-<th>训练集群</th>
-<th>端侧芯片</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Figure Helix</td>
-<td>约 <strong>500 小时</strong>高质量监督数据（官方）</td>
-<td>n/a</td>
-<td>VLM 互联网预训练（S2）</td>
-<td>n/a</td>
-<td>端侧 NVIDIA 嵌入式 GPU</td>
-</tr>
-<tr>
-<td>NVIDIA GR00T N1.5</td>
-<td>GR-1 遥操作 27.3% + Sim 27.3% + OpenXE 27.3% + AgiBot 9.1% + DreamGen 9.1%<span class="lv2">【次级】</span></td>
-<td>仿真+合成合计约 36%</td>
-<td>Eagle 2.5 VLM + FLARE 从人类视频学习</td>
-<td><strong>1000× H100，约 250K 步，batch 16384</strong><span class="lv2">【次级】</span></td>
-<td>Jetson Thor（2070 FP4 TFLOPS）</td>
-</tr>
-<tr>
-<td>π0 / π0.5</td>
-<td>FAST 路线扩到 <strong>约 1 万小时</strong>真机（跨本体）</td>
-<td>含跨本体/多家庭</td>
-<td>VLM 主干 + 网络数据、语音指令</td>
-<td>n/a</td>
-<td>跨平台</td>
-</tr>
-<tr>
-<td>1X Redwood</td>
-<td>真实家庭/办公"数千小时"（1X 表述，<span class="lv2">【次级】</span>）</td>
-<td>世界模型辅助</td>
-<td>n/a</td>
-<td>n/a</td>
-<td>Jetson Thor<span class="lv2">【次级】</span></td>
-</tr>
-<tr>
-<td>Gemini Robotics 1.5</td>
-<td>以 arXiv:2510.03342 为准（本次未逐项摘）</td>
-<td>n/a</td>
-<td>Gemini 基座（强互联网预训练）</td>
-<td>Google 基础设施</td>
-<td>On-Device 版可端侧</td>
-</tr>
-<tr>
-<td>Boston Dynamics LBM</td>
-<td>人类演示 + 真机（缩 Sim2Real）</td>
-<td>仿真为主训练</td>
-<td>多模态（视觉+语言提示）</td>
-<td>n/a</td>
-<td>n/a</td>
-</tr>
-<tr>
-<td>Tesla Optimus</td>
-<td>自建遥操作+工厂真实（数字未披露→<span class="na">n/a</span>）</td>
-<td>n/a</td>
-<td>复用 FSD 视觉数据管线</td>
-<td>自研 Dojo + NVIDIA（口径不一）</td>
-<td>自研 FSD 计算机（AI4/AI5）</td>
-</tr>
-<tr>
-<td>Skild Brain</td>
-<td>n/a</td>
-<td>n/a</td>
-<td>n/a</td>
-<td>规划扩大训练规模</td>
-<td>跨平台</td>
-</tr>
-<tr>
-<td>Sanctuary / Agility / Apptronik</td>
-<td>n/a（未系统披露）</td>
-<td>n/a</td>
-<td>n/a</td>
-<td>n/a</td>
-<td>n/a（Apptronik 依托 DeepMind 训练）</td>
-</tr>
-</tbody>
-</table></div>
-<p><strong>观察</strong>：真机数据量级公开且可比的仅 Figure（约 500h）、π（约 1 万 h，FAST）、GR00T（比例结构）；其余多数 <span class="na">n/a</span>。训练集群明确的仅 GR00T N1.5（1000×H100，<span class="lv2">【次级】</span>）。端侧芯片格局：<strong>NVIDIA Jetson Thor 成事实标准</strong>（1X、GR00T 参考平台等），Tesla 走自研 FSD 芯片路线。</p>
-<hr />
-<h2 id="overseas-h5">五、供应链横向对比</h2>
-<div class="tw"><table>
-<thead>
-<tr>
-<th>厂商</th>
-<th>组装</th>
-<th>关键件自研</th>
-<th>关键件外采/合作</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Tesla</td>
-<td>自建（Fremont/Austin）</td>
-<td>执行器、灵巧手、控制器、芯片（强调垂直整合）</td>
-<td>具体外采件<strong><span class="unconf">未经官方确认</span></strong></td>
-<td>减速器/丝杠供应商传闻多，未证实</td>
-</tr>
-<tr>
-<td>Figure</td>
-<td>自建 BotQ</td>
-<td>执行器、手、整机、Helix 模型</td>
-<td>端侧 GPU 外采 NVIDIA</td>
-<td>"全谐波方案"为<span class="lv2">【次级】</span>研报口径</td>
-</tr>
-<tr>
-<td>1X</td>
-<td>自建（Palo Alto）</td>
-<td>Halodi Revo1 电机、肌腱驱动、软体外壳</td>
-<td>端侧 Jetson Thor（NVIDIA）<span class="lv2">【次级】</span></td>
-<td>家庭安全导向的软体设计</td>
-</tr>
-<tr>
-<td>Agility</td>
-<td>自建 RoboFab</td>
-<td>整机、运动控制</td>
-<td>ABICO 传感器<span class="lv2">【次级】</span>；其余 n/a</td>
-<td>年产能规划约 1 万台</td>
-</tr>
-<tr>
-<td>Apptronik</td>
-<td>自建</td>
-<td>硬件本体、模块化设计</td>
-<td>大脑用 Google DeepMind Gemini</td>
-<td>训练由 DeepMind 侧承担</td>
-</tr>
-<tr>
-<td>Boston Dynamics</td>
-<td>自建（现代集团）</td>
-<td>电动执行器、整机</td>
-<td>LBM 与 TRI 联合研发</td>
-<td>母公司 Hyundai</td>
-</tr>
-<tr>
-<td>Sanctuary AI</td>
-<td>自建（温哥华）</td>
-<td>微型液压阀执行器、灵巧手、Carbon</td>
-<td>n/a</td>
-<td>业内少见液压灵巧手</td>
-</tr>
-<tr>
-<td>NVIDIA</td>
-<td>芯片自产（代工未确认）</td>
-<td>Thor SoC、Isaac 全栈软件</td>
-<td>不做本体</td>
-<td>提供全栈平台给本体厂</td>
-</tr>
-<tr>
+<td>2024.10</td>
 <td>Physical Intelligence</td>
-<td>不适用</td>
-<td>模型（π 系）</td>
-<td>跨平台适配各家本体</td>
-<td>openpi 开源</td>
+<td>π0</td>
+<td>VLA</td>
+<td>【发布】【论文】</td>
+<td>VLM主干 + Action Expert，使用flow matching生成连续动作，不再把所有控制都压成语言token；支持多本体、多任务联合训练。</td>
 </tr>
 <tr>
-<td>Skild AI</td>
-<td>不适用</td>
-<td>Skild Brain 模型</td>
-<td>跨形态适配</td>
-<td>未开源</td>
+<td>2024 Q4</td>
+<td>Physical Intelligence</td>
+<td>FAST / π0-FAST</td>
+<td>VLA</td>
+<td>【论文】【开源】</td>
+<td>用频域压缩和动作tokenizer提高自回归动作建模效率，形成与diffusion/flow matching并行的生成路线。具体发布日期按项目页复核。</td>
 </tr>
 <tr>
+<td>2024.12</td>
+<td>智元机器人</td>
+<td>AgiBot World</td>
+<td>数据/基座</td>
+<td>【发布】【开源】</td>
+<td>百万轨迹级公开口径把竞争从模型权重扩展到真机数据、场景覆盖和统一数据schema。</td>
+</tr>
+<tr>
+<td>2024</td>
+<td>1X</td>
+<td>1X World Model</td>
+<td>AWM/WAM</td>
+<td>【发布】</td>
+<td>用机器人视频学习动作后果与数据scaling，世界模型开始进入本体公司的数据飞轮；参数与线上使用方式未充分披露。</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>阶段结论</strong>：VLA从“动作作为语言”升级为“语义主干+专门动作生成器”，开源模型和跨本体数据开始降低研究门槛；同时，视频世界模型从规划算法向机器人数据生成和后果预测迁移。</p>
+<h3 id="34-2025">3.4 2025：快慢双系统、跨本体与世界模型融合</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>时间</th>
+<th>厂商/机构</th>
+<th>模型/版本</th>
+<th>路线</th>
+<th>状态</th>
+<th>关键架构变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2025.01</td>
+<td>NVIDIA</td>
+<td>Cosmos 1.0</td>
+<td>世界基座</td>
+<td>【发布】【开源】</td>
+<td>世界基础模型与数据处理工具进入机器人生态，为视频预测、合成数据和物理AI预训练提供基座。</td>
+</tr>
+<tr>
+<td>2025.02</td>
+<td>Figure</td>
+<td>Helix</td>
+<td>混合/快慢VLA</td>
+<td>【发布】</td>
+<td>S2互联网预训练VLM约7–9Hz理解，S1约200Hz输出连续动作；完全板载，把语义泛化与实时控制显式解耦。</td>
+</tr>
+<tr>
+<td>2025.03</td>
+<td>NVIDIA</td>
+<td>GR00T N1</td>
+<td>快慢VLA</td>
+<td>【发布】【论文】【开源】</td>
+<td>VLM System 2 + Diffusion Transformer System 1，以flow matching生成动作，配合Isaac与Thor形成训练到部署栈。</td>
+</tr>
+<tr>
+<td>2025.03</td>
+<td>智元机器人</td>
+<td>GO-1 / ViLLA</td>
+<td>VLA</td>
+<td>【发布】【论文】</td>
+<td>InternVL-2B理解层 + Latent Planner + Diffusion Action Expert，用隐式动作连接语言与控制。后续开放检查点。</td>
+</tr>
+<tr>
+<td>2025.03</td>
 <td>Google DeepMind</td>
-<td>不适用</td>
-<td>Gemini Robotics 模型</td>
-<td>本体合作 Apptronik 等</td>
-<td>ER+VLA 双模型</td>
-</tr>
-</tbody>
-</table></div>
-<p><strong>自研边界共性</strong>：本体厂商普遍<strong>自研执行器/灵巧手/整机集成</strong>（垂直整合以控成本与迭代），<strong>端侧算力普遍外采 NVIDIA Jetson Thor</strong>（Tesla 例外，自研 FSD 芯片）。减速器（谐波/行星/RV）、丝杠、力矩传感器、电池等<strong>具体供应商多数未官方系统披露或仅有传闻，本文按纪律标 <span class="na">n/a</span> / <span class="unconf">未经官方确认</span></strong>。</p>
-<hr />
-<h2 id="overseas-h6">六、信源质量说明 + 数据缺口清单</h2>
-<p><strong>信源分层</strong>
-- <strong>一级信源（已引用）</strong>：figure.ai/news/helix（Helix 官方博客）、investor.nvidia.com（GR00T 新闻稿）、nvidia.com（Jetson Thor 规格）、huggingface.co/nvidia（GR00T N1.5 模型卡）、deepmind.google/models/gemini-robotics、apptronik.com（新闻稿）、bostondynamics.com（LBM 博客）、toyotaresearchinstitute.github.io/lbm1、arxiv.org（π0 2410.24164、FAST、π0.5 2504.16054/2505.23705、GR00T N1、Gemini Robotics 1.5 2510.03342、LBM 2507.05331）、sanctuary.ai、agilityrobotics.com、therobotreport.com（1X Redwood 报道）。
-- <strong>次级信源（已标 <code><span class="lv2">【次级】</span></code>）</strong>：optimusk.blog、aihumanlove.com、blog.robozaps.com、botinfo.ai、百度百科、夸克百科、csdn、知乎、微博、新浪财经、东方财富、今日头条、雪球、crunchbase、mg21.com、ithome、marklines、chinaagv、vocus.cc、robotsj.cn 等。</p>
-<p><strong>一级信源占比估计</strong>：核心算法/模型层结论（Figure、NVIDIA、π、Gemini、Boston Dynamics/TRI）<strong>约 60–70% 有一级信源支撑</strong>；产品硬件参数与量产/出货/估值/供应链<strong>约 30–40% 依赖次级信源</strong>（已逐条标注）。整体一级信源占比估计 <strong>约 55–60%</strong>。</p>
-<p><strong>主要数据缺口（Top 5）</strong>
-1. <strong>Tesla Optimus 官方硬件与算法细节</strong>：V3/Gen3 逐项参数、正式模型命名、训练集群规模、量产/定价时间表——官方均未系统披露，现有数字多来自聚合站<span class="lv2">【次级】</span>。
-2. <strong>各家真机数据小时数/轨迹数</strong>：仅 Figure（约 500h）、π（约 1 万 h）、GR00T（比例结构）可比；1X、Tesla、Agility、Apptronik、Sanctuary、Boston Dynamics 的具体真机数据量级基本 <span class="na">n/a</span>。
-3. <strong>端侧芯片型号与训练集群规模</strong>：除 GR00T N1.5（1000×H100，<span class="lv2">【次级】</span>）、Thor 规格外，多数厂商端侧芯片/训练集群未官方确认（1X Thor 为<span class="lv2">【次级】</span>）。
-4. <strong>供应链关键件供应商</strong>：减速器（谐波/行星/RV）、丝杠、力矩传感器、电池、灵巧手模组的具体外采供应商，绝大多数厂商未官方披露，传闻未证实。
-5. <strong>量产/出货/估值的统一口径</strong>：Figure"每小时 1 台"、Agility"出货 150 台/10 万料箱"、1X 交付时点、Skild 估值/营收等均需带时间点，且多为<span class="lv2">【次级】</span>或口径不一，缺乏统一可比的官方季度披露。</p>
-<p><strong>额外待核实</strong>：Figure Helix "S0 三层架构"（官方原始博客仅明确 S1/S2）、Skild AI 创始人（Deepak Pathak/Abhinav Gupta 未在本次检索直接引用）、Tesla Dojo 与 NVIDIA 训练分工的最新状态。</p>
-<hr />
-<p><em>本文档为草稿（drafts/overseas.md），供后续核对与补充一级信源。</em></p></section>
-<section class="panel" data-t="china"><h1 id="_1">国内头部人形/通用机器人大脑方案</h1>
-<blockquote>
-<p>调研时点：2026-09（数据混合了 2024–2026 年公开信息）。本文聚焦「大脑方案」（具身智能模型/算法范式）三维度：产品 / 算法 / 生产。
-信源纪律：厂商官网/发布会/招股材料/arXiv/核心人访谈为<strong>一级信源</strong>；媒体与供应链传闻标注 <code><span class="lv2">【次级】</span></code> 并注来源域名；无法核实写 <code>n/a</code>；供应链关系非官方确认标注「<span class="unconf">未经官方确认</span>」。
-⚠️ 本文大量参数经由 <code>web_search</code> 抓取的百科/媒体聚合页转述，属<strong>次级转述</strong>，采购前须以厂商规格书为准。</p>
-</blockquote>
-<hr />
-<h2 id="china-h1">〇、前 10 家筛选依据（为什么是这 10 家）</h2>
-<p>筛选维度：①具身「大脑」自研深度（是否有自研 VLA/世界模型，而非仅买模型贴牌）；②本体产品成熟度与量产/交付证据；③行业影响力（融资位次、创始团队、生态/开源贡献、赛事与落地案例）；④信息可核实度。据此收敛为下列 10 家（排序不代表绝对位次）：</p>
-<div class="tw"><table>
-<thead>
-<tr>
-<th>#</th>
-<th>厂商</th>
-<th>入选核心理由</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>宇树科技 Unitree</td>
-<td>出货量与营收规模最大、科创板上市、全栈自研零部件、UnifoLM 世界模型</td>
+<td>Gemini Robotics / ER</td>
+<td>混合VLA</td>
+<td>【发布】</td>
+<td>Gemini基座进入具身动作；ER强化空间推理与任务规划，动作模型负责控制，形成协调器—执行器结构。</td>
 </tr>
 <tr>
-<td>2</td>
-<td>智元机器人 AgiBot</td>
-<td>稚晖君团队、GO-1/ViLLA 架构、AgiBot World 百万真机开源数据集、多形态产品线</td>
+<td>2025.04</td>
+<td>Physical Intelligence</td>
+<td>π0.5</td>
+<td>VLA</td>
+<td>【发布】【论文】</td>
+<td>混合跨本体、网络与高层任务数据，提高陌生环境和开放世界泛化，重点从技能数转向知识迁移。</td>
 </tr>
 <tr>
-<td>3</td>
-<td>优必选 UBTech</td>
-<td>港股上市、Walker S2 工业量产交付破千台、车厂/空客落地最广</td>
+<td>2025.05</td>
+<td>Meta</td>
+<td>V-JEPA 2</td>
+<td>世界基座/AWM</td>
+<td>【发布】【论文】【开源】</td>
+<td>在潜空间预测视频未来，减少像素生成负担；机器人规划能力与数据口径需按论文任务边界理解。</td>
 </tr>
 <tr>
-<td>4</td>
-<td>傅利叶智能 Fourier</td>
-<td>GR 系列量产最早（2023 底）、康养场景独占、被 NVIDIA GR00T 用作数据源</td>
+<td>2025.05</td>
+<td>NVIDIA</td>
+<td>DreamGen</td>
+<td>WAM/数据生成</td>
+<td>【发布】【论文】</td>
+<td>用生成式世界模型产生神经轨迹/视频数据，服务GR00T训练，世界模型首先作为数据放大器落地。</td>
 </tr>
 <tr>
-<td>5</td>
-<td>银河通用 Galbot</td>
-<td>王鹤（北大）团队、GraspVLA/TrackVLA/GroceryVLA、仿真数据路线、无人药店规模落地</td>
+<td>2025.06</td>
+<td>NVIDIA</td>
+<td>GR00T N1.5</td>
+<td>快慢VLA</td>
+<td>【发布】【开源】</td>
+<td>VLM升级Eagle 2.5，引入FLARE未来latent对齐，从无动作标签人类视频学习动作相关表征。</td>
 </tr>
 <tr>
-<td>6</td>
-<td>星动纪元 Robot Era</td>
-<td>清华陈建宇、ERA-42 融合世界模型的原生 VLA、全尺寸双足+灵巧手全栈自研</td>
+<td>2025.06</td>
+<td>Google DeepMind</td>
+<td>Gemini Robotics On-Device</td>
+<td>端侧VLA</td>
+<td>【发布】</td>
+<td>强化离线、本地低时延部署方向；参数、功耗和完整动作频率未统一披露。</td>
 </tr>
 <tr>
-<td>7</td>
-<td>智平方 AI²Robotics</td>
-<td>郭彦东团队、GOVLA「全域全身」大模型、工业高精度落地、融资密集</td>
+<td>2025.07</td>
+<td>Boston Dynamics / TRI</td>
+<td>Atlas LBM</td>
+<td>LBM</td>
+<td>【论文】【发布】</td>
+<td>多模态Diffusion Transformer从人类示教学习全身长序列行为，强调行走与灵巧操作统一。</td>
 </tr>
 <tr>
-<td>8</td>
-<td>星尘智能 Astribot</td>
-<td>绳驱肌腱路线差异化、上肢灵巧作业标杆、DuoCore 快慢协同</td>
+<td>2025.09</td>
+<td>Google DeepMind</td>
+<td>Gemini Robotics 1.5 / ER 1.5</td>
+<td>混合/快慢VLA</td>
+<td>【发布】【论文】</td>
+<td>ER“先思考再行动”、工具调用与进度评估；动作模型增加motion transfer，推动跨本体技能迁移。</td>
 </tr>
 <tr>
-<td>9</td>
-<td>自变量机器人</td>
-<td>国内最早端到端统一大模型（WALL-A/WALL-OSS 开源）、阿里云首投具身</td>
+<td>2025 Q3</td>
+<td>智元机器人</td>
+<td>GO-1开放版本</td>
+<td>VLA</td>
+<td>【开源】</td>
+<td>开放GO-1/GO-1 Air检查点，与AgiBot World数据和仿真工具形成模型—数据闭环。具体日期按仓库release复核。</td>
 </tr>
 <tr>
-<td>10</td>
-<td>乐聚机器人 Leju</td>
-<td>夸父系列量产数千台、鸿蒙/盘古生态、冲刺创业板 IPO</td>
-</tr>
-</tbody>
-</table></div>
-<p><strong>次级观察对象（本文附带覆盖，未进前 10 的原因）</strong>：
-- <strong>众擎 EngineAI</strong>（PM01/SE01）：本体动态性能强、性价比高，但「大脑」更偏运控（RL+模仿），自研具身大模型证据较弱。
-- <strong>加速进化 Booster</strong>（T1/K1）：RoboCup 赛事本体标杆，定位标准化平台，大脑侧以运控为主。
-- <strong>松延动力 NOETIX</strong>（N2）：消费级低价（¥9999–3.99 万）+ 高动态，主打运动与陪伴，非通用作业大脑。
-- <strong>它石智航 TARS</strong>：AWE 世界模型「不仿真不 VLA」路线亮眼、融资纪录高，但 2025 年成立、本体量产未验证。
-- <strong>小米 CyberOne / 华为</strong>：均为生态型玩家。小米新一代「铁大」已进自有汽车工厂实训；华为以「全球具身智能产业创新中心」轻资产生态+夸父（与乐聚合作）方式布局，非独立整机主攻。</p>
-<hr />
-<h2 id="china-h2">一、总览对照表</h2>
-<div class="tw"><table>
-<thead>
-<tr>
-<th>厂商</th>
-<th>代表型号（代际）</th>
-<th>模型范式</th>
-<th>端侧芯片</th>
-<th>量产状态</th>
-<th>主攻场景</th>
-<th>定价（公开）</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>宇树 Unitree</td>
-<td>H1→G1→R1→H2；UnifoLM-X1</td>
-<td>分层运控(RL/模仿)+世界模型 UnifoLM；与 DeepSeek 合作</td>
-<td>自研/端侧 8核CPU+GPU(R1)</td>
-<td>已量产交付（全球出货领先）</td>
-<td>科研教育/展演/二次开发</td>
-<td>G1 ¥9.9万起；R1 ¥3.99万起；H1 ¥65万；H2 n/a</td>
-</tr>
-<tr>
-<td>智元 AgiBot</td>
-<td>远征A2/A2-W/A2-Max、灵犀X1/X2、精灵G1</td>
-<td>端到端 VLA→ViLLA（GO-1）；开源</td>
-<td>n/a（端侧控制器，A2 宣称 270TOPS）<span class="lv2">【次级】</span></td>
-<td>已量产交付（2024/12 起）</td>
-<td>工业/柔性智造/交互服务/数采</td>
-<td>A2 青春版宣称 ¥19.8万<span class="lv2">【次级】</span></td>
-</tr>
-<tr>
-<td>优必选 UBTech</td>
-<td>Walker S→S2；天工行者；UWORLD</td>
-<td>分层「群脑网络2.0+Co-Agent」多模态推理+具身交互</td>
-<td>n/a</td>
-<td>已量产交付（S2 破千台，订单 8 亿）</td>
-<td>工业制造（车厂/航空/3C）</td>
-<td>S2 基础版 ¥29.9万<span class="lv2">【次级】</span>；单台 40–50万<span class="lv2">【次级】</span></td>
-</tr>
-<tr>
-<td>傅利叶 Fourier</td>
-<td>GR-1→GR-2→GR-3（GRx）</td>
-<td>纯视觉 BEV+Transformer+OCC；强化+模仿；FOCUS 多智能体调度</td>
-<td>地瓜 RDK S600（GR-3合作）<span class="lv2">【次级】</span></td>
-<td>已量产（GR-1/GR-2）</td>
-<td>康复康养/科研/工业分拣</td>
-<td>n/a</td>
-</tr>
-<tr>
-<td>银河通用 Galbot</td>
-<td>Galbot G1；S1；ET1</td>
-<td>端到端 VLA：GraspVLA/TrackVLA/GroceryVLA；AstraBrain；仿真数据为主</td>
-<td>NVIDIA AGX Orin 64GB 275TOPS</td>
-<td>已量产/规模运营（170+ 点位）</td>
-<td>商超零售/无人药店/工业/康养</td>
-<td>n/a（对外销售咨询）</td>
-</tr>
-<tr>
+<td>2025</td>
 <td>星动纪元</td>
-<td>星动L7、STAR1、Q5；XHAND 灵巧手</td>
-<td>融合世界模型的原生 VLA：ERA-42；分频/HiRT 快慢分层；开源 VPP</td>
-<td>n/a</td>
-<td>小批量交付，规划千台级（2026）</td>
-<td>物流分拣/工业装配/商业服务</td>
-<td>n/a</td>
-</tr>
-<tr>
-<td>智平方 AI²Robotics</td>
-<td>AlphaBot 2（爱宝2）</td>
-<td>全域全身 VLA：GOVLA（Alpha Brain，System1/2）；融合 DeepSeek</td>
-<td>n/a</td>
-<td>半结构化场景验证/自建产线</td>
-<td>汽车/半导体/生物科技</td>
-<td>n/a</td>
-</tr>
-<tr>
-<td>星尘智能 Astribot</td>
-<td>Astribot S1</td>
-<td>DuoCore 快慢协同+刚柔混合动力学；模仿学习</td>
-<td>n/a</td>
-<td>面向科研/开发者交付</td>
-<td>科研/商业展厅/家庭/工业辅助</td>
-<td>n/a</td>
-</tr>
-<tr>
-<td>自变量机器人</td>
-<td>量子2号 Quanta X2</td>
-<td>端到端统一大模型 WALL-A / WALL-OSS（开源）</td>
-<td>n/a</td>
-<td>与头部服务/工业客户合作</td>
-<td>服务业/工业操作</td>
-<td>n/a</td>
-</tr>
-<tr>
-<td>乐聚 Leju</td>
-<td>夸父 Kuavo（已迭代至 Kuavo5/5-W）</td>
-<td>运控 RL/模仿 + 华为盘古/智谱大模型；鸿蒙 OS</td>
-<td>n/a</td>
-<td>已量产（累计数千台）</td>
-<td>科研教育/工业POC/展厅导览</td>
-<td>n/a（价格逐代下降）</td>
+<td>VPP / Ctrl-World / ERA-42</td>
+<td>WAM+VLA</td>
+<td>【发布】【论文或开源】</td>
+<td>可控世界模型预测未来，HiRT/分频策略连接大世界模型与小执行模型，代表世界预测与动作控制融合。</td>
 </tr>
 </tbody>
 </table></div>
-<hr />
-<h2 id="china-h3">二、分厂商详解</h2>
-<h3 id="21-unitree">2.1 宇树科技 Unitree（杭州）</h3>
-<p><strong>产品</strong>
-- 代际：H1（2023-08，全尺寸首款）→ G1（2024-05）→ R1（2025-07）→ H2（2025-10-20）。另有工业轮足 B2-W。来源：baike.baidu.com、ithome/sina。
-- H1：约 1.8m / 47kg / 全身 19 DOF（单腿5、单臂4）/ 膝关节极限扭矩 360N·m / 行走 &gt;1.5m/s（潜在 &gt;5m/s）/ 15Ah 电池。
-- G1：约 1.32m / ~35kg / 23–43 DOF / 关节最大扭矩 120N·m / 小跑 &gt;2m/s / 续航约 2h；搭 Intel RealSense + Livox MID-360 激光雷达；单手 1 DOF（力控灵巧手可选配）。
-- R1：~25kg / 26 DOF / 集成语音+图像多模态大模型 / 8核CPU+GPU。
-- H2：180cm / 70kg / 31 DOF、仿生人脸。来源：baike.baidu.com。
-- 手部方案：力控灵巧手（力位混合控制）；触觉细节 <span class="na">n/a</span>。
-- 布局市场场景 vs 主攻：宣传覆盖科研/工业/展演/消费；<strong>真实主攻＝科研教育 + 展演 + 二次开发平台</strong>（春晚、马拉松、格斗赛、演唱会伴舞等曝光密集）。
-- 量产：<strong>已量产交付</strong>，全球出货领先。【次级 k.sina.cn】2025 年出货超 5500 台、市占约 32.4%；2025 前三季人形收入 5.95 亿、8/19 登陆科创板——数字属媒体转述，须以招股/财报为准。
-- 定价：G1 ¥9.9万起（京东首发，另有 ¥8.5万起口径）、R1 ¥3.99万起、H1 ¥65万。来源：finance.sina.cn / ithome。</p>
-<p><strong>算法</strong>
-- 范式：以<strong>深度强化学习+模仿学习</strong>驱动的运动控制为核心（OmniRetarget、BeyondMimic 等运控算法完成踩墙后空翻）；叠加<strong>世界模型 UnifoLM（Unitree 机器人统一大模型）</strong>，并发布 <strong>UnifoLM-X1-0</strong> 具身模型（"让机器人组装生产机器人"）。来源：baike.baidu.com、k.sina.cn<span class="lv2">【次级】</span>。
-- 开源：UnifoLM 定位共创平台；与 DeepSeek 战略合作做大模型与本体整合【次级 k.sina.cn】。
-- 数据/算力：具体真机数据量级、训练算力来源 <span class="na">n/a</span>。
-- 云端-端侧分工：<span class="na">n/a</span>（端侧以自研控制器为主）。</p>
-<p><strong>生产</strong>
-- 自研边界：<strong>核心零部件自研率宣称 &gt;90%</strong>，电机（M107 等）、减速器、关节模组、激光雷达、灵巧手自研自产，外购成本占比 14–18%【次级 k.sina.cn】。
-- 供应商：减速器方面【次级 3g.sina】中大力德曾为 H1 供应减速器（<span class="unconf">未经官方确认</span>，且与"自研减速器"口径存在冲突，须核）。</p>
-<hr />
-<h3 id="22-agibot">2.2 智元机器人 AgiBot（上海）</h3>
-<p><strong>产品</strong>
-- 代际：远征 A1（2023-08 原型）→ 远征 A2 / A2-W / A2-Max（2024-08）→ 灵犀 X1（2024-08，全栈开源）/ X2 → 精灵 G1。来源：geekpark.net、baike.baidu.com。
-- 远征A1：175cm / 55kg / 49+ DOF / 单臂负载 5kg / 关节峰值扭矩 350N·m / AI 算力 200TOPS。
-- 远征A2（交互服务）：约 169cm / 69kg / 40+ 主动 DOF / 700Wh / 续航 2h（支持换电）；宣称控制器 270TOPS【次级 bilibili】。全球首个同获中美欧认证人形【次级 gasgoo】。
-- 远征A2-W（轮式作业）：约 230kg / 2kWh / 双臂各 7 DOF / 工作高度 0–2m / 续航约 5h 热插拔。
-- 远征A2-Max（重载）：175cm / 85kg / 67(53主动) DOF / 双臂峰值扭矩 450N·m / 可搬 40kg。
-- 灵犀X1（开源）：约 1.3m / &lt;33kg / 34 主动 DOF / 续航约 2h；串并联混合臂、差分驱动双肩、PowerFlow 关节（PF86/PF52）。
-- 手部：OmniHand 灵巧手（远征系列仿生手，指尖视觉/触觉传感器；A2-Max 19 DOF/12主动）。
-- 主攻场景：<strong>工业柔性智造 + 交互服务 + 数据采集</strong>（A2-W 已进富临精工工厂单班搬 1000 周转箱）。
-- 量产：<strong>已量产交付</strong>——2024-12 开启通用机器人量产；2024 全年发货宣称约 300 台（双足约 2 成）【次级 sohu 视频】。
-- 定价：A2 青春版宣称 ¥19.8万【次级 bilibili】。</p>
-<p><strong>算法（重点）</strong>
-- 范式：端到端 VLA → <strong>ViLLA（Vision-Language-Latent-Action）</strong>，通过隐式动作 token 弥合图文输入与动作。三层：VLM 理解层（基于 InternVL-2B）+ Latent Planner + 扩散 Action Expert。来源：github.com/OpenDriveLab/AgiBot-World、arxiv.org/abs/2503.06669。
-- 模型：<strong>GO-1（Genie Operator-1）</strong>，2025-03 发布、2025-09-19 开源（含 GO-1 / GO-1 Air 检查点）。跨本体验证（松灵、方舟、Franka）。技术路线图 G1→G5（已在 G2 实现 UniPose/UniGrasp/UniPlug 原子技能，G3 建 AIDEA 数据系统）。来源：zhiyuan-robot / 10jqka。
-- 数据：<strong>AgiBot World 百万真机开源数据集</strong>——100 台真机、&gt;100 万条轨迹、&gt;2976 小时（Beta）、100+ 场景、80+ 技能；场景占比家居40/餐饮20/工业20/商超10/办公10；另开源 AgiBot Digital World 仿真集 + Genie Sim Benchmark；2026 第三期 RL 数据集首批 11430 条轨迹。<strong>NVIDIA GR00T N1 训练真机数据约 80% 来自 AgiBot World</strong>。来源：baike.baidu.com、sina。首席科学家罗剑岚（2025-04 加盟）主导。
-- 芯片/算力：端侧控制器；训练算力来源 <span class="na">n/a</span>（与上海 AI Lab 合作 AgiBot World）。</p>
-<p><strong>生产</strong>
-- 自研：本体、PowerFlow 关节、自适应夹爪、百元级六维力传感器自研；本体国产化率宣称 95%【次级 bilibili】。有自建制造工厂。
-- 供应商：谐波减速器【次级 3g.sina】绿的谐波进入智元供应链（<span class="unconf">未经官方确认</span>）；富临精工与智元建产业联盟做下肢关节模组【次级 3g.sina】。</p>
-<hr />
-<h3 id="23-ubtech-9880hk">2.3 优必选 UBTech（深圳，港股 9880.HK）</h3>
-<p><strong>产品</strong>
-- 代际：Walker（早期）→ Walker S（2023 末，工业）→ <strong>Walker S2（2025-07 发布，2025-11 启动量产交付）</strong>；另有 Walker X（服务/科研）、天工行者（科研奔跑）、UWORLD 优世界（2026 消费陪伴）。来源：baike.baidu.com、sohu、pconline。
-- Walker S2：176cm / 70–73kg（口径不一）/ 行走约 2m/s / <strong>52 DOF</strong>（双臂各7、灵巧手各11、腰3、腿各6、头2）/ 单臂负载 15kg / 工作 0–1.8m。第四代工业级灵巧手（亚毫米级、耐久 &gt;8万次）；<strong>头部纯 RGB 双目视觉</strong>；<strong>全球首个自主换电</strong>（3 分钟，热插拔精度 0.1mm）→ 7×24h。来源：baike/CSDN。
-- 主攻场景：<strong>工业制造</strong>（明确且真实）——已进比亚迪、吉利、北汽、极氪、日立、顺丰仓储；2026-01 与空客合作进入航空制造。来源：baike.baidu.com。
-- 量产：<strong>已量产交付</strong>——2025 全尺寸交付超 1000 台，&gt;80% 用于工业；S2 首批数百台量产交付；累计订单 8 亿元；柳州万台级"用机器人造机器人"工厂（与西门子联合数字化底座）投产。来源：baike/sohu。
-- 定价：S2 基础版 ¥29.9万【次级 CSDN】；单台 40–50万【次级 东财】。效率现约人类 30–50%，目标 2027 提至 80%【次级 CSDN】。</p>
-<p><strong>算法</strong>
-- 范式：<strong>分层架构「群脑网络 2.0（BrainNet 2.0）」+ Co-Agent 智能体</strong>——融合多模态推理大模型 + 具身交互大模型，具意图理解/任务规划/工具调用/异常处理闭环，宣称自主处理 &gt;90% 异常，亿级工业数据优化。支持合作方接入自有 AI 大模型二次开发。来源：sohu/CSDN。
-- 数据：工业实训"亿级数据"（口径模糊，须核）。芯片/算力：<span class="na">n/a</span>。</p>
-<p><strong>生产</strong>
-- 自研：核心零部件国产化率宣称 95%，专利 2790+。柳州工厂良品率 99.7%【次级 sohu】。
-- 供应商：<span class="na">n/a</span>（官方少披露）。</p>
-<hr />
-<h3 id="24-fourier">2.4 傅利叶智能 Fourier（上海）</h3>
-<p><strong>产品</strong>
-- 代际：GR-1（2023-07 发布/2023 底量产）→ GR-2（2024-09）→ GR-3（2025-08）。来源：baike.baidu.com、qq.com。
-- GR-1：1.65m / 55kg / 40–44 DOF / 步行 5km/h / 负重（宣称）50kg；自研 FSA 一体化执行器；纯视觉 BEV+Transformer+OCC。
-- GR-2：175cm / 63kg / 53 DOF / 单臂负载 3kg / 续航 2h（可换电）；单手 12 DOF（初代 6）；FSA 2.0。
-- GR-3：1.65m / 71kg / 55 DOF / 柔肤软包覆材 / 全感交互系统（听觉+视觉+触觉）/ 双电池热插拔；阵列式触觉。
-- 手部：12 DOF 灵巧手 + 阵列触觉传感器。
-- 主攻场景：<strong>康复康养（独占优势，源于下肢外骨骼基因）</strong>+ 科研 + 工业分拣（银行、汽车厂）。康复已进全球 3000+ 医院；2026-06 GRx 进马来西亚国家社险康复中心。
-- 量产：<strong>GR-1/GR-2 已量产</strong>。定价：<span class="na">n/a</span>。</p>
-<p><strong>算法</strong>
-- 范式：运控用<strong>强化学习（仿真试错→迁移）+ 遥操模仿</strong>；感知<strong>纯视觉 BEV+Transformer+OCC</strong> 端到端；工业侧 <strong>FOCUS 多智能体调度系统</strong>。接入语音大模型/多模态大模型（导诊模块）。
-- 数据：<strong>2025-03 开源 FourierActionNet 数据集（&gt;3 万条真机/灵巧手操作数据）+ 工具链</strong>；2025-04 开源人形 N1（BOM/图纸）。<strong>被 NVIDIA 用于遥操采集训练 GR00T N1</strong>。来源：baike.baidu.com。
-- 芯片：GR-3 为地瓜机器人 RDK S600 大算力平台全球首批战略客户【次级 pages.baidu】。</p>
-<p><strong>生产</strong>
-- 自研：FSA/FSA2.0 执行器（集成电机/驱动/减速/编码器）；"核心部件-本体-场景方案"全链条。
-- 供应商：谐波减速器【次级 bilibili】绿的谐波客户名单含傅利叶（<span class="unconf">未经官方确认</span>）。</p>
-<hr />
-<h3 id="25-galbot">2.5 银河通用 Galbot（北京）</h3>
-<p><strong>产品</strong>
-- 代际：Galbot G1（2024-06 首秀）；工业重载 S1；双足 ET1（WRC2026 新发）。来源：galbot.com、baike.baidu.com。
-- Galbot G1：<strong>"双臂+单腿+轮式底盘"</strong>，1.73m / 85–92.5kg（口径冲突）/ 臂展 1.9m / 躯干升降 65cm、操作 0–2.4m / 单臂负载 5kg（合计10kg）/ AGX Orin 64GB 275TOPS / IP54 / 续航 8h（另有 10h 口径，官网 8h）/ 最大速度 1.5m/s；腕部六维力×2、深度相机×2。灵巧手 22 DOF（30+ 微型电机）。
-- S1：轮式双臂，负载 50kg，工作 0–2.3m，续航 8h 热插拔。
-- 主攻场景：<strong>商超零售 + 无人药店 + 即时零售仓储（真实主攻）</strong>——"银河太空舱"全国 40+ 城市、170+ 点位；北京 7 家无人药店（王鹤称年底目标京沪深 100 家）；工业与奔驰/现代合作拆码垛。来源：galbot.com、sina。
-- 量产：<strong>已规模化运营</strong>（点位级）。定价：<span class="na">n/a</span>（对外销售咨询）。</p>
-<p><strong>算法（重点）</strong>
-- 范式：<strong>端到端 VLA</strong>，产品级模型矩阵：<strong>GraspVLA（通用抓取）/ TrackVLA（导航，2025-06，纯视觉零样本）/ GroceryVLA（商超货架）</strong>，统一具身大模型体系 <strong>AstraBrain（银河星脑）</strong>；大脑/小脑/本体三层架构。真机操作成功率宣称 &gt;95%（厂商测试口径）。来源：galbot.com、sina（王鹤智源大会）、网易 WRC。
-- 数据：<strong>以合成/仿真数据为主（据行业榜单称合成仿真占比 &gt;99%）</strong>【次级 chinadevelopment.com.cn】——差异化路线。
-- 创始/团队：王鹤（北大助理教授、智源学者），2023-05 创立；一年多融资 &gt;12 亿（美团、北汽产投、商汤国香、启明、蓝驰、IDG 等）。芯片：AGX Orin。</p>
-<p><strong>生产</strong>
-- 自研：本体+模型自研；灵巧手内置 30+ 微型电机。
-- 供应商：谐波减速器【次级 3g.sina】绿的谐波客户名单含银河通用（<span class="unconf">未经官方确认</span>）。</p>
-<hr />
-<h3 id="26-robot-era">2.6 星动纪元 Robot Era（北京，清华孵化）</h3>
-<p><strong>产品</strong>
-- 代际：星动 STAR1；<strong>星动 L7（国内首个 VLA 驱动全尺寸双足）</strong>；轮式 Q5；灵巧手 XHAND1 / XHAND1 Lite。来源：bjnews、sina、baidu。
-- 星动 L7：峰值扭矩 400N·m、峰值转速 25rad/s、支撑 65kg 身体做 360° 旋转跳；奔跑 3.6m/s（媒体口径）；<strong>55 DOF 全身</strong>；12 DOF 全直驱灵巧手（指尖压力 15N，单手负重宣称 20kg）；三维触觉 &gt;100 点分辨率。硬件自研 &gt;95%。
-- 手部：XHAND1，12 DOF 全直驱，阵列触觉。
-- 主攻场景：<strong>物流分拣（真实主攻，双11 落地）+ 工业装配 + 商业服务</strong>；2026-01 与顺丰签约。
-- 量产：<strong>小批量交付</strong>，计划 2026 千台级；苏州基地宣称年产 5000 台柔性能力【次级 sohu】。定价：<span class="na">n/a</span>。</p>
-<p><strong>算法（重点）</strong>
-- 范式：<strong>融合世界模型的原生端到端 VLA：ERA-42</strong>（视觉+理解+预测+行动，语音指令完成数百种操作：分拣/扫码/螺钉枪/移液器）。<strong>分频 VLA / HiRT 快慢分层</strong>（2024-09，latent 连接 70 亿参数世界模型 + 4000 万参数执行模型）。<strong>2024-12 开源融合世界模型的 VLA 框架（VPP）</strong>。与斯坦福 Chelsea Finn 团队联合提出可控世界模型 <strong>Ctrl-World</strong> 及 <strong>VLAW</strong> 框架（陌生场景成功率 +44.7%）。来源：sina、bjnews、sohu。
-- 数据：真实场景-仿真-实验室三级闭环；ERA-42 宣称每周 300 万帧操作数据训练【次级 sohu】。芯片/算力：<span class="na">n/a</span>。
-- 团队：陈建宇（清华交叉信息院助理教授）；2026-03 战略轮 10 亿、投后估值破 100 亿；后又融资超 13 亿（顺丰领投）【次级 sina】。全球仅 4 家能做"全尺寸全身+灵巧手控制"之一（自述）。</p>
-<p><strong>生产</strong>
-- 自研：硬件自研 &gt;95%，5 款标准化关节模组、定制电机；"本体+大脑"全栈自研。供应商：<span class="na">n/a</span>。</p>
-<hr />
-<h3 id="27-ai2robotics">2.7 智平方 AI²Robotics（深圳）</h3>
-<p><strong>产品</strong>
-- 代际：AlphaBot（爱宝）→ <strong>AlphaBot 2（2025-04-17 发布）</strong>。来源：ithome.com、qq.com、163.com。
-- AlphaBot 2：<strong>轮式可升降人形</strong>，全身 34+ DOF / 腰腿升降、垂直作业 0–2.4m / 单臂臂展 700mm / 360°×360° 全空间感知 / 续航 6h+。
-- 手部：<span class="na">n/a</span>（未详述灵巧手 DOF）。
-- 主攻场景：<strong>汽车制造 + 半导体 + 生物科技（真实主攻，B 端工业）</strong>——与吉利晶能半导体基地量产测试（宣称 ±0.02mm 装配精度、日均 20h 连续作业【次级 chinadevelopment】）；与华熙生物做无菌转运。
-- 量产：<strong>半结构化场景验证 + 自建产线建设中</strong>；目标 2028 万台、2033 百万台（规划）。定价：<span class="na">n/a</span>。</p>
-<p><strong>算法（重点）</strong>
-- 范式：<strong>全域全身 VLA：GOVLA（Alpha Brain）</strong>——空间交互基础模型 + System 2 慢系统（推理/任务拆解/语言）+ System 1 快系统（全身控制动作+移动轨迹）。<strong>卖点：常规 VLA 仅输出机械臂动作，GOVLA 首次输出全身控制+移动轨迹</strong>，360° 感知。首次将 <strong>DeepSeek</strong> 技术融入 VLA 构建。来源：ithome.com、163.com。
-- 团队：郭彦东（"AI+智能硬件"复合背景），2023-04 成立；半年 7 轮数亿级融资，深创投领投；北大-智平方联合实验室。数据/芯片/算力：<span class="na">n/a</span>。</p>
-<p><strong>生产</strong>：自建产线建设中；供应商 <span class="na">n/a</span>。</p>
-<hr />
-<h3 id="28-astribot">2.8 星尘智能 Astribot（深圳）</h3>
-<p><strong>产品</strong>
-- 代际：Astribot S1。来源：astribot.com、qq.com、szaicx。
-- S1：<strong>轮足式（全向轮底盘，非双足）</strong>，170cm / 80kg / 臂展 194cm / 双臂各 7 DOF / 单臂额定负载 5kg / <strong>末端最高速度 ≥10m/s、加速度 ≈100m/s²、重复定位 ±0.1mm（可解锁 ±0.03mm）</strong> / 1500Wh 电池续航 4–6h。<strong>自研绳驱肌腱传动</strong>（模拟肌肉，柔性缓冲、人机安全）。
-- 手部：7 DOF 灵巧双臂 + 力觉感知（灵巧手 DOF 未明确细分）。
-- 主攻场景：<strong>科研/开发者平台（真实主攻，提供全套数据-训练-部署工具链）</strong>+ 商业展厅（APEC 亮相）+ 家庭服务探索 + 工业辅助。
-- 量产：面向科研/开发者交付。定价：<span class="na">n/a</span>。</p>
-<p><strong>算法</strong>
-- 范式：<strong>DuoCore 快慢协同系统</strong>（毫秒级本能反应 + 大模型深度决策）+ 自研<strong>刚柔混合动力学模型</strong> + 模仿学习（VR 遥操、视频学习、人体示教）。本体-数据-模型闭环。来源：astribot.com、qq.com。
-- 数据：靠客户现场采集 + VR 遥操；量级 <span class="na">n/a</span>。芯片/算力：<span class="na">n/a</span>。</p>
-<p><strong>生产</strong>：绳驱传动自研；供应商 <span class="na">n/a</span>。</p>
-<hr />
-<h3 id="29">2.9 自变量机器人（深圳）</h3>
-<p><strong>产品</strong>
-- 代际：量子 2 号 Quanta X2（2025-08 发布）。来源：sohu、163、sina。
-- 量子2号：<strong>轮式双臂仿人形</strong>；五指灵巧手单手 20 DOF、可感知细微压力；臂手一体化外骨骼遥操数采方案。整机/灵巧手/外骨骼全栈自研（半年内完成）。详细身高/重量/续航 <span class="na">n/a</span>。
-- 主攻场景：<strong>服务业 + 工业操作</strong>（与头部客户合作，多场景投用）。量产：合作落地中。定价：<span class="na">n/a</span>。</p>
-<p><strong>算法（重点）</strong>
-- 范式：<strong>国内最早的端到端统一大模型路线</strong>——自研 <strong>WALL-A 系列 VLA</strong>，统一表示空间同时处理感知/推理/行动，跨模态因果推理，零样本泛化；率先实现端到端具身思维链推理（决策-执行-探索-反思闭环）。<strong>开源具身基础模型 WALL-OSS + 训练代码</strong>。来源：sina、163。
-- 团队/融资：2023 底成立；2025-09 完成近 10 亿 A+ 轮，<strong>阿里云首次出手具身智能</strong>（+国科投资领投，红杉/美团战投等）。数据/芯片：<span class="na">n/a</span>。</p>
-<p><strong>生产</strong>：本体+灵巧手+外骨骼全栈自研；供应商 <span class="na">n/a</span>。</p>
-<hr />
-<h3 id="210-leju">2.10 乐聚机器人 Leju（深圳/哈尔滨）</h3>
-<p><strong>产品</strong>
-- 代际：夸父 Kuavo（2023-12 发布）→ 迭代 5 代（Kuavo4/4pro/5/5-W 轮式）。来源：baike.baidu.com、cena。
-- 夸父：约 1.66–1.7m / ~45kg / 步速最高 4.6km/h / 连续跳跃 &gt;20cm；40 DOF 级；模块化设计、5G-A 通信、搭载<strong>开源鸿蒙 OS</strong>。
-- 主攻场景：<strong>科研教育（第一阶段主攻）</strong>+ 工业 POC（一汽、亨通、蔚来、舍弗勒——纸箱拆垛/料箱搬运/SMT 料盘出库）+ 展厅导览。
-- 量产：<strong>已量产</strong>，2025 完成数千台批量交付；2026 冲刺创业板 IPO（第四套标准首个获受理）。来源：baike。定价：逐代下降（具体 <span class="na">n/a</span>）。</p>
-<p><strong>算法</strong>
-- 范式：运控 RL/模仿 + 接入<strong>华为云盘古大模型 / 智谱大模型</strong>（对话/导览）；鸿蒙分布式生态协同。自研运控算法+核心零部件（发明专利近 120 件）。来源：cena、toutiao。
-- 数据/芯片：<span class="na">n/a</span>。</p>
-<p><strong>生产</strong>：核心零部件+运控自研；与华为、中国移动、海尔战略合作。供应商 <span class="na">n/a</span>。</p>
-<hr />
-<h2 id="china-h4">三、算法范式横向对比（国内路线分歧）</h2>
-<div class="tw"><table>
+<p><strong>阶段结论</strong>：2025年的主线不是单纯增加参数，而是四个架构变化同时发生：①显式快慢分频；②Action Expert/DiT专门化；③跨本体联合训练；④世界模型先服务合成数据、规划和评测。VLA与世界模型从平行路线开始汇合。</p>
+<h3 id="35-2026wam">3.5 2026：WAM集中探索与生产级后训练</h3>
+<blockquote>
+<p>以下节点以现有草稿和参考截图为线索；凡缺少可直接复核一手材料者均标 <code>【规划】</code> 或“待核”，不把截图文字当作已验证发布事实。</p>
+</blockquote>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>时间</th>
+<th>厂商/机构</th>
+<th>模型/版本</th>
+<th>路线</th>
+<th>状态</th>
+<th>关键架构变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026 Q1</td>
+<td>Physical Intelligence</td>
+<td>π0.6 / RECAP后训练线</td>
+<td>VLA+RL</td>
+<td>【规划/待核】</td>
+<td>从模仿学习扩展到经验、人工纠正和优势条件策略，目标是把失败回流转为可持续后训练。既有草稿称2025末已出现，需项目页统一日期。</td>
+</tr>
+<tr>
+<td>2026 Q1</td>
+<td>Figure</td>
+<td>Helix后续代际</td>
+<td>混合/快慢VLA</td>
+<td>【规划/待核】</td>
+<td>截图强调从上身控制向全身、触觉及更长任务扩展；“Helix 2/S0”命名和发布时间需Figure官方材料确认。</td>
+</tr>
+<tr>
+<td>2026 Q1–Q2</td>
+<td>NVIDIA</td>
+<td>Cosmos / GR00T后续版本</td>
+<td>世界基座+VLA</td>
+<td>【规划/待核】</td>
+<td>预期强化Reason VLM、视频世界模型、合成轨迹和端侧部署的联动；截图中的具体版本号不作为已发布事实。</td>
+</tr>
+<tr>
+<td>2026 Q1–Q2</td>
+<td>多家研究团队</td>
+<td>Fast-WAM、DreamZero等</td>
+<td>WAM</td>
+<td>【论文/开源待核】</td>
+<td>参考截图显示WAM节点密集：以视频扩散主干联合预测未来帧与动作，追求用视频物理先验减少真机遥操作。厂商、参数和日期逐项待核。</td>
+</tr>
+<tr>
+<td>2026</td>
+<td>触觉模型研究</td>
+<td>VTLA / 触觉精修网络等</td>
+<td>触觉VLA</td>
+<td>【论文/规划待核】</td>
+<td>将视觉—触觉—语言—动作联合，解决仅靠RGB难以判断接触、滑移和力控制的问题；截图小字无法可靠辨识，不列具体性能。</td>
+</tr>
+<tr>
+<td>2026 H2</td>
+<td>行业共同方向</td>
+<td>生产闭环模型</td>
+<td>混合</td>
+<td>【规划】</td>
+<td>从演示benchmark转向失败回收、世界模型压力测试、RL后训练、灰度发布和机队监控；评价指标转向无接管时长与单位经济性。</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>阶段结论</strong>：截图所示“WAM集中式爆发”更适合作为研究趋势，而非已兑现的产业结论。视频扩散模型提供物理先验和大量合成数据，但14B级世界模型难直接进入高频端侧；近期产品形态更可能是“离线WAM生成/评测 + 端侧小VLA执行 + 确定性安全层”。</p>
+<h3 id="36">3.6 按技术路线纵向阅读</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>路线</th>
-<th>代表厂商</th>
-<th>特征</th>
-<th>开源策略</th>
+<th>关键链条</th>
+<th>架构演进</th>
+<th>当前成熟度</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>端到端 VLA（单一大模型）</strong></td>
-<td>自变量（WALL-A/OSS）、银河通用（GraspVLA/TrackVLA/GroceryVLA）</td>
-<td>感知-推理-行动统一表示；追求零样本泛化</td>
-<td>自变量 WALL-OSS 开源；银河闭源</td>
+<td>VA / 行为策略</td>
+<td>Diffusion Policy → LBM/高频动作专家</td>
+<td>视觉动作映射 → 多任务扩散 → 全身长序列</td>
+<td>单技能和限定任务较成熟；开放语义弱</td>
 </tr>
 <tr>
-<td><strong>端到端 VLA + 隐式动作 / 世界模型</strong></td>
-<td>智元（ViLLA/GO-1）、星动纪元（ERA-42+Ctrl-World+VPP）</td>
-<td>引入 latent action / 世界模型弥合语义-动作鸿沟，用视频数据预训练</td>
-<td>智元 GO-1 + AgiBot World 全开源；星动开源 VPP 框架</td>
+<td>VLA</td>
+<td>RT-2 → OpenVLA → π0/GO-1/GR00T</td>
+<td>动作token → VLM+Action Expert → 快慢分频与跨本体</td>
+<td>当前通用操作主线；生产可靠性仍在爬坡</td>
 </tr>
 <tr>
-<td><strong>全域全身 VLA（快慢双系统）</strong></td>
-<td>智平方（GOVLA System1/2）、星尘（DuoCore）</td>
-<td>System2 慢推理 + System1 快控制；输出全身+移动轨迹</td>
-<td>闭源</td>
+<td>AWM</td>
+<td>DreamerV3 → 1X World Model → latent规划</td>
+<td>潜状态想象 → 机器人视频后果预测 → 异常评估</td>
+<td>规划/离线学习成熟度高于在线主控</td>
 </tr>
 <tr>
-<td><strong>分层「大脑-小脑」+ 多智能体</strong></td>
-<td>优必选（群脑网络2.0+Co-Agent）、傅利叶（FOCUS）</td>
-<td>多模态推理大模型 + 具身交互/调度层，工程闭环导向</td>
-<td>闭源（傅利叶开源数据/N1 本体）</td>
+<td>WAM</td>
+<td>DreamGen/VPP/Ctrl-World → DreamZero等探索</td>
+<td>生成未来视频 → 视频与动作联合去噪 → 跨本体物理先验</td>
+<td>研究活跃；端侧算力与真实性校准是瓶颈</td>
 </tr>
 <tr>
-<td><strong>运控为主（RL+模仿）+ 世界模型探索</strong></td>
-<td>宇树（UnifoLM）、乐聚、众擎、松延、加速进化</td>
-<td>强运动能力优先，大脑侧接第三方大模型或自研世界模型起步</td>
-<td>宇树 UnifoLM 共创平台；灵犀/夸父本体侧开源</td>
+<td>数据/基座</td>
+<td>Open X → AgiBot World → Cosmos/Isaac</td>
+<td>数据汇聚 → 统一schema → 合成、评测、部署闭环</td>
+<td>决定长期复利，标准仍分散</td>
+</tr>
+<tr>
+<td>后训练/运营</td>
+<td>示教SFT → 纠正/RL → 失败自动回流</td>
+<td>学会技能 → 修复边界 → 机队持续改进</td>
+<td>将成为商业化阶段的核心差异</td>
 </tr>
 </tbody>
 </table></div>
-<p><strong>核心分歧</strong>：
-1. <strong>数据来源之争</strong>——银河通用押注<strong>仿真/合成数据</strong>（成本低、可规模化），智元/星动/傅利叶押注<strong>真机 + 视频 + 三级闭环</strong>；这是国内最大的方法论分野。
-2. <strong>"全身 vs 上肢"之争</strong>——智平方/银河强调全身控制+移动轨迹输出（管家式全链条），星尘反其道聚焦上肢灵巧作业、放弃双足内卷。
-3. <strong>开源 vs 闭源</strong>——智元（GO-1+百万数据集）、自变量（WALL-OSS）、傅利叶（数据+本体）、宇树（UnifoLM）走开源生态；银河、智平方、优必选偏闭源产品化。</p>
-<hr />
-<h2 id="china-h5">四、数据与算力横向对比</h2>
-<div class="tw"><table>
-<thead>
-<tr>
-<th>维度</th>
-<th>领先者</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>开源真机数据集</strong></td>
-<td>智元 AgiBot World</td>
-<td>&gt;100 万条轨迹 / &gt;2976h / 100+ 场景，NVIDIA GR00T N1 约 80% 真机数据来源；行业标杆</td>
-</tr>
-<tr>
-<td><strong>开源模型</strong></td>
-<td>智元 GO-1、自变量 WALL-OSS、星动 VPP</td>
-<td>三家形成国内开源具身模型第一梯队</td>
-</tr>
-<tr>
-<td><strong>仿真/合成数据路线</strong></td>
-<td>银河通用</td>
-<td>宣称合成仿真占比极高（&gt;99%<span class="lv2">【次级】</span>），差异化</td>
-</tr>
-<tr>
-<td><strong>数据工厂/道场</strong></td>
-<td>智元 AIDEA 数据系统、傅利叶 FourierActionNet（3万+条）</td>
-<td>傅利叶数据被 NVIDIA 采用</td>
-</tr>
-<tr>
-<td><strong>端侧芯片</strong></td>
-<td>NVIDIA Jetson Orin/AGX Orin 主流（银河 275TOPS、众擎/加速进化 Orin），地瓜 RDK S600（傅利叶），Intel N97（众擎），宇树自研</td>
-<td>端侧高度依赖 NVIDIA；国产（地瓜/瑞芯微/自研）在爬坡</td>
-</tr>
-<tr>
-<td><strong>训练算力来源</strong></td>
-<td>多与云厂商/智算中心合作（阿里云投自变量；上海 AI Lab 合作智元 AgiBot World）</td>
-<td>具体集群规模普遍 n/a</td>
-</tr>
-</tbody>
-</table></div>
-<p><strong>数据缺口</strong>：多数厂商<strong>真机数据量级、训练集群规模、训练算力来源</strong>未公开，属本报告最大盲区。</p>
-<hr />
-<h2 id="china-h6">五、供应链横向对比（自研边界与国产供应商图谱）</h2>
-<p><strong>关键件国产供应商图谱（以公开产业梳理为主，多为次级）</strong>：
-- <strong>谐波减速器</strong>：绿的谐波（688017，国内第一/全球第二，客户宣称含特斯拉 Optimus、优必选、智元、宇树、银河通用——<strong>多为供应链梳理，未经各整机厂官方确认</strong>【次级 3g.sina/东财】）；昊志机电（宣称通过宇树/优必选测试）；中大力德（曾供宇树 H1 减速器<span class="lv2">【次级】</span>）；丰光/斯菱等。
-- <strong>RV/丝杠</strong>：双环传动（RV+行星滚柱丝杠）、拓普集团（执行器总成）。
-- <strong>执行器总成</strong>：三花智控、拓普集团（主要绑特斯拉链）；富临精工（与智元建联盟，下肢关节模组）。
-- <strong>灵巧手</strong>：因时机器人、灵心巧手（行业常见供应商，具体配套关系未在本轮检索证实，标 <span class="na">n/a</span>）；星动 XHAND、智元 OmniHand、傅利叶灵巧手为自研。
-- <strong>六维力传感器</strong>：智元自研百元级；其余 <span class="na">n/a</span>。</p>
-<p><strong>自研 vs 外采边界（趋势判断）</strong>：
-- <strong>重度自研派</strong>：宇树（&gt;90% 自研，含电机/减速器/激光雷达/灵巧手）、星动（&gt;95%）、智元（本体+关节+夹爪+传感器）、傅利叶（FSA 执行器）、自变量（整机+灵巧手+外骨骼）。
-- <strong>本体+大脑自研、零部件混合外采</strong>：优必选（国产化率宣称 95% 但少披露具体供应商）、银河、智平方。
-- <strong>组装/代工与产能</strong>：优必选柳州万台级工厂（与西门子数字化底座）；宇树、傅利叶、乐聚均自建产线。<strong>立讯/富士康等 3C 代工是否参与整机组装——本轮检索未获官方证据，标 <span class="na">n/a</span> / <span class="unconf">未经官方确认</span>。</strong></p>
-<hr />
-<h2 id="china-h7">六、与海外的差距与优势判断</h2>
+<h3 id="37">3.7 时间轴后的阶段性判断</h3>
+<ol>
+<li><strong>2022—2023是范式定义期</strong>：VA证明扩散适合连续、多峰动作，RT-2证明语言知识能迁移到机器人，Dreamer证明可在潜空间“想象”。</li>
+<li><strong>2024是模块专业化期</strong>：开放VLA降低门槛，π0把VLM与动作专家拆开，FAST探索动作token扩展，数据集开始成为独立基础设施。</li>
+<li><strong>2025是系统融合期</strong>：Helix、GR00T、Gemini把慢推理与快动作工程化；世界模型不再孤立研究，而是进入合成数据、未来latent、跨本体和长程规划。</li>
+<li><strong>2026是可验证性竞争期</strong>：WAM论文数量可能快速增长，但胜负取决于生成未来是否校准、是否降低真机成本、是否能在有限端侧算力下帮助而非拖慢控制。</li>
+<li><strong>长期终局更像组合系统</strong>：云端世界基座负责预训练与反事实生成，边缘协调器负责长程计划，端侧VLA/动作专家负责实时执行，WBC和安全控制器负责硬约束；不会由一个超大模型独占全部频率层。</li>
+</ol>
+<h2 id="_5">四、统一厂商与模型卡片</h2>
 <blockquote>
-<p>对标 Tesla Optimus、Figure（Helix）、Physical Intelligence（π0）、1X、Boston Dynamics、NVIDIA GR00T。分档为综合判断，非精确量化。</p>
+<p>每张卡统一覆盖：模型定位、机制、数据、算力部署、能力证据、边界、商业闭环。公开信息不足时明确写 <span class="na">n/a</span>。</p>
 </blockquote>
-<div class="tw"><table>
+<h3 id="31-figurehelix">3.1 Figure｜Helix</h3>
+<ul>
+<li><strong>定位与代际</strong>：Figure 01/02/03 本体上的通用 VLA。2025-02 官方 Helix 首发，核心是完全板载的 S2/S1 双系统；后续“S0 三层”等说法主要来自次级资料，未与首发官方材料等同。</li>
+<li><strong>模型原理</strong>：S2 是互联网预训练 VLM，约 7–9Hz 处理语言、场景与物体泛化；S1 读取 S2 latent 和本体状态，以 200Hz 生成连续上身动作。单一权重覆盖多行为，不按每项任务重新训练。该结构用慢语义层换泛化、快运动层换稳定性。</li>
+<li><strong>数据与训练</strong>：官方称约 <strong>500小时高质量监督数据</strong>，并称使用的数据集约为可用数据的5%。其启示不是“数据越少越好”，而是同构本体、严格质检和动作标注可显著提高有效密度。参数拆分、训练 GPU 数和完整后训练配方 <span class="na">n/a</span>。</li>
+<li><strong>推理与部署</strong>：官方强调嵌入式低功耗 NVIDIA GPU、完全板载；S1 200Hz 是策略输出频率，不应直接解释为完整视觉链路每帧 5ms。断网能力有利于工业与家庭部署。</li>
+<li><strong>特点与边界</strong>：优势是本体—模型协同、少量高质量数据和端侧实时；风险是训练数据集中于自有本体，跨本体能力未如 π/GR00T 公开，家庭长程自治和异常恢复证据仍有限。</li>
+<li><strong>持续性信号</strong>：自建 BotQ、早期工业试点及后续家庭定位可形成数据回流，但自建制造带来资本开支。大额融资与高估值<span class="secondary">【次级】</span>提供训练/产线资金，却也抬高交付预期；需跟踪付费部署、接管率和每台服务成本。</li>
+</ul>
+<h3 id="32-physical-intelligence0-05-06-fast">3.2 Physical Intelligence｜π0 → π0.5 → π0.6 / FAST</h3>
+<ul>
+<li><strong>定位与代际</strong>：不做本体，提供跨机器人基础模型和 openpi。π0（2024）建立 VLM+Action Expert；π0.5 增强开放环境泛化；π0.6/RECAP 探索用经验与纠正做强化后训练；FAST 将动作压缩为 token。</li>
+<li><strong>模型原理</strong>：PaliGemma/Gemma 系 VLM 提供视觉语言表征，Action Expert 通过 flow matching 生成连续动作，约50Hz口径来自论文/项目资料。知识层与动作层参数分工，使预训练常识不必被低层控制梯度完全改写。</li>
+<li><strong>数据与训练</strong>：跨本体、多家庭、网络/语言和机器人数据混合；FAST 论文路线扩展到约 <strong>1万小时</strong>机器人数据。训练集群与成本未披露。动作空间统一、相机标定和 embodiment adapter 是跨本体规模化的隐性成本。</li>
+<li><strong>推理与部署</strong>：不绑定芯片；实际频率取决于 VLM 尺寸、动作块长度和平台。开源降低研究采用门槛，但生产部署仍需厂商完成量化、安全壳和本体适配。</li>
+<li><strong>特点与边界</strong>：最突出的是软件中立性、跨本体数据复用与论文/代码透明；弱点是缺少自有机队，对合作伙伴数据权利、质量与部署接口依赖高。</li>
+<li><strong>持续性信号</strong>：顶级研究团队与大额融资<span class="secondary">【次级】</span>支持高算力研发；商业化可走模型授权、联合开发或平台服务，但收入和毛利模式尚待验证。持续性取决于能否把“通用基座”变成比本体厂自研更低的总拥有成本。</li>
+<li><strong>新增田野截图输入</strong>：截图将 Pi 0、Pi 0.5、Pi 0.6<em>、Pi 0.7 与叠衣、桌面清理、吐司机/微波炉取放、铺床、专业咖啡机、刀具/削皮、空气炸锅、换垃圾袋等任务对应，并写有 <code>24.10-26.01</code>、<code>25.04</code>、<code>25.11</code>、<code>26.04</code> 等时间标记；其中 Pi 0/0.5 被标作“开源”。以上均为</em><em>截图口径/待核</em><em>：时间含义不清，绿色勾选无图例，Pi 0.6</em>/0.7 命名、发布日期及开源状态需以 PI 项目页核验，不能视作已量产或一手性能证据。截图旁注称“WAIC里大多数家庭/服务模型场景从Pi模型系列延伸与优化”，属于<strong>截图判断/待核</strong>。</li>
+</ul>
+<h3 id="33-nvidiagr00t-n1-n15-isaac-thor">3.3 NVIDIA｜GR00T N1 / N1.5 + Isaac + Thor</h3>
+<ul>
+<li><strong>定位与代际</strong>：不是单一模型，而是 Teleop采集—Isaac Sim/Lab训练—GR00T模型—Isaac ROS部署—Jetson Thor算力的全栈平台。N1约2B，N1.5为3B模型卡口径。</li>
+<li><strong>模型原理</strong>：System 2 使用 Eagle-2/2.5 VLM 约10Hz处理语义；System 1 用 Diffusion Transformer + flow matching 生成动作，公开资料常见约120Hz口径。N1.5 的 FLARE 通过未来 latent 对齐从无动作标签人类视频吸收信息。</li>
+<li><strong>数据与训练</strong>：既有草稿记录的 N1.5 混合比例为 GR-1遥操作27.3%、Open X 27.3%、仿真27.3%、AgiBot 9.1%、DreamGen 9.1%<span class="secondary">【次级】</span>。训练约1000×H100、25万步、全局batch 16384<span class="secondary">【次级】</span>，是少数可讨论集群规模的案例，仍需官方训练日志复核。</li>
+<li><strong>推理与部署</strong>：Thor 官方规格高达2070 FP4 TFLOPS、128GB统一内存、40–130W配置；这是峰值硬件指标，不等于模型实测时延。平台支持从训练集群到端侧，但热设计和功耗会限制移动机器人持续工作。</li>
+<li><strong>特点与边界</strong>：优势是工具链、生态、合成数据和硬件协同；风险是客户锁定、仿真偏差及参考模型与特定本体之间仍需大量适配。</li>
+<li><strong>持续性信号</strong>：GPU/边缘芯片、云服务和开发工具可多点变现，商业韧性显著高于单一本体项目。即使某款人形未放量，工业机器人和仿真需求仍能支撑路线；因此属于持续性最高的平台型玩家之一。</li>
+</ul>
+<h3 id="34-google-deepmind-apptronikgemini-robotics-15-er-15">3.4 Google DeepMind / Apptronik｜Gemini Robotics 1.5 + ER 1.5</h3>
+<ul>
+<li><strong>定位与代际</strong>：RT-1/RT-2 奠定 VLA，Gemini Robotics（2025-03）进入机器人动作，On-Device 强调本地运行；1.5 由 ER 1.5 具身推理模型和 Robotics 1.5 动作模型协同。Apptronik Apollo 提供本体与 Robot Park 数据。</li>
+<li><strong>模型原理</strong>：ER 负责理解、任务分解、工具调用和进度检查，动作模型将计划转为轨迹；“先思考再行动”提升可解释性，motion transfer 探索跨本体迁移。它比单体 VLA 更像协调器+执行器组合。</li>
+<li><strong>数据与训练</strong>：依托 Gemini 互联网预训练和多本体机器人数据；真机小时数、动作数据配比、训练 TPU 数 <span class="na">n/a</span>。Apptronik 通过 Apollo 2 机队和客户现场采数，数据所有权与回流速度是合作成败关键。</li>
+<li><strong>推理与部署</strong>：ER 可经 API 使用，动作模型主要向合作伙伴开放；On-Device 证明离线方向，但具体参数、功耗和频率缺少统一公开口径。云端推理不能进入安全高频环。</li>
+<li><strong>特点与边界</strong>：优势是强语义推理、工具使用、基座算力和跨本体研究；短板是动作模型开放度有限，实际交付依赖伙伴硬件成熟度。</li>
+<li><strong>持续性信号</strong>：DeepMind 有母公司算力与基础模型现金流，Apptronik 有制造/物流试点及融资<span class="secondary">【次级】</span>。伙伴分工降低各自跨度，却增加接口与战略依赖；应观察 Robot Park 是否持续产出可量化泛化提升。</li>
+</ul>
+<h3 id="35-go-1-villa-agibot-world">3.5 智元机器人｜GO-1 / ViLLA + AgiBot World</h3>
+<ul>
+<li><strong>定位与代际</strong>：从原子技能走向 GO-1 通用操作。ViLLA 采用 VLM理解层（InternVL-2B）+ latent planner + diffusion Action Expert，用隐式动作表征连接图文和控制；GO-1/GO-1 Air 已有开源检查点。</li>
+<li><strong>模型原理</strong>：VLM 将语言和多视角视觉编码为语义，latent planner 预测中间动作意图，扩散专家再生成执行轨迹。相比直接动作 token，latent 有利于跨本体映射和长程拆解，但需保证中间表征不丢失接触细节。</li>
+<li><strong>数据与训练</strong>：AgiBot World 公开口径超过100万条真机轨迹、2976小时、100+场景、80+技能，另有 Digital World 与 Genie Sim；数据覆盖家居、餐饮、工业、商超和办公。具体训练 GPU/时长 <span class="na">n/a</span>。</li>
+<li><strong>推理与部署</strong>：端侧控制器与部分本体公开约200–270TOPS口径<span class="secondary">【次级】</span>，模型量化、P95时延、断网能力未系统披露。GO-1 跨松灵、方舟、Franka 验证显示跨本体意图。</li>
+<li><strong>特点与边界</strong>：最大优势是“本体+真机数据+仿真+开源模型”的完整闭环；短板是数据统计口径、线上成功率与生产级接管率仍需第三方评测。</li>
+<li><strong>持续性信号</strong>：多产品线、工业数采和开源生态可分摊模型成本；制造扩张也带来库存和服务压力。若客户部署能持续回流失败片段，路线具有较强持续性；融资、出货和估值数字需以审计材料更新。</li>
+</ul>
+<h3 id="36-era-42-hirt-vpp-ctrl-world">3.6 星动纪元｜ERA-42 / HiRT / VPP / Ctrl-World</h3>
+<ul>
+<li><strong>定位与代际</strong>：模型、本体与世界模型联合。HiRT 用约7B世界/语义模型连接约40M执行模型的快慢分层<span class="secondary">【次级】</span>；ERA-42覆盖视觉理解、预测和行动；VPP/Ctrl-World 强化未来状态建模。</li>
+<li><strong>模型原理</strong>：低频大模型预测任务相关 latent 或未来视觉，高频小策略按本体反馈执行；Ctrl-World 对候选动作生成可控未来，用预测结果约束策略。其价值是把视频数据变成动作学习先验。</li>
+<li><strong>数据与训练</strong>：真实场景—仿真—实验室三级闭环；“每周300万帧”是公司/媒体口径<span class="secondary">【次级】</span>，不能直接等价于有效轨迹。训练集群、真机小时与合成比例 <span class="na">n/a</span>。</li>
+<li><strong>推理与部署</strong>：分频设计可降低7B模型每控制周期运行的需求，但完整延迟、端侧芯片和世界模型是否实时在线未公开。</li>
+<li><strong>特点与边界</strong>：特色是世界模型研究深度、全身+灵巧手和开源VPP；风险是世界模型误差累积、训练复杂、从论文指标到连续物流作业仍有距离。</li>
+<li><strong>持续性信号</strong>：物流合作、柔性产能与多轮融资<span class="secondary">【次级】</span>提供闭环入口。世界模型路线算力消耗大，持续性取决于场景收入能否覆盖视频训练和真机运维成本。</li>
+</ul>
+<h3 id="37-wall-a-wall-oss">3.7 自变量机器人｜WALL-A / WALL-OSS</h3>
+<ul>
+<li><strong>定位与代际</strong>：统一感知—推理—行动表示的端到端具身基础模型，强调具身思维链、零样本泛化和探索—反思闭环；WALL-OSS 与训练代码用于生态扩散。</li>
+<li><strong>模型原理</strong>：视觉、语言、状态和动作在统一 Transformer 表示空间中建模，减少手工技能接口；推理轨迹提供任务阶段信息，再由动作头输出控制。统一架构简洁，但训练时需防止语义损失压过精细动作梯度。</li>
+<li><strong>数据与训练</strong>：依靠自研轮式双臂、五指手和外骨骼遥操作采数；规模、数据配比、参数与训练算力 <span class="na">n/a</span>。缺失项是评估其 scaling 叙事的主要障碍。</li>
+<li><strong>推理与部署</strong>：端侧芯片、动作频率、P95时延和量化策略 <span class="na">n/a</span>；因此不能仅凭“端到端”判断实时性。</li>
+<li><strong>特点与边界</strong>：优势是模型优先、开源和软硬件数采工具一体；风险是公开生产运营指标少、统一模型在长程任务中的错误恢复仍待验证。</li>
+<li><strong>持续性信号</strong>：近10亿元A+轮及产业资本参与为次级公开口径；模型公司若同时承担本体制造，资金消耗会更大。持续性看点是 WALL-OSS 采用率、付费场景和数据网络效应，而非单轮融资。</li>
+</ul>
+<h3 id="38-astrabrain-graspvla-trackvla-groceryvla">3.8 银河通用｜AstraBrain / GraspVLA / TrackVLA / GroceryVLA</h3>
+<ul>
+<li><strong>定位与代际</strong>：以任务专长模型矩阵逐步汇聚到 AstraBrain，轮式双臂 G1 在零售、药店、仓储形成运营入口。GraspVLA负责抓取，TrackVLA负责视觉导航，GroceryVLA针对货架。</li>
+<li><strong>模型原理</strong>：大脑/小脑/本体分层；VLA将视觉语言条件映射到抓取或导航动作，任务专用头用场景先验换取成功率。路线不是“一开始追求单一万能模型”，而是用可交付技能积累闭环后再统一。</li>
+<li><strong>数据与训练</strong>：差异化押注大规模仿真/合成，行业报道有“占比&gt;99%”口径<span class="secondary">【次级】</span>，需官方模型卡复核。真实零售点位提供域校准和失败样本；训练集群 <span class="na">n/a</span>。</li>
+<li><strong>推理与部署</strong>：G1 公开硬件为 AGX Orin 64GB/275TOPS，续航约8h；端到端时延与动作频率 <span class="na">n/a</span>。轮式底盘减少双足稳定性算力，把预算集中于操作。</li>
+<li><strong>特点与边界</strong>：优势是仿真规模、零售点位、轮式稳定性和运营数据；短板是Sim2Real、场景专用性以及厂商成功率口径缺少第三方复现。</li>
+<li><strong>持续性信号</strong>：融资超过12亿元、产业投资者和多城点位为既有次级口径。零售运营能否产生正单位经济性、每店人工接管量及补货SKU覆盖，决定其数据闭环是否真正可持续。</li>
+</ul>
+<h3 id="39-govla-alpha-brain">3.9 智平方｜GOVLA / Alpha Brain</h3>
+<ul>
+<li><strong>定位与代际</strong>：面向轮式可升降 AlphaBot 的全域全身 VLA，明确 System 2 慢推理 + System 1 快控制，并将机械臂、躯干和移动轨迹放入统一输出。</li>
+<li><strong>模型原理</strong>：360°感知构建空间交互表示；S2进行语言理解、任务拆解，S1联合生成移动与全身动作，减少“导航到点再操作”的割裂。全身联合优化更适合移动装配，也扩大动作维度和安全约束。</li>
+<li><strong>数据与训练</strong>：汽车、半导体、生物科技现场提供精密操作数据；数据规模、参数、GPU、仿真比例 <span class="na">n/a</span>。DeepSeek 融入 VLA 为公开传播口径，具体模块和训练贡献待技术文档。</li>
+<li><strong>推理与部署</strong>：续航6h+，但芯片、频率、时延 <span class="na">n/a</span>。±0.02mm装配与日均20h连续作业属次级场景口径，需明确测量条件和人工干预。</li>
+<li><strong>特点与边界</strong>：优势是全身移动操作与高价值工业场景；风险是动作维度高、精度与泛化难兼得，缺少标准化模型卡。</li>
+<li><strong>持续性信号</strong>：多轮产业融资和客户联合测试<span class="secondary">【次级】</span>支持场景进入；2028/2033产量目标属于规划，不作为持续性证据。应看量产测试转正式采购、维护成本和软件复用率。</li>
+</ul>
+<h3 id="310-1xredwood-1x-world-model">3.10 1X｜Redwood + 1X World Model</h3>
+<ul>
+<li><strong>定位与代际</strong>：家庭优先，EVE轮式数据过渡到NEO双足。Redwood负责全身移动操作，世界模型预测交互后果；远程专家在早期提供兜底和高价值纠错数据。</li>
+<li><strong>模型原理</strong>：VLA从视觉/语言到动作，世界模型学习“动作后将看到什么”，可用于数据 scaling、离线评估或候选动作筛选。软体外壳和肌腱驱动从硬件层降低家庭碰撞风险。</li>
+<li><strong>数据与训练</strong>：公司相关报道称真实家庭/办公“数千小时”<span class="secondary">【次级】</span>；具体轨迹、失败比例、参数和训练集群 <span class="na">n/a</span>。Redwood约160M与Jetson Thor部署均为次级口径，需模型卡确认。</li>
+<li><strong>推理与部署</strong>：强调端侧自主与teleop兜底。远程接管提高早期可用性，但若每台每小时接管过多，带宽、隐私与人工成本会吞噬RaaS毛利。</li>
+<li><strong>特点与边界</strong>：优势是家庭真实分布、软硬件安全和世界模型；短板是开放家庭长尾极大，演示中自主与遥操边界必须透明。</li>
+<li><strong>持续性信号</strong>：家庭预订/月租和交付价格多为次级口径。路线持续性取决于“每台新增数据带来的接管下降”是否快于硬件折旧与服务成本增长。</li>
+</ul>
+<h3 id="311-boston-dynamics-trilarge-behavior-model">3.11 Boston Dynamics + TRI｜Large Behavior Model</h3>
+<ul>
+<li><strong>定位与代际</strong>：全电 Atlas 与 TRI LBM 结合，目标是把高动态全身控制与多任务灵巧操作统一。论文指向 Diffusion Transformer、多模态条件和长时序行为。</li>
+<li><strong>模型原理</strong>：视觉、语言提示和本体状态输入单一大行为模型，扩散过程生成全身轨迹；技能可由人类示教加入。与VLA相比，它更强调动作分布与全身协调，语义知识的互联网规模复用较弱。</li>
+<li><strong>数据与训练</strong>：人类演示、仿真和少量真机校准；TRI“降低约80%数据需求”为其公开表述的次级转述，基线和任务范围需查论文。训练算力、参数和端侧芯片 <span class="na">n/a</span>。</li>
+<li><strong>推理与部署</strong>：公开演示覆盖行走—搬运—分类—打包长序列，但连续运营频率、P95时延和恢复率未披露。</li>
+<li><strong>特点与边界</strong>：强项是机械设计、全身动态与行为学习结合；短板是成本高、平台尚处试点，模型开放度有限。</li>
+<li><strong>持续性信号</strong>：现代汽车集团场景和TRI长期研究资金降低短期融资风险；但 Atlas 能否从研究平台变成可复制产品，要看汽车工厂正式部署和制造成本。</li>
+</ul>
+<h3 id="312-teslaoptimus">3.12 Tesla｜Optimus</h3>
+<ul>
+<li><strong>定位与代际</strong>：复用自动驾驶“视觉—神经网络—端侧控制”能力，自建工厂先部署。独立机器人模型名称、参数和正式论文均 <span class="na">n/a</span>，不应把发布会演示等同于完整技术披露。</li>
+<li><strong>模型原理</strong>：纯视觉、多相机感知、模仿/遥操作数据与端到端策略，底层仍需运动控制和安全层。官方未明确采用 Helix式 System 1/2。</li>
+<li><strong>数据与训练</strong>：自建遥操作、工厂任务、仿真，并可复用视觉训练基础设施；小时数、轨迹数和机器人专用训练集群 <span class="na">n/a</span>。Dojo与NVIDIA GPU的具体分工口径变化较多。</li>
+<li><strong>推理与部署</strong>：端侧延续FSD计算平台思路，AI4/AI5代际与机器人量产配置需官方确认。端侧自研芯片可降低规模成本，但软件成熟前会形成较高固定投入。</li>
+<li><strong>特点与边界</strong>：优势是工厂场景、芯片/制造垂直整合和潜在机队规模；短板是模型透明度、时间表反复和开放任务证据少。</li>
+<li><strong>持续性信号</strong>：汽车与能源业务现金流可长期补贴机器人研发，路线财务耐力强；但机器人自身商业成立仍需正式产量、外部客户、单位成本与自主作业时长证明。</li>
+</ul>
+<h3 id="313-skild-aiskild-brain">3.13 Skild AI｜Skild Brain</h3>
+<ul>
+<li><strong>定位与代际</strong>：omni-bodied 统一机器人基础模型，目标是不预先绑定精确本体，可控制四足、人形、桌面臂和移动操作臂。</li>
+<li><strong>模型原理</strong>：从多形态数据学习共享运动先验，再通过本体条件/adapter映射到不同动作空间。理论上扩大数据网络效应，实际难点是传感器、动力学、控制接口不一致。</li>
+<li><strong>数据与训练</strong>：参数、真机小时、数据构成、训练集群和端侧频率均 <span class="na">n/a</span>，未开源。缺少这些信息时无法和π/GR00T做效率比较。</li>
+<li><strong>能力证据</strong>：公司展示跨形态任务与企业合作，但统一标准、长程成功率和部署成本待核。</li>
+<li><strong>持续性信号</strong>：多轮超大融资、估值和收入数字均来自次级报道；若约3000万美元收入口径成立，说明企业项目开始变现，但需审计材料确认。其风险是高估值要求快速收入扩张，而闭源模型的客户锁定价值尚未证明。</li>
+</ul>
+<h3 id="314-brainnet-20-co-agent">3.14 优必选｜BrainNet 2.0 + Co-Agent</h3>
+<ul>
+<li><strong>定位与代际</strong>：以工业 Walker S 系为载体，采用群脑网络与智能体编排，而非单一通用 VLA。重点是意图理解、任务规划、工具调用、异常处置和多机协同。</li>
+<li><strong>模型原理</strong>：云/边缘大模型拆解任务，机器人技能层执行，FOC/MES/WMS反馈状态；异常回传后重新规划。它牺牲部分端到端优雅性，换取工业流程可审计与已有技能复用。</li>
+<li><strong>数据与训练</strong>：“亿级工业数据”“自主处理&gt;90%异常”为公司/媒体口径<span class="secondary">【次级】</span>，数据单位、任务集合和基线待核。训练算力、端侧芯片 <span class="na">n/a</span>。</li>
+<li><strong>交付证据</strong>：Walker S2自主换电和多工厂试点有利于连续作业；千台、订单8亿元等为次级汇总，上市公司信息应以公告/财报更新。</li>
+<li><strong>特点与边界</strong>：优势是工业客户、运营编排、换电和制造；短板是基础模型泛化与数据细节披露较弱。</li>
+<li><strong>持续性信号</strong>：上市公司可从财报观察收入、毛利和现金消耗，透明度相对高。大规模产线若订单不足会形成折旧压力；应看机器人业务回款、RaaS续约和单机服务收入。</li>
+</ul>
+<h3 id="315-focus-fourieractionnet">3.15 傅利叶智能｜操作模型 + FOCUS + FourierActionNet</h3>
+<ul>
+<li><strong>定位与代际</strong>：运控以强化学习和模仿学习为主，感知采用纯视觉BEV/Transformer/OCC，FOCUS负责多机调度；从康复积累延伸至GR系列通用本体。</li>
+<li><strong>模型原理</strong>：仿真RL训练步态和全身控制，遥操作示教训练上肢，场景大模型负责交互/任务；多智能体平台协调任务。分层路线工程可控，但通用语义—动作统一程度弱于VLA。</li>
+<li><strong>数据与训练</strong>：FourierActionNet公开超过3万条真机/灵巧手操作数据及工具链，曾进入NVIDIA生态。训练集群、视频预训练和端侧模型参数 <span class="na">n/a</span>。</li>
+<li><strong>推理与部署</strong>：GR-3与地瓜RDK S600合作为次级公开信息，反映端侧国产化尝试；实际模型时延待测。</li>
+<li><strong>特点与边界</strong>：康复渠道、执行器自研和数据开源构成差异化；跨场景泛化和高频现场运营指标不足。</li>
+<li><strong>持续性信号</strong>：康复业务进入大量医院的既有渠道可提供收入与制造基础，但康复数据与工业操作数据分布不同。路线持续性取决于是否把渠道现金流转化为通用机器人的可复用数据资产。</li>
+</ul>
+<h3 id="316-unifolm">3.16 宇树科技｜运控模型 + UnifoLM</h3>
+<ul>
+<li><strong>定位与代际</strong>：以高动态运动控制、低成本本体和开发者生态见长，叠加UnifoLM统一模型探索。核心壁垒当前更偏执行器、关节、RL运控和规模制造，而非公开通用操作模型。</li>
+<li><strong>模型原理</strong>：深度强化学习与模仿学习完成步态、全身动作和重定向；更高层世界/具身模型接收语言视觉并调用动作策略。分层使运动技能稳定，但开放物体操作需要更多灵巧手数据。</li>
+<li><strong>数据与训练</strong>：真机轨迹、UnifoLM参数、训练GPU和端侧部署均 <span class="na">n/a</span>；展示视频不能替代模型卡。</li>
+<li><strong>能力证据</strong>：量产本体、科研教育和高动态动作提供大规模开发者触点；复杂长程操作、异常恢复和跨场景成功率披露不足。</li>
+<li><strong>持续性信号</strong>：硬件销量和核心部件自研有利于现金回收与降本，相关出货/财务数字需招股书或审计文件核验。其持续性强项是低成本机队，关键转折是能否把分散开发者数据转为合规统一训练集。</li>
+</ul>
+<h3 id="317-agility-roboticsdigit-arc">3.17 Agility Robotics｜Digit + Arc</h3>
+<ul>
+<li><strong>定位与代际</strong>：专注仓储搬箱和物流流程，以成熟步态/规划/学习控制配合Arc运营平台，不把“通用大模型”作为首要卖点。</li>
+<li><strong>模型原理</strong>：任务编排、感知、路径与抓取技能、全身控制分层；WMS下发任务，机器人执行固定但可变参数的流程，异常进入恢复或人工处置。该路线牺牲开放泛化换可靠交付。</li>
+<li><strong>数据与训练</strong>：客户现场能够产生高质量失败数据，但模型代际、小时数、芯片、训练集群 <span class="na">n/a</span>。十万料箱、作业小时等多为官方里程碑的次级转述，需统一时间点。</li>
+<li><strong>推理与部署</strong>：本地安全与运动控制为主，Arc负责机队运营。确定性和可维护性通常优于大模型直接控制。</li>
+<li><strong>特点与边界</strong>：优势是商业部署、RoboFab和单一场景优化；短板是SKU、流程和场景扩展速度有限。</li>
+<li><strong>持续性信号</strong>：RaaS和多年客户合同提供经常性收入潜力，RoboFab产能也带来固定成本。核心指标是利用率、续约率、每箱成本和人工接管率，而非模型参数。</li>
+</ul>
+<h3 id="318-sanctuary-ai">3.18 Sanctuary AI / 星尘智能 / 乐聚｜差异化分层路线</h3>
+<ul>
+<li><strong>Sanctuary Carbon</strong>：认知架构把自然语言转为任务和动作，强调记忆、可解释规划与液压灵巧手；参数、数据、芯片均n/a。优势是精细手与可审计任务，风险是液压维护和双足/全身成熟度。融资与企业试点需核实正式收入。</li>
+<li><strong>星尘 DuoCore</strong>：毫秒级本能反应+大模型决策，绳驱肌腱和刚柔混合动力学支持高速上肢；VR遥操、视频和人体示教构成数据源。优势是速度/柔顺和开发工具链，短板是数据规模与生产运营证据不足。</li>
+<li><strong>乐聚夸父</strong>：RL/模仿运控接入盘古/智谱等大模型，鸿蒙生态与科研教育优先。优势是生态合作和批量平台，短板是自有通用操作基础模型、端侧算力与数据披露有限。</li>
+</ul>
+<h2 id="_6">四、路线横向对比：能力、优劣、算力与数据</h2>
+<h3 id="41">4.1 机制级比较</h3>
+<div class="table-wrap"><table>
 <thead>
 <tr>
-<th>维度</th>
-<th>判断</th>
-<th>依据</th>
+<th>路线</th>
+<th>泛化</th>
+<th>实时控制</th>
+<th>长程任务</th>
+<th>可解释/安全</th>
+<th>训练算力</th>
+<th>数据需求</th>
+<th>适合场景</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>硬件成本/性价比</strong></td>
-<td>🟢 <strong>已领先</strong></td>
-<td>宇树 G1 ¥8.5–9.9万、松延 N2 ¥3.99万起（甚至 ¥9999 口径）、众擎 PM01 ¥8.8万起，远低于海外；国产减速器价格约海外 40–50%</td>
+<td>单体端到端 VLA</td>
+<td>高潜力</td>
+<td>中，依赖动作块/小模型</td>
+<td>中，易漂移</td>
+<td>低—中</td>
+<td>高：VLM+机器人联合训练</td>
+<td>大规模异构数据；需高质量动作</td>
+<td>开放抓取、多技能研究</td>
 </tr>
 <tr>
-<td><strong>迭代速度/量产工程化</strong></td>
-<td>🟢 <strong>已领先/接近</strong></td>
-<td>优必选 S2 破千台、宇树出货规模领先、智元 2024 已量产；"用机器人造机器人"万台级工厂已投产</td>
+<td>VLM+Action Expert</td>
+<td>高</td>
+<td>高</td>
+<td>中—高</td>
+<td>中</td>
+<td>高，但模块可分训</td>
+<td>互联网语义+数千小时级动作更理想</td>
+<td>通用操作、跨本体</td>
 </tr>
 <tr>
-<td><strong>本体运动能力</strong></td>
-<td>🟢 <strong>接近/局部领先</strong></td>
-<td>空翻、马拉松、格斗、体操等高动态运控国内密集突破（宇树/星动/松延/众擎）</td>
+<td>显式快慢系统</td>
+<td>高</td>
+<td><strong>高</strong></td>
+<td>高潜力</td>
+<td>中—高，可插安全层</td>
+<td>高；两模型与对齐成本</td>
+<td>需计划标签/latent与动作同步</td>
+<td>移动操作、家庭、工业</td>
 </tr>
 <tr>
-<td><strong>开源数据/生态</strong></td>
-<td>🟢 <strong>接近/局部领先</strong></td>
-<td>智元 AgiBot World 反向被 NVIDIA GR00T 采用，是少见的"中国数据喂海外模型"案例</td>
+<td>世界模型增强</td>
+<td>中—高</td>
+<td>低（主模型）/旁路可用</td>
+<td><strong>高潜力</strong></td>
+<td>可用于预演</td>
+<td><strong>很高</strong>：视频生成昂贵</td>
+<td>大量视频，可少动作标签</td>
+<td>合成、评测、异常恢复</td>
 </tr>
 <tr>
-<td><strong>模型泛化/通用大脑</strong></td>
-<td>🟡 <strong>接近但有差距</strong></td>
-<td>Figure Helix、PI π0 在长程泛化操作上仍被视为标杆；国内 VLA 多在"可用（70%效率）"阶段，"好用"待验证</td>
+<td>LBM/模仿扩散</td>
+<td>中</td>
+<td>高</td>
+<td>中</td>
+<td>中</td>
+<td>中—高</td>
+<td>高质量多任务示教</td>
+<td>灵巧操作、全身协同</td>
 </tr>
 <tr>
-<td><strong>真机数据深度积累</strong></td>
-<td>🟡→🔴 <strong>有差距（除智元）</strong></td>
-<td>除 AgiBot World，多数厂商真机数据量级不透明；海外 PI/Google（Open X）积累更系统</td>
-</tr>
-<tr>
-<td><strong>端侧芯片自主</strong></td>
-<td>🔴 <strong>有明显差距</strong></td>
-<td>高度依赖 NVIDIA Jetson/Orin/Thor；国产地瓜/瑞芯微/自研仍在爬坡</td>
-</tr>
-<tr>
-<td><strong>高端触觉/精密传感</strong></td>
-<td>🟡 <strong>接近</strong></td>
-<td>六维力、阵列触觉国产化推进中，高端仍部分依赖进口</td>
+<td>技能库+智能体</td>
+<td>中</td>
+<td><strong>高且确定</strong></td>
+<td>高（限定流程）</td>
+<td><strong>高</strong></td>
+<td>中/低</td>
+<td>每技能数据较少、工程规则较多</td>
+<td>仓储、产线、RaaS</td>
 </tr>
 </tbody>
 </table></div>
-<p><strong>一句话判断</strong>：国内在<strong>硬件成本、量产工程化、运动能力、开源数据生态</strong>上已达"领先或接近"；在<strong>通用大脑的长程泛化、系统性真机数据积累、端侧 AI 芯片自主</strong>上仍有"接近但有差距/明显差距"。竞争本质是"中国的硬件+工程+成本" vs "海外的模型泛化+数据方法论"。</p>
-<hr />
-<h2 id="china-h8">七、信源质量说明 + 数据缺口清单</h2>
-<p><strong>信源质量说明</strong>
-- <strong>一级信源</strong>（本轮已直接触及）：厂商官网（galbot.com、astribot.com、zhiyuan-robot、ithome 转发布会）、开源仓库（github.com/OpenDriveLab/AgiBot-World）、arXiv（2503.06669 ViLLA/AgiBot World 论文）、核心人访谈（王鹤@智源大会、陈建宇@新京报/搜狐、顾捷@澎湃、安昭辉@红星）。
-- <strong>次级信源</strong>（已标注 <code><span class="lv2">【次级】</span></code>）：百度百科/夸克百科（参数聚合，须交叉核）、东方财富/新浪财经/搜狐/网易/CSDN/B站（媒体与产业梳理，出货量、估值、供应链关系多来自此）。
-- <strong>一级信源占比估计</strong>：约 <strong>35–40%</strong>（模型架构、开源数据、创始人观点多来自一级；硬件参数、量产数字、供应链关系大量依赖次级百科/媒体转述）。
-- <strong>主要风险</strong>：①百科参数存在版本/口径冲突（如银河 G1 重量 85 vs 92.5kg、续航 8 vs 10h；优必选 S2 70 vs 73kg）；②出货量/订单/估值均为媒体口径，未经财报核实；③供应链配套关系绝大多数"<span class="unconf">未经官方确认</span>"。</p>
-<p><strong>数据缺口清单（Top 5）</strong>
-1. <strong>真机数据量级与训练算力</strong>：除智元 AgiBot World，其余 9 家的真机轨迹数/小时数、训练集群规模、算力来源几乎全部 <span class="na">n/a</span>——本报告最大盲区。
-2. <strong>端侧芯片明细</strong>：仅银河（AGX Orin 275TOPS）、众擎（Intel N97+Orin）、傅利叶（RDK S600）、加速进化（Orin/Thor）较明确；宇树"自研"具体型号、智元/优必选/星动/智平方/星尘/自变量端侧芯片方案 <span class="na">n/a</span>。
-3. <strong>供应链真实配套关系</strong>：谐波减速器/灵巧手/丝杠/力传感器与各整机厂的配套，绝大多数为产业梳理推测，缺官方确认；立讯/富士康是否参与整机代工无证据。
-4. <strong>定价</strong>：银河、星动、智平方、星尘、自变量、傅利叶、乐聚官方定价均未公开（B 端项目制）。
-5. <strong>手部触觉细节与灵巧手 DOF 一致口径</strong>：多家灵巧手自由度/触觉点数口径不一或缺失（宇树、智平方、星尘、乐聚尤甚）。</p>
-<hr />
-<p><em>完成时间：2026-09-29。全文参数须以厂商最新规格书/招股材料为准。</em></p></section></main>
-</div>
-
-<footer>
-  ⚠️ 本页为<b>初版草稿</b>，用于核对与补充信源。硬件参数、出货量、估值、供应链关系大量依赖次级转述，
-  且存在多处百科口径冲突（正文已保留差异并标注）。<b>采购或对外引用前，请以厂商规格书、招股书/财报核实。</b>
-  量产状态一律区分「已量产交付 / 已发布未量产 / 仅宣称或规划」三态。
-</footer>
-
-<script>
-document.querySelectorAll('.tab').forEach(function(b){
-  b.addEventListener('click',function(){
-    var t=b.dataset.t;
-    document.querySelectorAll('.tab').forEach(function(x){x.classList.toggle('active',x===b)});
-    document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('active',p.dataset.t===t)});
-    document.querySelectorAll('.toc-group').forEach(function(g){g.style.display=(g.dataset.t===t)?'block':'none'});
-    window.scrollTo({top:0,behavior:'smooth'});
-  });
-});
-document.querySelectorAll('aside a').forEach(function(a){
-  a.addEventListener('click',function(e){
-    e.preventDefault();
-    var el=document.querySelector(a.getAttribute('href'));
-    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-  });
-});
-</script>
+<h3 id="42">4.2 推理算力与端云分工</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>层</th>
+<th style="text-align: right;">典型频率</th>
+<th>主要计算</th>
+<th>资源估算方式</th>
+<th>关键瓶颈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>语义/规划 S2</td>
+<td style="text-align: right;">1–10Hz</td>
+<td>2B–10B级VLM、记忆检索</td>
+<td>参数显存 + 图像token × 帧率</td>
+<td>首token时延、上下文、功耗</td>
+</tr>
+<tr>
+<td>动作策略 S1</td>
+<td style="text-align: right;">20–200Hz</td>
+<td>40M–数B Action Expert/DiT</td>
+<td>去噪步数 × 动作维度 × 频率</td>
+<td>P95时延、抖动、动作块长度</td>
+</tr>
+<tr>
+<td>全身控制</td>
+<td style="text-align: right;">100–1000Hz</td>
+<td>WBC/MPC/RL policy</td>
+<td>状态维度、优化迭代</td>
+<td>确定性、接触稳定、安全</td>
+</tr>
+<tr>
+<td>世界模型</td>
+<td style="text-align: right;">离线为主/低频在线</td>
+<td>视频/latent生成</td>
+<td>预测时域 × 分辨率 × 候选动作</td>
+<td>算力极高、误差累积</td>
+</tr>
+<tr>
+<td>训练</td>
+<td style="text-align: right;">周—月</td>
+<td>多模态预训练/后训练</td>
+<td>GPU小时、吞吐、存储、网络</td>
+<td>数据IO、成本、复现实验</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>估算原则</strong>：公开TOPS/TFLOPS是峰值，不等于可用吞吐；必须同时记录精度（FP4/FP8/BF16）、batch、热设计功耗、内存带宽和视觉预处理。模型参数未披露时，报告不做伪精确推算。</p>
+<h3 id="43">4.3 数据需求比较</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>数据</th>
+<th>最适合训练</th>
+<th>边际价值</th>
+<th>成本/风险</th>
+<th>质量控制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>真机遥操作</td>
+<td>接触、动作专家、精细手</td>
+<td>最高但昂贵</td>
+<td>操作者偏差、硬件损耗</td>
+<td>成功/失败都留；同步力觉与相机</td>
+</tr>
+<tr>
+<td>客户现场失败</td>
+<td>恢复策略、域适配</td>
+<td><strong>最接近商业价值</strong></td>
+<td>隐私、停线、版本污染</td>
+<td>事件触发、脱敏、可追溯版本</td>
+</tr>
+<tr>
+<td>仿真</td>
+<td>运控、危险长尾、回归</td>
+<td>可无限并行</td>
+<td>Sim2Real</td>
+<td>域随机化+少量真机校准</td>
+</tr>
+<tr>
+<td>人类/互联网视频</td>
+<td>语义、动作先验、世界模型</td>
+<td>覆盖广</td>
+<td>无机器人动作、视角差异</td>
+<td>FLARE/latent action/视频对齐</td>
+</tr>
+<tr>
+<td>跨本体数据</td>
+<td>通用基础模型</td>
+<td>产生规模效应</td>
+<td>坐标与动力学不一致</td>
+<td>统一schema、adapter、任务本体论</td>
+</tr>
+<tr>
+<td>合成视频/轨迹</td>
+<td>稀有任务、扩容</td>
+<td>快速便宜</td>
+<td>模型幻觉闭环污染</td>
+<td>真实性评分、真机抽检、分层权重</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="_7">五、融资、财务、商业化与路线持续性</h2>
+<blockquote>
+<p>由于多家公司非上市，融资/估值/收入常来自次级报道。以下评价采用结构性证据，不将传闻金额当作审计事实。</p>
+</blockquote>
+<h3 id="51">5.1 商业模式的现金流结构</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>代表</th>
+<th>收入路径</th>
+<th>资金优势</th>
+<th>持续性风险</th>
+<th>跟踪指标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>平台/算力</td>
+<td>NVIDIA、Google</td>
+<td>芯片、云、API、工具链</td>
+<td>现有现金流可长期投入</td>
+<td>机器人收入被生态叙事高估</td>
+<td>活跃开发者、芯片出货、付费API</td>
+</tr>
+<tr>
+<td>纯模型</td>
+<td>PI、Skild</td>
+<td>授权、联合训练、按量推理</td>
+<td>研发聚焦、跨本体规模效应</td>
+<td>无自有机队、议价与数据依赖</td>
+<td>付费本体数、推理毛利、迁移成本</td>
+</tr>
+<tr>
+<td>软硬一体通用本体</td>
+<td>Figure、1X、智元、宇树</td>
+<td>售机/RaaS/订阅</td>
+<td>掌握传感器和数据闭环</td>
+<td>制造、库存、售后、资本开支重</td>
+<td>单位成本、利用率、接管率、回款</td>
+</tr>
+<tr>
+<td>场景垂直运营</td>
+<td>Agility、银河、优必选</td>
+<td>RaaS、项目、运营分成</td>
+<td>数据贴近ROI，续约可验证</td>
+<td>定制化吞噬毛利，扩场景慢</td>
+<td>每任务成本、续约、部署周期</td>
+</tr>
+<tr>
+<td>研究/集团协同</td>
+<td>BD/TRI、Tesla</td>
+<td>集团内部场景后外售</td>
+<td>长期资金和真实工厂</td>
+<td>外部商业紧迫度不足</td>
+<td>正式采购、产量、外部客户占比</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="52">5.2 公司持续性判断</h3>
+<ul>
+<li><strong>高韧性平台层</strong>：NVIDIA、Google。基础业务为训练和端侧算力兜底，机器人大脑即使商业化延迟也不会立即中断；风险主要是封闭生态和客户成本。</li>
+<li><strong>强资金但待证明单位经济性</strong>：Figure、1X、Skild、PI。融资能购买算力和人才，却不能替代现场闭环；需要从演示转向可重复付费。估值越高，对收入增速、毛利和交付节奏要求越激进。</li>
+<li><strong>交付驱动、数据更真实</strong>：Agility、优必选、银河、智元。场景数据有价值，但项目制需求容易导致版本分叉；只有标准产品和统一数据schema才能把订单转为模型飞轮。</li>
+<li><strong>本体规模与成本驱动</strong>：宇树、乐聚、傅利叶。硬件销量提供现金和开发者触点；若数据授权不清或设备离线，销量不会自动转成模型优势。</li>
+<li><strong>集团场景型</strong>：Tesla、Boston Dynamics/TRI。财务耐力强、工厂真实，但外部可验证性与产品节奏不确定。</li>
+</ul>
+<h3 id="53">5.3 融资金额为何不能单独证明路线</h3>
+<ol>
+<li>融资首先延长 runway，不能证明长程成功率。</li>
+<li>训练算力是可购买的，客户现场失败数据、机器人可靠性和运维组织更难购买。</li>
+<li>硬件收入可能低毛利甚至负毛利；RaaS收入需扣除折旧、远程接管、维修和驻场人员。</li>
+<li>开源能降低获客成本，但不自动形成收入；需观察托管、授权、芯片拉动或企业支持。</li>
+<li>应统一披露：现金余额/消耗、GPU承诺、库存、交付回款、RaaS ARR、每机器人每小时贡献毛利、续约率。</li>
+</ol>
+<h2 id="_8">六、技术路线趋势</h2>
+<h3 id="61">6.1 从“动作模型”走向“可恢复的长程智能”</h3>
+<p>下一阶段模型不会只优化成功演示，而会显式学习任务进度、失败检测、回退点和重新规划。ER式协调器、世界模型评分器和事件记忆会围绕VLA形成外环。行业评价也将从单步成功率转向每百次任务无接管完成率与平均恢复时间。</p>
+<h3 id="62">6.2 从单本体到跨本体，但不会取消适配层</h3>
+<p>π、GR00T、Gemini、Skild、GO-1都指向跨本体。共享视觉语义与技能先验可扩展，但不同关节拓扑、力矩边界和传感器仍需要 embodiment adapter、动作归一化与少量后训练。“一个权重即插即用所有机器人”短期更多是方向而非生产事实。</p>
+<h3 id="63">6.3 数据从“采成功”转向“采分布边界”</h3>
+<p>普通抓放数据会快速同质化，最值钱的是失败、接触不确定、透明/反光物体、遮挡、工具使用和多人协作。自动触发失败片段、质量评分和主动学习将比单纯扩大遥操作工位更重要。</p>
+<h3 id="64">6.4 世界模型先在离线训练和安全评测落地</h3>
+<p>在线世界模型算力大且可能幻觉，短期适合生成预训练视频、扩展长尾、做反事实评测和策略筛选；待 latent 模型足够小、校准足够好，再进入低频在线规划。安全关键动作仍由可验证控制器兜底。</p>
+<h3 id="65">6.5 端侧小模型与云端大模型协作</h3>
+<p>VLM蒸馏、量化、MoE激活、视觉token压缩和动作分块将成为关键。云端负责训练、知识更新和非实时规划；端侧负责安全、感知和动作。网络中断下仍能安全完成当前子任务或停止，是商用门槛。</p>
+<h3 id="66">6.6 开源竞争从代码转向数据协议与评测</h3>
+<p>模型权重会更易获得，稀缺项转为统一动作schema、跨本体标定、数据许可、失败集和生产基准。AgiBot World、openpi、GR00T等将推动生态，但真正的标准需要第三方复现实验和版本化模型卡。</p>
+<h2 id="_9">七、应用场景趋势</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>场景</th>
+<th>为什么先/后发生</th>
+<th>关键KPI</th>
+<th>更匹配路线</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>已开始规模验证</td>
+<td>仓储搬运、料箱转运、工厂物流</td>
+<td>环境可控、ROI清楚、错误可恢复</td>
+<td>每箱成本、利用率、接管率</td>
+<td>技能库+运营平台、轮式/双足</td>
+</tr>
+<tr>
+<td>快速扩张</td>
+<td>零售补货、药店、分拣</td>
+<td>SKU多但流程重复，能积累视觉长尾</td>
+<td>每店任务数、缺货率、夜间自主率</td>
+<td>场景VLA+轮式操作</td>
+</tr>
+<tr>
+<td>有条件突破</td>
+<td>汽车/3C装配、质检、上下料</td>
+<td>精度高、数据价值高，安全要求高</td>
+<td>节拍、良率、停线分钟</td>
+<td>全身VLA+力控+确定性控制</td>
+</tr>
+<tr>
+<td>专业服务</td>
+<td>康养、实验室、生物科技</td>
+<td>人工昂贵，合规和柔顺要求高</td>
+<td>服务时长、差错、认证</td>
+<td>分层智能体+灵巧操作</td>
+</tr>
+<tr>
+<td>最后规模化</td>
+<td>开放家庭</td>
+<td>长尾极多、隐私与安全敏感、支付意愿不确定</td>
+<td>每日无接管任务、远程人工分钟</td>
+<td>快慢VLA+世界模型+软体安全</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>趋势判断</strong>：轮式双臂会在多数室内作业先于双足规模化，因为底盘稳定、续航长、控制算力更集中；双足在楼梯、狭窄人类空间和通用基础设施中保留长期价值。灵巧手并非自由度越多越好，触觉、耐久、可维护和任务夹具兼容性更影响ROI。</p>
+<h2 id="_10">八、判断矩阵与评分口径</h2>
+<blockquote>
+<p>本节不是把不同公司压成一个“总分榜”，而是把结论拆成可复核维度。评分只反映截至研究时点的<strong>公开证据强度与产业兑现程度</strong>，不代表投资建议。证据缺失记 <code>n/a</code>，不得按0分处理。</p>
+</blockquote>
+<h3 id="81">8.1 统一评分口径</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度（权重）</th>
+<th>1分</th>
+<th>3分</th>
+<th>5分</th>
+<th>必看证据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>技术成熟度（20%）</td>
+<td>概念/剪辑演示</td>
+<td>多任务真机、限定场景复现</td>
+<td>连续生产运行、版本化回归</td>
+<td>长程成功率、P95时延、异常恢复</td>
+</tr>
+<tr>
+<td>数据闭环（20%）</td>
+<td>数据来源不明</td>
+<td>有遥操/仿真/现场回流之一</td>
+<td>自动触发—治理—训练—灰度完整闭环</td>
+<td>有效小时、失败密度、标注时延、复用率</td>
+</tr>
+<tr>
+<td>量产兑现（20%）</td>
+<td>路线图</td>
+<td>小批试点/客户PoC</td>
+<td>标准化批量部署且续约</td>
+<td>付费点位、利用率、接管率、交付周期</td>
+</tr>
+<tr>
+<td>财务耐力（15%）</td>
+<td>现金与消耗均不明</td>
+<td>已融资/有集团支持但消耗高</td>
+<td>主业现金流或可验证正贡献毛利</td>
+<td>现金余额、月度消耗、库存、回款；未披露为n/a</td>
+</tr>
+<tr>
+<td>商业闭环（15%）</td>
+<td>收入模式未定</td>
+<td>售机/项目制初步收入</td>
+<td>可重复订阅/RaaS/平台收入</td>
+<td>ARR、毛利、续约、每任务成本</td>
+</tr>
+<tr>
+<td>生态与可迁移性（10%）</td>
+<td>封闭单机</td>
+<td>有SDK/伙伴或跨本体验证</td>
+<td>开放标准、活跃开发者、跨本体规模复用</td>
+<td>仓库活跃、适配本体数、许可与数据权利</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>计算纪律</strong>：只有六项均有足够证据时才计算加权总分；否则显示“区间/<span class="na">n/a</span>”，并列出缺口。<code>【事实】</code>=官网/论文/模型卡/审计材料；<code>【规划】</code>=公司未来目标；<code><span class="secondary">【次级】</span></code>=媒体或聚合报道；<code>【判断】</code>=本报告推演。量产时间统一写“已验证/预计/未披露”，不把规划写成订单。</p>
+<h3 id="82">8.2 厂商综合判断矩阵（逐家公司）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>行业趋势 × 技术路线</th>
+<th>量产/落地时间</th>
+<th>融资、财务与现金消耗</th>
+<th>持续性综合判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Figure</td>
+<td>【事实】Helix快慢VLA、端侧执行、自有本体；顺应VLA与端侧趋势</td>
+<td>【事实】已有工业试点；家庭规模量产时间n/a</td>
+<td>融资/估值为<span class="secondary">【次级】</span>；现金余额、月耗、单机毛利n/a；自建制造与BotQ使消耗偏高【判断】</td>
+<td>技术/数据闭环4、量产2–3、财务n/a；若付费机队带来低接管失败回流则强，否则高估值与制造消耗压缩耐力【判断】</td>
+</tr>
+<tr>
+<td>Physical Intelligence</td>
+<td>【事实】跨本体VLA、Action Expert、FAST/openpi；截图列出Pi 0→0.5→0.6*→0.7及家庭任务扩展，但后两版与时间均为“截图口径/待核”</td>
+<td>【事实】研究/伙伴导入已发生；截图中的<code>24.10-26.01/25.04/25.11/26.04</code>不等同量产时间，生产级授权与规模时间n/a</td>
+<td>大额融资<span class="secondary">【次级】</span>；截图无财务信息；收入、现金与训练消耗n/a</td>
+<td>技术4、生态4、量产2、财务n/a；任务由桌面抓放走向工具/家电操作的方向成立【判断】，但无成功率、连续时长与接管率，不能据截图上调量产评分</td>
+</tr>
+<tr>
+<td>NVIDIA</td>
+<td>【事实】GR00T+Isaac+Cosmos+Thor覆盖采集、仿真、训练、端侧</td>
+<td>开发平台已商业化；客户机器人量产由伙伴决定</td>
+<td>【事实】上市公司主业现金流支撑；机器人专项现金消耗n/a</td>
+<td>平台/生态5、财务5、客户量产3；最能从数据基础设施上升获益，单一本体成败不影响路线持续性【判断】</td>
+</tr>
+<tr>
+<td>Google DeepMind / Apptronik</td>
+<td>【事实】Gemini推理+动作模型、On-Device、Robot Park；快慢协同</td>
+<td>合作试点已公开；Apollo规模交付时间以客户公告为准，n/a</td>
+<td>Google财务耐力强【事实】；Apptronik融资<span class="secondary">【次级】</span>，现金消耗/毛利n/a</td>
+<td>技术4、财务母体5、量产2–3；模型—本体分工降低跨度但数据权、接口和伙伴交付构成耦合风险【判断】</td>
+</tr>
+<tr>
+<td>智元机器人</td>
+<td>【事实】GO-1+AgiBot World+仿真+开源，兼具数采与多本体</td>
+<td>已有产品/数据集发布；生产付费点位与无接管规模n/a</td>
+<td>融资/出货多为<span class="secondary">【次级】</span>；现金、库存、毛利n/a</td>
+<td>数据闭环4、生态4、量产3；若多产品线数据能统一治理而非项目分叉，持续性较强【判断】</td>
+</tr>
+<tr>
+<td>星动纪元</td>
+<td>【事实/次级】HiRT、ERA-42、Ctrl-World布局快慢与世界模型</td>
+<td>真机演示/合作存在；批量生产运行时间n/a</td>
+<td>融资<span class="secondary">【次级】</span>；训练、本体制造现金消耗n/a</td>
+<td>技术3–4、量产2、财务n/a；世界模型有前瞻性，但必须证明减少真机小时与接管，避免双重算力消耗【判断】</td>
+</tr>
+<tr>
+<td>自变量机器人</td>
+<td>【事实】WALL-A/WALL-OSS聚焦端到端VLA与开放权重</td>
+<td>模型/开发者阶段；规模交付n/a</td>
+<td>融资<span class="secondary">【次级】</span>；收入、现金消耗n/a</td>
+<td>技术3、生态3、量产1–2；开源利于获客，长期需场景收入和真实失败数据反哺【判断】</td>
+</tr>
+<tr>
+<td>银河通用</td>
+<td>【事实/次级】仿真驱动Grasp/Track/Grocery VLA，零售运营形成场景闭环</td>
+<td>零售/药店点位已有报道<span class="secondary">【次级】</span>；标准化规模与续约n/a</td>
+<td>融资<span class="secondary">【次级】</span>；运营人力、硬件折旧、现金消耗n/a</td>
+<td>数据/场景4、量产3、财务n/a；最可能用运营数据闭环，但要防远程接管和定制成本吞噬毛利【判断】</td>
+</tr>
+<tr>
+<td>智平方</td>
+<td>【事实/次级】GOVLA/Alpha Brain走快慢系统、移动操作</td>
+<td>客户试点存在；批量量产时间n/a</td>
+<td>融资<span class="secondary">【次级】</span>；现金、收入、毛利n/a</td>
+<td>技术3、量产2、财务n/a；路线符合趋势，持续性取决于同一模型跨项目复用率与标准产品占比【判断】</td>
+</tr>
+<tr>
+<td>1X</td>
+<td>【事实】Redwood与世界模型、自有家居本体，重押现场视频和端侧自治</td>
+<td>家庭测试/早期部署；开放家庭规模时间n/a</td>
+<td>融资<span class="secondary">【次级】</span>；制造、遥操与数据团队使现金消耗偏高【判断】，具体n/a</td>
+<td>数据闭环4、技术3–4、量产2；若遥操逐年下降并转成自动采集，飞轮成立，否则服务成本难持续【判断】</td>
+</tr>
+<tr>
+<td>Boston Dynamics + TRI</td>
+<td>【事实】Atlas LBM、全身扩散与高质量示教</td>
+<td>工业Atlas为开发/试点阶段；规模交付n/a</td>
+<td>集团支持【事实】；项目现金消耗n/a</td>
+<td>技术4、财务4–5、量产2；长期研发耐力强，商业持续性取决于把示教转成可维护技能包和外部采购【判断】</td>
+</tr>
+<tr>
+<td>Tesla</td>
+<td>【事实】工厂场景、自研本体/芯片/视觉栈；详细模型与数据口径有限</td>
+<td>【规划】Optimus产量目标不等于已交付；外部量产n/a</td>
+<td>【事实】上市公司可支持投入；Optimus专项现金消耗n/a</td>
+<td>财务5、潜在数据4、公开技术证据2–3；工厂闭环强，但应以真实产线利用率而非目标产量判断【判断】</td>
+</tr>
+<tr>
+<td>Skild AI</td>
+<td>【事实/次级】跨本体Skild Brain，纯模型平台</td>
+<td>伙伴验证；标准商业部署时间n/a</td>
+<td>融资<span class="secondary">【次级】</span>；收入、算力承诺、现金消耗n/a</td>
+<td>技术3、量产2、财务n/a；跨本体复利潜力高，但对伙伴数据依赖与训练成本是持续性门槛【判断】</td>
+</tr>
+<tr>
+<td>优必选</td>
+<td>【事实】BrainNet/Co-Agent、工业本体与多机协同</td>
+<td>工业项目与交付有公开信息；无接管规模/续约n/a</td>
+<td>上市披露可核验【事实】，但机器人业务现金消耗需按最新财报；本版n/a</td>
+<td>量产3–4、协同4、技术3；真实工业数据有利，需控制项目制应收、定制和售后成本【判断】</td>
+</tr>
+<tr>
+<td>傅利叶智能</td>
+<td>【事实】FOCUS/操作模型、康养与科研本体，重视运控和开发生态</td>
+<td>科研/康养硬件已出货；通用操作规模时间n/a</td>
+<td>融资<span class="secondary">【次级】</span>；硬件收入、现金消耗和毛利n/a</td>
+<td>本体/生态3–4、通用脑2–3；硬件触点可采数，但数据授权和统一模型复用决定能否形成飞轮【判断】</td>
+</tr>
+<tr>
+<td>宇树科技</td>
+<td>【事实】强运控、低成本硬件与UnifoLM布局；端侧算力/开发者生态突出</td>
+<td>本体已批量销售；通用作业量产时间n/a</td>
+<td>收入/融资报道多为<span class="secondary">【次级】</span>；现金、毛利n/a</td>
+<td>硬件量产4–5、运控5、通用脑2–3；成本与装机量是优势，必须把设备数据合规回流转成操作模型资产【判断】</td>
+</tr>
+<tr>
+<td>Agility Robotics</td>
+<td>【事实】Digit+Arc聚焦仓储搬运、机队管理和RaaS</td>
+<td>客户试点/部署已公开；RoboFab规模利用率n/a</td>
+<td>融资<span class="secondary">【次级】</span>；固定资产、折旧、服务成本n/a</td>
+<td>场景/量产4、通用性2–3；限定流程商业持续性较好，关键是每箱成本、续约和远程人工分钟【判断】</td>
+</tr>
+<tr>
+<td>Sanctuary AI</td>
+<td>【事实/次级】Carbon认知架构+灵巧手，强调可解释任务分解</td>
+<td>企业试点；规模量产n/a</td>
+<td>融资<span class="secondary">【次级】</span>；液压维护、制造和现金消耗n/a</td>
+<td>技术3、量产2、财务n/a；精细操作有差异化，可靠性和维护成本决定持续性【判断】</td>
+</tr>
+<tr>
+<td>星尘智能</td>
+<td>【事实/次级】DuoCore快慢分层、绳驱柔顺与VR遥操</td>
+<td>开发/演示阶段；量产n/a</td>
+<td>融资、收入、现金消耗n/a</td>
+<td>技术3、量产1–2；高动态与柔顺有特色，但需证明耐久、数据规模和付费场景【判断】</td>
+</tr>
+<tr>
+<td>乐聚</td>
+<td>【事实/次级】夸父本体、RL运控、外部大模型与鸿蒙生态</td>
+<td>科研教育/合作交付；通用操作量产n/a</td>
+<td>融资/订单<span class="secondary">【次级】</span>；现金、毛利n/a</td>
+<td>本体/生态3、通用脑2；借生态可降低研发跨度，但核心模型与数据闭环依赖伙伴【判断】</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="_11">九、数据采集产业化专题</h2>
+<h3 id="91">9.1 为什么投入上升</h3>
+<ol>
+<li><strong>模型边际约束转移</strong>：【事实】VLM预训练与开源VLA降低了基础模型门槛；【判断】接触丰富、同步准确、带失败标签的机器人数据成为更稀缺投入。</li>
+<li><strong>量产验证改变数据目标</strong>：实验室追求成功示教，生产需要覆盖停线、遮挡、滑移、工具磨损与人机混行；失败片段的信息密度远高于重复成功轨迹。</li>
+<li><strong>快慢系统和触觉增加数据维度</strong>：不仅同步RGB与关节，还要同步力/触觉、任务进度、S2子目标、S1动作块、安全事件和人工接管。</li>
+<li><strong>世界模型需要视频规模，VLA需要动作真实性</strong>：无标签视频扩展物理先验，真机轨迹校准动作与接触；两者共同推高存储、治理、回放与评测基础设施投入。</li>
+<li><strong>客户现场成为数据工厂</strong>：【判断】能够合法回流现场长尾、快速标注并灰度更新的公司，学习速度可能超过单纯扩建遥操工位的公司。</li>
+</ol>
+<h3 id="92">9.2 田野截图中的场景与采集设备信号</h3>
+<blockquote>
+<p>来源为用户提供的田野调查思维导图，未给出完整展商—公司映射，以下统一标记为<strong>截图口径/待核</strong>，不并入一手事实统计。</p>
+</blockquote>
+<ul>
+<li>场景从家庭叠衣、家电操作、倒水/泡茶、移动抓取，延伸到工业装配、上下料、线束装配与物流分拣，说明采集目标正从桌面单技能转向“移动+双臂+接触+长流程”组合任务【截图口径】。</li>
+<li>采集设备同时出现手套传感、外骨骼式、视觉采集和 Ego-centric 头戴多目相机【截图口径】。这印证示教方式由单一遥操作台走向多模态、第一视角和低门槛人类行为采集；但图片没有数据量、同步精度、有效率或成本，闭环能力仍为n/a。</li>
+<li><code>30s快换手+PnP</code>、<code>8小时拼长城</code>为截图中的演示指标【截图口径/待核】；未说明主体、样本量、失败次数、是否遥操或连续无接管，因此只能作为快换末端与长时运行的核验线索，不能作为量产KPI。</li>
+<li>图片展示非人形、半人形、仿生人形及异形本体【截图口径】，意味着数据schema必须容纳不同拓扑；跨本体模型的真正门槛将是动作归一化、末端工具描述、触觉同步和 embodiment adapter。</li>
+</ul>
+<h3 id="92_1">9.2 采集方式变化与成本结构</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>方式</th>
+<th>成熟度</th>
+<th>主要成本</th>
+<th>优点</th>
+<th>瓶颈/适用边界</th>
+<th>未来2–3年</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>人工遥操作</td>
+<td>3/5，产业常用</td>
+<td>操作者、机器人折旧/维修、场地、安全员、质检</td>
+<td>接触真实、可定向采难例</td>
+<td>人效、操作者风格偏差；灵巧手映射困难</td>
+<td>从全程示教转向“纠正/接管即标注”，单位有效轨迹成本下降【判断】</td>
+</tr>
+<tr>
+<td>自动执行+事件触发回收</td>
+<td>3/5</td>
+<td>机队、日志/带宽、自动质检、失败恢复</td>
+<td>最贴近生产分布，失败密度高</td>
+<td>需先有可运行策略；隐私和停线风险</td>
+<td>将成为领先本体/运营商主数据源【判断】</td>
+</tr>
+<tr>
+<td>人类视频/穿戴采集</td>
+<td>2–3/5</td>
+<td>视频许可、动作恢复、视角/手部标注</td>
+<td>覆盖广、成本低</td>
+<td>无机器人动作、形态差异</td>
+<td>latent action/未来表征提升利用率，但仍需真机校准【判断】</td>
+</tr>
+<tr>
+<td>仿真与域随机化</td>
+<td>4/5运控、2–3/5灵巧接触</td>
+<td>资产制作、物理调参、GPU、Sim2Real校准</td>
+<td>可并行、可生成危险长尾</td>
+<td>软体/摩擦/触觉真实性</td>
+<td>运控和回归继续规模化；高精接触采用“仿真预训+少量真机”【判断】</td>
+</tr>
+<tr>
+<td>生成式世界模型/合成轨迹</td>
+<td>2/5</td>
+<td>视频生成算力、条件控制、真实性评分</td>
+<td>快速扩场景和反事实</td>
+<td>幻觉、错误闭环污染</td>
+<td>先做离线增广/评测，不会替代真机黄金集【判断】</td>
+</tr>
+<tr>
+<td>多机云边协同采集</td>
+<td>3/5</td>
+<td>边缘缓存、数据脱敏、上传、版本管理、远程运维</td>
+<td>共享长尾、主动派发采集任务</td>
+<td>网络、数据权、版本污染</td>
+<td>从“全量上云”转向边缘筛选、事件摘要和联邦/分级治理【判断】</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>成本核算式</strong>：<code>每条可训练轨迹成本 =（人力 + 设备折旧/维修 + 场地 + 算力/存储 + 质检标注 + 失败恢复）÷ 通过质量门槛的轨迹数</code>。合成数据还必须计入真机抽检与污染淘汰成本。公开公司普遍不披露上述完整分母，故横向绝对成本为 <code>n/a</code>。</p>
+<h3 id="93">9.3 谁能形成闭环，以及关键指标</h3>
+<ul>
+<li><strong>平台型（NVIDIA/Google）</strong>：强在工具链、算力和跨客户生态；弱在拿不到完整现场原始数据。闭环前提是伙伴许可、标准schema和可回传评测。</li>
+<li><strong>软硬一体/运营型（Figure、1X、智元、银河、Agility、优必选）</strong>：能直接获得传感器、接管和维修事件；弱在制造资本与项目碎片化。闭环前提是统一版本和数据治理。</li>
+<li><strong>纯模型型（PI、Skild、自变量）</strong>：能跨本体聚合与开源扩散；弱在数据权和部署接口。闭环前提是让伙伴因性能/成本收益愿意持续回传。</li>
+<li><strong>低成本大装机量型（宇树等）</strong>：潜在覆盖广；但“卖出设备”不等于“获得可训练数据”，需明确用户授权、自动质检和任务语义。</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>指标组</th>
+<th>必跟指标</th>
+<th>错误替代指标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>采集效率</td>
+<td>每机器人日有效小时、每操作者有效分钟、通过率、单位有效轨迹成本</td>
+<td>总视频小时、总帧数</td>
+</tr>
+<tr>
+<td>数据价值</td>
+<td>新颖任务占比、失败/纠正密度、覆盖熵、对验证集增益、跨本体复用率</td>
+<td>原始轨迹条数</td>
+</tr>
+<tr>
+<td>闭环速度</td>
+<td>事件到可训练样本时延、训练到灰度时延、回滚率</td>
+<td>单次大版本发布日期</td>
+</tr>
+<tr>
+<td>生产效果</td>
+<td>无接管任务时长、每百小时接管、恢复成功率、碰撞/停线、P95时延</td>
+<td>剪辑演示成功率</td>
+</tr>
+<tr>
+<td>单位经济性</td>
+<td>每任务贡献毛利、远程人工分钟、带宽/存储/GPU成本、维修折旧</td>
+<td>融资额、订单意向额</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="_12">十、技术路线逐项产业判断</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>技术路线</th>
+<th>成熟度</th>
+<th>可落地场景</th>
+<th>规模化前提</th>
+<th>算力/数据瓶颈</th>
+<th>商业持续性</th>
+<th>未来2–3年走势【判断】</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>遥操作与自动采集</td>
+<td>遥操3–4/5；自动触发3/5</td>
+<td>示教、现场纠正、危险任务</td>
+<td>低延迟映射、质检、数据权、机队在线</td>
+<td>人效、硬件损耗、多模态同步</td>
+<td>高：直接服务模型与运营，但纯人海不可持续</td>
+<td>遥操从主数据源变为长尾纠正；自动采集占比上升</td>
+</tr>
+<tr>
+<td>仿真/合成数据</td>
+<td>运控4/5；灵巧/生成2–3/5</td>
+<td>运控、回归、危险长尾、预训练</td>
+<td>物理资产、真机校准、真实性评分</td>
+<td>GPU、接触/材质建模、幻觉污染</td>
+<td>中高：工具平台可变现；单纯卖合成数据壁垒有限</td>
+<td>仿真与世界模型融合，真机黄金集控制权重</td>
+</tr>
+<tr>
+<td>世界模型</td>
+<td>2–3/5，离线高于在线</td>
+<td>数据增广、反事实评测、低频规划</td>
+<td>预测校准、动作条件、误差界与安全壳</td>
+<td>视频训练/推理昂贵，长时误差累积</td>
+<td>中：能否降低真机/接管成本是分水岭</td>
+<td>先旁路评测和生成，再少量进入S2规划，不直接替代高频控制</td>
+</tr>
+<tr>
+<td>VLA/Action Expert</td>
+<td>3/5</td>
+<td>抓放、移动操作、零售/工业多技能</td>
+<td>跨任务数据、动作适配、安全回归</td>
+<td>高质量轨迹、端侧时延、长程漂移</td>
+<td>高潜力：可复用软件，但需生产KPI</td>
+<td>VLM主干+动作专家成为主流，后训练和恢复能力取代单次演示竞争</td>
+</tr>
+<tr>
+<td>快慢系统</td>
+<td>3–4/5</td>
+<td>长程移动操作、家庭、工业协作</td>
+<td>明确接口、状态记忆、故障归因、确定性安全层</td>
+<td>S2延迟、S1频率、层间漂移数据</td>
+<td>高：符合算力与安全现实</td>
+<td>形成S2协调器—S1策略—WBC三层标准形态</td>
+</tr>
+<tr>
+<td>端侧算力/模型压缩</td>
+<td>4/5硬件、3/5大VLA</td>
+<td>断网工业、家庭、移动机器人</td>
+<td>量化、蒸馏、热设计、内存与P95 SLA</td>
+<td>功耗、带宽、视觉token、去噪步数</td>
+<td>高：芯片与部署工具可持续收费</td>
+<td>云训端推成标配；NPU/GPU异构和小型动作专家加速</td>
+</tr>
+<tr>
+<td>触觉/力觉融合</td>
+<td>2–3/5</td>
+<td>插接、柔性物、装配、灵巧手、康养</td>
+<td>耐久低成本传感器、标定、时序对齐、触觉基准</td>
+<td>高频数据吞吐、传感漂移、稀缺触觉示教</td>
+<td>中高于高价值精细作业，通用消费场景尚早</td>
+<td>从末端力矩阈值走向视触觉策略；先在高价值工位规模化</td>
+</tr>
+<tr>
+<td>多机云边协同</td>
+<td>3–4/5调度、2–3/5共享学习</td>
+<td>仓储、工厂、零售机队</td>
+<td>版本/权限、边缘缓存、网络降级、数据隔离</td>
+<td>上行带宽、跨机异构、灾难性版本污染</td>
+<td>高：RaaS/运维/平台可形成经常性收入</td>
+<td>云端训练调度、边缘共享地图、端侧安全闭环分层固化</td>
+</tr>
+<tr>
+<td>开源生态与数据标准</td>
+<td>3/5</td>
+<td>科研、适配、开发者工具、供应链标准</td>
+<td>清晰许可、持续维护、统一schema和第三方基准</td>
+<td>高价值数据不开放、硬件接口碎片</td>
+<td>中高：靠托管、芯片、企业支持变现</td>
+<td>权重趋同，竞争转向数据协议、评测、适配器和企业工具链</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="101">10.1 组合路线结论</h3>
+<p>【判断】未来2–3年最可持续的产品不是“最大单模型”，而是：云端用世界模型/仿真扩数据，边缘做多机任务与共享记忆，端侧用压缩VLA和动作专家，触觉/WBC提供高频接触与安全；现场事件自动回流，遥操只处理高价值长尾。能同时降低<strong>每任务接管分钟、每有效轨迹成本和端侧每瓦时延</strong>的公司，才会把技术趋势转成财务持续性。</p>
+<h2 id="_13">十一、证据、核验框架与资料待补充</h2>
+<h3 id="111">11.1 证据等级</h3>
+<ul>
+<li><strong>A 一级</strong>：厂商官网技术文、论文、模型卡、GitHub、监管公告/审计财报。</li>
+<li><strong>B 可复核演示</strong>：完整连续视频、明确本体/任务/是否遥操、第三方实验。</li>
+<li><strong>C 次级</strong>：权威媒体访谈、产业报道；金额、参数需交叉验证。</li>
+<li><strong>D 线索</strong>：聚合站、社媒、供应链传闻；只进入待核清单。</li>
+</ul>
+<h3 id="112">11.2 建议统一模型卡字段</h3>
+<p><code>模型版本/日期｜参数与模块｜输入输出｜控制频率/P50/P95｜端侧硬件/功耗｜真机小时/轨迹｜仿真与视频比例｜本体数/任务数｜训练GPU小时｜成功率与任务定义｜接管率｜安全机制｜开源许可｜商业部署数</code></p>
+<h3 id="113">11.3 待补充文档</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文档ID</th>
+<th>当前状态</th>
+<th>本版处理</th>
+<th>获得权限后的动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>W5lgwJhzliDmQ5kDOKHcz51sn8f</td>
+<td>API <code>forBidden</code></td>
+<td>未引用正文</td>
+<td>导出/授权后做逐条事实差分</td>
+</tr>
+<tr>
+<td>AgCAwkqhaitKpIkJ9g4cebAVnZb</td>
+<td>API <code>forBidden</code></td>
+<td>未引用正文</td>
+<td>补模型表字段并回链原段落</td>
+</tr>
+<tr>
+<td>MQhjdmvTponKjOx36nicsQCknuc</td>
+<td>API <code>forBidden</code></td>
+<td>未引用正文</td>
+<td>复核融资、算力与发布日期</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="114">11.4 优先核验清单</h3>
+<ol>
+<li>Figure Helix各代参数、S0说法、完整端到端时延与500小时数据定义。</li>
+<li>GR00T N1.5训练集群和五类数据比例的官方原文。</li>
+<li>π0.6/RECAP发布日期、开源状态、1万小时FAST数据口径。</li>
+<li>AgiBot World轨迹/小时去重规则及GO-1线上成功率。</li>
+<li>银河仿真数据占比、真实点位人工接管和单位经济性。</li>
+<li>各公司融资、收入、订单、出货只以融资公告、监管文件或审计财报更新。</li>
+<li>
+<p>所有“成功率&gt;95%”“异常处理&gt;90%”“连续20h”等口径补任务定义、样本量和第三方复现。</p>
+</li>
+<li>
+<p>田野截图中各展项的公司归属、WAIC年份、绿色勾选含义，以及<code>30s快换手+PnP</code>、<code>8小时拼长城</code>的连续性/遥操条件。</p>
+</li>
+<li>截图所列Pi 0/0.5/0.6*/0.7的命名、时间区间、开源状态与任务证据；在PI官方项目页核验前不作为发布或量产事实。</li>
+</ol>
+<h3 id="115">11.5 主要一手资料入口</h3>
+<ul>
+<li>Figure Helix：<a href="https://www.figure.ai/news/helix">https://www.figure.ai/news/helix</a></li>
+<li>Physical Intelligence / openpi：<a href="https://github.com/Physical-Intelligence/openpi">https://github.com/Physical-Intelligence/openpi</a>；π0论文 <a href="https://arxiv.org/abs/2410.24164">https://arxiv.org/abs/2410.24164</a></li>
+<li>NVIDIA GR00T：<a href="https://developer.nvidia.com/isaac/groot">https://developer.nvidia.com/isaac/groot</a>；N1.5模型卡 <a href="https://huggingface.co/nvidia/GR00T-N1.5-3B">https://huggingface.co/nvidia/GR00T-N1.5-3B</a></li>
+<li>Gemini Robotics：<a href="https://deepmind.google/models/gemini-robotics/">https://deepmind.google/models/gemini-robotics/</a></li>
+<li>AgiBot World / ViLLA：<a href="https://github.com/OpenDriveLab/AgiBot-World">https://github.com/OpenDriveLab/AgiBot-World</a>；<a href="https://arxiv.org/abs/2503.06669">https://arxiv.org/abs/2503.06669</a></li>
+<li>Boston Dynamics LBM：<a href="https://bostondynamics.com/blog/large-behavior-models-atlas-find-new-footing/">https://bostondynamics.com/blog/large-behavior-models-atlas-find-new-footing/</a></li>
+<li>NVIDIA Project GR00T发布：<a href="https://investor.nvidia.com/news/press-release-details/2024/NVIDIA-Announces-Project-GROOT-Foundation-Model-for-Humanoid-Robots-and-Major-Isaac-Robotics-Platform-Update/default.aspx">https://investor.nvidia.com/news/press-release-details/2024/NVIDIA-Announces-Project-GROOT-Foundation-Model-for-Humanoid-Robots-and-Major-Isaac-Robotics-Platform-Update/default.aspx</a></li>
+</ul>
+<blockquote>
+<p><strong>结论纪律</strong>：不以发布会演示替代连续运营，不以峰值TOPS替代实测时延，不以融资额替代收入，不以轨迹总量替代有效数据，不以“端到端”替代安全架构说明。</p>
+</blockquote></main></div>
+<footer>本页基于统一报告自动构建。未读取的专题链接不会被当作事实来源；次级信息与缺失值均保留标记。产品和生产信息仅作为软件落地证据。</footer>
 </body></html>
