@@ -78,15 +78,18 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 /* v5.4.1 chapter-4 card wrapping: keep Chinese punctuation and mixed Latin tokens readable. */
 .vendor-board h3,.vendor-judgement li,.company-profile span,.vendor-summary span,.schema-row span{white-space:normal;word-break:normal;line-break:strict;overflow-wrap:break-word;text-wrap:pretty}.company-profile div,.company-profile span,.vendor-dim article,.schema-row span{min-width:0}.company-profile b{white-space:nowrap}.vendor-board .vendor-dim li{white-space:normal;word-break:normal;line-break:strict;overflow-wrap:anywhere}.vendor-board .vendor-dim strong{word-break:keep-all}.vendor-chips .status{overflow-wrap:break-word}
 @media(max-width:600px){.schema-guide{grid-template-columns:repeat(5,260px)}.schema-row{grid-template-columns:112px minmax(140px,1fr)}.vendor-board .vendor-dim *{white-space:normal}.vendor-board .vendor-dim strong{word-break:keep-all}.company-profile b{white-space:normal}}
+/* v5.5.0 embodied-intelligence level primer */
+.level-primer{margin:0 0 24px;border:1px solid #bfdbfe;border-radius:20px;background:#fff;overflow:hidden;box-shadow:0 8px 24px rgba(37,99,235,.08)}.level-primer>header{padding:24px 26px;background:linear-gradient(120deg,#0f2744,#24577f);color:#fff}.level-primer>header span{font-size:11px;font-weight:800;letter-spacing:1.4px;color:#bfdbfe}.level-primer>header h3{margin:5px 0!important;color:#fff!important;font-size:24px}.level-primer>header p{margin:0;color:#dbeafe}.level-ladder{display:grid;grid-template-columns:repeat(6,minmax(135px,1fr));align-items:end;gap:8px;padding:22px}.level-ladder article{display:flex;min-width:0;flex-direction:column;justify-content:flex-end;padding:13px;border:1px solid #dbe4ee;border-top:5px solid #94a3b8;border-radius:12px;background:#f8fafc}.level-ladder article:nth-child(2){min-height:118px;border-top-color:#60a5fa}.level-ladder article:nth-child(3){min-height:136px;border-top-color:#2563eb}.level-ladder article:nth-child(4){min-height:154px;border-top-color:#7c3aed}.level-ladder article:nth-child(5){min-height:172px;border-top-color:#d97706}.level-ladder article:nth-child(6){min-height:190px;border-top-color:#dc2626}.level-ladder b{font-size:20px;color:#1d4ed8}.level-ladder strong{color:#172b3f}.level-ladder span,.level-ladder small{display:block;margin-top:5px;color:#526277;line-height:1.4}.level-ladder small{font-size:11px}.level-breakpoints{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 22px 18px}.level-breakpoints span{padding:10px 12px;border-left:4px solid #7c3aed;background:#f5f3ff;color:#4c1d95;font-size:12px}.level-breakpoints b{display:block}.odd-strip{display:grid;grid-template-columns:auto repeat(4,1fr);gap:1px;background:#cbd5e1;border-top:1px solid #cbd5e1}.odd-strip>*{padding:11px 12px;background:#f8fafc;font-size:12px}.odd-strip b{background:#eff6ff;color:#1d4ed8}.odd-strip span{color:#475569}@media(max-width:900px){.level-ladder{grid-template-columns:repeat(3,1fr);align-items:stretch}.level-ladder article{min-height:0!important}.odd-strip{grid-template-columns:1fr 1fr}.odd-strip b{grid-column:1/-1}.level-breakpoints{grid-template-columns:1fr}}@media(max-width:600px){.level-primer>header{padding:18px}.level-primer>header h3{font-size:20px}.level-ladder{grid-template-columns:1fr 1fr;padding:14px}.odd-strip{grid-template-columns:1fr}.odd-strip b{grid-column:auto}.level-breakpoints{padding:0 14px 14px}}
 </style></head><body>
-<header class="top"><div class="top-in"><div class="brand">机器人大脑全景报告 <span class="version">v5.4.1</span></div><div class="meta">模型原理 · 技术路线时间轴 · 统一厂商卡片 · 算力与数据 · 融资财务 · 技术与场景趋势　|　完成版 v5.4.1 · 研究时点 2026-10-09 · 构建 2026-10-10 10:57</div></div></header>
-<div class="layout"><aside class="toc"><b>CONTENTS</b><a class="l2" href="#_2">一、执行摘要</a>
-<a class="l2" href="#_3">二、模型分类与原理图</a>
+<header class="top"><div class="top-in"><div class="brand">机器人大脑全景报告 <span class="version">v5.5.0</span></div><div class="meta">模型原理 · 技术路线时间轴 · 统一厂商卡片 · 算力与数据 · 融资财务 · 技术与场景趋势　|　完成版 v5.5.0 · 研究时点 2026-10-09 · 构建 2026-10-10 11:27</div></div></header>
+<div class="layout"><aside class="toc"><b>CONTENTS</b><a class="l3" href="#_2">阅读前置｜具身智能等级：先统一“在评什么”</a>
+<a class="l2" href="#_3">一、执行摘要</a>
+<a class="l2" href="#_4">二、模型分类与原理图</a>
 <a class="l3" href="#21">2.1 统一软件栈</a>
 <a class="l3" href="#22">2.2 六种核心架构机制</a>
 <a class="l3" href="#23-diffusion-flow-matching">2.3 动作生成：为什么 diffusion / flow matching 流行</a>
 <a class="l3" href="#24">2.4 数据闭环与算力流</a>
-<a class="l2" href="#_4">三、模型技术路线时间轴</a>
+<a class="l2" href="#_5">三、模型技术路线时间轴</a>
 <a class="l3" href="#31">3.1 总体演进图</a>
 <a class="l3" href="#32-20222023">3.2 2022—2023：从视觉动作策略到语言条件动作</a>
 <a class="l3" href="#33-2024vla">3.3 2024：开放VLA与动作专家成形</a>
@@ -94,7 +97,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <a class="l3" href="#35-2026wam">3.5 2026：WAM集中探索与生产级后训练</a>
 <a class="l3" href="#36">3.6 按技术路线纵向阅读</a>
 <a class="l3" href="#37">3.7 时间轴后的阶段性判断</a>
-<a class="l2" href="#_5">四、全球玩家</a>
+<a class="l2" href="#_6">四、全球玩家</a>
 <a class="l3" href="#40">4.0 阅读地图｜场景演进与行业玩家分类</a>
 <a class="l3" href="#41-teslaoptimus">4.1 Tesla｜Optimus</a>
 <a class="l3" href="#42-figurehelix">4.2 Figure｜Helix</a>
@@ -121,11 +124,11 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <a class="l3" href="#423">4.23 超维动力｜世界模型+灵巧操作</a>
 <a class="l3" href="#424">4.24 强脑科技 / 曦诺未来｜灵巧手供应链</a>
 <a class="l3" href="#425">4.25 光轮 / 基础设施线索｜数据与仿真服务</a>
-<a class="l2" href="#_6">五、数据与行业趋势（仅讲共性）</a>
+<a class="l2" href="#_7">五、数据与行业趋势（仅讲共性）</a>
 <a class="l3" href="#51">5.1 共性数据飞轮</a>
 <a class="l3" href="#52">5.2 共性技术趋势</a>
 <a class="l3" href="#53">5.3 共性量产与财务判断</a>
-<a class="l2" href="#_7">六、完整信源清单与内部调查数据</a>
+<a class="l2" href="#_8">六、完整信源清单与内部调查数据</a>
 <a class="l3" href="#61">6.1 渠道覆盖矩阵</a>
 <a class="l3" href="#62">6.2 一级来源｜公司、监管、论文与代码</a>
 <a class="l3" href="#63">6.3 二级来源｜实际采用的媒体与产业渠道</a>
@@ -154,7 +157,150 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 </blockquote>
 <!-- edited by 王涛 (ou_aae5b71d48cef83590833b0bfbbeaf27) at 2026-10-09 -->
 
-<details class="chapter" open><summary><h2 id="_2">一、执行摘要</h2></summary><div class="chapter-body">
+<h3 id="_2">阅读前置｜具身智能等级：先统一“在评什么”</h3><section class="level-primer" aria-label="具身智能L0到L5等级阅读坐标">
+<header><span>LEVEL ≠ 单一性能分数</span><h3>从工具到伙伴：自主性必须与 ODD 一起读</h3><p>同一台机器人可在封闭工厂达到较高等级，在开放家庭降级运行；最终等级由任务、环境、接管责任与安全边界共同决定。</p></header>
+<div class="level-ladder">
+<article class="l0"><b>L0</b><strong>机械工具</strong><span>固定动作</span><small>人全程操控</small></article>
+<article class="l1"><b>L1</b><strong>自动化工具</strong><span>单任务闭环</span><small>规则内纠偏</small></article>
+<article class="l2"><b>L2</b><strong>操作工</strong><span>限定环境多技能</span><small>异常需接管</small></article>
+<article class="l3"><b>L3</b><strong>护理员 / 司机</strong><span>场景级自主</span><small>关键异常接管</small></article>
+<article class="l4"><b>L4</b><strong>管家 / 协调员</strong><span>跨任务长时程</span><small>ODD内低接管</small></article>
+<article class="l5"><b>L5</b><strong>超人 / Jarvis</strong><span>开放世界通用</span><small>远期愿景</small></article>
+</div>
+<div class="level-breakpoints"><span><b>L2 → L3</b>技能调用 → 场景理解与自主服务</span><span><b>L3 → L4</b>限定场景 → 跨任务、长时程、低接管</span><span><b>L4 → L5</b>既定 ODD → 开放世界持续学习</span></div>
+<div class="odd-strip"><b>ODD 四问</b><span>环境：结构化还是开放？</span><span>任务：单一重复还是动态组合？</span><span>协作：隔离、可预测还是混流？</span><span>容错：停机损失还是人身风险？</span></div>
+</section>
+<blockquote>
+<p><strong>先说结论：具身智能目前不存在全球统一、可直接横向套用的 L0—L5 标准。</strong> 行业内同样使用“L0—L5”时，可能分别在评价角色自主性、本体运动、任务泛化、交互自然度、运维接管率或商业成熟度。数字相同，不代表能力等价。本报告因此把等级视为<strong>阅读坐标</strong>，不把厂商自报的“L3/L4”直接当作产品结论。</p>
+</blockquote>
+<h4 id="a-odd">A. 本报告采用的综合定义：角色 × 自主性 × ODD</h4>
+<p>本报告以“人需要介入到什么程度”为主轴，并同时限定 ODD（Operational Design Domain，设计运行域）。ODD 至少包括环境结构度、任务确定性、人机协作复杂度和容错成本；同一机器人在封闭工厂可能达到 L3，在开放家庭仍可能只有 L1—L2。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>等级</th>
+<th>角色定义</th>
+<th>核心能力</th>
+<th>人机关系</th>
+<th>典型边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>L0 机械工具</strong></td>
+<td>只执行预设动作</td>
+<td>无感知闭环、无线程自主决策</td>
+<td>人全程操控，机器无反馈或仅机械反馈</td>
+<td>夹具、传统机械臂固定程序</td>
+</tr>
+<tr>
+<td><strong>L1 自动化工具</strong></td>
+<td>有感知闭环的单任务设备</td>
+<td>能按规则感知—动作—纠偏，但不理解任务目标</td>
+<td>人下达明确指令并处理异常</td>
+<td>扫地机器人、固定工位自动化</td>
+</tr>
+<tr>
+<td><strong>L2 操作工</strong></td>
+<td>限定环境中的多技能执行者</td>
+<td>理解意图、调用多技能、完成短流程；仍依赖预设技能和规则</td>
+<td>人给目标，机器执行；异常时请求接管</td>
+<td>结构化仓储搬运、限定工序操作</td>
+</tr>
+<tr>
+<td><strong>L3 护理员 / 司机</strong></td>
+<td>特定场景的自主服务者</td>
+<td>理解环境与任务，能规划、执行并处理部分异常</td>
+<td>人监督结果而非逐步操控，关键异常仍需接管</td>
+<td>半结构化服务、限定区域自主作业</td>
+</tr>
+<tr>
+<td><strong>L4 管家 / 协调员</strong></td>
+<td>跨任务、长时程的主动协作者</td>
+<td>关系理解、持续记忆、自主规划与高可靠操作</td>
+<td>人只设目标/偏好，系统主动协同；在既定 ODD 内无需常态接管</td>
+<td>高泛化家庭/商服协作，尚未规模兑现</td>
+</tr>
+<tr>
+<td><strong>L5 超人 / Jarvis</strong></td>
+<td>开放世界通用具身智能</td>
+<td>全自主决策、跨领域迁移、自主学习与创造性协作</td>
+<td>人与其伙伴式协作，无需预设任务边界</td>
+<td>远期目标，当前无可核验产品</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>关键分水岭</strong>：L2→L3 是从“会调用技能”到“能在场景中理解并自主完成服务”；L3→L4 是从“限定场景自主”到“跨任务、长时程、低接管”；L4→L5 才涉及开放世界通用性与持续自主学习。等级越高，安全责任和验证难度也越高，不能只看演示视频。</p>
+<h4 id="b">B. 国内行业常见的“四维能力”口径</h4>
+<p>用户提供的行业材料将具身等级拆成 <strong>本体、运动、交互、作业</strong> 四维，强调真正进步不是某个单点参数升级，而是四维同步跨越：L1 为刚性预编程本体、遥控行走、指令式交互和规则自动化；L2 增加局部柔顺、遥控全身运动、意图式交互和技能级辅助；L3 进入高动态机动、受限自主运动、情景式交互和场景级自主；L4 指向全域自适应、泛化自主运动、共情交互和高泛化作业；L5 则是超人本体、通用超人运动、社交式交互与通用具身智能。</p>
+<p>这一口径的价值是能识别“偏科”：例如高动态本体不等于高等级大脑，语言交互强也不等于能稳定作业。其局限是各维度缺少统一测量阈值，不能简单取宣传中的最高项作为整机等级；更合理的方法是采用<strong>短板原则</strong>或给出四维雷达，而不是报一个总分。</p>
+<h4 id="c-l3">C. 其他行业观点：为什么同一个 L3 可能不是一回事</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>框架/观点</th>
+<th>分级主轴</th>
+<th>代表结论</th>
+<th>与本报告的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>T/CIE 298—2025《人形机器人智能化分级》</strong></td>
+<td>感知认知 P、决策学习 D、执行表现 E、协作交互 C；L1—L5</td>
+<td>四维五级并设置安全底线和场景映射，强调系统能力而非单项炫技</td>
+<td>中国电子学会团体标准，不等于国际标准或强制认证；与其他 L 序号不能互换</td>
+</tr>
+<tr>
+<td><strong>T/SAIAS 016—2024《具身智能智能化发展阶段分级指南》</strong></td>
+<td>感知、认知、决策、自主性、泛化性；G1—G5</td>
+<td>G1 为限定场景基础智能，G3 强调多场景/任务组合与持续进化，G5 指向通用智能</td>
+<td>国内团体标准口径，适合判断“智能化阶段”；G 与 L 不做机械换算</td>
+</tr>
+<tr>
+<td><strong>Google DeepMind《Levels of AGI》</strong></td>
+<td>性能等级 × 任务广度；自主性另设 Tool→Organization 五档</td>
+<td>明确“能力强”不等于“应获得更高自主权”，部署权限与能力正交</td>
+<td>不是机器人专用分级，但对安全治理最关键：能力与自主权必须拆开评估</td>
+</tr>
+<tr>
+<td><strong>Arm Robotics Capability Framework（RL0—RL5）</strong></td>
+<td>真实场景行为 + 时延、算力、功耗、实时确定性和安全等系统需求</td>
+<td>从 Reactive 反应式走向 Self-improving 自我改进，把能力等级与计算平台约束绑定</td>
+<td>2026年生态共建框架，尚非定稿标准；可补足“模型能力如何落到系统”的视角</td>
+</tr>
+<tr>
+<td><strong>角色/能力/交互 L0—L5</strong>（用户提供行业材料）</td>
+<td>人机分工与自主程度</td>
+<td>L2 为限定环境多技能，L3 为开放环境标准化服务，L4 为主动多任务协同</td>
+<td>用作本文最直观的阅读主轴，但必须加 ODD 与安全边界</td>
+</tr>
+<tr>
+<td><strong>智元/彭志辉四维口径</strong>（2026年5月材料）</td>
+<td>本体、运动、交互、作业四维协同</td>
+<td>L3 被视为从技能辅助转向场景级自主的关键拐点；厂商自评需与第三方证据分开</td>
+<td>用于拆解“为什么升档”，避免只按大模型或运动性能判级</td>
+</tr>
+<tr>
+<td><strong>灵境智源技术路线图</strong>（用户提供材料）</td>
+<td>技术栈、算力、运控、OS、运维、接口和线缆</td>
+<td>将 L2/L3/L4/L5 分别预测在 2025/2028/2030/2035</td>
+<td>属路线预测而非标准；年份和算力数字不能当作行业共识或验收门槛</td>
+</tr>
+<tr>
+<td><strong>SAE J3016 自动驾驶分级类比</strong></td>
+<td>动态驾驶任务、ODD、接管责任</td>
+<td>核心启发是“谁负责监控和兜底”，而不是照搬 L0—L5 名称</td>
+<td>仅借鉴责任/ODD方法；机器人任务空间远比道路驾驶开放，不能直接等同</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="d">D. 如何判断厂商实际处在哪一级</h4>
+<p>不按单次 Demo 定级，而按六项证据共同判断：①能覆盖多少任务和场景；②未见对象/环境下的成功率；③连续无接管时长与每百小时接管次数；④异常恢复和安全停机能力；⑤任务是否需要预编程、遥操作或人工标定；⑥同一能力能否跨本体、跨客户复制。<strong>当前行业主战场总体仍在 L2→L3：从技能级辅助迈向限定场景的持续自主；L4 多为局部能力或路线目标，L5 仍是愿景。</strong></p>
+<blockquote>
+<p><strong>资料边界</strong>：三张截图均作为 2026-10-10 用户提供的行业材料收录；其中智元/彭志辉和灵境智源口径属于企业/行业观点，不视为国家或国际标准。T/CIE 298—2025 与 T/SAIAS 016—2024 均属团体标准；ISO 8373/IFR 目前提供机器人术语与分类，但没有统一智能等级。DeepMind、Arm 与 SAE 框架用于交叉理解，不做硬映射。参考入口：<a href="https://ysxw.cctv.cn/article.html?channelId=777&amp;item_id=15818515781806193465">T/CIE 298—2025 报道</a>｜<a href="https://www.spc.org.cn/online/e1bae6aa48d428b4c8f15fec49625920.html">T/SAIAS 016—2024 公示</a>｜<a href="https://arxiv.org/abs/2311.02462">DeepMind Levels of AGI</a>｜<a href="https://www.sae.org/standards/content/j3016_202104/">SAE J3016</a>｜<a href="https://ifr.org/service-robots">ISO/IFR 机器人分类</a>。</p>
+</blockquote>
+<details class="chapter" open><summary><h2 id="_3">一、执行摘要</h2></summary><div class="chapter-body">
 <ol>
 <li><strong>通用 VLA 成为操作模型主线，分频执行成为工程共识。</strong> 互联网预训练 VLM 负责语义与任务分解，Action Expert / DiT 负责连续动作，底层全身控制继续保留确定性安全边界。Figure Helix、GR00T、Gemini Robotics、π 系、GO-1/ViLLA、GOVLA 虽命名不同，本质都在解决“慢推理与快控制”的频率矛盾。</li>
 <li><strong>世界模型不是 VLA 的替代品，而是数据放大器、后果预测器和评测器。</strong> Ctrl-World、1X World Model、DreamGen/VPP 将视频预测、合成轨迹或动作后果加入闭环；短期更可能以旁路模块进入产品，而非直接接管高频控制。</li>
@@ -165,7 +311,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>近中期场景按容错率而非“炫技程度”扩散。</strong> 先是仓储搬运、产线物流、零售补货、科研数采；随后是精密装配、康养辅助和半结构化服务；开放家庭最后突破，关键约束是安全、远程接管成本和长尾任务密度。</li>
 <li><strong>最高优先级五家的分化已从“有没有机器人”转向飞轮结构。</strong> Tesla押注母公司工厂、视觉AI与制造垂直整合；Figure用Helix—Index—BotQ把家庭/工业数据和本体绑定；宇树以低成本本体、运控、装机量与上市募资补强UnifoLM；智元用多本体、AgiBot World、GO-1/GE-1及多基地量产构建开放全栈；星动纪元以ERA-42、VPP/Ctrl-World、L7/Q5和XHAND打通世界模型到物流/制造交付。五家共同短板仍是同口径的无接管时长、验收数量、单机毛利和售后成本。</li>
 </ol>
-</div></details><details class="chapter" open><summary><h2 id="_3">二、模型分类与原理图</h2></summary><div class="chapter-body">
+</div></details><details class="chapter" open><summary><h2 id="_4">二、模型分类与原理图</h2></summary><div class="chapter-body">
 <h3 id="21">2.1 统一软件栈</h3><section class="principle-viz stack-viz" aria-label="统一云边端软件栈架构图">
 <div class="lane cloud"><b>云端 / 数据中心</b><span>数据湖</span><i>→</i><span>VLM / 视频预训练</span><i>→</i><span>VLA 后训练 / RL</span><i>→</i><span>仿真回归 · 注册灰度</span></div>
 <div class="down">↓ 模型版本 / 策略 / 评测门槛</div>
@@ -264,7 +410,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <p>FAST 等动作 token 化路线把连续轨迹经频域压缩后自回归预测，优点是借用语言模型扩展规律和训练基础设施；缺点是量化误差、token 长度与精细接触控制之间存在冲突。两条路线短期会并存。</p>
 <h3 id="24">2.4 数据闭环与算力流</h3><section class="principle-viz loop-viz" aria-label="数据闭环和算力流流程图"><div class="loop-row"><span><b>① 采集</b>遥操作 · 现场失败<br>人类视频 · 仿真</span><i>→</i><span><b>② 治理</b>同步 · 去重 · 质检<br>统一动作坐标</span><i>→</i><span><b>③ 训练</b>语义预训练 · SFT<br>失败后训练 / RL</span><i>→</i><span><b>④ 回归</b>离线基准 · 仿真压测<br>安全门禁</span><i>→</i><span><b>⑤ 灰度</b>真机小流量<br>事件触发回收</span></div><div class="loop-return">↖ 版本淘汰 / 晋级　←　成功率 · 接管率 · 碰撞 · P95 时延 · 能耗　←　生产事件</div><div class="compute-strip"><b>算力去向</b><span>训练端：GPU + 视频 / 轨迹存储</span><span>仿真端：并行场景生成与回归</span><span>部署端：低功耗 NPU / GPU + 确定性控制</span></div></section>
 <p>真机数据负责接触真实性，仿真负责覆盖和危险测试，互联网/人类视频负责语义广度。三者不是简单替代关系；有效数据量应按“可执行、同步、任务覆盖、失败密度”加权，而不能只比较小时数。</p>
-</div></details><details class="chapter" open><summary><h2 id="_4">三、模型技术路线时间轴</h2></summary><div class="chapter-body">
+</div></details><details class="chapter" open><summary><h2 id="_5">三、模型技术路线时间轴</h2></summary><div class="chapter-body">
 <blockquote>
 <p><strong>读法</strong>：先按年份观察范式变化，再按路线标签纵向追踪。状态分为：<code>【发布】</code> 厂商正式公布产品/模型，<code>【论文】</code> 有论文或技术报告，<code>【开源】</code> 权重、代码或数据公开，<code>【规划】</code> 路线图中的未来节点但尚无充分一手材料。一个节点可同时具备多种状态。报告以“时间×路线×状态”的三维框架呈现；无法由一手材料确认的细节不纳入事实结论。</p>
 </blockquote>
@@ -669,7 +815,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li><strong>2026是可验证性竞争期</strong>：WAM论文数量可能快速增长，但胜负取决于生成未来是否校准、是否降低真机成本、是否能在有限端侧算力下帮助而非拖慢控制。</li>
 <li><strong>长期终局更像组合系统</strong>：云端世界基座负责预训练与反事实生成，边缘协调器负责长程计划，端侧VLA/动作专家负责实时执行，WBC和安全控制器负责硬约束；不会由一个超大模型独占全部频率层。</li>
 </ol>
-</div></details><details class="chapter" open><summary><h2 id="_5">四、全球玩家</h2></summary><div class="chapter-body">
+</div></details><details class="chapter" open><summary><h2 id="_6">四、全球玩家</h2></summary><div class="chapter-body">
 <blockquote>
 <p><strong>阅读规则</strong>：本章是全报告唯一逐公司集合与最终落点。每家均按完全相同字段展开；<code>【事实】</code>仅指官网、论文、财报或正式公告可回链内容，<code><span class="secondary">【次级】</span></code>为媒体/聚合材料，<code>【规划】</code>不等于交付，<code>【】</code>保留用户当日截图输入但不升级为事实；无法核实一律写 “未披露”。</p>
 </blockquote>
@@ -877,7 +1023,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <div class="mass-strip"><b>量产状态 →</b><div><p>平台商用｜数据采集与仿真服务，非本体量产｜2026-10-09</p></div></div>
 <div class="board-hint">⇆ 横向拖动 / Shift + 滚轮；手机左右滑动查看 产品 → 技术 → 商业 → 量产 → 财务</div>
 <div class="vendor-board-scroll" tabindex="0"><aside class="vendor-summary"><strong>光轮 / 基础设施线索｜数据与仿真服务</strong><span>玩家主分类：数据｜覆盖能力：非本体｜数据采集✓ 仿真✓｜核心模型类型：世界模型增强基础设施｜当前产品状态：平台商用</span></aside><div class="vendor-dim"><article data-dimension="产品"><b>产品</b><div class="schema-row"><strong>公司定位</strong><span>具身智能数据采集、治理与仿真基础设施服务</span></div><div class="schema-row"><strong>产业链角色</strong><span>数据</span></div><div class="schema-row"><strong>产品线/型号</strong><span>次级资料将光轮标为“数据服务”，另有sharpa及模糊厂名；无标准本体，服务价格、交付规模 未披露【次级/待核】</span></div><div class="schema-row"><strong>产品代际/时间线</strong><span>研究/开放模型；演示、试点、订单与交付不相互替代</span></div><div class="schema-row"><strong>目标客户</strong><span>从已披露试点或产品定位归纳；缺少客户现场证据时标为“公开资料无口径”</span></div><div class="schema-row"><strong>公开价格</strong><span>无公开成交价｜指导价≠成交价</span></div><div class="schema-row"><strong>产品优势</strong><span>软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准</span></div><div class="schema-row"><strong>产品短板</strong><span>连续运营、接管率、故障恢复和单位经济性公开口径仍不完整</span></div></article><article data-dimension="技术"><b>技术</b><div class="schema-row"><strong>核心模型</strong><span>数据与仿真服务</span></div><div class="schema-row"><strong>六机制类型</strong><span>世界模型增强</span></div><div class="schema-row"><strong>模型来源（自研/开源二训/第三方/混合）</strong><span>自研；基础VLM/第三方模块无公开细节</span></div><div class="schema-row"><strong>训练算力</strong><span><span class="missing" aria-label="缺失字段">缺</span><span class="missing-text">未公开</span></span></div><div class="schema-row"><strong>端侧算力/芯片</strong><span>未披露或因本体配置而异</span></div><div class="schema-row"><strong>数据来源与规模</strong><span>可能覆盖数据、仿真或Infra，但公开资料无明确数据规模、训练平台、端云架构与算力，不能扩写为事实</span></div><div class="schema-row"><strong>仿真/后训练</strong><span>公开材料中的仿真、纠正学习或 RL 口径如上；其余无公开口径</span></div><div class="schema-row"><strong>部署架构</strong><span>未披露或因本体配置而异</span></div><div class="schema-row"><strong>技术优势</strong><span>与其主要架构机制匹配，可在目标任务中复用语义、动作或技能资产</span></div><div class="schema-row"><strong>技术限制</strong><span>跨本体适配、端到端 P95 时延及第三方复现数据尚不完整</span></div></article><article data-dimension="商业"><b>商业</b><div class="schema-row"><strong>应用场景</strong><span>融资、收入、客户与资本开支 未披露；平台路线可降低整机厂采数成本，风险是主体拼写和服务边界未确认</span></div><div class="schema-row"><strong>代表客户/订单</strong><span>仅将明确签约口径列为订单，不等同出货、交付、验收或收入</span></div><div class="schema-row"><strong>商业模式</strong><span>整机/平台授权/联合开发/RaaS 中已公开者见产品口径；未明确部分为无公开口径</span></div><div class="schema-row"><strong>渠道/生态</strong><span>闭源/无公开模型卡</span></div><div class="schema-row"><strong>收入抓手</strong><span>见页首带来源与时间的公开补充；审计收入、现金消耗和单机毛利无公开口径时不推算</span></div><div class="schema-row"><strong>商业优势</strong><span>软硬件协同与公开路线具备差异化，具体以所列模型和落地证据为准</span></div><div class="schema-row"><strong>商业风险</strong><span>无同口径复购率/连续无接管时长</span></div></article><article data-dimension="量产"><b>量产</b><div class="schema-row"><strong>已出货型号</strong><span>公开材料明确为出货/交付的型号方计入；否则无公开口径</span></div><div class="schema-row"><strong>首次交付</strong><span>无可审计统一口径｜媒体数字按报道时间保留</span></div><div class="schema-row"><strong>累计出货/订单（区分口径）</strong><span>无可审计统一口径｜媒体数字按报道时间保留</span></div><div class="schema-row"><strong>当前阶段</strong><span>研究/开放模型；演示、试点、订单与交付不相互替代</span></div><div class="schema-row"><strong>产能/工厂</strong><span>仅列公开产线规划；规划产能不等同实际产量、出货或客户验收</span></div><div class="schema-row"><strong>在研型号</strong><span>数据与仿真服务 后续代际；未正式命名者不代拟型号</span></div><div class="schema-row"><strong>预计量产/交付</strong><span>无明确时间｜规划≠承诺交付</span></div><div class="schema-row"><strong>价格/租赁</strong><span>无公开成交价｜指导价≠成交价</span></div></article><article data-dimension="财务"><b>财务</b><div class="schema-row"><strong>资本市场状态</strong><span>非上市已融资</span></div><div class="schema-row"><strong>股票代码/母公司</strong><span>不适用（非上市主体；集团项目见母公司）</span></div><div class="schema-row"><strong>最新融资轮次</strong><span>2025早期轮数亿元人民币（媒体汇总）</span></div><div class="schema-row"><strong>累计融资/估值/市值</strong><span><span class="missing" aria-label="缺失字段">缺</span><span class="missing-text">未公开</span></span></div><div class="schema-row"><strong>最新营收</strong><span><span class="missing" aria-label="缺失字段">缺</span><span class="missing-text">未公开</span></span></div><div class="schema-row"><strong>毛利/亏损</strong><span><span class="missing" aria-label="缺失字段">缺</span><span class="missing-text">未公开</span></span></div><div class="schema-row"><strong>研发投入</strong><span><span class="missing" aria-label="缺失字段">缺</span><span class="missing-text">未公开</span></span></div><div class="schema-row"><strong>现金/财务耐力</strong><span>非上市已融资｜2025早期轮数亿元人民币（媒体汇总）｜截至2026-10-09</span></div></article></div></div>
-</section></div></details><details class="chapter" open><summary><h2 id="_6">五、数据与行业趋势（仅讲共性）</h2></summary><div class="chapter-body">
+</section></div></details><details class="chapter" open><summary><h2 id="_7">五、数据与行业趋势（仅讲共性）</h2></summary><div class="chapter-body">
 <h3 id="51">5.1 共性数据飞轮</h3>
 <ul>
 <li>真机遥操作、客户现场失败、仿真/合成和互联网视频用途不同，不能简单相加；优先披露有效轨迹、失败覆盖、质检淘汰率和数据权利。</li>
@@ -896,7 +1042,7 @@ html,body{background:#f8fafc!important;color:#1e293b;line-height:1.72}.layout{ba
 <li>订单、产能规划、出货、验收、收入与现金回款必须分列。融资高只能延长验证窗口，不能证明路线成立。</li>
 <li>重本体企业重点看库存、良率、折旧、售后和资本开支；模型平台重点看数据权、适配成本、续费/授权收入和客户自研替代。</li>
 </ul>
-</div></details><details class="chapter" open><summary><h2 id="_7">六、完整信源清单与内部调查数据</h2></summary><div class="chapter-body">
+</div></details><details class="chapter" open><summary><h2 id="_8">六、完整信源清单与内部调查数据</h2></summary><div class="chapter-body">
 <h3 id="61">6.1 渠道覆盖矩阵</h3>
 <div class="table-wrap"><table>
 <thead>
